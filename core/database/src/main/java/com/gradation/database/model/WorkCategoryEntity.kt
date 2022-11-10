@@ -24,6 +24,8 @@ data class WorkCategoryEntity(
 
     val name : String,
 
+
+    @ColumnInfo(name = "work-part")
     val workPart: WorkPart,
 
     val image: String,
@@ -32,5 +34,6 @@ data class WorkCategoryEntity(
 
     val longDescription: String,
 
+    @ColumnInfo(name = "custom-flag")
     val customFlag: Boolean
 )
