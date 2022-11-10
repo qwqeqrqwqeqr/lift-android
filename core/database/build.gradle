@@ -11,5 +11,6 @@ android {
     namespace = "com.gradation.lift.core.database"
 }
 dependencies {
+    implementation(project(":core:model"))
 
 }

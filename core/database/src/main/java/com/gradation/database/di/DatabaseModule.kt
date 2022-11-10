@@ -20,6 +20,6 @@ object DatabaseModule {
     ): LiftDatabase = Room.databaseBuilder(
         context,
         LiftDatabase::class.java,
-        "nia-database"
+        "lift-database"
     ).build()
 }
