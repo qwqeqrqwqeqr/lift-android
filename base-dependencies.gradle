@@ -13,6 +13,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
 
 
+
     //Room
     kapt "androidx.room:room-compiler:$room_version"
     implementation("androidx.room:room-runtime:$room_version")
@@ -40,7 +41,8 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     androidTestAnnotationProcessor "com.google.dagger:hilt-android-compiler:$hilt_version"
 
-    //Gson
+
+    //moshi
     implementation("com.squareup.moshi:moshi:$moshi_version")
     implementation("com.squareup.moshi:moshi-kotlin:$moshi_version")
 

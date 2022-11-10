@@ -1,4 +1,4 @@
-//package com.gradation.lift.database
-//
-//class WorkCategoryDaoTest {
-//}
+package com.gradation.lift.database
+
+class WorkCategoryDaoTest {
+}

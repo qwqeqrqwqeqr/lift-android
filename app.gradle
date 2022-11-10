@@ -21,7 +21,6 @@ if (hasLibraryPlugin || hasApplicationPlugin) {
             targetSdk 33
             versionCode 1
             versionName "1.0"
-            testInstrumentationRunner "com.gradation.lift.HiltTestRunner."
             vectorDrawables {
                 useSupportLibrary true
             }
