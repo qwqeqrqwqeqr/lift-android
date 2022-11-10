@@ -28,4 +28,8 @@ dependencies {
     //hilt
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+
+    //Gson
+    implementation "com.squareup.retrofit2:converter-gson:$gson_version"
+    implementation "com.google.code.gson:gson:$gson_version"
 }
