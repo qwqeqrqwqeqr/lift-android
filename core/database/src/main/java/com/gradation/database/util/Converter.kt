@@ -1,25 +1,61 @@
 package com.gradation.database.util
 
+import android.media.Image
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.gradation.database.model.WorkSetEntity
+import com.gradation.model.data.*
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import javax.inject.Inject
 
-class WorkSetListConverter {
+@ProvidedTypeConverter
+class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
     @TypeConverter
-    fun listToJson(value: List<WorkSetEntity>?): String = Gson().toJson(value)
+    fun jsonTypeToRoutineList(value: String): List<Routine>? {
+        val listType = Types.newParameterizedType(List::class.java, Routine::class.java)
+        val adapter: JsonAdapter<List<Routine>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
 
     @TypeConverter
-    fun jsonToList(value: String) = Gson().fromJson(value, Array<WorkSetEntity>::class.java).toList()
+    fun routineListToJsonType(type: List<Routine>): String {
+        val listType = Types.newParameterizedType(List::class.java, Routine::class.java)
+        val adapter: JsonAdapter<List<Routine>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
 }
 
+@ProvidedTypeConverter
+class ImageTypeConverter @Inject constructor(private val moshi: Moshi) {
 
+    @TypeConverter
+    fun jsonTypeToImageType(value: String): Image? {
+        val adapter: JsonAdapter<Image> = moshi.adapter(Image::class.java)
+        return adapter.fromJson(value)
+    }
 
-//class WeekTypeConverter {
-//    @TypeConverter
-//    fun weekTypeToString(value: WeekEntity?): String? =
-//        value?.let(WeekEntity::serializedName)
-//
-//    @TypeConverter
-//    fun stringToNewsResourceType(serializedName: String?): NewsResourceType =
-//        serializedName.asNewsResourceType()
-//}
+    @TypeConverter
+    fun imageTypeToJsonType(type: Image): String {
+        val adapter: JsonAdapter<Image> = moshi.adapter(Image::class.java)
+        return adapter.toJson(type)
+    }
+}
+
+@ProvidedTypeConverter
+class WeekTypeConverter {
+    @TypeConverter
+    fun weekTypeToJsonType(value: Week): String = value.let(Week::value)
+
+    @TypeConverter
+    fun jsonTypeToWeekType(value: String): Week = value.toWeekType()
+}
+
+@ProvidedTypeConverter
+class WorkPartTypeConverter {
+    @TypeConverter
+    fun workPartToJsonType(value: WorkPart): String = value.let(WorkPart::value)
+
+    @TypeConverter
+    fun jsonTypeToWorkPart(value: String): WorkPart = value.toWorkPartType()
+}

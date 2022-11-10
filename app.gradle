@@ -5,6 +5,12 @@ if (hasLibraryPlugin || hasApplicationPlugin) {
     android {
         compileSdk 33
 
+        kapt {
+            javacOptions {
+                option("-Adagger.fastInit=ENABLED")
+                option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
+            }
+        }
         defaultConfig {
             if (hasApplicationPlugin) {
                 applicationId "com.android.application"
