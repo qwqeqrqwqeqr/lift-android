@@ -8,10 +8,9 @@ apply from : '../../base-dependencies.gradle'
 
 
 android {
-    namespace = "com.gradation.lift.core.database"
+    namespace 'com.gradation.lift.core.test'
 }
+
 dependencies {
-    implementation(project(":core:model"))
-    implementation(project(":core:test"))
 
 }

@@ -11,6 +11,8 @@ if (hasLibraryPlugin || hasApplicationPlugin) {
                 option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
             }
         }
+
+
         defaultConfig {
             if (hasApplicationPlugin) {
                 applicationId "com.android.application"
@@ -19,8 +21,7 @@ if (hasLibraryPlugin || hasApplicationPlugin) {
             targetSdk 33
             versionCode 1
             versionName "1.0"
-
-            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            testInstrumentationRunner "com.gradation.lift.HiltTestRunner."
             vectorDrawables {
                 useSupportLibrary true
             }
