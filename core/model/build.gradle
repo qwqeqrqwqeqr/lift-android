@@ -7,7 +7,7 @@ apply from : '../../app.gradle'
 apply from : '../../base-dependencies.gradle'
 
 android {
-    namespace ="com.gradation.lift.core.model"
+    namespace ="com.gradation.lift.model"
 }
 
 dependencies {

@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object DaoModule {
+
     @Provides
     fun providesWorkCategoryDao(
         database: LiftDatabase,

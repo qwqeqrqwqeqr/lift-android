@@ -8,6 +8,7 @@ workSetList : 세트의 총합  (얘룰 둘어, workSetList 내 아이템이 7�
  */
 data class Routine(
     val name : String,
+    val workPart: WorkPart,
     val workSetList: List<WorkSet>,
 )
 

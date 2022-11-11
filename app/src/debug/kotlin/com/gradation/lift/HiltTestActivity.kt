@@ -1,4 +1,4 @@
-package com.gradation.lift.core.test
+package com.gradation.lift
 
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint

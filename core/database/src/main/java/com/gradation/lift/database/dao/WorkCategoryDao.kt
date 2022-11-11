@@ -18,17 +18,16 @@ interface WorkCategoryDao {
     @Delete
     suspend fun deleteWorkCategory(workCategoryEntity: WorkCategoryEntity)
 
-    @Query("delete from `work-categories`")
-    suspend fun deleteAll()
+
 
     @Transaction
     @Query(
         value = """
-            SELECT * FROM 'work-categories'
-            WHERE  `custom-flag` = :customFlag and `work-part` = :workPart
+            SELECT * FROM 'work_categories'
+            WHERE  `custom_flag` = :customFlag and `work_part` = :workPart
     """
     )
-    fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
+     fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
         workPart: String,
         customFlag: Boolean
     ): Flow<List<WorkCategoryEntity>>
@@ -36,9 +35,9 @@ interface WorkCategoryDao {
     @Transaction
     @Query(
         value = """
-            SELECT * FROM 'work-categories'
+            SELECT * FROM 'work_categories'
             """
     )
-    fun getWorkCategoryEntries(): Flow<List<WorkCategoryEntity>>
+     fun getWorkCategoryEntries(): Flow<List<WorkCategoryEntity>>
 
 }

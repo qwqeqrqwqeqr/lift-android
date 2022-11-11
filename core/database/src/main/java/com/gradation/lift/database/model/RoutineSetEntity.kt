@@ -23,19 +23,22 @@ routineList: 스쿼트(60kg 12rep 12set), 레그프레스(120kg 10rep 12set), �
 week : 금
 usingCount :5
  */
-@Entity(tableName = "routine-sets")
+@Entity(tableName = "routine_sets")
 data class RoutineSetEntity (
+
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int=0,
+
     val name : String,
-    val shortDescription: String,
-    val longDescription: String,
+    val shortDescription: String="",
+    val longDescription: String="",
 
     @TypeConverters(RoutineListTypeConverter::class)
-    @ColumnInfo(name = "routine-list")
+    @ColumnInfo(name = "routine_list")
     val routineList: List<Routine>,
 
     val week: Week,
-    val usingCount : Int,
+
+    val usingCount : Int = 0,
 
     )

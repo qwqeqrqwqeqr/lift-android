@@ -1,4 +1,4 @@
-package com.gradation.lift.core.test
+package com.gradation.lift.database
 
 import android.app.Application
 import android.content.Context
@@ -11,3 +11,4 @@ class HiltTestRunner : AndroidJUnitRunner() {
         return super.newApplication(cl, HiltTestApplication::class.java.name, context)
     }
 }
+

@@ -17,23 +17,23 @@ longDescription : 운동에 대한 설명 본문
 customFlag : 해당 운동이 사용자가 설정한 운동인가?
  */
 
-@Entity(tableName = "work-categories")
+@Entity(tableName = "work_categories")
 data class WorkCategoryEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int?,
 
     val name : String,
 
 
-    @ColumnInfo(name = "work-part")
+    @ColumnInfo(name = "work_part")
     val workPart: WorkPart,
 
-    val image: String,
+    val image: String?,
 
-    val shortDescription: String,
+    val shortDescription: String?,
 
-    val longDescription: String,
+    val longDescription: String?,
 
-    @ColumnInfo(name = "custom-flag")
+    @ColumnInfo(name = "custom_flag")
     val customFlag: Boolean
 )

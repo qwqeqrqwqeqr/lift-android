@@ -7,7 +7,7 @@ apply from : '../../../app.gradle'
 apply from : '../../../base-dependencies.gradle'
 
 android {
-    namespace 'com.gradation.core.lift.network.firebase'
+    namespace 'com.gradation.lift.network.firebase'
 
 }
 

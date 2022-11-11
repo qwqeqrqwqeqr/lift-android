@@ -2,7 +2,6 @@ package com.gradation.lift.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gradation.lift.database.di.LiftDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -13,11 +12,11 @@ import javax.inject.Named
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [LiftDatabase ::class]
+    replaces = [DatabaseModule::class]
 )
 object TestDatabaseModule {
 
-    @Named("test-database")
+    @Named("test_database")
     @Provides
     fun provideInMemoryDatabase(@ApplicationContext context: Context) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)

@@ -15,15 +15,20 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule{
+
     @Provides
     @Singleton
-    fun providesListDatabase(
+    fun providesLiftDatabase(
         @ApplicationContext context: Context,
     ): LiftDatabase = Room.databaseBuilder(
         context,
         LiftDatabase::class.java,
-        "lift-database"
+        "lift_database"
     ).build()
+
+
+
+
 }
 
 
