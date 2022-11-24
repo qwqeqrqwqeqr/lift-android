@@ -33,8 +33,8 @@ data class RoutineSetEntity (
     val shortDescription: String="",
     val longDescription: String="",
 
-    @TypeConverters(RoutineListTypeConverter::class)
     @ColumnInfo(name = "routine_list")
+    @TypeConverters(RoutineListTypeConverter::class)
     val routineList: List<Routine>,
 
     val week: Week,

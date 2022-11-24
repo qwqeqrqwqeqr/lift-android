@@ -2,6 +2,8 @@ package com.gradation.lift.database.di
 
 import android.content.Context
 import androidx.room.Room
+import com.gradation.lift.database.util.RoutineListTypeConverter
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -18,8 +20,14 @@ object TestDatabaseModule {
 
     @Named("test_database")
     @Provides
-    fun provideInMemoryDatabase(@ApplicationContext context: Context) =
+    fun provideInMemoryDatabase(
+        @ApplicationContext context: Context,
+        routineListTypeConverter: RoutineListTypeConverter
+
+
+    ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
+            .addTypeConverter(routineListTypeConverter)
             .allowMainThreadQueries()
             .build()
 }

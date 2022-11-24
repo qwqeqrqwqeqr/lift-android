@@ -1,14 +1,17 @@
-package com.gradation.lift.database
+package com.gradation.lift.database.data
 
+import android.content.Context
 import androidx.test.filters.SmallTest
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.core.app.ApplicationProvider
 import com.gradation.lift.database.dao.RoutineSetDao
-import com.gradation.lift.database.data.TestDataGenerator
+import com.gradation.lift.database.util.TestDataGenerator
 import com.gradation.lift.database.di.LiftDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import com.google.common.truth.Truth.assertThat
+import com.gradation.lift.database.di.TestDatabaseModule.provideInMemoryDatabase
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.*
@@ -18,18 +21,16 @@ import javax.inject.Named
 @ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
-class RoutineSetDaoTest {
+class RoutineSetDaoTest @Inject constructor(private val database: LiftDatabase) {
+
+    private lateinit var routineSetDao: RoutineSetDao
+
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
-
-    @Inject
-    @Named("test_database")
-    lateinit var database: LiftDatabase
-    private lateinit var routineSetDao: RoutineSetDao
 
 
     @Before
@@ -38,11 +39,6 @@ class RoutineSetDaoTest {
         routineSetDao = database.routineSetDao()
     }
 
-
-    @After
-    fun teardown() {
-        database.close()
-    }
 
 
 

@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 @ProvidedTypeConverter
 class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
+
     @TypeConverter
     fun jsonTypeToRoutineList(value: String): List<Routine>? {
         val listType = Types.newParameterizedType(List::class.java, Routine::class.java)
@@ -26,7 +27,6 @@ class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
     }
 }
 
-@ProvidedTypeConverter
 class ImageTypeConverter @Inject constructor(private val moshi: Moshi) {
 
     @TypeConverter
@@ -42,7 +42,6 @@ class ImageTypeConverter @Inject constructor(private val moshi: Moshi) {
     }
 }
 
-@ProvidedTypeConverter
 class WeekTypeConverter {
     @TypeConverter
     fun weekTypeToJsonType(value: Week): String = value.let(Week::value)
@@ -51,7 +50,6 @@ class WeekTypeConverter {
     fun jsonTypeToWeekType(value: String): Week = value.toWeekType()
 }
 
-@ProvidedTypeConverter
 class WorkPartTypeConverter {
     @TypeConverter
     fun workPartToJsonType(value: WorkPart): String = value.let(WorkPart::value)

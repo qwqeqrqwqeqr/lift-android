@@ -1,4 +1,4 @@
-package com.gradation.lift.database.data
+package com.gradation.lift.database.util
 
 import com.gradation.lift.database.model.RoutineSetEntity
 import com.gradation.lift.model.data.Routine
@@ -40,13 +40,13 @@ object TestDataGenerator {
         name = "테스트 루틴 1",
         shortDescription = "테스트용 루틴입니다",
         week = Week.Monday,
-        routineList = listOf(testRoutineOne,testRoutineTwo,testRoutineThree)
+        routineList = listOf(testRoutineOne, testRoutineTwo, testRoutineThree)
     )
 
     val testRoutineSetTwo = RoutineSetEntity(
         name = "테스트 루틴 2",
         shortDescription = "테스트용 루틴입니다.",
         week = Week.Tuesday,
-        routineList = listOf(testRoutineOne,testRoutineTwo,testRoutineThree)
+        routineList = listOf(testRoutineOne, testRoutineTwo, testRoutineThree)
     )
 }
