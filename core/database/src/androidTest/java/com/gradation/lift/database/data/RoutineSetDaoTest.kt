@@ -21,10 +21,13 @@ import javax.inject.Named
 @ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
-class RoutineSetDaoTest @Inject constructor(private val database: LiftDatabase) {
+class RoutineSetDaoTest  {
 
+
+    @Inject
+    @Named("test_database")
+    lateinit var database: LiftDatabase
     private lateinit var routineSetDao: RoutineSetDao
-
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()

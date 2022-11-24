@@ -10,5 +10,5 @@ import org.junit.runners.Suite
 
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
-@Suite.SuiteClasses(RoutineSetDaoTest::class, WorkCategoryDaoTest::class)
+@Suite.SuiteClasses(RoutineSetDaoTest::class)
 class DaoTestSuite
