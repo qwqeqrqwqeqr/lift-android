@@ -6,7 +6,7 @@ import com.gradation.lift.model.data.Week
 import com.gradation.lift.model.data.WorkPart
 import com.gradation.lift.model.data.WorkSet
 
-object TestDataGenerator {
+internal object TestDataGenerator {
 
     private val testWorkSetOne = WorkSet(weight = 60F, repetition = 12)
     private val testWorkSetTwo = WorkSet(weight = 60F, repetition = 12)
@@ -44,9 +44,12 @@ object TestDataGenerator {
     )
 
     val testRoutineSetTwo = RoutineSetEntity(
+        id = 50,
         name = "테스트 루틴 2",
         shortDescription = "테스트용 루틴입니다.",
         week = Week.Tuesday,
         routineList = listOf(testRoutineOne, testRoutineTwo, testRoutineThree)
     )
+
+    const val updatedTestRoutineSetName = "테스트 루틴 3"
 }

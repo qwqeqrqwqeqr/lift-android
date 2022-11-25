@@ -5,6 +5,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.gradation.lift.database.dao.RoutineSetDao
 import com.gradation.lift.database.util.TestDataGenerator
 import com.gradation.lift.database.di.LiftDatabase
+import com.gradation.lift.database.util.TestDataGenerator.updatedTestRoutineSetName
+import com.gradation.lift.model.data.Week
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,7 +41,6 @@ class RoutineSetDaoTest  {
     }
 
 
-
     @After
     fun tearDown() {
         database.close()
@@ -49,7 +50,7 @@ class RoutineSetDaoTest  {
     fun testInsertRoutineSet() = runTest{
         val routineSetEntity = TestDataGenerator.testRoutineSetOne
         routineSetDao.insertRoutineSet(routineSetEntity)
-        val result =  routineSetDao.getAllRoutineSetEntries().first()
+        val result =  routineSetDao.getAllRoutineSet().first()
 
         Assert.assertEquals(
             listOf(routineSetEntity.name),
@@ -61,6 +62,36 @@ class RoutineSetDaoTest  {
         )
     }
 
+    @Test
+    fun testUpdateRoutineSet() = runTest {
+        val routineSetEntity = TestDataGenerator.testRoutineSetTwo
+        routineSetDao.insertRoutineSet(routineSetEntity)
 
+        routineSetEntity.name = updatedTestRoutineSetName
+
+        routineSetDao.updateRoutineSet(routineSetEntity)
+
+        val result =  routineSetDao.getAllRoutineSet().first()
+        Assert.assertEquals(
+            listOf(routineSetEntity.name),
+            result.map { it.name }
+        )
+
+    }
+
+    @Test
+    fun testDeleteAllRoutineSet() = runTest {
+        routineSetDao.deleteAllRoutineSet()
+        Assert.assertEquals(0,routineSetDao.getAllRoutineSet().first().size)
+    }
+
+
+//    @Test
+//    fun testGetAllRoutineSetByWeek() = runTest{
+//        val a = Week.Tuesday.value
+//        val b = Week.Tuesday.name
+//        val c = Week.Tuesday.ordinal
+//        routineSetDao.getAllRoutineSetByWeek()
+//    }
 
 }

@@ -19,6 +19,9 @@ interface RoutineSetDao {
     suspend fun deleteRoutineSet(routineSetEntity: RoutineSetEntity)
 
 
+    @Query("DELETE FROM 'routine_sets'")
+    suspend fun deleteAllRoutineSet()
+
     /*
         요일에 따른 루틴을 불러옵니다.
      */
@@ -29,8 +32,21 @@ interface RoutineSetDao {
             WHERE  'week' = :week
     """
     )
-     fun getAllRoutineSetEntriesByWeek(week: String): Flow<List<RoutineSetEntity>>
+     fun getAllRoutineSetByWeek(week: String): Flow<List<RoutineSetEntity>>
 
+
+
+     /*
+        고유 아이디에 따른 루틴을 불러옵니다.
+      */
+     @Transaction
+     @Query(
+         value = """
+             SELECT * FROM 'routine_sets'
+             WHERE 'id' = :id
+         """
+     )
+     fun getRoutineSetById(id: Long): Flow<RoutineSetEntity>
 
     /*
       전체 루틴을 불러옵니다.
@@ -41,7 +57,7 @@ interface RoutineSetDao {
             SELECT * FROM 'routine_sets'
     """
     )
-     fun getAllRoutineSetEntries(): Flow<List<RoutineSetEntity>>
+     fun getAllRoutineSet(): Flow<List<RoutineSetEntity>>
 }
 
 
