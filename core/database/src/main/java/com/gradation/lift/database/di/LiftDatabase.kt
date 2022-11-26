@@ -20,7 +20,10 @@ import com.gradation.lift.database.util.RoutineListTypeConverter
     version = 1,
     exportSchema = true,
 )
-@TypeConverters(value = [RoutineListTypeConverter::class])
+@TypeConverters(value = [
+    RoutineListTypeConverter::class,
+    WeekTypeConverter::class
+])
 abstract class LiftDatabase : RoomDatabase() {
     abstract fun routineSetDao(): RoutineSetDao
     abstract fun workCategoryDao(): WorkCategoryDao

@@ -2,6 +2,7 @@ package com.gradation.lift.database.model
 
 import androidx.room.*
 import com.gradation.lift.database.util.RoutineListTypeConverter
+import com.gradation.lift.database.util.WeekTypeConverter
 import com.gradation.lift.model.data.Routine
 import com.gradation.lift.model.data.Week
 
@@ -37,6 +38,9 @@ data class RoutineSetEntity (
     @TypeConverters(RoutineListTypeConverter::class)
     val routineList: List<Routine>,
 
+
+    @ColumnInfo(name = "week")
+    @TypeConverters(WeekTypeConverter::class)
     val week: Week,
 
     val usingCount : Int = 0,

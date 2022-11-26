@@ -86,12 +86,10 @@ class RoutineSetDaoTest  {
     }
 
 
-//    @Test
-//    fun testGetAllRoutineSetByWeek() = runTest{
-//        val a = Week.Tuesday.value
-//        val b = Week.Tuesday.name
-//        val c = Week.Tuesday.ordinal
-//        routineSetDao.getAllRoutineSetByWeek()
-//    }
+    @Test
+    fun testGetAllRoutineSetByWeek() = runTest{
+        routineSetDao.insertRoutineSet( TestDataGenerator.testRoutineSetOne)
+        Assert.assertEquals(1,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
+    }
 
 }

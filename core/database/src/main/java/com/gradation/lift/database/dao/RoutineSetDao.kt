@@ -26,27 +26,21 @@ interface RoutineSetDao {
         요일에 따른 루틴을 불러옵니다.
      */
     @Transaction
+    @Query("SELECT * FROM routine_sets WHERE week=:week")
+    fun getAllRoutineSetByWeek(week: Week): Flow<List<RoutineSetEntity>>
+
+
+    /*
+       고유 아이디에 따른 루틴을 불러옵니다.
+     */
+    @Transaction
     @Query(
         value = """
-            SELECT * FROM 'routine_sets'
-            WHERE  'week' = :week
-    """
-    )
-     fun getAllRoutineSetByWeek(week: String): Flow<List<RoutineSetEntity>>
-
-
-
-     /*
-        고유 아이디에 따른 루틴을 불러옵니다.
-      */
-     @Transaction
-     @Query(
-         value = """
              SELECT * FROM 'routine_sets'
              WHERE 'id' = :id
          """
-     )
-     fun getRoutineSetById(id: Long): Flow<RoutineSetEntity>
+    )
+    fun getRoutineSetById(id: Long): Flow<RoutineSetEntity>
 
     /*
       전체 루틴을 불러옵니다.
@@ -57,7 +51,7 @@ interface RoutineSetDao {
             SELECT * FROM 'routine_sets'
     """
     )
-     fun getAllRoutineSet(): Flow<List<RoutineSetEntity>>
+    fun getAllRoutineSet(): Flow<List<RoutineSetEntity>>
 }
 
 

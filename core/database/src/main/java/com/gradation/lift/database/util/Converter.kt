@@ -27,6 +27,27 @@ class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
     }
 }
 
+@ProvidedTypeConverter
+class WeekTypeConverter @Inject constructor(private val moshi: Moshi) {
+
+    @TypeConverter
+    fun jsonTypeToWeekType(value: String): Week? {
+        val adapter: JsonAdapter<Week> = moshi.adapter(Week::class.java)
+        return adapter.fromJson(value)
+    }
+
+
+    @TypeConverter
+    fun weekTypeToJsonType(type: Week): String {
+        val adapter: JsonAdapter<Week> = moshi.adapter(Week::class.java)
+        return adapter.toJson(type)
+    }
+
+
+}
+
+
+
 class ImageTypeConverter @Inject constructor(private val moshi: Moshi) {
 
     @TypeConverter
@@ -42,13 +63,7 @@ class ImageTypeConverter @Inject constructor(private val moshi: Moshi) {
     }
 }
 
-class WeekTypeConverter {
-    @TypeConverter
-    fun weekTypeToJsonType(value: Week): String = value.let(Week::value)
 
-    @TypeConverter
-    fun jsonTypeToWeekType(value: String): Week = value.toWeekType()
-}
 
 class WorkPartTypeConverter {
     @TypeConverter
