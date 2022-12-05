@@ -16,6 +16,7 @@ if (hasLibraryPlugin || hasApplicationPlugin) {
         defaultConfig {
             if (hasApplicationPlugin) {applicationId "com.android.application"}
             testInstrumentationRunner "com.gradation.lift.database.HiltTestRunner"
+
             minSdk 21
             targetSdk 33
             versionCode 1

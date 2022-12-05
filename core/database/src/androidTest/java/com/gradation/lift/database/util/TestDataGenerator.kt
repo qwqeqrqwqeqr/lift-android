@@ -1,6 +1,7 @@
 package com.gradation.lift.database.util
 
 import com.gradation.lift.database.model.RoutineSetEntity
+import com.gradation.lift.database.model.WorkCategoryEntity
 import com.gradation.lift.model.data.Routine
 import com.gradation.lift.model.data.Week
 import com.gradation.lift.model.data.WorkPart
@@ -8,47 +9,73 @@ import com.gradation.lift.model.data.WorkSet
 
 internal object TestDataGenerator {
 
-    private val testWorkSetOne = WorkSet(weight = 60F, repetition = 12)
-    private val testWorkSetTwo = WorkSet(weight = 60F, repetition = 12)
-    private val testWorkSetThree = WorkSet(weight = 80F, repetition = 10)
-    private val testWorkSetFour = WorkSet(weight = 80F, repetition = 10)
-    private val testWorkSetFive = WorkSet(weight = 100F, repetition = 10)
+    private val testWorkSet1 = WorkSet(weight = 60F, repetition = 12)
+    private val testWorkSet2 = WorkSet(weight = 60F, repetition = 12)
+    private val testWorkSet3 = WorkSet(weight = 80F, repetition = 10)
+    private val testWorkSet4 = WorkSet(weight = 80F, repetition = 10)
+    private val testWorkSet5 = WorkSet(weight = 100F, repetition = 10)
 
 
-    private val testRoutineOne = Routine(
+
+
+    private val testRoutine1 = Routine(
         name = "스쿼트", WorkPart.lowerBody, listOf(
-            testWorkSetOne, testWorkSetTwo,
-            testWorkSetThree, testWorkSetFour, testWorkSetFive
+            testWorkSet1, testWorkSet2,
+            testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
-    private val testRoutineTwo = Routine(
+    private val testRoutine2 = Routine(
         name = "데드리프트", WorkPart.lowerBody, listOf(
-            testWorkSetOne, testWorkSetTwo,
-            testWorkSetThree, testWorkSetFour, testWorkSetFive
+            testWorkSet1, testWorkSet2,
+            testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
-    private val testRoutineThree = Routine(
+    private val testRoutine3 = Routine(
         name = "스쿼트", WorkPart.lowerBody, listOf(
-            testWorkSetOne, testWorkSetTwo,
-            testWorkSetThree, testWorkSetFour, testWorkSetFive
+            testWorkSet1, testWorkSet2,
+            testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
-    val testRoutineSetOne = RoutineSetEntity(
+    private val testWorkPart1 = WorkPart.lowerBody
+    private val testWorkPart2 = WorkPart.arm
+
+    val testRoutineSet1 = RoutineSetEntity(
         name = "테스트 루틴 1",
         shortDescription = "테스트용 루틴입니다",
         week = Week.Monday,
-        routineList = listOf(testRoutineOne, testRoutineTwo, testRoutineThree)
+        routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
 
-    val testRoutineSetTwo = RoutineSetEntity(
+    val testRoutineSet2 = RoutineSetEntity(
         id = 50,
         name = "테스트 루틴 2",
         shortDescription = "테스트용 루틴입니다.",
         week = Week.Tuesday,
-        routineList = listOf(testRoutineOne, testRoutineTwo, testRoutineThree)
+        routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
+
+    private val testWorkCategory1= WorkCategoryEntity(
+        name = "스쿼트",
+        image = null,
+        workPart = testWorkPart1,
+        shortDescription = "테스트용 카테고리",
+        longDescription = "테스트용 카테고리입니다.",
+        customFlag = false
+    )
+
+    private val testWorkCategory2= WorkCategoryEntity(
+        name = "바벨컬",
+        image = null,
+        workPart = testWorkPart2,
+        shortDescription = "테스트용 카테고리",
+        longDescription = "테스트용 카테고리입니다.",
+        customFlag = true
+    )
+
+
+
 
 }

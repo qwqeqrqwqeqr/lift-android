@@ -20,7 +20,7 @@ customFlag : 해당 운동이 사용자가 설정한 운동인가?
 @Entity(tableName = "work_categories")
 data class WorkCategoryEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int?,
+    var id: Long=0,
 
     val name : String,
 

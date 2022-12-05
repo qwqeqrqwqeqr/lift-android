@@ -1,7 +1,6 @@
-package com.gradation.lift.database.data
+package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.gradation.lift.database.dao.RoutineSetDao
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.util.TestDataGenerator
@@ -36,6 +35,26 @@ class WorkCategoryDaoTest {
     fun tearDown() {
         database.close()
     }
+
+
+//    @Test
+//    fun testInsertWorkCategory() = runTest{
+//        val routineSetEntity = TestDataGenerator.testRoutineSetOne
+//
+//
+//        workCategoryDao.insertWorkCategory()
+//        val result =  routineSetDao.getAllRoutineSet().first()
+//
+//
+//        Assert.assertEquals(
+//            listOf(routineSetEntity.name),
+//            result.map { it.name }
+//        )
+//        Assert.assertEquals(
+//            listOf(routineSetEntity.routineList),
+//            result.map { it.routineList }
+//        )
+//    }
 
 
 

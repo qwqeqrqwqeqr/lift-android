@@ -1,4 +1,4 @@
-package com.gradation.lift.database.data
+package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
@@ -49,7 +49,7 @@ class RoutineSetDaoTest  {
 
     @Test
     fun testInsertRoutineSet() = runTest{
-        val routineSetEntity = TestDataGenerator.testRoutineSetOne
+        val routineSetEntity = TestDataGenerator.testRoutineSet1
 
 
         routineSetDao.insertRoutineSet(routineSetEntity)
@@ -68,7 +68,7 @@ class RoutineSetDaoTest  {
 
     @Test
     fun testUpdateRoutineSet() = runTest {
-        val routineSetEntity = TestDataGenerator.testRoutineSetTwo
+        val routineSetEntity = TestDataGenerator.testRoutineSet2
 
 
         routineSetDao.insertRoutineSet(routineSetEntity)
@@ -92,15 +92,15 @@ class RoutineSetDaoTest  {
 
     @Test
     fun testGetAllRoutineSetByWeek() = runTest{
-        routineSetDao.insertRoutineSet( TestDataGenerator.testRoutineSetOne)
+        routineSetDao.insertRoutineSet( TestDataGenerator.testRoutineSet1)
         Assert.assertEquals(1,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
-        routineSetDao.deleteRoutineSet(routineSetEntity = TestDataGenerator.testRoutineSetOne.apply { this.id = 1})
+        routineSetDao.deleteRoutineSet(routineSetEntity = TestDataGenerator.testRoutineSet1.apply { this.id = 1})
         Assert.assertEquals(0,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
     }
 
     @Test
     fun testGetAllRoutineSetById() = runTest{
-        val routineSetEntity = TestDataGenerator.testRoutineSetOne
+        val routineSetEntity = TestDataGenerator.testRoutineSet1
         routineSetDao.insertRoutineSet(routineSetEntity)
         val result = routineSetDao.getRoutineSetById(testId)
         Assert.assertEquals(routineSetEntity.name, result.first().name)
@@ -114,3 +114,4 @@ class RoutineSetDaoTest  {
     }
 
 }
+
