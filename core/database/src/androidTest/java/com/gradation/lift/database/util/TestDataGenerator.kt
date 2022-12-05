@@ -51,5 +51,4 @@ internal object TestDataGenerator {
         routineList = listOf(testRoutineOne, testRoutineTwo, testRoutineThree)
     )
 
-    const val updatedTestRoutineSetName = "테스트 루틴 3"
 }

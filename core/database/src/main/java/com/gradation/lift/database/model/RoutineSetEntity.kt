@@ -28,7 +28,7 @@ usingCount :5
 data class RoutineSetEntity (
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long=0,
+    var id: Long=0,
 
     var name : String,
     val shortDescription: String="",

@@ -34,12 +34,7 @@ interface RoutineSetDao {
        고유 아이디에 따른 루틴을 불러옵니다.
      */
     @Transaction
-    @Query(
-        value = """
-             SELECT * FROM 'routine_sets'
-             WHERE 'id' = :id
-         """
-    )
+    @Query("SELECT * FROM routine_sets WHERE id=:id")
     fun getRoutineSetById(id: Long): Flow<RoutineSetEntity>
 
     /*

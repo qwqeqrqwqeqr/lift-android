@@ -1,11 +1,10 @@
 package com.gradation.lift.database.data
 
-import androidx.test.filters.SmallTest
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.filters.SmallTest
 import com.gradation.lift.database.dao.RoutineSetDao
-import com.gradation.lift.database.util.TestDataGenerator
 import com.gradation.lift.database.di.LiftDatabase
-import com.gradation.lift.database.util.TestDataGenerator.updatedTestRoutineSetName
+import com.gradation.lift.database.util.TestDataGenerator
 import com.gradation.lift.model.data.Week
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -46,11 +45,16 @@ class RoutineSetDaoTest  {
         database.close()
     }
 
+
+
     @Test
     fun testInsertRoutineSet() = runTest{
         val routineSetEntity = TestDataGenerator.testRoutineSetOne
+
+
         routineSetDao.insertRoutineSet(routineSetEntity)
         val result =  routineSetDao.getAllRoutineSet().first()
+
 
         Assert.assertEquals(
             listOf(routineSetEntity.name),
@@ -65,10 +69,10 @@ class RoutineSetDaoTest  {
     @Test
     fun testUpdateRoutineSet() = runTest {
         val routineSetEntity = TestDataGenerator.testRoutineSetTwo
+
+
         routineSetDao.insertRoutineSet(routineSetEntity)
-
         routineSetEntity.name = updatedTestRoutineSetName
-
         routineSetDao.updateRoutineSet(routineSetEntity)
 
         val result =  routineSetDao.getAllRoutineSet().first()
@@ -90,6 +94,23 @@ class RoutineSetDaoTest  {
     fun testGetAllRoutineSetByWeek() = runTest{
         routineSetDao.insertRoutineSet( TestDataGenerator.testRoutineSetOne)
         Assert.assertEquals(1,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
+        routineSetDao.deleteRoutineSet(routineSetEntity = TestDataGenerator.testRoutineSetOne.apply { this.id = 1})
+        Assert.assertEquals(0,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
+    }
+
+    @Test
+    fun testGetAllRoutineSetById() = runTest{
+        val routineSetEntity = TestDataGenerator.testRoutineSetOne
+        routineSetDao.insertRoutineSet(routineSetEntity)
+        val result = routineSetDao.getRoutineSetById(testId)
+        Assert.assertEquals(routineSetEntity.name, result.first().name)
+    }
+
+
+
+    companion object{
+        const val updatedTestRoutineSetName = "테스트 루틴 3"
+        const val testId = 1L
     }
 
 }
