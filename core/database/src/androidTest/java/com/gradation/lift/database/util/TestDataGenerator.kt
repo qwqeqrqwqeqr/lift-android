@@ -16,8 +16,6 @@ internal object TestDataGenerator {
     private val testWorkSet5 = WorkSet(weight = 100F, repetition = 10)
 
 
-
-
     private val testRoutine1 = Routine(
         name = "스쿼트", WorkPart.lowerBody, listOf(
             testWorkSet1, testWorkSet2,
@@ -57,7 +55,7 @@ internal object TestDataGenerator {
         routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
 
-    private val testWorkCategory1= WorkCategoryEntity(
+    val testWorkCategory1 = WorkCategoryEntity(
         name = "스쿼트",
         image = null,
         workPart = testWorkPart1,
@@ -66,7 +64,7 @@ internal object TestDataGenerator {
         customFlag = false
     )
 
-    private val testWorkCategory2= WorkCategoryEntity(
+    val testWorkCategory2 = WorkCategoryEntity(
         name = "바벨컬",
         image = null,
         workPart = testWorkPart2,
@@ -74,8 +72,6 @@ internal object TestDataGenerator {
         longDescription = "테스트용 카테고리입니다.",
         customFlag = true
     )
-
-
 
 
 }

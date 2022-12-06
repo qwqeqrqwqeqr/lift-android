@@ -38,6 +38,6 @@ interface WorkCategoryDao {
             SELECT * FROM 'work_categories'
             """
     )
-     fun getWorkCategoryEntries(): Flow<List<WorkCategoryEntity>>
+     fun getAllWorkCategory(): Flow<List<WorkCategoryEntity>>
 
 }

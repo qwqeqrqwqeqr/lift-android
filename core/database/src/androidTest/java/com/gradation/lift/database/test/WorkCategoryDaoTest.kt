@@ -1,16 +1,24 @@
 package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.filters.SmallTest
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.util.TestDataGenerator
 import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
 
+
+@ExperimentalCoroutinesApi
+@SmallTest
+@HiltAndroidTest
 class WorkCategoryDaoTest {
 
     @Inject
@@ -37,24 +45,18 @@ class WorkCategoryDaoTest {
     }
 
 
-//    @Test
-//    fun testInsertWorkCategory() = runTest{
-//        val routineSetEntity = TestDataGenerator.testRoutineSetOne
-//
-//
-//        workCategoryDao.insertWorkCategory()
-//        val result =  routineSetDao.getAllRoutineSet().first()
-//
-//
-//        Assert.assertEquals(
-//            listOf(routineSetEntity.name),
-//            result.map { it.name }
-//        )
-//        Assert.assertEquals(
-//            listOf(routineSetEntity.routineList),
-//            result.map { it.routineList }
-//        )
-//    }
+    @Test
+    fun testInsertWorkCategory() = runTest{
+        val workCategoryEntity = TestDataGenerator.testWorkCategory1
+
+        workCategoryDao.insertWorkCategory(workCategoryEntity)
+        val result =  workCategoryDao.getAllWorkCategory().first()
+
+        Assert.assertEquals(
+            listOf(workCategoryEntity.name),
+            result.map { it.name }
+        )
+    }
 
 
 
