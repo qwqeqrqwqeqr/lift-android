@@ -31,7 +31,11 @@ data class RoutineSetEntity (
     var id: Long=0,
 
     var name : String,
+
+    @ColumnInfo(name = "short_description")
     val shortDescription: String="",
+
+    @ColumnInfo(name = "long_description")
     val longDescription: String="",
 
     @ColumnInfo(name = "routine_list")

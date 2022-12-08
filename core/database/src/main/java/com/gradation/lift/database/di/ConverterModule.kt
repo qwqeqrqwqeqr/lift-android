@@ -2,6 +2,7 @@ package com.gradation.lift.database.di
 
 import com.gradation.lift.database.util.RoutineListTypeConverter
 import com.gradation.lift.database.util.WeekTypeConverter
+import com.gradation.lift.database.util.WorkPartTypeConverter
 import com.gradation.lift.model.data.Week
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -24,4 +25,12 @@ object ConverterModule {
     @Singleton
     fun provideWeekTypeConverter(moshi: Moshi): WeekTypeConverter =
         WeekTypeConverter(moshi)
+
+
+    @Provides
+    @Singleton
+    fun provideWorkPartTypeConverter(moshi: Moshi): WorkPartTypeConverter =
+        WorkPartTypeConverter(moshi)
+
+
 }

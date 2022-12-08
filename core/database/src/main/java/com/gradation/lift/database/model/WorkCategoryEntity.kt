@@ -1,9 +1,8 @@
 package com.gradation.lift.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.media.Image
+import androidx.room.*
+import com.gradation.lift.database.util.WorkPartTypeConverter
 import com.gradation.lift.model.data.WorkPart
 
 /*
@@ -11,7 +10,7 @@ Params
 id: 운동 종목의 아이디
 name : 운동 종목의 이름 (ex: 벤치프레스, 풀업, ...)
 workPart : 운동종목의 대분류(또는 부위) (ex: 등, 하체, 가슴, 전신, ...)
-image : 카테고리의 대표 이미지
+image : 카테고리의 대표 이미지 경로
 shortDescription : 운동에 대한 설명
 longDescription : 운동에 대한 설명 본문
 customFlag : 해당 운동이 사용자가 설정한 운동인가?
@@ -22,17 +21,21 @@ data class WorkCategoryEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Long=0,
 
-    val name : String,
+    var name : String,
 
 
     @ColumnInfo(name = "work_part")
+    @TypeConverters(WorkPartTypeConverter::class)
     val workPart: WorkPart,
 
-    val image: String?,
 
-    val shortDescription: String?,
+    val image: String? = null,
 
-    val longDescription: String?,
+    @ColumnInfo(name = "short_description")
+    val shortDescription: String="",
+
+    @ColumnInfo(name = "long_description")
+    val longDescription: String="",
 
     @ColumnInfo(name = "custom_flag")
     val customFlag: Boolean

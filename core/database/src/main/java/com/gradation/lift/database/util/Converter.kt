@@ -42,33 +42,22 @@ class WeekTypeConverter @Inject constructor(private val moshi: Moshi) {
         val adapter: JsonAdapter<Week> = moshi.adapter(Week::class.java)
         return adapter.toJson(type)
     }
-
-
 }
 
 
 
-class ImageTypeConverter @Inject constructor(private val moshi: Moshi) {
-
+@ProvidedTypeConverter
+class WorkPartTypeConverter @Inject constructor(private val moshi: Moshi) {
     @TypeConverter
-    fun jsonTypeToImageType(value: String): Image? {
-        val adapter: JsonAdapter<Image> = moshi.adapter(Image::class.java)
+    fun jsonTypeToWeekType(value: String): WorkPart? {
+        val adapter: JsonAdapter<WorkPart> = moshi.adapter(WorkPart::class.java)
         return adapter.fromJson(value)
     }
 
+
     @TypeConverter
-    fun imageTypeToJsonType(type: Image): String {
-        val adapter: JsonAdapter<Image> = moshi.adapter(Image::class.java)
+    fun weekTypeToJsonType(type: WorkPart): String {
+        val adapter: JsonAdapter<WorkPart> = moshi.adapter(WorkPart::class.java)
         return adapter.toJson(type)
     }
-}
-
-
-
-class WorkPartTypeConverter {
-    @TypeConverter
-    fun workPartToJsonType(value: WorkPart): String = value.let(WorkPart::value)
-
-    @TypeConverter
-    fun jsonTypeToWorkPart(value: String): WorkPart = value.toWorkPartType()
 }

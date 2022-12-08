@@ -34,17 +34,15 @@ class RoutineSetDaoTest  {
 
 
     @Before
-    fun setup() {
+    fun tearUp() {
         hiltRule.inject()
         routineSetDao = database.routineSetDao()
     }
-
 
     @After
     fun tearDown() {
         database.close()
     }
-
 
 
     @Test
@@ -70,8 +68,8 @@ class RoutineSetDaoTest  {
     fun testUpdateRoutineSet() = runTest {
         val routineSetEntity = TestDataGenerator.testRoutineSet2
 
-
         routineSetDao.insertRoutineSet(routineSetEntity)
+
         routineSetEntity.name = updatedTestRoutineSetName
         routineSetDao.updateRoutineSet(routineSetEntity)
 
@@ -83,8 +81,21 @@ class RoutineSetDaoTest  {
 
     }
 
+
+    @Test
+    fun testDeleteRoutineSet() = runTest {
+        val routineSetEntity = TestDataGenerator.testRoutineSet2
+        routineSetDao.insertRoutineSet(routineSetEntity)
+        Assert.assertEquals(1,routineSetDao.getAllRoutineSet().first().size)
+        routineSetDao.deleteRoutineSet(TestDataGenerator.testRoutineSet2)
+        Assert.assertEquals(0,routineSetDao.getAllRoutineSet().first().size)
+    }
+
     @Test
     fun testDeleteAllRoutineSet() = runTest {
+        val routineSetEntity = TestDataGenerator.testRoutineSet1
+        routineSetDao.insertRoutineSet(routineSetEntity)
+        Assert.assertEquals(1,routineSetDao.getAllRoutineSet().first().size)
         routineSetDao.deleteAllRoutineSet()
         Assert.assertEquals(0,routineSetDao.getAllRoutineSet().first().size)
     }
@@ -94,8 +105,6 @@ class RoutineSetDaoTest  {
     fun testGetAllRoutineSetByWeek() = runTest{
         routineSetDao.insertRoutineSet( TestDataGenerator.testRoutineSet1)
         Assert.assertEquals(1,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
-        routineSetDao.deleteRoutineSet(routineSetEntity = TestDataGenerator.testRoutineSet1.apply { this.id = 1})
-        Assert.assertEquals(0,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
     }
 
     @Test

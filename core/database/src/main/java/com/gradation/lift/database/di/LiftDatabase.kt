@@ -7,7 +7,6 @@ import com.gradation.lift.database.dao.RoutineSetDao
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.model.RoutineSetEntity
 import com.gradation.lift.database.model.WorkCategoryEntity
-import com.gradation.lift.database.util.ImageTypeConverter
 import com.gradation.lift.database.util.WeekTypeConverter
 import com.gradation.lift.database.util.WorkPartTypeConverter
 import com.gradation.lift.database.util.RoutineListTypeConverter
@@ -17,12 +16,13 @@ import com.gradation.lift.database.util.RoutineListTypeConverter
         WorkCategoryEntity::class,
         RoutineSetEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(value = [
     RoutineListTypeConverter::class,
-    WeekTypeConverter::class
+    WorkPartTypeConverter::class,
+    WeekTypeConverter::class,
 ])
 abstract class LiftDatabase : RoomDatabase() {
     abstract fun routineSetDao(): RoutineSetDao

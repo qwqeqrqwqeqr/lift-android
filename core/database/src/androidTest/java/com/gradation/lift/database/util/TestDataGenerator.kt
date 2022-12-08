@@ -57,7 +57,6 @@ internal object TestDataGenerator {
 
     val testWorkCategory1 = WorkCategoryEntity(
         name = "스쿼트",
-        image = null,
         workPart = testWorkPart1,
         shortDescription = "테스트용 카테고리",
         longDescription = "테스트용 카테고리입니다.",
@@ -65,8 +64,8 @@ internal object TestDataGenerator {
     )
 
     val testWorkCategory2 = WorkCategoryEntity(
+        id = 30,
         name = "바벨컬",
-        image = null,
         workPart = testWorkPart2,
         shortDescription = "테스트용 카테고리",
         longDescription = "테스트용 카테고리입니다.",

@@ -3,6 +3,7 @@ package com.gradation.lift.database.dao
 import androidx.room.*
 import com.gradation.lift.database.model.RoutineSetEntity
 import com.gradation.lift.database.model.WorkCategoryEntity
+import com.gradation.lift.model.data.WorkPart
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,6 +20,14 @@ interface WorkCategoryDao {
     suspend fun deleteWorkCategory(workCategoryEntity: WorkCategoryEntity)
 
 
+    @Query("DELETE FROM 'work_categories'")
+    suspend fun deleteAllWorkCategory()
+
+
+
+    @Transaction
+    @Query("SELECT * FROM work_categories WHERE id=:id")
+    fun getWorkCategoryById(id: Long): Flow<WorkCategoryEntity>
 
     @Transaction
     @Query(
@@ -28,7 +37,7 @@ interface WorkCategoryDao {
     """
     )
      fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
-        workPart: String,
+        workPart: WorkPart,
         customFlag: Boolean
     ): Flow<List<WorkCategoryEntity>>
 

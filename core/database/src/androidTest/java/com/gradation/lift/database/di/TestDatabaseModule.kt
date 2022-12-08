@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.gradation.lift.database.util.RoutineListTypeConverter
 import com.gradation.lift.database.util.WeekTypeConverter
+import com.gradation.lift.database.util.WorkPartTypeConverter
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -24,11 +25,13 @@ object TestDatabaseModule {
     fun provideInMemoryDatabase(
         @ApplicationContext context: Context,
         routineListTypeConverter: RoutineListTypeConverter,
-        weekTypeConverter: WeekTypeConverter
+        weekTypeConverter: WeekTypeConverter,
+        workPartTypeConverter: WorkPartTypeConverter,
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
             .addTypeConverter(routineListTypeConverter)
             .addTypeConverter(weekTypeConverter)
+            .addTypeConverter(workPartTypeConverter)
             .allowMainThreadQueries()
             .build()
 }
