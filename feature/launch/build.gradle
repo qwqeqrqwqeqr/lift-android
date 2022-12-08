@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+
+apply from : '../../app.gradle'
+apply from : '../../base-dependencies.gradle'
+
+android {
+    namespace ="com.gradation.lift.feature.launch"
+}
+
+dependencies {
+
+
+}
