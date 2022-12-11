@@ -6,6 +6,6 @@ weight : 무게
 repetition : 횟수
  */
 data class WorkSet(
-    val weight : Float,
+    val weight : Double,
     val repetition : Int
 )

@@ -61,3 +61,14 @@ class WorkPartTypeConverter @Inject constructor(private val moshi: Moshi) {
         return adapter.toJson(type)
     }
 }
+
+
+//@TypeConverter
+//fun fromTimestamp(value: Long?): Date? {
+//    return if (value == null) null else Date(value)
+//}
+//
+//@TypeConverter
+//fun dateToTimestamp(date: Date?): Long? {
+//    return date?.time
+//}

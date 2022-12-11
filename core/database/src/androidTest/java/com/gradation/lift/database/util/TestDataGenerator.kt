@@ -9,29 +9,29 @@ import com.gradation.lift.model.data.WorkSet
 
 internal object TestDataGenerator {
 
-    private val testWorkSet1 = WorkSet(weight = 60F, repetition = 12)
-    private val testWorkSet2 = WorkSet(weight = 60F, repetition = 12)
-    private val testWorkSet3 = WorkSet(weight = 80F, repetition = 10)
-    private val testWorkSet4 = WorkSet(weight = 80F, repetition = 10)
-    private val testWorkSet5 = WorkSet(weight = 100F, repetition = 10)
+    private val testWorkSet1 = WorkSet(weight = 60.0, repetition = 12)
+    private val testWorkSet2 = WorkSet(weight = 60.0, repetition = 12)
+    private val testWorkSet3 = WorkSet(weight = 80.0, repetition = 10)
+    private val testWorkSet4 = WorkSet(weight = 80.0, repetition = 10)
+    private val testWorkSet5 = WorkSet(weight = 100.0, repetition = 10)
 
 
     private val testRoutine1 = Routine(
-        name = "스쿼트", WorkPart.lowerBody, listOf(
+        name = "스쿼트",  listOf(
             testWorkSet1, testWorkSet2,
             testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
     private val testRoutine2 = Routine(
-        name = "데드리프트", WorkPart.lowerBody, listOf(
+        name = "데드리프트",  listOf(
             testWorkSet1, testWorkSet2,
             testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
     private val testRoutine3 = Routine(
-        name = "스쿼트", WorkPart.lowerBody, listOf(
+        name = "스쿼트",  listOf(
             testWorkSet1, testWorkSet2,
             testWorkSet3, testWorkSet4, testWorkSet5
         )
