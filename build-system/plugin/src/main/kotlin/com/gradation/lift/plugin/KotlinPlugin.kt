@@ -11,20 +11,16 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
 class KotlinPlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             with(pluginManager) {
-                apply(libs.findPlugin("kotlin-jvm").get().get().pluginId)
                 apply(libs.findPlugin("kotlin-serialization").get().get().pluginId)
                 apply(libs.findPlugin("ksp").get().get().pluginId)
             }
 
-            extensions.configure<ApplicationExtension> {
-                extensionKotlin(this)
-            }
+
 
             dependencies {
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())

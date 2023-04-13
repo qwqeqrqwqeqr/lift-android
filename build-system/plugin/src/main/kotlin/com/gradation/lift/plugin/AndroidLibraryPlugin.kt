@@ -18,10 +18,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 apply(libs.findPlugin("kotlin-android").get().get().pluginId)
             }
 
-            extensions.configure<ApplicationExtension> {
-                extensionAndroid(this)
-                defaultConfig.targetSdk = 33
-            }
+//            extensions.configure<ApplicationExtension> {
+//                extensionAndroid(this)
+//                defaultConfig.targetSdk = 33
+//            }
         }
     }
 }

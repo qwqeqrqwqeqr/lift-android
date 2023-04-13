@@ -17,8 +17,9 @@ dependencyResolutionManagement {
 rootProject.name = "lift"
 
 include(":app")
-//include(":core:database")
+include(":core:model")
+include(":core:database")
 //include(":core:network:firebase")
-//include(":core:model")
 //include(":feature")
 
+include(":core:network")

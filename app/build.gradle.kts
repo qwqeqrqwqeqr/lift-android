@@ -3,6 +3,7 @@ plugins {
     id("lift.android.common")
     id("lift.android.compose")
     id("lift.android.hilt")
+    id("lift.android.kotlin")
     id("lift.android.splash")
 }
 

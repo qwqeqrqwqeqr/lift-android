@@ -34,15 +34,9 @@ class TestPlugin : Plugin<Project> {
 
                 add("testImplementation", libs.findLibrary("okhttp-mockwebserver").get())
 
-
                 add("testImplementation", libs.findLibrary("junit4").get())
                 add("testImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
                 add("androidTestImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
-
-
-                add("testImplementation", libs.findLibrary("hilt-android-testing").get())
-                add("kaptTest", libs.findLibrary("hilt-compiler").get())
-                add("kaptAndroidTest", libs.findLibrary("hilt-compiler").get())
             }
         }
     }
