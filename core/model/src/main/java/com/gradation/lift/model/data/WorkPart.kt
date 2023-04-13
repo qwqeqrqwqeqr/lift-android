@@ -9,6 +9,11 @@ enum class WorkPart(val value: String){
 }
 
 
+private val String.workPart: WorkPart
+    get() = when {
+        else -> WorkPart.values().first { type -> type.value == this }
+    }
+
 fun String.toWorkPartType() = when  {
     else -> WorkPart.values().first { type -> type.value == this }
 }

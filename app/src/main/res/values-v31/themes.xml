@@ -4,18 +4,21 @@
     <style name="Theme.Lift" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:navigationBarColor">?attr/background</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 
-    <style name="Theme.Life.SplashScreen" parent="Theme.SplashScreen">
+    <style name="Theme.Lift.SplashScreen" parent="Theme.SplashScreen">
         <item name="android:statusBarColor">@color/secondary_color</item>
         <item name="android:navigationBarColor">@color/secondary_color</item>
-        <item name="android:windowSplashScreenAnimationDuration">1000000</item>
+        <item name="android:windowLightStatusBar">false</item>
 
-        <item name="android:windowSplashScreenBackground">@color/secondary_color</item>
-        <item name="android:windowSplashScreenIconBackgroundColor">@color/secondary_color</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash</item>
+
+        <item name="windowSplashScreenBackground">@color/secondary_color</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/secondary_color</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+
         <item name="postSplashScreenTheme">@style/Theme.Lift</item>
     </style>
 </resources>

@@ -1,8 +1,9 @@
 pluginManagement {
+    includeBuild("build-system")
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -14,8 +15,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "lift"
-include ':app'
-include ':core:database'
-include ':core:network:firebase'
-include ':core:model'
-include ':feature'
+
+include(":app")
+//include(":core:database")
+//include(":core:network:firebase")
+//include(":core:model")
+//include(":feature")
+

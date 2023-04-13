@@ -1,9 +1,10 @@
 package com.gradation.lift.model.data
 
-/*
-Params
-weight : 무게
-repetition : 횟수
+/**
+ * @param weight
+ * @param repetition
+ *
+ *
  */
 data class WorkSet(
     val weight : Double,
