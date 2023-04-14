@@ -25,6 +25,7 @@ class KotlinPlugin : Plugin<Project> {
             dependencies {
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
                 add("implementation", libs.findLibrary("kotlin-stdlib").get())
+                add("implementation", libs.findLibrary("kotlinx-datetime").get())
                 add("implementation", libs.findLibrary("kotlinx-serialization-json").get())
             }
         }

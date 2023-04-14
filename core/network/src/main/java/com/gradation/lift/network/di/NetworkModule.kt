@@ -46,11 +46,11 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(
+                @OptIn(ExperimentalSerializationApi::class)
+                Json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
-
-
     @Singleton
     @Provides
     fun provideLoggingInterceptor() =
