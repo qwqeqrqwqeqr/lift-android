@@ -3,23 +3,21 @@ package com.gradation.lift.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
-class DataStorePlugin : Plugin<Project> {
+class FirebasePlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        with(target) {
+        with(target){
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             with(pluginManager){
-                apply(libs.findPlugin("ksp").get().get().pluginId)
+                apply(libs.findPlugin("gms").get().get().pluginId)
             }
-
-            dependencies {
-                add("implementation", libs.findLibrary("androidx-dataStore-core").get())
-                add("implementation", libs.findLibrary("androidx-dataStore-preferences").get())
+            with(dependencies){
+                val bom = libs.findLibrary("firebase-bom").get()
+                add("implementation", platform(bom))
+                add("implementation", libs.findLibrary("firebase-analytics").get())
 
             }
         }
     }
-
 }

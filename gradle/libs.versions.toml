@@ -16,6 +16,8 @@ androidxTestCore = "1.5.0"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.1"
 detekt = "1.22.0"
+firebaseBom = "31.2.0"
+gmsPlugin = "4.3.14"
 hilt = "2.44.2"
 junit4 = "4.12"
 kapt="1.8.20"
@@ -38,6 +40,7 @@ android-application = { id = "com.android.application", version.ref = "android" 
 android-library = { id = "com.android.library", version.ref = "android" }
 android-test = { id = "com.android.test", version.ref = "android" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt"}
+gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -90,6 +93,11 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 #DATASTORE
 androidx-dataStore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
 androidx-dataStore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
+
+
+#FIREBASE
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref="firebaseBom"}
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
 
 
 #HILT
