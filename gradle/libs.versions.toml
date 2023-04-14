@@ -1,7 +1,6 @@
 [versions]
 android= "7.4.2"
 androidxActivity="1.6.1"
-androidxArchCore="2.1.0"
 androidxAppCompat = "1.5.1"
 androidxCoreSplashscreen = "1.0.0"
 androidxComposeBom = "2023.01.00"
@@ -102,7 +101,6 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 
 #TEST
-androidx-arch-core-testing =  { group = "androidx.arch.test", name = "core-testing", version.ref = "androidxArchCore" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }

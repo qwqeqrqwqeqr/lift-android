@@ -40,6 +40,9 @@ class AndroidComposePlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-compose-material3").get())
                 add("implementation", libs.findLibrary("androidx-compose-material3-windowsizeclass").get())
 
+
+                add("implementation", libs.findLibrary("androidx-compose-ui-test").get())
+                add("implementation", libs.findLibrary("androidx-compose-ui-test-manifest").get())
             }
         }
     }

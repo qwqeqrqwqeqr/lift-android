@@ -19,6 +19,8 @@ class NetworkPlugin : Plugin<Project> {
 
                 add("implementation", libs.findLibrary("retrofit-core").get())
                 add("implementation", libs.findLibrary("retrofit-kotlin-serialization").get())
+
+                add("testImplementation", libs.findLibrary("okhttp-mockwebserver").get())
             }
         }
 

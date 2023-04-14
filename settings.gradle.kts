@@ -19,7 +19,5 @@ rootProject.name = "lift"
 include(":app")
 include(":core:model")
 include(":core:database")
-//include(":core:network:firebase")
-//include(":feature")
-
 include(":core:network")
+include(":core:datastore")

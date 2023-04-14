@@ -17,11 +17,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 apply(libs.findPlugin("android-library").get().get().pluginId)
                 apply(libs.findPlugin("kotlin-android").get().get().pluginId)
             }
-
-//            extensions.configure<ApplicationExtension> {
-//                extensionAndroid(this)
-//                defaultConfig.targetSdk = 33
-//            }
+            extensions.configure<LibraryExtension> {
+                extensionAndroid(this)
+                defaultConfig.targetSdk = 33
+            }
         }
     }
 }
