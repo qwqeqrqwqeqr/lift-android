@@ -1,5 +1,8 @@
 package com.gradation.lift.network.dto.routine
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetRoutineSetByDateResponseDto(
     val id: Int,
     val user_id: String,

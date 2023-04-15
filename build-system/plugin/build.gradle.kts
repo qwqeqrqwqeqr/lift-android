@@ -21,9 +21,13 @@ gradlePlugin {
             id = property("ANDROID_APPLICATION_PLUGIN_ID").toString()
             implementationClass = property("ANDROID_APPLICATION_PLUGIN_IMPL_CLASS").toString()
         }
-        register(property("ANDROID_COMPOSE_PLUGIN_ID").toString()) {
-            id = property("ANDROID_COMPOSE_PLUGIN_ID").toString()
-            implementationClass = property("ANDROID_COMPOSE_PLUGIN_IMPL_CLASS").toString()
+        register(property("ANDROID_COMPOSE_APPLICATION_PLUGIN_ID").toString()) {
+            id = property("ANDROID_COMPOSE_APPLICATION_PLUGIN_ID").toString()
+            implementationClass = property("ANDROID_COMPOSE_APPLICATION_PLUGIN_IMPL_CLASS").toString()
+        }
+        register(property("ANDROID_COMPOSE_LIBRARY_PLUGIN_ID").toString()) {
+            id = property("ANDROID_COMPOSE_LIBRARY_PLUGIN_ID").toString()
+            implementationClass = property("ANDROID_COMPOSE_LIBRARY_PLUGIN_IMPL_CLASS").toString()
         }
         register(property("ANDROID_COMMON_PLUGIN_ID").toString()) {
             id = property("ANDROID_COMMON_PLUGIN_ID").toString()

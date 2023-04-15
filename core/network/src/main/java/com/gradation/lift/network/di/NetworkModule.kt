@@ -1,7 +1,8 @@
 package com.gradation.lift.network.di
 
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.service.LiftService
+import com.gradation.lift.network.service.RoutineService
+import com.gradation.lift.network.service.WorkService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -61,7 +62,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLiftService(retrofit: Retrofit): LiftService =
-        retrofit.create(LiftService::class.java)
+    fun provideWorkService(retrofit: Retrofit): WorkService =
+        retrofit.create(WorkService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRoutineService(retrofit: Retrofit): RoutineService =
+        retrofit.create(RoutineService::class.java)
 
 }

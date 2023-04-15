@@ -5,6 +5,7 @@ androidxAppCompat = "1.5.1"
 androidxCoreSplashscreen = "1.0.0"
 androidxComposeBom = "2023.01.00"
 androidxComposeCompiler = "1.4.3"
+androidXComposeUiGraphics = "1.4.0"
 androidxComposeMaterial3 = "1.1.0-alpha06"
 androidxCore = "1.9.0"
 androidxDataStore = "1.0.0"
@@ -52,8 +53,6 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle"}
 
 
 
-
-
 [libraries]
 
 
@@ -63,6 +62,8 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+
+
 
 
 #COMPOSE
@@ -75,6 +76,7 @@ androidx-compose-material3-windowsizeclass = { group = "androidx.compose.materia
 
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref="androidXComposeUiGraphics" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
