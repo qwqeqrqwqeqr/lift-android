@@ -11,13 +11,11 @@ import org.gradle.kotlin.dsl.getByType
 class AndroidComposeLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            val extension = extensions.getByType<LibraryExtension>()
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
-
             with(pluginManager) {
                 apply(libs.findPlugin("android-library").get().get().pluginId)
             }
+            val extension = extensions.getByType<LibraryExtension>()
             extensionAndroidCompose(extension)
         }
     }

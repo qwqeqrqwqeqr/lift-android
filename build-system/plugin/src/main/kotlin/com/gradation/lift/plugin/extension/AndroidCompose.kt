@@ -47,9 +47,6 @@ internal fun Project.extensionAndroidCompose(
 
             add("implementation", libs.findLibrary("androidx-compose-ui-test").get())
             add("implementation", libs.findLibrary("androidx-compose-ui-test-manifest").get())
-
-
-
         }
     }
 }
