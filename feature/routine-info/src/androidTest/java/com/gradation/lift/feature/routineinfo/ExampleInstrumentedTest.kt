@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_info
+package com.gradation.lift.feature.routineinfo
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

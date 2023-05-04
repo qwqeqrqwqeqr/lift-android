@@ -1,4 +1,5 @@
 [versions]
+accompanist = "0.30.1"
 android= "7.4.2"
 androidxActivity="1.6.1"
 androidxAppCompat = "1.5.1"
@@ -12,6 +13,7 @@ androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.0"
 androidxHiltNavigationCompose = "1.0.0"
 androidxLifecycle="2.6.0-alpha05"
+androidxNavigation = "2.5.3"
 androixPagingCompose="1.0.0-alpha17"
 androidxTestCore = "1.5.0"
 androidxTestRules = "1.5.0"
@@ -26,7 +28,7 @@ kotlin = "1.8.10"
 kotlinxCoroutines = "1.6.4"
 kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.4.1"
-ksp = "1.8.0-1.0.9"
+ksp = "1.8.10-1.0.9"
 ktlintGradle = "11.3.1"
 mockitoCore="4.5.1"
 moshi="1.14.0"
@@ -55,6 +57,11 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle"}
 
 [libraries]
 
+#ACCOMPANIST
+accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
+
 
 #ANDROID
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
@@ -74,10 +81,13 @@ androidx-compose-material-icons-extended = { group = "androidx.compose.material"
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
+
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref="androidXComposeUiGraphics" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }

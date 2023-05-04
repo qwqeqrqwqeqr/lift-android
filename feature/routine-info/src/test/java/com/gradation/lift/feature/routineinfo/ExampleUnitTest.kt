@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_info
+package com.gradation.lift.feature.routineinfo
 
 import org.junit.Test
 

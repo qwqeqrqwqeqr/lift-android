@@ -24,6 +24,11 @@ internal fun Project.extensionAndroidCompose(
             add("androidTestImplementation", platform(bom))
 
 
+            add("implementation", libs.findLibrary("accompanist-flowlayout").get())
+            add("implementation", libs.findLibrary("accompanist-systemuicontroller").get())
+            add("implementation", libs.findLibrary("accompanist-testharness").get())
+
+
             add("implementation", libs.findLibrary("androidx-activity-compose").get())
             add("implementation", libs.findLibrary("androidx-hilt-navigation-compose").get())
             add("implementation", libs.findLibrary("androidx-lifecycle-runtime-compose").get())
@@ -32,9 +37,14 @@ internal fun Project.extensionAndroidCompose(
             add("implementation", libs.findLibrary("androidx.compose.ui").get())
             add("implementation", libs.findLibrary("androidx.compose.ui-graphics").get())
             add("implementation", libs.findLibrary("androidx-compose-ui-tooling").get())
+            add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get())
             add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
             add("implementation", libs.findLibrary("androidx-compose-runtime").get())
             add("implementation", libs.findLibrary("androidx-compose-runtime-livedata").get())
+
+
+            add("implementation", libs.findLibrary("androidx-navigation-compose").get())
+            add("implementation", libs.findLibrary("androidx-navigation-testing").get())
 
 
             add("implementation", libs.findLibrary("androidx-compose-foundation").get())
