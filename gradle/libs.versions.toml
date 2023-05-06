@@ -8,6 +8,7 @@ androidxComposeBom = "2023.01.00"
 androidxComposeCompiler = "1.4.3"
 androidXComposeUiGraphics = "1.4.0"
 androidxComposeMaterial3 = "1.1.0-alpha06"
+androidxComposeRuntimeTracing = "1.0.0-alpha01"
 androidxCore = "1.9.0"
 androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.0"
@@ -70,7 +71,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
-androidx-tracing = { group = "androidx.tracing", name = "tracing", version.ref = "androidxTracing" }
+androidx-tracing = { group = "androidx.tracing", name = "tracing-ktx", version.ref = "androidxTracing" }
 
 
 
@@ -92,7 +93,7 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
-
+androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }

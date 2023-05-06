@@ -41,6 +41,9 @@ internal fun Project.extensionAndroidCompose(
             add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
             add("implementation", libs.findLibrary("androidx-compose-runtime").get())
             add("implementation", libs.findLibrary("androidx-compose-runtime-livedata").get())
+            add("implementation", libs.findLibrary("androidx-compose-runtime-tracing").get())
+
+
 
 
             add("implementation", libs.findLibrary("androidx-navigation-compose").get())
