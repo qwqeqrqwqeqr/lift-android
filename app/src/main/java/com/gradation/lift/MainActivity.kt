@@ -26,10 +26,10 @@ import com.gradation.lift.ui.theme.LiftTheme
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+        //TODO 스플래시 조건 추가
 
         setContent {
             LiftTheme()

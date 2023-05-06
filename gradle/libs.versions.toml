@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.30.1"
-android= "7.4.2"
-androidxActivity="1.6.1"
+android = "7.4.2"
+androidxActivity = "1.6.1"
 androidxAppCompat = "1.5.1"
 androidxCoreSplashscreen = "1.0.0"
 androidxComposeBom = "2023.01.00"
@@ -12,9 +12,10 @@ androidxCore = "1.9.0"
 androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.0"
 androidxHiltNavigationCompose = "1.0.0"
-androidxLifecycle="2.6.0-alpha05"
+androidxLifecycle = "2.6.0-alpha05"
 androidxNavigation = "2.5.3"
-androixPagingCompose="1.0.0-alpha17"
+androixPagingCompose = "1.0.0-alpha17"
+androidxTracing = "1.1.0"
 androidxTestCore = "1.5.0"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.1"
@@ -23,35 +24,35 @@ firebaseBom = "31.2.0"
 gmsPlugin = "4.3.14"
 hilt = "2.44.2"
 junit4 = "4.12"
-kapt="1.8.20"
+kapt = "1.8.20"
 kotlin = "1.8.10"
 kotlinxCoroutines = "1.6.4"
 kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.4.1"
 ksp = "1.8.10-1.0.9"
 ktlintGradle = "11.3.1"
-mockitoCore="4.5.1"
-moshi="1.14.0"
+mockitoCore = "4.5.1"
+moshi = "1.14.0"
 okhttp = "4.10.0"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "0.8.0"
 room = "2.5.0"
-robolectric="4.9"
+robolectric = "4.9"
 versionCheck = "0.46.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android" }
 android-library = { id = "com.android.library", version.ref = "android" }
 android-test = { id = "com.android.test", version.ref = "android" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt"}
-gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin"}
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref="kapt" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle"}
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 
 
 
@@ -69,7 +70,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
-
+androidx-tracing = { group = "androidx.tracing", name = "tracing", version.ref = "androidxTracing" }
 
 
 
@@ -86,7 +87,7 @@ androidx-navigation-testing = { group = "androidx.navigation", name = "navigatio
 
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref="androidXComposeUiGraphics" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "androidXComposeUiGraphics" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
@@ -109,8 +110,8 @@ androidx-dataStore-preferences = { group = "androidx.datastore", name = "datasto
 
 
 #FIREBASE
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref="firebaseBom"}
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 
 
 #HILT
@@ -131,9 +132,9 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
-okhttp-mockwebserver = {group = "com.squareup.okhttp3", name= "mockwebserver", version.ref ="okhttp"}
+okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 
-robolectric = {group = "org.robolectric", name= "robolectric", version.ref ="robolectric"}
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 #OKHTTP

@@ -84,14 +84,6 @@ class AppState(
             else -> null
         }
 
-    val isBottomBarVisible
-        @Composable get() = when (currentDestination?.route) {
-            "home" -> true
-            "routine" -> true
-            "history" -> true
-            "my-info" -> true
-            else -> false
-        }
 
     val topLevelDestinations: List<TopLevelNavDestination> =
         TopLevelNavDestination.values().asList()
@@ -100,16 +92,10 @@ class AppState(
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelNavDestination) {
         trace("Navigation: ${topLevelDestination.name}") {
             val topLevelNavOptions = navOptions {
-                // Pop up to the start destination of the graph to
-                // avoid building up a large stack of destinations
-                // on the back stack as users select items
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }
-                // Avoid multiple copies of the same destination when
-                // reselecting the same item
                 launchSingleTop = true
-                // Restore state when reselecting a previously selected item
                 restoreState = true
             }
 
