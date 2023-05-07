@@ -11,6 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.*
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -18,6 +19,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.tracing.trace
 import com.gradation.lift.designsystem.resource.Icon
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.feature.history.HISTORY_ROUTER_NAME
+import com.gradation.lift.feature.history.navigateToHistory
+import com.gradation.lift.feature.home.HOME_ROUTER_NAME
+import com.gradation.lift.feature.home.navigateToHome
+import com.gradation.lift.feature.my_info.MY_INFO_ROUTER_NAME
+import com.gradation.lift.feature.my_info.navigateToMyInfo
+import com.gradation.lift.feature.routine.ROUTINE_ROUTER_NAME
+import com.gradation.lift.feature.routine.navigateToRoutine
 import com.gradation.lift.navigation.*
 import kotlinx.coroutines.CoroutineScope
 
@@ -71,10 +80,10 @@ class AppState(
 
     val currentTopLevelDestination
         @Composable get() = when (currentDestination?.route) {
-            "home" -> TopLevelNavDestination.Home
-            "routine" -> TopLevelNavDestination.Routine
-            "history" -> TopLevelNavDestination.History
-            "my-info" -> TopLevelNavDestination.MyInfo
+            HOME_ROUTER_NAME -> TopLevelNavDestination.Home
+            ROUTINE_ROUTER_NAME -> TopLevelNavDestination.Routine
+            HISTORY_ROUTER_NAME -> TopLevelNavDestination.History
+            MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
             else -> null
         }
 
@@ -138,7 +147,7 @@ private fun BottomBar(
                         )
                     }
                 },
-                label = { Text(destination.displayName) },
+                label = { Text(stringResource(destination.displayName)) },
             )
         }
     }

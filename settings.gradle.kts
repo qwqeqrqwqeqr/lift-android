@@ -25,5 +25,10 @@ include(":core:firebase")
 include(":core:test")
 include(":core:common")
 include(":core:designsystem")
+
+
+
 include(":feature:home")
-include(":feature:routineinfo")
+include(":feature:routine")
+include(":feature:history")
+include(":feature:my-info")

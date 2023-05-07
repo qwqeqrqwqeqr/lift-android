@@ -15,4 +15,11 @@ android {
 dependencies{
     implementation(project(":core:designsystem"))
 
+
+
+    implementation(project(":feature:home"))
+    implementation(project(":feature:routine"))
+    implementation(project(":feature:history"))
+    implementation(project(":feature:my-info"))
+
 }
