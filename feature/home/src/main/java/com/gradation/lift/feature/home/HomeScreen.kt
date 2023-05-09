@@ -19,7 +19,7 @@ fun HomeScreen(navController: NavController){
             .background(MaterialTheme.colorScheme.primary)
     ){
         Text(
-            text="Home",
+            text="홈화면",
             color = Color.Black
         )
     }

@@ -17,6 +17,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.tracing.trace
+import com.gradation.lift.designsystem.component.LiftNavigationBar
+import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.designsystem.resource.Icon
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.feature.history.HISTORY_ROUTER_NAME
@@ -121,12 +123,12 @@ private fun BottomBar(
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier,
 ) {
-    NavigationBar(
+    LiftNavigationBar(
         modifier = modifier,
     ) {
         destinations.forEach { destination ->
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
-            NavigationBarItem(
+            LiftNavigationBarItem(
                 selected = selected,
                 onClick = { onNavigateToDestination(destination) },
                 icon = {
@@ -153,112 +155,3 @@ private fun BottomBar(
     }
 }
 
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Screen1(navController: NavController) {
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Screen 1") }) },
-        content = {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Button(onClick = { navController.navigate("child1") }) {
-                    Text(text = "Go to Child of Screen 1")
-                }
-            }
-        })
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Child1(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Screen 1") },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(imageVector = LiftIcon.ArrowBack, contentDescription = null)
-                    }
-                })
-        },
-        content = {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("This is the Child of Screen 1")
-            }
-        })
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Screen2(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Screen 2") },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(imageVector = LiftIcon.ArrowBack, contentDescription = null)
-                    }
-                })
-        },
-        content = {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Screen 2")
-            }
-        })
-}
-
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Screen3(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Screen 3") },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(imageVector = LiftIcon.ArrowBack, contentDescription = null)
-                    }
-                })
-        },
-        content = {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Screen 3")
-            }
-        })
-}
-
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Screen4(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Screen 4") },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(imageVector = LiftIcon.ArrowBack, contentDescription = null)
-                    }
-                })
-        },
-        content = {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Screen 4")
-            }
-        })
-}

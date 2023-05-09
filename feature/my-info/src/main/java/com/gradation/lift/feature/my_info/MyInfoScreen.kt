@@ -18,7 +18,7 @@ fun MyInfoScreen(navController: NavController){
             .background(MaterialTheme.colorScheme.primary)
     ){
         Text(
-            text="Home",
+            text="내정보화면",
             color = Color.Black
         )
     }

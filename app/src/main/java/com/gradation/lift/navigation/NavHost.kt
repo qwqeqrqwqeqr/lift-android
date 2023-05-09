@@ -37,8 +37,8 @@ fun NavHost(
         composable(MY_INFO_ROUTER_NAME) {
             MyInfoScreen(navController)
         }
-        composable("child1") {
-            Child1(navController)
-        }
+//        composable("child1") {
+//            Child1(navController)
+//        }
     }
 }

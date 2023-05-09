@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RowScope.NavigationBarItem(
+fun RowScope.LiftNavigationBarItem(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
@@ -32,7 +32,7 @@ fun RowScope.NavigationBarItem(
 
 
 @Composable
-fun NavigationBar(
+fun LiftNavigationBar(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {

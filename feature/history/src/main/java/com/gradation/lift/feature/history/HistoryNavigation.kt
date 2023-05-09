@@ -3,7 +3,7 @@ package com.gradation.lift.feature.history
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 
-const val HISTORY_ROUTER_NAME = "home"
+const val HISTORY_ROUTER_NAME = "history"
 
 
 

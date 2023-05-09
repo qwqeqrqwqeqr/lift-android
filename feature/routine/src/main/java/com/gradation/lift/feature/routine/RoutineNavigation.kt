@@ -3,7 +3,7 @@ package com.gradation.lift.feature.routine
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 
-const val ROUTINE_ROUTER_NAME = "my-info"
+const val ROUTINE_ROUTER_NAME = "routine"
 
 
 

@@ -18,7 +18,7 @@ fun RoutineScreen(navController: NavController){
             .background(MaterialTheme.colorScheme.primary)
     ){
         Text(
-            text="Home",
+            text="루틴화면",
             color = Color.Black
         )
     }

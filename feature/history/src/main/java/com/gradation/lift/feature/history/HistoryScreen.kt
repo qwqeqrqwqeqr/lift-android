@@ -18,7 +18,7 @@ fun HistoryScreen(navController: NavController){
             .background(MaterialTheme.colorScheme.primary)
     ){
         Text(
-            text="History",
+            text="기록화면",
             color = Color.Black
         )
     }
