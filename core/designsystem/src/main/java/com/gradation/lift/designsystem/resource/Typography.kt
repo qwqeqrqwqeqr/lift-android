@@ -22,7 +22,7 @@ private val pretendard = FontFamily(
     Font(R.font.pretendard_extra_light, FontWeight.ExtraLight, FontStyle.Normal),
 )
 
-val LiftTypography = Typography(
+internal val LiftTypography = Typography(
     headlineLarge = TextStyle(
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
