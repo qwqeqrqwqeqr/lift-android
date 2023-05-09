@@ -5,20 +5,19 @@
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:navigationBarColor">?attr/background</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
     </style>
 
 
     <style name="Theme.Lift.SplashScreen" parent="Theme.SplashScreen">
-        <item name="android:statusBarColor">@color/secondary_color</item>
-        <item name="android:navigationBarColor">@color/secondary_color</item>
+        <item name="android:statusBarColor">@color/background_color</item>
+        <item name="android:navigationBarColor">@color/background_color</item>
         <item name="android:windowLightStatusBar">false</item>
-
-
-        <item name="windowSplashScreenBackground">@color/secondary_color</item>
-        <item name="windowSplashScreenIconBackgroundColor">@color/secondary_color</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash</item>
+        <item name="windowSplashScreenBackground">@color/primary_color</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
-
         <item name="postSplashScreenTheme">@style/Theme.Lift</item>
     </style>
 </resources>

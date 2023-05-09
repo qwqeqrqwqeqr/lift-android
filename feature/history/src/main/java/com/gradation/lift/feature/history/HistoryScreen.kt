@@ -13,9 +13,7 @@ import androidx.navigation.NavController
 @Composable
 fun HistoryScreen(navController: NavController){
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+
     ){
         Text(
             text="기록화면",

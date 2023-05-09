@@ -13,9 +13,7 @@ import androidx.navigation.NavController
 @Composable
 fun MyInfoScreen(navController: NavController){
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+
     ){
         Text(
             text="내정보화면",

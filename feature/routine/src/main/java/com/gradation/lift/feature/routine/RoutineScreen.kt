@@ -13,9 +13,7 @@ import androidx.navigation.NavController
 @Composable
 fun RoutineScreen(navController: NavController){
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+
     ){
         Text(
             text="루틴화면",

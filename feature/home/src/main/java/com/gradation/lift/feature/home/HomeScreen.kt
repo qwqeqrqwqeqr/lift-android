@@ -14,9 +14,6 @@ import androidx.navigation.NavController
 @Composable
 fun HomeScreen(navController: NavController){
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
     ){
         Text(
             text="홈화면",

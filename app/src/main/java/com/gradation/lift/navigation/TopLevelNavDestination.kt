@@ -5,6 +5,10 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import com.gradation.lift.R
 import com.gradation.lift.designsystem.resource.Icon
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.feature.history.HISTORY_ROUTER_NAME
+import com.gradation.lift.feature.home.HOME_ROUTER_NAME
+import com.gradation.lift.feature.my_info.MY_INFO_ROUTER_NAME
+import com.gradation.lift.feature.routine.ROUTINE_ROUTER_NAME
 
 enum class TopLevelNavDestination(
     val displayName: Int,

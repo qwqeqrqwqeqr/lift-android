@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.*
@@ -20,7 +21,6 @@ import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.designsystem.resource.Icon
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.feature.history.HISTORY_ROUTER_NAME
 import com.gradation.lift.feature.history.navigateToHistory
 import com.gradation.lift.feature.home.HOME_ROUTER_NAME
