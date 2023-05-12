@@ -1,6 +1,6 @@
-package com.gradation.lift.common.model
+package com.gradation.lift.network.common
 
-data class ApiResult<out T>(
+data class APIResult<out T>(
     val status: Boolean,
     val message: String,
     val data: T?

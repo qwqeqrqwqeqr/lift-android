@@ -7,6 +7,9 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.network"
+    defaultConfig {
+        testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+    }
 }
 
 dependencies{

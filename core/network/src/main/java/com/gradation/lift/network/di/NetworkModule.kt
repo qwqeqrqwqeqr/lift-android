@@ -29,7 +29,6 @@ object NetworkModule {
         interceptor: HttpLoggingInterceptor,
         authInterceptor: Interceptor
     ): OkHttpClient {
-
         return OkHttpClient.Builder()
             .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)

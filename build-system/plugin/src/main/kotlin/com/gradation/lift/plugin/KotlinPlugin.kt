@@ -1,12 +1,8 @@
 package com.gradation.lift.plugin
 
-import com.android.build.api.dsl.ApplicationExtension
-import com.gradation.lift.plugin.extension.extensionAndroid
-import com.gradation.lift.plugin.extension.extensionKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
@@ -21,8 +17,10 @@ class KotlinPlugin : Plugin<Project> {
             }
 
 
-
             dependencies {
+                add("testImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
+                add("androidTestImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
+
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
                 add("implementation", libs.findLibrary("kotlin-stdlib").get())
                 add("implementation", libs.findLibrary("kotlinx-datetime").get())
