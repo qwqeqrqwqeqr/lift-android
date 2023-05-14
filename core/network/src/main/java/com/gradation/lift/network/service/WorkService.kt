@@ -12,10 +12,12 @@ interface WorkService {
     @GET("work/work-part/")
     suspend fun getWorkPart(): Response<APIResult<List<GetWorkPartResponseDto>>>
 
-
     @GET("work/work-category/")
     suspend fun getWorkCategory(): Response<APIResult<List<GetWorkCategoryResponseDto>>>
 
     @GET("work/work-category-by-work-part/")
     suspend fun getWorkCategoryByWorkPart(@Query("workpart") workpart: Int): Response<APIResult<List<GetWorkCategoryByWorkPartResponseDto>>>
 }
+
+
+
