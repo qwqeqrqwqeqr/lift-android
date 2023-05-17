@@ -1,31 +1,39 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.model.data.WorkPart
 import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
-import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
 import com.gradation.lift.network.service.WorkService
-import retrofit2.Response
+import retrofit2.HttpException
 import javax.inject.Inject
 
 interface WorkDataSource {
-    suspend fun  getWorkPart(): Response<APIResult<List<GetWorkPartResponseDto>>>
-    suspend fun getWorkCategory(): Response<APIResult<List<GetWorkCategoryResponseDto>>>
-    suspend fun getWorkCategoryByWorkPart(workpart: Int): Response<APIResult<List<GetWorkCategoryByWorkPartResponseDto>>>
+    suspend fun  getWorkPart(): List<WorkPart>
+    suspend fun getWorkCategory(): List<GetWorkCategoryResponseDto>
+    suspend fun getWorkCategoryByWorkPart(workpart: Int): List<GetWorkCategoryByWorkPartResponseDto>
 }
 
 
 class WorkDataSourceImpl @Inject constructor(private val workService: WorkService):WorkDataSource{
-    override suspend fun getWorkPart(): Response<APIResult<List<GetWorkPartResponseDto>>> {
+
+
+    override suspend fun getWorkPart(): List<WorkPart> {
+
+        if(workService.getWorkPart().isSuccessful)
+
+
+
+        return emptyList()
+    }
+
+    override suspend fun getWorkCategory(): List<GetWorkCategoryResponseDto> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getWorkCategory(): Response<APIResult<List<GetWorkCategoryResponseDto>>> {
+    override suspend fun getWorkCategoryByWorkPart(workpart: Int): List<GetWorkCategoryByWorkPartResponseDto> {
         TODO("Not yet implemented")
     }
-
-    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Response<APIResult<List<GetWorkCategoryByWorkPartResponseDto>>> {
-        TODO("Not yet implemented")
-    }
-
 }
+
+
+
