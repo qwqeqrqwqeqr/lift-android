@@ -3,6 +3,7 @@ package com.gradation.lift.network.service
 import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
+import com.gradation.lift.network.common.Result
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

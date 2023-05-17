@@ -1,6 +1,7 @@
 plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
+    id("lift.android.hilt")
 }
 
 android {
@@ -8,6 +9,5 @@ android {
 }
 
 dependencies {
-
-    testImplementation("junit:junit:4.12")
+    implementation(project(":core:test"))
 }

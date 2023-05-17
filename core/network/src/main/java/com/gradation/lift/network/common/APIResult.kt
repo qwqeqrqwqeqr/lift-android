@@ -1,5 +1,7 @@
 package com.gradation.lift.network.common
 
+import okio.IOException
+import retrofit2.HttpException
 import retrofit2.Response
 
 
@@ -11,9 +13,7 @@ data class Result<out T : Any>(
 
 sealed class NetworkResult<out T : Any> {
     data class Success<out T : Any>(val data: T?) : NetworkResult<T>()
-    data class Fail<out T : Any>(
-        val message:  String
-    ) : NetworkResult<T>()
+    data class Fail<out T : Any>(val data: T?) : NetworkResult<T>()
     data class Error(val exception: Throwable? = null) : NetworkResult<Nothing>()
 }
 
@@ -25,10 +25,8 @@ suspend fun <T : Any> networkResultHandler(call: suspend () -> Response<Result<T
         if (response.isSuccessful) {
             NetworkResult.Success(data = response.body()?.data)
         } else {
-            NetworkResult.Fail(response.body()?.message ?: "Error")
+            NetworkResult.Fail(data = response.body()?.data)
         }
 
-    } catch (e: Exception) {
-        NetworkResult.Error()
-    }
+    } catch (e: Exception) { NetworkResult.Error() }
 }
