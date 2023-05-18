@@ -11,13 +11,6 @@ sealed class DataState<out T> {
     object Loading : DataState<Nothing>()
 }
 
-fun <T> Flow<T>.asResult(): Flow<DataState<T>> {
-    return this
-        .map<T, DataState<T>> {
-            DataState.Success(it)
-        }
-        .onStart { emit(DataState.Loading) }
-        .catch { emit(DataState.Error(it)) }
-}
+
 
 

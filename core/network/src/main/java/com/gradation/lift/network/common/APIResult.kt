@@ -12,21 +12,34 @@ data class Result<out T : Any>(
 )
 
 sealed class NetworkResult<out T : Any> {
-    data class Success<out T : Any>(val data: T?) : NetworkResult<T>()
-    data class Fail<out T : Any>(val data: T?) : NetworkResult<T>()
+    data class Success<out T : Any>(val data: T?, val message: String) : NetworkResult<T>()
+    data class Fail<out T : Any>(val data: T?, val message: String,val code:Int) : NetworkResult<T>()
     data class Error(val exception: Throwable? = null) : NetworkResult<Nothing>()
 }
+
 
 
 suspend fun <T : Any> networkResultHandler(call: suspend () -> Response<Result<T>>): NetworkResult<T> {
     return try {
         val response = call.invoke()
-
+        //200~299
         if (response.isSuccessful) {
-            NetworkResult.Success(data = response.body()?.data)
+            NetworkResult.Success(
+                data = response.body()?.data, message = response.body()?.message
+                    ?: "empty"
+            )
         } else {
-            NetworkResult.Fail(data = response.body()?.data)
+            NetworkResult.Fail(
+                data = response.body()?.data, message = response.body()?.message
+                    ?: "empty",code=response.code()
+            )
         }
+        //TODO change the null message
 
-    } catch (e: Exception) { NetworkResult.Error() }
+
+    } catch (e: HttpException) {
+        NetworkResult.Error(e)
+    } catch (e: Throwable) {
+        NetworkResult.Error(e)
+    }
 }
