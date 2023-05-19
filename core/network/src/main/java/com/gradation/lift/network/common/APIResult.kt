@@ -5,7 +5,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 
-data class Result<out T : Any>(
+data class APIResult<out T : Any>(
     val status: Boolean,
     val message: String,
     val data: T?
@@ -19,7 +19,7 @@ sealed class NetworkResult<out T : Any> {
 
 
 
-suspend fun <T : Any> networkResultHandler(call: suspend () -> Response<Result<T>>): NetworkResult<T> {
+suspend fun <T : Any> networkResultHandler(call: suspend () -> Response<APIResult<T>>): NetworkResult<T> {
     return try {
         val response = call.invoke()
         //200~299
