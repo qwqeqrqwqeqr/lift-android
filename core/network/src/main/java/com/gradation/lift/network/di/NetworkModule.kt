@@ -4,6 +4,7 @@ import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +16,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -41,14 +43,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
+        moshi: Moshi
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(
-                @OptIn(ExperimentalSerializationApi::class)
-                Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
     @Singleton
