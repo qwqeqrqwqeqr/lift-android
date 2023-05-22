@@ -1,18 +1,17 @@
 package com.gradation.lift.network.di
 
+import com.gradation.lift.common.di.DispatcherProvider
 import com.gradation.lift.network.common.Constants
+import com.gradation.lift.network.common.DefaultNetworkResultHandler
+import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -52,6 +51,7 @@ object NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
+
     @Singleton
     @Provides
     fun provideLoggingInterceptor() =
@@ -62,6 +62,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideNetworkResultHandler(dispatcherProvider: DispatcherProvider): NetworkResultHandler =
+        DefaultNetworkResultHandler(dispatcherProvider)
+
+    @Provides
+    @Singleton
     fun provideWorkService(retrofit: Retrofit): WorkService =
         retrofit.create(WorkService::class.java)
 
@@ -69,5 +74,8 @@ object NetworkModule {
     @Singleton
     fun provideRoutineService(retrofit: Retrofit): RoutineService =
         retrofit.create(RoutineService::class.java)
+
+
+
 
 }

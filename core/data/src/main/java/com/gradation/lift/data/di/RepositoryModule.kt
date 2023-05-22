@@ -3,6 +3,7 @@ package com.gradation.lift.data.di
 import com.gradation.lift.common.di.DispatcherProvider
 import com.gradation.lift.data.repository.DefaultWorkPartRepository
 import com.gradation.lift.data.repository.WorkRepository
+import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.service.WorkService
 import dagger.Module
 import dagger.Provides
@@ -17,8 +18,8 @@ object RepositoryModule {
     @Provides
     fun provideWorkRepository(
         workService: WorkService,
-        dispatcherProvider: DispatcherProvider
-    ): WorkRepository = DefaultWorkPartRepository(workService,dispatcherProvider)
+        networkResultHandler: NetworkResultHandler,
+    ): WorkRepository = DefaultWorkPartRepository(workService,networkResultHandler)
 
 
 }
