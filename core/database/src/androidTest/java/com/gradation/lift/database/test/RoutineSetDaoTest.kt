@@ -5,7 +5,7 @@ import androidx.test.filters.SmallTest
 import com.gradation.lift.database.dao.RoutineSetDao
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.util.TestDataGenerator
-import com.gradation.lift.model.data.Week
+import com.gradation.lift.domain.model.Week
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -104,7 +104,7 @@ class RoutineSetDaoTest  {
     @Test
     fun testGetAllRoutineSetByWeek() = runTest{
         routineSetDao.insertRoutineSet( TestDataGenerator.testRoutineSet1)
-        Assert.assertEquals(1,routineSetDao.getAllRoutineSetByWeek(Week.Monday).first().size)
+        Assert.assertEquals(1,routineSetDao.getAllRoutineSetByWeek(com.gradation.lift.domain.model.Week.Monday).first().size)
     }
 
     @Test

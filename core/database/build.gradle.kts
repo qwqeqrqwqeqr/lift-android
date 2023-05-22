@@ -10,5 +10,5 @@ android {
     namespace = "com.gradation.lift.database"
 }
 dependencies {
-    implementation(project(":core:model"))
+    implementation(project(":core:domain"))
 }

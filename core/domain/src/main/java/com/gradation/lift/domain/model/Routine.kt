@@ -1,4 +1,4 @@
-package com.gradation.lift.model.data
+package com.gradation.lift.domain.model
 
 data class Routine(
     val workCategory : Int,

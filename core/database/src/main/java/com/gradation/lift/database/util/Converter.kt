@@ -1,6 +1,5 @@
 package com.gradation.lift.database.util
 
-import android.media.Image
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.gradation.lift.model.data.*
@@ -13,16 +12,16 @@ import javax.inject.Inject
 class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
 
     @TypeConverter
-    fun jsonTypeToRoutineList(value: String): List<Routine>? {
-        val listType = Types.newParameterizedType(List::class.java, Routine::class.java)
-        val adapter: JsonAdapter<List<Routine>> = moshi.adapter(listType)
+    fun jsonTypeToRoutineList(value: String): List<com.gradation.lift.domain.model.Routine>? {
+        val listType = Types.newParameterizedType(List::class.java, com.gradation.lift.domain.model.Routine::class.java)
+        val adapter: JsonAdapter<List<com.gradation.lift.domain.model.Routine>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun routineListToJsonType(type: List<Routine>): String {
-        val listType = Types.newParameterizedType(List::class.java, Routine::class.java)
-        val adapter: JsonAdapter<List<Routine>> = moshi.adapter(listType)
+    fun routineListToJsonType(type: List<com.gradation.lift.domain.model.Routine>): String {
+        val listType = Types.newParameterizedType(List::class.java, com.gradation.lift.domain.model.Routine::class.java)
+        val adapter: JsonAdapter<List<com.gradation.lift.domain.model.Routine>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
@@ -31,15 +30,15 @@ class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
 class WeekTypeConverter @Inject constructor(private val moshi: Moshi) {
 
     @TypeConverter
-    fun jsonTypeToWeekType(value: String): Week? {
-        val adapter: JsonAdapter<Week> = moshi.adapter(Week::class.java)
+    fun jsonTypeToWeekType(value: String): com.gradation.lift.domain.model.Week? {
+        val adapter: JsonAdapter<com.gradation.lift.domain.model.Week> = moshi.adapter(com.gradation.lift.domain.model.Week::class.java)
         return adapter.fromJson(value)
     }
 
 
     @TypeConverter
-    fun weekTypeToJsonType(type: Week): String {
-        val adapter: JsonAdapter<Week> = moshi.adapter(Week::class.java)
+    fun weekTypeToJsonType(type: com.gradation.lift.domain.model.Week): String {
+        val adapter: JsonAdapter<com.gradation.lift.domain.model.Week> = moshi.adapter(com.gradation.lift.domain.model.Week::class.java)
         return adapter.toJson(type)
     }
 }
@@ -49,15 +48,15 @@ class WeekTypeConverter @Inject constructor(private val moshi: Moshi) {
 @ProvidedTypeConverter
 class WorkPartTypeConverter @Inject constructor(private val moshi: Moshi) {
     @TypeConverter
-    fun jsonTypeToWeekType(value: String): WorkPart? {
-        val adapter: JsonAdapter<WorkPart> = moshi.adapter(WorkPart::class.java)
+    fun jsonTypeToWeekType(value: String): com.gradation.lift.domain.model.WorkPart? {
+        val adapter: JsonAdapter<com.gradation.lift.domain.model.WorkPart> = moshi.adapter(com.gradation.lift.domain.model.WorkPart::class.java)
         return adapter.fromJson(value)
     }
 
 
     @TypeConverter
-    fun weekTypeToJsonType(type: WorkPart): String {
-        val adapter: JsonAdapter<WorkPart> = moshi.adapter(WorkPart::class.java)
+    fun weekTypeToJsonType(type: com.gradation.lift.domain.model.WorkPart): String {
+        val adapter: JsonAdapter<com.gradation.lift.domain.model.WorkPart> = moshi.adapter(com.gradation.lift.domain.model.WorkPart::class.java)
         return adapter.toJson(type)
     }
 }

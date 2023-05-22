@@ -1,4 +1,4 @@
-package com.gradation.lift.model.data
+package com.gradation.lift.domain.model
 
 sealed class WorkPart{
     data class Shoulder(val name:String="어깨") : WorkPart()

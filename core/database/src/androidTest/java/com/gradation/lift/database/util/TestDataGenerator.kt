@@ -2,48 +2,53 @@ package com.gradation.lift.database.util
 
 import com.gradation.lift.database.model.RoutineSetEntity
 import com.gradation.lift.database.model.WorkCategoryEntity
-import com.gradation.lift.model.data.Routine
-import com.gradation.lift.model.data.Week
-import com.gradation.lift.model.data.WorkPart
-import com.gradation.lift.model.data.WorkSet
+import com.gradation.lift.domain.model.Routine
+import com.gradation.lift.domain.model.Week
+import com.gradation.lift.domain.model.WorkPart
+import com.gradation.lift.domain.model.WorkSet
 
 internal object TestDataGenerator {
 
-    private val testWorkSet1 = WorkSet(weight = 60.0, repetition = 12)
-    private val testWorkSet2 = WorkSet(weight = 60.0, repetition = 12)
-    private val testWorkSet3 = WorkSet(weight = 80.0, repetition = 10)
-    private val testWorkSet4 = WorkSet(weight = 80.0, repetition = 10)
-    private val testWorkSet5 = WorkSet(weight = 100.0, repetition = 10)
+    private val testWorkSet1 =
+        com.gradation.lift.domain.model.WorkSet(weight = 60.0, repetition = 12)
+    private val testWorkSet2 =
+        com.gradation.lift.domain.model.WorkSet(weight = 60.0, repetition = 12)
+    private val testWorkSet3 =
+        com.gradation.lift.domain.model.WorkSet(weight = 80.0, repetition = 10)
+    private val testWorkSet4 =
+        com.gradation.lift.domain.model.WorkSet(weight = 80.0, repetition = 10)
+    private val testWorkSet5 =
+        com.gradation.lift.domain.model.WorkSet(weight = 100.0, repetition = 10)
 
 
-    private val testRoutine1 = Routine(
-        name = "스쿼트",  listOf(
+    private val testRoutine1 = com.gradation.lift.domain.model.Routine(
+        name = "스쿼트", listOf(
             testWorkSet1, testWorkSet2,
             testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
-    private val testRoutine2 = Routine(
-        name = "데드리프트",  listOf(
+    private val testRoutine2 = com.gradation.lift.domain.model.Routine(
+        name = "데드리프트", listOf(
             testWorkSet1, testWorkSet2,
             testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
-    private val testRoutine3 = Routine(
-        name = "스쿼트",  listOf(
+    private val testRoutine3 = com.gradation.lift.domain.model.Routine(
+        name = "스쿼트", listOf(
             testWorkSet1, testWorkSet2,
             testWorkSet3, testWorkSet4, testWorkSet5
         )
     )
 
-    private val testWorkPart1 = WorkPart.lowerBody
-    private val testWorkPart2 = WorkPart.arm
+    private val testWorkPart1 = com.gradation.lift.domain.model.WorkPart.lowerBody
+    private val testWorkPart2 = com.gradation.lift.domain.model.WorkPart.arm
 
     val testRoutineSet1 = RoutineSetEntity(
         name = "테스트 루틴 1",
         shortDescription = "테스트용 루틴입니다",
-        week = Week.Monday,
+        week = com.gradation.lift.domain.model.Week.Monday,
         routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
 
@@ -51,7 +56,7 @@ internal object TestDataGenerator {
         id = 50,
         name = "테스트 루틴 2",
         shortDescription = "테스트용 루틴입니다.",
-        week = Week.Tuesday,
+        week = com.gradation.lift.domain.model.Week.Tuesday,
         routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
 

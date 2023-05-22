@@ -1,6 +1,4 @@
-package com.gradation.lift.model.data
-
-import kotlinx.serialization.SerialName
+package com.gradation.lift.domain.model
 
 data class WorkCategory(
     val id: Int,

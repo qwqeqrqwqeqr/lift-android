@@ -1,20 +1,14 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.model.data.WorkCategory
-import com.gradation.lift.model.data.WorkPart
+import com.gradation.lift.domain.model.WorkCategory
+import com.gradation.lift.domain.model.WorkPart
+import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.service.WorkService
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
-
-
-interface WorkRepository {
-    suspend fun getWorkPart(): Flow<DataState<List<WorkPart>>>
-    suspend fun getWorkCategory(): Flow<DataState<List<WorkCategory>>>
-    suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>>
-}
 
 
 class DefaultWorkPartRepository @Inject constructor(

@@ -1,9 +1,8 @@
 package com.gradation.lift.database.model
 
-import android.media.Image
 import androidx.room.*
 import com.gradation.lift.database.util.WorkPartTypeConverter
-import com.gradation.lift.model.data.WorkPart
+import com.gradation.lift.domain.model.WorkPart
 
 /*
 Params
@@ -26,7 +25,7 @@ data class WorkCategoryEntity(
 
     @ColumnInfo(name = "work_part")
     @TypeConverters(WorkPartTypeConverter::class)
-    val workPart: WorkPart,
+    val workPart: com.gradation.lift.domain.model.WorkPart,
 
 
     val image: String? = null,

@@ -9,12 +9,12 @@ data class GetWorkPartResponseDto(
     val id: Int,
     val name: String
 ) {
-    fun toWorkPart(): WorkPart? = when (id) {
-        SHOULDER -> WorkPart.Back()
-        BACK -> WorkPart.Shoulder()
-        CHEST -> WorkPart.Chest()
-        ARM -> WorkPart.Arm()
-        LOWER_BODY -> WorkPart.LowerBody()
+    fun toWorkPart(): com.gradation.lift.domain.model.WorkPart? = when (id) {
+        com.gradation.lift.domain.model.SHOULDER -> com.gradation.lift.domain.model.WorkPart.Back()
+        com.gradation.lift.domain.model.BACK -> com.gradation.lift.domain.model.WorkPart.Shoulder()
+        com.gradation.lift.domain.model.CHEST -> com.gradation.lift.domain.model.WorkPart.Chest()
+        com.gradation.lift.domain.model.ARM -> com.gradation.lift.domain.model.WorkPart.Arm()
+        com.gradation.lift.domain.model.LOWER_BODY -> com.gradation.lift.domain.model.WorkPart.LowerBody()
         else -> null
     }
 }

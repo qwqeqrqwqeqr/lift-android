@@ -3,7 +3,7 @@ package com.gradation.lift.database.dao
 import androidx.room.*
 
 import com.gradation.lift.database.model.RoutineSetEntity
-import com.gradation.lift.model.data.Week
+import com.gradation.lift.domain.model.Week
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,7 +27,7 @@ interface RoutineSetDao {
      */
     @Transaction
     @Query("SELECT * FROM routine_sets WHERE week=:week")
-    fun getAllRoutineSetByWeek(week: Week): Flow<List<RoutineSetEntity>>
+    fun getAllRoutineSetByWeek(week: com.gradation.lift.domain.model.Week): Flow<List<RoutineSetEntity>>
 
 
     /*

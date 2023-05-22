@@ -1,9 +1,8 @@
 package com.gradation.lift.database.dao
 
 import androidx.room.*
-import com.gradation.lift.database.model.RoutineSetEntity
 import com.gradation.lift.database.model.WorkCategoryEntity
-import com.gradation.lift.model.data.WorkPart
+import com.gradation.lift.domain.model.WorkPart
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -37,7 +36,7 @@ interface WorkCategoryDao {
     """
     )
      fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
-        workPart: WorkPart,
+        workPart: com.gradation.lift.domain.model.WorkPart,
         customFlag: Boolean
     ): Flow<List<WorkCategoryEntity>>
 

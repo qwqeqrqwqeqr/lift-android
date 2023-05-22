@@ -5,12 +5,11 @@ import androidx.test.filters.SmallTest
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.util.TestDataGenerator
-import com.gradation.lift.model.data.WorkPart
+import com.gradation.lift.domain.model.WorkPart
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.*
 import javax.inject.Inject
@@ -114,7 +113,7 @@ class WorkCategoryDaoTest {
         val workCategoryEntity2 = TestDataGenerator.testWorkCategory2
         workCategoryDao.insertWorkCategory(workCategoryEntity1)
         workCategoryDao.insertWorkCategory(workCategoryEntity2)
-        val result = workCategoryDao.getAllWorkCategoryEntriesByWorkPartCustomFlag(WorkPart.arm,true).first()
+        val result = workCategoryDao.getAllWorkCategoryEntriesByWorkPartCustomFlag(com.gradation.lift.domain.model.WorkPart.arm,true).first()
         Assert.assertEquals(listOf(workCategoryEntity2.name) , result.map { it.name })
     }
 

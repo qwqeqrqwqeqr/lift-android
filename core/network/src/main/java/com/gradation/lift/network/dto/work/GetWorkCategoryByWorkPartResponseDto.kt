@@ -15,16 +15,16 @@ data class GetWorkCategoryByWorkPartResponseDto (
     @SerialName("long_description")
     val longDescription: String
 ){
-    fun toWorkCategory(): WorkCategory =
-        WorkCategory(
+    fun toWorkCategory(): com.gradation.lift.domain.model.WorkCategory =
+        com.gradation.lift.domain.model.WorkCategory(
             id = id,
             name = name,
             workpart = when (workpart) {
-                SHOULDER -> WorkPart.Back()
-                BACK -> WorkPart.Shoulder()
-                CHEST -> WorkPart.Chest()
-                ARM -> WorkPart.Arm()
-                LOWER_BODY -> WorkPart.LowerBody()
+                com.gradation.lift.domain.model.SHOULDER -> com.gradation.lift.domain.model.WorkPart.Back()
+                com.gradation.lift.domain.model.BACK -> com.gradation.lift.domain.model.WorkPart.Shoulder()
+                com.gradation.lift.domain.model.CHEST -> com.gradation.lift.domain.model.WorkPart.Chest()
+                com.gradation.lift.domain.model.ARM -> com.gradation.lift.domain.model.WorkPart.Arm()
+                com.gradation.lift.domain.model.LOWER_BODY -> com.gradation.lift.domain.model.WorkPart.LowerBody()
                 else -> null
             },
             shortDescription = shortDescription,

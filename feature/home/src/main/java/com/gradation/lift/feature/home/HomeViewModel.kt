@@ -2,10 +2,9 @@ package com.gradation.lift.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras.Empty.map
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.GetWorkCategoryUseCase
-import com.gradation.lift.model.data.WorkPart
+import com.gradation.lift.domain.model.WorkPart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
