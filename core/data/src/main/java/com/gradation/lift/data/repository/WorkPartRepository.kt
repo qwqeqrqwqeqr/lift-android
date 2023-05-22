@@ -5,8 +5,6 @@ import com.gradation.lift.common.di.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.data.WorkCategory
 import com.gradation.lift.model.data.WorkPart
-import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.common.networkResultHandler
 import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
 import com.gradation.lift.network.service.WorkService

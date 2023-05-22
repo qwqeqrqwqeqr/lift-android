@@ -7,3 +7,12 @@ plugins {
 android {
     namespace = "com.gradation.lift.feature.home"
 }
+
+dependencies{
+    implementation(project(":core:domain"))
+    implementation(project(":core:common"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
+    implementation(project(":core:test"))
+}

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.data"
+    namespace = "com.gradation.lift.domain"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
@@ -15,6 +15,5 @@ dependencies{
     implementation(project(":core:test"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
+    implementation(project(":core:data"))
 }
