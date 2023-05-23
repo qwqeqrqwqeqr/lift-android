@@ -2,7 +2,6 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.gradation.lift.model.data.*
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types

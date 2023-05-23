@@ -1,16 +1,14 @@
 package com.gradation.lift
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.*
@@ -35,6 +33,7 @@ import kotlinx.coroutines.CoroutineScope
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(
     ExperimentalMaterial3Api::class,
+    ExperimentalComposeUiApi::class
 )
 @Composable
 fun LiftApp(
@@ -52,7 +51,7 @@ fun LiftApp(
                 }
             },
         ) {
-            NavHost(appState.navController)
+            LiftNavHost(appState.navController)
         }
     }
 }
@@ -60,11 +59,10 @@ fun LiftApp(
 
 @Composable
 fun rememberAppState(
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
 ): AppState {
-    return remember(navController, coroutineScope) {
-        AppState(navController, coroutineScope)
+    return remember(navController) {
+        AppState(navController)
     }
 }
 
@@ -72,7 +70,6 @@ fun rememberAppState(
 @Stable
 class AppState(
     val navController: NavHostController,
-    val coroutineScope: CoroutineScope,
 ) {
 
     val currentDestination: NavDestination?

@@ -8,10 +8,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun MyInfoScreen(navController: NavController){
+internal fun MyInfoRoute(
+    modifier: Modifier = Modifier) {
+    MyInfoScreen()
+}
+
+@Composable
+fun MyInfoScreen(){
     Box(
 
     ){

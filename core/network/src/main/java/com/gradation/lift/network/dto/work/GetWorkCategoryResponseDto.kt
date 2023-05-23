@@ -1,6 +1,5 @@
 package com.gradation.lift.network.dto.work
 
-import com.gradation.lift.model.data.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

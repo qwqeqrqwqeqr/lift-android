@@ -3,6 +3,7 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.network")
     id("lift.android.hilt")
+    id("lift.android.test")
 }
 
 android {

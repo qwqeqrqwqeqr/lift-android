@@ -1,6 +1,7 @@
 package com.gradation.lift.data.repository
 
-import com.gradation.lift.common.model.DataState
+import android.util.Log
+import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.model.WorkCategory
 import com.gradation.lift.domain.model.WorkPart
 import com.gradation.lift.domain.repository.WorkRepository
@@ -11,12 +12,12 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 
-class DefaultWorkPartRepository @Inject constructor(
+class DefaultWorkRepository @Inject constructor(
     private val workService: WorkService,
     private val networkResultHandler: NetworkResultHandler
 ) : WorkRepository {
-    override suspend fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
-        networkResultHandler.execute { workService.getWorkPart() }.collectLatest { result ->
+    override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
+        networkResultHandler.execute { workService.getWorkPart() }.collect { result ->
             when (result) {
                 is APIResult.Success -> emit(DataState.Success(result.data?.mapNotNull { it.toWorkPart() }))
                 is APIResult.Fail -> emit(DataState.Error(result.message))
@@ -24,9 +25,10 @@ class DefaultWorkPartRepository @Inject constructor(
                 APIResult.Loading -> emit(DataState.Loading)
             }
         }
+
     }
 
-    override suspend fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
+    override  fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
         networkResultHandler.execute { workService.getWorkCategory() }.collectLatest { result ->
             when (result) {
                 is APIResult.Success -> emit(DataState.Success(result.data?.map { it.toWorkCategory() }))
@@ -37,9 +39,9 @@ class DefaultWorkPartRepository @Inject constructor(
         }
     }
 
-    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>> =
+    override  fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>> =
         flow {
-            networkResultHandler.execute { workService.getWorkCategory() }.collectLatest { result ->
+            networkResultHandler.execute { workService.getWorkCategoryByWorkPart(workpart) }.collectLatest { result ->
                 when (result) {
                     is APIResult.Success -> emit(DataState.Success(result.data?.map { it.toWorkCategory() }))
                     is APIResult.Fail -> emit(DataState.Error(result.message))

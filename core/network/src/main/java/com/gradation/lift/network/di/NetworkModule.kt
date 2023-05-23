@@ -28,14 +28,12 @@ object NetworkModule {
     @Singleton
     fun provideHttpClient(
         interceptor: HttpLoggingInterceptor,
-        authInterceptor: Interceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .addInterceptor(interceptor)
-            .addInterceptor(authInterceptor)
             .build()
     }
 
