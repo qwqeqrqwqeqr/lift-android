@@ -21,7 +21,6 @@ class HomeViewModel
 constructor(getWorkCategoryUseCase: GetWorkCategoryUseCase) : ViewModel() {
 
     val uiState: StateFlow<HomeUiState> = getWorkCategoryUseCase().map { result ->
-        Log.d("result", result.toString())
         when (result) {
             is DataState.Success -> {
                 result.data?.let { (HomeUiState.Success(it)) } ?: (HomeUiState.Empty)

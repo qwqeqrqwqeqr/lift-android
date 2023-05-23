@@ -8,16 +8,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 @Composable
-fun RoutineScreen(navController: NavController){
-    Box(
+internal fun RoutineRoute(
+    modifier: Modifier = Modifier,
+    viewModel: RoutineViewModel = hiltViewModel()
+){
+   RoutineScreen(
+       modifier=modifier
+   )
+}
 
-    ){
-        Text(
-            text="루틴화면",
-            color = Color.Black
-        )
-    }
+
+@Composable
+internal fun RoutineScreen(
+    modifier: Modifier = Modifier
+){
+
 }

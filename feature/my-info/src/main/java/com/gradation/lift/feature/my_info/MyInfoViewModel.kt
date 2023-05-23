@@ -7,6 +7,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyInfoViewModel  @Inject constructor(
-    private val dispatcherProvider: DispatcherProvider
 ):ViewModel() {
 }

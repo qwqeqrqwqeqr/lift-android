@@ -12,15 +12,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 @Composable
-fun HistoryScreen(
-    navController: NavController,
-    viewModel: HistoryViewModel = hiltViewModel()){
-    Box(
+fun HistoryRoute(
+    modifier: Modifier = Modifier,
+    viewModel: HistoryViewModel = hiltViewModel()
+) {
+    HistoryScreen(
+        modifier = modifier
+    )
+}
 
-    ){
-        Text(
-            text="기록화면",
-            color = Color.Black
-        )
-    }
+
+@Composable
+internal fun HistoryScreen(
+    modifier: Modifier = Modifier,
+) {
+
 }
