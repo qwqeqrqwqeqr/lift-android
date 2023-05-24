@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +22,8 @@ internal fun RoutineRoute(
 ) {
     RoutineScreen(
         modifier = modifier,
-        currentDate = viewModel.currentDate
+        currentDate = viewModel.currentDate,
+        weekDate = viewModel.weekDate
     )
 }
 
@@ -31,11 +31,11 @@ internal fun RoutineRoute(
 @Composable
 internal fun RoutineScreen(
     modifier: Modifier = Modifier,
-    currentDate: String
+    currentDate: String,
+    weekDate: List<Pair<String, String>>
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
-        modifier = modifier.padding(16.dp)
     ) {
         Column {
             RoutineHeader(
@@ -44,8 +44,11 @@ internal fun RoutineScreen(
             )
             Spacer(modifier = modifier.height(16.dp))
             RoutineBody(
-                modifier=modifier,
-                currentDate = currentDate)
+                modifier = modifier,
+                currentDate = currentDate,
+                weekDate = weekDate
+            )
+
         }
     }
 }
@@ -55,7 +58,15 @@ internal fun RoutineScreen(
 internal fun RoutineScreenPreview() {
     LiftTheme {
         RoutineScreen(
-            currentDate = "12월 4일"
+            currentDate = "12월 4일",
+            weekDate = listOf(
+                Pair("4", "월"),
+                Pair("5", "화"),
+                Pair("6", "수"),
+                Pair("7", "목"),
+                Pair("8", "금"),
+                Pair("9", "토"),
+                Pair("10", "일"))
         )
     }
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,23 +19,22 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun RoutineBody(
     modifier: Modifier = Modifier,
-    currentDate :String
+    currentDate: String,
+    weekDate: List<Pair<String, String>>
 ) {
     Box(
         modifier = modifier
             .background(
                 color = Color.White,
-                shape =  RoundedCornerShape(24.dp,24.dp,0.dp,0.dp)
+                shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp)
             )
             .fillMaxWidth()
-            .padding(32.dp, 16.dp)
+            .padding(16.dp)
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -69,13 +67,14 @@ fun RoutineBody(
                     ) {
                         append(currentDate)
                     }
-                    append("이에요!\n" + "루틴을 선택해서 운동을 해봐요!",)
+                    append("이에요!\n" + "루틴을 선택해서 운동을 해봐요!")
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSecondary,
                 textAlign = TextAlign.Center,
             )
-
+            Spacer(modifier = modifier.height(16.dp))
+            WeekCardListView(weekDate)
         }
     }
 }
@@ -85,6 +84,17 @@ fun RoutineBody(
 @Composable
 internal fun RoutineBodyPreview() {
     LiftTheme {
-        RoutineBody(currentDate = "12월 4일")
+        RoutineBody(
+            currentDate = "12월 4일",
+            weekDate = listOf(
+                Pair("4", "월"),
+                Pair("5", "화"),
+                Pair("6", "수"),
+                Pair("7", "목"),
+                Pair("8", "금"),
+                Pair("9", "토"),
+                Pair("10", "일"),
+                )
+        )
     }
 }
