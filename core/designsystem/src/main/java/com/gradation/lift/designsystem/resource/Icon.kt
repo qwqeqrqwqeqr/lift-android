@@ -19,6 +19,7 @@ object LiftIcon{
 
 
     val ArrowBack = Icons.Rounded.ArrowBackIos
+    val ChevronRight = Icons.Rounded.ChevronRight
 }
 
 sealed class Icon {
