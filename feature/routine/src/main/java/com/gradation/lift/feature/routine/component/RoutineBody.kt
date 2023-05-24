@@ -27,13 +27,13 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun RoutineBody(
     modifier: Modifier = Modifier,
-    dateText :String
+    currentDate :String
 ) {
     Box(
         modifier = modifier
             .background(
                 color = Color.White,
-                shape = RoundedCornerShape(32.dp)
+                shape =  RoundedCornerShape(24.dp,24.dp,0.dp,0.dp)
             )
             .fillMaxWidth()
             .padding(32.dp, 16.dp)
@@ -67,7 +67,7 @@ fun RoutineBody(
                     withStyle(
                         style = SpanStyle(fontWeight = FontWeight.Bold),
                     ) {
-                        append(dateText)
+                        append(currentDate)
                     }
                     append("이에요!\n" + "루틴을 선택해서 운동을 해봐요!",)
                 },
@@ -85,6 +85,6 @@ fun RoutineBody(
 @Composable
 internal fun RoutineBodyPreview() {
     LiftTheme {
-        RoutineBody(dateText = "12월 4일")
+        RoutineBody(currentDate = "12월 4일")
     }
 }

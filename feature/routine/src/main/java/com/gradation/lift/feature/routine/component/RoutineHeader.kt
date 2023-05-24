@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,11 +33,12 @@ fun RoutineHeader(
     Box(
         modifier = modifier
             .background(
-                color = Color.White,
-                shape = RoundedCornerShape(32.dp)
+                color = MaterialTheme.colorScheme.background,
+                shape = RoundedCornerShape(0.dp,0.dp,24.dp,24.dp)
             )
             .fillMaxWidth()
-            .padding(32.dp, 16.dp)
+            .padding(16.dp)
+
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),

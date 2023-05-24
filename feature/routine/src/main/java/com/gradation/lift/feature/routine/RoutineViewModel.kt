@@ -16,11 +16,11 @@ import javax.inject.Inject
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class RoutineViewModel @Inject constructor(
-    val getWeekDateUseCase: GetWeekDateUseCase,
-    val getCurrentDateUseCase: GetCurrentDateUseCase
+    getWeekDateUseCase: GetWeekDateUseCase,
+    getCurrentDateUseCase: GetCurrentDateUseCase
 ) : ViewModel() {
 
-    val currentDate by mutableStateOf<String>(getCurrentDateUseCase().let { "${it.month}월 ${it.dayOfMonth}일" })
+    val currentDate by mutableStateOf<String>(getCurrentDateUseCase().let { "${it.monthNumber}월 ${it.dayOfMonth}일" })
 
     val weekDate by mutableStateOf<List<Pair<String, String>>>(
         value = getWeekDateUseCase().map {

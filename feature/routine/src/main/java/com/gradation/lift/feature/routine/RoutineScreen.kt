@@ -1,5 +1,7 @@
 package com.gradation.lift.feature.routine
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -13,6 +15,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine.component.RoutineBody
 import com.gradation.lift.feature.routine.component.RoutineHeader
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun RoutineRoute(
     modifier: Modifier = Modifier,
@@ -20,13 +23,15 @@ internal fun RoutineRoute(
 ) {
     RoutineScreen(
         modifier = modifier,
+        currentDate = viewModel.currentDate
     )
 }
 
 
 @Composable
 internal fun RoutineScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    currentDate: String
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -40,7 +45,7 @@ internal fun RoutineScreen(
             Spacer(modifier = modifier.height(16.dp))
             RoutineBody(
                 modifier=modifier,
-                dateText = "12월 4일")
+                currentDate = currentDate)
         }
     }
 }
@@ -49,7 +54,9 @@ internal fun RoutineScreen(
 @Composable
 internal fun RoutineScreenPreview() {
     LiftTheme {
-        RoutineScreen()
+        RoutineScreen(
+            currentDate = "12월 4일"
+        )
     }
 }
 
