@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
@@ -10,7 +12,14 @@ android {
     namespace = "com.gradation.lift.network"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+
+        buildConfigField("String", "LIFT_API_URL", getApiURL("LIFT_API_URL"))
     }
+}
+
+
+fun getApiURL(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 dependencies{
