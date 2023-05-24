@@ -19,7 +19,7 @@ internal fun RoutineRoute(
     viewModel: RoutineViewModel = hiltViewModel()
 ) {
     RoutineScreen(
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
