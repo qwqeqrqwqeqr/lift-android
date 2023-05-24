@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.common
+package com.gradation.lift.domain.utils
 
 import kotlinx.datetime.LocalDate
 

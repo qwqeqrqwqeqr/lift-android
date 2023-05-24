@@ -1,7 +1,7 @@
 package com.gradation.lift.domain.usecase
 
-import com.gradation.lift.domain.common.DataGenerator.TEST_DATE_1
-import com.gradation.lift.domain.common.DataGenerator.TEST_DATE_2
+import com.gradation.lift.domain.utils.DataGenerator.TEST_DATE_1
+import com.gradation.lift.domain.utils.DataGenerator.TEST_DATE_2
 import com.gradation.lift.domain.usecase.date.getCurrentWeekDate
 import kotlinx.datetime.LocalDate
 import org.junit.Test
