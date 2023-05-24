@@ -50,7 +50,8 @@ internal val Red100 = Color(0xFFFFFFFF)
 
 
 internal val Black10 = Color(0xFF000000)
-internal val Black20 = Color(0xFF64627A)
+internal val Black20 = Color(0xFF2B2C35)
+internal val Black30 = Color(0xFF64627A)
 
 
 

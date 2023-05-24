@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.usecase
+package com.gradation.lift.domain.usecase.work
 
 import android.util.Log
 import com.gradation.lift.domain.model.common.DataState

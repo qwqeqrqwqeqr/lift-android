@@ -1,14 +1,11 @@
 package com.gradation.lift.feature.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gradation.lift.common.di.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.gradation.lift.domain.model.WorkPart
 import com.gradation.lift.domain.model.common.DataState
-import com.gradation.lift.domain.usecase.GetWorkCategoryUseCase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
