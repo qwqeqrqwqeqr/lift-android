@@ -1,9 +1,8 @@
 package com.gradation.lift.data.repository
 
-import android.util.Log
 import com.gradation.lift.domain.model.common.DataState
-import com.gradation.lift.domain.model.WorkCategory
-import com.gradation.lift.domain.model.WorkPart
+import com.gradation.lift.domain.model.work.WorkCategory
+import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.common.NetworkResultHandler

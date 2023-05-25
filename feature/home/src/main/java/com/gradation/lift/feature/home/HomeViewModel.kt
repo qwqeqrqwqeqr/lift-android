@@ -3,7 +3,7 @@ package com.gradation.lift.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.gradation.lift.domain.model.WorkPart
+import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
 import kotlinx.coroutines.flow.SharingStarted

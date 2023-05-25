@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.model
+package com.gradation.lift.domain.model.work
 
 /**
  * @param weight

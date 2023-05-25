@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.model
+package com.gradation.lift.domain.model.work
 
 data class WorkCategory(
     val id: Int,

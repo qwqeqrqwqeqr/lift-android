@@ -1,6 +1,6 @@
 package com.gradation.lift.network.dto.work
 
-import com.gradation.lift.domain.model.*
+import com.gradation.lift.domain.model.work.*
 import kotlinx.serialization.Serializable
 
 
