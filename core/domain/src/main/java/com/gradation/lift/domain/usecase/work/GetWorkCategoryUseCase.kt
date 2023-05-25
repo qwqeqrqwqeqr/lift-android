@@ -1,6 +1,7 @@
 package com.gradation.lift.domain.usecase.work
 
 import android.util.Log
+import com.gradation.lift.domain.model.WorkCategory
 import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.model.WorkPart
 import com.gradation.lift.domain.repository.WorkRepository
@@ -13,6 +14,6 @@ import javax.inject.Inject
 class GetWorkCategoryUseCase @Inject constructor(
     private val workRepository: WorkRepository
 ) {
-    operator fun invoke(): Flow<DataState<List<WorkPart>>> =
-        workRepository.getWorkPart()
+    operator fun invoke(): Flow<DataState<List<WorkCategory>>> =
+        workRepository.getWorkCategory()
 }
