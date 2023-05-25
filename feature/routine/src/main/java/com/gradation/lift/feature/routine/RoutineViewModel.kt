@@ -22,6 +22,8 @@ class RoutineViewModel @Inject constructor(
 
     val currentDate by mutableStateOf<String>(getCurrentDateUseCase().let { "${it.monthNumber}월 ${it.dayOfMonth}일" })
 
+
+    //TODO 상태를 가지고 있게 만들어야함... 현재 선택된 객체가 어떤건지...
     val weekDate by mutableStateOf<List<Pair<String, String>>>(
         value = getWeekDateUseCase().map {
             Pair(

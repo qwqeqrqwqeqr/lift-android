@@ -17,3 +17,4 @@ fun LiftDivider(
         thickness = 1.0.dp,
         color = MaterialTheme.colorScheme.outline)
 }
+

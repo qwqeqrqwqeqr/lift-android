@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.routine.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +18,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun WeekCardListView(
     weekDate :List<Pair<String, String>>,
     modifier:  Modifier = Modifier,
+    cardViewOnClick : () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -28,7 +30,8 @@ fun WeekCardListView(
             WeekCardView(
                 modifier =modifier.weight(2f),
                 dateText = it.first,
-                weekText = it.second
+                weekText = it.second,
+                onClick = cardViewOnClick
             )
             Spacer(modifier.weight(0.1f))
         }
@@ -41,7 +44,8 @@ fun WeekCardView(
     modifier: Modifier = Modifier,
     selected: Boolean = false,
     dateText: String = "12",
-    weekText: String = "월"
+    weekText: String = "월",
+    onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -49,6 +53,7 @@ fun WeekCardView(
                 color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(8.dp)
             )
+            .clickable(onClick = onClick)
             .padding(8.dp,16.dp,8.dp,16.dp)
     ) {
         Column(
