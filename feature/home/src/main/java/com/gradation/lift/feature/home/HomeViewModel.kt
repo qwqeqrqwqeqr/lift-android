@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -15,9 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel
 @Inject
-constructor(getWorkCategoryUseCase: GetWorkCategoryUseCase) : ViewModel() {
+constructor(getWorkPartUseCase: GetWorkPartUseCase) : ViewModel() {
 
-    val uiState: StateFlow<HomeUiState> = getWorkCategoryUseCase().map { result ->
+    val uiState: StateFlow<HomeUiState> = getWorkPartUseCase().map { result ->
         when (result) {
             is DataState.Success -> {
                 result.data?.let { (HomeUiState.Success(it)) } ?: (HomeUiState.Empty)
