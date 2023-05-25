@@ -16,13 +16,19 @@ interface RoutineService {
     suspend fun createRoutineSet(createRoutineSetRequestDto: CreateRoutineSetRequestDto): APIResultWrapper<Boolean>
 
     @GET("routine/routine-set-by-date/")
-    suspend fun getRoutineSetByDate(@Query("user_id") userID: String): APIResultWrapper<List<GetRoutineSetByDateResponseDto>>
+    suspend fun getRoutineSetByDate(
+        @Query("user_id") userID: String,
+        @Query("date") date: String,
+    ): APIResultWrapper<List<GetRoutineSetByDateResponseDto>>
 
     @GET("routine/routine")
     suspend fun getRoutine(@Query("user_id") userID: String): APIResultWrapper<List<GetRoutineResponseDto>>
 
     @GET("routine/routine-by-date/")
-    suspend fun getRoutineByDate(@Query("user_id") userID: String): APIResultWrapper<List<GetRoutineByDateResponseDto>>
+    suspend fun getRoutineByDate(
+        @Query("user_id") userID: String,
+        @Query("date") date: String,
+    ): APIResultWrapper<List<GetRoutineByDateResponseDto>>
 
 
     //TODO  getRoutineByRoutineSet 추가할 것
