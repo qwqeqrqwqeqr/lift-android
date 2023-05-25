@@ -7,16 +7,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.routine.WeekCardUiState
 
 @Composable
-fun WeekCardListView(
-    weekDate :List<Pair<String, String>>,
+fun WeekCard(
+    weekCardUiState :List<WeekCardUiState>,
     modifier:  Modifier = Modifier,
     cardViewOnClick : () -> Unit = {}
 ) {
@@ -26,21 +28,24 @@ fun WeekCardListView(
             .background(color = MaterialTheme.colorScheme.background)
     ) {
         Spacer(modifier.weight(0.1f))
-        weekDate.forEach {
-            WeekCardView(
+        weekCardUiState.forEach {
+            WeekCardItem(
                 modifier =modifier.weight(2f),
-                dateText = it.first,
-                weekText = it.second,
+                selected = it.selected,
+                dateText = it.day,
+                weekText = it.weekDay,
                 onClick = cardViewOnClick
             )
             Spacer(modifier.weight(0.1f))
         }
     }
+    
+    
 }
 
 
 @Composable
-fun WeekCardView(
+fun WeekCardItem(
     modifier: Modifier = Modifier,
     selected: Boolean = false,
     dateText: String = "12",
@@ -54,7 +59,7 @@ fun WeekCardView(
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable(onClick = onClick)
-            .padding(8.dp,16.dp,8.dp,16.dp)
+            .padding(8.dp, 16.dp, 8.dp, 16.dp)
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -81,15 +86,18 @@ fun WeekCardView(
 @Composable
 fun WeekCardListViewPreview() {
     LiftTheme {
-        WeekCardListView( weekDate = listOf(
-            Pair("4", "월"),
-            Pair("5", "화"),
-            Pair("6", "수"),
-            Pair("7", "목"),
-            Pair("8", "금"),
-            Pair("9", "토"),
-            Pair("10", "일"),
-        ))
+        RoutineBody(
+            currentDate = "12월 4일",
+            weekCardUiState = listOf(
+                WeekCardUiState("4", "월",true),
+                WeekCardUiState("5", "화",false),
+                WeekCardUiState("6", "수",false),
+                WeekCardUiState("7", "목",false),
+                WeekCardUiState("8", "금",false),
+                WeekCardUiState("9", "토",false),
+                WeekCardUiState("10", "일",false),
+            )
+        )
     }
 
 }

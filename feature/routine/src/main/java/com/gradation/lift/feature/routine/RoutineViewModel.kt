@@ -21,12 +21,11 @@ class RoutineViewModel @Inject constructor(
 ) : ViewModel() {
 
     val currentDate by mutableStateOf<String>(getCurrentDateUseCase().let { "${it.monthNumber}월 ${it.dayOfMonth}일" })
-
-
+    
     //TODO 상태를 가지고 있게 만들어야함... 현재 선택된 객체가 어떤건지...
-    val weekDate by mutableStateOf<List<Pair<String, String>>>(
+    val weekDate by mutableStateOf<List<WeekCardUiState>>(
         value = getWeekDateUseCase().map {
-            Pair(
+            WeekCardUiState(
                 it.dayOfMonth.toString(), when (it.dayOfWeek) {
                     DayOfWeek.MONDAY -> "월"
                     DayOfWeek.TUESDAY -> "화"
@@ -35,12 +34,14 @@ class RoutineViewModel @Inject constructor(
                     DayOfWeek.FRIDAY -> "금"
                     DayOfWeek.SATURDAY -> "토"
                     DayOfWeek.SUNDAY -> "일"
-                }
+                }, false
             )
-        })
-
-
+        }.also { it.first().selected = true } as MutableList<WeekCardUiState>)
 }
 
 
-
+data class WeekCardUiState(
+    val day: String,
+    val weekDay: String,
+    var selected: Boolean
+)

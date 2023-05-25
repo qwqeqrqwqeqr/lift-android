@@ -20,12 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.routine.WeekCardUiState
 
 @Composable
 fun RoutineBody(
     modifier: Modifier = Modifier,
     currentDate: String,
-    weekDate: List<Pair<String, String>>
+    weekCardUiState: List<WeekCardUiState>
 ) {
     Box(
         modifier = modifier
@@ -74,7 +75,7 @@ fun RoutineBody(
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(16.dp))
-            WeekCardListView(weekDate)
+            WeekCard(weekCardUiState)
         }
     }
 }
@@ -86,14 +87,14 @@ internal fun RoutineBodyPreview() {
     LiftTheme {
         RoutineBody(
             currentDate = "12월 4일",
-            weekDate = listOf(
-                Pair("4", "월"),
-                Pair("5", "화"),
-                Pair("6", "수"),
-                Pair("7", "목"),
-                Pair("8", "금"),
-                Pair("9", "토"),
-                Pair("10", "일"),
+            weekCardUiState = listOf(
+                WeekCardUiState("4", "월",false),
+                WeekCardUiState("5", "화",false),
+                WeekCardUiState("6", "수",false),
+                WeekCardUiState("7", "목",false),
+                WeekCardUiState("8", "금",false),
+                WeekCardUiState("9", "토",false),
+                WeekCardUiState("10", "일",false),
                 )
         )
     }
