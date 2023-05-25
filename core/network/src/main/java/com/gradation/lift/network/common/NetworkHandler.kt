@@ -9,13 +9,13 @@ import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
-interface NetworkResultHandler{
+interface NetworkResultHandler {
     suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>>
 }
 
 class DefaultNetworkResultHandler @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
-) :NetworkResultHandler{
+) : NetworkResultHandler {
     override suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>> =
         flow {
             flowOf(call.invoke())
@@ -30,13 +30,18 @@ class DefaultNetworkResultHandler @Inject constructor(
                     }
                 }
                 .onStart { emit(APIResult.Loading) }
+                .catch { error ->
+                    if (error is HttpException && error.code() == 500) {
+                        emit(APIResult.Error(error))
+                    }
+                }
                 .catch { e -> emit(APIResult.Error(e)) }
-                .collect{
-                    response ->
+                .collect { response ->
                     if (response.status) {
                         emit(APIResult.Success(data = response.data, message = response.message))
                     } else {
-                        emit(APIResult.Fail(data = response.data, message = response.message)
+                        emit(
+                            APIResult.Fail(data = response.data, message = response.message)
                         )
                     }
                 }
