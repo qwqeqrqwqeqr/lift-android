@@ -1,5 +1,6 @@
 package com.gradation.lift.network.dto.work
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -8,6 +9,8 @@ data class WorkCategoryDto(
     val id: Int,
     val name: String,
     val workpart: WorkPartDto,
-    val short_description: String? = null,
-    val long_description: String? = null
+    @SerialName("short_description")
+    val shortDescription: String? = null,
+    @SerialName("long_description")
+    val longDescription: String? = null
 )
