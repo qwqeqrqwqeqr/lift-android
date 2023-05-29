@@ -10,13 +10,13 @@ import retrofit2.http.Query
 
 interface WorkService {
     @GET("work/work-part/")
-    suspend fun getWorkPart(): APIResultWrapper<List<GetWorkPartResponseDto>>
+    suspend fun getWorkPart(): APIResultWrapper<GetWorkPartResponseDto>
 
     @GET("work/work-category/")
-    suspend fun getWorkCategory(): APIResultWrapper<List<GetWorkCategoryResponseDto>>
+    suspend fun getWorkCategory(): APIResultWrapper<GetWorkCategoryResponseDto>
 
     @GET("work/work-category-by-work-part/")
-    suspend fun getWorkCategoryByWorkPart(@Query("workpart") workpart: Int): APIResultWrapper<List<GetWorkCategoryByWorkPartResponseDto>>
+    suspend fun getWorkCategoryByWorkPart(@Query("workpart") workpart: Int): APIResultWrapper<GetWorkCategoryByWorkPartResponseDto>
 }
 
 

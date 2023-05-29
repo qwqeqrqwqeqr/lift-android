@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class GetRoutineSetByDateAndRoutineSetIdResponseDto(
+data class GetRoutineSetByRoutineSetIdResponseDto(
     @SerialName("routine_set")
     val routine_set: RoutineSetDto
 )
