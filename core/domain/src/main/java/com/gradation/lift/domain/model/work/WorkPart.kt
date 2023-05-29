@@ -1,5 +1,7 @@
 package com.gradation.lift.domain.model.work
 
+import com.gradation.lift.domain.model.common.DataState
+
 sealed class WorkPart{
     data class Shoulder(val name:String="어깨") : WorkPart()
     data class Back(val name:String="등") : WorkPart()

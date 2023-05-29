@@ -6,27 +6,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetWorkCategoryResponseDto(
-    val id: Int,
-    val name: String,
-    val workpart: Int,
-    @SerialName("short_description")
-    val shortDescription: String,
-    @SerialName("long_description")
-    val longDescription: String
+    @SerialName("work_category")
+    val workCategory: List<WorkCategoryDto>
 ) {
-    fun toWorkCategory(): WorkCategory =
-        WorkCategory(
-            id = id,
-            name = name,
-            workpart = when (workpart) {
-                SHOULDER -> WorkPart.Back()
-                BACK -> WorkPart.Shoulder()
-                CHEST -> WorkPart.Chest()
-                ARM -> WorkPart.Arm()
-                LOWER_BODY -> WorkPart.LowerBody()
-                else -> null
-            },
-            shortDescription = shortDescription,
-            longDescription = longDescription
-        )
+    fun toWorkCategory(): List<WorkCategory> =
+        this.workCategory.map{
+            WorkCategory(
+                id = it.id,
+                name = it.name,
+                workpart = when (it.workpart.id) {
+                    SHOULDER -> WorkPart.Back()
+                    BACK -> WorkPart.Shoulder()
+                    CHEST -> WorkPart.Chest()
+                    ARM -> WorkPart.Arm()
+                    LOWER_BODY -> WorkPart.LowerBody()
+                    else -> null
+                },
+                shortDescription = it.shortDescription,
+                longDescription = it.longDescription
+            )
+        }
 }
