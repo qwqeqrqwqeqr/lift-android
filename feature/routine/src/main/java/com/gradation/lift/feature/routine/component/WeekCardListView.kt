@@ -3,6 +3,7 @@ package com.gradation.lift.feature.routine.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,6 +23,9 @@ fun WeekCard(
     modifier:  Modifier = Modifier,
     cardViewOnClick : () -> Unit = {}
 ) {
+//    LazyRow(content = ){
+//
+//    }
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -47,9 +51,9 @@ fun WeekCard(
 @Composable
 fun WeekCardItem(
     modifier: Modifier = Modifier,
-    selected: Boolean = false,
-    dateText: String = "12",
-    weekText: String = "월",
+    selected: Boolean,
+    dateText: String,
+    weekText: String,
     onClick: () -> Unit
 ) {
     Box(

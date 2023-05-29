@@ -1,13 +1,10 @@
 package com.gradation.lift.network.dto.routine
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetRoutineSetResponseDto(
-    val id: Int,
-    val user_id: String,
-    val short_description: String,
-    val long_description: String,
-    val repeat_type: Int,
-    val repeat_interval: Int
+    @SerialName("routine_set")
+    val routineSet: List<RoutineSetDto>
 )
