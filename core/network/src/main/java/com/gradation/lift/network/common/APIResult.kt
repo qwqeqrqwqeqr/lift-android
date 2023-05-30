@@ -1,6 +1,7 @@
 package com.gradation.lift.network.common
 
 import kotlinx.serialization.Serializable
+import org.jetbrains.annotations.NotNull
 import javax.annotation.Nullable
 
 /**

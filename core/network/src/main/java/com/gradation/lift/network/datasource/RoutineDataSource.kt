@@ -4,7 +4,6 @@ import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.dto.routine.*
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 

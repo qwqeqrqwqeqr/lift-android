@@ -1,6 +1,5 @@
 package com.gradation.lift.network.common
 
-import android.util.Log
 import com.gradation.lift.common.di.DispatcherProvider
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -38,7 +37,8 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .catch { e -> emit(APIResult.Error(e)) }
                 .collect { response ->
                     if (response.status) {
-                        emit(APIResult.Success(data = response.data, message = response.message))
+                        //TODO modify not null assertion
+                        emit(APIResult.Success(data = response.data!!))
                     } else {
                         emit(
                             APIResult.Fail(data = response.data, message = response.message)
