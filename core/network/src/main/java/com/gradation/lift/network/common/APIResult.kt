@@ -26,7 +26,7 @@ data class APIResultWrapper<out T : Any>(
 sealed class APIResult<out T : Any> {
     data class Success<out T : Any>(val data: T) : APIResult<T>()
     @Nullable
-    data class Fail<out T : Any>(val data: T?, val message: String) : APIResult<T>()
+    data class Fail<out T : Any>(val message: String) : APIResult<T>()
     data class Error(val exception: Throwable) : APIResult<Nothing>()
     object Loading : APIResult<Nothing>()
 }

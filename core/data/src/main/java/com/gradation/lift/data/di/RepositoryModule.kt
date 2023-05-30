@@ -2,6 +2,7 @@ package com.gradation.lift.data.di
 
 import com.gradation.lift.data.repository.DefaultRoutineRepository
 import com.gradation.lift.data.repository.DefaultWorkRepository
+import com.gradation.lift.datastore.datasource.DataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.network.common.NetworkResultHandler
@@ -26,6 +27,7 @@ object RepositoryModule {
     @Provides
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
-    ): RoutineRepository = DefaultRoutineRepository(routineDataSource)
+        dataStoreDataSource: DataStoreDataSource
+    ): RoutineRepository = DefaultRoutineRepository(routineDataSource,dataStoreDataSource)
 
 }

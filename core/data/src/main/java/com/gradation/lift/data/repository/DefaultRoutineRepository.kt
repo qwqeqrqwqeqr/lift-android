@@ -1,62 +1,120 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.datastore.datasource.DataStoreDataSource
 import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
 import com.gradation.lift.domain.repository.RoutineRepository
+import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.time.LocalDate
 import javax.inject.Inject
 
 
 class DefaultRoutineRepository @Inject constructor(
     private val routineDataSource: RoutineDataSource,
+    private val dataStoreDataSource: DataStoreDataSource,
 ) : RoutineRepository {
-    override fun getRoutineSet(userId: String): Flow<DataState<List<RoutineSet>>> {
-        TODO("Not yet implemented")
+    override fun getRoutineSet(): Flow<DataState<List<RoutineSet>>> = flow {
+        routineDataSource.getRoutineSet(userId = "201713721").collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
     }
 
-    override fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Boolean>> {
-        TODO("Not yet implemented")
-    }
+    override fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Boolean>> =
+        flow {
+            routineDataSource.createRoutineSet(createRoutineSetRoutine).collect { result ->
+                when (result) {
+                    is APIResult.Fail -> emit(DataState.Fail(result.message))
+                    is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                    is APIResult.Loading -> emit(DataState.Loading)
+                    is APIResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
 
     override fun getRoutineSetByDate(
-        userId: String,
         date: LocalDate
-    ): Flow<DataState<List<RoutineSet>>> {
-        TODO("Not yet implemented")
+    ): Flow<DataState<List<RoutineSet>>> = flow {
+        routineDataSource.getRoutineSetByDate(userId = "201713721",date= date).collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
     }
 
     override fun getRoutineSetByRoutineSetId(
-        userId: String,
         routineSetId: Int
-    ): Flow<DataState<RoutineSet>> {
-        TODO("Not yet implemented")
+    ): Flow<DataState<RoutineSet>> = flow {
+        routineDataSource.getRoutineSetByRoutineSetId(userId = "201713721",routineSetId= routineSetId).collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
     }
 
-    override fun getRoutine(userId: String): Flow<DataState<List<Routine>>> {
-        TODO("Not yet implemented")
+    override fun getRoutine(): Flow<DataState<List<Routine>>> = flow {
+        routineDataSource.getRoutine(userId = "201713721").collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
     }
 
-    override fun getRoutineByDate(userId: String, date: LocalDate): Flow<DataState<List<Routine>>> {
-        TODO("Not yet implemented")
-    }
+    override fun getRoutineByDate(date: LocalDate): Flow<DataState<List<Routine>>> =
+        flow {
+            routineDataSource.getRoutineByDate(userId = "201713721",date=date).collect { result ->
+                when (result) {
+                    is APIResult.Fail -> emit(DataState.Fail(result.message))
+                    is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                    is APIResult.Loading -> emit(DataState.Loading)
+                    is APIResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
 
     override fun getRoutineByRoutineSetId(
-        userId: String,
         routineSetId: Int
-    ): Flow<DataState<List<Routine>>> {
-        TODO("Not yet implemented")
+    ): Flow<DataState<List<Routine>>> = flow {
+        routineDataSource.getRoutineByRoutineSetId(userId = "201713721",routineSetId=routineSetId).collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
     }
 
     override fun getRoutineByDateAndRoutineSetId(
-        userId: String,
         date: LocalDate,
         routineSetId: Int
-    ): Flow<DataState<List<Routine>>> {
-        TODO("Not yet implemented")
+    ): Flow<DataState<List<Routine>>> = flow {
+        routineDataSource.getRoutineByDateAndRoutineSetId(userId = "201713721",date=date,routineSetId=routineSetId).collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
     }
 
 

@@ -4,7 +4,7 @@ import com.gradation.lift.domain.model.common.RepeatIntervalType
 import com.gradation.lift.domain.model.work.WorkSet
 
 data class CreateRoutineSetRoutine(
-    val userId: String,
+    val userId: String="201713721",
     val shortDescription: String,
     val longDescription: String,
     val repeatIntervalType: RepeatIntervalType,

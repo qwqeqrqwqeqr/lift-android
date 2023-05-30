@@ -11,19 +11,19 @@ import java.time.LocalDate
 
 interface RoutineRepository {
 
-    fun getRoutineSet(userId: String): Flow<DataState<List<RoutineSet>>>
+    fun getRoutineSet(): Flow<DataState<List<RoutineSet>>>
 
     fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Boolean>>
 
-    fun getRoutineSetByDate(userId: String, date: LocalDate): Flow<DataState<List<RoutineSet>>>
+    fun getRoutineSetByDate(date: LocalDate): Flow<DataState<List<RoutineSet>>>
 
-    fun getRoutineSetByRoutineSetId(userId: String, routineSetId: Int): Flow<DataState<RoutineSet>>
+    fun getRoutineSetByRoutineSetId(routineSetId: Int): Flow<DataState<RoutineSet>>
 
-    fun getRoutine(userId: String): Flow<DataState<List<Routine>>>
+    fun getRoutine(): Flow<DataState<List<Routine>>>
 
-    fun getRoutineByDate(userId: String, date: LocalDate, ): Flow<DataState<List<Routine>>>
+    fun getRoutineByDate(date: LocalDate): Flow<DataState<List<Routine>>>
 
-    fun getRoutineByRoutineSetId(userId: String, routineSetId: Int): Flow<DataState<List<Routine>>>
+    fun getRoutineByRoutineSetId(routineSetId: Int): Flow<DataState<List<Routine>>>
 
-    fun getRoutineByDateAndRoutineSetId(userId: String, date: LocalDate, routineSetId: Int): Flow<DataState<List<Routine>>>
+    fun getRoutineByDateAndRoutineSetId(date: LocalDate, routineSetId: Int): Flow<DataState<List<Routine>>>
 }

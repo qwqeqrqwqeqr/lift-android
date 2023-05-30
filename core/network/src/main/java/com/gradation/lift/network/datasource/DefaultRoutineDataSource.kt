@@ -21,7 +21,7 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> = flow {
         networkResultHandler.execute { routineService.getRoutineSet(userId) }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(emptyList(), result.message))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
@@ -63,7 +63,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 ))
             }.collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(null, result.message))
+                    is APIResult.Fail -> emit(APIResult.Fail( result.message))
                     is APIResult.Error -> emit(APIResult.Error(result.exception))
                     is APIResult.Loading -> emit(APIResult.Loading)
                     is APIResult.Success -> emit(APIResult.Success(result.data))
@@ -82,7 +82,7 @@ class DefaultRoutineDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(emptyList(), result.message))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
@@ -101,7 +101,7 @@ class DefaultRoutineDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(null, result.message))
+                is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
@@ -113,7 +113,7 @@ class DefaultRoutineDataSource @Inject constructor(
         networkResultHandler.execute { routineService.getRoutine(userId = userId) }
             .collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(null, result.message))
+                    is APIResult.Fail -> emit(APIResult.Fail( result.message))
                     is APIResult.Error -> emit(APIResult.Error(result.exception))
                     is APIResult.Loading -> emit(APIResult.Loading)
                     is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
@@ -132,7 +132,7 @@ class DefaultRoutineDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(null, result.message))
+                is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
@@ -151,7 +151,7 @@ class DefaultRoutineDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(null, result.message))
+                is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
@@ -172,7 +172,7 @@ class DefaultRoutineDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(null, result.message))
+                is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
