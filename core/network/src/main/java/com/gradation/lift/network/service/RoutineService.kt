@@ -33,20 +33,20 @@ interface RoutineService {
     suspend fun getRoutine(@Query("user_id") userId: String): APIResultWrapper<GetRoutineResponseDto>
 
     @GET("routine/routine-by-date")
-    suspend fun getRoutineByDateResponseDto(
+    suspend fun getRoutineByDate(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,
     ): APIResultWrapper<GetRoutineByDateResponseDto>
 
     @GET("routine/routine-by-routine-set-id/")
-    suspend fun getRoutineByRoutineSetIdResponseDto(
+    suspend fun getRoutineByRoutineSetId(
         @Query("user_id") userId: String,
         @Query("routine_set_id") routineSetId: Int,
     ): APIResultWrapper<GetRoutineByRoutineSetIdResponseDto>
 
 
     @GET("routine/routine-by-date-and-routine-set-id/")
-    suspend fun getRoutineByDateAndRoutineSetIdResponseDto(
+    suspend fun getRoutineByDateAndRoutineSetId(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,
         @Query("routine_set_id") routineSetId: Int,

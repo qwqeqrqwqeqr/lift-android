@@ -18,9 +18,9 @@ interface RoutineDataSource {
 
     suspend fun getRoutine(userId: String): Flow<APIResult<List<Routine>>>
 
-    suspend fun getRoutineByDateResponseDto(userId: String, date: LocalDate, ): Flow<APIResult<List<Routine>>>
+    suspend fun getRoutineByDate(userId: String, date: LocalDate, ): Flow<APIResult<List<Routine>>>
 
-    suspend fun getRoutineByRoutineSetIdResponseDto(userId: String, routineSetId: Int): Flow<APIResult<List<Routine>>>
+    suspend fun getRoutineByRoutineSetId(userId: String, routineSetId: Int): Flow<APIResult<List<Routine>>>
 
-    suspend fun getRoutineByDateAndRoutineSetIdResponseDto(userId: String, date: LocalDate, routineSetId: Int): Flow<APIResult<List<Routine>>>
+    suspend fun getRoutineByDateAndRoutineSetId(userId: String, date: LocalDate, routineSetId: Int): Flow<APIResult<List<Routine>>>
 }

@@ -16,11 +16,11 @@ data class RoutineDetailDto(
     @SerialName("work_repetition_list")
     val workRepetitionList: List<Int>,
     @SerialName("max_weight")
-    val maxWeight: Int,
+    val maxWeight: Float,
     @SerialName("min_weight")
-    val minWeight: Int,
+    val minWeight: Float,
     @SerialName("total_weight")
-    val totalWeight: Int,
+    val totalWeight: Float,
     @SerialName("max_repetition")
     val maxRepetition: Int,
     @SerialName("min_repetition")
