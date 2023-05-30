@@ -1,10 +1,11 @@
 package com.gradation.lift.network.common
 
 import com.gradation.lift.common.di.DispatcherProvider
+import com.gradation.lift.network.common.Constants.INTERNAL_ERROR
+import com.gradation.lift.network.common.Constants.NETWORK_RETRY_DELAY
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .retryWhen { cause, attempt ->
                     if ((cause is IOException || cause is HttpException) && attempt < 3L) {
                         emit(APIResult.Loading)
-                        delay(1000)
+                        delay(NETWORK_RETRY_DELAY)
                         true
                     } else {
                         false
@@ -30,7 +31,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 }
                 .onStart { emit(APIResult.Loading) }
                 .catch { error ->
-                    if (error is HttpException && error.code() == 500) {
+                    if (error is HttpException && error.code() == INTERNAL_ERROR) {
                         emit(APIResult.Error(error))
                     }
                 }
