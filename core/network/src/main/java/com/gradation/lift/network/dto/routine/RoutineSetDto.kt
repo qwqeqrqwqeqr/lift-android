@@ -14,7 +14,7 @@ data class RoutineSetDto(
     @SerialName("long_description")
     val longDescription: String,
     @SerialName("repeat_type")
-    val repeatType: Int,
+    val repeatType: String,
     @SerialName("repeat_interval")
     val repeatInterval: Int
 )

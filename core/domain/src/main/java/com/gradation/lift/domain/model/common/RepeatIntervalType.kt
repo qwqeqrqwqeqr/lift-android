@@ -9,15 +9,34 @@ sealed class RepeatIntervalType {
      *
      */
     data class WeekDayType(
-        private val type: String = "WD",
-        var interval: WeekDay
-    ) : RepeatIntervalType()
+        private val type: String = WEEK_DAY_TYPE,
+        private val weekday: WeekDay?
+    ) : RepeatIntervalType(){
+        sealed class WeekDay {
+            data class Monday(val value: Int = MONDAY) : WeekDay()
+            data class Tuesday(val value: Int = TUESDAY) : WeekDay()
+            data class Wednesday(val value: Int = WEDNESDAY) : WeekDay()
+            data class Thursday(val value: Int = THURSDAY) : WeekDay()
+            data class Friday(val value: Int = FRIDAY) : WeekDay()
+            data class Saturday(val value: Int = SATURDAY) : WeekDay()
+            data class Sunday(val value: Int = SUNDAY) : WeekDay()
+        }
+    }
 
     data class DayType(
-        private val type: String = "D",
+        private val type: String = DAY_TYPE,
         val interval: Int
     ) : RepeatIntervalType()
 }
 
 
+const val WEEK_DAY_TYPE = "WD"
+const val DAY_TYPE = "D"
 
+const val MONDAY = 0
+const val TUESDAY = 1
+const val WEDNESDAY = 2
+const val THURSDAY = 3
+const val FRIDAY = 4
+const val SATURDAY = 5
+const val SUNDAY = 6

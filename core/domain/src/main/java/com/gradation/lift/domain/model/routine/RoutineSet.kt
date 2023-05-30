@@ -6,5 +6,5 @@ data class RoutineSet(
     val id: Int,
     val short_description: String,
     val long_description: String,
-    val repeatIntervalType: RepeatIntervalType,
+    val repeatIntervalType: RepeatIntervalType?,
 )
