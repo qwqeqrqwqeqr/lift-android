@@ -9,8 +9,8 @@ sealed class RepeatIntervalType {
      *
      */
     data class WeekDayType(
-        private val type: String = WEEK_DAY_TYPE,
-        private val weekday: WeekDay?
+        val type: String = WEEK_DAY_TYPE,
+        val weekday: WeekDay
     ) : RepeatIntervalType(){
         sealed class WeekDay {
             data class Monday(val value: Int = MONDAY) : WeekDay()
@@ -24,7 +24,7 @@ sealed class RepeatIntervalType {
     }
 
     data class DayType(
-        private val type: String = DAY_TYPE,
+        val type: String = DAY_TYPE,
         val interval: Int
     ) : RepeatIntervalType()
 }

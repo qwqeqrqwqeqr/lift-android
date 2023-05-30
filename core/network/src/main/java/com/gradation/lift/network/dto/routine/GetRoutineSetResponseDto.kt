@@ -13,8 +13,8 @@ data class GetRoutineSetResponseDto(
     fun toRoutineSet(): List<RoutineSet> = this.routineSet.map {
         RoutineSet(
             id = it.id,
-            short_description = it.shortDescription,
-            long_description = it.longDescription,
+            shortDescription = it.shortDescription,
+            longDescription = it.longDescription,
             repeatIntervalType = when (it.repeatType) {
                 WEEK_DAY_TYPE -> RepeatIntervalType.WeekDayType(
                     weekday = when (it.repeatInterval) {
@@ -26,7 +26,7 @@ data class GetRoutineSetResponseDto(
                         SATURDAY -> RepeatIntervalType.WeekDayType.WeekDay.Saturday()
                         SUNDAY -> RepeatIntervalType.WeekDayType.WeekDay.Sunday()
                         else -> null
-                    }
+                    }!!
                 )
                 DAY_TYPE -> RepeatIntervalType.DayType(interval = it.repeatInterval)
                 else -> null

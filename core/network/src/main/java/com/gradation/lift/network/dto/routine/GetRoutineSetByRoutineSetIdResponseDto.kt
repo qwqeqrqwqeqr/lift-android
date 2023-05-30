@@ -14,8 +14,8 @@ data class GetRoutineSetByRoutineSetIdResponseDto(
     fun toRoutineSet(): RoutineSet =
         RoutineSet(
             id = this.routine_set.id,
-            short_description = this.routine_set.shortDescription,
-            long_description = this.routine_set.longDescription,
+            shortDescription = this.routine_set.shortDescription,
+            longDescription = this.routine_set.longDescription,
             repeatIntervalType = when (this.routine_set.repeatType) {
                 WEEK_DAY_TYPE -> RepeatIntervalType.WeekDayType(
                     weekday = when (this.routine_set.repeatInterval) {
@@ -27,7 +27,7 @@ data class GetRoutineSetByRoutineSetIdResponseDto(
                         SATURDAY -> RepeatIntervalType.WeekDayType.WeekDay.Saturday()
                         SUNDAY -> RepeatIntervalType.WeekDayType.WeekDay.Sunday()
                         else -> null
-                    }
+                    }!!
                 )
                 DAY_TYPE -> RepeatIntervalType.DayType(interval = this.routine_set.repeatInterval)
                 else -> null

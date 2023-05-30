@@ -4,7 +4,7 @@ import com.gradation.lift.domain.model.common.RepeatIntervalType
 
 data class RoutineSet(
     val id: Int,
-    val short_description: String,
-    val long_description: String,
+    val shortDescription: String,
+    val longDescription: String,
     val repeatIntervalType: RepeatIntervalType?,
 )

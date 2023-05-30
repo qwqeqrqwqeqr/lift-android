@@ -10,11 +10,11 @@ import kotlinx.serialization.Serializable
 data class GetRoutineByRoutineSetIdResponseDto(
     @SerialName("routine")
     val routine: List<RoutineDetailDto>
-){
+) {
     fun toRoutine(): List<Routine> = this.routine.map {
         Routine(
             id = it.id,
-            routine_set_id = it.routineSetId,
+            routineSetId = it.routineSetId,
             workCategory = WorkCategory(
                 id = it.workCategory.id,
                 name = it.workCategory.name,
@@ -30,12 +30,12 @@ data class GetRoutineByRoutineSetIdResponseDto(
             workSetList = it.workWeightList.zip(it.workRepetitionList).map { workSet ->
                 WorkSet(weight = workSet.first, repetition = workSet.second)
             },
-            max_weight = it.maxWeight,
-            min_weight = it.minWeight,
-            total_weight = it.totalWeight,
-            max_repetition = it.maxRepetition,
-            min_repetition = it.minRepetition,
-            total_repetition = it.totalRepetition
+            maxWeight = it.maxWeight,
+            minWeight = it.minWeight,
+            totalWeight = it.totalWeight,
+            maxRepetition = it.maxRepetition,
+            minRepetition = it.minRepetition,
+            totalRepetition = it.totalRepetition
         )
     }
 }

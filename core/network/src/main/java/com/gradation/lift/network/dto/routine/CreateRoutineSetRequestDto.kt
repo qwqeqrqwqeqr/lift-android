@@ -15,5 +15,5 @@ data class CreateRoutineSetRequestDto(
     @SerialName("repeat_interval")
     val repeatInterval: Int,
     @SerialName("routine")
-    val routine: List<RoutineDto>
+    val routine: List<CreateRoutineDto>
 )
