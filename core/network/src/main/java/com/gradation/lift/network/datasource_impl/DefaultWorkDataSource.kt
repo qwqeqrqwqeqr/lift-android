@@ -2,26 +2,35 @@ package com.gradation.lift.network.datasource_impl
 
 import com.gradation.lift.domain.model.work.WorkCategory
 import com.gradation.lift.domain.model.work.WorkPart
-import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.service.WorkService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class DefaultWorkDataSource @Inject constructor(
     private val workService: WorkService,
     private val networkResultHandler: NetworkResultHandler
 ) : WorkDataSource {
-    override suspend fun getWorkPart(): APIResult<List<WorkPart>> {
+    override suspend fun getWorkPart(): Flow<APIResult<List<WorkPart>>> = flow {
+        networkResultHandler.execute { workService.getWorkPart() }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail(emptyList(),result.message))
+                is APIResult.Error -> emit(APIResult.Error(result.exception))
+                is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Success -> emit(APIResult.Success(result.data.toWorkPart()))
+            }
+        }
+    }
+
+    override suspend fun getWorkCategory(): Flow<APIResult<List<WorkCategory>>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getWorkCategory(): APIResult<List<WorkCategory>> {
+    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getWorkCategoryByWorkPart(workpart: Int): APIResult<List<WorkCategory>> {
-        TODO("Not yet implemented")
-    }
 }

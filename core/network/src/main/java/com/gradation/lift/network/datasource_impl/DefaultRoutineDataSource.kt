@@ -7,6 +7,7 @@ import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.dto.routine.CreateRoutineSetRequestDto
 import com.gradation.lift.network.service.RoutineService
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -14,43 +15,43 @@ class DefaultRoutineDataSource @Inject constructor(
     private val routineService: RoutineService,
     private val networkResultHandler: NetworkResultHandler
 ) : RoutineDataSource {
-    override suspend fun getRoutineSet(userId: String): APIResult<List<RoutineSet>> {
+    override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun createRoutineSet(createRoutineSetRequestDto: CreateRoutineSetRequestDto): APIResult<Boolean> {
+    override suspend fun createRoutineSet(createRoutineSetRequestDto: CreateRoutineSetRequestDto): Flow<APIResult<Boolean>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getRoutineSetByDate(
         userId: String,
         date: LocalDate
-    ): APIResult<List<RoutineSet>> {
+    ): Flow<APIResult<List<RoutineSet>>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getRoutineSetByRoutineSetId(
         userId: String,
         routineSetId: Int
-    ): APIResult<RoutineSet> {
+    ): Flow<APIResult<RoutineSet>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRoutine(userId: String): APIResult<List<Routine>> {
+    override suspend fun getRoutine(userId: String): Flow<APIResult<List<Routine>>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getRoutineByDateResponseDto(
         userId: String,
         date: LocalDate
-    ): APIResult<List<Routine>> {
+    ): Flow<APIResult<List<Routine>>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getRoutineByRoutineSetIdResponseDto(
         userId: String,
         routineSetId: Int
-    ): APIResult<List<Routine>> {
+    ): Flow<APIResult<List<Routine>>> {
         TODO("Not yet implemented")
     }
 
@@ -58,7 +59,8 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate,
         routineSetId: Int
-    ): APIResult<List<Routine>> {
+    ): Flow<APIResult<List<Routine>>> {
         TODO("Not yet implemented")
     }
+
 }
