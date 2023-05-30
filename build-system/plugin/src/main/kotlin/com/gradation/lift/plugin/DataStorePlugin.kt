@@ -15,8 +15,10 @@ class DataStorePlugin : Plugin<Project> {
             }
 
             dependencies {
-                add("implementation", libs.findLibrary("androidx-dataStore-core").get())
-                add("implementation", libs.findLibrary("androidx-dataStore-preferences").get())
+                add("implementation", libs.findLibrary("androidx-datastore-preferences-core").get())
+                add("implementation", libs.findLibrary("androidx-datastore-preferences").get())
+                add("implementation", libs.findLibrary("androidx-datastore-core").get())
+                add("implementation", libs.findLibrary("androidx-datastore").get())
 
             }
         }

@@ -8,3 +8,9 @@ plugins {
 android {
     namespace = "com.gradation.lift.datastore"
 }
+
+dependencies{
+    implementation(project(":core:test"))
+    implementation(project(":core:common"))
+    implementation(project(":core:domain"))
+}
