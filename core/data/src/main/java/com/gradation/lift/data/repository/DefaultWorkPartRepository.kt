@@ -27,7 +27,7 @@ class DefaultWorkRepository @Inject constructor(
 
     }
 
-    override  fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
+    override fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
         networkResultHandler.execute { workService.getWorkCategory() }.collectLatest { result ->
             when (result) {
                 is APIResult.Success -> emit(DataState.Success(result.data?.map { it.toWorkCategory() }))
@@ -38,15 +38,16 @@ class DefaultWorkRepository @Inject constructor(
         }
     }
 
-    override  fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>> =
+    override fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>> =
         flow {
-            networkResultHandler.execute { workService.getWorkCategoryByWorkPart(workpart) }.collectLatest { result ->
-                when (result) {
-                    is APIResult.Success -> emit(DataState.Success(result.data?.map { it.toWorkCategory() }))
-                    is APIResult.Fail -> emit(DataState.Error(result.message))
-                    is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                    APIResult.Loading -> emit(DataState.Loading)
+            networkResultHandler.execute { workService.getWorkCategoryByWorkPart(workpart) }
+                .collectLatest { result ->
+                    when (result) {
+                        is APIResult.Success -> emit(DataState.Success(result.data?.map { it.toWorkCategory() }))
+                        is APIResult.Fail -> emit(DataState.Error(result.message))
+                        is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                        APIResult.Loading -> emit(DataState.Loading)
+                    }
                 }
-            }
         }
 }

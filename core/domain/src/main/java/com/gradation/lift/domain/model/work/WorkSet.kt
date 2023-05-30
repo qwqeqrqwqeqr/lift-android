@@ -7,6 +7,6 @@ package com.gradation.lift.domain.model.work
  *
  */
 data class WorkSet(
-    val weight : Double,
+    val weight : Float,
     val repetition : Int
 )
