@@ -25,12 +25,26 @@ class DefaultWorkDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getWorkCategory(): Flow<APIResult<List<WorkCategory>>> {
-        TODO("Not yet implemented")
+    override suspend fun getWorkCategory(): Flow<APIResult<List<WorkCategory>>> = flow {
+        networkResultHandler.execute { workService.getWorkCategory() }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail(emptyList(),result.message))
+                is APIResult.Error -> emit(APIResult.Error(result.exception))
+                is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Success -> emit(APIResult.Success(result.data.toWorkCategory()))
+            }
+        }
     }
 
-    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>> {
-        TODO("Not yet implemented")
+    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>> = flow {
+        networkResultHandler.execute { workService.getWorkCategoryByWorkPart(workpart) }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail(emptyList(),result.message))
+                is APIResult.Error -> emit(APIResult.Error(result.exception))
+                is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Success -> emit(APIResult.Success(result.data.toWorkCategory()))
+            }
+        }
     }
 
 }

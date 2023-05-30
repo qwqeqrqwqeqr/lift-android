@@ -10,7 +10,7 @@ data class GetWorkCategoryResponseDto(
     val workCategory: List<WorkCategoryDto>
 ) {
     fun toWorkCategory(): List<WorkCategory> =
-        this.workCategory.map{
+        this.workCategory.map {
             WorkCategory(
                 id = it.id,
                 name = it.name,
@@ -25,5 +25,5 @@ data class GetWorkCategoryResponseDto(
                 shortDescription = it.shortDescription,
                 longDescription = it.longDescription
             )
-        }
+        }.filter { it.workpart!=null }
 }
