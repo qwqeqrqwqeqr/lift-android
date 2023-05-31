@@ -42,7 +42,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                         emit(APIResult.Success(data = response.data!!))
                     } else {
                         emit(
-                            APIResult.Fail(data = response.data, message = response.message)
+                            APIResult.Fail(message = response.message)
                         )
                     }
                 }
