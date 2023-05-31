@@ -17,14 +17,10 @@ data class GetRoutineResponseDto (
             workCategory = WorkCategory(
                 id = it.workCategory.id,
                 name = it.workCategory.name,
-                workpart = when (it.workCategory.workpart.id) {
-                    SHOULDER -> WorkPart.Back()
-                    BACK -> WorkPart.Shoulder()
-                    CHEST -> WorkPart.Chest()
-                    ARM -> WorkPart.Arm()
-                    LOWER_BODY -> WorkPart.LowerBody()
-                    else -> null
-                },
+                workpart = WorkPart(
+                    id= it.workCategory.workpart.id,
+                    name =it.workCategory.workpart.name
+                ),
             ),
             workSetList = it.workWeightList.zip(it.workRepetitionList).map { workSet ->
                 WorkSet(weight = workSet.first, repetition = workSet.second)
