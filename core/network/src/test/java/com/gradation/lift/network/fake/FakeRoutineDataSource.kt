@@ -9,7 +9,7 @@ import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
-class FakeRoutineDataSource(private val testReturnState: TestReturnState) : RoutineDataSource{
+class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) : RoutineDataSource{
     override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> {
         TODO("Not yet implemented")
     }

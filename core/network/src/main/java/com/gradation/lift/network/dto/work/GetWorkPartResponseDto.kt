@@ -8,15 +8,11 @@ import kotlinx.serialization.Serializable
 data class GetWorkPartResponseDto(
     val workpart: List<WorkPartDto>
 ) {
-    fun toWorkPart(): List<WorkPart> = this.workpart.mapNotNull {
-        when (it.id) {
-            SHOULDER -> WorkPart.Back()
-            BACK -> WorkPart.Shoulder()
-            CHEST -> WorkPart.Chest()
-            ARM -> WorkPart.Arm()
-            LOWER_BODY -> WorkPart.LowerBody()
-            else -> null
-        }
+    fun toWorkPart(): List<WorkPart> = this.workpart.map {
+        WorkPart(
+            id= it.id,
+            name =it.name
+        )
     }
 }
 

@@ -14,14 +14,10 @@ data class GetWorkCategoryResponseDto(
             WorkCategory(
                 id = it.id,
                 name = it.name,
-                workpart = when (it.workpart.id) {
-                    SHOULDER -> WorkPart.Back()
-                    BACK -> WorkPart.Shoulder()
-                    CHEST -> WorkPart.Chest()
-                    ARM -> WorkPart.Arm()
-                    LOWER_BODY -> WorkPart.LowerBody()
-                    else -> null
-                },
+                workpart = WorkPart(
+                    id= it.workpart.id,
+                    name =it.workpart.name
+                ),
                 shortDescription = it.shortDescription,
                 longDescription = it.longDescription
             )
