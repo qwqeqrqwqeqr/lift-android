@@ -35,7 +35,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                         emit(APIResult.Error(error))
                     }
                 }
-                .catch { e -> emit(APIResult.Error(e)) }
+                .catch { error -> emit(APIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
                         //TODO modify not null assertion

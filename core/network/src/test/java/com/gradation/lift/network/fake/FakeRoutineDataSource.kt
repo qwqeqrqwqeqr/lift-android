@@ -5,11 +5,11 @@ import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.utils.ReturnState
+import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
-class FakeRoutineDataSource(private val returnState: ReturnState) : RoutineDataSource{
+class FakeRoutineDataSource(private val testReturnState: TestReturnState) : RoutineDataSource{
     override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> {
         TODO("Not yet implemented")
     }

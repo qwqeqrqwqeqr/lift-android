@@ -1,4 +1,4 @@
-package com.gradation.lift.network
+package com.gradation.lift.network.test
 
 import org.junit.Test
 

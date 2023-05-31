@@ -16,6 +16,7 @@
 
 package com.gradation.lift.network
 
+import com.gradation.lift.network.test.ExampleUnitTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
