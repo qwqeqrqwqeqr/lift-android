@@ -1,6 +1,7 @@
 package com.gradation.lift.network.utils
 
 import com.gradation.lift.domain.model.common.*
+import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
 import com.gradation.lift.domain.model.work.WorkCategory
@@ -12,6 +13,7 @@ import java.time.LocalDate
 
 
 internal object TestDataGenerator {
+
 
     private val workPartModel1 = WorkPart(id = 1, name = "어꺠")
     private val workPartModel2 = WorkPart(id = 2, name = "등")
@@ -152,8 +154,12 @@ internal object TestDataGenerator {
     val getWorkCategoryDto =
         GetWorkCategoryResponseDto(workCategory = listOf(workCategoryDto1, workCategoryDto2))
     val getWorkCategoryByWorkPartDto =
-        GetWorkCategoryByWorkPartResponseDto(workCategory = listOf(workCategoryDto1,
-            workCategoryDto2))
+        GetWorkCategoryByWorkPartResponseDto(
+            workCategory = listOf(
+                workCategoryDto1,
+                workCategoryDto2
+            )
+        )
 
 
     val getRoutineSetDto = GetRoutineSetResponseDto(
@@ -162,6 +168,8 @@ internal object TestDataGenerator {
             routineSetDto2
         )
     )
+
+
 
     val getRoutineSetByDateDto = GetRoutineSetByDateResponseDto(
         routineSet = listOf(
@@ -206,6 +214,15 @@ internal object TestDataGenerator {
     const val FAKE_INT_DATA = 0
     const val FAKE_STRING_DATA = ""
     val FAKE_DATE_DATA: LocalDate = LocalDate.now()
+
+    val FAKE_CREATE_ROUTINE_SET = CreateRoutineSetRoutine(
+        userId = FAKE_STRING_DATA,
+        shortDescription = FAKE_STRING_DATA,
+        longDescription = FAKE_STRING_DATA,
+        repeatIntervalType = RepeatIntervalType.DayType(interval = FAKE_INT_DATA),
+        routine = emptyList(),
+    )
+
 
 }
 

@@ -21,8 +21,13 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
         }
     }
 
-    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>> {
-        TODO("Not yet implemented")
+    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>> = flow {
+        when(testReturnState){
+            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
+            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
+            TestReturnState.Loading -> emit(APIResult.Loading)
+            TestReturnState.Success ->  emit(APIResult.Success(data = true))
+        }
     }
 
     override suspend fun getRoutineSetByDate(

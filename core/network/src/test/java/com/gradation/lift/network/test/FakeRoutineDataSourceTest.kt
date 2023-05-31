@@ -2,10 +2,8 @@ package com.gradation.lift.network.test
 
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
-import com.gradation.lift.network.fake.FakeWorkDataSource
-import com.gradation.lift.network.utils.TestDataGenerator
+import com.gradation.lift.network.utils.TestDataGenerator.FAKE_CREATE_ROUTINE_SET
 import com.gradation.lift.network.utils.TestDataGenerator.FAKE_DATE_DATA
 import com.gradation.lift.network.utils.TestDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.utils.TestDataGenerator.FAKE_STRING_DATA
@@ -32,8 +30,7 @@ class FakeRoutineDataSourceTest {
 
     private lateinit var dataSource: RoutineDataSource
     @Before
-    fun tearUp() {
-    }
+    fun tearUp() {}
 
     @After
     fun tearDown() {}
@@ -45,6 +42,12 @@ class FakeRoutineDataSourceTest {
         TestCase.assertEquals(APIResult.Success(routineSetModelList),dataSource.getRoutineSet(FAKE_STRING_DATA).first())
     }
 
+
+    @Test
+    fun testCreateRoutineSet() = runTest{
+        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
+        TestCase.assertEquals(APIResult.Success(true),dataSource.createRoutineSet(FAKE_CREATE_ROUTINE_SET).first())
+    }
 
     @Test
     fun testGetRoutineSetByDate() = runTest{
