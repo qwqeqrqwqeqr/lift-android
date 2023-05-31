@@ -4,8 +4,8 @@ data class WorkCategory(
     val id: Int,
     val name: String,
     val workpart: WorkPart,
-    val shortDescription: String? = null,
-    val longDescription: String? = null
+    val shortDescription: String,
+    val longDescription: String
 ) {
 
 }
