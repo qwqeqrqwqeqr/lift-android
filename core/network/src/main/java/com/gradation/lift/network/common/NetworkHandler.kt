@@ -1,6 +1,6 @@
 package com.gradation.lift.network.common
 
-import com.gradation.lift.common.di.DispatcherProvider
+import com.gradation.lift.common.dispatcher.DispatcherProvider
 import com.gradation.lift.network.common.Constants.INTERNAL_ERROR
 import com.gradation.lift.network.common.Constants.NETWORK_RETRY_DELAY
 import kotlinx.coroutines.delay

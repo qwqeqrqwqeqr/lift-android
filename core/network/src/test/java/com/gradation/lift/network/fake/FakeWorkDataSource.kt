@@ -8,6 +8,7 @@ import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
+import com.gradation.lift.network.utils.ReturnState
 import dagger.hilt.android.testing.HiltAndroidRule
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.runTest
@@ -17,10 +18,7 @@ import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
 
-class FakeWorkDataSource @Inject constructor(
-    private val workService: WorkService,
-    private val networkResultHandler: NetworkResultHandler
-) : WorkDataSource {
+class FakeWorkDataSource(private val returnState: ReturnState)  : WorkDataSource {
     override suspend fun getWorkPart(): Flow<APIResult<List<WorkPart>>> {
         TODO("Not yet implemented")
     }

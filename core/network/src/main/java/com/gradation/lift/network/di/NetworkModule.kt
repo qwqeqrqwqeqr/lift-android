@@ -1,6 +1,6 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.common.di.DispatcherProvider
+import com.gradation.lift.common.dispatcher.DispatcherProvider
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.DefaultNetworkResultHandler
 import com.gradation.lift.network.common.NetworkResultHandler
@@ -11,7 +11,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

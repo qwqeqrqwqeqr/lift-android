@@ -4,17 +4,12 @@ import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.service.RoutineService
+import com.gradation.lift.network.utils.ReturnState
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
-import javax.inject.Inject
 
-class FakeRoutineDataSource @Inject constructor(
-    private val routineService: RoutineService,
-    private val networkResultHandler: NetworkResultHandler
-) : RoutineDataSource{
+class FakeRoutineDataSource(private val returnState: ReturnState) : RoutineDataSource{
     override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> {
         TODO("Not yet implemented")
     }

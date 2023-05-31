@@ -23,14 +23,13 @@ object TestDataSourceModule {
     fun provideFakeWorkDataSource(
         workService: WorkService,
         networkResultHandler: NetworkResultHandler,
-    ): WorkDataSource = FakeWorkDataSource(workService,networkResultHandler)
+    ): WorkDataSource = FakeWorkDataSource()
 
 
     @Provides
     fun provideFakeRoutineDataSource(
         routineService: RoutineService,
         networkResultHandler: NetworkResultHandler,
-    ): RoutineDataSource = FakeRoutineDataSource(routineService,networkResultHandler)
-
+    ): RoutineDataSource = FakeRoutineDataSource()
 
 }

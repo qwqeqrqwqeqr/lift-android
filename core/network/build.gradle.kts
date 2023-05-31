@@ -23,7 +23,7 @@ fun getApiURL(propertyKey: String): String {
 }
 
 dependencies{
-    implementation(project(":core:test"))
+    testImplementation(project(":core:test"))
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
 }
