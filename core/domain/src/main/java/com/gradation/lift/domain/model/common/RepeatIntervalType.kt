@@ -11,16 +11,8 @@ sealed class RepeatIntervalType {
     data class WeekDayType(
         val type: String = WEEK_DAY_TYPE,
         val weekday: WeekDay
-    ) : RepeatIntervalType(){
-        sealed class WeekDay {
-            data class Monday(val value: Int = MONDAY) : WeekDay()
-            data class Tuesday(val value: Int = TUESDAY) : WeekDay()
-            data class Wednesday(val value: Int = WEDNESDAY) : WeekDay()
-            data class Thursday(val value: Int = THURSDAY) : WeekDay()
-            data class Friday(val value: Int = FRIDAY) : WeekDay()
-            data class Saturday(val value: Int = SATURDAY) : WeekDay()
-            data class Sunday(val value: Int = SUNDAY) : WeekDay()
-        }
+    ) : RepeatIntervalType() {
+
     }
 
     data class DayType(
@@ -28,6 +20,29 @@ sealed class RepeatIntervalType {
         val interval: Int
     ) : RepeatIntervalType()
 }
+
+
+sealed class WeekDay {
+    object Monday : WeekDay()
+    object Tuesday : WeekDay()
+    object Wednesday : WeekDay()
+    object Thursday : WeekDay()
+    object Friday : WeekDay()
+    object Saturday : WeekDay()
+    object Sunday : WeekDay()
+}
+
+
+fun toWeekDay(weekDay: Int): WeekDay =
+    when (weekDay) {
+        MONDAY -> WeekDay.Monday
+        TUESDAY -> WeekDay.Tuesday
+        WEDNESDAY -> WeekDay.Wednesday
+        THURSDAY -> WeekDay.Thursday
+        FRIDAY -> WeekDay.Friday
+        SATURDAY -> WeekDay.Saturday
+        SUNDAY -> WeekDay.Sunday
+        else -> null}!!
 
 
 const val WEEK_DAY_TYPE = "WD"

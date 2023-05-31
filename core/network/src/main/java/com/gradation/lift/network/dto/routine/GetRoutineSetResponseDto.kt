@@ -16,18 +16,7 @@ data class GetRoutineSetResponseDto(
             shortDescription = it.shortDescription,
             longDescription = it.longDescription,
             repeatIntervalType = when (it.repeatType) {
-                WEEK_DAY_TYPE -> RepeatIntervalType.WeekDayType(
-                    weekday = when (it.repeatInterval) {
-                        MONDAY -> RepeatIntervalType.WeekDayType.WeekDay.Monday()
-                        TUESDAY -> RepeatIntervalType.WeekDayType.WeekDay.Tuesday()
-                        WEDNESDAY -> RepeatIntervalType.WeekDayType.WeekDay.Wednesday()
-                        THURSDAY -> RepeatIntervalType.WeekDayType.WeekDay.Thursday()
-                        FRIDAY ->RepeatIntervalType.WeekDayType.WeekDay.Friday()
-                        SATURDAY -> RepeatIntervalType.WeekDayType.WeekDay.Saturday()
-                        SUNDAY -> RepeatIntervalType.WeekDayType.WeekDay.Sunday()
-                        else -> null
-                    }!!
-                )
+                WEEK_DAY_TYPE ->  RepeatIntervalType.WeekDayType(weekday = toWeekDay(it.repeatInterval))
                 DAY_TYPE -> RepeatIntervalType.DayType(interval = it.repeatInterval)
                 else -> null
             }

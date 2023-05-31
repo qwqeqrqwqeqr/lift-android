@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 
 data class GetRoutineByDateAndRoutineSetIdResponseDto(
     @SerialName("routine")
-    val routine: List<RoutineDetailDto>
+    val routine: List<RoutineDto>
 ) {
     fun toRoutine(): List<Routine> = this.routine.map {
         Routine(

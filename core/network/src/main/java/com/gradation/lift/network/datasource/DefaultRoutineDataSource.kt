@@ -1,6 +1,6 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.domain.model.common.RepeatIntervalType
+import com.gradation.lift.domain.model.common.*
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
@@ -43,14 +43,14 @@ class DefaultRoutineDataSource @Inject constructor(
                     repeatInterval = when (val type =
                         createRoutineSetRoutine.repeatIntervalType) {
                         is RepeatIntervalType.DayType -> type.interval
-                        is RepeatIntervalType.WeekDayType -> when (val weekDay = type.weekday) {
-                            is RepeatIntervalType.WeekDayType.WeekDay.Friday -> weekDay.value
-                            is RepeatIntervalType.WeekDayType.WeekDay.Monday -> weekDay.value
-                            is RepeatIntervalType.WeekDayType.WeekDay.Saturday -> weekDay.value
-                            is RepeatIntervalType.WeekDayType.WeekDay.Sunday -> weekDay.value
-                            is RepeatIntervalType.WeekDayType.WeekDay.Thursday -> weekDay.value
-                            is RepeatIntervalType.WeekDayType.WeekDay.Tuesday -> weekDay.value
-                            is RepeatIntervalType.WeekDayType.WeekDay.Wednesday -> weekDay.value
+                        is RepeatIntervalType.WeekDayType -> when (type.weekday) {
+                            is WeekDay.Friday -> FRIDAY
+                            is WeekDay.Monday -> MONDAY
+                            is WeekDay.Saturday -> SATURDAY
+                            is WeekDay.Sunday -> SUNDAY
+                            is WeekDay.Thursday -> THURSDAY
+                            is WeekDay.Tuesday -> TUESDAY
+                            is WeekDay.Wednesday -> WEDNESDAY
                         }
                     },
                     routine = createRoutineSetRoutine.routine.map { routine ->
