@@ -161,39 +161,39 @@ internal object TestDataGenerator {
         )
     )
 
-    val getRoutineSetByDate = GetRoutineSetByDateResponseDto(
+    val getRoutineSetByDateDto = GetRoutineSetByDateResponseDto(
         routineSet = listOf(
             routineSetDto1,
             routineSetDto2
         )
     )
 
-    val getRoutineSetByRoutineSetId = GetRoutineSetByRoutineSetIdResponseDto(
+    val getRoutineSetByRoutineSetIdDto = GetRoutineSetByRoutineSetIdResponseDto(
         routine_set = routineSetDto1
     )
 
-    val getRoutine = GetRoutineResponseDto(
+    val getRoutineDto = GetRoutineResponseDto(
         routine = listOf(
             routineDto1,
             routineDto2
         )
     )
 
-    val getRoutineByDate = GetRoutineByDateResponseDto(
+    val getRoutineByDateDto = GetRoutineByDateResponseDto(
         routine = listOf(
             routineDto1,
             routineDto2
         )
     )
 
-    val getRoutineByRoutineSetId = GetRoutineByRoutineSetIdResponseDto(
+    val getRoutineByRoutineSetIdDto = GetRoutineByRoutineSetIdResponseDto(
         routine = listOf(
             routineDto1,
             routineDto2
         )
     )
 
-    val getRoutineByDateAndRoutineSetId = GetRoutineByDateAndRoutineSetIdResponseDto(
+    val getRoutineByDateAndRoutineSetIdDto = GetRoutineByDateAndRoutineSetIdResponseDto(
         routine = listOf(
             routineDto1,
             routineDto2
