@@ -19,6 +19,8 @@ data class GetRoutineByDateAndRoutineSetIdResponseDto(
                     id= it.workCategory.workpart.id,
                     name =it.workCategory.workpart.name
                 ),
+                shortDescription = it.workCategory.shortDescription,
+                longDescription = it.workCategory.longDescription
             ),
             workSetList = it.workWeightList.zip(it.workRepetitionList).map { workSet ->
                 WorkSet(weight = workSet.first, repetition = workSet.second)

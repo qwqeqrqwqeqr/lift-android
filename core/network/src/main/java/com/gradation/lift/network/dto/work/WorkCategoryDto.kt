@@ -10,7 +10,7 @@ data class WorkCategoryDto(
     val name: String,
     val workpart: WorkPartDto,
     @SerialName("short_description")
-    val shortDescription: String? = null,
+    val shortDescription: String,
     @SerialName("long_description")
-    val longDescription: String? = null
+    val longDescription: String
 )

@@ -8,6 +8,7 @@ import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.model.work.WorkSet
 import com.gradation.lift.network.dto.routine.*
 import com.gradation.lift.network.dto.work.*
+import java.time.LocalDate
 
 
 internal object TestDataGenerator {
@@ -64,7 +65,7 @@ internal object TestDataGenerator {
         minRepetition = 12,
         totalRepetition = 12
     )
-    private val routineSetModel1 = RoutineSet(
+    val routineSetModel1 = RoutineSet(
         id = 1,
         shortDescription = "Lorem ipsum dolor sit amet",
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -132,7 +133,7 @@ internal object TestDataGenerator {
         repeatInterval = 3
     )
     private val routineSetDto2 = RoutineSetDto(
-        id = 1,
+        id = 2,
         shortDescription = "Lorem ipsum dolor sit amet",
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         repeatType = WEEK_DAY_TYPE,
@@ -151,7 +152,8 @@ internal object TestDataGenerator {
     val getWorkCategoryDto =
         GetWorkCategoryResponseDto(workCategory = listOf(workCategoryDto1, workCategoryDto2))
     val getWorkCategoryByWorkPartDto =
-        GetWorkCategoryByWorkPartResponseDto(workCategory = listOf(workCategoryDto1))
+        GetWorkCategoryByWorkPartResponseDto(workCategory = listOf(workCategoryDto1,
+            workCategoryDto2))
 
 
     val getRoutineSetDto = GetRoutineSetResponseDto(
@@ -199,6 +201,11 @@ internal object TestDataGenerator {
             routineDto2
         )
     )
+
+
+    const val FAKE_INT_DATA = 0
+    const val FAKE_STRING_DATA = ""
+    val FAKE_DATE_DATA: LocalDate = LocalDate.now()
 
 }
 

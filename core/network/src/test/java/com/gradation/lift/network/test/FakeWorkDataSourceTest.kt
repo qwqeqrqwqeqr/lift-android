@@ -3,6 +3,7 @@ package com.gradation.lift.network.test
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
+import com.gradation.lift.network.utils.TestDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.utils.TestDataGenerator.workCategoryModelList
 import com.gradation.lift.network.utils.TestDataGenerator.workPartModelList
 import com.gradation.lift.network.utils.TestReturnState
@@ -48,6 +49,6 @@ class FakeWorkDataSourceTest {
     @Test
     fun testGetWorkCategoryByWorkPart() = runTest{
         dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
-        assertEquals(APIResult.Success(workCategoryModelList.filter { it.workpart.id==1 }),dataSource.getWorkCategoryByWorkPart(1).first())
+        assertEquals(APIResult.Success(workCategoryModelList),dataSource.getWorkCategoryByWorkPart(FAKE_INT_DATA).first())
     }
 }
