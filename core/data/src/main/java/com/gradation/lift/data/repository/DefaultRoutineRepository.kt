@@ -1,7 +1,7 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.datastore.datasource.DataStoreDataSource
-import com.gradation.lift.domain.model.common.DataState
+import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet

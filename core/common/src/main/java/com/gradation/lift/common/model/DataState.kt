@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.model.common
+package com.gradation.lift.common.model
 
 sealed class DataState<out T> {
     data class Success<T>(val data: T) : DataState<T>()

@@ -1,6 +1,6 @@
 package com.gradation.lift.domain.repository
 
-import com.gradation.lift.domain.model.common.DataState
+import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet

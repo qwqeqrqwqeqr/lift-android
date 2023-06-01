@@ -1,7 +1,7 @@
 package com.gradation.lift.domain.usecase.work
 
 import com.gradation.lift.domain.model.work.WorkPart
-import com.gradation.lift.domain.model.common.DataState
+import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.WorkRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

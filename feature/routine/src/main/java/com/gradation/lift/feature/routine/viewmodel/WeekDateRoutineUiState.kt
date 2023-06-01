@@ -2,7 +2,7 @@ package com.gradation.lift.feature.routine.viewmodel
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.gradation.lift.domain.model.common.DataState
+import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.domain.usecase.date.GetCurrentDateUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase

@@ -3,13 +3,9 @@ package com.gradation.lift.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.gradation.lift.domain.model.work.WorkPart
-import com.gradation.lift.domain.model.common.DataState
-import com.gradation.lift.domain.model.routine.Routine
+import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.model.work.WorkCategory
-import com.gradation.lift.domain.usecase.routine.GetRoutineUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
-import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
