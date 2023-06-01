@@ -2,10 +2,14 @@ package com.gradation.lift.network.dto.routine
 
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.work.*
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName
 
+
+@JsonClass(generateAdapter = true)
 data class GetRoutineByDateAndRoutineSetIdResponseDto(
-    @SerialName("routine")
+    @Json(name = "routine")
     val routine: List<RoutineDto>
 ) {
     fun toRoutine(): List<Routine> = this.routine.map {

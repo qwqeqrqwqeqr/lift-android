@@ -6,10 +6,8 @@ import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.domain.usecase.date.GetCurrentDateUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
-import com.gradation.lift.domain.usecase.routine.GetRoutineByDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByDateUseCase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.LocalDate
 import java.time.DayOfWeek
@@ -37,13 +35,11 @@ data class WeekDate(
 )
 
 @RequiresApi(Build.VERSION_CODES.O)
-private fun weekDateRoutineUiState(
+fun weekDateRoutineUiState(
     getRoutineSetRoutineByDateUseCase: GetRoutineSetRoutineByDateUseCase,
     getCurrentDateUseCase: GetCurrentDateUseCase,
     getWeekDateUseCase: GetWeekDateUseCase
 ): Flow<WeekDateRoutineUiState> {
-
-
     val currentDate = getCurrentDateUseCase()
     val weekDate: List<WeekDate> = getWeekDateUseCase().map { localDate ->
         WeekDate(

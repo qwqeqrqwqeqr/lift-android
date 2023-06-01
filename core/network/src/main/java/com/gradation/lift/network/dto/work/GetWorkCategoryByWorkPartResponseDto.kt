@@ -1,13 +1,15 @@
 package com.gradation.lift.network.dto.work
 
 import com.gradation.lift.domain.model.work.*
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class GetWorkCategoryByWorkPartResponseDto (
-    @SerialName("work_category")
+    @Json(name = "work_category")
     val workCategory: List<WorkCategoryDto>
 ){
     fun toWorkCategory(): List<WorkCategory> =

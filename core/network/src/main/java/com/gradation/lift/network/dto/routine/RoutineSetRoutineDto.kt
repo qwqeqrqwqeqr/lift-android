@@ -1,40 +1,42 @@
 package com.gradation.lift.network.dto.routine
 
 import com.gradation.lift.network.dto.work.WorkCategoryDto
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class RoutineSetRoutineDto(
-    @SerialName("routine_set_id")
+    @Json(name = "routine_set_id")
     val id: Int,
-    @SerialName("short_description")
+    @Json(name = "short_description")
     val shortDescription: String,
-    @SerialName("long_description")
+    @Json(name = "long_description")
     val longDescription: String,
-    @SerialName("repeat_type")
+    @Json(name = "repeat_type")
     val repeatType: String,
-    @SerialName("repeat_interval")
+    @Json(name = "repeat_interval")
     val repeatInterval: Int,
-    @SerialName("routine_id")
+    @Json(name = "routine_id")
     val routineId: Int,
-    @SerialName("work_category")
+    @Json(name = "work_category")
     val workCategory: WorkCategoryDto,
-    @SerialName("work_weight_list")
+    @Json(name = "work_weight_list")
     val workWeightList: List<Float>,
-    @SerialName("work_repetition_list")
+    @Json(name = "work_repetition_list")
     val workRepetitionList: List<Int>,
-    @SerialName("max_weight")
+    @Json(name = "max_weight")
     val maxWeight: Float,
-    @SerialName("min_weight")
+    @Json(name = "min_weight")
     val minWeight: Float,
-    @SerialName("total_weight")
+    @Json(name = "total_weight")
     val totalWeight: Float,
-    @SerialName("max_repetition")
+    @Json(name = "max_repetition")
     val maxRepetition: Int,
-    @SerialName("min_repetition")
+    @Json(name = "min_repetition")
     val minRepetition: Int,
-    @SerialName("total_repetition")
+    @Json(name = "total_repetition")
     val totalRepetition: Int
 )

@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.model.common.DataState
+import com.gradation.lift.domain.model.routine.Routine
+import com.gradation.lift.domain.model.work.WorkCategory
+import com.gradation.lift.domain.usecase.routine.GetRoutineUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,12 +19,12 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel
 @Inject
-constructor(getWorkPartUseCase: GetWorkPartUseCase) : ViewModel() {
+constructor(getRoutineUseCase: GetWorkCategoryUseCase) : ViewModel() {
 
-    val uiState: StateFlow<HomeUiState> = getWorkPartUseCase().map { result ->
+    val uiState: StateFlow<HomeUiState> = getRoutineUseCase().map { result ->
         when (result) {
             is DataState.Success -> {
-                result.data?.let { (HomeUiState.Success(it)) } ?: (HomeUiState.Empty)
+                result.data.let { (HomeUiState.Success(it)) }
             }
             is DataState.Loading -> {
                 (HomeUiState.Loading)
@@ -42,7 +45,7 @@ constructor(getWorkPartUseCase: GetWorkPartUseCase) : ViewModel() {
 
 
 sealed interface HomeUiState {
-    data class Success(val userData: List<WorkPart>) : HomeUiState
+    data class Success(val userData: List<WorkCategory>) : HomeUiState
     object Loading : HomeUiState
     object Empty : HomeUiState
     object Error : HomeUiState

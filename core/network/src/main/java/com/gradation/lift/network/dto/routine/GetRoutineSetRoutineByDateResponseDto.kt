@@ -10,12 +10,14 @@ import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.domain.model.work.WorkCategory
 import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.model.work.WorkSet
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class GetRoutineSetRoutineByDateResponseDto(
-    @SerialName("routine_set_routine")
+    @Json(name = "routine_set_routine")
     val routineSetRoutine: List<RoutineSetRoutineDto>
 ){
     fun toRoutineSetRoutine(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.id }.map {

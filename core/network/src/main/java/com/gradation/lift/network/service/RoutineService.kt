@@ -53,10 +53,10 @@ interface RoutineService {
 
 
 
-    @GET("routine/routine-set/")
+    @GET("routine/routine-set-routine/")
     suspend fun getRoutineSetRoutine(@Query("user_id") userId: String): APIResultWrapper<GetRoutineSetRoutineResponseDto>
 
-    @GET("routine/routine-set-by-date/")
+    @GET("routine/routine-set-routine-by-date/")
     suspend fun getRoutineSetRoutineByDate(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,

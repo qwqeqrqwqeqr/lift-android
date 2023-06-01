@@ -6,17 +6,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.domain.usecase.date.GetCurrentDateUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
-import com.gradation.lift.domain.usecase.routine.GetRoutineByDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByDateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.datetime.LocalDate
-import java.time.DayOfWeek
 import javax.inject.Inject
 
 
@@ -39,13 +35,7 @@ class RoutineViewModel @Inject constructor(
         initialValue = WeekDateRoutineUiState.Loading,
     )
 
-//    fun selectWeekDate(localDate: LocalDate) {
-//       val a = getRoutineByDateUseCase(date = localDate).collectAsStateWithLifecycle(initialValue = ){
-//
-//       }
-//
-//
-//    }
+
 
 
 }

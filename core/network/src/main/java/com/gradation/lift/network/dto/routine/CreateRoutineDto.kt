@@ -1,14 +1,16 @@
 package com.gradation.lift.network.dto.routine
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class CreateRoutineDto(
-    @SerialName("work_category")
+    @Json(name = "work_category")
     val workCategory: Int,
-    @SerialName("work_weight_list")
+    @Json(name = "work_weight_list")
     val workWeightList: List<Float>,
-    @SerialName("work_repetition_list")
+    @Json(name = "work_repetition_list")
     val workRepetitionList:  List<Int>
 )

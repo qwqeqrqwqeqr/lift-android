@@ -1,10 +1,11 @@
 package com.gradation.lift.network.dto.work
 
 import com.gradation.lift.domain.model.work.*
+import com.squareup.moshi.JsonClass
 import kotlinx.serialization.Serializable
 
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class GetWorkPartResponseDto(
     val workpart: List<WorkPartDto>
 ) {
