@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine.component.RoutineBody
 import com.gradation.lift.feature.routine.component.RoutineHeader
+import com.gradation.lift.feature.routine.viewmodel.RoutineViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
