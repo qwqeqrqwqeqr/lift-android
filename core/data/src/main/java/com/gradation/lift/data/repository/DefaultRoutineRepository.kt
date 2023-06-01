@@ -5,6 +5,7 @@ import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
+import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
@@ -116,6 +117,29 @@ class DefaultRoutineRepository @Inject constructor(
             }
         }
     }
+
+    override fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>> = flow {
+        routineDataSource.getRoutineSetRoutine(userId = "201713721").collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                is APIResult.Loading -> emit(DataState.Loading)
+                is APIResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
+    }
+
+    override fun getRoutineSetRoutineByDate(date: LocalDate): Flow<DataState<List<RoutineSetRoutine>>> =
+        flow {
+            routineDataSource.getRoutineSetRoutineByDate(userId = "201713721",date=date).collect { result ->
+                when (result) {
+                    is APIResult.Fail -> emit(DataState.Fail(result.message))
+                    is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                    is APIResult.Loading -> emit(DataState.Loading)
+                    is APIResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
 
 
 }
