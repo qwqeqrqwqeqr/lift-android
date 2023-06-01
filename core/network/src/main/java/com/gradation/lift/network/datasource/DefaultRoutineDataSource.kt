@@ -4,6 +4,7 @@ import com.gradation.lift.domain.model.common.*
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
+import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.dto.routine.CreateRoutineDto
@@ -179,5 +180,17 @@ class DefaultRoutineDataSource @Inject constructor(
             }
         }
     }
+
+    override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getRoutineSetRoutineByDate(
+        userId: String,
+        date: LocalDate
+    ): Flow<APIResult<List<RoutineSetRoutine>>> {
+        TODO("Not yet implemented")
+    }
+
 
 }
