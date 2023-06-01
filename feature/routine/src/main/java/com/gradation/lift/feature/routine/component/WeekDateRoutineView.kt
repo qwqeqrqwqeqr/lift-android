@@ -30,7 +30,7 @@ fun WeekDateRoutineView(
             WeekDateRoutineUiState.Empty -> Text(text = "빔")
             WeekDateRoutineUiState.Error -> Text(text = "에러")
             WeekDateRoutineUiState.Loading -> Text(text = "로딩")
-            is WeekDateRoutineUiState.Success -> Text(text = "성공")
+            is WeekDateRoutineUiState.Success -> Text(text = weekDateRoutineUiState.weekDateRoutine.weekDateRoutine.toString())
         }
     }
     
