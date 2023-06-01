@@ -29,6 +29,9 @@ constructor(getWorkPartUseCase: GetWorkPartUseCase) : ViewModel() {
             is DataState.Error -> {
                 (HomeUiState.Error)
             }
+            is DataState.Fail -> {
+                (HomeUiState.Error)
+            }
         }
     }.stateIn(
         scope = viewModelScope,

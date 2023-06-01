@@ -4,8 +4,8 @@ import com.gradation.lift.domain.model.common.DataState
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.repository.RoutineRepository
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
 import javax.inject.Inject
+import kotlinx.datetime.LocalDate
 
 class GetRoutineByDateUseCase @Inject constructor(
     private val routineRepository: RoutineRepository

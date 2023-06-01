@@ -5,7 +5,7 @@ import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.model.routine.RoutineSet
 import com.gradation.lift.network.common.APIResult
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 interface RoutineDataSource {
     suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>>

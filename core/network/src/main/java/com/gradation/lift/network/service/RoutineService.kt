@@ -2,12 +2,11 @@ package com.gradation.lift.network.service
 
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.routine.*
-import kotlinx.datetime.serializers.LocalDateComponentSerializer
-import kotlinx.serialization.Serializable
+
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 interface RoutineService {
 
@@ -51,5 +50,16 @@ interface RoutineService {
         @Query("date") date: LocalDate,
         @Query("routine_set_id") routineSetId: Int,
     ): APIResultWrapper<GetRoutineByDateAndRoutineSetIdResponseDto>
+
+
+
+    @GET("routine/routine-set/")
+    suspend fun getRoutineSetRoutine(@Query("user_id") userId: String): APIResultWrapper<GetRoutineSetRoutineResponseDto>
+
+    @GET("routine/routine-set-by-date/")
+    suspend fun getRoutineSetRoutineByDate(
+        @Query("user_id") userId: String,
+        @Query("date") date: LocalDate,
+    ): APIResultWrapper<GetRoutineSetRoutineByDateResponseDto>
 
 }
