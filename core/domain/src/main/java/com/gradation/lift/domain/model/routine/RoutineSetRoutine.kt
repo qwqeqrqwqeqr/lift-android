@@ -2,9 +2,10 @@ package com.gradation.lift.domain.model.routine
 
 import com.gradation.lift.domain.model.common.RepeatIntervalType
 
-data class RoutineSet(
+data class RoutineSetRoutine(
     val id: Int,
     val shortDescription: String,
     val longDescription: String,
     val repeatIntervalType: RepeatIntervalType,
+    val routine : List<Routine>
 )

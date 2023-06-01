@@ -20,6 +20,6 @@ data class GetRoutineSetByRoutineSetIdResponseDto(
                 WEEK_DAY_TYPE ->  RepeatIntervalType.WeekDayType(weekday = toWeekDay(this.routine_set.repeatInterval))
                 DAY_TYPE -> RepeatIntervalType.DayType(interval = this.routine_set.repeatInterval)
                 else -> null
-            }
+            }!!
         )
 }
