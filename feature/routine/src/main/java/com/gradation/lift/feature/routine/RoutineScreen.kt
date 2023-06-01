@@ -28,7 +28,8 @@ internal fun RoutineRoute(
     RoutineScreen(
         modifier = modifier,
         currentDate = viewModel.currentDate,
-        weekDateRoutineUiState = weekDateRoutineUiState
+        weekDateRoutineUiState = weekDateRoutineUiState,
+        weekCardClick = {}
     )
 }
 
@@ -37,7 +38,8 @@ internal fun RoutineRoute(
 internal fun RoutineScreen(
     modifier: Modifier = Modifier,
     currentDate: String,
-    weekDateRoutineUiState: WeekDateRoutineUiState
+    weekDateRoutineUiState: WeekDateRoutineUiState,
+    weekCardClick: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -51,9 +53,9 @@ internal fun RoutineScreen(
             RoutineBody(
                 modifier = modifier,
                 currentDate = currentDate,
-                weekDateRoutineUiState = weekDateRoutineUiState
+                weekDateRoutineUiState = weekDateRoutineUiState,
+                weekCardClick= weekCardClick
             )
-
         }
     }
 }

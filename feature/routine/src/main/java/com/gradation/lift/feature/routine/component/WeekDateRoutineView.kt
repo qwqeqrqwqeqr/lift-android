@@ -13,61 +13,111 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.routine.viewmodel.WeekDate
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
+
 
 @Composable
 fun WeekDateRoutineView(
     weekDateRoutineUiState: WeekDateRoutineUiState,
-    modifier:  Modifier = Modifier,
+    modifier: Modifier = Modifier,
+    weekCardClick: () -> Unit,
 ) {
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colorScheme.background)
     ) {
-        Spacer(modifier.weight(0.1f))
-        when(weekDateRoutineUiState){
-            WeekDateRoutineUiState.Empty -> Text(text = "빔")
-            WeekDateRoutineUiState.Error -> Text(text = "에러")
-            WeekDateRoutineUiState.Loading -> Text(text = "로딩")
-            is WeekDateRoutineUiState.Success -> Text(text = weekDateRoutineUiState.weekDateRoutine.weekDateRoutine.toString())
-        }
+        WeekCard(weekDateRoutineUiState = weekDateRoutineUiState, weekCardClick = weekCardClick)
     }
-    
-    
 }
 
 
 @Composable
+fun WeekCard(
+    modifier: Modifier = Modifier,
+    weekDateRoutineUiState: WeekDateRoutineUiState,
+    weekCardClick: () -> Unit
+) {
+    Row(modifier = modifier.fillMaxWidth()) {
+        when (weekDateRoutineUiState) {
+            is WeekDateRoutineUiState.Empty -> {
+                WeekCardList(
+                    modifier = modifier.weight(1f),
+                    weekDateList = weekDateRoutineUiState.weekDateRoutine.weekDate,
+                    weekCardClick = weekCardClick
+                )
+            }
+            WeekDateRoutineUiState.Error -> {
+                WeekCardList(
+                    modifier = modifier.weight(1f),
+                    weekDateList = emptyCardList,
+                    weekCardClick = weekCardClick
+                )
+            }
+            WeekDateRoutineUiState.Loading -> {
+                WeekCardList(
+                    modifier = modifier.weight(1f),
+                    weekDateList = emptyCardList,
+                    weekCardClick = weekCardClick
+                )
+            }
+            is WeekDateRoutineUiState.Success -> {
+                WeekCardList(
+                    modifier = modifier.weight(1f),
+                    weekDateList = weekDateRoutineUiState.weekDateRoutine.weekDate,
+                    weekCardClick = weekCardClick
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun WeekCardList(
+    modifier: Modifier = Modifier,
+    weekDateList: List<WeekDate>,
+    weekCardClick: () -> Unit
+) {
+    repeat(weekDateList.size) {
+        WeekCardItem(
+            modifier= modifier.fillMaxWidth(),
+            weekDate = weekDateList[it],
+            weekCardClick = weekCardClick
+        )
+
+    }
+}
+
+@Composable
 fun WeekCardItem(
     modifier: Modifier = Modifier,
-    selected: Boolean,
-    dateText: String,
-    weekText: String,
-    onClick: () -> Unit
+    weekDate: WeekDate,
+    weekCardClick: () -> Unit
 ) {
     Box(
         modifier = modifier
             .background(
-                color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(8.dp)
+                color = if (weekDate.selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                shape = RoundedCornerShape(16.dp)
             )
-            .clickable(onClick = onClick)
-            .padding(8.dp, 16.dp, 8.dp, 16.dp)
+            .clickable(onClick = weekCardClick)
+            .padding(8.dp, 24.dp, 8.dp, 24.dp)
     ) {
         Column(
-            modifier = modifier.fillMaxWidth(),
+            modifier= modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                text = dateText,
+                color = if (weekDate.selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                text = weekDate.day,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge
             )
             Text(
-                color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                text = weekText,
+                color = if (weekDate.selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                text = weekDate.weekDay,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge
             )
@@ -80,7 +130,19 @@ fun WeekCardItem(
 @Composable
 fun WeekCardListViewPreview() {
     LiftTheme {
-        WeekDateRoutineView(WeekDateRoutineUiState.Loading)
+        WeekDateRoutineView(
+            weekDateRoutineUiState = WeekDateRoutineUiState.Loading,
+            weekCardClick = {})
     }
 
 }
+
+private val emptyCardList = listOf(
+    WeekDate("", "", null, false),
+    WeekDate("", "", null, false),
+    WeekDate("", "", null, false),
+    WeekDate("", "", null, false),
+    WeekDate("", "", null, false),
+    WeekDate("", "", null, false),
+    WeekDate("", "", null, false)
+)

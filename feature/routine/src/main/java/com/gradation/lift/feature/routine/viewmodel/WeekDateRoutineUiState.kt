@@ -17,7 +17,7 @@ sealed interface WeekDateRoutineUiState {
     data class Success(val weekDateRoutine: WeekDateRoutine) : WeekDateRoutineUiState
     object Error : WeekDateRoutineUiState
     object Loading : WeekDateRoutineUiState
-    object Empty : WeekDateRoutineUiState
+    data class Empty(val weekDateRoutine: WeekDateRoutine) : WeekDateRoutineUiState
 }
 
 
@@ -30,7 +30,7 @@ data class WeekDateRoutine(
 data class WeekDate(
     val day: String,
     val weekDay: String,
-    val localDate: LocalDate,
+    val localDate: LocalDate?,
     var selected: Boolean
 )
 
@@ -68,7 +68,12 @@ fun weekDateRoutineUiState(
             is DataState.Loading -> WeekDateRoutineUiState.Loading
             is DataState.Success ->
                 if (it.data.isEmpty()) {
-                    WeekDateRoutineUiState.Empty
+                    WeekDateRoutineUiState.Empty(
+                        WeekDateRoutine(
+                            weekDateRoutine = it.data,
+                            weekDate = weekDate
+                        )
+                    )
                 } else {
                     WeekDateRoutineUiState.Success(
                         WeekDateRoutine(

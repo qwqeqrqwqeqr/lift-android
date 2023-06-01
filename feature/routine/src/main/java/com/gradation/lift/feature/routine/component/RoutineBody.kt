@@ -24,7 +24,8 @@ import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
 fun RoutineBody(
     modifier: Modifier = Modifier,
     currentDate: String,
-    weekDateRoutineUiState: WeekDateRoutineUiState
+    weekDateRoutineUiState: WeekDateRoutineUiState,
+    weekCardClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -73,7 +74,7 @@ fun RoutineBody(
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(16.dp))
-            WeekDateRoutineView(weekDateRoutineUiState)
+            WeekDateRoutineView(weekDateRoutineUiState= weekDateRoutineUiState,weekCardClick= weekCardClick)
         }
     }
 }
