@@ -5,7 +5,7 @@ import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.domain.model.routine.Routine
 import com.gradation.lift.domain.repository.RoutineRepository
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 import javax.inject.Inject
 
 class GetRoutineByDateAndRoutineSetIdUseCase @Inject constructor(

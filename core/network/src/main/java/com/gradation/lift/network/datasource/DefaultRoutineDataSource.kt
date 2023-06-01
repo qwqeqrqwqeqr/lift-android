@@ -181,15 +181,38 @@ class DefaultRoutineDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>> {
-        TODO("Not yet implemented")
+    override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
+        networkResultHandler.execute {
+            routineService.getRoutineSetRoutine(
+                userId = userId,
+            )
+        }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail( result.message))
+                is APIResult.Error -> emit(APIResult.Error(result.exception))
+                is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
+            }
+        }
     }
 
     override suspend fun getRoutineSetRoutineByDate(
         userId: String,
         date: LocalDate
-    ): Flow<APIResult<List<RoutineSetRoutine>>> {
-        TODO("Not yet implemented")
+    ): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
+        networkResultHandler.execute {
+            routineService.getRoutineSetRoutineByDate(
+                userId = userId,
+                date = date,
+            )
+        }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail( result.message))
+                is APIResult.Error -> emit(APIResult.Error(result.exception))
+                is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
+            }
+        }
     }
 
 

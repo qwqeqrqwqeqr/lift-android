@@ -10,6 +10,7 @@ import com.gradation.lift.network.utils.TestDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.utils.TestDataGenerator.routineModelList
 import com.gradation.lift.network.utils.TestDataGenerator.routineSetModel1
 import com.gradation.lift.network.utils.TestDataGenerator.routineSetModelList
+import com.gradation.lift.network.utils.TestDataGenerator.routineSetRoutineModelList
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.test.CoroutineRule
 import junit.framework.TestCase
@@ -29,63 +30,113 @@ class FakeRoutineDataSourceTest {
     var coroutineRule = CoroutineRule()
 
     private lateinit var dataSource: RoutineDataSource
+
     @Before
-    fun tearUp() {}
+    fun tearUp() {
+    }
 
     @After
-    fun tearDown() {}
-
-
-    @Test
-    fun testGetRoutineSet() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineSetModelList),dataSource.getRoutineSet(FAKE_STRING_DATA).first())
+    fun tearDown() {
     }
 
 
     @Test
-    fun testCreateRoutineSet() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(true),dataSource.createRoutineSet(FAKE_CREATE_ROUTINE_SET).first())
+    fun testGetRoutineSet() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineSetModelList),
+            dataSource.getRoutineSet(FAKE_STRING_DATA).first()
+        )
+    }
+
+
+    @Test
+    fun testCreateRoutineSet() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(true),
+            dataSource.createRoutineSet(FAKE_CREATE_ROUTINE_SET).first()
+        )
     }
 
     @Test
-    fun testGetRoutineSetByDate() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineSetModelList),dataSource.getRoutineSetByDate(FAKE_STRING_DATA,FAKE_DATE_DATA).first())
+    fun testGetRoutineSetByDate() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineSetModelList),
+            dataSource.getRoutineSetByDate(FAKE_STRING_DATA, FAKE_DATE_DATA).first()
+        )
     }
 
     @Test
-    fun testGetRoutineSetByRoutineSetId() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineSetModel1),dataSource.getRoutineSetByRoutineSetId(FAKE_STRING_DATA,FAKE_INT_DATA).first())
+    fun testGetRoutineSetByRoutineSetId() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineSetModel1),
+            dataSource.getRoutineSetByRoutineSetId(FAKE_STRING_DATA, FAKE_INT_DATA).first()
+        )
     }
 
     @Test
-    fun testGetRoutine() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineModelList),dataSource.getRoutine(FAKE_STRING_DATA).first())
+    fun testGetRoutine() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineModelList),
+            dataSource.getRoutine(FAKE_STRING_DATA).first()
+        )
     }
 
     @Test
-    fun testGetRoutineByDate() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineModelList),dataSource.getRoutineByDate(FAKE_STRING_DATA,
-            FAKE_DATE_DATA).first())
+    fun testGetRoutineByDate() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineModelList), dataSource.getRoutineByDate(
+                FAKE_STRING_DATA,
+                FAKE_DATE_DATA
+            ).first()
+        )
     }
 
     @Test
-    fun testGetRoutineByRoutineSetId() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineModelList),dataSource.getRoutineByRoutineSetId(FAKE_STRING_DATA,
-            FAKE_INT_DATA).first())
+    fun testGetRoutineByRoutineSetId() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineModelList), dataSource.getRoutineByRoutineSetId(
+                FAKE_STRING_DATA,
+                FAKE_INT_DATA
+            ).first()
+        )
     }
 
     @Test
-    fun testGetRoutineByDateAndRoutineSetId() = runTest{
-        dataSource = FakeRoutineDataSource(testReturnState= TestReturnState.Success)
-        TestCase.assertEquals(APIResult.Success(routineModelList),dataSource.getRoutineByDateAndRoutineSetId(FAKE_STRING_DATA,
-            FAKE_DATE_DATA, FAKE_INT_DATA).first())
+    fun testGetRoutineByDateAndRoutineSetId() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineModelList), dataSource.getRoutineByDateAndRoutineSetId(
+                FAKE_STRING_DATA,
+                FAKE_DATE_DATA, FAKE_INT_DATA
+            ).first()
+        )
     }
+
+
+    @Test
+    fun testGetRoutineSetRoutine() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineSetRoutineModelList),
+            dataSource.getRoutineSetRoutine(FAKE_STRING_DATA).first()
+        )
+    }
+
+    @Test
+    fun testGetRoutineSetRoutineByDate() = runTest {
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+        TestCase.assertEquals(
+            APIResult.Success(routineSetRoutineModelList),
+            dataSource.getRoutineSetRoutineByDate(FAKE_STRING_DATA, FAKE_DATE_DATA).first()
+        )
+    }
+
 
 }
