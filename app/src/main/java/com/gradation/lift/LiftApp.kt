@@ -6,7 +6,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,7 +27,6 @@ import com.gradation.lift.feature.my_info.navigateToMyInfo
 import com.gradation.lift.feature.routine.ROUTINE_ROUTER_NAME
 import com.gradation.lift.feature.routine.navigateToRoutine
 import com.gradation.lift.navigation.*
-import kotlinx.coroutines.CoroutineScope
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(

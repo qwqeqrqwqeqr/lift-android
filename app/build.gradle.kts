@@ -18,9 +18,9 @@ dependencies{
 
 
 
-    implementation(project(":feature:home"))
-    implementation(project(":feature:routine"))
-    implementation(project(":feature:history"))
-    implementation(project(":feature:my-info"))
+    implementation(project(":feature:main:home"))
+    implementation(project(":feature:main:routine"))
+    implementation(project(":feature:main:history"))
+    implementation(project(":feature:main:my-info"))
 
 }
