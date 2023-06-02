@@ -1,6 +1,8 @@
 package com.gradation.lift
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -28,6 +30,7 @@ import com.gradation.lift.feature.routine.ROUTINE_ROUTER_NAME
 import com.gradation.lift.feature.routine.navigateToRoutine
 import com.gradation.lift.navigation.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(
     ExperimentalMaterial3Api::class,
