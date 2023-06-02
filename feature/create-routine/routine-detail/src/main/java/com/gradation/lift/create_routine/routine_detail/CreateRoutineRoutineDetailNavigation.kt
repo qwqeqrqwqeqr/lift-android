@@ -9,12 +9,12 @@ const val CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME = "create_routine_routine_de
 
 
 
-fun NavController.navigateToMyInfo(navOptions: NavOptions? = null) {
+fun NavController.navigateToCreateRoutineRoutineDetail(navOptions: NavOptions? = null) {
     this.navigate(CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME, navOptions)
 }
 
 
-fun NavGraphBuilder.myInfoScreen() {
+fun NavGraphBuilder.createRoutineRoutineDetailScreen() {
     composable(route = CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME) {
         CreateRoutineRoutineDetailRoute()
     }
