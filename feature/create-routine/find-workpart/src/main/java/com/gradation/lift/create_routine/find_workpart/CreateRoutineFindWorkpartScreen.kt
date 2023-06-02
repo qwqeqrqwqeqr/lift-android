@@ -8,20 +8,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-internal fun CreateRoutineFindWorkCategoryRoute(
+internal fun CreateRoutineFindWorkpartRoute(
     modifier: Modifier = Modifier,
-    viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
+    viewModel: CreateRoutineFindWorkpartViewModel = hiltViewModel()
 ) {
-    CreateRoutineFindWorkCategoryScreen()
+    CreateRoutineFindWorkpartScreen()
 }
 
 @Composable
-fun CreateRoutineFindWorkCategoryScreen(){
+fun CreateRoutineFindWorkpartScreen(){
     Box(
 
     ){
         Text(
-            text="CreateRoutineFindWorkCategory",
+            text="CreateRoutineFindWorkpart",
             color = Color.Black
         )
     }

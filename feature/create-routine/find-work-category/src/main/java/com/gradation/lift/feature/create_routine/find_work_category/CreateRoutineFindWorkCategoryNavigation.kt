@@ -1,4 +1,4 @@
-package com.gradation.lift.create_routine.find_workpart
+package com.gradation.lift.feature.create_routine.find_work_category
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
