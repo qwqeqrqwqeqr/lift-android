@@ -1,4 +1,4 @@
-package com.gradation.lift.create_routine.routine
+package com.gradation.lift.create_routine.find_workpart
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
@@ -8,20 +8,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-internal fun CreateRoutineRoutineRoute(
+internal fun CreateRoutineFindWorkCategoryRoute(
     modifier: Modifier = Modifier,
-    viewModel: CreateRoutineRoutineViewModel = hiltViewModel()
-    ) {
-    CreateRoutineRoutineScreen()
+    viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
+) {
+    CreateRoutineFindWorkCategoryScreen()
 }
 
 @Composable
-fun CreateRoutineRoutineScreen(){
+fun CreateRoutineFindWorkCategoryScreen(){
     Box(
 
     ){
         Text(
-            text="CreateRoutineRoutine",
+            text="CreateRoutineFindWorkCategory",
             color = Color.Black
         )
     }
