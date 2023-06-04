@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-internal fun CreateRoutineRoutineDetailRoute(
+fun CreateRoutineRoutineDetailRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineDetailViewModel = hiltViewModel()
 

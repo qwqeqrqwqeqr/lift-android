@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-internal fun CreateRoutineFindWorkCategoryRoute(
+fun CreateRoutineFindWorkCategoryRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
 ) {

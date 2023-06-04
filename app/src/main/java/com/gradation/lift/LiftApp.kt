@@ -20,14 +20,14 @@ import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.designsystem.resource.Icon
-import com.gradation.lift.feature.history.HISTORY_ROUTER_NAME
-import com.gradation.lift.feature.history.navigateToHistory
-import com.gradation.lift.feature.home.HOME_ROUTER_NAME
-import com.gradation.lift.feature.home.navigateToHome
-import com.gradation.lift.feature.my_info.MY_INFO_ROUTER_NAME
-import com.gradation.lift.feature.my_info.navigateToMyInfo
-import com.gradation.lift.feature.routine.ROUTINE_ROUTER_NAME
-import com.gradation.lift.feature.routine.navigateToRoutine
+import com.gradation.lift.navigation.routor.HISTORY_ROUTER_NAME
+import com.gradation.lift.navigation.routor.navigateToHistory
+import com.gradation.lift.navigation.routor.HOME_ROUTER_NAME
+import com.gradation.lift.navigation.routor.navigateToHome
+import com.gradation.lift.navigation.routor.MY_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.routor.navigateToMyInfo
+import com.gradation.lift.navigation.routor.ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.routor.navigateToRoutine
 import com.gradation.lift.navigation.*
 
 @RequiresApi(Build.VERSION_CODES.O)

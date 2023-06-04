@@ -1,9 +1,10 @@
-package com.gradation.lift.create_routine.routine
+package com.gradation.lift.navigation.routor
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.gradation.lift.create_routine.routine.CreateRoutineRoutineRoute
 
 const val CREATE_ROUTINE_ROUTINE_ROUTER_NAME = "create_routine_routine"
 

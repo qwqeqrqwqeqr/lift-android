@@ -18,7 +18,7 @@ import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-internal fun RoutineRoute(
+fun RoutineRoute(
     modifier: Modifier = Modifier,
     viewModel: RoutineViewModel = hiltViewModel()
 ) {

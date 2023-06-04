@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-internal fun MyInfoRoute(
+fun MyInfoRoute(
     modifier: Modifier = Modifier) {
     MyInfoScreen()
 }

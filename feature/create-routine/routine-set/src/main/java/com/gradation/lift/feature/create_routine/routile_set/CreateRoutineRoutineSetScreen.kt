@@ -7,7 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
-internal fun CreateRoutineRoutineSetRoute(
+fun CreateRoutineRoutineSetRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {

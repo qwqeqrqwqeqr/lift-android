@@ -1,21 +1,17 @@
 plugins {
-    id("lift.android.application")
-    id("lift.android.common")
-    id("lift.android.compose.application")
-    id("lift.android.hilt")
+    id("lift.android.library")
     id("lift.android.kotlin")
-    id("lift.android.splash")
+    id("lift.android.hilt")
+    id("lift.android.compose.library")
 }
 
 android {
-    namespace = "com.gradation.lift"
+    namespace = "com.gradation.lift.navigation"
 }
-dependencies{
-    implementation(project(":core:designsystem"))
+
+dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:data"))
-    implementation(project(":core:navigation"))
+    implementation(project(":core:test"))
 
 
 

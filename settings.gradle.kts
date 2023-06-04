@@ -26,6 +26,7 @@ include(":core:common")
 include(":core:designsystem")
 include(":core:data")
 include(":core:domain")
+include(":core:navigation")
 
 
 include(":feature:main:home")
