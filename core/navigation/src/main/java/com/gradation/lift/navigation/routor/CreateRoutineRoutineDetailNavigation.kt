@@ -15,8 +15,3 @@ fun NavController.navigateToCreateRoutineRoutineDetail(navOptions: NavOptions? =
 }
 
 
-fun NavGraphBuilder.createRoutineRoutineDetailScreen() {
-    composable(route = CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME) {
-        CreateRoutineRoutineDetailRoute()
-    }
-}

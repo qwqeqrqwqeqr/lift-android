@@ -15,8 +15,3 @@ fun NavController.navigateToHistory(navOptions: NavOptions? = null) {
 }
 
 
-fun NavGraphBuilder.historyScreen() {
-    composable(route = HISTORY_ROUTER_NAME){
-        HistoryRoute()
-    }
-}

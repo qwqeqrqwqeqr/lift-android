@@ -15,8 +15,3 @@ fun NavController.navigateToCreateRoutineFindWorkpart(navOptions: NavOptions? = 
 }
 
 
-fun NavGraphBuilder.createRoutineFindWorkpartScreen() {
-    composable(route = CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME) {
-        CreateRoutineFindWorkpartRoute()
-    }
-}

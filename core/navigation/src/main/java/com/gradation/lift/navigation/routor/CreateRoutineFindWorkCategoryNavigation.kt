@@ -15,8 +15,4 @@ fun NavController.navigateToCreateRoutineFindWorkCategory(navOptions: NavOptions
 }
 
 
-fun NavGraphBuilder.createRoutineFindWorkCategoryScreen() {
-    composable(route = CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
-        CreateRoutineFindWorkCategoryRoute()
-    }
-}
+s

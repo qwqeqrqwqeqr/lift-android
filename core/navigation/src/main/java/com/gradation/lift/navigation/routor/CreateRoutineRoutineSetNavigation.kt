@@ -19,16 +19,3 @@ fun NavController.navigateToCreateRoutineGraph(navOptions: NavOptions? = null) {
 
 
 
-fun NavGraphBuilder.createRoutineGraph(
-    nestedGraphs: NavGraphBuilder.() -> Unit,
-) {
-    navigation(
-        route = CREATE_ROUTINE_GRAPH_ROUTER_NAME,
-        startDestination = CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME,
-    ) {
-        composable(route = CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-            CreateRoutineRoutineSetRoute()
-        }
-        nestedGraphs()
-    }
-}

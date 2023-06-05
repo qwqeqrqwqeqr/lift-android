@@ -19,9 +19,3 @@ fun NavController.navigateToRoutine(navOptions: NavOptions? = null) {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun NavGraphBuilder.routineScreen() {
-    composable(route = ROUTINE_ROUTER_NAME){
-        RoutineRoute()
-    }
-}

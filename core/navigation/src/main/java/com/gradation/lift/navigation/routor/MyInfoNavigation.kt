@@ -15,8 +15,3 @@ fun NavController.navigateToMyInfo(navOptions: NavOptions? = null) {
 }
 
 
-fun NavGraphBuilder.myInfoScreen() {
-    composable(route = MY_INFO_ROUTER_NAME) {
-        MyInfoRoute()
-    }
-}
