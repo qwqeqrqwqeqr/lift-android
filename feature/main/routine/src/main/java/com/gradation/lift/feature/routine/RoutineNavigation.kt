@@ -1,4 +1,4 @@
-package com.gradation.lift.navigation.routor
+package com.gradation.lift.feature.routine
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -9,14 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.gradation.lift.feature.routine.RoutineRoute
-
-const val ROUTINE_ROUTER_NAME = "routine"
-
-
-
-fun NavController.navigateToRoutine(navOptions: NavOptions? = null) {
-    this.navigate(ROUTINE_ROUTER_NAME, navOptions)
-}
+import com.gradation.lift.navigation.routor.ROUTINE_ROUTER_NAME
 
 
 @RequiresApi(Build.VERSION_CODES.O)
