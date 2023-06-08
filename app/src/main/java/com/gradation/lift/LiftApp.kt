@@ -1,5 +1,6 @@
 package com.gradation.lift
 
+import LiftNavHost
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -20,15 +21,15 @@ import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.designsystem.resource.Icon
-import com.gradation.lift.navigation.routor.HISTORY_ROUTER_NAME
-import com.gradation.lift.navigation.routor.navigateToHistory
-import com.gradation.lift.navigation.routor.HOME_ROUTER_NAME
-import com.gradation.lift.navigation.routor.navigateToHome
-import com.gradation.lift.navigation.routor.MY_INFO_ROUTER_NAME
-import com.gradation.lift.navigation.routor.navigateToMyInfo
-import com.gradation.lift.navigation.routor.ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.routor.navigateToRoutine
 import com.gradation.lift.navigation.*
+import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
+import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
+import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.navigation.navigateToHistory
+import com.gradation.lift.navigation.navigation.navigateToHome
+import com.gradation.lift.navigation.navigation.navigateToMyInfo
+import com.gradation.lift.navigation.navigation.navigateToRoutine
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

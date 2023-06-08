@@ -1,4 +1,4 @@
-package com.gradation.lift.navigation.routor
+package com.gradation.lift.navigation
 
 object Router {
 

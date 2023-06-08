@@ -1,20 +1,23 @@
 package com.gradation.lift.feature.home
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.gradation.lift.feature.home.HomeRoute
+import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
+import com.gradation.lift.navigation.route.HomeRoute
 
-const val HOME_ROUTER_NAME = "home"
 
 
-fun NavController.navigateToHome(navOptions: NavOptions? = null) {
-    this.navigate(HOME_ROUTER_NAME, navOptions)
+
+fun homeScreen(navGraphBuilder: NavGraphBuilder) {
+    HomeRoute { router, navigationGraphBuilder ->
+        navigationGraphBuilder.composable(router) {
+            HomeRoute()
+        }
+    }.homeScreen(router = HOME_ROUTER_NAME, navGraphBuilder)
 }
 
-fun NavGraphBuilder.homeScreen() {
-  composable(route = HOME_ROUTER_NAME){
-      HomeRoute()
-  }
-}
+
+
+
+
+

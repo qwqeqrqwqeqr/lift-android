@@ -9,7 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.gradation.lift.feature.routine.RoutineRoute
-import com.gradation.lift.navigation.routor.ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
 
 
 @RequiresApi(Build.VERSION_CODES.O)

@@ -1,4 +1,5 @@
-package com.gradation.lift.navigation
+import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
+
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -11,7 +12,6 @@ import com.gradation.lift.feature.history.historyScreen
 import com.gradation.lift.feature.home.homeScreen
 import com.gradation.lift.feature.my_info.myInfoScreen
 import com.gradation.lift.feature.routine.routineScreen
-import com.gradation.lift.navigation.routor.HOME_ROUTER_NAME
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -25,14 +25,16 @@ fun LiftNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        homeScreen()
+        homeScreen(this)
         routineScreen()
         historyScreen()
         myInfoScreen()
         createRoutineGraph(
             nestedGraphs = {},
         )
+
+
+
     }
 }
-
 
