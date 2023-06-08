@@ -7,11 +7,11 @@ import com.gradation.lift.navigation.route.main.HistoryRoute
 
 
 fun historyScreen(navGraphBuilder: NavGraphBuilder) {
-    HistoryRoute {router, navigationGraphBuilder ->
-        navigationGraphBuilder.composable(router) {
+    HistoryRoute {route, navigationGraphBuilder ->
+        navigationGraphBuilder.composable(route) {
             HistoryRoute()
         }
-    }.historyScreen(router = Router.HISTORY_ROUTER_NAME, navGraphBuilder)
+    }.historyScreen(route = Router.HISTORY_ROUTER_NAME, navGraphBuilder)
 }
 
 

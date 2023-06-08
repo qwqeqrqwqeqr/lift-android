@@ -30,7 +30,10 @@ fun LiftNavHost(
         historyScreen(this)
         myInfoScreen(this)
         createRoutineGraph(
-            nestedGraphs = {},
+            navGraphBuilder = this,
+            nestedGraphs = {
+
+            },
         )
 
 

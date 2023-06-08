@@ -9,9 +9,9 @@ import com.gradation.lift.navigation.route.main.MyInfoRoute
 
 
 fun myInfoScreen(navGraphBuilder: NavGraphBuilder) {
-    MyInfoRoute {router, navigationGraphBuilder ->
-        navigationGraphBuilder.composable(router) {
+    MyInfoRoute {route, navigationGraphBuilder ->
+        navigationGraphBuilder.composable(route) {
             MyInfoRoute()
         }
-    }.myInfoScreen(router = Router.MY_INFO_ROUTER_NAME, navGraphBuilder)
+    }.myInfoScreen(route = Router.MY_INFO_ROUTER_NAME, navGraphBuilder)
 }

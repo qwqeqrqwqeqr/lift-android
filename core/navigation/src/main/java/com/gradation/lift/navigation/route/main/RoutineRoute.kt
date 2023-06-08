@@ -4,5 +4,5 @@ import androidx.navigation.NavGraphBuilder
 
 fun interface RoutineRoute {
 
-    fun routineScreen(router: String, navGraphBuilder: NavGraphBuilder)
+    fun routineScreen(route: String, navGraphBuilder: NavGraphBuilder)
 }
