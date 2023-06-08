@@ -13,5 +13,5 @@ fun routineScreen(navGraphBuilder: NavGraphBuilder) {
         navigationGraphBuilder.composable(route) {
             RoutineRoute()
         }
-    }.routineScreen(route = Router.MY_INFO_ROUTER_NAME, navGraphBuilder)
+    }.routineScreen(route = Router.ROUTINE_ROUTER_NAME, navGraphBuilder)
 }

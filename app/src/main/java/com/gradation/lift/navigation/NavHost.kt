@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.gradation.lift.create_routine.routine_detail.createRoutineRoutineDetailScreen
 import com.gradation.lift.feature.create_routine.routile_set.createRoutineGraph
 import com.gradation.lift.feature.history.historyScreen
 import com.gradation.lift.feature.home.homeScreen
@@ -32,7 +33,7 @@ fun LiftNavHost(
         createRoutineGraph(
             navGraphBuilder = this,
             nestedGraphs = {
-
+                createRoutineRoutineDetailScreen(this)
             },
         )
 
