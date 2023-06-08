@@ -25,7 +25,7 @@ dependencies{
     implementation(project(":feature:main:my-info"))
 
 
-
+    implementation(project(":feature:create-routine"))
     implementation(project(":feature:create-routine:find-work-category"))
     implementation(project(":feature:create-routine:find-workpart"))
     implementation(project(":feature:create-routine:routine"))

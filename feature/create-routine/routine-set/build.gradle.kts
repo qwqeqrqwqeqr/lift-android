@@ -16,4 +16,9 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
 
+
+
+
+    implementation(project(":feature:create-routine"))
+
 }

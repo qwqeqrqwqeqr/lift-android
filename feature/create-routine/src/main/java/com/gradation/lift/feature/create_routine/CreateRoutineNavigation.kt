@@ -1,7 +1,5 @@
-package com.gradation.lift.navigation.navigation
+package com.gradation.lift.feature.create_routine
 
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME

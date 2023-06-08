@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.create_routine.routine"
+    namespace = "com.gradation.lift.feature.create_routine.routine"
 
 }
 
@@ -19,4 +19,6 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
 
+
+    implementation(project(":feature:create-routine"))
 }

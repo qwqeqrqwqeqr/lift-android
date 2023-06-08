@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineDetail
+import com.gradation.lift.feature.create_routine.navigateToCreateRoutineRoutineDetail
 
 
 @Composable
