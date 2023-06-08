@@ -26,9 +26,9 @@ fun LiftNavHost(
         modifier = modifier
     ) {
         homeScreen(this)
-        routineScreen()
-        historyScreen()
-        myInfoScreen()
+        routineScreen(this)
+        historyScreen(this)
+        myInfoScreen(this)
         createRoutineGraph(
             nestedGraphs = {},
         )

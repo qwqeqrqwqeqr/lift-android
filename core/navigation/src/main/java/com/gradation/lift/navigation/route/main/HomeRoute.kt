@@ -1,4 +1,4 @@
-package com.gradation.lift.navigation.route
+package com.gradation.lift.navigation.route.main
 
 import androidx.navigation.NavGraphBuilder
 
