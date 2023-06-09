@@ -25,7 +25,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun RoutineHeader(
-    onClick: () -> Unit,
+    navigateCreateRoutineClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -71,7 +71,7 @@ fun RoutineHeader(
             )
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
-                onClick = onClick
+                onClick =  navigateCreateRoutineClick
             ) {
                 Text(
                     text = "루틴 리스트 만들기",
@@ -92,6 +92,6 @@ fun RoutineHeader(
 @Composable
 internal fun RoutineHeaderPreview() {
     LiftTheme {
-        RoutineHeader(onClick = {},)
+        RoutineHeader({})
     }
 }

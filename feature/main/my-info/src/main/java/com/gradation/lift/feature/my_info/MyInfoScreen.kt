@@ -12,30 +12,20 @@ import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineSe
 
 @Composable
 fun MyInfoRoute(
-    navController : NavController,
-    modifier: Modifier = Modifier) {
+    navController: NavController,
+) {
     MyInfoScreen(navController)
 }
 
 @Composable
-fun MyInfoScreen(navController: NavController){
+fun MyInfoScreen(navController: NavController) {
     Box(
 
-    ){
+    ) {
         Text(
-            text="내정보화면",
+            text = "내정보화면",
             color = Color.Black
         )
 
-        LiftButton(
-            modifier = Modifier,
-            onClick = { navController.navigateToCreateRoutineRoutineSet()},
-        ) {
-            Text(
-                text = "테스트용",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onPrimary,
-            )
-        }
     }
 }

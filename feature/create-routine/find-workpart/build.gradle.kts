@@ -19,5 +19,4 @@ dependencies {
     implementation(project(":core:navigation"))
 
 
-    implementation(project(":feature:create-routine"))
 }

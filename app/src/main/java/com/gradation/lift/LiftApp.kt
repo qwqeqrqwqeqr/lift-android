@@ -26,6 +26,8 @@ import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
 import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.graph.TopLevelNavDestination
+import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
 import com.gradation.lift.navigation.navigation.navigateToHistory
 import com.gradation.lift.navigation.navigation.navigateToHome
 import com.gradation.lift.navigation.navigation.navigateToMyInfo

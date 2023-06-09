@@ -25,9 +25,9 @@ fun LiftNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        homeScreen(this)
-        routineScreen(this)
-        historyScreen(this)
+        homeScreen(navController,this)
+        routineScreen(navController,this)
+        historyScreen(navController,this)
         myInfoScreen(navController, this)
         createRoutineGraph(
             navController = navController,

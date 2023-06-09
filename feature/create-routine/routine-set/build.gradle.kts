@@ -19,6 +19,5 @@ dependencies {
 
 
 
-    implementation(project(":feature:create-routine"))
 
 }

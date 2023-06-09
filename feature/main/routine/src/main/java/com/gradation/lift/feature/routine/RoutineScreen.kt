@@ -11,14 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.gradation.lift.feature.routine.component.RoutineBody
 import com.gradation.lift.feature.routine.component.RoutineHeader
 import com.gradation.lift.feature.routine.viewmodel.RoutineViewModel
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
+import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RoutineRoute(
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: RoutineViewModel = hiltViewModel()
 ) {
@@ -27,6 +30,7 @@ fun RoutineRoute(
         modifier = modifier,
         currentDate = viewModel.currentDate,
         weekDateRoutineUiState = weekDateRoutineUiState,
+        navigateCreateRoutineClick = {navController.navigateToCreateRoutineGraph()},
         weekCardClick = {}
     )
 }
@@ -37,6 +41,7 @@ internal fun RoutineScreen(
     modifier: Modifier = Modifier,
     currentDate: String,
     weekDateRoutineUiState: WeekDateRoutineUiState,
+    navigateCreateRoutineClick: () -> Unit,
     weekCardClick: () -> Unit,
 ) {
     Surface(
@@ -44,7 +49,7 @@ internal fun RoutineScreen(
     ) {
         Column {
             RoutineHeader(
-                onClick = {},
+                navigateCreateRoutineClick = navigateCreateRoutineClick,
                 modifier = modifier
             )
             Spacer(modifier = modifier.height(16.dp))

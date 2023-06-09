@@ -1,8 +1,9 @@
 package com.gradation.lift.feature.create_routine.routile_set
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -16,7 +17,8 @@ fun CreateRoutineRoutineSetRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
-    CreateRoutineRoutineSetScreen(navController)
+
+    CreateRoutineRoutineSetScreen(navController, viewModel.upCount(), viewModel.testValue)
 
 }
 
@@ -24,18 +26,39 @@ fun CreateRoutineRoutineSetRoute(
 
 @Composable
 internal fun CreateRoutineRoutineSetScreen(
-    navController : NavController
+    navController: NavController,
+    upCount: () -> Unit,
+    testValue: Int
 ){
-    Text("CreateRoutineRoutineSetScreen")
+    Column() {
+        LiftButton(
+            modifier = Modifier,
+            onClick = { navController.navigateToCreateRoutineRoutineDetail()},
+        ) {
+            Text(
+                text = "루틴셋",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onPrimary,
+            )
+        }
 
-    LiftButton(
-        modifier = Modifier,
-        onClick = { navController.navigateToCreateRoutineRoutineDetail()},
-    ) {
+
         Text(
-            text = "테스트용",
+            text = testValue.toString(),
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.primary,
         )
+
+        LiftButton(
+            modifier = Modifier,
+            onClick =  upCount,
+        ) {
+            Text(
+                text = "점수 올리기",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onPrimary,
+            )
+        }
     }
+
 }
