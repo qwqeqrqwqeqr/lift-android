@@ -8,7 +8,6 @@ import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
 import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
 
 
-
 fun NavController.navigateToHome(navOptions: NavOptions? = null) {
     this.navigate(HOME_ROUTER_NAME, navOptions)
 }

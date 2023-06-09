@@ -7,7 +7,7 @@ import com.gradation.lift.navigation.route.main.HistoryRoute
 
 
 fun historyScreen(navGraphBuilder: NavGraphBuilder) {
-    HistoryRoute {route, navigationGraphBuilder ->
+    HistoryRoute { route, navigationGraphBuilder ->
         navigationGraphBuilder.composable(route) {
             HistoryRoute()
         }

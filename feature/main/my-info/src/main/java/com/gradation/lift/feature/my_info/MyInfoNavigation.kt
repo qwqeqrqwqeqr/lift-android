@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.route.main.MyInfoRoute
 
-
 fun myInfoScreen(
     navController : NavController,
     navGraphBuilder: NavGraphBuilder,

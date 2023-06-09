@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.navigation.navigation.navigateToCreateRoutine
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineSet
 
 @Composable

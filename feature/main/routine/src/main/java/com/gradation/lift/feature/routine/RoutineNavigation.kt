@@ -9,7 +9,7 @@ import com.gradation.lift.navigation.route.main.RoutineRoute
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun routineScreen(navGraphBuilder: NavGraphBuilder) {
-    RoutineRoute {route, navigationGraphBuilder ->
+    RoutineRoute { route, navigationGraphBuilder ->
         navigationGraphBuilder.composable(route) {
             RoutineRoute()
         }

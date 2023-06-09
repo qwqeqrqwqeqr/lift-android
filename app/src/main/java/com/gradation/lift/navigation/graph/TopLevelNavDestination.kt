@@ -1,4 +1,4 @@
-package com.gradation.lift.navigation
+package com.gradation.lift.navigation.graph
 
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
