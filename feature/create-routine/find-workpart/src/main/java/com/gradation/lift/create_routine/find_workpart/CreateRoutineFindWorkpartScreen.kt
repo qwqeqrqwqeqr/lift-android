@@ -6,9 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 
 @Composable
 fun CreateRoutineFindWorkpartRoute(
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkpartViewModel = hiltViewModel()
 ) {

@@ -2,14 +2,19 @@ package com.gradation.lift.create_routine.find_workpart
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.gradation.lift.create_routine.find_workpart.CreateRoutineFindWorkpartRoute
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME
+import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.route.create_routine.CreateRoutineFindWorkpartRoute
 
 
-fun NavGraphBuilder.createRoutineFindWorkpartScreen() {
-    composable(route = CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME) {
-        CreateRoutineFindWorkpartRoute()
-    }
+
+fun createRoutineFindWorkpartScreen(
+    navController : NavController,
+    navGraphBuilder: NavGraphBuilder,
+) {
+    CreateRoutineFindWorkpartRoute { route ->
+        navGraphBuilder.composable(route) {
+            CreateRoutineFindWorkpartRoute(navController = navController)
+        }
+    }.createRoutineFindWorkpartScreen(route = Router.CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME)
 }

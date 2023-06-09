@@ -4,12 +4,18 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.gradation.lift.create_routine.routine.CreateRoutineRoutineRoute
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.route.create_routine.CreateRoutineRoutineRoute
+import com.gradation.lift.navigation.Router
 
 
-fun NavGraphBuilder.createRoutineRoutineScreen() {
-    composable(route = CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
-        CreateRoutineRoutineRoute()
-    }
+
+fun createRoutineRoutineScreen(
+    navController : NavController,
+    navGraphBuilder: NavGraphBuilder,
+) {
+    CreateRoutineRoutineRoute {route ->
+        navGraphBuilder.composable(route) {
+            CreateRoutineRoutineRoute(navController = navController)
+        }
+    }.createRoutineRoutineScreen(route = Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
 }
