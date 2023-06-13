@@ -22,8 +22,11 @@ androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.1"
 detekt = "1.22.0"
 firebaseBom = "31.2.0"
+firebaseCrashlyticsPlugin = "2.9.2"
+firebasePerfPlugin = "1.4.2"
 gmsPlugin = "4.3.14"
 hilt = "2.44.2"
+jacoco = "0.8.7"
 junit4 = "4.12"
 kapt = "1.8.20"
 kotlin = "1.8.10"
@@ -47,8 +50,11 @@ android-application = { id = "com.android.application", version.ref = "android" 
 android-library = { id = "com.android.library", version.ref = "android" }
 android-test = { id = "com.android.test", version.ref = "android" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin"}
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin"}
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+jacoco = {id = "org.gradle.jacoco", version.ref = "jacoco"}
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -167,6 +173,9 @@ room-paging = { group = "androidx.room", name = "room-paging", version.ref = "ro
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
+firebase-crashlytics-gradle = { group = "com.google.firebase", name="firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin"}
+firebase-performance-gradle = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin"}
 
 #KOTLIN
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }

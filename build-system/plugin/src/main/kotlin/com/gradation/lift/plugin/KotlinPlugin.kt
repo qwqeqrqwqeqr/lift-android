@@ -10,17 +10,14 @@ class KotlinPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
             with(pluginManager) {
                 apply(libs.findPlugin("kotlin-serialization").get().get().pluginId)
                 apply(libs.findPlugin("ksp").get().get().pluginId)
             }
 
-
             dependencies {
                 add("testImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
                 add("androidTestImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
-
                 add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
                 add("implementation", libs.findLibrary("kotlin-stdlib").get())
                 add("implementation", libs.findLibrary("kotlinx-datetime").get())

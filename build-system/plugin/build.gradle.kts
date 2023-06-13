@@ -11,7 +11,8 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.android.gradlePlugin)
-    testImplementation(libs.junit4) //Build System 테스트
+    compileOnly(libs.firebase.performance.gradle)
+    compileOnly(libs.firebase.crashlytics.gradle)
 }
 
 
@@ -44,6 +45,10 @@ gradlePlugin {
         register(property("HILT_PLUGIN_ID").toString()) {
             id = property("HILT_PLUGIN_ID").toString()
             implementationClass = property("HILT_PLUGIN_IMPL_CLASS").toString()
+        }
+        register(property("JACOCO_PLUGIN_ID").toString()) {
+            id = property("JACOCO_PLUGIN_ID").toString()
+            implementationClass = property("JACOCO_PLUGIN_IMPL_CLASS").toString()
         }
         register(property("KOTLIN_PLUGIN_ID").toString()) {
             id = property("KOTLIN_PLUGIN_ID").toString()
