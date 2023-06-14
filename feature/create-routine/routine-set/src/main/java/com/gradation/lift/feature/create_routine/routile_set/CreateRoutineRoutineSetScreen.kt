@@ -1,64 +1,62 @@
 package com.gradation.lift.feature.create_routine.routile_set
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineDetail
 
 
 @Composable
 fun CreateRoutineRoutineSetRoute(
-    navController : NavController,
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
-
-    CreateRoutineRoutineSetScreen(navController, viewModel.upCount(), viewModel.testValue)
+    CreateRoutineRoutineSetScreen(
+        navController,
+        modifier
+    )
 
 }
 
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CreateRoutineRoutineSetScreen(
     navController: NavController,
-    upCount: () -> Unit,
-    testValue: Int
-){
-    Column() {
-        LiftButton(
-            modifier = Modifier,
-            onClick = { navController.navigateToCreateRoutineRoutineDetail()},
-        ) {
-            Text(
-                text = "루틴셋",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onPrimary,
-            )
-        }
+    modifier: Modifier = Modifier,
+) {
+    Surface(color = MaterialTheme.colorScheme.surface) {
 
+        Scaffold(
+            topBar = {
+                LiftTopBar(
+                    title = "루틴리스트 만들기",
+                    onBackClick = navController::popBackStack,
+                )
+            },
+        ) { padding ->
+            Column(modifier.padding(padding)) {
+                LiftButton(
+                    modifier = Modifier,
+                    onClick = { navController.navigateToCreateRoutineRoutineDetail() },
+                ) {
+                    Text(
+                        text = "루틴셋",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
 
-        Text(
-            text = testValue.toString(),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.primary,
-        )
-
-        LiftButton(
-            modifier = Modifier,
-            onClick =  upCount,
-        ) {
-            Text(
-                text = "점수 올리기",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onPrimary,
-            )
+            }
         }
     }
 
 }
+

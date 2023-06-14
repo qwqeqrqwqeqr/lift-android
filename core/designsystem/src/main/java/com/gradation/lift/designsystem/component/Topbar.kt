@@ -10,9 +10,9 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LiftTopBar(
+fun LiftTopBar(
     title : String,
-    onUpClick: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -21,7 +21,7 @@ private fun LiftTopBar(
         },
         modifier = modifier.statusBarsPadding(),
         navigationIcon = {
-            IconButton(onClick = onUpClick) {
+            IconButton(onClick = onBackClick) {
                 Icon.ImageVectorIcon(LiftIcon.ArrowBack)
             }
         },
