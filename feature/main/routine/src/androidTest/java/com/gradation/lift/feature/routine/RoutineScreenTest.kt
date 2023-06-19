@@ -1,11 +1,9 @@
 package com.gradation.lift.feature.routine
 
-import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.junit4.ComposeTestRule
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
 import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
+import com.gradation.lift.test.rule.ComposeTestRule
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
@@ -17,18 +15,20 @@ import org.junit.Test
 class RoutineScreenTest {
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+    val composeAndroidTestRule  = ComposeTestRule().composeAndroidTestRule
+
+
 
     @Before
     fun setup() {
-        composeTestRule.activity.apply {
+        composeAndroidTestRule.activity.apply {
 
         }
     }
 
     @Test
-    fun loading_showsLoadingSpinner() {
-        composeTestRule.setContent {
+    fun test_loading_showsLoading_spinner() {
+        composeAndroidTestRule.setContent {
             RoutineScreen(
                 currentDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
                 weekDateRoutineUiState = WeekDateRoutineUiState.Loading,
@@ -38,9 +38,9 @@ class RoutineScreenTest {
             )
         }
 
-        composeTestRule
+        composeAndroidTestRule
             .onNodeWithContentDescription(
-                composeTestRule.activity.resources.getString(R.string.test),
+                composeAndroidTestRule.activity.resources.getString(R.string.test),
             )
             .assertExists()
     }

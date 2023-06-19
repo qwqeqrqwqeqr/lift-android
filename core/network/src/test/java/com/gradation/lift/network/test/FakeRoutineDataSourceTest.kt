@@ -4,14 +4,14 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
 import com.gradation.lift.test.data.TestModelDataGenerator.FAKE_CREATE_ROUTINE_SET
-import com.gradation.lift.test.data.TestModelDataGenerator.FAKE_DATE_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator.FAKE_INT_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.test.data.TestModelDataGenerator.routineModelList
 import com.gradation.lift.test.data.TestModelDataGenerator.routineSetModel1
 import com.gradation.lift.test.data.TestModelDataGenerator.routineSetModelList
 import com.gradation.lift.test.data.TestModelDataGenerator.routineSetRoutineModelList
 import com.gradation.lift.network.utils.TestReturnState
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_DATE_DATA1
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -64,7 +64,7 @@ class FakeRoutineDataSourceTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             APIResult.Success(routineSetModelList),
-            dataSource.getRoutineSetByDate(FAKE_STRING_DATA, FAKE_DATE_DATA).first()
+            dataSource.getRoutineSetByDate(FAKE_STRING_DATA, FAKE_DATE_DATA1).first()
         )
     }
 
@@ -92,7 +92,7 @@ class FakeRoutineDataSourceTest {
         TestCase.assertEquals(
             APIResult.Success(routineModelList), dataSource.getRoutineByDate(
                 FAKE_STRING_DATA,
-                FAKE_DATE_DATA
+                FAKE_DATE_DATA1
             ).first()
         )
     }
@@ -114,7 +114,7 @@ class FakeRoutineDataSourceTest {
         TestCase.assertEquals(
             APIResult.Success(routineModelList), dataSource.getRoutineByDateAndRoutineSetId(
                 FAKE_STRING_DATA,
-                FAKE_DATE_DATA, FAKE_INT_DATA
+                FAKE_DATE_DATA1, FAKE_INT_DATA
             ).first()
         )
     }
@@ -134,7 +134,7 @@ class FakeRoutineDataSourceTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             APIResult.Success(routineSetRoutineModelList),
-            dataSource.getRoutineSetRoutineByDate(FAKE_STRING_DATA, FAKE_DATE_DATA).first()
+            dataSource.getRoutineSetRoutineByDate(FAKE_STRING_DATA, FAKE_DATE_DATA1).first()
         )
     }
 
