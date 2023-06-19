@@ -29,7 +29,7 @@ fun LiftTopBar(
             LiftIconButton(
                 onClick = onBackClick
             ) {
-                Icon(
+                 Icon(
                     imageVector = Icon.ImageVectorIcon(LiftIcon.ArrowBack).imageVector,
                     contentDescription = ""
                 )
