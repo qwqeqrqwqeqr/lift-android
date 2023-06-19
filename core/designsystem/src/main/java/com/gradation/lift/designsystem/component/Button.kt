@@ -77,3 +77,22 @@ fun LiftTextButton(
         content = content,
     )
 }
+
+@Composable
+fun LiftIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit,
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        colors = IconButtonDefaults.iconButtonColors(
+            contentColor = MaterialTheme.colorScheme.onBackground
+        ),
+        content = content
+
+    )
+}
