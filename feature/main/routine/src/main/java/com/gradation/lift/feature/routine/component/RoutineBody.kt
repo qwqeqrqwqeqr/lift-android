@@ -78,8 +78,12 @@ fun RoutineBody(
             )
             Spacer(modifier = modifier.height(16.dp))
 
-            WeekDateRoutineView(weekDateRoutineUiState= weekDateRoutineUiState,weekDateUiState=weekDateUiState,weekCardClick= weekCardClick)
+            WeekDateView(weekDateUiState=weekDateUiState,weekCardClick= weekCardClick)
+
+            RoutineView(weekDateRoutineUiState= weekDateRoutineUiState)
         }
     }
 }
+
+
 
