@@ -106,7 +106,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
             TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
             TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
             TestReturnState.Loading -> emit(APIResult.Loading)
-            TestReturnState.Success -> emit(APIResult.Success(data =TestDataGenerator.getRoutineSetRoutineDto.toRoutineSetRoutine()))
+            TestReturnState.Success -> emit(APIResult.Success(data = TestDataGenerator.getRoutineSetRoutineDto.toRoutineSetRoutine()))
         }
     }
     override suspend fun getRoutineSetRoutineByDate(
