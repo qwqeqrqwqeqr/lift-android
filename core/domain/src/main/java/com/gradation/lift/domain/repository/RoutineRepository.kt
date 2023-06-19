@@ -1,10 +1,10 @@
 package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.domain.model.routine.Routine
-import com.gradation.lift.domain.model.routine.RoutineSet
-import com.gradation.lift.domain.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.routine.Routine
+import com.gradation.lift.model.routine.RoutineSet
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 

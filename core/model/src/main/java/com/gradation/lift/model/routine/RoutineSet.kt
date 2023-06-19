@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.model.routine
+package com.gradation.lift.model.routine
 
 import com.gradation.lift.domain.model.common.RepeatIntervalType
 

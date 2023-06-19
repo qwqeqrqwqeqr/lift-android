@@ -4,7 +4,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
@@ -20,7 +20,7 @@ data class WeekDate(
 )
 
 data class WeekDateRoutine(
-    val weekDateRoutine: List<RoutineSetRoutine>,
+    val weekDateRoutine: List<com.gradation.lift.model.routine.RoutineSetRoutine>,
 )
 
 
@@ -38,7 +38,7 @@ sealed interface WeekDateRoutineUiState {
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun weekDateRoutineUiState(
-    getRoutineSetRoutineByDateUseCase: Flow<DataState<List<RoutineSetRoutine>>>,
+    getRoutineSetRoutineByDateUseCase: Flow<DataState<List<com.gradation.lift.model.routine.RoutineSetRoutine>>>,
 ): Flow<WeekDateRoutineUiState> {
 
     return getRoutineSetRoutineByDateUseCase.map {

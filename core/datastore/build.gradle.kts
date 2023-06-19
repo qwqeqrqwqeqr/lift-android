@@ -12,5 +12,5 @@ android {
 dependencies{
     implementation(project(":core:test"))
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
 }

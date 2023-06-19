@@ -1,7 +1,7 @@
-package com.gradation.lift.domain.model.routine
+package com.gradation.lift.model.routine
 
-import com.gradation.lift.domain.model.work.WorkCategory
-import com.gradation.lift.domain.model.work.WorkSet
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkSet
 
 data class Routine(
     val id: Int,

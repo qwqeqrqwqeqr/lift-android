@@ -10,18 +10,23 @@ import com.gradation.lift.network.datasource.WorkDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object RepositoryModule {
+
+
+    @ViewModelScoped
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
     ): WorkRepository = DefaultWorkRepository(workDataSource)
 
 
+    @ViewModelScoped
     @Provides
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,

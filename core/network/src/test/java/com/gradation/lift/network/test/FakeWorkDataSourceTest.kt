@@ -3,11 +3,11 @@ package com.gradation.lift.network.test
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
-import com.gradation.lift.network.utils.TestDataGenerator.FAKE_INT_DATA
-import com.gradation.lift.network.utils.TestDataGenerator.workCategoryModelList
-import com.gradation.lift.network.utils.TestDataGenerator.workPartModelList
+import com.gradation.lift.test.data.TestModelDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.test.data.TestModelDataGenerator.workCategoryModelList
+import com.gradation.lift.test.data.TestModelDataGenerator.workPartModelList
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.test.CoroutineRule
+import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

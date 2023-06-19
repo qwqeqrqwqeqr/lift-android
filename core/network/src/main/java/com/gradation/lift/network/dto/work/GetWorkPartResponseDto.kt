@@ -1,8 +1,7 @@
 package com.gradation.lift.network.dto.work
 
-import com.gradation.lift.domain.model.work.*
+import com.gradation.lift.model.work.WorkPart
 import com.squareup.moshi.JsonClass
-import kotlinx.serialization.Serializable
 
 
 @JsonClass(generateAdapter = true)
@@ -11,8 +10,8 @@ data class GetWorkPartResponseDto(
 ) {
     fun toWorkPart(): List<WorkPart> = this.workpart.map {
         WorkPart(
-            id= it.id,
-            name =it.name
+            id = it.id,
+            name = it.name
         )
     }
 }

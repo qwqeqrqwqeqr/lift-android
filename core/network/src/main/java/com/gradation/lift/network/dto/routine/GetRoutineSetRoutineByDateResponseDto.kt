@@ -4,16 +4,13 @@ import com.gradation.lift.domain.model.common.DAY_TYPE
 import com.gradation.lift.domain.model.common.RepeatIntervalType
 import com.gradation.lift.domain.model.common.WEEK_DAY_TYPE
 import com.gradation.lift.domain.model.common.toWeekDay
-import com.gradation.lift.domain.model.routine.Routine
-import com.gradation.lift.domain.model.routine.RoutineSet
-import com.gradation.lift.domain.model.routine.RoutineSetRoutine
-import com.gradation.lift.domain.model.work.WorkCategory
-import com.gradation.lift.domain.model.work.WorkPart
-import com.gradation.lift.domain.model.work.WorkSet
+import com.gradation.lift.model.routine.Routine
+import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkPart
+import com.gradation.lift.model.work.WorkSet
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 @JsonClass(generateAdapter = true)
 data class GetRoutineSetRoutineByDateResponseDto(
@@ -26,7 +23,7 @@ data class GetRoutineSetRoutineByDateResponseDto(
             shortDescription = it.value.first().shortDescription,
             longDescription = it.value.first().longDescription,
             repeatIntervalType = when (it.value.first().repeatType) {
-                WEEK_DAY_TYPE ->  RepeatIntervalType.WeekDayType(weekday = toWeekDay(it.value.first().repeatInterval))
+                WEEK_DAY_TYPE -> RepeatIntervalType.WeekDayType(weekday = toWeekDay(it.value.first().repeatInterval))
                 DAY_TYPE -> RepeatIntervalType.DayType(interval = it.value.first().repeatInterval)
                 else -> null
             }!!,
@@ -38,15 +35,19 @@ data class GetRoutineSetRoutineByDateResponseDto(
                         id = routine.workCategory.id,
                         name = routine.workCategory.name,
                         workpart = WorkPart(
-                            id= routine.workCategory.workpart.id,
-                            name =routine.workCategory.workpart.name
+                            id = routine.workCategory.workpart.id,
+                            name = routine.workCategory.workpart.name
                         ),
                         shortDescription = routine.workCategory.shortDescription,
                         longDescription = routine.workCategory.longDescription
                     ),
-                    workSetList = routine.workWeightList.zip(routine.workRepetitionList).map { workSet ->
-                        WorkSet(weight = workSet.first, repetition = workSet.second)
-                    },
+                    workSetList = routine.workWeightList.zip(routine.workRepetitionList)
+                        .map { workSet ->
+                            WorkSet(
+                                weight = workSet.first,
+                                repetition = workSet.second
+                            )
+                        },
                     maxWeight = routine.maxWeight,
                     minWeight = routine.minWeight,
                     totalWeight = routine.totalWeight,

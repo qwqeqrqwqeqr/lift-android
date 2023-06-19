@@ -1,9 +1,9 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.domain.model.routine.Routine
-import com.gradation.lift.domain.model.routine.RoutineSet
-import com.gradation.lift.domain.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.routine.Routine
+import com.gradation.lift.model.routine.RoutineSet
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.routine.GetRoutineSetRoutineByDateResponseDto

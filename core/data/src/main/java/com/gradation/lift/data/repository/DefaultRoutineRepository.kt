@@ -1,13 +1,12 @@
 package com.gradation.lift.data.repository
 
-import android.util.Log
 import com.gradation.lift.datastore.datasource.DataStoreDataSource
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.domain.model.routine.Routine
-import com.gradation.lift.domain.model.routine.RoutineSet
-import com.gradation.lift.domain.model.routine.RoutineSetRoutine
 import com.gradation.lift.domain.repository.RoutineRepository
+import com.gradation.lift.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.routine.Routine
+import com.gradation.lift.model.routine.RoutineSet
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
@@ -44,9 +43,9 @@ class DefaultRoutineRepository @Inject constructor(
         }
 
     override fun getRoutineSetByDate(
-        date: LocalDate
+        date: LocalDate,
     ): Flow<DataState<List<RoutineSet>>> = flow {
-        routineDataSource.getRoutineSetByDate(userId = "201713721",date= date).collect { result ->
+        routineDataSource.getRoutineSetByDate(userId = "201713721", date = date).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
@@ -57,9 +56,12 @@ class DefaultRoutineRepository @Inject constructor(
     }
 
     override fun getRoutineSetByRoutineSetId(
-        routineSetId: Int
+        routineSetId: Int,
     ): Flow<DataState<RoutineSet>> = flow {
-        routineDataSource.getRoutineSetByRoutineSetId(userId = "201713721",routineSetId= routineSetId).collect { result ->
+        routineDataSource.getRoutineSetByRoutineSetId(
+            userId = "201713721",
+            routineSetId = routineSetId
+        ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
@@ -82,20 +84,24 @@ class DefaultRoutineRepository @Inject constructor(
 
     override fun getRoutineByDate(date: LocalDate): Flow<DataState<List<Routine>>> =
         flow {
-            routineDataSource.getRoutineByDate(userId = "201713721",date=date).collect { result ->
-                when (result) {
-                    is APIResult.Fail -> emit(DataState.Fail(result.message))
-                    is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                    is APIResult.Loading -> emit(DataState.Loading)
-                    is APIResult.Success -> emit(DataState.Success(result.data))
+            routineDataSource.getRoutineByDate(userId = "201713721", date = date)
+                .collect { result ->
+                    when (result) {
+                        is APIResult.Fail -> emit(DataState.Fail(result.message))
+                        is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                        is APIResult.Loading -> emit(DataState.Loading)
+                        is APIResult.Success -> emit(DataState.Success(result.data))
+                    }
                 }
-            }
         }
 
     override fun getRoutineByRoutineSetId(
-        routineSetId: Int
+        routineSetId: Int,
     ): Flow<DataState<List<Routine>>> = flow {
-        routineDataSource.getRoutineByRoutineSetId(userId = "201713721",routineSetId=routineSetId).collect { result ->
+        routineDataSource.getRoutineByRoutineSetId(
+            userId = "201713721",
+            routineSetId = routineSetId
+        ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
@@ -107,9 +113,13 @@ class DefaultRoutineRepository @Inject constructor(
 
     override fun getRoutineByDateAndRoutineSetId(
         date: LocalDate,
-        routineSetId: Int
+        routineSetId: Int,
     ): Flow<DataState<List<Routine>>> = flow {
-        routineDataSource.getRoutineByDateAndRoutineSetId(userId = "201713721",date=date,routineSetId=routineSetId).collect { result ->
+        routineDataSource.getRoutineByDateAndRoutineSetId(
+            userId = "201713721",
+            date = date,
+            routineSetId = routineSetId
+        ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
@@ -132,17 +142,18 @@ class DefaultRoutineRepository @Inject constructor(
 
     override fun getRoutineSetRoutineByDate(date: LocalDate): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
-            routineDataSource.getRoutineSetRoutineByDate(userId = "201713721",date=date).collect { result ->
-                when (result) {
-                    is APIResult.Fail -> emit(DataState.Fail(result.message))
-                    is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                    is APIResult.Loading -> emit(DataState.Loading)
-                    is APIResult.Success ->{
-                        emit(DataState.Success(result.data))
-                    }
+            routineDataSource.getRoutineSetRoutineByDate(userId = "201713721", date = date)
+                .collect { result ->
+                    when (result) {
+                        is APIResult.Fail -> emit(DataState.Fail(result.message))
+                        is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
+                        is APIResult.Loading -> emit(DataState.Loading)
+                        is APIResult.Success -> {
+                            emit(DataState.Success(result.data))
+                        }
 
+                    }
                 }
-            }
         }
 
 

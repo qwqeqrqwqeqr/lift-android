@@ -1,8 +1,8 @@
 package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.model.work.WorkCategory
-import com.gradation.lift.domain.model.work.WorkPart
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkPart
 import kotlinx.coroutines.flow.Flow
 
 interface WorkRepository {

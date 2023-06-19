@@ -12,10 +12,8 @@ fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
         modifier = modifier,
-        uiState = uiState
     )
 }
 
@@ -23,7 +21,6 @@ fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    uiState: HomeUiState
 ) {
 
 }

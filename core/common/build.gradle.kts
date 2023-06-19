@@ -7,7 +7,3 @@ plugins {
 android {
     namespace = "com.gradation.lift.common"
 }
-
-dependencies {
-    implementation(project(":core:test"))
-}

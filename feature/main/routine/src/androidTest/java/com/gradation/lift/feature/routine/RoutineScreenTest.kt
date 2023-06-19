@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.routine
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
@@ -8,14 +9,22 @@ import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 
 class RoutineScreenTest {
+
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    @Before
+    fun setup() {
+        composeTestRule.activity.apply {
+
+        }
+    }
 
     @Test
     fun loading_showsLoadingSpinner() {

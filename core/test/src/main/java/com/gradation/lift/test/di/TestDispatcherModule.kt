@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package com.gradation.lift.di
+package com.gradation.lift.test.di
 
 import dagger.Module
 import dagger.Provides

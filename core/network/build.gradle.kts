@@ -22,8 +22,8 @@ fun getApiURL(propertyKey: String): String {
     return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
-dependencies{
+dependencies {
     testImplementation(project(":core:test"))
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
 }

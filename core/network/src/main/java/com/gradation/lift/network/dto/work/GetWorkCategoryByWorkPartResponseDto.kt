@@ -1,10 +1,9 @@
 package com.gradation.lift.network.dto.work
 
-import com.gradation.lift.domain.model.work.*
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkPart
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 
 @JsonClass(generateAdapter = true)
@@ -18,11 +17,11 @@ data class GetWorkCategoryByWorkPartResponseDto (
                 id = it.id,
                 name = it.name,
                 workpart = WorkPart(
-                    id= it.workpart.id,
-                    name =it.workpart.name
+                    id = it.workpart.id,
+                    name = it.workpart.name
                 ),
                 shortDescription = it.shortDescription,
                 longDescription = it.longDescription
             )
-        }.filter { it.workpart!=null }
+        }.filter { true }
 }

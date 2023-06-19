@@ -22,7 +22,7 @@ import javax.inject.Inject
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class RoutineViewModel @Inject constructor(
-    getWeekDateUseCase: GetWeekDateUseCase,
+    private val getWeekDateUseCase: GetWeekDateUseCase,
     private val getRoutineSetRoutineByDateUseCase: GetRoutineSetRoutineByDateUseCase,
 ) : ViewModel() {
 

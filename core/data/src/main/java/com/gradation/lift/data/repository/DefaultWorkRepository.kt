@@ -1,9 +1,9 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.model.work.WorkCategory
-import com.gradation.lift.domain.model.work.WorkPart
 import com.gradation.lift.domain.repository.WorkRepository
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.WorkDataSource
 import kotlinx.coroutines.flow.*

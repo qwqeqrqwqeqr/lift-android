@@ -8,10 +8,8 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.test"
-
-
 }
 
 dependencies {
-
+    implementation(project(":core:model"))
 }

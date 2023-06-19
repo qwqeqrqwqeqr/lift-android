@@ -1,4 +1,4 @@
-package com.gradation.lift.test
+package com.gradation.lift.test.rule
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
