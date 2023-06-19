@@ -19,13 +19,16 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
+import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun RoutineBody(
     modifier: Modifier = Modifier,
-    currentDate: String,
+    currentDate: LocalDate,
     weekDateRoutineUiState: WeekDateRoutineUiState,
-    weekCardClick: () -> Unit,
+    weekDateUiState : WeekDateUiState,
+    weekCardClick: (LocalDate) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -65,7 +68,7 @@ fun RoutineBody(
                     withStyle(
                         style = SpanStyle(fontWeight = FontWeight.Bold),
                     ) {
-                        append(currentDate)
+                        append("${currentDate.monthNumber}월 ${currentDate.dayOfMonth}일")
                     }
                     append("이에요!\n" + "루틴을 선택해서 운동을 해봐요!")
                 },
@@ -74,7 +77,8 @@ fun RoutineBody(
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(16.dp))
-            WeekDateRoutineView(weekDateRoutineUiState= weekDateRoutineUiState,weekCardClick= weekCardClick)
+
+            WeekDateRoutineView(weekDateRoutineUiState= weekDateRoutineUiState,weekDateUiState=weekDateUiState,weekCardClick= weekCardClick)
         }
     }
 }

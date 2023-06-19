@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.routine.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,20 +16,30 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine.viewmodel.WeekDate
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
+import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 
 @Composable
 fun WeekDateRoutineView(
     weekDateRoutineUiState: WeekDateRoutineUiState,
+    weekDateUiState: WeekDateUiState,
     modifier: Modifier = Modifier,
-    weekCardClick: () -> Unit,
+    weekCardClick: (LocalDate) -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colorScheme.background)
     ) {
-        WeekCard(weekDateRoutineUiState = weekDateRoutineUiState, weekCardClick = weekCardClick)
+        WeekCard(
+            weekDateRoutineUiState = weekDateRoutineUiState,
+            weekDateUiState = weekDateUiState,
+            weekCardClick = weekCardClick
+        )
     }
 }
 
@@ -37,37 +48,33 @@ fun WeekDateRoutineView(
 fun WeekCard(
     modifier: Modifier = Modifier,
     weekDateRoutineUiState: WeekDateRoutineUiState,
-    weekCardClick: () -> Unit
+    weekDateUiState: WeekDateUiState,
+    weekCardClick: (LocalDate) -> Unit,
 ) {
     Row(modifier = modifier.fillMaxWidth()) {
         when (weekDateRoutineUiState) {
             is WeekDateRoutineUiState.Empty -> {
                 WeekCardList(
                     modifier = modifier.weight(1f),
-                    weekDateList = weekDateRoutineUiState.weekDateRoutine.weekDate,
+                    weekDateList = weekDateUiState,
                     weekCardClick = weekCardClick
                 )
+                Text(text = "빔")
             }
             WeekDateRoutineUiState.Error -> {
-                WeekCardList(
-                    modifier = modifier.weight(1f),
-                    weekDateList = emptyCardList,
-                    weekCardClick = weekCardClick
-                )
+                Text(text = "에러")
+
             }
             WeekDateRoutineUiState.Loading -> {
-                WeekCardList(
-                    modifier = modifier.weight(1f),
-                    weekDateList = emptyCardList,
-                    weekCardClick = weekCardClick
-                )
+                Text(text = "로딩")
             }
             is WeekDateRoutineUiState.Success -> {
                 WeekCardList(
                     modifier = modifier.weight(1f),
-                    weekDateList = weekDateRoutineUiState.weekDateRoutine.weekDate,
+                    weekDateList = weekDateUiState,
                     weekCardClick = weekCardClick
                 )
+                Text(text = "${weekDateRoutineUiState.weekDateRoutine.weekDateRoutine}")
             }
         }
     }
@@ -77,16 +84,15 @@ fun WeekCard(
 @Composable
 fun WeekCardList(
     modifier: Modifier = Modifier,
-    weekDateList: List<WeekDate>,
-    weekCardClick: () -> Unit
+    weekDateList: WeekDateUiState,
+    weekCardClick: (LocalDate) -> Unit,
 ) {
-    repeat(weekDateList.size) {
+    repeat(weekDateList.weekDate.size) {
         WeekCardItem(
-            modifier= modifier.fillMaxWidth(),
-            weekDate = weekDateList[it],
+            modifier = modifier.fillMaxWidth(),
+            weekDate = weekDateList.weekDate[it],
             weekCardClick = weekCardClick
         )
-
     }
 }
 
@@ -94,7 +100,7 @@ fun WeekCardList(
 fun WeekCardItem(
     modifier: Modifier = Modifier,
     weekDate: WeekDate,
-    weekCardClick: () -> Unit
+    weekCardClick: (LocalDate) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -102,11 +108,11 @@ fun WeekCardItem(
                 color = if (weekDate.selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(16.dp)
             )
-            .clickable(onClick = weekCardClick)
+            .clickable(onClick = { weekCardClick(weekDate.localDate!!) })
             .padding(8.dp, 24.dp, 8.dp, 24.dp)
     ) {
         Column(
-            modifier= modifier,
+            modifier = modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -132,7 +138,9 @@ fun WeekCardListViewPreview() {
     LiftTheme {
         WeekDateRoutineView(
             weekDateRoutineUiState = WeekDateRoutineUiState.Loading,
-            weekCardClick = {})
+            weekDateUiState = WeekDateUiState(emptyList()),
+            weekCardClick = { Clock.System.todayIn(TimeZone.currentSystemDefault()) }
+        )
     }
 
 }

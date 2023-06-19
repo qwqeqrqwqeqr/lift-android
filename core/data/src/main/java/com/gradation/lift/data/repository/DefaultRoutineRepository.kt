@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import android.util.Log
 import com.gradation.lift.datastore.datasource.DataStoreDataSource
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.model.routine.CreateRoutineSetRoutine
@@ -136,7 +137,10 @@ class DefaultRoutineRepository @Inject constructor(
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
                     is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
                     is APIResult.Loading -> emit(DataState.Loading)
-                    is APIResult.Success -> emit(DataState.Success(result.data))
+                    is APIResult.Success ->{
+                        emit(DataState.Success(result.data))
+                    }
+
                 }
             }
         }

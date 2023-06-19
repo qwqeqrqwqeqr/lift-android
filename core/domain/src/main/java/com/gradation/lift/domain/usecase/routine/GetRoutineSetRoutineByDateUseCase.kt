@@ -12,4 +12,5 @@ class GetRoutineSetRoutineByDateUseCase  @Inject constructor(
 ) {
     operator fun invoke(date: LocalDate): Flow<DataState<List<RoutineSetRoutine>>> =
         routineRepository.getRoutineSetRoutineByDate(date)
+
 }

@@ -16,7 +16,9 @@ import com.gradation.lift.feature.routine.component.RoutineBody
 import com.gradation.lift.feature.routine.component.RoutineHeader
 import com.gradation.lift.feature.routine.viewmodel.RoutineViewModel
 import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
+import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
+import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -26,23 +28,28 @@ fun RoutineRoute(
     viewModel: RoutineViewModel = hiltViewModel()
 ) {
     val weekDateRoutineUiState : WeekDateRoutineUiState by viewModel.weekDateRoutineUiState.collectAsStateWithLifecycle()
+    val weekDateUiState  : WeekDateUiState by viewModel.weekDateUiState.collectAsStateWithLifecycle()
+    val currentDate  = viewModel.currentDate
     RoutineScreen(
         modifier = modifier,
-        currentDate = viewModel.currentDate,
+        currentDate = currentDate,
         weekDateRoutineUiState = weekDateRoutineUiState,
+        weekDateUiState= weekDateUiState,
         navigateCreateRoutineClick = {navController.navigateToCreateRoutineGraph()},
-        weekCardClick = {}
+        weekCardClick = viewModel::onClickDate
     )
+
 }
 
 
 @Composable
 internal fun RoutineScreen(
     modifier: Modifier = Modifier,
-    currentDate: String,
+    currentDate: LocalDate,
     weekDateRoutineUiState: WeekDateRoutineUiState,
+    weekDateUiState: WeekDateUiState,
     navigateCreateRoutineClick: () -> Unit,
-    weekCardClick: () -> Unit,
+    weekCardClick: (LocalDate) -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -55,9 +62,10 @@ internal fun RoutineScreen(
             Spacer(modifier = modifier.height(16.dp))
             RoutineBody(
                 modifier = modifier,
-                currentDate = currentDate,
-                weekDateRoutineUiState = weekDateRoutineUiState,
-                weekCardClick= weekCardClick
+                currentDate  =currentDate,
+                weekDateRoutineUiState= weekDateRoutineUiState,
+                weekDateUiState = weekDateUiState,
+                weekCardClick = weekCardClick,
             )
         }
     }
