@@ -54,6 +54,17 @@ internal fun CreateRoutineRoutineSetScreen(
                     )
                 }
 
+                LiftButton(
+                    modifier = Modifier,
+                    onClick = { navController.navigateToCreateRoutineRoutineDetail() },
+                ) {
+                    Text(
+                        text = "운동시작하기",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
+
             }
         }
     }
