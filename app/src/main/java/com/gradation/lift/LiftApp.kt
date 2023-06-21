@@ -37,7 +37,6 @@ import com.gradation.lift.navigation.navigation.navigateToRoutine
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalComposeUiApi::class
 )
 @Composable
 fun LiftApp(
@@ -55,7 +54,7 @@ fun LiftApp(
                 }
             },
         ) {
-            LiftNavHost(appState.navController)
+            LiftNavHost(appState.navController, startDestination = HOME_ROUTER_NAME)
         }
     }
 }

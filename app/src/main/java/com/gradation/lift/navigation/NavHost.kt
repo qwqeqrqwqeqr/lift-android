@@ -12,13 +12,14 @@ import com.gradation.lift.feature.my_info.myInfoScreen
 import com.gradation.lift.feature.routine.routineScreen
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.graph.createRoutineGraph
+import com.gradation.lift.navigation.graph.loginGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String = HOME_ROUTER_NAME,
+    startDestination: String ,
 ) {
     NavHost(
         navController = navController,
@@ -30,6 +31,10 @@ fun LiftNavHost(
         historyScreen(navController,this)
         myInfoScreen(navController, this)
         createRoutineGraph(
+            navController = navController,
+            navGraphBuilder = this
+        )
+        loginGraph(
             navController = navController,
             navGraphBuilder = this
         )
