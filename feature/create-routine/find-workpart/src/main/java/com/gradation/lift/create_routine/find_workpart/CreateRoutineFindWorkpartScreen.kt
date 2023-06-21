@@ -14,11 +14,11 @@ fun CreateRoutineFindWorkpartRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkpartViewModel = hiltViewModel()
 ) {
-    CreateRoutineFindWorkpartScreen()
+    CreateRoutineFindWorkpartScreen(navController=navController)
 }
 
 @Composable
-fun CreateRoutineFindWorkpartScreen(){
+fun CreateRoutineFindWorkpartScreen(navController:NavController){
     Box(
 
     ){

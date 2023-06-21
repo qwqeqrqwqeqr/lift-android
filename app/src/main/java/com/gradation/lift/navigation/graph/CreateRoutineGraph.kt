@@ -3,6 +3,7 @@ package com.gradation.lift.navigation.graph
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
+import com.gradation.lift.create_routine.find_workpart.createRoutineFindWorkpartScreen
 import com.gradation.lift.create_routine.routine_detail.createRoutineRoutineDetailScreen
 import com.gradation.lift.feature.create_routine.routile_set.createRoutineRoutineSetScreen
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME
@@ -20,7 +21,7 @@ fun createRoutineGraph(
         ) {
             createRoutineRoutineSetScreen(navController, this)
             createRoutineRoutineDetailScreen(navController, this)
-
+            createRoutineFindWorkpartScreen(navController, this)
         }
     }.createRoutineGraph(
         route = CREATE_ROUTINE_GRAPH_ROUTER_NAME,

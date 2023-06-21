@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetListView
 import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetNameView
 import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetWeekDateView
+import com.gradation.lift.navigation.navigation.navigateToCreateRoutineFindWorkpart
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineDetail
 
 
@@ -28,14 +30,19 @@ fun CreateRoutineRoutineSetRoute(
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
 
+    val routineSetUiState=  viewModel.routineSetListUiState.collectAsStateWithLifecycle()
+
     val routineSetName = viewModel.routineSetName
     val updateRoutineSetName = viewModel::updateRoutineSetName
-
+    val haveRoutineSet = routineSetUiState.value.isNotEmpty()
+    val onClickPlusCircle = {navController.navigateToCreateRoutineFindWorkpart()}
     CreateRoutineRoutineSetScreen(
-        navController,
-        modifier,
-        routineSetName,
-        updateRoutineSetName
+        navController = navController,
+        modifier = modifier,
+        routineSetName = routineSetName,
+        updateRoutineSetName = updateRoutineSetName,
+        haveRoutineSet = haveRoutineSet,
+        onClickPlusCircle = onClickPlusCircle
     )
 
 }
@@ -48,6 +55,8 @@ internal fun CreateRoutineRoutineSetScreen(
     modifier: Modifier = Modifier,
     routineSetName: String,
     updateRoutineSetName: (updateText: String) -> Unit,
+    haveRoutineSet: Boolean,
+    onClickPlusCircle: () -> Unit
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -59,7 +68,8 @@ internal fun CreateRoutineRoutineSetScreen(
             },
         ) { padding ->
             Box(
-                modifier = modifier.padding(padding)
+                modifier = modifier
+                    .padding(padding)
                     .background(
                         color = Color.White,
                         shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp)
@@ -68,18 +78,8 @@ internal fun CreateRoutineRoutineSetScreen(
                     .padding(16.dp)
             ){
                 Column() {
-                    LiftButton(
-                        modifier = Modifier,
-                        onClick = { navController.navigateToCreateRoutineRoutineDetail() },
-                    ) {
-                        Text(
-                            text = "루틴셋",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                        )
-                    }
                     RoutineSetNameView(routineSetName,updateRoutineSetName)
-                    RoutineSetListView()
+                    RoutineSetListView(haveRoutineSet = haveRoutineSet,onClickPlusCircle=onClickPlusCircle)
                     RoutineSetWeekDateView()
 
                     LiftButton(
@@ -87,7 +87,7 @@ internal fun CreateRoutineRoutineSetScreen(
                         onClick = { navController.navigateToCreateRoutineRoutineDetail() },
                     ) {
                         Text(
-                            text = "운동시작하기",
+                            text = "생성하기",
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onPrimary,
                         )

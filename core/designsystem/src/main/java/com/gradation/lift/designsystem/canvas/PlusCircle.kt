@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 fun PlusCircle(modifier: Modifier =Modifier){
     Canvas(
         modifier = modifier
-            .size(32.dp)
+            .size(48.dp)
     ) {
 
         drawCircle(
