@@ -5,10 +5,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetListView
+import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetNameView
+import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetWeekDateView
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineDetail
 
 
@@ -18,9 +22,13 @@ fun CreateRoutineRoutineSetRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
+
+    val routineSetName = viewModel.routineSetName
+
     CreateRoutineRoutineSetScreen(
         navController,
-        modifier
+        modifier,
+        routineSetName
     )
 
 }
@@ -31,6 +39,7 @@ fun CreateRoutineRoutineSetRoute(
 internal fun CreateRoutineRoutineSetScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
+    routineSetName: TextFieldValue,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
 
@@ -53,6 +62,9 @@ internal fun CreateRoutineRoutineSetScreen(
                         color = MaterialTheme.colorScheme.onPrimary,
                     )
                 }
+                RoutineSetNameView(routineSetName)
+                RoutineSetListView()
+                RoutineSetWeekDateView()
 
                 LiftButton(
                     modifier = Modifier,
