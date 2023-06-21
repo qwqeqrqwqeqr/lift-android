@@ -36,7 +36,7 @@ fun LiftTextField(
             containerColor = MaterialTheme.colorScheme.surface,
             placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant
         ),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(32.dp)
 
     )
 }
