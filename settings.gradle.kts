@@ -27,6 +27,8 @@ include(":core:designsystem")
 include(":core:data")
 include(":core:domain")
 include(":core:navigation")
+include(":core:model")
+
 
 
 include(":feature:main:home")
@@ -40,4 +42,8 @@ include(":feature:create-routine:find-work-category")
 include(":feature:create-routine:find-workpart")
 include(":feature:create-routine:routine")
 include(":feature:create-routine:routine-detail")
-include(":core:model")
+
+include(":feature:login:sign-in")
+include(":feature:login:sign-up")
+include(":feature:login:verification")
+include(":feature:login:terms-of-use")
