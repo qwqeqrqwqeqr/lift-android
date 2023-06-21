@@ -20,7 +20,9 @@ fun RoutineSetNameView(
     updateText: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(
+        modifier= modifier.fillMaxWidth()
+    ) {
 
         Text(
             text = "루틴리스트 이름",
@@ -33,7 +35,7 @@ fun RoutineSetNameView(
         LiftTextField(
             value = routineSetName,
             onValueChange = updateText,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier,
             placeholder = { Text("루틴이름을 정해주세요.") },
             singleLine = true,
         )

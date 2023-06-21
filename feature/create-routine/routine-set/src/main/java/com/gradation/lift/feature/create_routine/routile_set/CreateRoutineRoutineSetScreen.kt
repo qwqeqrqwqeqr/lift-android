@@ -83,7 +83,7 @@ internal fun CreateRoutineRoutineSetScreen(
                     RoutineSetWeekDateView()
 
                     LiftButton(
-                        modifier = Modifier,
+                        modifier = Modifier.fillMaxWidth(),
                         onClick = { navController.navigateToCreateRoutineRoutineDetail() },
                     ) {
                         Text(
