@@ -28,14 +28,14 @@ fun RoutineSetNameView(
             text = "루틴리스트 이름",
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.secondary,
-            textAlign = TextAlign.Center,
+            modifier= modifier.fillMaxWidth()
         )
-        Spacer(modifier = modifier.padding(4.dp))
+        Spacer(modifier = modifier.padding(4.dp).fillMaxWidth())
 
         LiftTextField(
             value = routineSetName,
             onValueChange = updateText,
-            modifier = modifier,
+            modifier = modifier.fillMaxWidth(),
             placeholder = { Text("루틴이름을 정해주세요.") },
             singleLine = true,
         )
