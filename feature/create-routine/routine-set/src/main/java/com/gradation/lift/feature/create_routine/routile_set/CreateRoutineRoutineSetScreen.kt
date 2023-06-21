@@ -1,11 +1,16 @@
 package com.gradation.lift.feature.create_routine.routile_set
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
@@ -24,11 +29,13 @@ fun CreateRoutineRoutineSetRoute(
 ) {
 
     val routineSetName = viewModel.routineSetName
+    val updateRoutineSetName = viewModel::updateRoutineSetName
 
     CreateRoutineRoutineSetScreen(
         navController,
         modifier,
-        routineSetName
+        routineSetName,
+        updateRoutineSetName
     )
 
 }
@@ -39,10 +46,10 @@ fun CreateRoutineRoutineSetRoute(
 internal fun CreateRoutineRoutineSetScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    routineSetName: TextFieldValue,
+    routineSetName: String,
+    updateRoutineSetName: (updateText: String) -> Unit,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
-
         Scaffold(
             topBar = {
                 LiftTopBar(
@@ -51,33 +58,44 @@ internal fun CreateRoutineRoutineSetScreen(
                 )
             },
         ) { padding ->
-            Column(modifier.padding(padding)) {
-                LiftButton(
-                    modifier = Modifier,
-                    onClick = { navController.navigateToCreateRoutineRoutineDetail() },
-                ) {
-                    Text(
-                        text = "루틴셋",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onPrimary,
+            Box(
+                modifier = modifier.padding(padding)
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp)
                     )
-                }
-                RoutineSetNameView(routineSetName)
-                RoutineSetListView()
-                RoutineSetWeekDateView()
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ){
+                Column() {
+                    LiftButton(
+                        modifier = Modifier,
+                        onClick = { navController.navigateToCreateRoutineRoutineDetail() },
+                    ) {
+                        Text(
+                            text = "루틴셋",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    }
+                    RoutineSetNameView(routineSetName,updateRoutineSetName)
+                    RoutineSetListView()
+                    RoutineSetWeekDateView()
 
-                LiftButton(
-                    modifier = Modifier,
-                    onClick = { navController.navigateToCreateRoutineRoutineDetail() },
-                ) {
-                    Text(
-                        text = "운동시작하기",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                    )
-                }
+                    LiftButton(
+                        modifier = Modifier,
+                        onClick = { navController.navigateToCreateRoutineRoutineDetail() },
+                    ) {
+                        Text(
+                            text = "운동시작하기",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    }
 
+                }
             }
+
         }
     }
 
