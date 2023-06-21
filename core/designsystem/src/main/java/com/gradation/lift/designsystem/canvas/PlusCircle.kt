@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.drawable
+package com.gradation.lift.designsystem.canvas
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
