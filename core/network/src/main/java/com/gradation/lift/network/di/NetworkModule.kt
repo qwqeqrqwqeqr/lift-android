@@ -4,6 +4,7 @@ import com.gradation.lift.common.dispatcher.DispatcherProvider
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.DefaultNetworkResultHandler
 import com.gradation.lift.network.common.NetworkResultHandler
+import com.gradation.lift.network.service.AuthService
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
 import com.squareup.moshi.Moshi
@@ -11,10 +12,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -72,6 +75,11 @@ object NetworkModule {
     fun provideRoutineService(retrofit: Retrofit): RoutineService =
         retrofit.create(RoutineService::class.java)
 
+
+    @Provides
+    @Singleton
+    fun provideAuthService(retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 
 
 
