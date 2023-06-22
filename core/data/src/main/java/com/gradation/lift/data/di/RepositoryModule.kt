@@ -5,6 +5,7 @@ import com.gradation.lift.data.repository.DefaultWorkRepository
 import com.gradation.lift.datastore.datasource.DataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.domain.repository.WorkRepository
+import com.gradation.lift.network.datasource.AuthDataSource
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.datasource.WorkDataSource
 import dagger.Module
@@ -32,5 +33,13 @@ object RepositoryModule {
         routineDataSource: RoutineDataSource,
         dataStoreDataSource: DataStoreDataSource
     ): RoutineRepository = DefaultRoutineRepository(routineDataSource,dataStoreDataSource)
+
+
+//    @ViewModelScoped
+//    @Provides
+//    fun provideAuthRepository(
+//        authDataSource: AuthDataSource,
+//        dataStoreDataSource: DataStoreDataSource
+//    ): RoutineRepository = DefaultRoutineRepository()
 
 }

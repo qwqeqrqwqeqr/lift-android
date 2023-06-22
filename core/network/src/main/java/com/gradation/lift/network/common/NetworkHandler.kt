@@ -1,8 +1,9 @@
 package com.gradation.lift.network.common
 
 import com.gradation.lift.common.dispatcher.DispatcherProvider
-import com.gradation.lift.network.common.Constants.INTERNAL_ERROR
+import com.gradation.lift.network.common.Constants.INTERNAL_SERVER_ERROR
 import com.gradation.lift.network.common.Constants.NETWORK_RETRY_DELAY
+import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
@@ -31,8 +32,13 @@ class DefaultNetworkResultHandler @Inject constructor(
                 }
                 .onStart { emit(APIResult.Loading) }
                 .catch { error ->
-                    if (error is HttpException && error.code() == INTERNAL_ERROR) {
+                    if (error is HttpException && error.code() == INTERNAL_SERVER_ERROR) {
                         emit(APIResult.Error(error))
+                    }
+                }
+                .catch { error ->
+                    if(error is HttpException && error.code() == UNAUTHORIZATION){
+
                     }
                 }
                 .catch { error -> emit(APIResult.Error(error)) }

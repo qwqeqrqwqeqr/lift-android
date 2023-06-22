@@ -25,6 +25,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
             }
         }
@@ -67,6 +68,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is APIResult.Fail -> emit(APIResult.Fail( result.message))
                     is APIResult.Error -> emit(APIResult.Error(result.exception))
                     is APIResult.Loading -> emit(APIResult.Loading)
+                    is APIResult.Refresh -> emit(APIResult.Refresh)
                     is APIResult.Success -> emit(APIResult.Success(result.data))
                 }
             }
@@ -86,6 +88,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
             }
         }
@@ -105,6 +108,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
             }
         }
@@ -117,6 +121,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is APIResult.Fail -> emit(APIResult.Fail( result.message))
                     is APIResult.Error -> emit(APIResult.Error(result.exception))
                     is APIResult.Loading -> emit(APIResult.Loading)
+                    is APIResult.Refresh -> emit(APIResult.Refresh)
                     is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
                 }
             }
@@ -136,6 +141,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
             }
         }
@@ -155,6 +161,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
             }
         }
@@ -176,6 +183,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
             }
         }
@@ -191,6 +199,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
             }
         }
@@ -210,6 +219,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is APIResult.Fail -> emit(APIResult.Fail( result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
+                is APIResult.Refresh -> emit(APIResult.Refresh)
                 is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
             }
         }

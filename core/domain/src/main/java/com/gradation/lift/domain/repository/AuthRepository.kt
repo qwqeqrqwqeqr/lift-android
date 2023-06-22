@@ -1,0 +1,13 @@
+package com.gradation.lift.domain.repository
+
+import com.gradation.lift.common.model.DataState
+import com.gradation.lift.model.auth.Account
+import com.gradation.lift.model.auth.Token
+import kotlinx.coroutines.flow.Flow
+
+interface AuthRepository {
+
+    fun signIn(account: Account): Flow<DataState<Token>>
+
+    fun refresh(token: Token): Flow<Token>
+}
