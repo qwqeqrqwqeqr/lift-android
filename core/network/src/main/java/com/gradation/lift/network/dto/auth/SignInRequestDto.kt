@@ -10,7 +10,7 @@ data class SignInRequestDto(
     @Json(name = "id")
     val id : String,
     @Json(name = "authentication_method")
-    val authenticationMethod : String,
+    val authenticationMethod : String="COMMON",
     @Json(name = "password")
     val password : String,
 )
