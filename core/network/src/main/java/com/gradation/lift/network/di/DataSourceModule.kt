@@ -1,10 +1,8 @@
 package com.gradation.lift.network.di
 
 import com.gradation.lift.network.common.NetworkResultHandler
-import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.datasource.WorkDataSource
-import com.gradation.lift.network.datasource.DefaultRoutineDataSource
-import com.gradation.lift.network.datasource.DefaultWorkDataSource
+import com.gradation.lift.network.datasource.*
+import com.gradation.lift.network.service.AuthService
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
 import dagger.Module
@@ -29,6 +27,14 @@ object DataSourceModule {
         routineService: RoutineService,
         networkResultHandler: NetworkResultHandler,
     ): RoutineDataSource = DefaultRoutineDataSource(routineService,networkResultHandler)
+
+
+    @Provides
+    fun provideAuthDataSource(
+        authService: AuthService,
+        networkResultHandler: NetworkResultHandler,
+    ): AuthDataSource = DefaultAuthDataSource(authService,networkResultHandler)
+
 
 
 }

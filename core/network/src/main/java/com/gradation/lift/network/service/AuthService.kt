@@ -1,6 +1,7 @@
 package com.gradation.lift.network.service
 
 import com.gradation.lift.network.common.APIResultWrapper
+import com.gradation.lift.network.dto.auth.RefreshResponseDto
 import com.gradation.lift.network.dto.auth.SignInRequestDto
 import com.gradation.lift.network.dto.auth.SignInResponseDto
 import com.gradation.lift.network.dto.routine.GetRoutineSetResponseDto
@@ -17,7 +18,7 @@ interface AuthService {
     @GET("auth/refresh/")
     suspend fun refresh(
         @Header("Authorization") refreshToken: String,
-    ): APIResultWrapper<GetRoutineSetResponseDto>
+    ): APIResultWrapper<RefreshResponseDto>
 
 }
 
