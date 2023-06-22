@@ -4,6 +4,8 @@ import com.gradation.lift.common.dispatcher.DispatcherProvider
 import com.gradation.lift.network.common.Constants.INTERNAL_SERVER_ERROR
 import com.gradation.lift.network.common.Constants.NETWORK_RETRY_DELAY
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
+import com.gradation.lift.network.service.AuthService
+import com.gradation.lift.network.service.RefreshService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
@@ -15,7 +17,7 @@ interface NetworkResultHandler {
 }
 
 class DefaultNetworkResultHandler @Inject constructor(
-    private val dispatcherProvider: DispatcherProvider
+    private val dispatcherProvider: DispatcherProvider,
 ) : NetworkResultHandler {
     override suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>> =
         flow {
@@ -38,7 +40,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 }
                 .catch { error ->
                     if(error is HttpException && error.code() == UNAUTHORIZATION){
-
+                        emit(APIResult.Refresh)
                     }
                 }
                 .catch { error -> emit(APIResult.Error(error)) }

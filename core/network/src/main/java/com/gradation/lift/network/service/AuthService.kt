@@ -15,10 +15,7 @@ interface AuthService {
     ): APIResultWrapper<SignInResponseDto>
 
 
-    @GET("auth/refresh/")
-    suspend fun refresh(
-        @Header("Authorization") refreshToken: String,
-    ): APIResultWrapper<RefreshResponseDto>
+
 
 }
 

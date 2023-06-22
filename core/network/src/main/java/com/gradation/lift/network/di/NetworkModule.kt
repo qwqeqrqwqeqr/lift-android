@@ -5,6 +5,7 @@ import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.DefaultNetworkResultHandler
 import com.gradation.lift.network.common.NetworkResultHandler
 import com.gradation.lift.network.service.AuthService
+import com.gradation.lift.network.service.RefreshService
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
 import com.squareup.moshi.Moshi
@@ -80,6 +81,13 @@ object NetworkModule {
     @Singleton
     fun provideAuthService(retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideRefreshService(retrofit: Retrofit): RefreshService =
+        retrofit.create(RefreshService::class.java)
+
 
 
 

@@ -1,6 +1,7 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.utils.RefreshManager
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
@@ -12,6 +13,7 @@ import javax.inject.Inject
 
 class DefaultWorkRepository @Inject constructor(
     private val workDataSource: WorkDataSource,
+    private val refreshManager: RefreshManager,
 ) : WorkRepository {
     override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
         workDataSource.getWorkPart().collect { result ->
@@ -20,9 +22,13 @@ class DefaultWorkRepository @Inject constructor(
                 is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
                 is APIResult.Loading -> emit(DataState.Loading)
                 is APIResult.Success -> emit(DataState.Success(result.data))
+                is APIResult.Refresh -> {
+                    emit(refreshManager { workDataSource.getWorkPart()})
+                }
             }
         }
     }
+
 
     override fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
         workDataSource.getWorkCategory().collect { result ->
@@ -31,6 +37,9 @@ class DefaultWorkRepository @Inject constructor(
                 is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
                 is APIResult.Loading -> emit(DataState.Loading)
                 is APIResult.Success -> emit(DataState.Success(result.data))
+                is APIResult.Refresh -> {
+                    emit(refreshManager { workDataSource.getWorkCategory()})
+                }
             }
         }
     }
@@ -43,6 +52,9 @@ class DefaultWorkRepository @Inject constructor(
                     is APIResult.Error -> emit(DataState.Error(result.exception.toString()))
                     is APIResult.Loading -> emit(DataState.Loading)
                     is APIResult.Success -> emit(DataState.Success(result.data))
+                    is APIResult.Refresh -> {
+                        emit(refreshManager { workDataSource.getWorkCategoryByWorkPart(workpart)})
+                    }
                 }
             }
         }

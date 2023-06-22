@@ -35,3 +35,7 @@ sealed class APIResult<out T : Any> {
 }
 
 
+sealed class RefreshResult<out T : Any>{
+    data class Success<out T : Any>(val accessToken: String) : RefreshResult<T>()
+    object Fail : RefreshResult<Nothing>()
+}

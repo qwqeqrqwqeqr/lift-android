@@ -1,8 +1,11 @@
 package com.gradation.lift.data.di
 
+import com.gradation.lift.data.repository.DefaultAuthRepository
 import com.gradation.lift.data.repository.DefaultRoutineRepository
 import com.gradation.lift.data.repository.DefaultWorkRepository
+import com.gradation.lift.data.utils.RefreshManager
 import com.gradation.lift.datastore.datasource.DataStoreDataSource
+import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.network.datasource.AuthDataSource
@@ -24,22 +27,24 @@ object RepositoryModule {
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
-    ): WorkRepository = DefaultWorkRepository(workDataSource)
+        refreshManager: RefreshManager
+    ): WorkRepository = DefaultWorkRepository(workDataSource,refreshManager)
 
 
     @ViewModelScoped
     @Provides
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
-        dataStoreDataSource: DataStoreDataSource
-    ): RoutineRepository = DefaultRoutineRepository(routineDataSource,dataStoreDataSource)
+        refreshManager: RefreshManager,
+        dataStoreDataSource: DataStoreDataSource,
+    ): RoutineRepository = DefaultRoutineRepository(routineDataSource,refreshManager ,dataStoreDataSource)
 
 
-//    @ViewModelScoped
-//    @Provides
-//    fun provideAuthRepository(
-//        authDataSource: AuthDataSource,
-//        dataStoreDataSource: DataStoreDataSource
-//    ): RoutineRepository = DefaultRoutineRepository()
+    @ViewModelScoped
+    @Provides
+    fun provideAuthRepository(
+        authDataSource: AuthDataSource,
+        dataStoreDataSource: DataStoreDataSource,
+    ): AuthRepository = DefaultAuthRepository(authDataSource, dataStoreDataSource)
 
 }

@@ -7,6 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {
     suspend fun signIn(account: Account) : Flow<APIResult<Token>>
-    suspend fun refresh(token: Token) : Flow<APIResult<Token>>
 
 }

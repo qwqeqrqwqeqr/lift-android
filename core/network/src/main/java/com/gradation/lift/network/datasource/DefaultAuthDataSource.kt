@@ -8,7 +8,6 @@ import com.gradation.lift.network.dto.auth.SignInRequestDto
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class DefaultAuthDataSource @Inject constructor(
@@ -29,20 +28,6 @@ class DefaultAuthDataSource @Inject constructor(
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
                 is APIResult.Loading -> emit(APIResult.Loading)
                 is APIResult.Refresh -> emit(APIResult.Refresh)
-                is APIResult.Success -> emit(APIResult.Success(result.data.toToken()))
-            }
-        }
-    }
-    override suspend fun refresh(token: Token): Flow<APIResult<Token>> =flow{
-        networkResultHandler.execute {
-            authService.refresh(refreshToken = token.refreshToken)
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Error -> emit(APIResult.Error(result.exception))
-                is APIResult.Loading -> emit(APIResult.Loading)
-                //TODO refresh token refresh 상태 제어 수정
-                is APIResult.Refresh -> emit(APIResult.Error(Throwable()))
                 is APIResult.Success -> emit(APIResult.Success(result.data.toToken()))
             }
         }
