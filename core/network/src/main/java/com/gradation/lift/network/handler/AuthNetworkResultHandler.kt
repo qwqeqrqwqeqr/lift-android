@@ -12,11 +12,8 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-interface NetworkResultHandler {
-    suspend operator fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>>
-}
 
-class DefaultNetworkResultHandler @Inject constructor(
+class AuthNetworkResultHandler @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
 ) : NetworkResultHandler {
     override suspend operator fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>> =
