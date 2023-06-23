@@ -20,7 +20,7 @@ data class WeekDate(
 )
 
 data class WeekDateRoutine(
-    val weekDateRoutine: List<com.gradation.lift.model.routine.RoutineSetRoutine>,
+    val weekDateRoutine: List<RoutineSetRoutine>,
 )
 
 

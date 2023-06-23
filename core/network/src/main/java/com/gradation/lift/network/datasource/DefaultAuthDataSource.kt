@@ -14,7 +14,7 @@ class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
     private val networkResultHandler: NetworkResultHandler,
 ) : AuthDataSource {
-    override suspend fun signIn(account: Account): Flow<DefaultAPIResult<Token>> = flow {
+    override fun signIn(account: Account): Flow<DefaultAPIResult<Token>> = flow {
         networkResultHandler.executeDefault {
             authService.signIn(
                 SignInRequestDto(

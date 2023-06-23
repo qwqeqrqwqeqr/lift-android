@@ -9,15 +9,15 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RefreshModule {
-
-    @ViewModelScoped
     @Provides
-    fun provideRefresh(
+    @Singleton
+    fun provideRefreshManager(
         refreshService: RefreshService,
         dataStoreDataSource: DataStoreDataSource
     ): RefreshManager = DefaultRefreshManager(refreshService,dataStoreDataSource)
