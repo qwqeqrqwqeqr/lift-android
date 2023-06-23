@@ -9,9 +9,5 @@ import com.squareup.moshi.JsonClass
 data class RefreshResponseDto(
     @Json(name = "access_token")
     val accessToken : String
-){
-    fun toToken(): Token = Token(
-        accessToken = accessToken
-    )
-}
+)
 
