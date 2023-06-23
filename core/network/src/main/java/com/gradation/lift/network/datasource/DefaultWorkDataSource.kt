@@ -14,7 +14,7 @@ class DefaultWorkDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler
 ) : WorkDataSource {
     override suspend fun getWorkPart(): Flow<AuthAPIResult<List<WorkPart>>> = flow {
-        networkResultHandler.execute { workService.getWorkPart() }.collect { result ->
+        networkResultHandler.executeAuth { workService.getWorkPart() }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
@@ -26,7 +26,7 @@ class DefaultWorkDataSource @Inject constructor(
     }
 
     override suspend fun getWorkCategory(): Flow<AuthAPIResult<List<WorkCategory>>> = flow {
-        networkResultHandler.execute { workService.getWorkCategory() }.collect { result ->
+        networkResultHandler.executeAuth { workService.getWorkCategory() }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
@@ -38,7 +38,7 @@ class DefaultWorkDataSource @Inject constructor(
     }
 
     override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<AuthAPIResult<List<WorkCategory>>> = flow {
-        networkResultHandler.execute { workService.getWorkCategoryByWorkPart(workpart) }.collect { result ->
+        networkResultHandler.executeAuth { workService.getWorkCategoryByWorkPart(workpart) }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))

@@ -6,11 +6,9 @@ import com.gradation.lift.network.common.DefaultAPIResult
 import kotlinx.coroutines.flow.Flow
 
 interface NetworkResultHandler {
-    suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<AuthAPIResult<T>>
+    suspend fun <T : Any> executeAuth(call: suspend () -> APIResultWrapper<T>): Flow<AuthAPIResult<T>>
 
-
-
-//    suspend fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<DefaultAPIResult<T>>
+    suspend fun <T : Any> executeDefault(call: suspend () -> APIResultWrapper<T>): Flow<DefaultAPIResult<T>>
 }
 
 

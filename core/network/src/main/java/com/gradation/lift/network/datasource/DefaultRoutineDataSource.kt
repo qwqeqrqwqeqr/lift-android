@@ -21,7 +21,7 @@ class DefaultRoutineDataSource @Inject constructor(
 ) : RoutineDataSource {
     override suspend fun getRoutineSet(userId: String): Flow<AuthAPIResult<List<RoutineSet>>> =
         flow {
-            networkResultHandler.execute { routineService.getRoutineSet(userId) }
+            networkResultHandler.executeAuth { routineService.getRoutineSet(userId) }
                 .collect { result ->
                     when (result) {
                         is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
@@ -35,7 +35,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<AuthAPIResult<Boolean>> =
         flow {
-            networkResultHandler.execute {
+            networkResultHandler.executeAuth {
                 routineService.createRoutineSet(CreateRoutineSetRequestDto(
                     userId = createRoutineSetRoutine.userId,
                     shortDescription = createRoutineSetRoutine.shortDescription,
@@ -80,7 +80,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate,
     ): Flow<AuthAPIResult<List<RoutineSet>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler.executeAuth {
             routineService.getRoutineSetByDate(
                 userId = userId,
                 date = date
@@ -100,7 +100,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         routineSetId: Int,
     ): Flow<AuthAPIResult<RoutineSet>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler.executeAuth {
             routineService.getRoutineSetByRoutineSetId(
                 userId = userId,
                 routineSetId = routineSetId
@@ -117,7 +117,7 @@ class DefaultRoutineDataSource @Inject constructor(
     }
 
     override suspend fun getRoutine(userId: String): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.execute { routineService.getRoutine(userId = userId) }
+        networkResultHandler.executeAuth { routineService.getRoutine(userId = userId) }
             .collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
@@ -133,7 +133,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate,
     ): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler.executeAuth {
             routineService.getRoutineByDate(
                 userId = userId,
                 date = date
@@ -153,7 +153,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         routineSetId: Int,
     ): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler.executeAuth {
             routineService.getRoutineByRoutineSetId(
                 userId = userId,
                 routineSetId = routineSetId
@@ -174,7 +174,7 @@ class DefaultRoutineDataSource @Inject constructor(
         date: LocalDate,
         routineSetId: Int,
     ): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler.executeAuth {
             routineService.getRoutineByDateAndRoutineSetId(
                 userId = userId,
                 date = date,
@@ -193,7 +193,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutineSetRoutine(userId: String): Flow<AuthAPIResult<List<RoutineSetRoutine>>> =
         flow {
-            networkResultHandler.execute {
+            networkResultHandler.executeAuth {
                 routineService.getRoutineSetRoutine(
                     userId = userId,
                 )
@@ -212,7 +212,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate,
     ): Flow<AuthAPIResult<List<RoutineSetRoutine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler.executeAuth {
             routineService.getRoutineSetRoutineByDate(
                 userId = userId,
                 date = date,
