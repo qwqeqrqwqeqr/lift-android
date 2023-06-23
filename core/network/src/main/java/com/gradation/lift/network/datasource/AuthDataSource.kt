@@ -6,6 +6,6 @@ import com.gradation.lift.network.common.DefaultAPIResult
 import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {
-    suspend fun signIn(account: Account) : Flow<DefaultAPIResult<Token>>
+    fun signIn(account: Account) : Flow<DefaultAPIResult<Token>>
 
 }

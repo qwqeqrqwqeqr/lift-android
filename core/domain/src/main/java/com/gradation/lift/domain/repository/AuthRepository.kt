@@ -6,5 +6,5 @@ import com.gradation.lift.model.auth.Token
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    fun signIn(account: Account): Flow<DataState<Token>>
+    fun signIn(account: Account): Flow<DataState<Boolean>>
 }
