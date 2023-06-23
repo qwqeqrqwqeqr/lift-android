@@ -1,6 +1,6 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.network.common.NetworkResultHandler
+import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.service.AuthService
 import com.gradation.lift.network.service.RoutineService

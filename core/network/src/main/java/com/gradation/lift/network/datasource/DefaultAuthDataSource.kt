@@ -3,7 +3,7 @@ package com.gradation.lift.network.datasource
 import com.gradation.lift.model.auth.Account
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.common.NetworkResultHandler
+import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.auth.SignInRequestDto
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class DefaultAuthDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : AuthDataSource {
     override suspend fun signIn(account: Account): Flow<APIResult<Token>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             authService.signIn(
                 SignInRequestDto(
                     id = account.id,

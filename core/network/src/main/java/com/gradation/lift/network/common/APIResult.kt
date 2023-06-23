@@ -28,9 +28,7 @@ sealed class APIResult<out T : Any> {
     @Nullable
     data class Fail<out T : Any>(val message: String) : APIResult<T>()
     data class Error(val exception: Throwable) : APIResult<Nothing>()
-
     object Refresh : APIResult<Nothing>()
-
     object Loading : APIResult<Nothing>()
 }
 

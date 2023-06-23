@@ -1,11 +1,11 @@
-package com.gradation.lift.network.common
+package com.gradation.lift.network.handler
 
 import com.gradation.lift.common.dispatcher.DispatcherProvider
+import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants.INTERNAL_SERVER_ERROR
 import com.gradation.lift.network.common.Constants.NETWORK_RETRY_DELAY
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
-import com.gradation.lift.network.service.AuthService
-import com.gradation.lift.network.service.RefreshService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
@@ -13,13 +13,13 @@ import java.io.IOException
 import javax.inject.Inject
 
 interface NetworkResultHandler {
-    suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>>
+    suspend operator fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>>
 }
 
 class DefaultNetworkResultHandler @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
 ) : NetworkResultHandler {
-    override suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>> =
+    override suspend operator fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>> =
         flow {
             flowOf(call.invoke())
                 .flowOn(dispatcherProvider.io)

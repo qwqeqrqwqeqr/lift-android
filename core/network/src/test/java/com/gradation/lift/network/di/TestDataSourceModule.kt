@@ -1,6 +1,6 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.network.common.NetworkResultHandler
+import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource

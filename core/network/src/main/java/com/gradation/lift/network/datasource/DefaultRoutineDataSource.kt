@@ -6,7 +6,7 @@ import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSet
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.common.NetworkResultHandler
+import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.routine.CreateRoutineDto
 import com.gradation.lift.network.dto.routine.CreateRoutineSetRequestDto
 import com.gradation.lift.network.service.RoutineService
@@ -20,7 +20,7 @@ class DefaultRoutineDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler
 ) : RoutineDataSource {
     override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> = flow {
-        networkResultHandler.execute { routineService.getRoutineSet(userId) }.collect { result ->
+        networkResultHandler { routineService.getRoutineSet(userId) }.collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
                 is APIResult.Error -> emit(APIResult.Error(result.exception))
@@ -33,7 +33,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>> =
         flow {
-            networkResultHandler.execute {
+            networkResultHandler {
                 routineService.createRoutineSet(CreateRoutineSetRequestDto(
                     userId = createRoutineSetRoutine.userId,
                     shortDescription = createRoutineSetRoutine.shortDescription,
@@ -78,7 +78,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate
     ): Flow<APIResult<List<RoutineSet>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineSetByDate(
                 userId = userId,
                 date = date
@@ -98,7 +98,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         routineSetId: Int
     ): Flow<APIResult<RoutineSet>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineSetByRoutineSetId(
                 userId = userId,
                 routineSetId = routineSetId
@@ -115,7 +115,7 @@ class DefaultRoutineDataSource @Inject constructor(
     }
 
     override suspend fun getRoutine(userId: String): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler.execute { routineService.getRoutine(userId = userId) }
+        networkResultHandler { routineService.getRoutine(userId = userId) }
             .collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail( result.message))
@@ -131,7 +131,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate
     ): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineByDate(
                 userId = userId,
                 date = date
@@ -151,7 +151,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         routineSetId: Int
     ): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineByRoutineSetId(
                 userId = userId,
                 routineSetId = routineSetId
@@ -172,7 +172,7 @@ class DefaultRoutineDataSource @Inject constructor(
         date: LocalDate,
         routineSetId: Int
     ): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineByDateAndRoutineSetId(
                 userId = userId,
                 date = date,
@@ -190,7 +190,7 @@ class DefaultRoutineDataSource @Inject constructor(
     }
 
     override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineSetRoutine(
                 userId = userId,
             )
@@ -209,7 +209,7 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate
     ): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
-        networkResultHandler.execute {
+        networkResultHandler {
             routineService.getRoutineSetRoutineByDate(
                 userId = userId,
                 date = date,
