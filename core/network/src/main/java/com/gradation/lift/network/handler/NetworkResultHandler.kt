@@ -1,9 +1,17 @@
 package com.gradation.lift.network.handler
 
-import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.common.APIResultWrapper
+import com.gradation.lift.network.common.AuthAPIResult
+import com.gradation.lift.network.common.DefaultAPIResult
 import kotlinx.coroutines.flow.Flow
 
 interface NetworkResultHandler {
-    suspend operator fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<APIResult<T>>
+    suspend fun <T : Any> execute(call: suspend () -> APIResultWrapper<T>): Flow<AuthAPIResult<T>>
+
+
+
+//    suspend fun <T : Any> invoke(call: suspend () -> APIResultWrapper<T>): Flow<DefaultAPIResult<T>>
 }
+
+
+

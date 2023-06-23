@@ -2,7 +2,7 @@ package com.gradation.lift.network.di
 
 import com.gradation.lift.common.dispatcher.DispatcherProvider
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.handler.AuthNetworkResultHandler
+import com.gradation.lift.network.handler.DefaultNetworkResultHandler
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.AuthService
 import com.gradation.lift.network.service.RefreshService
@@ -62,7 +62,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNetworkResultHandler(dispatcherProvider: DispatcherProvider): NetworkResultHandler =
-        AuthNetworkResultHandler(dispatcherProvider)
+        DefaultNetworkResultHandler(dispatcherProvider)
+
+
+
+
 
     @Provides
     @Singleton
