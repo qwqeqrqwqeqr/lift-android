@@ -25,9 +25,6 @@ class TestPlugin : Plugin<Project> {
 
                 add("testImplementation", libs.findLibrary("junit4").get())
 
-                add("implementation", libs.findLibrary("timber").get())
-
-
             }
         }
     }

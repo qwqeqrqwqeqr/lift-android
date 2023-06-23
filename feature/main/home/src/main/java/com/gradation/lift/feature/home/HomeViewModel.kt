@@ -4,16 +4,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import com.gradation.lift.domain.usecase.auth.SignInUseCase
+import com.gradation.lift.model.auth.Account
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() :
+class HomeViewModel @Inject constructor(private val signInUseCase: SignInUseCase) :
     ViewModel() {
+
+
+
+    var test =
+        signInUseCase(
+            Account(
+                "rhdtkdxor",
+                "rhdtkdxor12#"
+            )
+        ).map {
+            when(it){
+                is DataState.Error -> "에러"
+                is DataState.Fail -> "실패"
+                DataState.Loading -> "로딩"
+                is DataState.Success -> "${it.data}"
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = "로딩"
+        )
 
 
 }

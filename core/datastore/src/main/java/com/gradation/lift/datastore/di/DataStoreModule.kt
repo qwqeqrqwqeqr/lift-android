@@ -19,7 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
-import com.gradation.lift.datastore.datasource.DataStoreConstants.ACCOUNT_PREFERENCES as ACCOUNT_PREFERENCES1
+import com.gradation.lift.datastore.datasource.DataStoreConstants.ACCOUNT_PREFERENCES
 
 
 @Module
@@ -33,9 +33,9 @@ object DataStoreModule {
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { emptyPreferences() }
             ),
-            migrations = listOf(SharedPreferencesMigration(appContext,ACCOUNT_PREFERENCES1)),
+            migrations = listOf(SharedPreferencesMigration(appContext, ACCOUNT_PREFERENCES)),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(ACCOUNT_PREFERENCES1) }
+            produceFile = { appContext.preferencesDataStoreFile(ACCOUNT_PREFERENCES) }
         )
     }
 

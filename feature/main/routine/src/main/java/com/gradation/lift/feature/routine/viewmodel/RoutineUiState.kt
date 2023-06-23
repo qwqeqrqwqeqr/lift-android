@@ -38,7 +38,7 @@ sealed interface WeekDateRoutineUiState {
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun weekDateRoutineUiState(
-    getRoutineSetRoutineByDateUseCase: Flow<DataState<List<com.gradation.lift.model.routine.RoutineSetRoutine>>>,
+    getRoutineSetRoutineByDateUseCase: Flow<DataState<List<RoutineSetRoutine>>>,
 ): Flow<WeekDateRoutineUiState> {
 
     return getRoutineSetRoutineByDateUseCase.map {

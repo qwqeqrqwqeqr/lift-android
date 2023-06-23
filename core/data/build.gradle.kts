@@ -3,14 +3,9 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.hilt")
     id("lift.android.test")
-    jacoco
 }
 
 
-
-jacoco{
-    toolVersion="0.8.10"
-}
 
 
 
