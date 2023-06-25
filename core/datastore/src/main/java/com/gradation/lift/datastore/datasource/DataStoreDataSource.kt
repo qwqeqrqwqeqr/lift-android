@@ -5,9 +5,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.gradation.lift.datastore.datasource.DataStoreConstants.ACCESS_TOKEN
-import com.gradation.lift.datastore.datasource.DataStoreConstants.REFRESH_TOKEN
-import com.gradation.lift.datastore.datasource.DataStoreConstants.USER_ID
+import com.gradation.lift.datastore.Constants.ACCESS_TOKEN
+import com.gradation.lift.datastore.Constants.REFRESH_TOKEN
+import com.gradation.lift.datastore.Constants.USER_ID
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
@@ -67,9 +67,3 @@ class DataStoreDataSource @Inject constructor(
 }
 
 
-internal object DataStoreConstants {
-    val USER_ID = stringPreferencesKey("user_id")
-    val ACCESS_TOKEN = stringPreferencesKey("access_token")
-    val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
-    const val ACCOUNT_PREFERENCES = "account_preferences"
-}
