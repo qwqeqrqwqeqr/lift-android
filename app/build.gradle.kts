@@ -4,7 +4,6 @@ plugins {
     id("lift.android.compose.application")
     id("lift.android.hilt")
     id("lift.android.kotlin")
-    id("lift.android.splash")
 }
 
 
@@ -33,4 +32,6 @@ dependencies{
     implementation(project(":feature:create-routine:routine"))
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:routine-detail"))
+
+
 }

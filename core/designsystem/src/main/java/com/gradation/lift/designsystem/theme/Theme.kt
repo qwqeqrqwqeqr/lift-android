@@ -13,6 +13,7 @@ fun LiftTheme(
     content: @Composable () -> Unit,
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+
     CompositionLocalProvider(
     ) {
         MaterialTheme(
@@ -22,6 +23,7 @@ fun LiftTheme(
         )
     }
 }
+
 
 internal val LightColorScheme = lightColorScheme(
     primary = Blue40,

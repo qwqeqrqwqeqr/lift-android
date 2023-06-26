@@ -6,11 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.gradation.lift.MainActivityViewModel
 import com.gradation.lift.feature.history.historyScreen
 import com.gradation.lift.feature.home.homeScreen
 import com.gradation.lift.feature.my_info.myInfoScreen
 import com.gradation.lift.feature.routine.routineScreen
-import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.graph.createRoutineGraph
 import com.gradation.lift.navigation.graph.loginGraph
 import com.gradation.lift.splash.splashScreen
@@ -20,7 +21,9 @@ import com.gradation.lift.splash.splashScreen
 fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String ,
+    startDestination: String,
+    mainActivityViewModel: MainActivityViewModel,
+    systemUiController: SystemUiController,
 ) {
     NavHost(
         navController = navController,
@@ -40,7 +43,12 @@ fun LiftNavHost(
             navGraphBuilder = this
         )
 
-        splashScreen(navController, this)
+        splashScreen(
+            mainActivityViewModel = mainActivityViewModel,
+            navController= navController,
+            navGraphBuilder =  this,
+            systemUiController = systemUiController
+            )
     }
 }
 

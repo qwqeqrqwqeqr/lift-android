@@ -18,6 +18,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.tracing.trace
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.designsystem.resource.Icon
@@ -41,7 +42,9 @@ import com.gradation.lift.navigation.navigation.navigateToRoutine
 )
 @Composable
 fun LiftApp(
-    appState: AppState = rememberAppState()
+    systemUiController: SystemUiController,
+    mainActivityViewModel: MainActivityViewModel,
+    appState : AppState = rememberAppState()
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -55,7 +58,12 @@ fun LiftApp(
                 }
             },
         ) {
-            LiftNavHost(appState.navController, startDestination = SPLASH_ROUTER_NAME)
+            LiftNavHost(
+                navController= appState.navController,
+                startDestination = SPLASH_ROUTER_NAME,
+                mainActivityViewModel =mainActivityViewModel,
+                systemUiController =systemUiController
+            )
         }
     }
 }

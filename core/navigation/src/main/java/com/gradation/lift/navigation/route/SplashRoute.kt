@@ -5,6 +5,5 @@ import androidx.navigation.NavGraphBuilder
 
 
 fun interface SplashRoute {
-
     fun splashScreen(route: String, navGraphBuilder: NavGraphBuilder)
 }
