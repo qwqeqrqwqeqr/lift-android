@@ -33,6 +33,13 @@ class MainActivityViewModel @Inject constructor(
         initialValue = SplashUiState.Loading
     )
 
+    private  val _isSigned = MutableStateFlow( true )
+    val isSigned = _isSigned.asStateFlow()
+
+
+    private fun updateIsSinged(status:Boolean){
+        _isSigned.value = status
+    }
 
     fun setDefaultSystemUiController(systemUiController: SystemUiController){
         systemUiController.setStatusBarColor(Color.White)
@@ -43,14 +50,15 @@ class MainActivityViewModel @Inject constructor(
     private fun splashUiState(signedUseCase: Flow<DataState<Boolean>>): Flow<SplashUiState> {
         return  signedUseCase.map {
             when(it){
-                is DataState.Error -> SplashUiState.Main
-                is DataState.Fail -> SplashUiState.Main
+                is DataState.Error -> SplashUiState.Success
+                is DataState.Fail -> SplashUiState.Success
                 is DataState.Success ->
                 {
+                    updateIsSinged(it.data)
                     if(it.data) {
-                        SplashUiState.Main
+                        SplashUiState.Success
                     } else{
-                        SplashUiState.Login
+                        SplashUiState.Success
                     }
                 }
             }
@@ -61,7 +69,6 @@ class MainActivityViewModel @Inject constructor(
 
 
 sealed interface SplashUiState {
-    object Login : SplashUiState
-    object Main : SplashUiState
+    object Success : SplashUiState
     object Loading : SplashUiState
 }

@@ -32,16 +32,17 @@ import com.gradation.lift.navigation.navigation.navigateToHistory
 import com.gradation.lift.navigation.navigation.navigateToHome
 import com.gradation.lift.navigation.navigation.navigateToMyInfo
 import com.gradation.lift.navigation.navigation.navigateToRoutine
+import kotlinx.coroutines.flow.first
 
 @RequiresApi(Build.VERSION_CODES.O)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @OptIn(
     ExperimentalMaterial3Api::class,
 )
 @Composable
 fun LiftApp(
     appState: AppState = rememberAppState(),
-    splashUiState: SplashUiState
+    mainActivityViewModel: MainActivityViewModel
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -57,11 +58,7 @@ fun LiftApp(
         ) {
             LiftNavHost(
                 navController= appState.navController,
-                startDestination = when(splashUiState) {
-                    SplashUiState.Loading -> LOGIN_GRAPH_ROUTER_NAME
-                    SplashUiState.Login -> HOME_ROUTER_NAME
-                    SplashUiState.Main -> HOME_ROUTER_NAME
-                }
+                startDestination = if(mainActivityViewModel.isSigned.value) HOME_ROUTER_NAME else LOGIN_GRAPH_ROUTER_NAME
             )
         }
     }

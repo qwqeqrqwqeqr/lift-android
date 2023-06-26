@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
 
@@ -47,17 +47,15 @@ class MainActivity : ComponentActivity() {
                     .collect()
             }
         }
-
-        splashScreen.setKeepOnScreenCondition {
-            when (splashUiState) {
-                SplashUiState.Loading -> {
-                    false
-                }
-                is SplashUiState.Login -> {
-                    true
-                }
-                is SplashUiState.Main -> {
-                    true
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                when (splashUiState) {
+                    SplashUiState.Loading -> {
+                        false
+                    }
+                    is SplashUiState.Success -> {
+                        true
+                    }
                 }
             }
         }
@@ -69,7 +67,7 @@ class MainActivity : ComponentActivity() {
             LiftTheme()
             {
                 LiftApp(
-                    splashUiState = splashUiState,
+                    mainActivityViewModel = viewModel
                 )
             }
         }
