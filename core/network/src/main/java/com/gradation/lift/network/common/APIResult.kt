@@ -25,10 +25,9 @@ data class APIResultWrapper<out T : Any>(
  */
 sealed class AuthAPIResult<out T : Any> {
 
-
     data class Success<out T : Any>(val data: T) : AuthAPIResult<T>()
     data class Fail(val message: String) : AuthAPIResult<Nothing>()
-    data class Error(val exception: Throwable) : AuthAPIResult<Nothing>()
+    data class Error(val throwable: Throwable) : AuthAPIResult<Nothing>()
     object Refresh : AuthAPIResult<Nothing>()
 }
 
@@ -42,7 +41,7 @@ sealed class AuthAPIResult<out T : Any> {
 sealed class DefaultAPIResult<out T : Any>{
     data class Success<out T : Any>(val data: T) : DefaultAPIResult<T>()
     data class Fail(val message: String) : DefaultAPIResult<Nothing>()
-    data class Error(val exception: Throwable) : DefaultAPIResult<Nothing>()
+    data class Error(val throwable: Throwable) : DefaultAPIResult<Nothing>()
 }
 
 
@@ -50,3 +49,6 @@ sealed class RefreshResult<out T : Any>{
     data class Success<out T : Any>(val accessToken: String) : RefreshResult<T>()
     object Fail : RefreshResult<Nothing>()
 }
+
+
+

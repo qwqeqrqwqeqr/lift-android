@@ -25,9 +25,10 @@ class DefaultAuthDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.exception))
+                is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.throwable))
                 is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.toToken()))
             }
         }
     }
 }
+

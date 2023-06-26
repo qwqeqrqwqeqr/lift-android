@@ -17,7 +17,7 @@ class DefaultWorkDataSource @Inject constructor(
         networkResultHandler.executeAuth { workService.getWorkPart() }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
+                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toWorkPart()))
             }
@@ -29,7 +29,7 @@ class DefaultWorkDataSource @Inject constructor(
         networkResultHandler.executeAuth { workService.getWorkCategory() }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
+                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toWorkCategory()))
             }
@@ -42,7 +42,7 @@ class DefaultWorkDataSource @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                        is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
+                        is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                         is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                         is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toWorkCategory()))
                     }
