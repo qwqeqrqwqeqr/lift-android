@@ -5,5 +5,4 @@ sealed class TestReturnState{
     object Success : TestReturnState()
     object Fail : TestReturnState()
     object Error : TestReturnState()
-    object Loading : TestReturnState()
 }

@@ -16,7 +16,6 @@
 
 package com.gradation.lift.network
 
-import com.gradation.lift.network.test.ExampleUnitTest
 import com.gradation.lift.network.test.FakeRoutineDataSourceTest
 import com.gradation.lift.network.test.FakeWorkDataSourceTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +26,6 @@ import org.junit.runners.Suite
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-    ExampleUnitTest::class,
     FakeWorkDataSourceTest::class,
     FakeRoutineDataSourceTest::class
 )
