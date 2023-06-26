@@ -26,6 +26,7 @@ import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
 import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Router.SPLASH_ROUTER_NAME
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
 import com.gradation.lift.navigation.navigation.navigateToHistory
@@ -54,7 +55,7 @@ fun LiftApp(
                 }
             },
         ) {
-            LiftNavHost(appState.navController, startDestination = HOME_ROUTER_NAME)
+            LiftNavHost(appState.navController, startDestination = SPLASH_ROUTER_NAME)
         }
     }
 }

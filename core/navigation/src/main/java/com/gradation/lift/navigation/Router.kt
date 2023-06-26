@@ -21,4 +21,7 @@ object Router {
     const val ROUTINE_ROUTER_NAME = "routine"
     const val HISTORY_ROUTER_NAME = "history"
     const val MY_INFO_ROUTER_NAME = "my-info"
+
+
+    const val SPLASH_ROUTER_NAME = "splash"
 }

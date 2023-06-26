@@ -13,6 +13,7 @@ import com.gradation.lift.feature.routine.routineScreen
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.graph.createRoutineGraph
 import com.gradation.lift.navigation.graph.loginGraph
+import com.gradation.lift.splash.splashScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -39,6 +40,7 @@ fun LiftNavHost(
             navGraphBuilder = this
         )
 
+        splashScreen(navController, this)
     }
 }
 
