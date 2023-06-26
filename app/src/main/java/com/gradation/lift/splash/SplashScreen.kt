@@ -9,13 +9,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.MainActivityViewModel
 import com.gradation.lift.feature.routine.viewmodel.RoutineViewModel
+import com.gradation.lift.navigation.navigation.navigateToCreateRoutineRoutineSet
+import com.gradation.lift.navigation.navigation.navigateToHome
+import com.gradation.lift.navigation.navigation.navigateToLoginGraph
 
 @Composable
 fun SplashRoute(
@@ -25,11 +31,14 @@ fun SplashRoute(
     mainActivityViewModel: MainActivityViewModel,
     systemUiController: SystemUiController,
 ) {
+    val splashUiState by viewModel.splashUiState.collectAsStateWithLifecycle()
+
     SplashScreen(
         navController = navController,
         modifier = modifier,
         mainActivityViewModel = mainActivityViewModel,
-        systemUiController = systemUiController
+        systemUiController = systemUiController,
+        splashUiState = splashUiState
     )
 }
 
@@ -39,12 +48,26 @@ internal fun SplashScreen(
     modifier: Modifier = Modifier,
     mainActivityViewModel: MainActivityViewModel,
     systemUiController: SystemUiController,
+    splashUiState: SplashUiState,
 ) {
     mainActivityViewModel.setSplashSystemUiController(systemUiController)
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.fillMaxSize()
-    ) {
+
+    when (splashUiState) {
+        SplashUiState.Loading -> Surface(
+            color = MaterialTheme.colorScheme.primary,
+            modifier = modifier.fillMaxSize()
+        ) {
+        }
+        SplashUiState.Login -> {
+            mainActivityViewModel.setDefaultSystemUiController(systemUiController)
+            navController.navigateToLoginGraph()
+        }
+        SplashUiState.Main ->{
+            mainActivityViewModel.setDefaultSystemUiController(systemUiController)
+            navController.navigateToHome()
+        }
     }
+
+
 }
 

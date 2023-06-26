@@ -30,11 +30,6 @@ class MainActivityViewModel @Inject constructor(
         systemUiController.setStatusBarColor(splashColor)
     }
 
-
-    fun isLogin():Boolean{
-        return false
-    }
-
 }
 
 

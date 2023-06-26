@@ -15,35 +15,15 @@ class SplashViewModel @Inject constructor(
     private val isSignedUseCase: IsSignedUseCase,
 ) : ViewModel() {
 
-
-    val splashUiState = splashUiState(isSignedUseCase()).stateIn(
+    val splashUiState:StateFlow<SplashUiState> = splashUiState(isSignedUseCase()).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = SplashUiState.Loading
     )
 
 
-
 }
 
 
 
 
-fun splashUiState(signedUseCase: Flow<DataState<Boolean>>): Flow<SplashUiState> {
-    return  signedUseCase.map {
-        when(it){
-            is DataState.Error -> SplashUiState.Main
-            is DataState.Fail -> SplashUiState.Main
-            is DataState.Success ->
-            {
-                if(it.data) SplashUiState.Main else SplashUiState.Login
-            }
-        }
-    }
-}
-
-sealed interface SplashUiState {
-    object Login : SplashUiState
-    object Main : SplashUiState
-    object Loading : SplashUiState
-}
