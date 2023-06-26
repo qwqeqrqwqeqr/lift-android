@@ -23,14 +23,12 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .flowOn(dispatcherProvider.io)
                 .retryWhen { cause, attempt ->
                     if ((cause is IOException || cause is HttpException) && attempt < 3L) {
-                        emit(AuthAPIResult.Loading)
                         delay(NETWORK_RETRY_DELAY)
                         true
                     } else {
                         false
                     }
                 }
-                .onStart { emit(AuthAPIResult.Loading) }
                 .catch { error ->
                     if (error is HttpException && error.code() == INTERNAL_SERVER_ERROR) {
                         emit(AuthAPIResult.Error(error))
@@ -44,8 +42,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .catch { error -> emit(AuthAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
-                        //TODO modify not null assertion
-                        emit(AuthAPIResult.Success(data = response.data!!))
+                        emit(AuthAPIResult.Success(data = response.data))
                     } else {
                         emit(
                             AuthAPIResult.Fail(message = response.message)
@@ -60,14 +57,12 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .flowOn(dispatcherProvider.io)
                 .retryWhen { cause, attempt ->
                     if ((cause is IOException || cause is HttpException) && attempt < 3L) {
-                        emit(DefaultAPIResult.Loading)
                         delay(NETWORK_RETRY_DELAY)
                         true
                     } else {
                         false
                     }
                 }
-                .onStart { emit(DefaultAPIResult.Loading) }
                 .catch { error ->
                     if (error is HttpException && error.code() == INTERNAL_SERVER_ERROR) {
                         emit(DefaultAPIResult.Error(error))
@@ -76,8 +71,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .catch { error -> emit(DefaultAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
-                        //TODO modify not null assertion
-                        emit(DefaultAPIResult.Success(data = response.data!!))
+                        emit(DefaultAPIResult.Success(data = response.data))
                     } else {
                         emit(
                             DefaultAPIResult.Fail(message = response.message)

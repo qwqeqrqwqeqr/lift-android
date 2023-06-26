@@ -2,12 +2,10 @@ package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
-import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.AuthAPIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.WorkService
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -20,7 +18,6 @@ class DefaultWorkDataSource @Inject constructor(
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
-                is AuthAPIResult.Loading -> emit(AuthAPIResult.Loading)
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toWorkPart()))
             }
@@ -33,7 +30,6 @@ class DefaultWorkDataSource @Inject constructor(
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
-                is AuthAPIResult.Loading -> emit(AuthAPIResult.Loading)
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toWorkCategory()))
             }
@@ -47,7 +43,6 @@ class DefaultWorkDataSource @Inject constructor(
                     when (result) {
                         is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                         is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.exception))
-                        is AuthAPIResult.Loading -> emit(AuthAPIResult.Loading)
                         is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                         is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toWorkCategory()))
                     }

@@ -3,6 +3,7 @@ package com.gradation.lift.data.repository
 import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.auth.Account
 import com.gradation.lift.network.common.DefaultAPIResult
@@ -36,9 +37,12 @@ class DefaultAuthRepository @Inject constructor(
 
     override fun isSignedIn(): Flow<DataState<Boolean>> = flow {
 
-        userDataStoreDataSource.accessToken
-        userDataStoreDataSource.refreshToken
-        userDataStoreDataSource.userId
+        if(userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
+            userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE||
+            userDataStoreDataSource.userId.first() == EMPTY_VALUE){
+            emit(DataState.Fail(false))
+        }
+
 
 
         emit(DataState.Success(true))

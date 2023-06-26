@@ -26,7 +26,6 @@ class DefaultAuthDataSource @Inject constructor(
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
                 is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.exception))
-                is DefaultAPIResult.Loading -> emit(DefaultAPIResult.Loading)
                 is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.toToken()))
             }
         }
