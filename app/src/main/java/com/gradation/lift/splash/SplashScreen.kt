@@ -41,7 +41,6 @@ internal fun SplashScreen(
     systemUiController: SystemUiController,
 ) {
     mainActivityViewModel.setSplashSystemUiController(systemUiController)
-
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.fillMaxSize()

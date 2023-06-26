@@ -9,6 +9,6 @@ import javax.inject.Inject
 class IsSignedUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    operator fun invoke(account: Account): Flow<DataState<Boolean>> =
+    operator fun invoke(): Flow<DataState<Boolean>> =
         authRepository.isSigned()
 }
