@@ -14,7 +14,6 @@ import com.gradation.lift.feature.my_info.myInfoScreen
 import com.gradation.lift.feature.routine.routineScreen
 import com.gradation.lift.navigation.graph.createRoutineGraph
 import com.gradation.lift.navigation.graph.loginGraph
-import com.gradation.lift.splash.splashScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -22,8 +21,6 @@ fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String,
-    mainActivityViewModel: MainActivityViewModel,
-    systemUiController: SystemUiController,
 ) {
     NavHost(
         navController = navController,
@@ -42,13 +39,6 @@ fun LiftNavHost(
             navController = navController,
             navGraphBuilder = this
         )
-
-        splashScreen(
-            mainActivityViewModel = mainActivityViewModel,
-            navController= navController,
-            navGraphBuilder =  this,
-            systemUiController = systemUiController
-            )
     }
 }
 

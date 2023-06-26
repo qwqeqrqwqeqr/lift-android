@@ -10,7 +10,7 @@ object Router {
     const val CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "find_work_category"
 
 
-    const val LOGIN_GRAPH_ROUTER_NAME = "login"
+    const val LOGIN_GRAPH_ROUTER_NAME = "login_graph"
     const val LOGIN_SIGN_IN_ROUTER_NAME = "sign_in"
     const val LOGIN_SIGN_UP_ROUTER_NAME = "sign_up"
     const val LOGIN_TERMS_OF_USE_ROUTER_NAME = "terms_of_use"
@@ -23,5 +23,4 @@ object Router {
     const val MY_INFO_ROUTER_NAME = "my-info"
 
 
-    const val SPLASH_ROUTER_NAME = "splash"
 }

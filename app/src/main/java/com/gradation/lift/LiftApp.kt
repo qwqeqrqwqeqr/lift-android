@@ -9,7 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -18,16 +17,15 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.tracing.trace
-import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.designsystem.resource.Icon
 import com.gradation.lift.navigation.*
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
+import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
 import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.SPLASH_ROUTER_NAME
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
 import com.gradation.lift.navigation.navigation.navigateToHistory
@@ -42,9 +40,8 @@ import com.gradation.lift.navigation.navigation.navigateToRoutine
 )
 @Composable
 fun LiftApp(
-    systemUiController: SystemUiController,
-    mainActivityViewModel: MainActivityViewModel,
-    appState : AppState = rememberAppState()
+    appState: AppState = rememberAppState(),
+    splashUiState: SplashUiState
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -60,9 +57,11 @@ fun LiftApp(
         ) {
             LiftNavHost(
                 navController= appState.navController,
-                startDestination = SPLASH_ROUTER_NAME,
-                mainActivityViewModel =mainActivityViewModel,
-                systemUiController =systemUiController
+                startDestination = when(splashUiState) {
+                    SplashUiState.Loading -> LOGIN_GRAPH_ROUTER_NAME
+                    SplashUiState.Login -> HOME_ROUTER_NAME
+                    SplashUiState.Main -> HOME_ROUTER_NAME
+                }
             )
         }
     }

@@ -4,6 +4,7 @@ plugins {
     id("lift.android.compose.application")
     id("lift.android.hilt")
     id("lift.android.kotlin")
+    id("lift.android.splash")
 }
 
 
@@ -33,5 +34,9 @@ dependencies{
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:routine-detail"))
 
+    implementation(project(":feature:login:verification"))
+    implementation(project(":feature:login:terms-of-use"))
+    implementation(project(":feature:login:sign-in"))
+    implementation(project(":feature:login:sign-up"))
 
 }
