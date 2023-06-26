@@ -34,7 +34,7 @@ class UserDataStoreDataSource @Inject constructor(
                 throw exception
             }
         }
-        .map { it[USER_ID] ?: "" }
+        .map { it[USER_ID] ?: EMPTY_VALUE }
 
 
     val accessToken: Flow<String> =
@@ -46,10 +46,10 @@ class UserDataStoreDataSource @Inject constructor(
                     throw exception
                 }
             }
-            .map { it[ACCESS_TOKEN] ?: "" }
+            .map { it[ACCESS_TOKEN] ?: EMPTY_VALUE }
 
     val refreshToken =
-        dataStore.data.map { it[REFRESH_TOKEN] ?: "" }.catch { exception ->
+        dataStore.data.map { it[REFRESH_TOKEN] ?: EMPTY_VALUE }.catch { exception ->
             if (exception is IOException) {
                 emptyPreferences()
             } else {
@@ -66,6 +66,9 @@ class UserDataStoreDataSource @Inject constructor(
     }
 
 
+    companion object{
+        const val EMPTY_VALUE = ""
+    }
 }
 
 

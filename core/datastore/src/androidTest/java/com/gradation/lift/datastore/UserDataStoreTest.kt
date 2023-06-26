@@ -3,6 +3,7 @@ package com.gradation.lift.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -36,7 +37,7 @@ class UserDataStoreTest {
     val hiltRule = HiltAndroidRule(this)
 
     @Before
-    fun tearUp(){
+    fun setUp(){
         hiltRule.inject()
         dataStoreDataSource = UserDataStoreDataSource(datastore)
     }
@@ -62,5 +63,12 @@ class UserDataStoreTest {
         assertEquals(FAKE_STRING_DATA, refreshToken)
         assertEquals(FAKE_STRING_DATA, userId)
     }
+
+    @Test
+    fun empty_preferences_outputCorrectValue() = runTest {
+        val userId = dataStoreDataSource.userId.first()
+        assertEquals(EMPTY_VALUE, userId)
+    }
+
 
 }

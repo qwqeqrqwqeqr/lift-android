@@ -7,10 +7,7 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.auth.Account
 import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.datasource.AuthDataSource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
@@ -37,14 +34,18 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    fun isSignedIn(): Flow<DataState<Boolean>> = flow {
+    override fun isSignedIn(): Flow<DataState<Boolean>> = flow {
+
+        userDataStoreDataSource.accessToken
+        userDataStoreDataSource.refreshToken
+        userDataStoreDataSource.userId
 
 
         emit(DataState.Success(true))
 
     }
 
-    fun logOut(): Flow<DataState<Boolean>> = flow{
+    override fun signOut(): Flow<DataState<Boolean>> = flow{
 
 
 

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
     fun signIn(account: Account): Flow<DataState<Boolean>>
+    fun isSignedIn(): Flow<DataState<Boolean>>
 
-
+    fun signOut(): Flow<DataState<Boolean>>
 }
