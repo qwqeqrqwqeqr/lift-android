@@ -2,7 +2,7 @@ package com.gradation.lift.data.di
 
 import com.gradation.lift.data.utils.DefaultRefreshManager
 import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.datastore.datasource.DataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.network.service.RefreshService
 import dagger.Module
 import dagger.Provides
@@ -19,8 +19,8 @@ object RefreshModule {
     @Singleton
     fun provideRefreshManager(
         refreshService: RefreshService,
-        dataStoreDataSource: DataStoreDataSource
-    ): RefreshManager = DefaultRefreshManager(refreshService,dataStoreDataSource)
+        userDataStoreDataSource: UserDataStoreDataSource
+    ): RefreshManager = DefaultRefreshManager(refreshService,userDataStoreDataSource)
 
 
 }

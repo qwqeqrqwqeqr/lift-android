@@ -1,17 +1,15 @@
 package com.gradation.lift.data.repository
 
-import com.gradation.lift.datastore.datasource.DataStoreDataSource
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.RefreshManager
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSet
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.AuthAPIResult
-import com.gradation.lift.network.datasource.AuthDataSource
 import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.service.RefreshService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.LocalDate
@@ -21,7 +19,7 @@ import javax.inject.Inject
 class DefaultRoutineRepository @Inject constructor(
     private val routineDataSource: RoutineDataSource,
     private val refreshManager: RefreshManager,
-    private val dataStoreDataSource: DataStoreDataSource,
+    private val userDataStoreDataSource: UserDataStoreDataSource,
 ) : RoutineRepository {
     override fun getRoutineSet(): Flow<DataState<List<RoutineSet>>> = flow {
         routineDataSource.getRoutineSet(userId = "201713721").collect { result ->

@@ -10,7 +10,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class DataStoreDataSource @Inject constructor(
+class UserDataStoreDataSource @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) {
     suspend fun setUserId(userId: String) {

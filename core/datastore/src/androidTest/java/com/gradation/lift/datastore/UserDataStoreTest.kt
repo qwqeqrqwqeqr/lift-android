@@ -2,8 +2,7 @@ package com.gradation.lift.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.gradation.lift.datastore.Constants.TEST_PREFERENCES
-import com.gradation.lift.datastore.datasource.DataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -24,13 +23,13 @@ import javax.inject.Named
 @RunWith(JUnit4::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
-class DataStoreTest {
+class UserDataStoreTest {
 
 
     @Inject
     @Named("test_datastore")
     lateinit var datastore : DataStore<Preferences>
-    private lateinit var dataStoreDataSource : DataStoreDataSource
+    private lateinit var dataStoreDataSource : UserDataStoreDataSource
 
 
     @get:Rule
@@ -39,7 +38,7 @@ class DataStoreTest {
     @Before
     fun tearUp(){
         hiltRule.inject()
-        dataStoreDataSource = DataStoreDataSource(datastore)
+        dataStoreDataSource = UserDataStoreDataSource(datastore)
     }
 
     @After

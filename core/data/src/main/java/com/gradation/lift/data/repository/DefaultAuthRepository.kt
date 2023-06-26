@@ -2,7 +2,7 @@ package com.gradation.lift.data.repository
 
 import android.util.Log
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.datastore.datasource.DataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.auth.Account
 import com.gradation.lift.network.common.DefaultAPIResult
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val dataStoreDataSource: DataStoreDataSource,
+    private val userDataStoreDataSource: UserDataStoreDataSource,
 ) : AuthRepository {
     override fun signIn(account: Account): Flow<DataState<Boolean>> = flow {
         authDataSource.signIn(account).collect { result ->
@@ -25,8 +25,8 @@ class DefaultAuthRepository @Inject constructor(
                 is DefaultAPIResult.Loading -> emit(DataState.Loading)
                 is DefaultAPIResult.Success -> {
 
-                    dataStoreDataSource.setAccessToken(result.data.accessToken)
-                    dataStoreDataSource.setRefreshToken(result.data.refreshToken)
+                    userDataStoreDataSource.setAccessToken(result.data.accessToken)
+                    userDataStoreDataSource.setRefreshToken(result.data.refreshToken)
 
                     Log.d("test", result.data.accessToken)
                     Log.d("test", result.data.refreshToken)
@@ -35,5 +35,19 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
+    }
+
+    fun isSignedIn(): Flow<DataState<Boolean>> = flow {
+
+
+        emit(DataState.Success(true))
+
+    }
+
+    fun logOut(): Flow<DataState<Boolean>> = flow{
+
+
+
+
     }
 }

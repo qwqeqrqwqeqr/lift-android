@@ -1,7 +1,7 @@
 package com.gradation.lift.data.utils
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.datastore.datasource.DataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.network.common.AuthAPIResult
 import com.gradation.lift.network.common.RefreshResult
 import com.gradation.lift.network.service.RefreshService
@@ -14,13 +14,13 @@ interface RefreshManager {
 
 class DefaultRefreshManager @Inject constructor(
     private val refreshService: RefreshService,
-    private val dataStoreDataSource: DataStoreDataSource,
+    private val userDataStoreDataSource: UserDataStoreDataSource,
 ) : RefreshManager {
     override suspend operator fun <T : Any> invoke(call: suspend () -> Flow<AuthAPIResult<T>>): DataState<T> {
         return when (val refresh =
-            refreshService.refresh(refreshToken = dataStoreDataSource.refreshToken.first())) {
+            refreshService.refresh(refreshToken = userDataStoreDataSource.refreshToken.first())) {
             is RefreshResult.Success -> {
-                dataStoreDataSource.setAccessToken(refresh.accessToken)
+                userDataStoreDataSource.setAccessToken(refresh.accessToken)
                 when (val result = call.invoke().first()) {
                     is AuthAPIResult.Fail -> DataState.Fail(result.message)
                     is AuthAPIResult.Error -> DataState.Error(result.exception.toString())

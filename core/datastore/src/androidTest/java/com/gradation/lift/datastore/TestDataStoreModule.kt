@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.gradation.lift.datastore.Constants.TEST_PREFERENCES
+import com.gradation.lift.datastore.Constants.TEST_USER_PREFERENCES
 import com.gradation.lift.datastore.di.DataStoreModule
 import dagger.Module
 import dagger.Provides
@@ -33,7 +33,7 @@ object TestDataStoreModule {
                 produceNewData = { emptyPreferences() }
             ),
             scope = TestScope(UnconfinedTestDispatcher()),
-            produceFile = { appContext.preferencesDataStoreFile(TEST_PREFERENCES) }
+            produceFile = { appContext.preferencesDataStoreFile(TEST_USER_PREFERENCES) }
         )
     }
 }

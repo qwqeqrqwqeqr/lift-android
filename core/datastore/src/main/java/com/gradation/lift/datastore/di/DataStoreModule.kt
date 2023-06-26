@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.gradation.lift.datastore.Constants.LIFT_PREFERENCES
+import com.gradation.lift.datastore.Constants.USER_PREFERENCES
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,13 +26,13 @@ object DataStoreModule {
 
     @Singleton
     @Provides
-    fun provideLiftDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
+    fun provideUserDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { emptyPreferences() }
             ),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(LIFT_PREFERENCES) }
+            produceFile = { appContext.preferencesDataStoreFile(USER_PREFERENCES) }
         )
     }
 

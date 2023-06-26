@@ -4,7 +4,7 @@ import com.gradation.lift.data.repository.DefaultAuthRepository
 import com.gradation.lift.data.repository.DefaultRoutineRepository
 import com.gradation.lift.data.repository.DefaultWorkRepository
 import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.datastore.datasource.DataStoreDataSource
+import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.domain.repository.WorkRepository
@@ -36,15 +36,15 @@ object RepositoryModule {
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
         refreshManager: RefreshManager,
-        dataStoreDataSource: DataStoreDataSource,
-    ): RoutineRepository = DefaultRoutineRepository(routineDataSource,refreshManager ,dataStoreDataSource)
+        userDataStoreDataSource: UserDataStoreDataSource,
+    ): RoutineRepository = DefaultRoutineRepository(routineDataSource,refreshManager ,userDataStoreDataSource)
 
 
     @ViewModelScoped
     @Provides
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
-        dataStoreDataSource: DataStoreDataSource,
-    ): AuthRepository = DefaultAuthRepository(authDataSource, dataStoreDataSource)
+        userDataStoreDataSource: UserDataStoreDataSource,
+    ): AuthRepository = DefaultAuthRepository(authDataSource, userDataStoreDataSource)
 
 }

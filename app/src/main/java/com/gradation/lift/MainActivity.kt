@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         //TODO 스플래시 조건 추가
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        
+
         setContent {
             LiftTheme()
             {
