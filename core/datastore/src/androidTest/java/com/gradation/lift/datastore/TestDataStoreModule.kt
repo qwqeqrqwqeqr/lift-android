@@ -1,40 +1,39 @@
-package com.gradation.lift.datastore.di
-
+package com.gradation.lift.datastore
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
-import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.gradation.lift.datastore.Constants.LIFT_PREFERENCES
+import com.gradation.lift.datastore.Constants.TEST_PREFERENCES
+import com.gradation.lift.datastore.di.DataStoreModule
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import javax.inject.Singleton
+import dagger.hilt.testing.TestInstallIn
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import javax.inject.Named
 
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DataStoreModule {
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [DataStoreModule::class]
+)
+object TestDataStoreModule {
 
-    @Singleton
+    @Named("test_datastore")
     @Provides
-    fun provideLiftDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
+    fun provideTestDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { emptyPreferences() }
             ),
-            scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(LIFT_PREFERENCES) }
+            scope = TestScope(UnconfinedTestDispatcher()),
+            produceFile = { appContext.preferencesDataStoreFile(TEST_PREFERENCES) }
         )
     }
-
-
 }

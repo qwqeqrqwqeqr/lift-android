@@ -1,10 +1,7 @@
 package com.gradation.lift.datastore.datasource
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import com.gradation.lift.datastore.Constants.ACCESS_TOKEN
 import com.gradation.lift.datastore.Constants.REFRESH_TOKEN
 import com.gradation.lift.datastore.Constants.USER_ID
@@ -14,55 +11,60 @@ import javax.inject.Inject
 
 
 class DataStoreDataSource @Inject constructor(
-    private val accountPreferences: DataStore<Preferences>,
+    private val dataStore: DataStore<Preferences>,
 ) {
     suspend fun setUserId(userId: String) {
-        accountPreferences.edit { preferences -> preferences[USER_ID] = userId }
-    }
-
-    val userId: Flow<String> = flow {
-        accountPreferences.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map {emit(it[USER_ID] ?: "") }
-    }
-
-    val accessToken: Flow<String> = flow {
-        accountPreferences.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { emit(it[ACCESS_TOKEN] ?: "") }
+        dataStore.edit { preferences -> preferences[USER_ID] = userId }
     }
 
     suspend fun setAccessToken(accessToken: String) {
-        accountPreferences.edit { preferences -> preferences[ACCESS_TOKEN] = accessToken }
+        dataStore.edit { preferences -> preferences[ACCESS_TOKEN] = accessToken }
     }
 
-    val refreshToken: Flow<String> = flow {
-        accountPreferences.data
+    suspend fun setRefreshToken(refreshToken: String) {
+        dataStore.edit { preferences -> preferences[REFRESH_TOKEN] = refreshToken }
+    }
+
+
+    val userId: Flow<String> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emptyPreferences()
+            } else {
+                throw exception
+            }
+        }
+        .map { it[USER_ID] ?: "" }
+
+
+    val accessToken: Flow<String> =
+        dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
-                    emit(emptyPreferences())
+                    emptyPreferences()
                 } else {
                     throw exception
                 }
             }
-            .map { emit(it[REFRESH_TOKEN] ?: "") }
+            .map { it[ACCESS_TOKEN] ?: "" }
+
+    val refreshToken =
+        dataStore.data.map { it[REFRESH_TOKEN] ?: "" }.catch { exception ->
+            if (exception is IOException) {
+                emptyPreferences()
+            } else {
+                throw exception
+            }
+
+        }
+
+
+    suspend fun clearAll() {
+        dataStore.edit {
+            it.clear()
+        }
     }
 
-    suspend fun setRefreshToken(refreshToken: String) {
-        accountPreferences.edit { preferences -> preferences[REFRESH_TOKEN] = refreshToken }
-    }
 
 }
 

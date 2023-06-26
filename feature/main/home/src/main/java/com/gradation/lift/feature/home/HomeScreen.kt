@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.home
 
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -14,10 +15,11 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
+   
     val a = viewModel.test.collectAsStateWithLifecycle()
     HomeScreen(
         modifier = modifier,
-        foo =  a
+        foo =  a,
     )
 }
 
@@ -28,5 +30,7 @@ internal fun HomeScreen(
     foo: State<String>,
 ) {
     Text(text = foo.value)
+
+
 }
 

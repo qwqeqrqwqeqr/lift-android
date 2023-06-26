@@ -7,7 +7,10 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.auth.Account
 import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.datasource.AuthDataSource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
@@ -25,11 +28,9 @@ class DefaultAuthRepository @Inject constructor(
                     dataStoreDataSource.setAccessToken(result.data.accessToken)
                     dataStoreDataSource.setRefreshToken(result.data.refreshToken)
 
-                    Log.d("test",result.data.accessToken)
-                    Log.d("test",result.data.refreshToken)
+                    Log.d("test", result.data.accessToken)
+                    Log.d("test", result.data.refreshToken)
 
-
-                    //TODO sign in 로직 고치기
                     emit(DataState.Success(true))
                 }
             }
