@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.*
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.gradation.lift.designsystem.theme.LiftTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,8 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         //TODO 스플래시 조건 추가
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        
         setContent {
             LiftTheme()
             {
