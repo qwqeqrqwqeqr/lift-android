@@ -45,7 +45,6 @@ fun weekDateRoutineUiState(
         when (it) {
             is DataState.Error -> WeekDateRoutineUiState.Error
             is DataState.Fail -> WeekDateRoutineUiState.Error
-            is DataState.Loading -> WeekDateRoutineUiState.Loading
             is DataState.Success ->
             {
                 if (it.data.isEmpty()) {

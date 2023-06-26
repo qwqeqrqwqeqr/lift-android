@@ -30,7 +30,6 @@ class HomeViewModel @Inject constructor(
             when(it){
                 is DataState.Error -> "에러"
                 is DataState.Fail -> "실패"
-                DataState.Loading -> "로딩"
                 is DataState.Success -> "${it.data}"
             }
         }.stateIn(

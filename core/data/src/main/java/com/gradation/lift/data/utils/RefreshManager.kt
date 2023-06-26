@@ -23,13 +23,13 @@ class DefaultRefreshManager @Inject constructor(
                 userDataStoreDataSource.setAccessToken(refresh.accessToken)
                 when (val result = call.invoke().first()) {
                     is AuthAPIResult.Fail -> DataState.Fail(result.message)
-                    is AuthAPIResult.Error -> DataState.Error(result.exception.toString())
-                    is AuthAPIResult.Loading -> DataState.Loading
+                    is AuthAPIResult.Error -> DataState.Error(result.throwable)
                     is AuthAPIResult.Success -> DataState.Success(result.data)
-                    is AuthAPIResult.Refresh -> DataState.Error("토큰 재발급 오류")
+                    is AuthAPIResult.Refresh -> DataState.Error(throwable = Throwable())
+                    //TODO Error Handling
                 }
             }
-            RefreshResult.Fail -> DataState.Error("토큰 재발급 오류")
+            RefreshResult.Fail -> DataState.Error(throwable = Throwable())
         }
     }
 }
