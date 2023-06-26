@@ -34,21 +34,21 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun isSignedIn(): Flow<DataState<Boolean>> = flow {
+    override fun isSigned(): Flow<DataState<Boolean>> = flow {
         if (userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
             userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE ||
             userDataStoreDataSource.userId.first() == EMPTY_VALUE
         ) {
-            emit(DataState.Fail("로그인 되어있지 않습니다."))
+            emit(DataState.Success(false))
         }
 
         emit(DataState.Success(true))
     }
 
-    override fun signOut(): Flow<DataState<Boolean>> = flow {
+    override fun signOut(): Flow<DataState<Unit>> = flow {
         try {
             userDataStoreDataSource.clearAll()
-            emit(DataState.Success(true))
+            emit(DataState.Success(Unit))
         }
         catch(error: Exception){
             emit(DataState.Error(error))
