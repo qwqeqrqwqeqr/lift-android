@@ -19,8 +19,7 @@ class DefaultAuthRepository @Inject constructor(
         authDataSource.signIn(account).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                is DefaultAPIResult.Loading -> emit(DataState.Loading)
+                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable))
                 is DefaultAPIResult.Success -> {
 
                     userDataStoreDataSource.setAccessToken(result.data.accessToken)
@@ -35,19 +34,19 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun isSignedIn(): Flow<DataState<Boolean>> = flow {
-
-        if(userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
-            userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE||
-            userDataStoreDataSource.userId.first() == EMPTY_VALUE){
-            emit(DataState.Fail(false))
-        }
-
-
-
-        emit(DataState.Success(true))
-
-    }
+//    override fun isSignedIn(): Flow<DataState<Boolean>> = flow {
+//
+//        if(userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
+//            userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE||
+//            userDataStoreDataSource.userId.first() == EMPTY_VALUE){
+////            emit(DataState.Fail(false))
+//        }
+//
+//
+//
+//        emit(DataState.Success(true))
+//
+//    }
 
     override fun signOut(): Flow<DataState<Boolean>> = flow{
 

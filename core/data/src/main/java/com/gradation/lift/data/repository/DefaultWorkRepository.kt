@@ -19,11 +19,11 @@ class DefaultWorkRepository @Inject constructor(
         workDataSource.getWorkPart().collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                is AuthAPIResult.Loading -> emit(DataState.Loading)
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
-                    emit(refreshManager { workDataSource.getWorkPart()})
+                    emit(refreshManager { workDataSource.getWorkPart() })
                 }
             }
         }
@@ -34,11 +34,11 @@ class DefaultWorkRepository @Inject constructor(
         workDataSource.getWorkCategory().collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                is AuthAPIResult.Loading -> emit(DataState.Loading)
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
-                    emit(refreshManager { workDataSource.getWorkCategory()})
+                    emit(refreshManager { workDataSource.getWorkCategory() })
                 }
             }
         }
@@ -49,11 +49,11 @@ class DefaultWorkRepository @Inject constructor(
             workDataSource.getWorkCategoryByWorkPart(workpart).collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.exception.toString()))
-                    is AuthAPIResult.Loading -> emit(DataState.Loading)
+                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+
                     is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                     is AuthAPIResult.Refresh -> {
-                        emit(refreshManager { workDataSource.getWorkCategoryByWorkPart(workpart)})
+                        emit(refreshManager { workDataSource.getWorkCategoryByWorkPart(workpart) })
                     }
                 }
             }
