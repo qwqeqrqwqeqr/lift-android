@@ -67,8 +67,6 @@ fun LoginSignInScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun SignInView(modifier: Modifier = Modifier) {
-    Text(text = "이메일")
-
     LiftButton(
         modifier = modifier.fillMaxWidth(),
         onClick = { },
@@ -102,16 +100,31 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
             modifier = modifier.weight(1f)
         )
     }
+    Spacer(modifier = modifier.padding(8.dp))
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 64.dp)
     ) {
-
-        SimpleLoginButton(painterResource = painterResource(LiftIcon.LoginKakao),label= "카카오톡")
-        SimpleLoginButton(painterResource = painterResource(LiftIcon.LoginGoogle),label= "구글")
-        SimpleLoginButton(painterResource = painterResource(LiftIcon.LoginNaver),label= "네이버")
-
+        SimpleLoginButton(
+            painterResource = painterResource(LiftIcon.LoginKakao),
+            label = "카카오톡",
+            modifier = modifier.weight(2f)
+        )
+        Spacer(modifier = modifier.weight(1f))
+        SimpleLoginButton(
+            painterResource = painterResource(LiftIcon.LoginGoogle),
+            label = "구글",
+            modifier = modifier.weight(2f)
+        )
+        Spacer(modifier = modifier.weight(1f))
+        SimpleLoginButton(
+            painterResource = painterResource(LiftIcon.LoginNaver),
+            label = "네이버",
+            modifier = modifier.weight(2f)
+        )
     }
 }
 
@@ -119,7 +132,7 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
 fun SimpleLoginButton(
     painterResource: Painter,
     label: String,
-    modifier: Modifier=Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -129,8 +142,8 @@ fun SimpleLoginButton(
                 painter = painterResource,
                 contentDescription = "",
                 tint = Color.Unspecified,
-                modifier= modifier.size(52.dp)
-                )
+                modifier = modifier.size(52.dp)
+            )
         }
         Text(
 
