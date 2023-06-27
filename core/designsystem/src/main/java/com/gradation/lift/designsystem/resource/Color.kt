@@ -47,11 +47,28 @@ internal val Red80 = Color(0xFFFFCACA)
 internal val Red90 = Color(0xFFFFEDED)
 internal val Red100 = Color(0xFFFFFFFF)
 
-
-
 internal val Black10 = Color(0xFF000000)
 internal val Black20 = Color(0xFF2B2C35)
 internal val Black30 = Color(0xFF64627A)
+
+
+internal val Primary = Color(0xFF0080FF)
+internal val OnPrimary = Color(0xFFFFFFFF)
+internal val PrimaryContainer = Color(0xFFE5F2FF)
+internal val OnPrimaryContainer = Color(0xFF00264C)
+internal val OnError = Color(0xFFFFFFFF)
+internal val ErrorContainer = Color(0xFFFFEDED)
+internal val OnErrorContainer = Color(0xFFFF4F4F)
+internal val Background = Color(0xFFFFFFFF)
+internal val OnBackground = Color(0xFF000000)
+internal val Surface = Color(0xFFF2F2F5)
+internal val OnSurface = Color(0xFF404045)
+internal val SurfaceVariant = Color(0xFFEBEBEF)
+internal val OnSurfaceVariant = Color(0xFF59595F)
+internal val Outline = Color(0xFFCFCFD9)
+internal val InverseSurface = Color(0xFF404045)
+internal val InverseOnSurface = Color(0xFF404045)
+
 
 
 

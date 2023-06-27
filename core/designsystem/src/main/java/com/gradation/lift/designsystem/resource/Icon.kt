@@ -18,11 +18,19 @@ object LiftIcon{
     val MyInfoUnSelected = R.drawable.my_info_unselected
 
 
+
+    val LoginKakao = R.drawable.login_kakao
+    val LoginNaver = R.drawable.login_naver
+    val LoginGoogle = R.drawable.login_google
+
+
     val ArrowBack = Icons.Rounded.ArrowBackIos
     val ChevronRight = Icons.Rounded.ChevronRight
 }
 
 sealed class Icon {
+
+
     data class ImageVectorIcon(val imageVector: ImageVector) : Icon()
     data class DrawableResourceIcon(@DrawableRes val id: Int) : Icon()
 }

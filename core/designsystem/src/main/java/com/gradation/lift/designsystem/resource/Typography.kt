@@ -26,17 +26,20 @@ internal val LiftTypography = Typography(
     headlineLarge = TextStyle(
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
-        fontFamily = pretendard
+        fontFamily = pretendard,
+        letterSpacing = (-2).sp,
     ),
     headlineMedium = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Medium,
-        fontFamily = pretendard
-    ),
+        fontFamily = pretendard,
+        letterSpacing = (-1).sp,
+        ),
     headlineSmall = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendard
+        fontFamily = pretendard,
+        letterSpacing = (-1).sp,
     ),
     titleLarge = TextStyle(
         fontSize = 18.sp,
@@ -44,8 +47,8 @@ internal val LiftTypography = Typography(
         fontFamily = pretendard
     ),
     titleMedium = TextStyle(
-        fontSize = 18.sp,
-        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
         fontFamily = pretendard
     ),
     titleSmall = TextStyle(
