@@ -16,12 +16,11 @@ class LoginSignInViewModel  @Inject constructor(
     var email by mutableStateOf("")
     var password by mutableStateOf("")
 
-    fun updateEmail(updateText: String){
-        email = updateText
+    fun updateEmail(text: String){
+        email = text
     }
 
-
-    fun updatePassword(updateText: String){
-        password = updateText
+    fun updatePassword(text: String){
+        password = text
     }
 }
