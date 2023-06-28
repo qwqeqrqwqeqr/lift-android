@@ -1,10 +1,7 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -29,7 +26,7 @@ fun LiftTextField(
     TextField(
         value =value,
         onValueChange =onValueChange,
-        modifier=modifier,
+        modifier = modifier.height(48.dp),
         enabled=enabled,
         singleLine=singleLine,
         maxLines=maxLines,
@@ -44,7 +41,7 @@ fun LiftTextField(
             disabledIndicatorColor = Color.Transparent,
             disabledTextColor = Color.Transparent,
         ),
-        shape = RoundedCornerShape(32.dp)
+        shape = RoundedCornerShape(32.dp),
 
     )
 }

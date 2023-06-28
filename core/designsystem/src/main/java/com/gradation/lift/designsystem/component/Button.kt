@@ -3,6 +3,7 @@ package com.gradation.lift.designsystem.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +21,7 @@ fun LiftButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.height(48.dp),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -40,7 +41,7 @@ fun LiftOutlinedButton(
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier,
+        modifier =  modifier.height(48.dp),
         enabled = enabled,
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground,
@@ -69,7 +70,7 @@ fun LiftTextButton(
 ) {
     TextButton(
         onClick = onClick,
-        modifier = modifier,
+        modifier =  modifier.height(48.dp),
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground,
@@ -87,7 +88,7 @@ fun LiftIconButton(
 ) {
     IconButton(
         onClick = onClick,
-        modifier = modifier,
+        modifier =  modifier.height(48.dp),
         enabled = enabled,
         colors = IconButtonDefaults.iconButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground

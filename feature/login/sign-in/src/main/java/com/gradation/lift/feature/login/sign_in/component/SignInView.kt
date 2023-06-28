@@ -59,7 +59,7 @@ fun SignInView(
     ) {
         Text(
             text = "로그인",
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onPrimary,
         )
     }

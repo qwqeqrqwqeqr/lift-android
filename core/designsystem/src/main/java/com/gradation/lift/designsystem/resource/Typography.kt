@@ -52,7 +52,7 @@ internal val LiftTypography = Typography(
         fontFamily = pretendard
     ),
     titleSmall = TextStyle(
-        fontSize = 18.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = pretendard
     ),
