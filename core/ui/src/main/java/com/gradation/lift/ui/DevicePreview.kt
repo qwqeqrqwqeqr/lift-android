@@ -1,8 +1,11 @@
 package com.gradation.lift.ui
 
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_3
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_4_XL
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview(name = "default", device = "spec:shape=Normal,width=360,height=640,unit=dp,dpi=480")
-@Preview(name = "Nexus 5X", device = "spec:shape=Normal,width=1080,height=1920,unit=dp,dpi=420")
-@Preview(name = "Pixel 3L", device = "spec:shape=Normal,width=1440,height=2960,unit=dp,dpi=560")
+@Preview(name = "SAMSUNG Galaxy S20", device = "spec:shape=Normal,width=360,height=800,unit=dp,dpi=563")
+@Preview(name = "SAMSUNG Galaxy S10", device = "spec:shape=Normal,width=360,height=740,unit=dp,dpi=360")
+@Preview(name = "PIXEL_3", device = PIXEL_3)
+//@Preview(name = "PIXEL_4_XL", device = PIXEL_4_XL)
 annotation class DevicePreview
