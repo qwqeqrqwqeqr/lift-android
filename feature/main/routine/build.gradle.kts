@@ -27,5 +27,6 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:data"))
+    implementation(project(mapOf("path" to ":core:ui")))
 
 }

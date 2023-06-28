@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -40,13 +41,16 @@ import com.gradation.lift.navigation.navigation.navigateToRoutine
 )
 @Composable
 fun LiftApp(
-    appState: AppState = rememberAppState(),
-    mainActivityViewModel: MainActivityViewModel
+    mainActivityViewModel: MainActivityViewModel,
+    windowSizeClass: WindowSizeClass,
+    appState: AppState = rememberAppState(
+        windowSizeClass = windowSizeClass
+    )
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             bottomBar = {
-                if(appState.currentTopLevelDestination!=null){
+                if (appState.currentTopLevelDestination != null) {
                     BottomBar(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -56,9 +60,9 @@ fun LiftApp(
             },
         ) {
             LiftNavHost(
-                navController= appState.navController,
+                navController = appState.navController,
 //                startDestination = if(mainActivityViewModel.isSigned.value) HOME_ROUTER_NAME else LOGIN_GRAPH_ROUTER_NAME
-                startDestination =  LOGIN_GRAPH_ROUTER_NAME  //TODO 로그인 프로세스 완성 후 수정할 것
+                startDestination = LOGIN_GRAPH_ROUTER_NAME  //TODO 로그인 프로세스 완성 후 수정할 것
             )
         }
     }
@@ -68,9 +72,11 @@ fun LiftApp(
 @Composable
 fun rememberAppState(
     navController: NavHostController = rememberNavController(),
-): AppState {
-    return remember(navController) {
-        AppState(navController)
+    windowSizeClass: WindowSizeClass,
+
+    ): AppState {
+    return remember( navController) {
+        AppState(navController,windowSizeClass)
     }
 }
 
@@ -78,6 +84,7 @@ fun rememberAppState(
 @Stable
 class AppState(
     val navController: NavHostController,
+    val windowSizeClass: WindowSizeClass,
 ) {
 
     val currentDestination: NavDestination?
@@ -118,7 +125,6 @@ class AppState(
         }
     }
 }
-
 
 
 @Composable

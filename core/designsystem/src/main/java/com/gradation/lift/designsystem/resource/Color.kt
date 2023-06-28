@@ -47,15 +47,14 @@ internal val Red80 = Color(0xFFFFCACA)
 internal val Red90 = Color(0xFFFFEDED)
 internal val Red100 = Color(0xFFFFFFFF)
 
-internal val Black10 = Color(0xFF000000)
-internal val Black20 = Color(0xFF2B2C35)
-internal val Black30 = Color(0xFF64627A)
+
 
 
 internal val Primary = Color(0xFF0080FF)
 internal val OnPrimary = Color(0xFFFFFFFF)
 internal val PrimaryContainer = Color(0xFFE5F2FF)
 internal val OnPrimaryContainer = Color(0xFF00264C)
+internal val Error = Color(0xFFFF4F4E)
 internal val OnError = Color(0xFFFFFFFF)
 internal val ErrorContainer = Color(0xFFFFEDED)
 internal val OnErrorContainer = Color(0xFFFF4F4F)

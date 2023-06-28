@@ -20,6 +20,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.ui.DevicePreview
 
 @Composable
 fun LoginSignInRoute(
@@ -210,7 +211,7 @@ fun SimpleLoginButton(
 }
 
 @Composable
-@Preview
+@DevicePreview
 fun LoginSignInPreview() {
     LiftTheme {
         LoginSignInScreen(

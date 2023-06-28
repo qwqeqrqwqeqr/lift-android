@@ -28,6 +28,7 @@ include(":core:data")
 include(":core:domain")
 include(":core:navigation")
 include(":core:model")
+include(":core:ui")
 
 
 
@@ -47,4 +48,3 @@ include(":feature:login:sign-in")
 include(":feature:login:sign-up")
 include(":feature:login:verification")
 include(":feature:login:terms-of-use")
-include(":core:ui")

@@ -38,7 +38,7 @@ internal val LightColorScheme = lightColorScheme(
     onTertiary = Color.Unspecified,
     tertiaryContainer = Color.Unspecified,
     onTertiaryContainer = Color.Unspecified,
-    error = Red40,
+    error = Error,
     onError = OnError,
     errorContainer = ErrorContainer,
     onErrorContainer = OnErrorContainer,
@@ -56,33 +56,5 @@ internal val LightColorScheme = lightColorScheme(
 
 
 //TODO  다크 테마 설정
-
-internal val DarkColorScheme = darkColorScheme(
-    primary = Blue40,
-    onPrimary = Color.White,
-    primaryContainer = Blue90,
-    onPrimaryContainer = Blue10,
-    secondary = Black10,
-    onSecondary = Black20,
-    secondaryContainer = Color.Unspecified,
-    onSecondaryContainer = Color.Unspecified,
-    tertiary = Color.Unspecified,
-    onTertiary = Color.Unspecified,
-    tertiaryContainer = Color.Unspecified,
-    onTertiaryContainer = Color.Unspecified,
-    error = Red40,
-    onError = Color.White,
-    errorContainer = Red90,
-    onErrorContainer = Red10,
-    background = Color.White,
-    onBackground = Color.Black,
-    surface = CoolGray100,
-    onSurface = CoolGray00,
-    surfaceVariant = Gray90,
-    onSurfaceVariant = CoolGray10,
-    outline = CoolGray70,
-    inversePrimary = Gray20,
-    inverseSurface = CoolGray00,
-    inverseOnSurface = CoolGray100,
-)
+internal val DarkColorScheme = darkColorScheme()
 
