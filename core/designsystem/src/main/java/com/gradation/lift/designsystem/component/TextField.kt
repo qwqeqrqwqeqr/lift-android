@@ -1,11 +1,15 @@
 package com.gradation.lift.designsystem.component
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -34,7 +38,11 @@ fun LiftTextField(
         colors = TextFieldDefaults.textFieldColors(
             textColor= MaterialTheme.colorScheme.secondary,
             containerColor = MaterialTheme.colorScheme.surface,
-            placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant
+            placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            disabledTextColor = Color.Transparent,
         ),
         shape = RoundedCornerShape(32.dp)
 
@@ -46,7 +54,9 @@ fun LiftTextField(
 @Composable
 fun LiftTextFieldPreview(){
     LiftTheme {
-        LiftTextField(value = "", onValueChange = {},placeholder= { Text("힌트") })
+        Box(Modifier.fillMaxSize().background(Color.White)) {
+            LiftTextField(value = "", onValueChange = {},placeholder= { Text("힌트") })
+        }
 
     }
 }

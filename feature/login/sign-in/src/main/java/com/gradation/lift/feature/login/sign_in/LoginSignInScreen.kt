@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.resource.Icon
+import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -27,16 +27,31 @@ fun LoginSignInRoute(
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
-    LoginSignInScreen()
+    val emailText = viewModel.email
+    val passwordText = viewModel.email
+    val updateEmailText = viewModel::updateEmail
+    val updatePasswordText = viewModel::updatePassword
+
+    LoginSignInScreen(
+        emailText =emailText,
+        passwordText = passwordText,
+        updateEmailText = updateEmailText,
+        updatePasswordText = updatePasswordText
+    )
 }
 
 
 @Composable
-fun LoginSignInScreen(modifier: Modifier = Modifier) {
+fun LoginSignInScreen(
+    modifier: Modifier = Modifier,
+    emailText: String,
+    updateEmailText: (String) -> Unit,
+    passwordText: String,
+    updatePasswordText: (String) -> Unit,
+) {
     Surface(
         color = MaterialTheme.colorScheme.background
     ) {
-
         Column(
             modifier = modifier
                 .padding(16.dp)
@@ -55,8 +70,15 @@ fun LoginSignInScreen(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
+            Spacer(modifier = modifier.padding(24.dp))
+            SignInView(
+                emailText=emailText,
+                updateEmailText=updateEmailText,
+                passwordText=passwordText,
+                updatePasswordText = updatePasswordText,
+            )
+            Spacer(modifier = modifier.padding(16.dp))
 
-            SignInView()
             SimpleLoginView()
 
         }
@@ -66,7 +88,41 @@ fun LoginSignInScreen(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun SignInView(modifier: Modifier = Modifier) {
+fun SignInView(
+    modifier: Modifier = Modifier,
+    emailText: String,
+    updateEmailText: (String) -> Unit,
+    passwordText: String,
+    updatePasswordText: (String) -> Unit,
+) {
+    Text(
+        text = "이메일",
+        style = MaterialTheme.typography.titleLarge,
+    )
+    Spacer(modifier = modifier.padding(4.dp))
+    LiftTextField(
+        value = emailText,
+        onValueChange = updateEmailText,
+        modifier = modifier.fillMaxWidth(),
+        placeholder = { Text("이메일을 입력해주세요.") },
+        singleLine = true,
+    )
+    Spacer(modifier = modifier.padding(8.dp))
+    Text(
+        text = "비밀번호",
+        style = MaterialTheme.typography.titleLarge,
+    )
+    Spacer(modifier = modifier.padding(4.dp))
+    LiftTextField(
+        value = passwordText,
+        onValueChange = updatePasswordText,
+        modifier = modifier.fillMaxWidth(),
+        placeholder = { Text("비밀번호를 입력해주세요.") },
+        singleLine = true,
+    )
+
+    Spacer(modifier = modifier.padding(36.dp))
+
     LiftButton(
         modifier = modifier.fillMaxWidth(),
         onClick = { },
@@ -146,7 +202,6 @@ fun SimpleLoginButton(
             )
         }
         Text(
-
             text = label,
             style = MaterialTheme.typography.labelSmall,
         )
@@ -158,6 +213,11 @@ fun SimpleLoginButton(
 @Preview
 fun LoginSignInPreview() {
     LiftTheme {
-        LoginSignInScreen()
+        LoginSignInScreen(
+            emailText="",
+            updateEmailText= {},
+            passwordText="",
+            updatePasswordText = { },
+        )
     }
 }

@@ -77,7 +77,7 @@ internal fun CreateRoutineRoutineSetScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             ){
-                Column() {
+                Column {
                     RoutineSetNameView(routineSetName,updateRoutineSetName)
                     RoutineSetListView(haveRoutineSet = haveRoutineSet,onClickPlusCircle=onClickPlusCircle)
                     RoutineSetWeekDateView()

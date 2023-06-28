@@ -57,7 +57,8 @@ fun LiftApp(
         ) {
             LiftNavHost(
                 navController= appState.navController,
-                startDestination = if(mainActivityViewModel.isSigned.value) HOME_ROUTER_NAME else LOGIN_GRAPH_ROUTER_NAME
+//                startDestination = if(mainActivityViewModel.isSigned.value) HOME_ROUTER_NAME else LOGIN_GRAPH_ROUTER_NAME
+                startDestination =  LOGIN_GRAPH_ROUTER_NAME  //TODO 로그인 프로세스 완성 후 수정할 것
             )
         }
     }
