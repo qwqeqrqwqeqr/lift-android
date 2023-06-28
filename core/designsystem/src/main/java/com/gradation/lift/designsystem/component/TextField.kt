@@ -3,6 +3,8 @@ package com.gradation.lift.designsystem.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,25 +17,29 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun LiftTextField(
     value: String,
-    onValueChange : (String) -> Unit,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     singleLine: Boolean = false,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
-    placeholder:  @Composable (() -> Unit)?
+    placeholder: @Composable (() -> Unit)?,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
     TextField(
-        value =value,
-        onValueChange =onValueChange,
+        value = value,
+        onValueChange = onValueChange,
         modifier = modifier.height(48.dp),
-        enabled=enabled,
-        singleLine=singleLine,
-        maxLines=maxLines,
-        minLines=minLines,
-        placeholder=placeholder,
+        enabled = enabled,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        minLines = minLines,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        placeholder = placeholder,
         colors = TextFieldDefaults.textFieldColors(
-            textColor= MaterialTheme.colorScheme.secondary,
+            textColor = MaterialTheme.colorScheme.secondary,
             containerColor = MaterialTheme.colorScheme.surface,
             placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
             focusedIndicatorColor = Color.Transparent,
@@ -43,16 +49,19 @@ fun LiftTextField(
         ),
         shape = RoundedCornerShape(32.dp),
 
-    )
+        )
 }
 
 
 @Preview
 @Composable
-fun LiftTextFieldPreview(){
+fun LiftTextFieldPreview() {
     LiftTheme {
-        Box(Modifier.fillMaxSize().background(Color.White)) {
-            LiftTextField(value = "", onValueChange = {},placeholder= { Text("힌트") })
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(Color.White)) {
+            LiftTextField(value = "", onValueChange = {}, placeholder = { Text("힌트") })
         }
 
     }

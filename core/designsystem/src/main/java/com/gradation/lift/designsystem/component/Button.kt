@@ -70,7 +70,7 @@ fun LiftTextButton(
 ) {
     TextButton(
         onClick = onClick,
-        modifier =  modifier.height(48.dp),
+        modifier = modifier,
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground,

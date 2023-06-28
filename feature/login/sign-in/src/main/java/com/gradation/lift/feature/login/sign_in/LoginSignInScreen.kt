@@ -22,6 +22,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
+import com.gradation.lift.navigation.navigation.navigateToLoginSignUp
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -36,10 +37,12 @@ fun LoginSignInRoute(
     val updatePasswordText = viewModel::updatePassword
 
     LoginSignInScreen(
-        emailText =emailText,
+        emailText = emailText,
         passwordText = passwordText,
         updateEmailText = updateEmailText,
-        updatePasswordText = updatePasswordText
+        updatePasswordText = updatePasswordText,
+        onClickFindEmail = {},
+        onClickFindPassword = {}
     )
 }
 
@@ -51,6 +54,8 @@ fun LoginSignInScreen(
     updateEmailText: (String) -> Unit,
     passwordText: String,
     updatePasswordText: (String) -> Unit,
+    onClickFindEmail : () -> Unit,
+    onClickFindPassword : () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background
@@ -75,10 +80,12 @@ fun LoginSignInScreen(
             )
             Spacer(modifier = modifier.padding(24.dp))
             SignInView(
-                emailText=emailText,
-                updateEmailText=updateEmailText,
-                passwordText=passwordText,
+                emailText = emailText,
+                updateEmailText = updateEmailText,
+                passwordText = passwordText,
                 updatePasswordText = updatePasswordText,
+                onClickFindEmail = onClickFindEmail,
+                onClickFindPassword = onClickFindPassword
             )
             Spacer(modifier = modifier.padding(16.dp))
             SimpleLoginView()
@@ -87,21 +94,17 @@ fun LoginSignInScreen(
 }
 
 
-
-
-
-
-
-
 @Composable
 @DevicePreview
 fun LoginSignInPreview() {
     LiftTheme {
         LoginSignInScreen(
-            emailText="",
-            updateEmailText= {},
-            passwordText="",
+            emailText = "",
+            updateEmailText = {},
+            passwordText = "",
             updatePasswordText = { },
+            onClickFindEmail = {},
+            onClickFindPassword = {}
         )
     }
 }
