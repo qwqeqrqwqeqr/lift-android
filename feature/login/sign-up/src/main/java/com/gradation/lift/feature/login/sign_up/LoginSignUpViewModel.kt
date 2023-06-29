@@ -46,9 +46,9 @@ class LoginSignUpViewModel @Inject constructor(
     }
 
     fun onChangePasswordVerificationVisible(): (Boolean) -> Unit = {
-        passwordVisible = !passwordVisible
-        passwordVisualTransformation =
-            if (passwordVisualTransformation == VisualTransformation.None) {
+        passwordVerificationVisible = !passwordVerificationVisible
+        passwordVerificationVisualTransformation =
+            if (passwordVerificationVisualTransformation == VisualTransformation.None) {
                 PasswordVisualTransformation()
             } else {
                 VisualTransformation.None
