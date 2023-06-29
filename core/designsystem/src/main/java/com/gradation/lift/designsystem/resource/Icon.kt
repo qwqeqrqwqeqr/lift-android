@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.gradation.lift.designsystem.R
+import java.util.concurrent.locks.Lock
 
 
 object LiftIcon{
@@ -20,7 +21,14 @@ object LiftIcon{
     val CheckBoxChecked = R.drawable.checkbox_checked
     val CheckBoxUnChecked = R.drawable.checkbox_unchecked
 
+    val EyeSelected = R.drawable.eye_selected
+    val EyeUnSelected = R.drawable.eye_unselected
 
+    val Camera = R.drawable.camera
+    val Cancel = R.drawable.cancel
+    val Gallery = R.drawable.gallery
+    val Lock = R.drawable.lock
+    val Mail = R.drawable.mail
 
     val LoginKakao = R.drawable.login_kakao
     val LoginNaver = R.drawable.login_naver
