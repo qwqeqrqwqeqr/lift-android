@@ -22,7 +22,7 @@ object Router {
     const val HOME_ROUTER_NAME = "home"
     const val ROUTINE_ROUTER_NAME = "routine"
     const val HISTORY_ROUTER_NAME = "history"
-    const val MY_INFO_ROUTER_NAME = "my-info"
+    const val MY_INFO_ROUTER_NAME = "my_info"
 
 
 }

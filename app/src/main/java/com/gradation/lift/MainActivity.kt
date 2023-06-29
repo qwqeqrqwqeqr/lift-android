@@ -36,7 +36,9 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
 
         var splashUiState: SplashUiState by mutableStateOf(SplashUiState.Loading)
         lifecycleScope.launch {

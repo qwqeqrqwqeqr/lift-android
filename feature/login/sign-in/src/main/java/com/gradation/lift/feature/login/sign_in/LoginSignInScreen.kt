@@ -30,17 +30,14 @@ fun LoginSignInRoute(
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
-
-    val updateEmailText = viewModel::updateEmail
-    val updatePasswordText = viewModel::updatePassword
     val signInUiState: SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
 
     LoginSignInScreen(
         modifier = modifier,
         emailText = viewModel.email,
         passwordText = viewModel.password,
-        updateEmailText = updateEmailText,
-        updatePasswordText = updatePasswordText,
+        updateEmailText =  viewModel.updateEmail(),
+        updatePasswordText = viewModel.updatePassword(),
         onClickFindEmail = { navController.navigateToFindEmail() },
         onClickFindPassword = { navController.navigateToFindPassword() },
         onClickSignUp = { navController.navigateToLoginSignUp() },
@@ -50,7 +47,7 @@ fun LoginSignInRoute(
         passwordVisible = viewModel.passwordVisible,
         onChangePasswordVisible = { viewModel.onChangePasswordVisible() },
         passwordVisualTransformation = viewModel.passwordVisualTransformation,
-        clearPassword = { viewModel.clearPassword() }
+        clearPassword = viewModel.clearPassword()
     )
 
     when (val result = signInUiState) {

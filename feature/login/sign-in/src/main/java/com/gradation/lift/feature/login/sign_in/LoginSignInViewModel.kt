@@ -29,7 +29,9 @@ class LoginSignInViewModel @Inject constructor(
     var password by mutableStateOf("")
     var autoLoginChecked by mutableStateOf(true)
     var passwordVisible by mutableStateOf(false)
-    var passwordVisualTransformation: VisualTransformation by mutableStateOf(PasswordVisualTransformation())
+    var passwordVisualTransformation: VisualTransformation by mutableStateOf(
+        PasswordVisualTransformation()
+    )
 
 
     fun onChangePasswordVisible() {
@@ -46,17 +48,9 @@ class LoginSignInViewModel @Inject constructor(
         autoLoginChecked = !autoLoginChecked
     }
 
-    fun clearPassword(){
-        password = ""
-    }
-
-    fun updateEmail(text: String) {
-        email = text
-    }
-
-    fun updatePassword(text: String) {
-        password = text
-    }
+    fun clearPassword(): () -> Unit = { password = "" }
+    fun updateEmail(): (String) -> Unit = { email = it }
+    fun updatePassword(): (String) -> Unit = { password = it }
 
     var signInUiState = MutableStateFlow<SignInUiState>(SignInUiState.None)
     fun signIn() {

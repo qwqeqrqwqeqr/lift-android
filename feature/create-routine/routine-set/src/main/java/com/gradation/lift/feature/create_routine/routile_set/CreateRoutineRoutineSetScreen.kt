@@ -36,13 +36,15 @@ fun CreateRoutineRoutineSetRoute(
     val updateRoutineSetName = viewModel::updateRoutineSetName
     val haveRoutineSet = routineSetUiState.value.isNotEmpty()
     val onClickPlusCircle = {navController.navigateToCreateRoutineFindWorkpart()}
+    val onClickCreateRoutine ={navController.navigateToCreateRoutineRoutineDetail() }
     CreateRoutineRoutineSetScreen(
-        navController = navController,
+        onTopBarBackClick = { navController.popBackStack() },
         modifier = modifier,
         routineSetName = routineSetName,
         updateRoutineSetName = updateRoutineSetName,
         haveRoutineSet = haveRoutineSet,
-        onClickPlusCircle = onClickPlusCircle
+        onClickPlusCircle = onClickPlusCircle,
+        onClickCreateRoutine=onClickCreateRoutine
     )
 
 }
@@ -51,19 +53,20 @@ fun CreateRoutineRoutineSetRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CreateRoutineRoutineSetScreen(
-    navController: NavController,
+    onTopBarBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     routineSetName: String,
     updateRoutineSetName: (updateText: String) -> Unit,
     haveRoutineSet: Boolean,
-    onClickPlusCircle: () -> Unit
+    onClickPlusCircle: () -> Unit,
+    onClickCreateRoutine: () -> Unit
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
             topBar = {
                 LiftTopBar(
                     title = "루틴리스트 만들기",
-                    onBackClick = navController::popBackStack,
+                    onBackClick = onTopBarBackClick,
                 )
             },
         ) { padding ->
@@ -84,7 +87,7 @@ internal fun CreateRoutineRoutineSetScreen(
 
                     LiftButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { navController.navigateToCreateRoutineRoutineDetail() },
+                        onClick = onClickCreateRoutine,
                     ) {
                         Text(
                             text = "생성하기",

@@ -45,7 +45,7 @@ fun LiftApp(
     windowSizeClass: WindowSizeClass,
     appState: AppState = rememberAppState(
         windowSizeClass = windowSizeClass
-    )
+    ),
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -75,8 +75,8 @@ fun rememberAppState(
     windowSizeClass: WindowSizeClass,
 
     ): AppState {
-    return remember( navController) {
-        AppState(navController,windowSizeClass)
+    return remember(navController) {
+        AppState(navController, windowSizeClass)
     }
 }
 
@@ -112,8 +112,6 @@ class AppState(
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }
-                launchSingleTop = true
-                restoreState = true
             }
 
             when (topLevelDestination) {
@@ -143,11 +141,9 @@ private fun BottomBar(
                 selected = selected,
                 onClick = { onNavigateToDestination(destination) },
                 icon = {
-                    val icon = if (selected) {
-                        destination.selectedIcon
-                    } else {
-                        destination.unselectedIcon
-                    }
+                    val icon =
+                        if (selected) destination.selectedIcon else destination.unselectedIcon
+
                     when (icon) {
                         is Icon.ImageVectorIcon -> Icon(
                             imageVector = icon.imageVector,
