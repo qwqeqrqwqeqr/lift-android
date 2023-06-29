@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.RefreshManager
+import com.gradation.lift.data.utils.toMessage
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
@@ -19,7 +20,7 @@ class DefaultWorkRepository @Inject constructor(
         workDataSource.getWorkPart().collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -34,7 +35,7 @@ class DefaultWorkRepository @Inject constructor(
         workDataSource.getWorkCategory().collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -49,7 +50,7 @@ class DefaultWorkRepository @Inject constructor(
             workDataSource.getWorkCategoryByWorkPart(workpart).collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                     is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                     is AuthAPIResult.Refresh -> {

@@ -3,6 +3,7 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.hilt")
     id("lift.android.test")
+    id("lift.android.network")
 }
 
 
@@ -10,6 +11,7 @@ plugins {
 
 
 android {
+
     namespace = "com.gradation.lift.data"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"

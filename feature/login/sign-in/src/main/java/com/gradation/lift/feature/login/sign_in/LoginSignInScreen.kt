@@ -1,11 +1,13 @@
 package com.gradation.lift.feature.login.sign_in
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -13,15 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
 import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.ui.DevicePreview
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlin.reflect.KFunction0
 
 @Composable
 fun LoginSignInRoute(
@@ -47,10 +45,14 @@ fun LoginSignInRoute(
         onClickSignIn = viewModel::signIn,
     )
 
-    when(signInUiState){
-        SignInUiState.Fail -> {
-
-
+    when(val result = signInUiState){
+        is SignInUiState.Fail -> {
+            Toast.makeText(
+                LocalContext.current,
+                result.message,
+                Toast.LENGTH_SHORT
+            ).show()
+            //TODO 삭제 예정
         }
         SignInUiState.Loading -> {
 

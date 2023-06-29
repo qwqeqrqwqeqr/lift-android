@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import android.util.Log
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.utils.toMessage
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.domain.repository.AuthRepository
@@ -19,7 +20,7 @@ class DefaultAuthRepository @Inject constructor(
         authDataSource.signIn(account).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is DefaultAPIResult.Success -> {
 
                     userDataStoreDataSource.setAccessToken(result.data.accessToken)
@@ -51,7 +52,7 @@ class DefaultAuthRepository @Inject constructor(
             emit(DataState.Success(Unit))
         }
         catch(error: Exception){
-            emit(DataState.Error(error))
+            emit(DataState.Error(error.toMessage()))
         }
     }
 }

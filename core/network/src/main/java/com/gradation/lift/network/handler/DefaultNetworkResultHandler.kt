@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 import java.io.IOException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 
@@ -39,6 +40,11 @@ class DefaultNetworkResultHandler @Inject constructor(
                         emit(AuthAPIResult.Refresh)
                     }
                 }
+                .catch { error->
+                    if(error is SocketTimeoutException){
+                        emit(AuthAPIResult.Error(error))
+                    }
+                }
                 .catch { error -> emit(AuthAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
@@ -65,6 +71,11 @@ class DefaultNetworkResultHandler @Inject constructor(
                 }
                 .catch { error ->
                     if (error is HttpException && error.code() == INTERNAL_SERVER_ERROR) {
+                        emit(DefaultAPIResult.Error(error))
+                    }
+                }
+                .catch { error->
+                    if(error is SocketTimeoutException){
                         emit(DefaultAPIResult.Error(error))
                     }
                 }

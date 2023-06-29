@@ -12,6 +12,7 @@ import com.gradation.lift.model.auth.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,13 +40,12 @@ class LoginSignInViewModel @Inject constructor(
             signInUseCase(Account(id = email, password = password)).map {
                 when (it) {
                     is DataState.Error -> {
-                        Log.d("login", "${it.throwable.message} 에러")
-                        SignInUiState.Fail
+                        Log.d("login", "${it.message} 에러")
+                        SignInUiState.Fail(it.message)
                     }
                     is DataState.Fail -> {
                         Log.d("login", "${it.message} 실패")
-
-                        SignInUiState.Fail
+                        SignInUiState.Fail(it.message)
                     }
                     is DataState.Success -> {
                         Log.d("login", "${it.data} 성공")
@@ -60,10 +60,11 @@ class LoginSignInViewModel @Inject constructor(
 }
 
 
+
 sealed interface SignInUiState {
 
     object Success : SignInUiState
-    object Fail : SignInUiState
+    data class Fail(val message: String) : SignInUiState
     object Loading : SignInUiState
     object None : SignInUiState
 }

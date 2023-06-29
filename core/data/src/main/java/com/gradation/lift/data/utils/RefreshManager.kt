@@ -23,13 +23,13 @@ class DefaultRefreshManager @Inject constructor(
                 userDataStoreDataSource.setAccessToken(refresh.accessToken)
                 when (val result = call.invoke().first()) {
                     is AuthAPIResult.Fail -> DataState.Fail(result.message)
-                    is AuthAPIResult.Error -> DataState.Error(result.throwable)
+                    is AuthAPIResult.Error -> DataState.Error(result.throwable.toMessage())
                     is AuthAPIResult.Success -> DataState.Success(result.data)
-                    is AuthAPIResult.Refresh -> DataState.Error(throwable = Throwable())
+                    is AuthAPIResult.Refresh -> DataState.Error(Throwable().toMessage())
                     //TODO Error Handling
                 }
             }
-            RefreshResult.Fail -> DataState.Error(throwable = Throwable())
+            RefreshResult.Fail -> DataState.Error(Throwable().toMessage())
         }
     }
 }

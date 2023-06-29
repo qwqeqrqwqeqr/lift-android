@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.RefreshManager
+import com.gradation.lift.data.utils.toMessage
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
@@ -25,7 +26,7 @@ class DefaultRoutineRepository @Inject constructor(
         routineDataSource.getRoutineSet(userId = "201713721").collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
                     emit(refreshManager { routineDataSource.getRoutineSet(userId = "201713721") })
@@ -39,7 +40,7 @@ class DefaultRoutineRepository @Inject constructor(
             routineDataSource.createRoutineSet(createRoutineSetRoutine).collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                     is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                     is AuthAPIResult.Refresh -> {
@@ -59,7 +60,7 @@ class DefaultRoutineRepository @Inject constructor(
         routineDataSource.getRoutineSetByDate(userId = "201713721", date = date).collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -81,7 +82,7 @@ class DefaultRoutineRepository @Inject constructor(
         ).collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -99,7 +100,7 @@ class DefaultRoutineRepository @Inject constructor(
         routineDataSource.getRoutine(userId = "201713721").collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -113,7 +114,7 @@ class DefaultRoutineRepository @Inject constructor(
         routineDataSource.getRoutineByDate(userId = "201713721", date = date).collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -135,7 +136,7 @@ class DefaultRoutineRepository @Inject constructor(
         ).collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -158,7 +159,7 @@ class DefaultRoutineRepository @Inject constructor(
         ).collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -176,7 +177,7 @@ class DefaultRoutineRepository @Inject constructor(
         routineDataSource.getRoutineSetRoutine(userId = "201713721").collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
@@ -192,7 +193,7 @@ class DefaultRoutineRepository @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                        is AuthAPIResult.Error -> emit(DataState.Error(result.throwable))
+                        is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
 
                         is AuthAPIResult.Success -> {
                             emit(DataState.Success(result.data))
