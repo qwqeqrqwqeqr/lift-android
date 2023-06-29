@@ -17,6 +17,9 @@ object LiftIcon{
     val MyInfoSelected = R.drawable.my_info_selected
     val MyInfoUnSelected = R.drawable.my_info_unselected
 
+    val CheckBoxChecked = R.drawable.checkbox_checked
+    val CheckBoxUnChecked = R.drawable.checkbox_unchecked
+
 
 
     val LoginKakao = R.drawable.login_kakao
