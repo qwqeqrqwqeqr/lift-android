@@ -11,9 +11,11 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
+import com.gradation.lift.feature.login.sign_in.SignInUiState
 import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperView
 import com.gradation.lift.feature.login.sign_in.component.detail.SignUpView
 import com.gradation.lift.ui.DevicePreview
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun SignInView(
@@ -25,6 +27,7 @@ fun SignInView(
     onClickFindEmail: () -> Unit,
     onClickFindPassword: () -> Unit,
     onClickSignUp: () -> Unit,
+    onClickSignIn: () -> Unit,
 ) {
     Text(
         text = "이메일",
@@ -66,7 +69,7 @@ fun SignInView(
     ) {
         LiftButton(
             modifier = modifier.fillMaxWidth(),
-            onClick = { },
+            onClick = onClickSignIn,
         ) {
             Text(
                 text = "로그인",

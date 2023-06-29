@@ -30,6 +30,8 @@ fun RoutineRoute(
     val weekDateRoutineUiState : WeekDateRoutineUiState by viewModel.weekDateRoutineUiState.collectAsStateWithLifecycle()
     val weekDateUiState  : WeekDateUiState by viewModel.weekDateUiState.collectAsStateWithLifecycle()
     val currentDate  = viewModel.currentDate
+
+
     RoutineScreen(
         modifier = modifier,
         currentDate = currentDate,
