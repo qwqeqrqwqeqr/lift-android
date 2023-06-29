@@ -3,9 +3,7 @@ package com.gradation.lift.feature.login.sign_in
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
@@ -16,7 +14,6 @@ import com.gradation.lift.model.auth.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -56,23 +53,29 @@ class LoginSignInViewModel @Inject constructor(
     fun signIn() {
         viewModelScope.launch {
             signInUiState.value = SignInUiState.Loading
-            signInUseCase(Account(id = email, password = password)).map {
-                when (it) {
-                    is DataState.Error -> {
-                        Log.d("login", "${it.message} 에러")
-                        SignInUiState.Fail(it.message)
+            if(email.isBlank() || password.isBlank()){
+                signInUiState.value = SignInUiState.Fail(
+                    message = "아이디 또는 비밀번호를 입력해주세요."
+                )
+            }else{
+                signInUseCase(Account(id = email, password = password)).map {
+                    when (it) {
+                        is DataState.Error -> {
+                            Log.d("login", "${it.message} 에러")
+                            SignInUiState.Fail(it.message)
+                        }
+                        is DataState.Fail -> {
+                            Log.d("login", "${it.message} 실패")
+                            SignInUiState.Fail(it.message)
+                        }
+                        is DataState.Success -> {
+                            Log.d("login", "${it.data} 성공")
+                            SignInUiState.Success
+                        }
                     }
-                    is DataState.Fail -> {
-                        Log.d("login", "${it.message} 실패")
-                        SignInUiState.Fail(it.message)
-                    }
-                    is DataState.Success -> {
-                        Log.d("login", "${it.data} 성공")
-                        SignInUiState.Success
-                    }
+                }.collect {
+                    signInUiState.value = it
                 }
-            }.collect {
-                signInUiState.value = it
             }
         }
     }
