@@ -42,7 +42,7 @@ fun ToggleCheckbox(
 
 
 @Composable
-fun ToggleEye(
+fun ToggleVisible(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

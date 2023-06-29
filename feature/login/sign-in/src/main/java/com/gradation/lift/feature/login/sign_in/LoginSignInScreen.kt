@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,28 +30,29 @@ fun LoginSignInRoute(
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
-    val emailText = viewModel.email
-    val passwordText = viewModel.password
+
     val updateEmailText = viewModel::updateEmail
     val updatePasswordText = viewModel::updatePassword
-    val signInUiState : SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
-    val autoLoginChecked = viewModel.autoLoginChecked
+    val signInUiState: SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
 
     LoginSignInScreen(
         modifier = modifier,
-        emailText = emailText,
-        passwordText = passwordText,
+        emailText = viewModel.email,
+        passwordText = viewModel.password,
         updateEmailText = updateEmailText,
         updatePasswordText = updatePasswordText,
         onClickFindEmail = { navController.navigateToFindEmail() },
         onClickFindPassword = { navController.navigateToFindPassword() },
         onClickSignUp = { navController.navigateToLoginSignUp() },
         onClickSignIn = viewModel::signIn,
-        autoLoginChecked = autoLoginChecked,
-        autoLoginOnCheckedChange = { viewModel.autoLoginOnCheckedChange() }
+        autoLoginChecked = viewModel.autoLoginChecked,
+        onChangeAutoLoginChecked = { viewModel.onChangeAutoLoginChecked() },
+        passwordVisible = viewModel.passwordVisible,
+        onChangePasswordVisible = { viewModel.onChangePasswordVisible() },
+        passwordVisualTransformation = viewModel.passwordVisualTransformation
     )
 
-    when(val result = signInUiState){
+    when (val result = signInUiState) {
         is SignInUiState.Fail -> {
             Toast.makeText(
                 LocalContext.current,
@@ -86,7 +89,10 @@ fun LoginSignInScreen(
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
     autoLoginChecked: Boolean,
-    autoLoginOnCheckedChange: (Boolean) -> Unit,
+    onChangeAutoLoginChecked: (Boolean) -> Unit,
+    passwordVisible: Boolean,
+    onChangePasswordVisible: (Boolean) -> Unit,
+    passwordVisualTransformation: VisualTransformation,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background
@@ -121,12 +127,14 @@ fun LoginSignInScreen(
                 onClickFindPassword = onClickFindPassword,
                 onClickSignUp = onClickSignUp,
                 onClickSignIn = onClickSignIn,
-                autoLoginChecked=autoLoginChecked,
-                autoLoginOnCheckedChange=autoLoginOnCheckedChange
+                autoLoginChecked = autoLoginChecked,
+                onChangeAutoLoginChecked = onChangeAutoLoginChecked,
+                passwordVisible = passwordVisible,
+                onChangePasswordVisible = onChangePasswordVisible,
+                passwordVisualTransformation = passwordVisualTransformation,
             )
             Spacer(modifier = modifier.padding(32.dp))
             SimpleLoginView()
-
 
 
         }
@@ -147,8 +155,11 @@ fun LoginSignInPreview() {
             onClickFindPassword = {},
             onClickSignUp = {},
             onClickSignIn = {},
-            autoLoginChecked= true,
-            autoLoginOnCheckedChange= {}
+            autoLoginChecked = true,
+            onChangeAutoLoginChecked = {},
+            passwordVisible = true,
+            onChangePasswordVisible = {},
+            passwordVisualTransformation = VisualTransformation.None
         )
     }
 }

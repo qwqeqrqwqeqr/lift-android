@@ -5,6 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -24,9 +27,22 @@ class LoginSignInViewModel @Inject constructor(
 
     var email by mutableStateOf("")
     var password by mutableStateOf("")
-
     var autoLoginChecked by mutableStateOf(true)
-    fun autoLoginOnCheckedChange() {
+    var passwordVisible by mutableStateOf(false)
+    var passwordVisualTransformation: VisualTransformation by mutableStateOf(PasswordVisualTransformation())
+
+
+    fun onChangePasswordVisible() {
+        passwordVisible = !passwordVisible
+        passwordVisualTransformation =
+            if (passwordVisualTransformation == VisualTransformation.None) {
+                PasswordVisualTransformation()
+            } else {
+                VisualTransformation.None
+            }
+    }
+
+    fun onChangeAutoLoginChecked() {
         autoLoginChecked = !autoLoginChecked
     }
 
@@ -63,7 +79,6 @@ class LoginSignInViewModel @Inject constructor(
         }
     }
 }
-
 
 
 sealed interface SignInUiState {

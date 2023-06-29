@@ -1,22 +1,29 @@
 package com.gradation.lift.feature.login.sign_in.component
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
+import com.gradation.lift.designsystem.component.ToggleVisible
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
-import com.gradation.lift.feature.login.sign_in.SignInUiState
 import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperView
 import com.gradation.lift.feature.login.sign_in.component.detail.SignUpView
-import com.gradation.lift.ui.DevicePreview
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun SignInView(
@@ -30,8 +37,13 @@ fun SignInView(
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
     autoLoginChecked: Boolean,
-    autoLoginOnCheckedChange: (Boolean) -> Unit,
+    onChangeAutoLoginChecked: (Boolean) -> Unit,
+    passwordVisible: Boolean,
+    onChangePasswordVisible: (Boolean) -> Unit,
+    passwordVisualTransformation: VisualTransformation,
 ) {
+    val focusManager = LocalFocusManager.current
+
     Text(
         text = "이메일",
         style = MaterialTheme.typography.titleLarge,
@@ -43,7 +55,14 @@ fun SignInView(
         modifier = modifier.fillMaxWidth(),
         placeholder = { Text("이메일을 입력해주세요.") },
         singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(onNext = {
+            focusManager.moveFocus(FocusDirection.Down)
+        })
     )
+
     Spacer(modifier = modifier.padding(8.dp))
     Text(
         text = "비밀번호",
@@ -56,6 +75,20 @@ fun SignInView(
         modifier = modifier.fillMaxWidth(),
         placeholder = { Text("비밀번호를 입력해주세요.") },
         singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(onDone = {
+            focusManager.clearFocus().also { onClickSignIn() }
+        }),
+        visualTransformation = passwordVisualTransformation,
+        trailingIcon = {
+            ToggleVisible(
+                checked = passwordVisible,
+                onCheckedChange = onChangePasswordVisible,
+                modifier = modifier.size(24.dp)
+            )
+        }
     )
     Spacer(modifier = modifier.padding(4.dp))
 
@@ -63,8 +96,8 @@ fun SignInView(
         modifier = modifier,
         onClickFindEmail = onClickFindEmail,
         onClickFindPassword = onClickFindPassword,
-        autoLoginChecked=autoLoginChecked,
-        autoLoginOnCheckedChange=autoLoginOnCheckedChange
+        autoLoginChecked = autoLoginChecked,
+        onChangeAutoLoginChecked = onChangeAutoLoginChecked
     )
     Spacer(modifier = modifier.padding(36.dp))
 

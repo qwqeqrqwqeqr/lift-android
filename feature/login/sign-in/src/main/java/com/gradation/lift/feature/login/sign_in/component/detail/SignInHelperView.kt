@@ -26,7 +26,7 @@ fun SignInHelperView(
     onClickFindEmail: () -> Unit,
     onClickFindPassword: () -> Unit,
     autoLoginChecked: Boolean,
-    autoLoginOnCheckedChange: (Boolean) -> Unit,
+    onChangeAutoLoginChecked: (Boolean) -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -35,7 +35,7 @@ fun SignInHelperView(
         Row {
             ToggleCheckbox(
                 checked = autoLoginChecked,
-                onCheckedChange = autoLoginOnCheckedChange,
+                onCheckedChange = onChangeAutoLoginChecked,
                 modifier= modifier.size(18.dp)
             )
             Spacer(modifier = modifier.padding(2.dp))
@@ -93,21 +93,3 @@ fun FindIdPasswordView(
     }
 }
 
-@Composable
-@Preview
-fun LoginSignInPreview() {
-    LiftTheme {
-        LoginSignInScreen(
-            emailText = "",
-            updateEmailText = {},
-            passwordText = "",
-            updatePasswordText = {},
-            onClickFindEmail = {},
-            onClickFindPassword = {},
-            onClickSignUp = {},
-            onClickSignIn = {},
-            autoLoginChecked = true,
-            autoLoginOnCheckedChange = {}
-        )
-    }
-}

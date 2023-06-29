@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -26,6 +27,8 @@ fun LiftTextField(
     placeholder: @Composable (() -> Unit)?,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    trailingIcon: @Composable (() -> Unit)? = null
 ) {
     TextField(
         value = value,
@@ -48,8 +51,9 @@ fun LiftTextField(
             disabledTextColor = Color.Transparent,
         ),
         shape = RoundedCornerShape(32.dp),
-
-        )
+        visualTransformation = visualTransformation,
+        trailingIcon =trailingIcon
+    )
 }
 
 
