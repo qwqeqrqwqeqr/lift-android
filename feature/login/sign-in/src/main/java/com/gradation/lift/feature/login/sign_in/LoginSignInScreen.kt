@@ -22,6 +22,8 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
+import com.gradation.lift.navigation.navigation.navigateToFindEmail
+import com.gradation.lift.navigation.navigation.navigateToFindPassword
 import com.gradation.lift.navigation.navigation.navigateToLoginSignUp
 import com.gradation.lift.ui.DevicePreview
 
@@ -36,14 +38,17 @@ fun LoginSignInRoute(
     val updateEmailText = viewModel::updateEmail
     val updatePasswordText = viewModel::updatePassword
 
+
+
     LoginSignInScreen(
-        modifier= modifier,
+        modifier = modifier,
         emailText = emailText,
         passwordText = passwordText,
         updateEmailText = updateEmailText,
         updatePasswordText = updatePasswordText,
-        onClickFindEmail = {},
-        onClickFindPassword = {}
+        onClickFindEmail = { navController.navigateToFindEmail() },
+        onClickFindPassword = { navController.navigateToFindPassword() },
+        onClickSignUp = { navController.navigateToLoginSignUp() }
     )
 }
 
@@ -55,8 +60,9 @@ fun LoginSignInScreen(
     updateEmailText: (String) -> Unit,
     passwordText: String,
     updatePasswordText: (String) -> Unit,
-    onClickFindEmail : () -> Unit,
-    onClickFindPassword : () -> Unit,
+    onClickFindEmail: () -> Unit,
+    onClickFindPassword: () -> Unit,
+    onClickSignUp: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background
@@ -86,7 +92,8 @@ fun LoginSignInScreen(
                 passwordText = passwordText,
                 updatePasswordText = updatePasswordText,
                 onClickFindEmail = onClickFindEmail,
-                onClickFindPassword = onClickFindPassword
+                onClickFindPassword = onClickFindPassword,
+                onClickSignUp=onClickSignUp
             )
             Spacer(modifier = modifier.padding(32.dp))
             SimpleLoginView()
@@ -105,7 +112,8 @@ fun LoginSignInPreview() {
             passwordText = "",
             updatePasswordText = { },
             onClickFindEmail = {},
-            onClickFindPassword = {}
+            onClickFindPassword = {},
+            onClickSignUp={}
         )
     }
 }

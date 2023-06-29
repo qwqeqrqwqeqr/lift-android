@@ -24,6 +24,7 @@ fun SignInView(
     updatePasswordText: (String) -> Unit,
     onClickFindEmail: () -> Unit,
     onClickFindPassword: () -> Unit,
+    onClickSignUp: () -> Unit,
 ) {
     Text(
         text = "이메일",
@@ -73,26 +74,7 @@ fun SignInView(
                 color = MaterialTheme.colorScheme.onPrimary,
             )
         }
-        SignUpView(modifier)
-    }
-
-}
-
-
-
-
-
-@Composable
-@DevicePreview
-fun LoginSignInPreview() {
-    LiftTheme {
-        LoginSignInScreen(
-            emailText = "",
-            updateEmailText = {},
-            passwordText = "",
-            updatePasswordText = { },
-            onClickFindEmail = {},
-            onClickFindPassword = {}
-        )
+        SignUpView(modifier = modifier, onClickSignUp = onClickSignUp)
     }
 }
+
