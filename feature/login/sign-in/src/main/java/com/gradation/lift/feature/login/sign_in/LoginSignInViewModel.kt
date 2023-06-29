@@ -39,11 +39,11 @@ class LoginSignInViewModel @Inject constructor(
             signInUseCase(Account(id = email, password = password)).map {
                 when (it) {
                     is DataState.Error -> {
-                        Log.d("login", "${it.throwable.message} 성공")
+                        Log.d("login", "${it.throwable.message} 에러")
                         SignInUiState.Fail
                     }
                     is DataState.Fail -> {
-                        Log.d("login", "${it.message} 성공")
+                        Log.d("login", "${it.message} 실패")
 
                         SignInUiState.Fail
                     }

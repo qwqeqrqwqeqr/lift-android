@@ -14,7 +14,7 @@ import javax.annotation.Nullable
 data class APIResultWrapper<out T : Any>(
     val status: Boolean,
     val message: String,
-    val data: T
+    val data: T?
 )
 /**
  *  [AuthAPIResult] : API 통신 과정에서의 상태 클래스 (토큰 기반 통신에 사용)

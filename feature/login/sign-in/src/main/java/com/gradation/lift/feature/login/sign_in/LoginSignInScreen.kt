@@ -3,6 +3,7 @@ package com.gradation.lift.feature.login.sign_in
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
@@ -12,13 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
-import com.gradation.lift.navigation.navigation.navigateToFindEmail
-import com.gradation.lift.navigation.navigation.navigateToFindPassword
-import com.gradation.lift.navigation.navigation.navigateToHome
-import com.gradation.lift.navigation.navigation.navigateToLoginSignUp
+import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.ui.DevicePreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -61,7 +60,9 @@ fun LoginSignInRoute(
 
         }
         SignInUiState.Success -> {
-            navController.navigateToHome()
+            LaunchedEffect(true) {
+                navController.navigateLoginToHome()
+            }
         }
     }
 }

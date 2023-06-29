@@ -42,7 +42,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .catch { error -> emit(AuthAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
-                        emit(AuthAPIResult.Success(data = response.data))
+                        emit(AuthAPIResult.Success(data = response.data!!))
                     } else {
                         emit(
                             AuthAPIResult.Fail(message = response.message)
@@ -71,7 +71,7 @@ class DefaultNetworkResultHandler @Inject constructor(
                 .catch { error -> emit(DefaultAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
-                        emit(DefaultAPIResult.Success(data = response.data))
+                        emit(DefaultAPIResult.Success(data = response.data!!))
                     } else {
                         emit(
                             DefaultAPIResult.Fail(message = response.message)
