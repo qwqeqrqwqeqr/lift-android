@@ -15,6 +15,8 @@ object Router {
     const val LOGIN_SIGN_UP_ROUTER_NAME = "sign_up"
     const val LOGIN_TERMS_OF_USE_ROUTER_NAME = "terms_of_use"
     const val LOGIN_VERIFICATION_ROUTER_NAME = "verification"
+    const val LOGIN_FIND_EMAIL_ROUTER_NAME = "find_email"
+    const val LOGIN_FIND_PASSWORD_ROUTER_NAME = "find_password"
 
 
     const val HOME_ROUTER_NAME = "home"
