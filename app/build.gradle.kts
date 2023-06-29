@@ -40,5 +40,7 @@ dependencies{
     implementation(project(":feature:login:terms-of-use"))
     implementation(project(":feature:login:sign-in"))
     implementation(project(":feature:login:sign-up"))
+    implementation(project(":feature:login:find-email"))
+    implementation(project(":feature:login:find-password"))
 
 }
