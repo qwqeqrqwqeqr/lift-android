@@ -8,9 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
@@ -73,13 +71,3 @@ fun ToggleEye(
 }
 
 
-@Preview
-@Composable
-fun ToggleButtonPreview() {
-    LiftTheme {
-        Column {
-            ToggleCheckbox(true, {})
-            ToggleEye(true, {})
-        }
-    }
-}

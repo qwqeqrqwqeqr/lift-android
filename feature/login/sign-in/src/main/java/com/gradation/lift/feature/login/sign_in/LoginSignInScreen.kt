@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,6 +33,7 @@ fun LoginSignInRoute(
     val updateEmailText = viewModel::updateEmail
     val updatePasswordText = viewModel::updatePassword
     val signInUiState : SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
+    val autoLoginChecked = viewModel.autoLoginChecked
 
     LoginSignInScreen(
         modifier = modifier,
@@ -43,6 +45,8 @@ fun LoginSignInRoute(
         onClickFindPassword = { navController.navigateToFindPassword() },
         onClickSignUp = { navController.navigateToLoginSignUp() },
         onClickSignIn = viewModel::signIn,
+        autoLoginChecked = autoLoginChecked,
+        autoLoginOnCheckedChange = { viewModel.autoLoginOnCheckedChange() }
     )
 
     when(val result = signInUiState){
@@ -81,6 +85,8 @@ fun LoginSignInScreen(
     onClickFindPassword: () -> Unit,
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
+    autoLoginChecked: Boolean,
+    autoLoginOnCheckedChange: (Boolean) -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background
@@ -114,7 +120,9 @@ fun LoginSignInScreen(
                 onClickFindEmail = onClickFindEmail,
                 onClickFindPassword = onClickFindPassword,
                 onClickSignUp = onClickSignUp,
-                onClickSignIn = onClickSignIn
+                onClickSignIn = onClickSignIn,
+                autoLoginChecked=autoLoginChecked,
+                autoLoginOnCheckedChange=autoLoginOnCheckedChange
             )
             Spacer(modifier = modifier.padding(32.dp))
             SimpleLoginView()
@@ -127,7 +135,7 @@ fun LoginSignInScreen(
 
 
 @Composable
-@DevicePreview
+@Preview
 fun LoginSignInPreview() {
     LiftTheme {
         LoginSignInScreen(
@@ -139,6 +147,8 @@ fun LoginSignInPreview() {
             onClickFindPassword = {},
             onClickSignUp = {},
             onClickSignIn = {},
+            autoLoginChecked= true,
+            autoLoginOnCheckedChange= {}
         )
     }
 }

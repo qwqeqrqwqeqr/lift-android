@@ -3,6 +3,7 @@ package com.gradation.lift.feature.login.sign_in
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,6 +25,10 @@ class LoginSignInViewModel @Inject constructor(
     var email by mutableStateOf("")
     var password by mutableStateOf("")
 
+    var autoLoginChecked by mutableStateOf(true)
+    fun autoLoginOnCheckedChange() {
+        autoLoginChecked = !autoLoginChecked
+    }
 
     fun updateEmail(text: String) {
         email = text

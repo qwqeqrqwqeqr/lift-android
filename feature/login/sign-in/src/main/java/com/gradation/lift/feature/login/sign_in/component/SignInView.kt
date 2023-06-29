@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
@@ -28,6 +29,8 @@ fun SignInView(
     onClickFindPassword: () -> Unit,
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
+    autoLoginChecked: Boolean,
+    autoLoginOnCheckedChange: (Boolean) -> Unit,
 ) {
     Text(
         text = "이메일",
@@ -59,7 +62,9 @@ fun SignInView(
     SignInHelperView(
         modifier = modifier,
         onClickFindEmail = onClickFindEmail,
-        onClickFindPassword = onClickFindPassword
+        onClickFindPassword = onClickFindPassword,
+        autoLoginChecked=autoLoginChecked,
+        autoLoginOnCheckedChange=autoLoginOnCheckedChange
     )
     Spacer(modifier = modifier.padding(36.dp))
 
