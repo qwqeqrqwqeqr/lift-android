@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.login.sign_in.component
+package com.gradation.lift.feature.login.sign_in.component.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText

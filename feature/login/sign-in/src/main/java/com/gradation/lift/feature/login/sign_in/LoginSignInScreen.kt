@@ -37,6 +37,7 @@ fun LoginSignInRoute(
     val updatePasswordText = viewModel::updatePassword
 
     LoginSignInScreen(
+        modifier= modifier,
         emailText = emailText,
         passwordText = passwordText,
         updateEmailText = updateEmailText,

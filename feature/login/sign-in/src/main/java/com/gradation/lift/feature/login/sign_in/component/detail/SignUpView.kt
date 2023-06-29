@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.login.sign_in.component
+package com.gradation.lift.feature.login.sign_in.component.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SignUpView(
     modifier: Modifier = Modifier,
+    onClickSignUp: () -> Unit,
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -32,7 +33,7 @@ fun SignUpView(
                         color = MaterialTheme.colorScheme.onBackground,
                         textDecoration = TextDecoration.Underline),
             onClick = { offset ->
-                {}
+                onClickSignUp()
             },
         )
 
