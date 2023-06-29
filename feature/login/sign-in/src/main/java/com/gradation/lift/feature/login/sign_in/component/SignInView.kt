@@ -3,6 +3,8 @@ package com.gradation.lift.feature.login.sign_in.component
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -10,7 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -20,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.ToggleVisible
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperView
@@ -41,6 +46,7 @@ fun SignInView(
     passwordVisible: Boolean,
     onChangePasswordVisible: (Boolean) -> Unit,
     passwordVisualTransformation: VisualTransformation,
+    clearPassword: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -83,11 +89,27 @@ fun SignInView(
         }),
         visualTransformation = passwordVisualTransformation,
         trailingIcon = {
-            ToggleVisible(
-                checked = passwordVisible,
-                onCheckedChange = onChangePasswordVisible,
-                modifier = modifier.size(24.dp)
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                ToggleVisible(
+                    checked = passwordVisible,
+                    onCheckedChange = onChangePasswordVisible,
+                    modifier = modifier.size(24.dp)
+                )
+                Spacer(modifier = modifier.padding(4.dp))
+                IconButton(
+                    onClick = clearPassword,
+                    modifier = modifier.size(24.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(LiftIcon.Cancel),
+                        contentDescription = "",
+                        tint = Color.Unspecified,
+                    )
+                }
+                Spacer(modifier = modifier.padding(8.dp))
+            }
         }
     )
     Spacer(modifier = modifier.padding(4.dp))
@@ -119,3 +141,25 @@ fun SignInView(
     }
 }
 
+@Composable
+@Preview
+fun LoginSignInPreview() {
+    LiftTheme {
+        LoginSignInScreen(
+            emailText = "",
+            updateEmailText = {},
+            passwordText = "",
+            updatePasswordText = {},
+            onClickFindEmail = {},
+            onClickFindPassword = {},
+            onClickSignUp = {},
+            onClickSignIn = {},
+            autoLoginChecked = true,
+            onChangeAutoLoginChecked = {},
+            passwordVisible = true,
+            onChangePasswordVisible = {},
+            passwordVisualTransformation = VisualTransformation.None,
+            clearPassword ={}
+        )
+    }
+}

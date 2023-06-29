@@ -49,7 +49,8 @@ fun LoginSignInRoute(
         onChangeAutoLoginChecked = { viewModel.onChangeAutoLoginChecked() },
         passwordVisible = viewModel.passwordVisible,
         onChangePasswordVisible = { viewModel.onChangePasswordVisible() },
-        passwordVisualTransformation = viewModel.passwordVisualTransformation
+        passwordVisualTransformation = viewModel.passwordVisualTransformation,
+        clearPassword = { viewModel.clearPassword() }
     )
 
     when (val result = signInUiState) {
@@ -93,6 +94,7 @@ fun LoginSignInScreen(
     passwordVisible: Boolean,
     onChangePasswordVisible: (Boolean) -> Unit,
     passwordVisualTransformation: VisualTransformation,
+    clearPassword: () -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background
@@ -132,6 +134,7 @@ fun LoginSignInScreen(
                 passwordVisible = passwordVisible,
                 onChangePasswordVisible = onChangePasswordVisible,
                 passwordVisualTransformation = passwordVisualTransformation,
+                clearPassword = clearPassword
             )
             Spacer(modifier = modifier.padding(32.dp))
             SimpleLoginView()
@@ -159,7 +162,8 @@ fun LoginSignInPreview() {
             onChangeAutoLoginChecked = {},
             passwordVisible = true,
             onChangePasswordVisible = {},
-            passwordVisualTransformation = VisualTransformation.None
+            passwordVisualTransformation = VisualTransformation.None,
+            clearPassword = {}
         )
     }
 }

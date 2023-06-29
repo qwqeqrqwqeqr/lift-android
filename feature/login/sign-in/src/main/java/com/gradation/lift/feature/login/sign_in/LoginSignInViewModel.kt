@@ -46,6 +46,10 @@ class LoginSignInViewModel @Inject constructor(
         autoLoginChecked = !autoLoginChecked
     }
 
+    fun clearPassword(){
+        password = ""
+    }
+
     fun updateEmail(text: String) {
         email = text
     }
