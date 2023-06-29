@@ -65,7 +65,7 @@ fun LoginSignInScreen(
                 .padding(16.dp)
                 .fillMaxSize()
         ) {
-            Spacer(modifier = modifier.padding(48.dp))
+            Spacer(modifier = modifier.padding(32.dp))
             Text(
                 text = buildAnnotatedString {
                     append("매일매일 운동하고, 기록하고! \n")
@@ -87,7 +87,7 @@ fun LoginSignInScreen(
                 onClickFindEmail = onClickFindEmail,
                 onClickFindPassword = onClickFindPassword
             )
-            Spacer(modifier = modifier.padding(16.dp))
+            Spacer(modifier = modifier.padding(32.dp))
             SimpleLoginView()
         }
     }

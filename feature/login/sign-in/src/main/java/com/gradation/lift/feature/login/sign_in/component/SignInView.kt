@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextButton
@@ -25,8 +26,8 @@ fun SignInView(
     updateEmailText: (String) -> Unit,
     passwordText: String,
     updatePasswordText: (String) -> Unit,
-    onClickFindEmail : () -> Unit,
-    onClickFindPassword : () -> Unit,
+    onClickFindEmail: () -> Unit,
+    onClickFindPassword: () -> Unit,
 ) {
     Text(
         text = "이메일",
@@ -55,81 +56,34 @@ fun SignInView(
     )
     Spacer(modifier = modifier.padding(4.dp))
 
-    SignInHelperView(modifier = modifier,onClickFindEmail=onClickFindEmail,onClickFindPassword=onClickFindPassword)
-
+    SignInHelperView(
+        modifier = modifier,
+        onClickFindEmail = onClickFindEmail,
+        onClickFindPassword = onClickFindPassword
+    )
     Spacer(modifier = modifier.padding(36.dp))
 
-    LiftButton(
-        modifier = modifier.fillMaxWidth(),
-        onClick = { },
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "로그인",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onPrimary,
-        )
+        LiftButton(
+            modifier = modifier.fillMaxWidth(),
+            onClick = { },
+        ) {
+            Text(
+                text = "로그인",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
+            )
+        }
+        SignUpView(modifier)
     }
+
 }
 
 
-@Composable
-fun SignInHelperView(
-    modifier: Modifier = Modifier,
-    onClickFindEmail : () -> Unit,
-    onClickFindPassword : () -> Unit,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = "자동 로그인",
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
-        FindIdPwdView(onClickFindEmail= onClickFindEmail,onClickFindPassword= onClickFindPassword)
-    }
-}
 
-@Composable
-fun FindIdPwdView(
-    modifier: Modifier = Modifier,
-    onClickFindEmail : () -> Unit,
-    onClickFindPassword : () -> Unit,
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-
-        ClickableText(
-            text = AnnotatedString("이메일 찾기"),
-            style = MaterialTheme.typography.labelLarge+
-            TextStyle(color = MaterialTheme.colorScheme.onBackground),
-            onClick = {
-                offset -> onClickFindEmail()
-            }
-            ,
-        )
-
-        Spacer(modifier = modifier.padding(2.dp))
-        Divider(
-            thickness = 1.dp, modifier = modifier
-                .width(1.dp)
-                .height(10.dp)
-        )
-        Spacer(modifier = modifier.padding(2.dp))
-
-        ClickableText(
-            text = AnnotatedString("비밀번호 찾기"),
-            style = MaterialTheme.typography.labelLarge+
-                    TextStyle(color = MaterialTheme.colorScheme.onBackground),
-            onClick = {
-                offset -> onClickFindPassword()
-            },
-        )
-    }
-}
 
 
 @Composable
