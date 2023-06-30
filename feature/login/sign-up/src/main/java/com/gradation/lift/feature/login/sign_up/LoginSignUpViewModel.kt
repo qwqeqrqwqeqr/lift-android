@@ -1,15 +1,14 @@
 package com.gradation.lift.feature.login.sign_up
 
-import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
+import com.gradation.lift.feature.login.utils.Validator
+import com.gradation.lift.feature.login.utils.emailValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +32,8 @@ class LoginSignUpViewModel @Inject constructor(
 
 
     var emailValidationSupportText by mutableStateOf(Validator())
+    var passwordValidationSupportText by mutableStateOf(Validator())
+    var passwordVerificationValidationSupportText by mutableStateOf(Validator())
 
 
     internal fun clearPassword(): () -> Unit = { password = "" }
@@ -41,12 +42,18 @@ class LoginSignUpViewModel @Inject constructor(
         email = it
         validateEmail()
     }
+
     internal fun updatePassword(): (String) -> Unit = {
         password = it
+        validatePassword()
     }
+
+
     internal fun updatePasswordVerification(): (String) -> Unit = {
         passwordVerification = it
+        validatePasswordVerification()
     }
+
 
     internal fun onChangePasswordVisible(): (Boolean) -> Unit = {
         passwordVisible = !passwordVisible
@@ -69,7 +76,7 @@ class LoginSignUpViewModel @Inject constructor(
     }
 
     private fun validateEmail() {
-        emailValidationSupportText = if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        emailValidationSupportText = if (emailValidator(email)) {
             emailValidationSupportText.copy(status = true, message = "")
         } else {
             emailValidationSupportText.copy(status = false, message = "이메일 형식이 올바르지 않습니다.")
@@ -77,10 +84,15 @@ class LoginSignUpViewModel @Inject constructor(
     }
 
 
+    private fun validatePassword() {
+        TODO("Not yet implemented")
+    }
+
+    private fun validatePasswordVerification() {
+        TODO("Not yet implemented")
+    }
+
+
 }
 
 
-data class Validator(
-    val status: Boolean = false,
-    val message: String = "",
-)
