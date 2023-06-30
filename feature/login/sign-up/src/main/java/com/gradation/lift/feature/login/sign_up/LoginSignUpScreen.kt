@@ -15,9 +15,9 @@ import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
+import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
 import com.gradation.lift.navigation.navigation.navigateToVerification
 import com.gradation.lift.ui.DevicePreview
-import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField as PasswordVerificationTextField1
 
 @Composable
 fun LoginSignUpRoute(
@@ -25,6 +25,7 @@ fun LoginSignUpRoute(
     modifier: Modifier = Modifier,
     viewModel: LoginSignUpViewModel = hiltViewModel(),
 ) {
+
 
     LoginSignUpScreen(
         modifier = modifier,
@@ -46,7 +47,10 @@ fun LoginSignUpRoute(
         emailValidationSupportText = viewModel.emailValidationSupportText,
         passwordValidationSupportText = viewModel.passwordValidationSupportText,
         passwordVerificationValidationSupportText = viewModel.passwordVerificationValidationSupportText,
-        onNextButtonClick = {navController.navigateToVerification() }
+        onNextButtonClick = {
+            navController.navigateToVerification()
+            viewModel.updateKey()
+        }
     )
 }
 
@@ -111,7 +115,7 @@ internal fun LoginSignUpScreen(
                     passwordValidationSupportText = passwordValidationSupportText
                 )
                 Spacer(modifier = modifier.padding(18.dp))
-                PasswordVerificationTextField1(
+                PasswordVerificationTextField(
                     modifier = modifier,
                     passwordVerificationText = passwordVerificationText,
                     updatePasswordVerificationText = updatePasswordVerificationText,
@@ -126,7 +130,7 @@ internal fun LoginSignUpScreen(
 
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
-                    onClick =  onNextButtonClick,
+                    onClick = onNextButtonClick,
                 ) {
                     Text(
                         text = "다음",

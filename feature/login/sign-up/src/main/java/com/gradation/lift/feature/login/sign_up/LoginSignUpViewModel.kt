@@ -5,15 +5,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.gradation.lift.common.utils.*
+import com.gradation.lift.ui.SavedStateHandleKey
+import com.gradation.lift.ui.SavedStateHandleKey.SignKey.EMAIL_KEY
+import com.gradation.lift.ui.SavedStateHandleKey.SignKey.PASSWORD_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginSignUpViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
     var email by mutableStateOf("")
 
     var password by mutableStateOf("")
@@ -46,6 +50,7 @@ class LoginSignUpViewModel @Inject constructor(
         password = it
         validatePassword()
     }
+
 
 
     internal fun updatePasswordVerification(): (String) -> Unit = {
@@ -108,6 +113,13 @@ class LoginSignUpViewModel @Inject constructor(
         }
     }
 
+
+    fun updateKey(){
+        with(savedStateHandle) {
+            set(EMAIL_KEY, email)
+            set(PASSWORD_KEY, password)
+        }
+    }
 
 }
 
