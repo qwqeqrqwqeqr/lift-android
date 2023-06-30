@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -50,7 +49,9 @@ fun LoginSignUpRoute(
         clearPassword = viewModel.clearPassword(),
         clearPasswordVerification = viewModel.clearPasswordVerification(),
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),
-        onChangePasswordVerificationVisible = viewModel.onChangePasswordVerificationVisible()
+        onChangePasswordVerificationVisible = viewModel.onChangePasswordVerificationVisible(),
+        emailValidationSupportText = viewModel.emailValidationSupportText,
+        validateEmail = { viewModel.validateEmail() }
     )
 }
 
@@ -74,6 +75,8 @@ internal fun LoginSignUpScreen(
     clearPasswordVerification: () -> Unit,
     onChangePasswordVisible: (Boolean) -> Unit,
     onChangePasswordVerificationVisible: (Boolean) -> Unit,
+    emailValidationSupportText: Validator,
+    validateEmail: () -> Unit,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -106,10 +109,19 @@ internal fun LoginSignUpScreen(
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
                     ),
-                    keyboardActions = KeyboardActions(onNext = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    })
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        },
+                    )
                 )
+                if (!emailValidationSupportText.status) {
+                    Text(
+                        text = emailValidationSupportText.message,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
                 Spacer(modifier = modifier.padding(18.dp))
 
                 Text(
@@ -170,9 +182,12 @@ internal fun LoginSignUpScreen(
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
                     ),
-                    keyboardActions = KeyboardActions(onDone = {
-                        focusManager.clearFocus()
-                    }),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.clearFocus()
+                        },
+
+                        ),
                     visualTransformation = passwordVerificationVisualTransformation,
                     trailingIcon = {
                         Row(
@@ -198,6 +213,8 @@ internal fun LoginSignUpScreen(
                         }
                     }
                 )
+                Spacer(modifier = modifier.padding(36.dp))
+
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
                     onClick = { },
@@ -235,7 +252,9 @@ fun LoginSignInPreview() {
             clearPassword = { },
             clearPasswordVerification = { },
             onChangePasswordVisible = { },
-            onChangePasswordVerificationVisible = {}
-        )
+            onChangePasswordVerificationVisible = {},
+            emailValidationSupportText = Validator(),
+            validateEmail = {  }
+            )
     }
 }

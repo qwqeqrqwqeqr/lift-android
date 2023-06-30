@@ -21,14 +21,16 @@ fun LiftTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    singleLine: Boolean = false,
+    singleLine: Boolean = true,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     placeholder: @Composable (() -> Unit)?,
+    supportingText: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    trailingIcon: @Composable (() -> Unit)? = null
+    trailingIcon: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
 ) {
     TextField(
         value = value,
@@ -49,10 +51,14 @@ fun LiftTextField(
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             disabledTextColor = Color.Transparent,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            errorSupportingTextColor = MaterialTheme.colorScheme.error
         ),
         shape = RoundedCornerShape(32.dp),
         visualTransformation = visualTransformation,
-        trailingIcon =trailingIcon
+        trailingIcon = trailingIcon,
+        supportingText = supportingText,
+        isError = isError
     )
 }
 
@@ -64,8 +70,13 @@ fun LiftTextFieldPreview() {
         Box(
             Modifier
                 .fillMaxSize()
-                .background(Color.White)) {
-            LiftTextField(value = "", onValueChange = {}, placeholder = { Text("힌트") })
+                .background(Color.White)
+        ) {
+            LiftTextField(
+                value = "",
+                onValueChange = {},
+                placeholder = { Text("힌트") },
+            )
         }
 
     }

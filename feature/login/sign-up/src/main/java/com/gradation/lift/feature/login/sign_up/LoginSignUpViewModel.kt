@@ -1,12 +1,15 @@
 package com.gradation.lift.feature.login.sign_up
 
+import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,6 +30,9 @@ class LoginSignUpViewModel @Inject constructor(
     var passwordVerificationVisualTransformation: VisualTransformation by mutableStateOf(
         PasswordVisualTransformation()
     )
+
+
+    var emailValidationSupportText by mutableStateOf (Validator())
 
 
     fun clearPassword(): () -> Unit = { password = "" }
@@ -54,4 +60,18 @@ class LoginSignUpViewModel @Inject constructor(
                 VisualTransformation.None
             }
     }
+
+    fun validateEmail() : Validator{
+        return if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailValidationSupportText.copy(status = true, message = "")
+        } else {
+            emailValidationSupportText.copy(status = false, message = "이메일 형식이 올바르지 않습니다.")
+        }
+    }
 }
+
+
+data class Validator(
+    val status: Boolean= false,
+    val message: String= "",
+)
