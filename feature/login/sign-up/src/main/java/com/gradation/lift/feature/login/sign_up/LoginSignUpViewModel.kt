@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginSignUpViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     var email by mutableStateOf("")
 
@@ -39,23 +39,27 @@ class LoginSignUpViewModel @Inject constructor(
     var passwordVerificationValidationSupportText by mutableStateOf(Validator())
 
 
+    var navigateCondition by mutableStateOf(false)
+
     internal fun clearPassword(): () -> Unit = { password = "" }
     internal fun clearPasswordVerification(): () -> Unit = { passwordVerification = "" }
     internal fun updateEmail(): (String) -> Unit = {
         email = it
         validateEmail()
+        updateNavigateCondition()
     }
 
     internal fun updatePassword(): (String) -> Unit = {
         password = it
         validatePassword()
+        updateNavigateCondition()
     }
-
 
 
     internal fun updatePasswordVerification(): (String) -> Unit = {
         passwordVerification = it
         validatePasswordVerification()
+        updateNavigateCondition()
     }
 
 
@@ -113,8 +117,14 @@ class LoginSignUpViewModel @Inject constructor(
         }
     }
 
+    fun updateNavigateCondition() {
+        navigateCondition = (emailValidationSupportText.status &&
+                passwordValidationSupportText.status &&
+                passwordVerificationValidationSupportText.status)
+    }
 
-    fun updateKey(){
+
+    fun updateKey() {
         with(savedStateHandle) {
             set(EMAIL_KEY, email)
             set(PASSWORD_KEY, password)

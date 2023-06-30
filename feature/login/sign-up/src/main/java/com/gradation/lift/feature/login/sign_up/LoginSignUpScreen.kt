@@ -50,7 +50,8 @@ fun LoginSignUpRoute(
         onNextButtonClick = {
             navController.navigateToVerification()
             viewModel.updateKey()
-        }
+        },
+        navigateCondition = viewModel.navigateCondition
     )
 }
 
@@ -78,6 +79,7 @@ internal fun LoginSignUpScreen(
     passwordValidationSupportText: Validator,
     passwordVerificationValidationSupportText: Validator,
     onNextButtonClick: () -> Unit,
+    navigateCondition : Boolean
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -131,6 +133,7 @@ internal fun LoginSignUpScreen(
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
                     onClick = onNextButtonClick,
+                    enabled = navigateCondition
                 ) {
                     Text(
                         text = "다음",
@@ -169,7 +172,8 @@ fun LoginSignInPreview() {
             emailValidationSupportText = Validator(status = false, message = "실패"),
             passwordValidationSupportText = Validator(status = false, message = "실패"),
             passwordVerificationValidationSupportText = Validator(status = false, message = "실패"),
-            onNextButtonClick = {}
+            onNextButtonClick = {},
+            navigateCondition = true
         )
     }
 }
