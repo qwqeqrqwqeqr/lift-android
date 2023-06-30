@@ -51,7 +51,6 @@ fun LoginSignUpRoute(
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),
         onChangePasswordVerificationVisible = viewModel.onChangePasswordVerificationVisible(),
         emailValidationSupportText = viewModel.emailValidationSupportText,
-        validateEmail = { viewModel.validateEmail() }
     )
 }
 
@@ -76,7 +75,6 @@ internal fun LoginSignUpScreen(
     onChangePasswordVisible: (Boolean) -> Unit,
     onChangePasswordVerificationVisible: (Boolean) -> Unit,
     emailValidationSupportText: Validator,
-    validateEmail: () -> Unit,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -118,7 +116,7 @@ internal fun LoginSignUpScreen(
                 if (!emailValidationSupportText.status) {
                     Text(
                         text = emailValidationSupportText.message,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.error
                     )
                 }
@@ -185,9 +183,7 @@ internal fun LoginSignUpScreen(
                     keyboardActions = KeyboardActions(
                         onDone = {
                             focusManager.clearFocus()
-                        },
-
-                        ),
+                        }),
                     visualTransformation = passwordVerificationVisualTransformation,
                     trailingIcon = {
                         Row(
@@ -253,8 +249,7 @@ fun LoginSignInPreview() {
             clearPasswordVerification = { },
             onChangePasswordVisible = { },
             onChangePasswordVerificationVisible = {},
-            emailValidationSupportText = Validator(),
-            validateEmail = {  }
-            )
+            emailValidationSupportText = Validator(status = false, message = "실패")
+        )
     }
 }

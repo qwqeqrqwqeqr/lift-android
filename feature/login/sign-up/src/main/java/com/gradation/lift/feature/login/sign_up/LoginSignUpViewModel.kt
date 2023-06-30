@@ -32,16 +32,23 @@ class LoginSignUpViewModel @Inject constructor(
     )
 
 
-    var emailValidationSupportText by mutableStateOf (Validator())
+    var emailValidationSupportText by mutableStateOf(Validator())
 
 
-    fun clearPassword(): () -> Unit = { password = "" }
-    fun clearPasswordVerification(): () -> Unit = { passwordVerification = "" }
-    fun updateEmail(): (String) -> Unit = { email = it }
-    fun updatePassword(): (String) -> Unit = { password = it }
-    fun updatePasswordVerification(): (String) -> Unit = { passwordVerification = it }
+    internal fun clearPassword(): () -> Unit = { password = "" }
+    internal fun clearPasswordVerification(): () -> Unit = { passwordVerification = "" }
+    internal fun updateEmail(): (String) -> Unit = {
+        email = it
+        validateEmail()
+    }
+    internal fun updatePassword(): (String) -> Unit = {
+        password = it
+    }
+    internal fun updatePasswordVerification(): (String) -> Unit = {
+        passwordVerification = it
+    }
 
-    fun onChangePasswordVisible(): (Boolean) -> Unit = {
+    internal fun onChangePasswordVisible(): (Boolean) -> Unit = {
         passwordVisible = !passwordVisible
         passwordVisualTransformation =
             if (passwordVisualTransformation == VisualTransformation.None) {
@@ -51,7 +58,7 @@ class LoginSignUpViewModel @Inject constructor(
             }
     }
 
-    fun onChangePasswordVerificationVisible(): (Boolean) -> Unit = {
+    internal fun onChangePasswordVerificationVisible(): (Boolean) -> Unit = {
         passwordVerificationVisible = !passwordVerificationVisible
         passwordVerificationVisualTransformation =
             if (passwordVerificationVisualTransformation == VisualTransformation.None) {
@@ -61,17 +68,19 @@ class LoginSignUpViewModel @Inject constructor(
             }
     }
 
-    fun validateEmail() : Validator{
-        return if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    private fun validateEmail() {
+        emailValidationSupportText = if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailValidationSupportText.copy(status = true, message = "")
         } else {
             emailValidationSupportText.copy(status = false, message = "이메일 형식이 올바르지 않습니다.")
         }
     }
+
+
 }
 
 
 data class Validator(
-    val status: Boolean= false,
-    val message: String= "",
+    val status: Boolean = false,
+    val message: String = "",
 )
