@@ -15,6 +15,7 @@ import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
+import com.gradation.lift.navigation.navigation.navigateToVerification
 import com.gradation.lift.ui.DevicePreview
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField as PasswordVerificationTextField1
 
@@ -24,6 +25,7 @@ fun LoginSignUpRoute(
     modifier: Modifier = Modifier,
     viewModel: LoginSignUpViewModel = hiltViewModel(),
 ) {
+
     LoginSignUpScreen(
         modifier = modifier,
         onTopBarBackClick = { navController.popBackStack() },
@@ -44,6 +46,7 @@ fun LoginSignUpRoute(
         emailValidationSupportText = viewModel.emailValidationSupportText,
         passwordValidationSupportText = viewModel.passwordValidationSupportText,
         passwordVerificationValidationSupportText = viewModel.passwordVerificationValidationSupportText,
+        onNextButtonClick = {navController.navigateToVerification() }
     )
 }
 
@@ -70,6 +73,7 @@ internal fun LoginSignUpScreen(
     emailValidationSupportText: Validator,
     passwordValidationSupportText: Validator,
     passwordVerificationValidationSupportText: Validator,
+    onNextButtonClick: () -> Unit,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -122,7 +126,7 @@ internal fun LoginSignUpScreen(
 
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
-                    onClick = { },
+                    onClick =  onNextButtonClick,
                 ) {
                     Text(
                         text = "다음",
@@ -160,7 +164,8 @@ fun LoginSignInPreview() {
             onChangePasswordVerificationVisible = {},
             emailValidationSupportText = Validator(status = false, message = "실패"),
             passwordValidationSupportText = Validator(status = false, message = "실패"),
-            passwordVerificationValidationSupportText = Validator(status = false, message = "실패")
+            passwordVerificationValidationSupportText = Validator(status = false, message = "실패"),
+            onNextButtonClick = {}
         )
     }
 }
