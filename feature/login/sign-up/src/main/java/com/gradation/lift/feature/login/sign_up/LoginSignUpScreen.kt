@@ -17,6 +17,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftTopBar
@@ -51,6 +52,8 @@ fun LoginSignUpRoute(
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),
         onChangePasswordVerificationVisible = viewModel.onChangePasswordVerificationVisible(),
         emailValidationSupportText = viewModel.emailValidationSupportText,
+        passwordValidationSupportText = viewModel.passwordValidationSupportText,
+        passwordVerificationValidationSupportText = viewModel.passwordVerificationValidationSupportText,
     )
 }
 
@@ -75,6 +78,8 @@ internal fun LoginSignUpScreen(
     onChangePasswordVisible: (Boolean) -> Unit,
     onChangePasswordVerificationVisible: (Boolean) -> Unit,
     emailValidationSupportText: Validator,
+    passwordValidationSupportText: Validator,
+    passwordVerificationValidationSupportText: Validator,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -164,6 +169,13 @@ internal fun LoginSignUpScreen(
                         }
                     }
                 )
+                if (!passwordValidationSupportText.status) {
+                    Text(
+                        text = passwordValidationSupportText.message,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
                 Spacer(modifier = modifier.padding(18.dp))
 
                 Text(
@@ -209,6 +221,13 @@ internal fun LoginSignUpScreen(
                         }
                     }
                 )
+                if (!passwordVerificationValidationSupportText.status) {
+                    Text(
+                        text = passwordVerificationValidationSupportText.message,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
                 Spacer(modifier = modifier.padding(36.dp))
 
                 LiftButton(
@@ -249,7 +268,9 @@ fun LoginSignInPreview() {
             clearPasswordVerification = { },
             onChangePasswordVisible = { },
             onChangePasswordVerificationVisible = {},
-            emailValidationSupportText = Validator(status = false, message = "실패")
+            emailValidationSupportText = Validator(status = false, message = "실패"),
+            passwordValidationSupportText = Validator(status = false, message = "실패"),
+            passwordVerificationValidationSupportText = Validator(status = false, message = "실패")
         )
     }
 }

@@ -6,8 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
-import com.gradation.lift.feature.login.utils.Validator
-import com.gradation.lift.feature.login.utils.emailValidator
+import com.gradation.lift.common.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -85,11 +84,28 @@ class LoginSignUpViewModel @Inject constructor(
 
 
     private fun validatePassword() {
-        TODO("Not yet implemented")
+        passwordValidationSupportText = if (!lengthValidator(password, 8, 16)) {
+            passwordValidationSupportText.copy(status = false, message = "8~16자이내로 입력해주세요")
+        } else if (!passwordValidator(password)) {
+            passwordValidationSupportText.copy(status = false, message = "영문이나 숫자를 포함해주세요")
+        } else {
+            passwordValidationSupportText.copy(status = true, message = "")
+        }
     }
 
     private fun validatePasswordVerification() {
-        TODO("Not yet implemented")
+        passwordVerificationValidationSupportText = if (!passwordVerificationValidator(
+                password = password,
+                passwordVerification = passwordVerification
+            )
+        ) {
+            passwordVerificationValidationSupportText.copy(
+                status = false,
+                message = "비밀번호가 일치하지 않아요"
+            )
+        } else {
+            passwordVerificationValidationSupportText.copy(status = true, message = "")
+        }
     }
 
 
