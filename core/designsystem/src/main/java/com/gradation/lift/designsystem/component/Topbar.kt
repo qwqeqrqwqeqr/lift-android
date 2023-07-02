@@ -25,7 +25,8 @@ fun LiftTopBar(
         modifier = modifier.statusBarsPadding(),
         navigationIcon = {
             LiftIconButton(
-                onClick = onBackClick
+                onClick = onBackClick,
+                modifier = modifier
             ) {
                 Icon(
                     painter = painterResource(LiftIcon.ArrowBack),
