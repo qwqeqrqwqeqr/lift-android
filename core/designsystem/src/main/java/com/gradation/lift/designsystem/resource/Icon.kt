@@ -34,8 +34,9 @@ object LiftIcon{
     val LoginNaver = R.drawable.login_naver
     val LoginGoogle = R.drawable.login_google
 
+    val ArrowBack = R.drawable.arrow_back
 
-    val ArrowBack = Icons.Rounded.ArrowBackIos
+
     val ChevronRight = Icons.Rounded.ChevronRight
 }
 

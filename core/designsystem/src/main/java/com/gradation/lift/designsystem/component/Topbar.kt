@@ -7,6 +7,8 @@ import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -29,8 +31,9 @@ fun LiftTopBar(
                 onClick = onBackClick
             ) {
                  Icon(
-                    imageVector = LiftIcon.ArrowBack,
-                    contentDescription = ""
+                     painter = painterResource(LiftIcon.ArrowBack),
+                    contentDescription = "",
+                     tint = Color.Unspecified,
                 )
             }
         },
