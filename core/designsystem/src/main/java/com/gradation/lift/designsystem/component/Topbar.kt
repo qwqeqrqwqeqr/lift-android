@@ -8,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.gradation.lift.designsystem.resource.Icon
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -30,7 +29,7 @@ fun LiftTopBar(
                 onClick = onBackClick
             ) {
                  Icon(
-                    imageVector = Icon.ImageVectorIcon(LiftIcon.ArrowBack).imageVector,
+                    imageVector = LiftIcon.ArrowBack,
                     contentDescription = ""
                 )
             }

@@ -1,6 +1,8 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
@@ -19,21 +21,45 @@ fun NavController.navigateLoginToHome() {
 }
 
 
-fun NavController.navigateToHome(navOptions: NavOptions? = null) {
-    this.navigate(HOME_ROUTER_NAME,navOptions)
+fun NavHostController.navigateToHome() {
+    this.navigate(HOME_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(currentDestination!!.id){
+            saveState = true
+            inclusive = true
+        }
+    }
 }
 
 
-fun NavController.navigateToRoutine(navOptions: NavOptions? = null) {
-    this.navigate(ROUTINE_ROUTER_NAME, navOptions)
+fun NavHostController.navigateToRoutine() {
+    this.navigate(ROUTINE_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(currentDestination!!.id){
+            saveState = true
+            inclusive = true
+        }
+    }
 }
 
-fun NavController.navigateToHistory(navOptions: NavOptions? = null) {
-    this.navigate(HISTORY_ROUTER_NAME, navOptions)
+fun NavHostController.navigateToHistory() {
+    this.navigate(HISTORY_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(currentDestination!!.id){
+            saveState = true
+            inclusive = true
+        }
+    }
 }
 
-fun NavController.navigateToMyInfo(navOptions: NavOptions? = null) {
-    this.navigate(MY_INFO_ROUTER_NAME, navOptions)
+fun NavHostController.navigateToMyInfo() {
+    this.navigate(MY_INFO_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(currentDestination!!.id){
+            saveState = true
+            inclusive = true
+        }
+    }
 }
 
 

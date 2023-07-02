@@ -23,7 +23,7 @@ fun MyInfoScreen(navController: NavController) {
 
     ) {
         Text(
-            text = "내정보화면",
+            text = "이거 왜이래",
             color = Color.Black
         )
 

@@ -1,6 +1,6 @@
 package com.gradation.lift.network.handler
 
-import com.gradation.lift.common.dispatcher.DispatcherProvider
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.AuthAPIResult
 import com.gradation.lift.network.common.Constants.INTERNAL_SERVER_ERROR

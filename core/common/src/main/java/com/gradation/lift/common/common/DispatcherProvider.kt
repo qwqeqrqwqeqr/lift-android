@@ -1,4 +1,4 @@
-package com.gradation.lift.common.dispatcher
+package com.gradation.lift.common.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 

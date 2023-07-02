@@ -16,7 +16,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
-import com.gradation.lift.navigation.navigation.navigateToVerification
+import com.gradation.lift.navigation.navigation.navigateToLoginTermsOfUse
+import com.gradation.lift.navigation.navigation.navigateToLoginVerification
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -48,8 +49,8 @@ fun LoginSignUpRoute(
         passwordValidationSupportText = viewModel.passwordValidationSupportText,
         passwordVerificationValidationSupportText = viewModel.passwordVerificationValidationSupportText,
         onNextButtonClick = {
-            navController.navigateToVerification()
             viewModel.updateKey()
+            navController.navigateToLoginVerification()
         },
         navigateCondition = viewModel.navigateCondition
     )

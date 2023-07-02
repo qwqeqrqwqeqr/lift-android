@@ -13,6 +13,7 @@ fun myInfoScreen(
     MyInfoRoute { route ->
         navGraphBuilder.composable(route) {
             MyInfoRoute(navController = navController)
+
         }
     }.myInfoScreen(route = Router.MY_INFO_ROUTER_NAME)
 }

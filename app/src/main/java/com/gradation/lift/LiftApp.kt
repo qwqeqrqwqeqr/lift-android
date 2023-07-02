@@ -11,16 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.*
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
-import com.gradation.lift.designsystem.resource.Icon
 import com.gradation.lift.navigation.*
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
@@ -108,17 +107,11 @@ class AppState(
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelNavDestination) {
         trace("Navigation: ${topLevelDestination.name}") {
-            val topLevelNavOptions = navOptions {
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
-                }
-            }
-
             when (topLevelDestination) {
-                TopLevelNavDestination.Home -> navController.navigateToHome(topLevelNavOptions)
-                TopLevelNavDestination.Routine -> navController.navigateToRoutine(topLevelNavOptions)
-                TopLevelNavDestination.History -> navController.navigateToHistory(topLevelNavOptions)
-                TopLevelNavDestination.MyInfo -> navController.navigateToMyInfo(topLevelNavOptions)
+                TopLevelNavDestination.Home -> navController.navigateToHome()
+                TopLevelNavDestination.Routine -> navController.navigateToRoutine()
+                TopLevelNavDestination.History -> navController.navigateToHistory()
+                TopLevelNavDestination.MyInfo -> navController.navigateToMyInfo()
             }
         }
     }
@@ -140,21 +133,19 @@ private fun BottomBar(
             LiftNavigationBarItem(
                 selected = selected,
                 onClick = { onNavigateToDestination(destination) },
-                icon = {
-                    val icon =
-                        if (selected) destination.selectedIcon else destination.unselectedIcon
-
-                    when (icon) {
-                        is Icon.ImageVectorIcon -> Icon(
-                            imageVector = icon.imageVector,
-                            contentDescription = null,
-                        )
-
-                        is Icon.DrawableResourceIcon -> Icon(
-                            painter = painterResource(id = icon.id),
-                            contentDescription = null,
-                        )
-                    }
+                unSelectedIcon = {
+                    Icon(
+                        painter = painterResource(id = destination.unselectedIcon),
+                        contentDescription = null,
+                        tint = Color.Unspecified
+                    )
+                },
+                selectedIcon = {
+                    Icon(
+                        painter = painterResource(id = destination.selectedIcon),
+                        contentDescription = null,
+                        tint = Color.Unspecified
+                    )
                 },
                 label = { Text(stringResource(destination.displayName)) },
             )

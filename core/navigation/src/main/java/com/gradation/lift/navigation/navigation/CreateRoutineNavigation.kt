@@ -10,25 +10,25 @@ import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 
 
-fun NavController.navigateToCreateRoutineFindWorkCategory(navOptions: NavOptions? = null) {
-    this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME, navOptions)
+fun NavController.navigateToCreateRoutineFindWorkCategory() {
+    this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME)
 }
 
-fun NavController.navigateToCreateRoutineFindWorkpart(navOptions: NavOptions? = null) {
-    this.navigate(CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME, navOptions)
+fun NavController.navigateToCreateRoutineFindWorkpart() {
+    this.navigate(CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME)
 }
 
-fun NavController.navigateToCreateRoutineRoutineDetail(navOptions: NavOptions? = null) {
-    this.navigate(CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME, navOptions)
+fun NavController.navigateToCreateRoutineRoutineDetail() {
+    this.navigate(CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME)
 }
 
-fun NavController.navigateToCreateRoutineRoutineSet(navOptions: NavOptions? = null) {
-    this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME, navOptions)
+fun NavController.navigateToCreateRoutineRoutineSet() {
+    this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME)
 }
 
-fun NavController.navigateToCreateRoutineRoutine(navOptions: NavOptions? = null) {
-    this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME, navOptions)
+fun NavController.navigateToCreateRoutineRoutine() {
+    this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
 }
-fun NavController.navigateToCreateRoutineGraph(navOptions: NavOptions? = null) {
-    this.navigate(CREATE_ROUTINE_GRAPH_ROUTER_NAME, navOptions)
+fun NavController.navigateToCreateRoutineGraph() {
+    this.navigate(CREATE_ROUTINE_GRAPH_ROUTER_NAME)
 }

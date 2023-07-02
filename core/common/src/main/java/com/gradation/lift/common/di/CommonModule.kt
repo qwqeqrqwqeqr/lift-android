@@ -1,5 +1,6 @@
-package com.gradation.lift.common.dispatcher
+package com.gradation.lift.common.di
 
+import com.gradation.lift.common.common.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DispatcherModule {
+object CommonModule {
     @Singleton
     @Provides
     fun provideDispatchers(): DispatcherProvider = object : DispatcherProvider {

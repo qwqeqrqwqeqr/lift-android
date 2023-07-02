@@ -1,6 +1,6 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.common.dispatcher.DispatcherProvider
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.DefaultNetworkResultHandler
 import com.gradation.lift.network.handler.NetworkResultHandler

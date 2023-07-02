@@ -9,7 +9,6 @@ object Router {
     const val CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME = "find_workpart"
     const val CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "find_work_category"
 
-
     const val LOGIN_GRAPH_ROUTER_NAME = "login_graph"
     const val LOGIN_SIGN_IN_ROUTER_NAME = "sign_in"
     const val LOGIN_SIGN_UP_ROUTER_NAME = "sign_up"
@@ -18,11 +17,8 @@ object Router {
     const val LOGIN_FIND_EMAIL_ROUTER_NAME = "find_email"
     const val LOGIN_FIND_PASSWORD_ROUTER_NAME = "find_password"
 
-
     const val HOME_ROUTER_NAME = "home"
     const val ROUTINE_ROUTER_NAME = "routine"
     const val HISTORY_ROUTER_NAME = "history"
-    const val MY_INFO_ROUTER_NAME = "my_info"
-
-
+    const val MY_INFO_ROUTER_NAME = "myinfo"
 }

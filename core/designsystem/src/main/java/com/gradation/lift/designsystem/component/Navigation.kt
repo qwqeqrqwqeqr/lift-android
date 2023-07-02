@@ -14,9 +14,9 @@ import androidx.compose.ui.unit.dp
 fun RowScope.LiftNavigationBarItem(
     selected: Boolean,
     onClick: () -> Unit,
-    icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    selectedIcon: @Composable () -> Unit = icon,
+    unSelectedIcon: @Composable () -> Unit,
+    selectedIcon: @Composable () -> Unit,
     enabled: Boolean = true,
     label: @Composable (() -> Unit)? = null,
     alwaysShowLabel: Boolean = true,
@@ -24,7 +24,7 @@ fun RowScope.LiftNavigationBarItem(
     NavigationBarItem(
         selected = selected,
         onClick = onClick,
-        icon = if (selected) selectedIcon else icon,
+        icon = if (selected) selectedIcon else unSelectedIcon,
         modifier = modifier,
         enabled = enabled,
         label = label,

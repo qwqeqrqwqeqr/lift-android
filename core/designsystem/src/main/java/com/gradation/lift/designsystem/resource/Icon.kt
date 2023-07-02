@@ -39,9 +39,4 @@ object LiftIcon{
     val ChevronRight = Icons.Rounded.ChevronRight
 }
 
-sealed class Icon {
 
-
-    data class ImageVectorIcon(val imageVector: ImageVector) : Icon()
-    data class DrawableResourceIcon(@DrawableRes val id: Int) : Icon()
-}

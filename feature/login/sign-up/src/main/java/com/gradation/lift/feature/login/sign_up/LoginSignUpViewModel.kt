@@ -8,9 +8,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.gradation.lift.common.utils.*
-import com.gradation.lift.ui.SavedStateHandleKey
-import com.gradation.lift.ui.SavedStateHandleKey.SignKey.EMAIL_KEY
-import com.gradation.lift.ui.SavedStateHandleKey.SignKey.PASSWORD_KEY
+import com.gradation.lift.ui.SavedStateHandleKey.SignUpKey.EMAIL_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,6 +16,9 @@ import javax.inject.Inject
 class LoginSignUpViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+
+
+
     var email by mutableStateOf("")
 
     var password by mutableStateOf("")
@@ -96,7 +97,7 @@ class LoginSignUpViewModel @Inject constructor(
         passwordValidationSupportText = if (!lengthValidator(password, 8, 16)) {
             passwordValidationSupportText.copy(status = false, message = "8~16자이내로 입력해주세요")
         } else if (!passwordValidator(password)) {
-            passwordValidationSupportText.copy(status = false, message = "영문이나 숫자를 포함해주세요")
+            passwordValidationSupportText.copy(status = false, message = "영문, 숫자 및 특수 문자를 포함해주세요")
         } else {
             passwordValidationSupportText.copy(status = true, message = "")
         }
@@ -117,19 +118,19 @@ class LoginSignUpViewModel @Inject constructor(
         }
     }
 
-    fun updateNavigateCondition() {
+    private fun updateNavigateCondition() {
         navigateCondition = (emailValidationSupportText.status &&
                 passwordValidationSupportText.status &&
                 passwordVerificationValidationSupportText.status)
     }
 
-
-    fun updateKey() {
+    fun updateKey(){
         with(savedStateHandle) {
             set(EMAIL_KEY, email)
-            set(PASSWORD_KEY, password)
         }
+//        savedStateHandleViewModel.setStringValue(key=EMAIL_KEY,value=email)
     }
+
 
 }
 
