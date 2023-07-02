@@ -17,9 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginSignUpViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
 
 
     var email by mutableStateOf("")
