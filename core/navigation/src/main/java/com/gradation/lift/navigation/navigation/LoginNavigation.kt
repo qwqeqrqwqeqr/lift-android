@@ -19,6 +19,10 @@ fun NavController.navigateToLoginVerification() {
     this.navigate(Router.LOGIN_VERIFICATION_ROUTER_NAME)
 }
 
+fun NavController.navigateToLoginComplete() {
+    this.navigate(Router.LOGIN_COMPLETE_ROUTER_NAME)
+}
+
 fun NavController.navigateToLoginFindEmail() {
     this.navigate(Router.LOGIN_FIND_EMAIL_ROUTER_NAME)
 }
