@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gradation.lift.ui.SavedStateHandleKey
 
 @Composable
 fun LoginVerificationRoute(
@@ -13,18 +14,21 @@ fun LoginVerificationRoute(
     viewModel: LoginVerificationViewModel = hiltViewModel(),
 ) {
 
-    Text(text = viewModel.test)
+    val test =
+        navController.previousBackStackEntry?.savedStateHandle?.get<String>(SavedStateHandleKey.SignUpKey.EMAIL_KEY)
+            ?: "오류"
+
+    Text(text = test)
     LoginVerificationScreen(
-        modifier=modifier
+        modifier = modifier
     )
 }
 
 
-
 @Composable
 internal fun LoginVerificationScreen(
-    modifier: Modifier =Modifier
-){
+    modifier: Modifier = Modifier,
+) {
 
 
 }

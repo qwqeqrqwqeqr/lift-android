@@ -7,6 +7,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.gradation.lift.common.utils.*
 import com.gradation.lift.ui.SavedStateHandleKey.SignUpKey.EMAIL_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -124,13 +125,14 @@ class LoginSignUpViewModel @Inject constructor(
                 passwordVerificationValidationSupportText.status)
     }
 
-    fun updateKey(){
-        with(savedStateHandle) {
-            set(EMAIL_KEY, email)
-        }
-//        savedStateHandleViewModel.setStringValue(key=EMAIL_KEY,value=email)
-    }
+    fun updateKey(navController: NavController) {
+        navController.currentBackStackEntry?.let {
+            with(it.savedStateHandle){
+                set(EMAIL_KEY, email)
 
+            }
+        }
+    }
 
 }
 

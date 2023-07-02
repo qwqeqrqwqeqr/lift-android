@@ -9,11 +9,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginVerificationViewModel  @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
 
 ): ViewModel() {
 
-    var test: String =savedStateHandle.get<String>(EMAIL_KEY) ?: "오류"
 
     init {
 
