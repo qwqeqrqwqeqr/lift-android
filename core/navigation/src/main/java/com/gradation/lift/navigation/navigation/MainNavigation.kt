@@ -1,10 +1,7 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
@@ -19,6 +16,9 @@ fun NavController.navigateLoginToHome() {
         popUpTo(LOGIN_GRAPH_ROUTER_NAME)
     }
 }
+
+
+
 
 
 fun NavHostController.navigateToHome() {

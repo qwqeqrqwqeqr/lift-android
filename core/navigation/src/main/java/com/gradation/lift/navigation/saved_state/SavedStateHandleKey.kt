@@ -1,4 +1,4 @@
-package com.gradation.lift.ui
+package com.gradation.lift.navigation.saved_state
 
 object SavedStateHandleKey {
     object SignUpKey{

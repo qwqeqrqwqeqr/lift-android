@@ -9,7 +9,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.*
-import com.gradation.lift.ui.SavedStateHandleKey.SignUpKey.EMAIL_KEY
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.EMAIL_KEY
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.PASSWORD_KEY
+import com.gradation.lift.navigation.saved_state.setStringValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -126,12 +128,8 @@ class LoginSignUpViewModel @Inject constructor(
     }
 
     fun updateKey(navController: NavController) {
-        navController.currentBackStackEntry?.let {
-            with(it.savedStateHandle){
-                set(EMAIL_KEY, email)
-
-            }
-        }
+        navController.setStringValue(EMAIL_KEY, email)
+        navController.setStringValue(PASSWORD_KEY, password)
     }
 
 }
