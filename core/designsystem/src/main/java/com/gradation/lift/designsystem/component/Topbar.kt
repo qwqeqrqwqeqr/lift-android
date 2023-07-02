@@ -1,9 +1,6 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBackIos
-import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,10 +27,10 @@ fun LiftTopBar(
             LiftIconButton(
                 onClick = onBackClick
             ) {
-                 Icon(
-                     painter = painterResource(LiftIcon.ArrowBack),
+                Icon(
+                    painter = painterResource(LiftIcon.ArrowBack),
                     contentDescription = "",
-                     tint = Color.Unspecified,
+                    tint = Color.Unspecified,
                 )
             }
         },

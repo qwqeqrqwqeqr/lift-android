@@ -21,18 +21,18 @@ class LoginTermsOfUseViewModel @Inject constructor(
 
     var navigateCondition by mutableStateOf(false)
 
-    fun onChangeAllAcceptChecked() : (Boolean) -> Unit = {
+    fun onChangeAllAcceptChecked(): (Boolean) -> Unit = {
         allAcceptChecked = it
-        if(allAcceptChecked){
-            termsOfUseChecked=true
-            personalInformationChecked=true
-            locationTermsOfUseChecked=true
-            marketingChecked=true
-        } else{
-            termsOfUseChecked=false
-            personalInformationChecked=false
-            locationTermsOfUseChecked=false
-            marketingChecked=false
+        if (allAcceptChecked) {
+            termsOfUseChecked = true
+            personalInformationChecked = true
+            locationTermsOfUseChecked = true
+            marketingChecked = true
+        } else {
+            termsOfUseChecked = false
+            personalInformationChecked = false
+            locationTermsOfUseChecked = false
+            marketingChecked = false
         }
         updateNavigateCondition()
     }
@@ -42,7 +42,7 @@ class LoginTermsOfUseViewModel @Inject constructor(
         updateNavigateCondition()
     }
 
-    fun onChangePersonalInformationChecked() : (Boolean) -> Unit = {
+    fun onChangePersonalInformationChecked(): (Boolean) -> Unit = {
         personalInformationChecked = it
         updateNavigateCondition()
     }
@@ -52,7 +52,7 @@ class LoginTermsOfUseViewModel @Inject constructor(
         updateNavigateCondition()
     }
 
-    fun onChangeMarketingChecked() : (Boolean) -> Unit = {
+    fun onChangeMarketingChecked(): (Boolean) -> Unit = {
         marketingChecked = it
         updateNavigateCondition()
     }
@@ -60,7 +60,7 @@ class LoginTermsOfUseViewModel @Inject constructor(
 
     private fun updateNavigateCondition() {
         navigateCondition =
-            (allAcceptChecked && termsOfUseChecked && personalInformationChecked && locationTermsOfUseChecked)
+            (termsOfUseChecked && personalInformationChecked && locationTermsOfUseChecked)
     }
 
 

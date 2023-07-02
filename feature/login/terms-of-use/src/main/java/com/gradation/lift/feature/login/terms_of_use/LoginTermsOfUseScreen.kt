@@ -8,10 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
+import com.gradation.lift.navigation.navigation.navigateToLoginSignIn
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -34,6 +36,9 @@ fun LoginTermsOfUseRoute(
         onChangePersonalInformationChecked = viewModel.onChangePersonalInformationChecked(),
         onChangeLocationTermsOfUseChecked = viewModel.onChangeLocationTermsOfUseChecked(),
         onChangeMarketingChecked = viewModel.onChangeMarketingChecked(),
+        onNextButtonClick = {
+            navController.navigateToLoginSignIn()
+        },
         navigateCondition = viewModel.navigateCondition
     )
 }
@@ -54,6 +59,7 @@ internal fun LoginTermsOfUseScreen(
     onChangePersonalInformationChecked: (Boolean) -> Unit,
     onChangeLocationTermsOfUseChecked: (Boolean) -> Unit,
     onChangeMarketingChecked: (Boolean) -> Unit,
+    onNextButtonClick: () -> Unit,
     navigateCondition: Boolean,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
@@ -71,10 +77,11 @@ internal fun LoginTermsOfUseScreen(
                     .padding(16.dp)
                     .fillMaxSize()
             ) {
+                Spacer(modifier = modifier.padding(18.dp))
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    ) {
+                ) {
                     ToggleCheckbox(
                         checked = allAcceptChecked,
                         onCheckedChange = onChangeAllAcceptChecked,
@@ -86,6 +93,90 @@ internal fun LoginTermsOfUseScreen(
                         style = MaterialTheme.typography.titleLarge
                     )
                 }
+                Spacer(modifier = modifier.padding(20.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    ToggleCheckbox(
+                        checked = termsOfUseChecked,
+                        onCheckedChange = onChangeTermsOfUseChecked,
+                        modifier = modifier.size(22.dp)
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+                    Text(
+                        text = "이용약관 필수 동의",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+                Spacer(modifier = modifier.padding(8.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    ToggleCheckbox(
+                        checked = personalInformationChecked,
+                        onCheckedChange = onChangePersonalInformationChecked,
+                        modifier = modifier.size(22.dp)
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+                    Text(
+                        text = "개인정보 처리방침 필수 동의",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+                Spacer(modifier = modifier.padding(8.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    ToggleCheckbox(
+                        checked = locationTermsOfUseChecked,
+                        onCheckedChange = onChangeLocationTermsOfUseChecked,
+                        modifier = modifier.size(22.dp)
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+                    Text(
+                        text = "위치정보 이용 약관 필수 동의",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+                Spacer(modifier = modifier.padding(8.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    ToggleCheckbox(
+                        checked = marketingChecked,
+                        onCheckedChange = onChangeMarketingChecked,
+                        modifier = modifier.size(22.dp)
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+                    Text(
+                        text = "[선택] 마케팅 정보 수신 선택 동의",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+                Spacer(modifier = modifier.padding(14.dp))
+
+                Text(
+                    text = "‘선택' 항목에 동의하지 않아도 서비스 이용이 가능합니다. 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으며, 동의 거부 시 회원제 서비스 이용이 제한됩니다.",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(modifier = modifier.padding(18.dp))
+
+                LiftButton(
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = onNextButtonClick,
+                    enabled = navigateCondition
+                ) {
+                    Text(
+                        text = "회원가입",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
+
             }
 
         }
@@ -110,6 +201,7 @@ fun LoginTermsOfUseScreenPreview() {
             onChangePersonalInformationChecked = {},
             onChangeLocationTermsOfUseChecked = {},
             onChangeMarketingChecked = {},
+            onNextButtonClick = {},
             navigateCondition = false,
         )
     }

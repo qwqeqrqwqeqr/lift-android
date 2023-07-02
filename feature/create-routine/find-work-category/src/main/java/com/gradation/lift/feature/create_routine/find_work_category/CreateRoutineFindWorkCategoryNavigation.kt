@@ -7,8 +7,6 @@ import androidx.navigation.NavController
 import com.gradation.lift.navigation.route.create_routine.CreateRoutineFindWorkCategoryRoute
 
 
-
-
 fun createRoutineFindWorkpartScreen(
     navController : NavController,
     navGraphBuilder: NavGraphBuilder,
