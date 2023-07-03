@@ -8,8 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 
 @Composable
 fun SignUpView(
@@ -22,15 +27,15 @@ fun SignUpView(
     ) {
         Text(
             text = "계정이 없으신가요?",
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onBackground,
+            style = LiftTheme.typography.no7,
+            color = LiftTheme.colorScheme.no7,
         )
         Spacer(modifier = Modifier.padding(1.dp))
         ClickableText(
             text = AnnotatedString("회원가입"),
-            style = MaterialTheme.typography.labelLarge +
+            style = LiftTheme.typography.no7 +
                     TextStyle(
-                        color = MaterialTheme.colorScheme.onBackground,
+                        color = LiftTheme.colorScheme.no11,
                         textDecoration = TextDecoration.Underline),
             onClick = { offset ->
                 onClickSignUp()
@@ -39,3 +44,4 @@ fun SignUpView(
 
     }
 }
+

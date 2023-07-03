@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
@@ -24,7 +25,7 @@ fun LiftButton(
         modifier = modifier.height(48.dp),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
+            containerColor = LiftTheme.colorScheme.no4,
         ),
         contentPadding = contentPadding,
         content = content,

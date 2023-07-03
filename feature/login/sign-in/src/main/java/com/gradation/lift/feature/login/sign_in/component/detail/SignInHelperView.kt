@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 import com.gradation.lift.ui.DevicePreview
 
@@ -41,8 +43,8 @@ fun SignInHelperView(
             Spacer(modifier = modifier.padding(2.dp))
             Text(
                 text = "자동 로그인",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onBackground,
+                style = LiftTheme.typography.no7,
+                color = LiftTheme.colorScheme.no7,
             )
         }
 
@@ -67,8 +69,8 @@ fun FindIdPasswordView(
 
         ClickableText(
             text = AnnotatedString("이메일 찾기"),
-            style = MaterialTheme.typography.labelLarge +
-                    TextStyle(color = MaterialTheme.colorScheme.onBackground),
+            style = LiftTheme.typography.no7 +
+                    TextStyle(color =  LiftTheme.colorScheme.no7),
             onClick = { offset ->
                 onClickFindEmail()
             },
@@ -84,12 +86,15 @@ fun FindIdPasswordView(
 
         ClickableText(
             text = AnnotatedString("비밀번호 찾기"),
-            style = MaterialTheme.typography.labelLarge +
-                    TextStyle(color = MaterialTheme.colorScheme.onBackground),
+            style = LiftTheme.typography.no7 +
+                    TextStyle(color =  LiftTheme.colorScheme.no7),
             onClick = { offset ->
                 onClickFindPassword()
             },
         )
     }
 }
+
+
+
 

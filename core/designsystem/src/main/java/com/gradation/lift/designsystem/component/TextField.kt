@@ -13,6 +13,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,15 +45,15 @@ fun LiftTextField(
         keyboardActions = keyboardActions,
         placeholder = placeholder,
         colors = TextFieldDefaults.textFieldColors(
-            textColor = MaterialTheme.colorScheme.secondary,
-            containerColor = MaterialTheme.colorScheme.surface,
-            placeholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            textColor = LiftTheme.colorScheme.no9,
+            containerColor = LiftTheme.colorScheme.no1,
+            placeholderColor = LiftTheme.colorScheme.no9,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             disabledTextColor = Color.Transparent,
-            errorLabelColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error
+            errorLabelColor = LiftTheme.colorScheme.no12,
+            errorSupportingTextColor = LiftTheme.colorScheme.no12
         ),
         shape = RoundedCornerShape(32.dp),
         visualTransformation = visualTransformation,

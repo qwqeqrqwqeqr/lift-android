@@ -32,7 +32,7 @@ internal fun LoginCompleteScreen(
 ) {
     Box(modifier.fillMaxSize()){
         Text(
-            "어쩔티비",
+            "test",
             color = LiftTheme.colorScheme.no4
         )
     }

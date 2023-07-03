@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
 import com.gradation.lift.navigation.navigation.*
@@ -98,23 +99,22 @@ fun LoginSignInScreen(
     ) {
         Column(
             modifier = modifier
-                .padding(16.dp)
+                .padding(20.dp)
                 .fillMaxSize()
         ) {
-
 
             Spacer(modifier = modifier.padding(32.dp))
             Text(
                 text = buildAnnotatedString {
                     append("매일매일 운동하고, 기록하고! \n")
                     withStyle(
-                        style = SpanStyle(color = MaterialTheme.colorScheme.primary),
+                        style = SpanStyle(color = LiftTheme.colorScheme.no4),
                     ) {
                         append("나만의 운동파트너, 리프트")
                     }
                 },
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onBackground,
+                style = LiftTheme.typography.no1,
+                color = LiftTheme.colorScheme.no11,
             )
             Spacer(modifier = modifier.padding(24.dp))
             SignInView(

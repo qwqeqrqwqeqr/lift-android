@@ -26,6 +26,7 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.ToggleVisible
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperView
 import com.gradation.lift.feature.login.sign_in.component.detail.SignUpView
@@ -52,14 +53,19 @@ fun SignInView(
 
     Text(
         text = "이메일",
-        style = MaterialTheme.typography.titleLarge,
+        style = LiftTheme.typography.no3,
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
         value = emailText,
         onValueChange = updateEmailText,
         modifier = modifier.fillMaxWidth(),
-        placeholder = { Text("이메일을 입력해주세요.") },
+        placeholder = {
+            Text(
+                text="이메일을 입력해주세요.",
+                style = LiftTheme.typography.no6,
+            )
+        },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
@@ -72,14 +78,19 @@ fun SignInView(
     Spacer(modifier = modifier.padding(8.dp))
     Text(
         text = "비밀번호",
-        style = MaterialTheme.typography.titleLarge,
+        style = LiftTheme.typography.no3,
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
         value = passwordText,
         onValueChange = updatePasswordText,
         modifier = modifier.fillMaxWidth(),
-        placeholder = { Text("비밀번호를 입력해주세요.") },
+        placeholder = {
+            Text(
+                style = LiftTheme.typography.no6,
+                text = "비밀번호를 입력해주세요.",
+            )
+        },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
@@ -133,33 +144,11 @@ fun SignInView(
         ) {
             Text(
                 text = "로그인",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimary,
+                style = LiftTheme.typography.no3,
+                color = LiftTheme.colorScheme.no5,
             )
         }
         SignUpView(modifier = modifier, onClickSignUp = onClickSignUp)
     }
 }
 
-@Composable
-@Preview
-fun LoginSignInPreview() {
-    LiftMaterialTheme {
-        LoginSignInScreen(
-            emailText = "",
-            updateEmailText = {},
-            passwordText = "",
-            updatePasswordText = {},
-            onClickFindEmail = {},
-            onClickFindPassword = {},
-            onClickSignUp = {},
-            onClickSignIn = {},
-            autoLoginChecked = true,
-            onChangeAutoLoginChecked = {},
-            passwordVisible = true,
-            onChangePasswordVisible = {},
-            passwordVisualTransformation = VisualTransformation.None,
-            clearPassword ={}
-        )
-    }
-}

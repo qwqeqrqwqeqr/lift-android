@@ -8,9 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 
 @Composable
 fun SimpleLoginView(modifier: Modifier = Modifier) {
@@ -22,7 +27,8 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
         )
         Text(
             text = "간편하게 로그인",
-            style = MaterialTheme.typography.labelLarge,
+            style = LiftTheme.typography.no5,
+            color = LiftTheme.colorScheme.no11,
             modifier = modifier.weight(1f),
             textAlign = TextAlign.Center
 
@@ -43,19 +49,19 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginKakao),
             label = "카카오톡",
-            modifier = modifier.weight(2f)
+            modifier = modifier.weight(3f)
         )
         Spacer(modifier = modifier.weight(1f))
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginGoogle),
             label = "구글",
-            modifier = modifier.weight(2f)
+            modifier = modifier.weight(3f)
         )
         Spacer(modifier = modifier.weight(1f))
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginNaver),
             label = "네이버",
-            modifier = modifier.weight(2f)
+            modifier = modifier.weight(3f)
         )
     }
 }
@@ -79,7 +85,8 @@ fun SimpleLoginButton(
         }
         Text(
             text = label,
-            style = MaterialTheme.typography.labelSmall,
+            color = LiftTheme.colorScheme.no7,
+            style = LiftTheme.typography.no7,
         )
     }
 }
