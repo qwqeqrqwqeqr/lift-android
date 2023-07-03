@@ -44,4 +44,11 @@ dependencies{
     implementation(project(":feature:login:find-email"))
     implementation(project(":feature:login:find-password"))
 
+
+    implementation(project(":feature:register-detail:complete"))
+    implementation(project(":feature:register-detail:gender"))
+    implementation(project(":feature:register-detail:ht-wt"))
+    implementation(project(":feature:register-detail:name"))
+    implementation(project(":feature:register-detail:unit-of-weight"))
+
 }
