@@ -6,7 +6,9 @@ import com.gradation.lift.data.utils.toMessage
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.domain.repository.AuthRepository
+import com.gradation.lift.model.auth.Email
 import com.gradation.lift.model.auth.SignInInfo
+import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import kotlinx.coroutines.flow.*
@@ -16,8 +18,8 @@ class DefaultAuthRepository @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val userDataStoreDataSource: UserDataStoreDataSource,
 ) : AuthRepository {
-    override fun signIn(account: SignInInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signIn(account).collect { result ->
+    override fun signIn(signInInfo: SignInInfo): Flow<DataState<Boolean>> = flow {
+        authDataSource.signIn(signInInfo).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
                 is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
@@ -26,15 +28,35 @@ class DefaultAuthRepository @Inject constructor(
                     userDataStoreDataSource.setAccessToken(result.data.accessToken)
                     userDataStoreDataSource.setRefreshToken(result.data.refreshToken)
 
-                    Log.d("test", result.data.accessToken)
-                    Log.d("test", result.data.refreshToken)
-
                     emit(DataState.Success(true))
                 }
             }
         }
     }
 
+    override fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> = flow{
+        authDataSource.signUp(signUpInfo).collect { result ->
+            when (result) {
+                is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
+                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
+                is DefaultAPIResult.Success -> {
+                    emit(DataState.Success(true))
+                }
+            }
+        }
+    }
+
+    override fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>> = flow{
+        authDataSource.checkDuplicateEmail(email).collect { result ->
+            when (result) {
+                is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
+                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
+                is DefaultAPIResult.Success -> {
+                    emit(DataState.Success(true))
+                }
+            }
+        }
+    }
     override fun isSigned(): Flow<DataState<Boolean>> = flow {
         if (userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
             userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE ||
