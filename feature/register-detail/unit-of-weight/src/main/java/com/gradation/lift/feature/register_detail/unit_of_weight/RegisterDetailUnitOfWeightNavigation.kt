@@ -5,8 +5,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.route.login.LoginVerificationRoute
+import com.gradation.lift.navigation.route.register_detail.RegisterDetailUnitOfWeightRoute
 
-fun loginVerificationScreen(
+fun registerDetailUnitOfWeightScreen(
     navController : NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
@@ -14,7 +15,7 @@ fun loginVerificationScreen(
         navGraphBuilder.composable(route) {
             RegisterDetailUnitOfWeightRoute(navController)
         }
-    }.registerDetailUnitOfWeightScreen(route = Router.LOGIN_VERIFICATION_ROUTER_NAME)
+    }.registerDetailUnitOfWeightScreen(route = Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME)
 }
 
 

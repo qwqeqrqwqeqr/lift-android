@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.register_detail.unit_of_weight
+package com.gradation.lift.feature.register_detail.complete
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -6,21 +6,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 @Composable
-fun RegisterDetailUnitOfWeightRoute(
+fun RegisterDetailCompleteRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: RegisterDetailUnitOfWeightViewModel = hiltViewModel(),
+    viewModel: RegisterDetailCompleteViewModel = hiltViewModel(),
 ) {
 
 
-    RegisterDetailUnitOfWeightScreen(
+    RegisterDetailCompleteScreen(
         modifier = modifier
     )
 }
 
 
 @Composable
-internal fun RegisterDetailUnitOfWeightScreen(
+internal fun RegisterDetailCompleteScreen(
     modifier: Modifier = Modifier,
 ) {
 
