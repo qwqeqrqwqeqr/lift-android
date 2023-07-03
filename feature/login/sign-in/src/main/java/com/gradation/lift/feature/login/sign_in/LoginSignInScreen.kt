@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
 import com.gradation.lift.navigation.navigation.*
@@ -145,7 +145,7 @@ fun LoginSignInScreen(
 @Composable
 @Preview
 fun LoginSignInPreview() {
-    LiftTheme {
+    LiftMaterialTheme {
         LoginSignInScreen(
             emailText = "",
             updateEmailText = {},

@@ -1,13 +1,12 @@
 package com.gradation.lift.designsystem.resource
 
-import androidx.compose.material3.Typography
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.core.content.res.ResourcesCompat
 import com.gradation.lift.designsystem.R
 
 private val pretendard = FontFamily(
@@ -22,68 +21,51 @@ private val pretendard = FontFamily(
     Font(R.font.pretendard_extra_light, FontWeight.ExtraLight, FontStyle.Normal),
 )
 
-internal val LiftTypography = Typography(
-    headlineLarge = TextStyle(
-        fontSize = 22.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = pretendard,
-        letterSpacing = (-2).sp,
-    ),
-    headlineMedium = TextStyle(
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Medium,
-        fontFamily = pretendard,
-        letterSpacing = (-1).sp,
-        ),
-    headlineSmall = TextStyle(
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = pretendard,
-        letterSpacing = (-1).sp,
-    ),
-    titleLarge = TextStyle(
-        fontSize = 18.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = pretendard
-    ),
-    titleMedium = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = pretendard
-    ),
-    titleSmall = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = pretendard
-    ),
-    bodyLarge = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = pretendard
-    ),
-    bodyMedium = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Medium,
-        fontFamily = pretendard
-    ),
-    bodySmall = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = pretendard
-    ),
-    labelLarge = TextStyle(
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = pretendard
-    ),
-    labelMedium = TextStyle(
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Medium,
-        fontFamily = pretendard
-    ),
-    labelSmall = TextStyle(
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = pretendard
-    )
+internal val TEXT_NO1 = TextStyle(
+    fontSize = 22.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
 )
+internal val TEXT_NO2 = TextStyle(
+    fontSize = 18.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
+)
+internal val TEXT_NO3 = TextStyle(
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
+)
+internal val TEXT_NO4 = TextStyle(
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Normal,
+    fontFamily = pretendard
+)
+internal val TEXT_NO5 = TextStyle(
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
+)
+internal val TEXT_NO6 = TextStyle(
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Normal,
+    fontFamily = pretendard
+)
+internal val TEXT_NO7 = TextStyle(
+    fontSize = 12.sp,
+    fontWeight = FontWeight.Normal,
+    fontFamily = pretendard
+)
+
+data class LiftTypography(
+    val no1: TextStyle = TEXT_NO1,
+    val no2: TextStyle= TEXT_NO2,
+    val no3: TextStyle= TEXT_NO3,
+    val no4: TextStyle= TEXT_NO4,
+    val no5: TextStyle= TEXT_NO5,
+    val no6: TextStyle= TEXT_NO6,
+    val no7: TextStyle= TEXT_NO7,
+)
+
+
+val LocalLiftTypography = staticCompositionLocalOf { LiftTypography() }

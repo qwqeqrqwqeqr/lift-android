@@ -21,7 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 
 //TODO check box 로직 수정
 @Composable
@@ -55,7 +55,7 @@ fun LiftCircleCheckBox(
 @Preview
 @Composable
 fun LiftCircleCheckBoxPreview() {
-    LiftTheme {
+    LiftMaterialTheme {
         LiftCircleCheckBox(
             checked = remember {
                 mutableStateOf(false)

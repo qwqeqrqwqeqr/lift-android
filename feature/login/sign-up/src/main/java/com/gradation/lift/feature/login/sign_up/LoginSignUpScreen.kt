@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
@@ -153,7 +153,7 @@ internal fun LoginSignUpScreen(
 @DevicePreview
 @Composable
 fun LoginSignInPreview() {
-    LiftTheme {
+    LiftMaterialTheme {
         LoginSignUpScreen(
             modifier = Modifier,
             onTopBarBackClick = { },

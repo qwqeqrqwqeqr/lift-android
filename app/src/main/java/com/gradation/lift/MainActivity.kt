@@ -21,7 +21,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val systemUiController = rememberSystemUiController()
             viewModel.setDefaultSystemUiController(systemUiController)
-            LiftTheme()
+            LiftMaterialTheme()
             {
                 LiftApp(
                     mainActivityViewModel = viewModel,

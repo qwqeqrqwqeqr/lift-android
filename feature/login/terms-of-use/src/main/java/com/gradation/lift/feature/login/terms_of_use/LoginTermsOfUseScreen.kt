@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.navigation.navigation.navigateToLoginSignIn
@@ -188,7 +188,7 @@ internal fun LoginTermsOfUseScreen(
 @DevicePreview
 @Composable
 fun LoginTermsOfUseScreenPreview() {
-    LiftTheme {
+    LiftMaterialTheme {
         LoginTermsOfUseScreen(
             modifier = Modifier,
             onTopBarBackClick = { },

@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,7 +50,7 @@ fun LiftTopBar(
 @Preview
 @Composable
 fun LiftTopBarPreview() {
-    LiftTheme {
+    LiftMaterialTheme {
         LiftTopBar(
             title = "리프트",
             onBackClick = {}

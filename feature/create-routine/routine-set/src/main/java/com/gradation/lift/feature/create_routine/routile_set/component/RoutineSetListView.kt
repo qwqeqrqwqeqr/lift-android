@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.PlusCircle
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 
 @Composable
 fun RoutineSetListView(
@@ -85,7 +85,7 @@ fun RoutineSetListDetailView(
 @Composable
 fun RoutineSetListViewPreview() {
 
-    LiftTheme() {
+    LiftMaterialTheme() {
         Box(Modifier.background(MaterialTheme.colorScheme.background)) {
             RoutineSetListView(haveRoutineSet = false, onClickPlusCircle = {})
         }
