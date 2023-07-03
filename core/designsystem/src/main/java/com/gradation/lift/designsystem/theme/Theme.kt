@@ -29,9 +29,9 @@ fun LiftMaterialTheme(
         else -> lightColorScheme()
     }
 
-    val liftColorScheme = when {
-        isDarkTheme -> liftLightColorScheme()
-        else -> liftDarkColorScheme()
+    val liftColorScheme = when (isDarkTheme) {
+        true -> liftDarkColorScheme()
+        false -> liftLightColorScheme()
     }
 
     CompositionLocalProvider(

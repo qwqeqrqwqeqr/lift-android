@@ -117,26 +117,26 @@ fun liftLightColorScheme(
     )
 
 fun liftDarkColorScheme(
-    no1: Color = COLOR_NO1,
-    no2: Color = COLOR_NO2,
-    no3: Color = COLOR_NO3,
-    no4: Color = COLOR_NO4,
-    no5: Color = COLOR_NO5,
-    no6: Color = COLOR_NO6,
-    no7: Color = COLOR_NO7,
-    no8: Color = COLOR_NO8,
-    no9: Color = COLOR_NO9,
-    no10: Color = COLOR_NO10,
-    no11: Color = COLOR_NO11,
-    no12: Color = COLOR_NO12,
-    no13: Color = COLOR_NO13,
-    no14: Color = COLOR_NO14,
-    no15: Color = COLOR_NO15,
-    no16: Color = COLOR_NO16,
-    no17: Color = COLOR_NO17,
-    no18: Color = COLOR_NO18,
-    no19: Color = COLOR_NO19,
-    no20: Color = COLOR_NO20,
+    no1: Color = Color.Cyan,
+    no2: Color = Color.Cyan,
+    no3: Color = Color.Cyan,
+    no4: Color = Color.Cyan,
+    no5: Color = Color.Cyan,
+    no6: Color = Color.Cyan,
+    no7: Color = Color.Cyan,
+    no8: Color = Color.Cyan,
+    no9: Color = Color.Cyan,
+    no10: Color = Color.Cyan,
+    no11: Color = Color.Cyan,
+    no12: Color = Color.Cyan,
+    no13: Color = Color.Cyan,
+    no14: Color = Color.Cyan,
+    no15: Color = Color.Cyan,
+    no16: Color = Color.Cyan,
+    no17: Color = Color.Cyan,
+    no18: Color = Color.Cyan,
+    no19: Color = Color.Cyan,
+    no20: Color = Color.Cyan,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -161,4 +161,4 @@ fun liftDarkColorScheme(
         no20,
     )
 
-val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }
+val LocalLiftColorScheme = staticCompositionLocalOf { liftDarkColorScheme() }
