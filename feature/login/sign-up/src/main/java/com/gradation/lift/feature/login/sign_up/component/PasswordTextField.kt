@@ -22,6 +22,7 @@ import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.ToggleVisible
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
@@ -34,18 +35,24 @@ internal fun PasswordTextField(
     passwordVisible: Boolean,
     onChangePasswordVisible: (Boolean) -> Unit,
     clearPassword: () -> Unit,
-    passwordValidationSupportText: Validator
-){
+    passwordValidationSupportText: Validator,
+) {
     Text(
         text = "비밀번호",
-        style = MaterialTheme.typography.titleLarge,
+        style = LiftTheme.typography.no3,
+        color = LiftTheme.colorScheme.no3,
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
         value = passwordText,
         onValueChange = updatePasswordText,
         modifier = modifier.fillMaxWidth(),
-        placeholder = { Text("영문, 숫자 조합 8~16자 이내") },
+        placeholder = {
+            Text(
+                text = "영문, 숫자 조합 8~16자 이내",
+                style = LiftTheme.typography.no6,
+            )
+        },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
@@ -81,8 +88,9 @@ internal fun PasswordTextField(
     if (!passwordValidationSupportText.status) {
         Text(
             text = passwordValidationSupportText.message,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.error
+            style = LiftTheme.typography.no7,
+            color = LiftTheme.colorScheme.no12
         )
     }
 }
+

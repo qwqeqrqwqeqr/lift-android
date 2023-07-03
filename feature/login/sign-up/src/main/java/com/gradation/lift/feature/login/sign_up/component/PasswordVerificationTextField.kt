@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,6 +22,7 @@ import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.ToggleVisible
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun PasswordVerificationTextField(
@@ -32,18 +34,24 @@ fun PasswordVerificationTextField(
     passwordVerificationVisible: Boolean,
     onChangePasswordVerificationVisible: (Boolean) -> Unit,
     clearPasswordVerification: () -> Unit,
-    passwordVerificationValidationSupportText: Validator
-){
+    passwordVerificationValidationSupportText: Validator,
+) {
     Text(
         text = "비밀번호 확인",
-        style = MaterialTheme.typography.titleLarge,
+        style = LiftTheme.typography.no3,
+        color = LiftTheme.colorScheme.no3,
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
         value = passwordVerificationText,
         onValueChange = updatePasswordVerificationText,
         modifier = modifier.fillMaxWidth(),
-        placeholder = { Text("비밀번호를 한번 더 입력해주세요") },
+        placeholder = {
+            Text(
+                text = "비밀번호를 한번 더 입력해주세요",
+                style = LiftTheme.typography.no6,
+            )
+        },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
@@ -80,8 +88,8 @@ fun PasswordVerificationTextField(
     if (!passwordVerificationValidationSupportText.status) {
         Text(
             text = passwordVerificationValidationSupportText.message,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.error
+            style = LiftTheme.typography.no7,
+            color = LiftTheme.colorScheme.no12
         )
     }
 }

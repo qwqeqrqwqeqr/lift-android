@@ -13,6 +13,7 @@ import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
@@ -81,7 +82,7 @@ internal fun LoginSignUpScreen(
     passwordValidationSupportText: Validator,
     passwordVerificationValidationSupportText: Validator,
     onNextButtonClick: () -> Unit,
-    navigateCondition : Boolean
+    navigateCondition: Boolean,
 ) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
@@ -139,8 +140,8 @@ internal fun LoginSignUpScreen(
                 ) {
                     Text(
                         text = "다음",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no5,
                     )
                 }
 

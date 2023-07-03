@@ -9,6 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,7 +21,11 @@ fun LiftTopBar(
 ) {
     TopAppBar(
         title = {
-            Text(title)
+            Text(
+                text = title,
+                color = LiftTheme.colorScheme.no9,
+                style = LiftTheme.typography.no1
+            )
         },
         modifier = modifier.statusBarsPadding(),
         navigationIcon = {
@@ -36,11 +41,11 @@ fun LiftTopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            scrolledContainerColor = MaterialTheme.colorScheme.background,
-            navigationIconContentColor = MaterialTheme.colorScheme.secondary,
-            titleContentColor = MaterialTheme.colorScheme.secondary,
-            actionIconContentColor = MaterialTheme.colorScheme.secondary,
+            containerColor = LiftTheme.colorScheme.no5,
+            scrolledContainerColor = LiftTheme.colorScheme.no5,
+            navigationIconContentColor = LiftTheme.colorScheme.no9,
+            titleContentColor = LiftTheme.colorScheme.no9,
+            actionIconContentColor = LiftTheme.colorScheme.no9,
         )
     )
 
