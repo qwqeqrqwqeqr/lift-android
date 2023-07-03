@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.SignInUseCase
-import com.gradation.lift.model.auth.Account
+import com.gradation.lift.model.auth.SignInInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -58,7 +58,7 @@ class LoginSignInViewModel @Inject constructor(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
             }else{
-                signInUseCase(Account(id = email, password = password)).map {
+                signInUseCase(SignInInfo(id = email, password = password)).map {
                     when (it) {
                         is DataState.Error -> {
                             Log.d("login", "${it.message} 에러")

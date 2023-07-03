@@ -6,7 +6,7 @@ import com.gradation.lift.data.utils.toMessage
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.domain.repository.AuthRepository
-import com.gradation.lift.model.auth.Account
+import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import kotlinx.coroutines.flow.*
@@ -16,7 +16,7 @@ class DefaultAuthRepository @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val userDataStoreDataSource: UserDataStoreDataSource,
 ) : AuthRepository {
-    override fun signIn(account: Account): Flow<DataState<Boolean>> = flow {
+    override fun signIn(account: SignInInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signIn(account).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))

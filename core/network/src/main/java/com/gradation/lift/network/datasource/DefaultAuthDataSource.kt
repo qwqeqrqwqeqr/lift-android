@@ -1,6 +1,6 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.auth.Account
+import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.Email
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.model.auth.Token
@@ -18,12 +18,12 @@ class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
     private val networkResultHandler: NetworkResultHandler,
 ) : AuthDataSource {
-    override fun signIn(account: Account): Flow<DefaultAPIResult<Token>> = flow {
+    override fun signIn(signInInfo: SignInInfo): Flow<DefaultAPIResult<Token>> = flow {
         networkResultHandler.executeDefault {
             authService.signInDefault(
                 SignInDefaultRequestDto(
-                    id = account.id,
-                    password = account.password
+                    id = signInInfo.id,
+                    password = signInInfo.password
                 )
             )
         }.collect { result ->
