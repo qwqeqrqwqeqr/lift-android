@@ -18,6 +18,14 @@ object Router {
     const val LOGIN_FIND_EMAIL_ROUTER_NAME = "find_email"
     const val LOGIN_FIND_PASSWORD_ROUTER_NAME = "find_password"
 
+
+    const val REGISTER_GRAPH_ROUTER_NAME = "register_graph"
+    const val REGISTER_DETAIL_COMPLETE_ROUTER_NAME = "complete"
+    const val REGISTER_DETAIL_GENDER_ROUTER_NAME = "gender"
+    const val REGISTER_DETAIL_HT_WT_ROUTER_NAME = "ht_wt"
+    const val REGISTER_DETAIL_NAME_ROUTER_NAME = "name"
+    const val REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME = "unit_of_weight"
+
     const val HOME_ROUTER_NAME = "home"
     const val ROUTINE_ROUTER_NAME = "routine"
     const val HISTORY_ROUTER_NAME = "history"
