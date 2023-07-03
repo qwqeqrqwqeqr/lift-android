@@ -4,7 +4,7 @@ import com.gradation.lift.model.auth.Account
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
-import com.gradation.lift.network.dto.auth.SignInRequestDto
+import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +17,7 @@ class DefaultAuthDataSource @Inject constructor(
     override fun signIn(account: Account): Flow<DefaultAPIResult<Token>> = flow {
         networkResultHandler.executeDefault {
             authService.signIn(
-                SignInRequestDto(
+                SignInDefaultRequestDto(
                     id = account.id,
                     password = account.password
                 )
