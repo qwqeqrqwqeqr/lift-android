@@ -3,6 +3,7 @@ package com.gradation.lift
 import LiftNavHost
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
@@ -21,6 +22,7 @@ import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.navigation.*
+import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
@@ -40,30 +42,38 @@ import com.gradation.lift.navigation.navigation.navigateToRoutine
 )
 @Composable
 fun LiftApp(
-    mainActivityViewModel: MainActivityViewModel,
+    isSinged: Boolean,
     windowSizeClass: WindowSizeClass,
     appState: AppState = rememberAppState(
         windowSizeClass = windowSizeClass
     ),
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            bottomBar = {
-                if (appState.currentTopLevelDestination != null) {
-                    BottomBar(
-                        destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = appState::navigateToTopLevelDestination,
-                        currentDestination = appState.currentDestination,
-                    )
-                }
-            },
-        ) {
+        if(isSinged){
+            Scaffold(
+                bottomBar = {
+                    if (appState.currentTopLevelDestination != null) {
+                        BottomBar(
+                            destinations = appState.topLevelDestinations,
+                            onNavigateToDestination = appState::navigateToTopLevelDestination,
+                            currentDestination = appState.currentDestination,
+                        )
+                    }
+                },
+            ) {
+                LiftNavHost(
+                    navController = appState.navController,
+                    startDestination = HOME_ROUTER_NAME
+                )
+            }
+        }
+        else{
             LiftNavHost(
                 navController = appState.navController,
-//                startDestination = if(mainActivityViewModel.isSigned.value) HOME_ROUTER_NAME else LOGIN_GRAPH_ROUTER_NAME
-                startDestination = LOGIN_GRAPH_ROUTER_NAME  //TODO 로그인 프로세스 완성 후 수정할 것
+                startDestination = LOGIN_GRAPH_ROUTER_NAME
             )
         }
+
     }
 }
 

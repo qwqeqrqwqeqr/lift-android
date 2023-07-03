@@ -23,6 +23,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -32,12 +34,10 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
 
-
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
 
@@ -54,12 +54,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 when (splashUiState) {
-                    SplashUiState.Loading -> {
-                        false
-                    }
-                    is SplashUiState.Success -> {
-                        true
-                    }
+                    SplashUiState.Loading -> false
+                    SplashUiState.Login -> true
+                    SplashUiState.Main -> true
                 }
             }
         }
@@ -72,7 +69,7 @@ class MainActivity : ComponentActivity() {
             LiftMaterialTheme()
             {
                 LiftApp(
-                    mainActivityViewModel = viewModel,
+                    isSinged = splashUiState == SplashUiState.Main,
                     windowSizeClass = calculateWindowSizeClass(this),
                 )
             }

@@ -1,5 +1,6 @@
 package com.gradation.lift
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -22,42 +24,31 @@ class MainActivityViewModel @Inject constructor(
         initialValue = SplashUiState.Loading
     )
 
-    private  val _isSigned = MutableStateFlow( true )
-    val isSigned = _isSigned.asStateFlow()
-
-
-    private fun updateIsSinged(status:Boolean){
-        _isSigned.value = status
-    }
-
     fun setDefaultSystemUiController(systemUiController: SystemUiController){
         systemUiController.setStatusBarColor(Color.White)
         systemUiController.setNavigationBarColor(Color.White)
         systemUiController.setSystemBarsColor(Color.White)
     }
 
-    private fun splashUiState(signedUseCase: Flow<DataState<Boolean>>): Flow<SplashUiState> {
-        return  signedUseCase.map {
+    private fun splashUiState(isSignedUseCase: Flow<DataState<Boolean>>): Flow<SplashUiState> {
+        return  isSignedUseCase.map {
             when(it){
-                is DataState.Error -> SplashUiState.Success
-                is DataState.Fail -> SplashUiState.Success
+                is DataState.Error -> SplashUiState.Login
+                is DataState.Fail -> SplashUiState.Login
                 is DataState.Success ->
                 {
-                    updateIsSinged(it.data)
-                    if(it.data) {
-                        SplashUiState.Success
-                    } else{
-                        SplashUiState.Success
-                    }
+                    if(it.data) SplashUiState.Main else  SplashUiState.Login
                 }
             }
         }
+
     }
 }
 
 
 
 sealed interface SplashUiState {
-    object Success : SplashUiState
     object Loading : SplashUiState
+    object Main : SplashUiState
+    object Login : SplashUiState
 }

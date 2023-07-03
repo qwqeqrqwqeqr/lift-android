@@ -15,11 +15,11 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-   
-    val a = viewModel.test.collectAsStateWithLifecycle()
+    Button(onClick = { viewModel.signOut() }) {
+        Text(text = "test")
+    }
     HomeScreen(
         modifier = modifier,
-        foo =  a,
     )
 }
 
@@ -27,10 +27,7 @@ fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    foo: State<String>,
 ) {
-    Text(text = foo.value)
-
 
 }
 

@@ -34,7 +34,7 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> = flow{
+    override fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signUp(signUpInfo).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
@@ -46,7 +46,7 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>> = flow{
+    override fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>> = flow {
         authDataSource.checkDuplicateEmail(email).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
@@ -57,23 +57,18 @@ class DefaultAuthRepository @Inject constructor(
             }
         }
     }
-    override fun isSigned(): Flow<DataState<Boolean>> = flow {
-        if (userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
-            userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE ||
-            userDataStoreDataSource.userId.first() == EMPTY_VALUE
-        ) {
-            emit(DataState.Success(false))
-        }
 
-        emit(DataState.Success(true))
+    override fun isSigned(): Flow<DataState<Boolean>> = flow {
+        val condition = userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
+                userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE
+        if (condition) emit(DataState.Success(false)) else emit(DataState.Success(true))
     }
 
     override fun signOut(): Flow<DataState<Unit>> = flow {
         try {
             userDataStoreDataSource.clearAll()
             emit(DataState.Success(Unit))
-        }
-        catch(error: Exception){
+        } catch (error: Exception) {
             emit(DataState.Error(error.toMessage()))
         }
     }
