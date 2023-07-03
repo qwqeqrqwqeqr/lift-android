@@ -1,14 +1,26 @@
 package com.gradation.lift.feature.login.complete
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -20,8 +32,8 @@ fun LoginCompleteRoute(
 
 
     LoginCompleteScreen(
-        modifier = modifier
-
+        modifier = modifier,
+        onClickComplete = { navController.navigateSignUpProcessToSignIn() }
     )
 }
 
@@ -29,21 +41,55 @@ fun LoginCompleteRoute(
 @Composable
 internal fun LoginCompleteScreen(
     modifier: Modifier = Modifier,
+    onClickComplete : () -> Unit
 ) {
-    Box(modifier.fillMaxSize()){
-        Text(
-            "test",
-            color = LiftTheme.colorScheme.no4
-        )
+    Surface(
+        color = LiftTheme.colorScheme.no5
+    ) {
+        Column(
+            modifier = modifier
+                .padding(20.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                textAlign = TextAlign.Center,
+                modifier= modifier.fillMaxWidth(),
+                text = buildAnnotatedString {
+                    append("리프트 회원가입을 \n")
+                    withStyle(
+                        style = SpanStyle(color = LiftTheme.colorScheme.no4),
+
+                    ) {
+                        append("축하드려요!")
+                    }
+                },
+                style = LiftTheme.typography.no1,
+                color = LiftTheme.colorScheme.no11,
+            )
+            Spacer(modifier = modifier.padding(32.dp))
+            LiftButton(
+                modifier = modifier.fillMaxWidth(),
+                onClick = onClickComplete,
+            ) {
+                Text(
+                    text = "시작하기",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no5,
+                )
+            }
+        }
     }
-
-
 }
+
 
 @DevicePreview
 @Composable
 internal fun LoginCompleteScreenPreview() {
     LiftMaterialTheme(isDarkTheme = false) {
-        LoginCompleteScreen()
+        LoginCompleteScreen(
+            onClickComplete= {}
+        )
     }
 }

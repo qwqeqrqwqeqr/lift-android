@@ -36,6 +36,7 @@ fun LiftTextField(
     TextField(
         value = value,
         onValueChange = onValueChange,
+        textStyle = LiftTheme.typography.no6,
         modifier = modifier.height(48.dp),
         enabled = enabled,
         singleLine = singleLine,

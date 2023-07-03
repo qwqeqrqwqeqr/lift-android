@@ -1,21 +1,30 @@
 package com.gradation.lift.feature.login.terms_of_use
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.navigation.navigateLoginToHome
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.navigation.navigation.navigateToLoginSignIn
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.EMAIL_KEY
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.PASSWORD_KEY
+import com.gradation.lift.navigation.saved_state.getStringValue
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -24,6 +33,8 @@ fun LoginTermsOfUseRoute(
     modifier: Modifier = Modifier,
     viewModel: LoginTermsOfUseViewModel = hiltViewModel(),
 ) {
+
+    val signUpUiState: SignUpUiState by viewModel.signUpUiState.collectAsStateWithLifecycle()
 
     LoginTermsOfUseScreen(
         modifier = modifier,
@@ -38,11 +49,33 @@ fun LoginTermsOfUseRoute(
         onChangePersonalInformationChecked = viewModel.onChangePersonalInformationChecked(),
         onChangeLocationTermsOfUseChecked = viewModel.onChangeLocationTermsOfUseChecked(),
         onChangeMarketingChecked = viewModel.onChangeMarketingChecked(),
-        onNextButtonClick = {
-            navController.navigateToLoginComplete()
-        },
+        onNextButtonClick = { viewModel.signUp(navController) },
         navigateCondition = viewModel.navigateCondition
     )
+
+
+    when (signUpUiState) {
+        is SignUpUiState.Fail -> {
+            Toast.makeText(
+                LocalContext.current,
+                "알 수 없는 오류로 회원가입을 진행할 수 없습니다. \n 다시 시도해주십시오.",
+                Toast.LENGTH_SHORT
+            ).show()
+            navController.navigateSignUpProcessToSignIn()
+        }
+        SignUpUiState.Loading -> {
+
+
+        }
+        SignUpUiState.None -> {
+
+        }
+        SignUpUiState.Success -> {
+            LaunchedEffect(true) {
+                navController.navigateToLoginComplete()
+            }
+        }
+    }
 }
 
 
@@ -64,7 +97,9 @@ internal fun LoginTermsOfUseScreen(
     onNextButtonClick: () -> Unit,
     navigateCondition: Boolean,
 ) {
-    Surface(color = MaterialTheme.colorScheme.surface) {
+    Surface(
+        color = LiftTheme.colorScheme.no5
+    ) {
         Scaffold(
             topBar = {
                 LiftTopBar(
@@ -76,7 +111,7 @@ internal fun LoginTermsOfUseScreen(
             Column(
                 modifier = modifier
                     .padding(padding)
-                    .padding(16.dp)
+                    .padding(20.dp)
                     .fillMaxSize()
             ) {
                 Spacer(modifier = modifier.padding(18.dp))

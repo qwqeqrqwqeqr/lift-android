@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.create_routine.find_workpart.createRoutineFindWorkpartScreen
+import com.gradation.lift.feature.login.complete.loginCompleteScreen
 import com.gradation.lift.feature.login.find_email.loginFindEmailScreen
 import com.gradation.lift.feature.login.find_password.loginFindPasswordScreen
 import com.gradation.lift.feature.login.sign_in.loginSignInScreen
@@ -27,6 +28,7 @@ fun loginGraph(
             loginSignInScreen(navController, this)
             loginSignUpScreen(navController, this)
             loginVerificationScreen(navController, this)
+            loginCompleteScreen(navController, this)
             loginTermsOfUseScreen(navController, this)
             loginFindEmailScreen(navController, this)
             loginFindPasswordScreen(navController, this)

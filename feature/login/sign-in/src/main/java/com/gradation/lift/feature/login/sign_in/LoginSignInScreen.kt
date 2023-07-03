@@ -95,7 +95,7 @@ fun LoginSignInScreen(
     clearPassword: () -> Unit,
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.background
+        color = LiftTheme.colorScheme.no5
     ) {
         Column(
             modifier = modifier

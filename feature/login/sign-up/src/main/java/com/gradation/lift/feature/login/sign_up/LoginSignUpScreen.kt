@@ -84,7 +84,9 @@ internal fun LoginSignUpScreen(
     onNextButtonClick: () -> Unit,
     navigateCondition: Boolean,
 ) {
-    Surface(color = MaterialTheme.colorScheme.surface) {
+    Surface(
+        color = LiftTheme.colorScheme.no5
+    ) {
         Scaffold(
             topBar = {
                 LiftTopBar(
