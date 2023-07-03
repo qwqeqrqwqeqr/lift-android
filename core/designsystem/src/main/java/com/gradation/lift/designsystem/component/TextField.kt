@@ -76,7 +76,12 @@ fun LiftTextFieldPreview() {
             LiftTextField(
                 value = "",
                 onValueChange = {},
-                placeholder = { Text("힌트") },
+                placeholder = {
+                    Text(
+                        text = "힌트",
+                        style= LiftTheme.typography.no6
+                        )
+                },
             )
         }
 

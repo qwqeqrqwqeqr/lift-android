@@ -26,56 +26,11 @@ fun LiftButton(
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no4,
+            contentColor = LiftTheme.colorScheme.no5,
+            disabledContainerColor = LiftTheme.colorScheme.no13,
+            disabledContentColor = LiftTheme.colorScheme.no5
         ),
         contentPadding = contentPadding,
-        content = content,
-    )
-}
-
-@Composable
-fun LiftOutlinedButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-    content: @Composable RowScope.() -> Unit,
-) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier =  modifier.height(48.dp),
-        enabled = enabled,
-        colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = MaterialTheme.colorScheme.onBackground,
-        ),
-        border = BorderStroke(
-            width = 1.dp,
-            color = if (enabled) {
-                MaterialTheme.colorScheme.outline
-            } else {
-                MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = 0.1f,
-                )
-            },
-        ),
-        contentPadding = contentPadding,
-        content = content,
-    )
-}
-
-@Composable
-fun LiftTextButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    content: @Composable RowScope.() -> Unit,
-) {
-    TextButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = MaterialTheme.colorScheme.onBackground,
-        ),
         content = content,
     )
 }
@@ -92,7 +47,7 @@ fun LiftIconButton(
         modifier =  modifier.height(48.dp),
         enabled = enabled,
         colors = IconButtonDefaults.iconButtonColors(
-            contentColor = MaterialTheme.colorScheme.onBackground
+            contentColor =LiftTheme.colorScheme.no9,
         ),
         content = content
 

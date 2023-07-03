@@ -12,6 +12,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.navigation.navigation.navigateToLoginSignIn
@@ -91,7 +92,8 @@ internal fun LoginTermsOfUseScreen(
                     Spacer(modifier = modifier.padding(8.dp))
                     Text(
                         text = "아래약관에 모두 동의합니다.",
-                        style = MaterialTheme.typography.titleLarge
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no3
                     )
                 }
                 Spacer(modifier = modifier.padding(20.dp))
@@ -106,7 +108,9 @@ internal fun LoginTermsOfUseScreen(
                     Spacer(modifier = modifier.padding(8.dp))
                     Text(
                         text = "이용약관 필수 동의",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no3
+
                     )
                 }
                 Spacer(modifier = modifier.padding(8.dp))
@@ -122,7 +126,9 @@ internal fun LoginTermsOfUseScreen(
                     Spacer(modifier = modifier.padding(8.dp))
                     Text(
                         text = "개인정보 처리방침 필수 동의",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no3
+
                     )
                 }
                 Spacer(modifier = modifier.padding(8.dp))
@@ -138,7 +144,9 @@ internal fun LoginTermsOfUseScreen(
                     Spacer(modifier = modifier.padding(8.dp))
                     Text(
                         text = "위치정보 이용 약관 필수 동의",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no3
+
                     )
                 }
                 Spacer(modifier = modifier.padding(8.dp))
@@ -154,15 +162,16 @@ internal fun LoginTermsOfUseScreen(
                     Spacer(modifier = modifier.padding(8.dp))
                     Text(
                         text = "[선택] 마케팅 정보 수신 선택 동의",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no3
                     )
                 }
                 Spacer(modifier = modifier.padding(14.dp))
 
                 Text(
                     text = "‘선택' 항목에 동의하지 않아도 서비스 이용이 가능합니다. 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으며, 동의 거부 시 회원제 서비스 이용이 제한됩니다.",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = LiftTheme.typography.no7,
+                    color = LiftTheme.colorScheme.no7,
                 )
                 Spacer(modifier = modifier.padding(18.dp))
 
@@ -173,8 +182,8 @@ internal fun LoginTermsOfUseScreen(
                 ) {
                     Text(
                         text = "회원가입",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no5,
                     )
                 }
 

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 //TODO check box 로직 수정
 @Composable
@@ -33,19 +34,19 @@ fun LiftCircleCheckBox(
     Row {
         Card(
             modifier = modifier.background(Color.Transparent).clip(CircleShape),
-            border = BorderStroke(1.5.dp, color = MaterialTheme.colorScheme.primary)
+            border = BorderStroke(1.5.dp, color = LiftTheme.colorScheme.no4)
         ) {
             Box(
                 modifier = modifier
                     .size(25.dp)
-                    .background(if (checked.value) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background)
+                    .background(if (checked.value) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no5)
                     .clickable {
                         checked.value = !checked.value
                     },
                 contentAlignment = Alignment.Center
             ) {
                 if(checked.value)
-                    Icon(Icons.Filled.Done, contentDescription = "", tint = MaterialTheme.colorScheme.background)
+                    Icon(Icons.Filled.Done, contentDescription = "", tint = LiftTheme.colorScheme.no5)
             }
         }
     }

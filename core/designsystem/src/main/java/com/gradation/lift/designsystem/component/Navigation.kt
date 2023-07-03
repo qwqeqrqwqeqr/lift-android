@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun RowScope.LiftNavigationBarItem(
@@ -30,11 +31,11 @@ fun RowScope.LiftNavigationBarItem(
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = MaterialTheme.colorScheme.primary,
-            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            selectedTextColor = MaterialTheme.colorScheme.primary,
-            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            indicatorColor = MaterialTheme.colorScheme.background,
+            selectedIconColor = LiftTheme.colorScheme.no4,
+            unselectedIconColor = LiftTheme.colorScheme.no5,
+            selectedTextColor = LiftTheme.colorScheme.no4,
+            unselectedTextColor = LiftTheme.colorScheme.no5,
+            indicatorColor = LiftTheme.colorScheme.no5,
         ),
     )
 }
@@ -49,7 +50,7 @@ fun LiftNavigationBar(
         modifier = modifier,
         tonalElevation = 0.dp,
         content = content,
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = LiftTheme.colorScheme.no5
     )
 }
 
