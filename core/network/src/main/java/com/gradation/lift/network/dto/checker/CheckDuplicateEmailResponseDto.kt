@@ -1,4 +1,4 @@
-package com.gradation.lift.network.dto.auth
+package com.gradation.lift.network.dto.checker
 
 import com.gradation.lift.model.auth.Token
 import com.squareup.moshi.Json

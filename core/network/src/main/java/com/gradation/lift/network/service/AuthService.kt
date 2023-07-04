@@ -18,9 +18,6 @@ interface AuthService {
     ): APIResultWrapper<SignInDefaultResponseDto>
 
 
-    @GET("auth/check-duplicate-email/")
-    suspend fun checkDuplicateEmail(@Body checkDuplicateEmailRequestDto: CheckDuplicateEmailRequestDto,
-    ): APIResultWrapper<CheckDuplicateEmailResponseDto>
 
 
 }

@@ -5,7 +5,6 @@ import com.gradation.lift.model.auth.Email
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.network.common.DefaultAPIResult
-import com.gradation.lift.network.dto.auth.CheckDuplicateEmailRequestDto
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
 import com.gradation.lift.network.dto.auth.SignUpDefaultRequestDto
