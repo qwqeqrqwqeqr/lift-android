@@ -1,7 +1,7 @@
 package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.auth.SignInInfo
-import com.gradation.lift.model.auth.Email
+import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.network.common.DefaultAPIResult
