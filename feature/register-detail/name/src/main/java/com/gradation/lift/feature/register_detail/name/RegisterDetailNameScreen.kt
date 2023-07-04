@@ -61,7 +61,7 @@ internal fun RegisterDetailNameScreen(
                     onBackClick = { },
                     actions = {
                         LiftNotIconTopBar(
-                            title = "리프트",
+                            title = "추가정보 입력",
                             actions = {
                                 ClickableText(
                                     text = AnnotatedString("건너뛰기"),
@@ -89,10 +89,9 @@ internal fun RegisterDetailNameScreen(
             ) {
                 val focusManager = LocalFocusManager.current
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    NumberCircle(number = 1, checked = true)
-                    NumberCircle(number = 2, checked = false)
-                    NumberCircle(number = 3, checked = false)
-                    NumberCircle(number = 4, checked = false)
+                    repeat(4){
+                        NumberCircle(number = it+1, checked = it+1==1)
+                    }
                 }
                 Spacer(modifier = modifier.padding(28.dp))
                 Text(

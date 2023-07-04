@@ -24,10 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftNotIconTopBar
-import com.gradation.lift.designsystem.component.LiftTextField
-import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.ui.DevicePreview
@@ -57,26 +54,21 @@ internal fun RegisterDetailGenderScreen(
         Scaffold(
             topBar = {
                 LiftTopBar(
-                    title = "회원가입",
+                    title = "추가정보 입력",
                     onBackClick = { },
                     actions = {
-                        LiftNotIconTopBar(
-                            title = "리프트",
-                            actions = {
-                                ClickableText(
-                                    text = AnnotatedString("건너뛰기"),
-                                    style = LiftTheme.typography.no7 +
-                                            TextStyle(
-                                                textDecoration = TextDecoration.Underline,
-                                                color = LiftTheme.colorScheme.no9,
-                                                textAlign = TextAlign.Center
-                                            ),
-                                    onClick = { {} },
-                                )
-
-                                Spacer(modifier = modifier.padding(8.dp))
-                            }
+                        ClickableText(
+                            text = AnnotatedString("건너뛰기"),
+                            style = LiftTheme.typography.no7 +
+                                    TextStyle(
+                                        textDecoration = TextDecoration.Underline,
+                                        color = LiftTheme.colorScheme.no9,
+                                        textAlign = TextAlign.Center
+                                    ),
+                            onClick = { {} },
                         )
+
+                        Spacer(modifier = modifier.padding(8.dp))
                     }
                 )
             },
@@ -89,10 +81,10 @@ internal fun RegisterDetailGenderScreen(
             ) {
                 val focusManager = LocalFocusManager.current
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    NumberCircle(number = 1, checked = false)
-                    NumberCircle(number = 2, checked = true)
-                    NumberCircle(number = 3, checked = false)
-                    NumberCircle(number = 4, checked = false)
+                    repeat(4) {
+                        NumberCircle(number = it + 1, checked = it + 1 == 2)
+                    }
+
                 }
                 Spacer(modifier = modifier.padding(28.dp))
                 Text(
@@ -109,7 +101,19 @@ internal fun RegisterDetailGenderScreen(
                     color = LiftTheme.colorScheme.no11,
                 )
                 Spacer(modifier = modifier.padding(15.dp))
-
+                Row {
+                    LiftToggleTextBox(
+                        text = "남자", checked = true, modifier = modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                    )
+                    Spacer(modifier = modifier.padding(4.dp))
+                    LiftToggleTextBox(
+                        text = "여자", checked = false, modifier = modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                    )
+                }
                 Spacer(modifier = modifier.padding(18.dp))
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
@@ -128,8 +132,6 @@ internal fun RegisterDetailGenderScreen(
 
     }
 }
-
-
 
 
 @DevicePreview
