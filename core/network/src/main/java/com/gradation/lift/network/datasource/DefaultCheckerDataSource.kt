@@ -30,7 +30,7 @@ class DefaultCheckerDataSource @Inject constructor(
         flow {
 
             networkResultHandler.executeDefault {
-                checkerService.checkDuplicateEmail(name.name)
+                checkerService.checkDuplicateName(name.name)
             }.collect { result ->
                 when (result) {
                     is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))

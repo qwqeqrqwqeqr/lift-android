@@ -2,9 +2,7 @@ package com.gradation.lift.network.di
 
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.datasource.*
-import com.gradation.lift.network.service.AuthService
-import com.gradation.lift.network.service.RoutineService
-import com.gradation.lift.network.service.WorkService
+import com.gradation.lift.network.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,4 +35,16 @@ object DataSourceModule {
 
 
 
+    @Provides
+    fun provideCheckerDataSource(
+        checkerService: CheckerService,
+        networkResultHandler: NetworkResultHandler,
+    ): CheckerDataSource = DefaultCheckerDataSource(checkerService,networkResultHandler)
+
+
+    @Provides
+    fun provideUserDataSource(
+        userService: UserService,
+        networkResultHandler: NetworkResultHandler,
+    ): UserDataSource = DefaultUserDataSource(userService,networkResultHandler)
 }
