@@ -1,9 +1,36 @@
 package com.gradation.lift.feature.register_detail.gender
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.designsystem.canvas.NumberCircle
+import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftNotIconTopBar
+import com.gradation.lift.designsystem.component.LiftTextField
+import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.ui.DevicePreview
 
 @Composable
 fun RegisterDetailGenderRoute(
@@ -19,10 +46,98 @@ fun RegisterDetailGenderRoute(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun RegisterDetailGenderScreen(
     modifier: Modifier = Modifier,
 ) {
+    Surface(
+        color = LiftTheme.colorScheme.no5
+    ) {
+        Scaffold(
+            topBar = {
+                LiftTopBar(
+                    title = "회원가입",
+                    onBackClick = { },
+                    actions = {
+                        LiftNotIconTopBar(
+                            title = "리프트",
+                            actions = {
+                                ClickableText(
+                                    text = AnnotatedString("건너뛰기"),
+                                    style = LiftTheme.typography.no7 +
+                                            TextStyle(
+                                                textDecoration = TextDecoration.Underline,
+                                                color = LiftTheme.colorScheme.no9,
+                                                textAlign = TextAlign.Center
+                                            ),
+                                    onClick = { {} },
+                                )
+
+                                Spacer(modifier = modifier.padding(8.dp))
+                            }
+                        )
+                    }
+                )
+            },
+        ) { padding ->
+            Column(
+                modifier = modifier
+                    .padding(16.dp)
+                    .padding(padding)
+                    .fillMaxSize()
+            ) {
+                val focusManager = LocalFocusManager.current
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
+                    NumberCircle(number = 1, checked = false)
+                    NumberCircle(number = 2, checked = true)
+                    NumberCircle(number = 3, checked = false)
+                    NumberCircle(number = 4, checked = false)
+                }
+                Spacer(modifier = modifier.padding(28.dp))
+                Text(
+                    text = buildAnnotatedString {
+                        append("님의 ")
+                        withStyle(
+                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
+                        ) {
+                            append("성별")
+                        }
+                        append("은 무엇인가요?")
+                    },
+                    style = LiftTheme.typography.no1,
+                    color = LiftTheme.colorScheme.no11,
+                )
+                Spacer(modifier = modifier.padding(15.dp))
+
+                Spacer(modifier = modifier.padding(18.dp))
+                LiftButton(
+                    modifier = modifier.fillMaxWidth(),
+                    onClick = { },
+                ) {
+                    Text(
+                        text = "다음",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no5,
+                    )
+                }
+            }
 
 
+        }
+
+    }
+}
+
+
+
+
+@DevicePreview
+@Composable
+fun RegisterDetailGenderScreenPreview(
+    modifier: Modifier = Modifier,
+) {
+    LiftMaterialTheme {
+        RegisterDetailGenderScreen(modifier)
+    }
 }

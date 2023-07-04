@@ -43,7 +43,7 @@ fun NumberCircle(
         drawCircle(color = baseColor)
 
         if (checked) {
-            drawCircle( 
+            drawCircle(
                 color = innerColor,
                 radius = 35f
             )

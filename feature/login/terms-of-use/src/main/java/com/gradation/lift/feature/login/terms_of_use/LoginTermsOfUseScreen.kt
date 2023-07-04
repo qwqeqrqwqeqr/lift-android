@@ -111,7 +111,7 @@ internal fun LoginTermsOfUseScreen(
             Column(
                 modifier = modifier
                     .padding(padding)
-                    .padding(20.dp)
+                    .padding(16.dp)
                     .fillMaxSize()
             ) {
                 Spacer(modifier = modifier.padding(18.dp))

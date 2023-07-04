@@ -48,7 +48,7 @@ internal fun LoginCompleteScreen(
     ) {
         Column(
             modifier = modifier
-                .padding(20.dp)
+                .padding(16.dp)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
