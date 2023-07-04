@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CheckerRepository {
 
-    suspend fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>>
+    fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>>
 
-    suspend fun checkDuplicateName(name: Name): Flow<DataState<Boolean>>
+    fun checkDuplicateName(name: Name): Flow<DataState<Boolean>>
 }

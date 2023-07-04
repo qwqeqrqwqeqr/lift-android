@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    suspend fun getUserDetail(): Flow<DataState<UserDetail>>
+     fun getUserDetail(): Flow<DataState<UserDetail>>
 
-    suspend fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
+     fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
 
-    suspend fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
+     fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
 
-    suspend fun existUserDetail(): Flow<DataState<Boolean>>
+     fun existUserDetail(): Flow<DataState<Boolean>>
 }

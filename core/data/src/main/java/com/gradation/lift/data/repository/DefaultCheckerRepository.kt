@@ -21,7 +21,7 @@ import javax.inject.Inject
 class DefaultCheckerRepository @Inject constructor(
     private val checkerDataSource: CheckerDataSource,
 ) : CheckerRepository {
-    override suspend fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>> = flow {
+    override  fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>> = flow {
         checkerDataSource.checkDuplicateEmail(email).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
@@ -33,7 +33,7 @@ class DefaultCheckerRepository @Inject constructor(
 
     }
 
-    override suspend fun checkDuplicateName(name: Name): Flow<DataState<Boolean>> = flow {
+    override  fun checkDuplicateName(name: Name): Flow<DataState<Boolean>> = flow {
         checkerDataSource.checkDuplicateName(name).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))

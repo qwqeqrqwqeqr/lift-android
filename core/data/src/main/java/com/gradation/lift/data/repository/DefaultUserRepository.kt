@@ -23,7 +23,7 @@ class DefaultUserRepository @Inject constructor(
     private val userDataStoreDataSource: UserDataStoreDataSource,
     private val refreshManager: RefreshManager,
 ) : UserRepository {
-    override suspend fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
+    override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
         userDataSource.getUserDetail(Token(accessToken = userDataStoreDataSource.accessToken.first()))
             .collect { result ->
@@ -40,58 +40,58 @@ class DefaultUserRepository @Inject constructor(
             }
     }
 
-    override suspend fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
+    override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.createUserDetail(
             Token(accessToken = userDataStoreDataSource.accessToken.first()),
             userDetail = userDetail
         ).collect { result ->
-                when (result) {
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-                    is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    AuthAPIResult.Refresh -> emit(refreshManager {
-                        userDataSource.createUserDetail(
-                            Token(), userDetail = userDetail
-                        )
-                    })
-                    is AuthAPIResult.Success -> emit(DataState.Success(result.data))
-                }
+            when (result) {
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
+                is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
+                AuthAPIResult.Refresh -> emit(refreshManager {
+                    userDataSource.createUserDetail(
+                        Token(), userDetail = userDetail
+                    )
+                })
+                is AuthAPIResult.Success -> emit(DataState.Success(result.data))
             }
+        }
 
     }
 
 
-    override suspend fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
+    override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.updateUserDetail(
             Token(accessToken = userDataStoreDataSource.accessToken.first()),
             userDetail = userDetail
         ).collect { result ->
-                when (result) {
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-                    is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    AuthAPIResult.Refresh -> emit(refreshManager {
-                        userDataSource.updateUserDetail(
-                            Token(), userDetail = userDetail
-                        )
-                    })
-                    is AuthAPIResult.Success -> emit(DataState.Success(result.data))
-                }
+            when (result) {
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
+                is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
+                AuthAPIResult.Refresh -> emit(refreshManager {
+                    userDataSource.updateUserDetail(
+                        Token(), userDetail = userDetail
+                    )
+                })
+                is AuthAPIResult.Success -> emit(DataState.Success(result.data))
             }
+        }
 
     }
 
-    override suspend fun existUserDetail(): Flow<DataState<Boolean>> = flow {
+    override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
         userDataSource.existUserDetail(
             Token(accessToken = userDataStoreDataSource.accessToken.first())
         ).collect { result ->
-                when (result) {
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-                    is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    AuthAPIResult.Refresh -> emit(refreshManager {
-                        userDataSource.existUserDetail(Token())
-                    })
-                    is AuthAPIResult.Success -> emit(DataState.Success(result.data))
-                }
+            when (result) {
+                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
+                is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
+                AuthAPIResult.Refresh -> emit(refreshManager {
+                    userDataSource.existUserDetail(Token())
+                })
+                is AuthAPIResult.Success -> emit(DataState.Success(result.data))
             }
+        }
     }
 
 }
