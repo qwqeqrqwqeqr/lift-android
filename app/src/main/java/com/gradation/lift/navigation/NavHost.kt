@@ -13,6 +13,7 @@ import com.gradation.lift.feature.my_info.myInfoScreen
 import com.gradation.lift.feature.routine.routineScreen
 import com.gradation.lift.navigation.graph.createRoutineGraph
 import com.gradation.lift.navigation.graph.loginGraph
+import com.gradation.lift.navigation.graph.registerDetailGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -35,6 +36,10 @@ fun LiftNavHost(
             navGraphBuilder = this
         )
         loginGraph(
+            navController = navController,
+            navGraphBuilder = this
+        )
+        registerDetailGraph(
             navController = navController,
             navGraphBuilder = this
         )

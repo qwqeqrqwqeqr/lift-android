@@ -5,26 +5,26 @@ import androidx.compose.ui.graphics.Color
 
 
 /**
- * [NO1] :인풋배경, 아이콘 버튼 배경
- * [NO2] :인풋텍스트
- * [NO3] :인풋라벨
- * [NO4] :Primary (활성화버튼,탭,시간초,인풋버튼)
- * [NO5] :카드, 백그라운드
- * [NO6] :아이콘(비활성화)
- * [NO7] :캡션/ 작은텍스트 버튼
- * [NO8] :라인
- * [NO9] :상단 해더 / 텍스트 입력시 / 팝업 본문
- * [NO10] :탭 (비활성화),
- * [NO11] :약관, 탭(활성화)
- * [NO12] :오류
- * [NO13] :버튼 (비활성화)
- * [NO14] :토스트배경
- * [NO15] :
- * [NO16] :
- * [NO17] :홈 백그라운드
- * [NO18] :일러스트 컬러
- * [NO19] :일러스트 컬러
- * [NO20] :일러스트 컬러
+ * [COLOR_NO1] :인풋배경, 아이콘 버튼 배경
+ * [COLOR_NO2] :인풋텍스트
+ * [COLOR_NO3] :인풋라벨
+ * [COLOR_NO4] :Primary (활성화버튼,탭,시간초,인풋버튼)
+ * [COLOR_NO5] :카드, 백그라운드
+ * [COLOR_NO6] :아이콘(비활성화)
+ * [COLOR_NO7] :캡션/ 작은텍스트 버튼
+ * [COLOR_NO8] :라인
+ * [COLOR_NO9] :상단 해더 / 텍스트 입력시 / 팝업 본문
+ * [COLOR_NO10] :탭 (비활성화),
+ * [COLOR_NO11] :약관, 탭(활성화)
+ * [COLOR_NO12] :오류
+ * [COLOR_NO13] :버튼 (비활성화)
+ * [COLOR_NO14] :토스트배경
+ * [COLOR_NO15] :
+ * [COLOR_NO16] :
+ * [COLOR_NO17] :홈 백그라운드
+ * [COLOR_NO18] :일러스트 컬러
+ * [COLOR_NO19] :일러스트 컬러
+ * [COLOR_NO20] :일러스트 컬러
  *
  */
 internal val COLOR_NO1: Color = Color(0xFFF2F2F5)
@@ -161,4 +161,4 @@ fun liftDarkColorScheme(
         no20,
     )
 
-val LocalLiftColorScheme = staticCompositionLocalOf { liftDarkColorScheme() }
+val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }
