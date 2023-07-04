@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
     fun signIn(signInInfo: SignInInfo): Flow<DataState<Boolean>>
     fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>>
-    fun checkDuplicateEmail(email: Email) : Flow<DataState<Boolean>>
     fun isSigned(): Flow<DataState<Boolean>>
     fun signOut(): Flow<DataState<Unit>>
 }

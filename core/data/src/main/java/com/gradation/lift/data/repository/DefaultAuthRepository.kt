@@ -26,6 +26,7 @@ class DefaultAuthRepository @Inject constructor(
 
                     userDataStoreDataSource.setAccessToken(result.data.accessToken)
                     userDataStoreDataSource.setRefreshToken(result.data.refreshToken)
+                    userDataStoreDataSource.setUserId(signInInfo.id)
 
                     emit(DataState.Success(true))
                 }
@@ -45,17 +46,6 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun checkDuplicateEmail(email: Email): Flow<DataState<Boolean>> = flow {
-        authDataSource.checkDuplicateEmail(email).collect { result ->
-            when (result) {
-                is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-                is DefaultAPIResult.Success -> {
-                    emit(DataState.Success(true))
-                }
-            }
-        }
-    }
 
     override fun isSigned(): Flow<DataState<Boolean>> = flow {
         val condition = userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
