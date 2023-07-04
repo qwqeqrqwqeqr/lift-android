@@ -6,9 +6,8 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.register_detail.ht_wt"
+    namespace = "com.gradation.lift.feature.register_detail.height_weight"
 }
-
 
 
 dependencies {

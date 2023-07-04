@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.feature.register_detail.complete.registerDetailCompleteScreen
 import com.gradation.lift.feature.register_detail.gender.registerDetailGenderScreen
-import com.gradation.lift.feature.register_detail.ht_wt.registerDetailHtWtScreen
+import com.gradation.lift.feature.register_detail.height_weight.registerDetailHeightWeightScreen
 import com.gradation.lift.feature.register_detail.name.registerDetailNameScreen
 import com.gradation.lift.feature.register_detail.unit_of_weight.registerDetailUnitOfWeightScreen
 import com.gradation.lift.navigation.Router
@@ -22,7 +22,7 @@ fun registerDetailGraph(
         ) {
             registerDetailCompleteScreen(navController, this)
             registerDetailGenderScreen(navController, this)
-            registerDetailHtWtScreen(navController, this)
+            registerDetailHeightWeightScreen(navController, this)
             registerDetailNameScreen(navController, this)
             registerDetailUnitOfWeightScreen(navController, this)
         }

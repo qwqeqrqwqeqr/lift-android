@@ -54,6 +54,6 @@ include(":feature:login:complete")
 
 include(":feature:register-detail:name")
 include(":feature:register-detail:gender")
-include(":feature:register-detail:ht-wt")
 include(":feature:register-detail:unit-of-weight")
+include(":feature:register-detail:height-weight")
 include(":feature:register-detail:complete")

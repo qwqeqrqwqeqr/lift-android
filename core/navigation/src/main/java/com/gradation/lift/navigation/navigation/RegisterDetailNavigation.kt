@@ -10,8 +10,8 @@ fun NavController.navigateToRegisterDetailComplete() {
 fun NavController.navigateToRegisterDetailGender() {
     this.navigate(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME)
 }
-fun NavController.navigateToRegisterDetailHwTw() {
-    this.navigate(Router.REGISTER_DETAIL_HT_WT_ROUTER_NAME)
+fun NavController.navigateToRegisterDetailHeightWeight() {
+    this.navigate(Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME)
 }
 fun NavController.navigateToRegisterDetailName() {
     this.navigate(Router.REGISTER_DETAIL_NAME_ROUTER_NAME)

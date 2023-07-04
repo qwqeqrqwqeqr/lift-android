@@ -134,12 +134,3 @@ internal fun RegisterDetailGenderScreen(
 }
 
 
-@DevicePreview
-@Composable
-fun RegisterDetailGenderScreenPreview(
-    modifier: Modifier = Modifier,
-) {
-    LiftMaterialTheme {
-        RegisterDetailGenderScreen(modifier)
-    }
-}

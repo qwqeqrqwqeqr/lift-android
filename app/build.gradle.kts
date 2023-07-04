@@ -47,7 +47,7 @@ dependencies{
 
     implementation(project(":feature:register-detail:complete"))
     implementation(project(":feature:register-detail:gender"))
-    implementation(project(":feature:register-detail:ht-wt"))
+    implementation(project(":feature:register-detail:height-weight"))
     implementation(project(":feature:register-detail:name"))
     implementation(project(":feature:register-detail:unit-of-weight"))
 
