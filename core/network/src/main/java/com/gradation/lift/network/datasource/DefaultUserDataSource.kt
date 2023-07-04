@@ -1,23 +1,15 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.auth.SignInInfo
-import com.gradation.lift.model.user.Email
-import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UnitOfWeight
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.network.common.AuthAPIResult
-import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
-import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
-import com.gradation.lift.network.dto.auth.SignUpDefaultRequestDto
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UserDetailDto
-import com.gradation.lift.network.service.AuthService
 import com.gradation.lift.network.service.UserService
-import com.squareup.moshi.Json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -27,8 +19,17 @@ class DefaultUserDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : UserDataSource {
 
-    override suspend fun getUserDetail(token: Token): Flow<AuthAPIResult<UserDetail>> {
-        TODO("Not yet implemented")
+    override suspend fun getUserDetail(token: Token): Flow<AuthAPIResult<UserDetail>> = flow{
+        networkResultHandler.executeAuth {
+            userService.getUserDetail(accessToken = token.accessToken)
+        }.collect { result ->
+            when (result) {
+                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
+                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
+                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toUserDetail()))
+                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
+            }
+        }
     }
 
     override suspend fun createUserDetail(
