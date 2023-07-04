@@ -1,6 +1,6 @@
 package com.gradation.lift.model.user
 
-enum class Gender (value: String, name: String) {
-    MALE(value = "male", name = "남성"),
-    FEMALE(value = "female", name = "여성")
+sealed class Gender{
+    data class MALE(val value: String = "male", val name: String = "남성") : Gender()
+    data class FEMALE(val value: String = "female", val name: String = "여성") : Gender()
 }

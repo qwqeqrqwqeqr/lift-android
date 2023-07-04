@@ -4,10 +4,7 @@ import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.DefaultNetworkResultHandler
 import com.gradation.lift.network.handler.NetworkResultHandler
-import com.gradation.lift.network.service.AuthService
-import com.gradation.lift.network.service.RefreshService
-import com.gradation.lift.network.service.RoutineService
-import com.gradation.lift.network.service.WorkService
+import com.gradation.lift.network.service.*
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -90,7 +87,15 @@ object NetworkModule {
     fun provideRefreshService(retrofit: Retrofit): RefreshService =
         retrofit.create(RefreshService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideCheckerService(retrofit: Retrofit): CheckerService =
+        retrofit.create(CheckerService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideUserService(retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
 
 
 }

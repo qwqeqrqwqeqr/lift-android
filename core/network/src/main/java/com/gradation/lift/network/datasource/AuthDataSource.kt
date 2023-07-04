@@ -9,8 +9,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {
     fun signIn(signInInfo: SignInInfo) : Flow<DefaultAPIResult<Token>>
-
     fun signUp(signUpInfo: SignUpInfo) : Flow<DefaultAPIResult<Boolean>>
-    fun checkDuplicateEmail(email: Email) : Flow<DefaultAPIResult<Boolean>>
-
 }

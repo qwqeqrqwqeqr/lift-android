@@ -50,19 +50,5 @@ class DefaultAuthDataSource @Inject constructor(
             }
         }
     }
-
-    override fun checkDuplicateEmail(email: Email): Flow<DefaultAPIResult<Boolean>> = flow {
-        networkResultHandler.executeDefault {
-            authService.checkDuplicateEmail(
-                CheckDuplicateEmailRequestDto(email = email.email)
-            )
-        }.collect { result ->
-            when (result) {
-                is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.throwable))
-                is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.result))
-            }
-        }
-    }
 }
 

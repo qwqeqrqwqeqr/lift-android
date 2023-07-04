@@ -1,6 +1,6 @@
 package com.gradation.lift.model.user
 
-enum class UnitOfWeight (value: String, name: String) {
-    KG(value = "kg", name = "킬로"),
-    LB(value = "lb", name = "파운드")
+sealed class UnitOfWeight{
+   data class KG(val value: String = "kg", val name: String = "킬로") : UnitOfWeight()
+   data class LB(val value: String = "lb", val name: String = "파운드") : UnitOfWeight()
 }
