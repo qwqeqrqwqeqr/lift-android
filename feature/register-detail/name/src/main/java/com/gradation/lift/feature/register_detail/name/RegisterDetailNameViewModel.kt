@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.common.utils.nameValidator
 import com.gradation.lift.domain.usecase.checker.CheckerDuplicateNameUseCase
 import com.gradation.lift.model.user.Name
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
@@ -61,10 +62,20 @@ class RegisterDetailNameViewModel @Inject constructor(
     private fun checkDuplicateName(name: String): Flow<Validator> {
         return checkerDuplicateNameUseCase(Name(name)).map {
             when (it) {
-                is DataState.Error -> (Validator(false, ""))
-                is DataState.Fail -> (Validator(true, ""))
-                is DataState.Success ->
+                is DataState.Fail -> Validator(false, "")
+                is DataState.Success -> if(it.data){
                     Validator(false, "이미 사용중인 닉네임이에요")
+                }else{
+                    if(nameValidator(name)){
+                        Validator(true, "")
+                    }else{
+                        if(name.isBlank()){
+                            Validator(false, "")
+                        }else{
+                            Validator(false, "2~5 자리의 한글만 사용 가능해요")
+                        }
+                    }
+                }
             }
         }
     }

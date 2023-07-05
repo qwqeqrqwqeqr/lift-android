@@ -43,7 +43,6 @@ fun weekDateRoutineUiState(
 
     return getRoutineSetRoutineByDateUseCase.map {
         when (it) {
-            is DataState.Error -> WeekDateRoutineUiState.Error
             is DataState.Fail -> WeekDateRoutineUiState.Error
             is DataState.Success ->
             {

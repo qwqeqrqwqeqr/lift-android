@@ -60,10 +60,6 @@ class LoginSignInViewModel @Inject constructor(
             }else{
                 signInUseCase(SignInInfo(id = email, password = password)).map {
                     when (it) {
-                        is DataState.Error -> {
-                            Log.d("login", "${it.message} 에러")
-                            SignInUiState.Fail(it.message)
-                        }
                         is DataState.Fail -> {
                             Log.d("login", "${it.message} 실패")
                             SignInUiState.Fail(it.message)

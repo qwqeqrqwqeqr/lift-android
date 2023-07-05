@@ -33,7 +33,6 @@ class MainActivityViewModel @Inject constructor(
     private fun splashUiState(isSignedUseCase: Flow<DataState<Boolean>>): Flow<SplashUiState> {
         return  isSignedUseCase.map {
             when(it){
-                is DataState.Error -> SplashUiState.Login
                 is DataState.Fail -> SplashUiState.Login
                 is DataState.Success ->
                 {

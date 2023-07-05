@@ -88,10 +88,6 @@ class LoginTermsOfUseViewModel @Inject constructor(
                 )
             ).map {
                 when (it) {
-                    is DataState.Error -> {
-                        Log.d("login", "${it.message} 에러")
-                        SignUpUiState.Fail(it.message)
-                    }
                     is DataState.Fail -> {
                         Log.d("login", "${it.message} 실패")
                         SignUpUiState.Fail(it.message)

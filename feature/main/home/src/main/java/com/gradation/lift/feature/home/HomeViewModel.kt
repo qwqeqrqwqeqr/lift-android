@@ -27,7 +27,6 @@ class HomeViewModel @Inject constructor(
                 signOutUseCase()
                 isSignedUseCase().map {
                     when(it){
-                        is DataState.Error -> Log.d("test","상겅")
                         is DataState.Fail ->  Log.d("test","실패")
                         is DataState.Success -> Log.d("test",it.data.toString())
                     }
