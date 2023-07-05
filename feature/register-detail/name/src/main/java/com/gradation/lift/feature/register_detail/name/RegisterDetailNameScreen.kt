@@ -30,6 +30,9 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
+import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
+import com.gradation.lift.navigation.navigation.navigateToRegisterDetailGender
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -39,9 +42,12 @@ fun RegisterDetailNameRoute(
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
 
-
+    navController.navigateToRegisterDetailGender()
+    navController.navigateRegisterDetailToHome()
     RegisterDetailNameScreen(
-        modifier = modifier
+        modifier = modifier,
+        onTopBarBackClick = { navController.navigateSignUpProcessToSignIn() },
+
     )
 }
 
@@ -50,7 +56,13 @@ fun RegisterDetailNameRoute(
 @Composable
 internal fun RegisterDetailNameScreen(
     modifier: Modifier = Modifier,
-) {
+    onTopBarBackClick: () -> Unit,
+    nameText:String,
+    updateNameText: (String) -> Unit,
+    nameValidationSupportText: Validator,
+    onNextButtonClick: () -> Unit,
+    navigateCondition: Boolean,
+    ) {
     Surface(
         color = LiftTheme.colorScheme.no5
     ) {
@@ -89,8 +101,8 @@ internal fun RegisterDetailNameScreen(
             ) {
                 val focusManager = LocalFocusManager.current
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(4){
-                        NumberCircle(number = it+1, checked = it+1==1)
+                    repeat(4) {
+                        NumberCircle(number = it + 1, checked = it + 1 == 1)
                     }
                 }
                 Spacer(modifier = modifier.padding(28.dp))
@@ -109,11 +121,11 @@ internal fun RegisterDetailNameScreen(
                 )
                 Spacer(modifier = modifier.padding(15.dp))
                 NameTextField(
-                    modifier=modifier,
-                    nameText="",
-                    updateNameText={},
-                    focusManager =focusManager,
-                    nameValidationSupportText= Validator()
+                    modifier = modifier,
+                    nameText = "",
+                    updateNameText = {},
+                    focusManager = focusManager,
+                    nameValidationSupportText = Validator()
                 )
                 Spacer(modifier = modifier.padding(18.dp))
                 LiftButton(

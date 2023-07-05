@@ -19,3 +19,11 @@ fun NavController.navigateToRegisterDetailName() {
 fun NavController.navigateToRegisterDetailUnitOfWeight() {
     this.navigate(Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME)
 }
+
+fun NavController.navigateRegisterDetailToHome() {
+    this.navigate(Router.HOME_ROUTER_NAME){
+        popUpTo(Router.REGISTER_DETAIL_NAME_ROUTER_NAME){
+            inclusive=true
+        }
+    }
+}

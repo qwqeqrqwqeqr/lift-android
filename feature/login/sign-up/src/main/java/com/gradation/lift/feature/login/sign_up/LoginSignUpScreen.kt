@@ -33,23 +33,31 @@ fun LoginSignUpRoute(
     LoginSignUpScreen(
         modifier = modifier,
         onTopBarBackClick = { navController.navigateSignUpProcessToSignIn() },
+
         emailText = viewModel.email,
         passwordText = viewModel.password,
         passwordVerificationText = viewModel.passwordVerification,
+
         updateEmailText = viewModel.updateEmail(),
         updatePasswordText = viewModel.updatePassword(),
         updatePasswordVerificationText = viewModel.updatePasswordVerification(),
+
         passwordVisible = viewModel.passwordVisible,
         passwordVerificationVisible = viewModel.passwordVerificationVisible,
+
         passwordVisualTransformation = viewModel.passwordVisualTransformation,
         passwordVerificationVisualTransformation = viewModel.passwordVerificationVisualTransformation,
+
         clearPassword = viewModel.clearPassword(),
         clearPasswordVerification = viewModel.clearPasswordVerification(),
+
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),
         onChangePasswordVerificationVisible = viewModel.onChangePasswordVerificationVisible(),
+
         emailValidationSupportText = viewModel.emailValidationSupportText,
         passwordValidationSupportText = viewModel.passwordValidationSupportText,
         passwordVerificationValidationSupportText = viewModel.passwordVerificationValidationSupportText,
+
         onNextButtonClick = {
             viewModel.updateKey(navController)
             navController.navigateToLoginTermsOfUse()

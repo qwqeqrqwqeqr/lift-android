@@ -13,7 +13,9 @@ import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
 
 fun NavController.navigateLoginToHome() {
     this.navigate(HOME_ROUTER_NAME){
-        popUpTo(LOGIN_GRAPH_ROUTER_NAME)
+        popUpTo(LOGIN_GRAPH_ROUTER_NAME){
+            inclusive=true
+        }
     }
 }
 

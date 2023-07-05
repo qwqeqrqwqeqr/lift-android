@@ -12,6 +12,6 @@ import javax.inject.Inject
 class CheckerDuplicateEmailUseCase@Inject constructor(
     private val checkerRepository: CheckerRepository
 ) {
-    operator fun invoke(name: Name): Flow<DataState<Boolean>> =
-        checkerRepository.checkDuplicateName(name)
+    operator fun invoke(email: Email): Flow<DataState<Boolean>> =
+        checkerRepository.checkDuplicateEmail(email)
 }
