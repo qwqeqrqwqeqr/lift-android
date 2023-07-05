@@ -19,7 +19,7 @@ object Router {
     const val LOGIN_FIND_PASSWORD_ROUTER_NAME = "find_password"
 
 
-    const val REGISTER_GRAPH_ROUTER_NAME = "register_graph"
+    const val REGISTER_DETAIL_GRAPH_ROUTER_NAME = "register_graph"
     const val REGISTER_DETAIL_COMPLETE_ROUTER_NAME = "complete"
     const val REGISTER_DETAIL_GENDER_ROUTER_NAME = "gender"
     const val REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME = "ht_wt"

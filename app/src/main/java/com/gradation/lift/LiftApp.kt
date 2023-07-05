@@ -22,12 +22,12 @@ import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
 import com.gradation.lift.navigation.*
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME
+
 import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
@@ -65,7 +65,7 @@ fun LiftApp(
             ) {
                 LiftNavHost(
                     navController = appState.navController,
-                    startDestination = REGISTER_GRAPH_ROUTER_NAME
+                    startDestination = REGISTER_DETAIL_GRAPH_ROUTER_NAME
                 )
             }
         }

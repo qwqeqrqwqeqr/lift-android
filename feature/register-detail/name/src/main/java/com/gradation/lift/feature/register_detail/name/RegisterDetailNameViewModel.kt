@@ -1,57 +1,75 @@
 package com.gradation.lift.feature.register_detail.name
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.common.utils.emailValidator
 import com.gradation.lift.domain.usecase.checker.CheckerDuplicateNameUseCase
 import com.gradation.lift.model.user.Name
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setStringValue
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 @HiltViewModel
 class RegisterDetailNameViewModel @Inject constructor(
     private val checkerDuplicateNameUseCase: CheckerDuplicateNameUseCase,
 ) : ViewModel() {
 
-    var name by mutableStateOf("")
-    var nameValidationSupportText by mutableStateOf(Validator())
-    var navigateCondition by mutableStateOf(false)
+    var name = MutableStateFlow("")
 
+    var nameValidationSupportText: StateFlow<Validator> =
+        name.debounce(1000).distinctUntilChanged().flatMapLatest { name ->
+            checkDuplicateName(name)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = Validator()
+        )
 
-    internal fun updateName(): (String) -> Unit = {
-        name = it
-        validateName(it)
-        updateNavigateCondition()
-    }
+    var navigateCondition : StateFlow<Boolean> =  nameValidationSupportText.mapLatest { it.status }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = true
+    )
 
-
-    @OptIn(FlowPreview::class)
-    private fun validateName(name: String) {
+    internal fun updateName(): (String) -> Unit = { it ->
         viewModelScope.launch {
-            checkerDuplicateNameUseCase(Name(name)).debounce(1000L).map {
-                nameValidationSupportText = when (it) {
-                    is DataState.Error -> Validator(false, "")
-                    is DataState.Fail -> Validator(true, "")
-                    is DataState.Success -> Validator(false, "이미 사용중인 닉네임이에요")
-                }
-            }
+            name.value = it
         }
     }
 
 
     fun updateKey(navController: NavController) {
-        navController.setStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY, name)
+        navController.setStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY, name.value)
     }
+
+
+    private fun checkDuplicateName(name: String): Flow<Validator> {
+        return checkerDuplicateNameUseCase(Name(name)).map {
+            when (it) {
+                is DataState.Error -> (Validator(false, ""))
+                is DataState.Fail -> (Validator(true, ""))
+                is DataState.Success ->
+                    Validator(false, "이미 사용중인 닉네임이에요")
+            }
+        }
+    }
+
 }
+
+
 

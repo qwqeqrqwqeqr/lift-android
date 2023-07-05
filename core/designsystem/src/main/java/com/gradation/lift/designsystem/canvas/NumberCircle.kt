@@ -45,7 +45,7 @@ fun NumberCircle(
         if (checked) {
             drawCircle(
                 color = innerColor,
-                radius = 35f
+                radius = 12.dp.toPx()
             )
         }
 

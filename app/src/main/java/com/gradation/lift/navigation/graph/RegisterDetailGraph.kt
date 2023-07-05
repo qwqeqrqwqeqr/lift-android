@@ -27,7 +27,7 @@ fun registerDetailGraph(
             registerDetailUnitOfWeightScreen(navController, this)
         }
     }.registerDetailGraph(
-        route = Router.REGISTER_GRAPH_ROUTER_NAME,
+        route = Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME,
         startDestination = Router.REGISTER_DETAIL_NAME_ROUTER_NAME,
     )
 }

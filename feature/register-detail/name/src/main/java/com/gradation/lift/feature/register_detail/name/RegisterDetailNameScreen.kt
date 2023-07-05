@@ -1,5 +1,8 @@
+@file:OptIn(FlowPreview::class)
+
 package com.gradation.lift.feature.register_detail.name
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -9,6 +12,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -21,20 +26,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftNotIconTopBar
 import com.gradation.lift.designsystem.component.LiftTextField
-import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
-import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToRegisterDetailGender
 import com.gradation.lift.ui.DevicePreview
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun RegisterDetailNameRoute(
     navController: NavController,
@@ -42,12 +49,17 @@ fun RegisterDetailNameRoute(
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
 
-    navController.navigateToRegisterDetailGender()
-    navController.navigateRegisterDetailToHome()
     RegisterDetailNameScreen(
         modifier = modifier,
-        onTopBarBackClick = { navController.navigateSignUpProcessToSignIn() },
-
+        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
+        nameText = viewModel.name.collectAsStateWithLifecycle(),
+        updateNameText = viewModel.updateName(),
+        nameValidationSupportText = viewModel.nameValidationSupportText.collectAsStateWithLifecycle(),
+        onNextButtonClick = {
+            viewModel.updateKey(navController)
+            navController.navigateToRegisterDetailGender()
+        },
+        navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
     )
 }
 
@@ -56,41 +68,35 @@ fun RegisterDetailNameRoute(
 @Composable
 internal fun RegisterDetailNameScreen(
     modifier: Modifier = Modifier,
-    onTopBarBackClick: () -> Unit,
-    nameText:String,
+    onTopBarSkipButtonClick: (Int) -> Unit,
+    nameText: State<String>,
     updateNameText: (String) -> Unit,
-    nameValidationSupportText: Validator,
+    nameValidationSupportText: State<Validator>,
     onNextButtonClick: () -> Unit,
-    navigateCondition: Boolean,
-    ) {
+    navigateCondition: State<Boolean>,
+) {
     Surface(
         color = LiftTheme.colorScheme.no5
     ) {
         Scaffold(
             topBar = {
-                LiftTopBar(
-                    title = "회원가입",
-                    onBackClick = { },
+                LiftNotIconTopBar(
+                    title = "추가정보 입력",
                     actions = {
-                        LiftNotIconTopBar(
-                            title = "추가정보 입력",
-                            actions = {
-                                ClickableText(
-                                    text = AnnotatedString("건너뛰기"),
-                                    style = LiftTheme.typography.no7 +
-                                            TextStyle(
-                                                textDecoration = TextDecoration.Underline,
-                                                color = LiftTheme.colorScheme.no9,
-                                                textAlign = TextAlign.Center
-                                            ),
-                                    onClick = { {} },
-                                )
-
-                                Spacer(modifier = modifier.padding(8.dp))
-                            }
+                        ClickableText(
+                            text = AnnotatedString("건너뛰기"),
+                            style = LiftTheme.typography.no7 +
+                                    TextStyle(
+                                        textDecoration = TextDecoration.Underline,
+                                        color = LiftTheme.colorScheme.no9,
+                                        textAlign = TextAlign.Center
+                                    ),
+                            onClick = onTopBarSkipButtonClick,
                         )
-                    }
-                )
+
+                        Spacer(modifier = modifier.padding(8.dp))
+                    })
+
             },
         ) { padding ->
             Column(
@@ -122,15 +128,16 @@ internal fun RegisterDetailNameScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 NameTextField(
                     modifier = modifier,
-                    nameText = "",
-                    updateNameText = {},
+                    nameText = nameText.value,
+                    updateNameText = updateNameText,
                     focusManager = focusManager,
-                    nameValidationSupportText = Validator()
+                    nameValidationSupportText = nameValidationSupportText.value
                 )
                 Spacer(modifier = modifier.padding(18.dp))
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
-                    onClick = { },
+                    onClick = onNextButtonClick,
+                    enabled = navigateCondition.value,
                 ) {
                     Text(
                         text = "다음",
@@ -190,12 +197,21 @@ internal fun NameTextField(
 }
 
 
+@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 fun RegisterDetailNameScreenPreview(
     modifier: Modifier = Modifier,
 ) {
     LiftMaterialTheme {
-        RegisterDetailNameScreen(modifier)
+        RegisterDetailNameScreen(
+            modifier = modifier,
+            onTopBarSkipButtonClick = { },
+            nameText = mutableStateOf("name"),
+            updateNameText = { },
+            nameValidationSupportText = mutableStateOf(Validator()),
+            onNextButtonClick = { },
+            navigateCondition = mutableStateOf(true)
+        )
     }
 }

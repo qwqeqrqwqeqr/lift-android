@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.RefreshManager
 import com.gradation.lift.data.utils.toMessage
@@ -14,6 +15,7 @@ import com.gradation.lift.network.common.AuthAPIResult
 import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.datasource.CheckerDataSource
 import com.gradation.lift.network.datasource.WorkDataSource
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -32,7 +34,6 @@ class DefaultCheckerRepository @Inject constructor(
 
 
     }
-
     override  fun checkDuplicateName(name: Name): Flow<DataState<Boolean>> = flow {
         checkerDataSource.checkDuplicateName(name).collect { result ->
             when (result) {
