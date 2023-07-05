@@ -23,7 +23,6 @@ class DefaultUserRepository @Inject constructor(
         userDataSource.getUserDetail(Token(accessToken = userDataStoreDataSource.accessToken.first()))
             .collect { result ->
                 when (result) {
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                     is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
                     AuthAPIResult.Refresh -> emit(refreshManager {
                         userDataSource.getUserDetail(
@@ -41,7 +40,6 @@ class DefaultUserRepository @Inject constructor(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
                 AuthAPIResult.Refresh -> emit(refreshManager {
                     userDataSource.createUserDetail(
@@ -61,7 +59,6 @@ class DefaultUserRepository @Inject constructor(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
                 AuthAPIResult.Refresh -> emit(refreshManager {
                     userDataSource.updateUserDetail(
@@ -79,7 +76,6 @@ class DefaultUserRepository @Inject constructor(
             Token(accessToken = userDataStoreDataSource.accessToken.first())
         ).collect { result ->
             when (result) {
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
                 AuthAPIResult.Refresh -> emit(refreshManager {
                     userDataSource.existUserDetail(Token())

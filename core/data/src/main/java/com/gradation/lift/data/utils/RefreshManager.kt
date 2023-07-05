@@ -28,17 +28,16 @@ class DefaultRefreshManager @Inject constructor(
                     refreshToken = userDataStoreDataSource.refreshToken.first()
                 )).first()) {
                     is AuthAPIResult.Fail -> DataState.Fail(result.message)
-                    is AuthAPIResult.Error -> DataState.Error(result.throwable.toMessage())
                     is AuthAPIResult.Success -> DataState.Success(result.data)
                     is AuthAPIResult.Refresh -> {
                         userDataStoreDataSource.clearAll()
-                        DataState.Error(Throwable().toMessage())
+                        DataState.Fail("토큰 재발급 실패")
                     }
                 }
             }
             RefreshResult.Fail -> {
                 userDataStoreDataSource.clearAll()
-                DataState.Error(Throwable().toMessage())
+                DataState.Fail("토큰 재발급 실패")
             }
         }
     }

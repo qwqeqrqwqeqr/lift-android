@@ -20,8 +20,6 @@ class DefaultWorkRepository @Inject constructor(
         workDataSource.getWorkPart().collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
                     emit(refreshManager { workDataSource.getWorkPart() })
@@ -35,8 +33,6 @@ class DefaultWorkRepository @Inject constructor(
         workDataSource.getWorkCategory().collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-
                 is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                 is AuthAPIResult.Refresh -> {
                     emit(refreshManager { workDataSource.getWorkCategory() })
@@ -50,8 +46,6 @@ class DefaultWorkRepository @Inject constructor(
             workDataSource.getWorkCategoryByWorkPart(workpart).collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
-
                     is AuthAPIResult.Success -> emit(DataState.Success(result.data))
                     is AuthAPIResult.Refresh -> {
                         emit(refreshManager { workDataSource.getWorkCategoryByWorkPart(workpart) })

@@ -20,13 +20,10 @@ class DefaultAuthRepository @Inject constructor(
         authDataSource.signIn(signInInfo).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is DefaultAPIResult.Success -> {
-
                     userDataStoreDataSource.setAccessToken(result.data.accessToken)
                     userDataStoreDataSource.setRefreshToken(result.data.refreshToken)
                     userDataStoreDataSource.setUserId(signInInfo.id)
-
                     emit(DataState.Success(true))
                 }
             }
@@ -37,7 +34,6 @@ class DefaultAuthRepository @Inject constructor(
         authDataSource.signUp(signUpInfo).collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DataState.Error(result.throwable.toMessage()))
                 is DefaultAPIResult.Success -> {
                     emit(DataState.Success(true))
                 }
@@ -57,7 +53,7 @@ class DefaultAuthRepository @Inject constructor(
             userDataStoreDataSource.clearAll()
             emit(DataState.Success(Unit))
         } catch (error: Exception) {
-            emit(DataState.Error(error.toMessage()))
+            emit(DataState.Fail(error.toMessage()))
         }
     }
 }
