@@ -5,6 +5,7 @@ import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.network.common.AuthAPIResult
 import com.gradation.lift.network.common.RefreshResult
+import com.gradation.lift.network.common.toMessage
 import com.gradation.lift.network.service.RefreshService
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

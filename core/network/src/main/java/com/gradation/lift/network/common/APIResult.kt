@@ -2,6 +2,8 @@ package com.gradation.lift.network.common
 
 import com.gradation.lift.network.common.AuthAPIResult.*
 import kotlinx.serialization.Serializable
+import org.jetbrains.annotations.NotNull
+import javax.annotation.Nonnull
 import javax.annotation.Nullable
 
 /**
@@ -24,10 +26,8 @@ data class APIResultWrapper<out T : Any>(
  *  [Refresh] : 토근이 만료 되어 토큰 재요청 상태
  */
 sealed class AuthAPIResult<out T : Any> {
-
     data class Success<out T : Any>(val data: T) : AuthAPIResult<T>()
     data class Fail(val message: String) : AuthAPIResult<Nothing>()
-    data class Error(val throwable: Throwable) : AuthAPIResult<Nothing>()
     object Refresh : AuthAPIResult<Nothing>()
 }
 
@@ -41,7 +41,6 @@ sealed class AuthAPIResult<out T : Any> {
 sealed class DefaultAPIResult<out T : Any>{
     data class Success<out T : Any>(val data: T) : DefaultAPIResult<T>()
     data class Fail(val message: String) : DefaultAPIResult<Nothing>()
-    data class Error(val throwable: Throwable) : DefaultAPIResult<Nothing>()
 }
 
 

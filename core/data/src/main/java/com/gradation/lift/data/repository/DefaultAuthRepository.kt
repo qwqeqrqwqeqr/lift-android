@@ -1,11 +1,10 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.data.utils.toMessage
+import com.gradation.lift.network.common.toMessage
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.domain.repository.AuthRepository
-import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.network.common.DefaultAPIResult

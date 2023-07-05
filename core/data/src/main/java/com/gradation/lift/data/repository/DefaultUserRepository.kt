@@ -2,18 +2,13 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.data.utils.toMessage
+import com.gradation.lift.network.common.toMessage
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.domain.repository.UserRepository
-import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.model.work.WorkCategory
-import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.network.common.AuthAPIResult
-import com.gradation.lift.network.common.DefaultAPIResult
 import com.gradation.lift.network.datasource.UserDataSource
-import com.gradation.lift.network.datasource.WorkDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

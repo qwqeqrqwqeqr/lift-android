@@ -25,7 +25,6 @@ class DefaultRoutineDataSource @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                        is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                         is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                         is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSet()))
                     }
@@ -67,7 +66,6 @@ class DefaultRoutineDataSource @Inject constructor(
             }.collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                     is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                     is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data))
                 }
@@ -86,7 +84,6 @@ class DefaultRoutineDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSet()))
             }
@@ -105,7 +102,6 @@ class DefaultRoutineDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSet()))
             }
@@ -117,7 +113,6 @@ class DefaultRoutineDataSource @Inject constructor(
             .collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                     is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                     is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
                 }
@@ -136,7 +131,6 @@ class DefaultRoutineDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
             }
@@ -155,7 +149,6 @@ class DefaultRoutineDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
             }
@@ -176,7 +169,6 @@ class DefaultRoutineDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
             }
@@ -192,7 +184,6 @@ class DefaultRoutineDataSource @Inject constructor(
             }.collect { result ->
                 when (result) {
                     is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                    is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                     is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                     is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSetRoutine()))
                 }
@@ -211,7 +202,6 @@ class DefaultRoutineDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSetRoutine()))
             }

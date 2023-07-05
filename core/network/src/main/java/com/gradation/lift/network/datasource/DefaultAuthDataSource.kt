@@ -1,7 +1,6 @@
 package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.auth.SignInInfo
-import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.network.common.DefaultAPIResult
@@ -27,8 +26,7 @@ class DefaultAuthDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.throwable))
+                is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(message = result.message,))
                 is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.toToken()))
             }
         }
@@ -45,7 +43,6 @@ class DefaultAuthDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.throwable))
                 is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.result))
             }
         }

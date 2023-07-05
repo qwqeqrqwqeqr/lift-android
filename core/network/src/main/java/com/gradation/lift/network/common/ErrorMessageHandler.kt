@@ -1,4 +1,4 @@
-package com.gradation.lift.data.utils
+package com.gradation.lift.network.common
 
 import retrofit2.HttpException
 import java.io.IOException

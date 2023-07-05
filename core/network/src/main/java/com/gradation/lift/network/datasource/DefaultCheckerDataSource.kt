@@ -1,6 +1,5 @@
 package com.gradation.lift.network.datasource
 
-import android.util.Log
 import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.user.Name
 import com.gradation.lift.network.common.DefaultAPIResult
@@ -9,7 +8,6 @@ import com.gradation.lift.network.service.CheckerService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -25,7 +23,6 @@ class DefaultCheckerDataSource @Inject constructor(
             }.collect { result ->
                 when (result) {
                     is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                    is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.throwable))
                     is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.result))
                 }
             }
@@ -42,7 +39,6 @@ class DefaultCheckerDataSource @Inject constructor(
 
                 when (result) {
                     is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                    is DefaultAPIResult.Error -> emit(DefaultAPIResult.Error(result.throwable))
                     is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.result))
                 }
             }

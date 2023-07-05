@@ -25,7 +25,6 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toUserDetail()))
                 AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
             }
@@ -58,7 +57,6 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
                 AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
             }
@@ -91,7 +89,6 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
                 AuthAPIResult.Refresh ->  emit(AuthAPIResult.Refresh)
             }
@@ -104,7 +101,6 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Error -> emit(AuthAPIResult.Error(result.throwable))
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
                 AuthAPIResult.Refresh ->  emit(AuthAPIResult.Refresh)
             }

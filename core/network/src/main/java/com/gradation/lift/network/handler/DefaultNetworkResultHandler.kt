@@ -7,6 +7,7 @@ import com.gradation.lift.network.common.Constants.INTERNAL_SERVER_ERROR
 import com.gradation.lift.network.common.Constants.NETWORK_RETRY_DELAY
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import com.gradation.lift.network.common.DefaultAPIResult
+import com.gradation.lift.network.common.toMessage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
@@ -31,21 +32,15 @@ class DefaultNetworkResultHandler @Inject constructor(
                     }
                 }
                 .catch { error ->
-                    if (error is HttpException && error.code() == INTERNAL_SERVER_ERROR) {
-                        emit(AuthAPIResult.Error(error))
-                    }
-                }
-                .catch { error ->
                     if(error is HttpException && error.code() == UNAUTHORIZATION){
                         emit(AuthAPIResult.Refresh)
                     }
                 }
                 .catch { error->
                     if(error is SocketTimeoutException){
-                        emit(AuthAPIResult.Error(error))
+                        emit(AuthAPIResult.Fail(message=error.toMessage()))
                     }
                 }
-                .catch { error -> emit(AuthAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
                         emit(AuthAPIResult.Success(data = response.data!!))
@@ -69,17 +64,11 @@ class DefaultNetworkResultHandler @Inject constructor(
                         false
                     }
                 }
-                .catch { error ->
-                    if (error is HttpException && error.code() == INTERNAL_SERVER_ERROR) {
-                        emit(DefaultAPIResult.Error(error))
-                    }
-                }
                 .catch { error->
                     if(error is SocketTimeoutException){
-                        emit(DefaultAPIResult.Error(error))
+                        emit(DefaultAPIResult.Fail(message=error.toMessage()))
                     }
                 }
-                .catch { error -> emit(DefaultAPIResult.Error(error)) }
                 .collect { response ->
                     if (response.status) {
                         emit(DefaultAPIResult.Success(data = response.data!!))
