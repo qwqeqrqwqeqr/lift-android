@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.register_detail.unit_of_weight
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -7,20 +8,28 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftDialog
 import com.gradation.lift.designsystem.component.LiftToggleTextBox
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.component.CompleteDialog
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
 import com.gradation.lift.ui.DevicePreview
 
@@ -42,6 +51,8 @@ fun RegisterDetailUnitOfWeightRoute(
         onUpdateLb = viewModel.updateLb(),
         onCompleteButtonClick = {
         },
+        onCompleteDialogButtonClick={ navController.navigateRegisterDetailToHome()},
+        onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
     )
 }
 
@@ -57,118 +68,133 @@ internal fun RegisterDetailUnitOfWeightScreen(
     onUpdateKg: (Boolean) -> Unit,
     onUpdateLb: (Boolean) -> Unit,
     onCompleteButtonClick: () -> Unit,
+    onCompleteDialogButtonClick: () -> Unit,
+    onVisibleDialog: State<Boolean>
 ) {
+    if(onVisibleDialog.value){
+        Surface(
+            color = LiftTheme.colorScheme.no8,
+            modifier = modifier.fillMaxSize()
+        ){
+            CompleteDialog(onCompleteDialogButtonClick=onCompleteDialogButtonClick)
+        }
+    }else{
+        Surface(
+            color = LiftTheme.colorScheme.no5
+        ) {
+            Scaffold(
+                topBar = {
+                    LiftTopBar(
+                        title = "추가정보 입력",
+                        onBackClick = onTopBarBackClick,
+                        actions = {
+                            ClickableText(
+                                text = AnnotatedString("건너뛰기"),
+                                style = LiftTheme.typography.no7 +
+                                        TextStyle(
+                                            textDecoration = TextDecoration.Underline,
+                                            color = LiftTheme.colorScheme.no9,
+                                            textAlign = TextAlign.Center
+                                        ),
+                                onClick = onTopBarSkipButtonClick,
+                            )
 
-    Surface(
-        color = LiftTheme.colorScheme.no5
-    ) {
-        Scaffold(
-            topBar = {
-                LiftTopBar(
-                    title = "추가정보 입력",
-                    onBackClick = onTopBarBackClick,
-                    actions = {
-                        ClickableText(
-                            text = AnnotatedString("건너뛰기"),
-                            style = LiftTheme.typography.no7 +
-                                    TextStyle(
-                                        textDecoration = TextDecoration.Underline,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center
-                                    ),
-                            onClick = onTopBarSkipButtonClick,
-                        )
-
-                        Spacer(modifier = modifier.padding(8.dp))
-                    }
-                )
-            },
-        ) { padding ->
-            Column(
-                modifier = modifier
-                    .padding(16.dp)
-                    .padding(padding)
-                    .fillMaxSize()
-            ) {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(4) {
-                        NumberCircle(number = it + 1, checked = it + 1 == 4)
-                    }
-
-                }
-                Spacer(modifier = modifier.padding(28.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(
-                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                        ) {
-                            append("단위")
+                            Spacer(modifier = modifier.padding(8.dp))
                         }
-                        append("를 선택해주세요")
-                    },
-                    style = LiftTheme.typography.no1,
-                    color = LiftTheme.colorScheme.no11,
-                )
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(
-                            style = SpanStyle(
-                                fontStyle = LiftTheme.typography.no5.fontStyle,
-                                fontFamily = LiftTheme.typography.no5.fontFamily,
-                                fontWeight = LiftTheme.typography.no5.fontWeight,
-                            ),
-                        ) {
-                            append("미터법 ")
-                        }
-                        append("미터, 킬로그램\n")
-                        withStyle(
-                            style = SpanStyle(
-                                fontStyle = LiftTheme.typography.no5.fontStyle,
-                                fontFamily = LiftTheme.typography.no5.fontFamily,
-                                fontWeight = LiftTheme.typography.no5.fontWeight,
-                            ),
-                        ) {
-                            append("야드법 ")
-                        }
-                        append("피트, 야드, 파운드")
-                    },
-                    style = LiftTheme.typography.no6,
-                )
-                Spacer(modifier = modifier.padding(15.dp))
-                Row {
-                    LiftToggleTextBox(
-                        text = "미터법", checked = kgValue, modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        onCheckedChange = onUpdateKg
                     )
-                    Spacer(modifier = modifier.padding(4.dp))
-                    LiftToggleTextBox(
-                        text = "야드법", checked = lbValue, modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        onCheckedChange = onUpdateLb
-                    )
-                }
-                Spacer(modifier = modifier.padding(18.dp))
-                LiftButton(
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = onCompleteButtonClick,
+                },
+            ) { padding ->
+
+
+
+                Column(
+                    modifier = modifier
+                        .padding(16.dp)
+                        .padding(padding)
+                        .fillMaxSize()
                 ) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
+                        repeat(4) {
+                            NumberCircle(number = it + 1, checked = it + 1 == 4)
+                        }
+
+                    }
+                    Spacer(modifier = modifier.padding(28.dp))
                     Text(
-                        text = "완료",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(color = LiftTheme.colorScheme.no4),
+                            ) {
+                                append("단위")
+                            }
+                            append("를 선택해주세요")
+                        },
+                        style = LiftTheme.typography.no1,
+                        color = LiftTheme.colorScheme.no11,
                     )
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    fontStyle = LiftTheme.typography.no5.fontStyle,
+                                    fontFamily = LiftTheme.typography.no5.fontFamily,
+                                    fontWeight = LiftTheme.typography.no5.fontWeight,
+                                ),
+                            ) {
+                                append("미터법 ")
+                            }
+                            append("미터, 킬로그램\n")
+                            withStyle(
+                                style = SpanStyle(
+                                    fontStyle = LiftTheme.typography.no5.fontStyle,
+                                    fontFamily = LiftTheme.typography.no5.fontFamily,
+                                    fontWeight = LiftTheme.typography.no5.fontWeight,
+                                ),
+                            ) {
+                                append("야드법 ")
+                            }
+                            append("피트, 야드, 파운드")
+                        },
+                        style = LiftTheme.typography.no6,
+                    )
+                    Spacer(modifier = modifier.padding(15.dp))
+                    Row {
+                        LiftToggleTextBox(
+                            text = "미터법", checked = kgValue, modifier = modifier
+                                .fillMaxWidth()
+                                .weight(1f),
+                            onCheckedChange = onUpdateKg
+                        )
+                        Spacer(modifier = modifier.padding(4.dp))
+                        LiftToggleTextBox(
+                            text = "야드법", checked = lbValue, modifier = modifier
+                                .fillMaxWidth()
+                                .weight(1f),
+                            onCheckedChange = onUpdateLb
+                        )
+                    }
+                    Spacer(modifier = modifier.padding(18.dp))
+                    LiftButton(
+                        modifier = modifier.fillMaxWidth(),
+                        onClick = onCompleteButtonClick,
+                    ) {
+                        Text(
+                            text = "완료",
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no5,
+                        )
+                    }
                 }
             }
         }
     }
 
+
 }
 
 
 
+@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 fun RegisterDetailUnitOfWeightScreenPreview(
@@ -184,6 +210,9 @@ fun RegisterDetailUnitOfWeightScreenPreview(
             onUpdateKg = {},
             onUpdateLb = { },
             onCompleteButtonClick = {},
+            onCompleteDialogButtonClick={},
+            onVisibleDialog = mutableStateOf(false)
         )
     }
 }
+
