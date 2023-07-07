@@ -2,7 +2,7 @@ package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.user.UnitOfWeight
+import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.network.common.AuthAPIResult
 import com.gradation.lift.network.handler.NetworkResultHandler

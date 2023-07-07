@@ -1,4 +1,4 @@
-package com.gradation.lift.model.user
+package com.gradation.lift.model.common
 
 sealed class UnitOfWeight{
    data class KG(val value: String = KG_VALUE, val name: String = "킬로") : UnitOfWeight()

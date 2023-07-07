@@ -43,8 +43,8 @@ fun RegisterDetailGenderRoute(
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
         onTopBarBackClick = { navController.popBackStack() },
         nameText = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY),
-        male = viewModel.male,
-        female = viewModel.female,
+        maleValue = viewModel.male,
+        femaleValue = viewModel.female,
         onUpdateMale = viewModel.updateMale(),
         onUpdateFemale = viewModel.updateFemale(),
         onNextButtonClick = {
@@ -62,8 +62,8 @@ internal fun RegisterDetailGenderScreen(
     onTopBarSkipButtonClick: (Int) -> Unit,
     onTopBarBackClick: () -> Unit,
     nameText: String,
-    male: Boolean,
-    female: Boolean,
+    maleValue: Boolean,
+    femaleValue: Boolean,
     onUpdateMale: (Boolean) -> Unit,
     onUpdateFemale: (Boolean) -> Unit,
     onNextButtonClick: () -> Unit,
@@ -123,7 +123,7 @@ internal fun RegisterDetailGenderScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 Row {
                     LiftToggleTextBox(
-                        text = "남자", checked = male,
+                        text = "남자", checked = maleValue,
                         modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
@@ -131,7 +131,7 @@ internal fun RegisterDetailGenderScreen(
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
-                        text = "여자", checked = female, modifier = modifier
+                        text = "여자", checked = femaleValue, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
                         onCheckedChange = onUpdateFemale
@@ -168,8 +168,8 @@ fun RegisterDetailGenderScreenPreview(
             onTopBarSkipButtonClick = {},
             onTopBarBackClick = {},
             nameText = "리프트",
-            male = true,
-            female = false,
+            maleValue = true,
+            femaleValue = false,
             onUpdateMale = {},
             onUpdateFemale = {},
             onNextButtonClick = {}

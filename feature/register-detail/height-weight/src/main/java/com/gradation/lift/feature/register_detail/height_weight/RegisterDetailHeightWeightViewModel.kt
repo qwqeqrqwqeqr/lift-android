@@ -23,7 +23,7 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
     var weightValidationSupportText: StateFlow<Validator> =
         weight.mapLatest {
             it.toFloatOrNull()?.let { value ->
-                if (value in 100f..300f) {
+                if (value in 1f..300f) {
                     Validator(true, "")
                 } else {
                     Validator(false, "정확한 정보를 입력해주세요.")
@@ -38,7 +38,7 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
     var heightValidationSupportText: StateFlow<Validator> =
         height.mapLatest {
             it.toFloatOrNull()?.let { value ->
-                if (value in 100f..300f) {
+                if (value in 1f ..300f) {
                     Validator(true, "")
                 } else {
                     Validator(false, "정확한 정보를 입력해주세요.")

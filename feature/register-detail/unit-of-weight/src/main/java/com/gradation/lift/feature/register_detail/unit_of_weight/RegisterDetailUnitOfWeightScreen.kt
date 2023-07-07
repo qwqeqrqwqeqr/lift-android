@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -22,6 +21,7 @@ import com.gradation.lift.designsystem.component.LiftToggleTextBox
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -33,7 +33,15 @@ fun RegisterDetailUnitOfWeightRoute(
 
 
     RegisterDetailUnitOfWeightScreen(
-        modifier = modifier
+        modifier = modifier,
+        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
+        onTopBarBackClick = { navController.popBackStack() },
+        kgValue = viewModel.kg,
+        lbValue = viewModel.lb,
+        onUpdateKg = viewModel.updateKg(),
+        onUpdateLb = viewModel.updateLb(),
+        onCompleteButtonClick = {
+        },
     )
 }
 
@@ -42,6 +50,13 @@ fun RegisterDetailUnitOfWeightRoute(
 @Composable
 internal fun RegisterDetailUnitOfWeightScreen(
     modifier: Modifier = Modifier,
+    onTopBarSkipButtonClick: (Int) -> Unit,
+    onTopBarBackClick: () -> Unit,
+    kgValue: Boolean,
+    lbValue: Boolean,
+    onUpdateKg: (Boolean) -> Unit,
+    onUpdateLb: (Boolean) -> Unit,
+    onCompleteButtonClick: () -> Unit,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5
@@ -50,7 +65,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
             topBar = {
                 LiftTopBar(
                     title = "추가정보 입력",
-                    onBackClick = { },
+                    onBackClick = onTopBarBackClick,
                     actions = {
                         ClickableText(
                             text = AnnotatedString("건너뛰기"),
@@ -60,7 +75,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
                                         color = LiftTheme.colorScheme.no9,
                                         textAlign = TextAlign.Center
                                     ),
-                            onClick = { {} },
+                            onClick = onTopBarSkipButtonClick,
                         )
 
                         Spacer(modifier = modifier.padding(8.dp))
@@ -121,26 +136,26 @@ internal fun RegisterDetailUnitOfWeightScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 Row {
                     LiftToggleTextBox(
-                        text = "미터법", checked = true, modifier = modifier
+                        text = "미터법", checked = kgValue, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
-                        onCheckedChange = {}
+                        onCheckedChange = onUpdateKg
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
-                        text = "야드법", checked = false, modifier = modifier
+                        text = "야드법", checked = lbValue, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
-                        onCheckedChange = {}
+                        onCheckedChange = onUpdateLb
                     )
                 }
                 Spacer(modifier = modifier.padding(18.dp))
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
-                    onClick = { },
+                    onClick = onCompleteButtonClick,
                 ) {
                     Text(
-                        text = "다음",
+                        text = "완료",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no5,
                     )
@@ -157,6 +172,15 @@ fun RegisterDetailUnitOfWeightScreenPreview(
     modifier: Modifier = Modifier,
 ) {
     LiftMaterialTheme {
-        RegisterDetailUnitOfWeightScreen(modifier)
+        RegisterDetailUnitOfWeightScreen(
+            modifier = modifier,
+            onTopBarSkipButtonClick = { },
+            onTopBarBackClick = { },
+            kgValue = true,
+            lbValue = false,
+            onUpdateKg = {},
+            onUpdateLb = { },
+            onCompleteButtonClick = {},
+        )
     }
 }
