@@ -36,7 +36,7 @@ class RegisterDetailUnitOfWeightViewModel  @Inject constructor(
     }
 
     fun dd(){
-        
+
     }
 
 

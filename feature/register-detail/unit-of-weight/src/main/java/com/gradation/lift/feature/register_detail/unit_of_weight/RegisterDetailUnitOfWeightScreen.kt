@@ -58,6 +58,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
     onUpdateLb: (Boolean) -> Unit,
     onCompleteButtonClick: () -> Unit,
 ) {
+
     Surface(
         color = LiftTheme.colorScheme.no5
     ) {
@@ -163,7 +164,9 @@ internal fun RegisterDetailUnitOfWeightScreen(
             }
         }
     }
+
 }
+
 
 
 @DevicePreview
