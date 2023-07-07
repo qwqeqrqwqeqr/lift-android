@@ -14,6 +14,7 @@ class ImagePlugin  : Plugin<Project> {
 
             dependencies {
                 add("implementation", libs.findLibrary("glide").get())
+                add("implementation", libs.findLibrary("glide-compose").get())
                 add("annotationProcessor", libs.findLibrary("glide-annotation-processor").get())
 
             }

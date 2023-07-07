@@ -27,6 +27,7 @@ firebaseCrashlyticsPlugin = "2.9.2"
 firebasePerfPlugin = "1.4.2"
 gmsPlugin = "4.3.14"
 glide = "4.15.1"
+glide-compose = "1.0.0-alpha.1"
 hilt = "2.44.2"
 jacoco = "0.8.7"
 junit4 = "4.12"
@@ -128,7 +129,9 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 
 #GLIDE
 glide = {group = "com.github.bumptech.glide", name = "glide" , version.ref = "glide"}
+glide-compose = {group = "com.github.bumptech.glide", name = "compose" , version.ref ="glide-compose"}
 glide-annotation-processor = {group = "com.github.bumptech.glide", name = "compiler" , version.ref = "glide"}
+
 
 #HILT
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
