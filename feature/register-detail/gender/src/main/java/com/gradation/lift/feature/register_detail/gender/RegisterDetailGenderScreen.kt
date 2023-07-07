@@ -25,6 +25,7 @@ import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
+import com.gradation.lift.navigation.navigation.navigateToRegisterDetailHeightWeight
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getStringValue
 import com.gradation.lift.ui.DevicePreview
@@ -39,10 +40,16 @@ fun RegisterDetailGenderRoute(
 
     RegisterDetailGenderScreen(
         modifier = modifier,
-        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
+        onTopBarSkipButtonClick = {
+            viewModel.updateKey(navController)
+            navController.navigateToRegisterDetailHeightWeight()
+        },
         onTopBarBackClick = { navController.popBackStack() },
         nameText = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY),
-        gender = viewModel.gender.collectAsState()
+        male = viewModel.male,
+        female = viewModel.female,
+        onUpdateMale = viewModel.updateMale(),
+        onUpdateFemale = viewModel.updateFemale()
     )
 }
 
@@ -54,7 +61,10 @@ internal fun RegisterDetailGenderScreen(
     onTopBarSkipButtonClick: (Int) -> Unit,
     onTopBarBackClick: () -> Unit,
     nameText: String,
-    gender: State<Boolean>,
+    male: Boolean,
+    female: Boolean,
+    onUpdateMale: (Boolean) -> Unit,
+    onUpdateFemale: (Boolean) -> Unit,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5
@@ -110,15 +120,18 @@ internal fun RegisterDetailGenderScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 Row {
                     LiftToggleTextBox(
-                        text = "남자", checked = gender.value, modifier = modifier
+                        text = "남자", checked = male,
+                        modifier = modifier
                             .fillMaxWidth()
-                            .weight(1f)
+                            .weight(1f),
+                        onCheckedChange = onUpdateMale
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
-                        text = "여자", checked = !gender.value, modifier = modifier
+                        text = "여자", checked = female, modifier = modifier
                             .fillMaxWidth()
-                            .weight(1f)
+                            .weight(1f),
+                        onCheckedChange = onUpdateFemale
                     )
                 }
                 Spacer(modifier = modifier.padding(18.dp))
@@ -152,7 +165,10 @@ fun RegisterDetailGenderScreenPreview(
             onTopBarSkipButtonClick = {},
             onTopBarBackClick = {},
             nameText = "리프트",
-            gender = mutableStateOf(true)
+            male = true,
+            female = false,
+            onUpdateMale = {},
+            onUpdateFemale = {}
         )
     }
 }

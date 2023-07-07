@@ -123,13 +123,15 @@ internal fun RegisterDetailUnitOfWeightScreen(
                     LiftToggleTextBox(
                         text = "미터법", checked = true, modifier = modifier
                             .fillMaxWidth()
-                            .weight(1f)
+                            .weight(1f),
+                        onCheckedChange = {}
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
                         text = "야드법", checked = false, modifier = modifier
                             .fillMaxWidth()
-                            .weight(1f)
+                            .weight(1f),
+                        onCheckedChange = {}
                     )
                 }
                 Spacer(modifier = modifier.padding(18.dp))
