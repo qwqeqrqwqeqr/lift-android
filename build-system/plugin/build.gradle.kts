@@ -46,6 +46,10 @@ gradlePlugin {
             id = property("HILT_PLUGIN_ID").toString()
             implementationClass = property("HILT_PLUGIN_IMPL_CLASS").toString()
         }
+        register(property("IMAGE_PLUGIN_ID").toString()) {
+            id = property("IMAGE_PLUGIN_ID").toString()
+            implementationClass = property("IMAGE_PLUGIN_IMPL_CLASS").toString()
+        }
         register(property("JACOCO_PLUGIN_ID").toString()) {
             id = property("JACOCO_PLUGIN_ID").toString()
             implementationClass = property("JACOCO_PLUGIN_IMPL_CLASS").toString()
