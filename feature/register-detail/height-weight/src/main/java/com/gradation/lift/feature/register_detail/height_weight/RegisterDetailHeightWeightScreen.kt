@@ -34,7 +34,6 @@ import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
-import com.gradation.lift.navigation.navigation.navigateToRegisterDetailHeightWeight
 import com.gradation.lift.navigation.navigation.navigateToRegisterDetailUnitOfWeight
 import com.gradation.lift.ui.DevicePreview
 
