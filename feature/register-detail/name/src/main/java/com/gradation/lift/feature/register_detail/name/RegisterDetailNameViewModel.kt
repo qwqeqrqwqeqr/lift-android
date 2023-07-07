@@ -45,7 +45,7 @@ class RegisterDetailNameViewModel @Inject constructor(
     var navigateCondition : StateFlow<Boolean> =  nameValidationSupportText.mapLatest { it.status }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = true
+        initialValue = false
     )
 
     internal fun updateName(): (String) -> Unit = { it ->

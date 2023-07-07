@@ -40,16 +40,17 @@ fun RegisterDetailGenderRoute(
 
     RegisterDetailGenderScreen(
         modifier = modifier,
-        onTopBarSkipButtonClick = {
-            viewModel.updateKey(navController)
-            navController.navigateToRegisterDetailHeightWeight()
-        },
+        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
         onTopBarBackClick = { navController.popBackStack() },
         nameText = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY),
         male = viewModel.male,
         female = viewModel.female,
         onUpdateMale = viewModel.updateMale(),
-        onUpdateFemale = viewModel.updateFemale()
+        onUpdateFemale = viewModel.updateFemale(),
+        onNextButtonClick = {
+            viewModel.updateKey(navController)
+            navController.navigateToRegisterDetailHeightWeight()
+        },
     )
 }
 
@@ -65,7 +66,9 @@ internal fun RegisterDetailGenderScreen(
     female: Boolean,
     onUpdateMale: (Boolean) -> Unit,
     onUpdateFemale: (Boolean) -> Unit,
-) {
+    onNextButtonClick: () -> Unit,
+
+    ) {
     Surface(
         color = LiftTheme.colorScheme.no5
     ) {
@@ -137,7 +140,7 @@ internal fun RegisterDetailGenderScreen(
                 Spacer(modifier = modifier.padding(18.dp))
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
-                    onClick = { },
+                    onClick = onNextButtonClick,
                 ) {
                     Text(
                         text = "다음",
@@ -168,7 +171,8 @@ fun RegisterDetailGenderScreenPreview(
             male = true,
             female = false,
             onUpdateMale = {},
-            onUpdateFemale = {}
+            onUpdateFemale = {},
+            onNextButtonClick = {}
         )
     }
 }

@@ -178,7 +178,7 @@ internal fun NameTextField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
+            keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
         ),
         keyboardActions = KeyboardActions(
             onNext = {

@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.register_detail.height_weight
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -9,6 +10,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -21,15 +24,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftNotIconTopBar
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
+import com.gradation.lift.navigation.navigation.navigateToRegisterDetailHeightWeight
+import com.gradation.lift.navigation.navigation.navigateToRegisterDetailUnitOfWeight
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -38,10 +44,21 @@ fun RegisterHeightWeightNameRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailHeightWeightViewModel = hiltViewModel(),
 ) {
-
-
     RegisterDetailHeightWeightScreen(
-        modifier = modifier
+        modifier = modifier,
+        onTopBarBackClick = { navController.popBackStack() },
+        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
+        onNextButtonClick = {
+            viewModel.updateKey(navController)
+            navController.navigateToRegisterDetailUnitOfWeight()
+        },
+        weightText = viewModel.weight.collectAsStateWithLifecycle(),
+        updateWeightText = viewModel.updateWeight(),
+        heightText = viewModel.height.collectAsStateWithLifecycle(),
+        updateHeightText = viewModel.updateHeight(),
+        heightValidationSupportText = viewModel.heightValidationSupportText.collectAsStateWithLifecycle(),
+        weightValidationSupportText = viewModel.weightValidationSupportText.collectAsStateWithLifecycle(),
+        navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
     )
 }
 
@@ -50,6 +67,16 @@ fun RegisterHeightWeightNameRoute(
 @Composable
 internal fun RegisterDetailHeightWeightScreen(
     modifier: Modifier = Modifier,
+    onTopBarBackClick: () -> Unit,
+    onTopBarSkipButtonClick: (Int) -> Unit,
+    onNextButtonClick: () -> Unit,
+    weightText: State<String>,
+    updateWeightText: (String) -> Unit,
+    heightText: State<String>,
+    updateHeightText: (String) -> Unit,
+    heightValidationSupportText: State<Validator>,
+    weightValidationSupportText: State<Validator>,
+    navigateCondition: State<Boolean>,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5
@@ -57,26 +84,21 @@ internal fun RegisterDetailHeightWeightScreen(
         Scaffold(
             topBar = {
                 LiftTopBar(
-                    title = "회원가입",
-                    onBackClick = { },
+                    title = "추가정보 입력",
+                    onBackClick = onTopBarBackClick,
                     actions = {
-                        LiftNotIconTopBar(
-                            title = "추가정보 입력",
-                            actions = {
-                                ClickableText(
-                                    text = AnnotatedString("건너뛰기"),
-                                    style = LiftTheme.typography.no7 +
-                                            TextStyle(
-                                                textDecoration = TextDecoration.Underline,
-                                                color = LiftTheme.colorScheme.no9,
-                                                textAlign = TextAlign.Center
-                                            ),
-                                    onClick = { {} },
-                                )
-
-                                Spacer(modifier = modifier.padding(8.dp))
-                            }
+                        ClickableText(
+                            text = AnnotatedString("건너뛰기"),
+                            style = LiftTheme.typography.no7 +
+                                    TextStyle(
+                                        textDecoration = TextDecoration.Underline,
+                                        color = LiftTheme.colorScheme.no9,
+                                        textAlign = TextAlign.Center
+                                    ),
+                            onClick = onTopBarSkipButtonClick,
                         )
+
+                        Spacer(modifier = modifier.padding(8.dp))
                     }
                 )
             },
@@ -115,23 +137,23 @@ internal fun RegisterDetailHeightWeightScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 HeightTextField(
                     modifier = modifier,
-                    nameText = "",
-                    updateNameText = {},
+                    heightText = heightText,
+                    updateHeightText = updateHeightText,
                     focusManager = focusManager,
-                    nameValidationSupportText = Validator()
+                    heightValidationSupportText = heightValidationSupportText.value
                 )
                 Spacer(modifier = modifier.padding(9.dp))
                 WeightTextField(
                     modifier = modifier,
-                    nameText = "",
-                    updateNameText = {},
-                    focusManager = focusManager,
-                    nameValidationSupportText = Validator()
+                    weightText = weightText,
+                    updateWeightText = updateWeightText,
+                    weightValidationSupportText = weightValidationSupportText.value
                 )
                 Spacer(modifier = modifier.padding(18.dp))
                 LiftButton(
+                    enabled = navigateCondition.value,
                     modifier = modifier.fillMaxWidth(),
-                    onClick = { },
+                    onClick = onNextButtonClick,
                 ) {
                     Text(
                         text = "다음",
@@ -150,10 +172,10 @@ internal fun RegisterDetailHeightWeightScreen(
 @Composable
 internal fun HeightTextField(
     modifier: Modifier = Modifier,
-    nameText: String,
-    updateNameText: (String) -> Unit,
+    heightText: State<String>,
+    updateHeightText: (String) -> Unit,
     focusManager: FocusManager,
-    nameValidationSupportText: Validator,
+    heightValidationSupportText: Validator,
 ) {
     Text(
         text = "키",
@@ -162,8 +184,8 @@ internal fun HeightTextField(
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
-        value = nameText,
-        onValueChange = updateNameText,
+        value = heightText.value,
+        onValueChange = updateHeightText,
         modifier = modifier.fillMaxWidth(),
         placeholder = {
             Text(
@@ -173,7 +195,7 @@ internal fun HeightTextField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
+            keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
         ),
         keyboardActions = KeyboardActions(
             onNext = {
@@ -182,15 +204,15 @@ internal fun HeightTextField(
         ),
         trailingIcon = {
             Text(
-                text="cm",
-                style=LiftTheme.typography.no5,
-                color=LiftTheme.colorScheme.no9
+                text = "cm",
+                style = LiftTheme.typography.no5,
+                color = LiftTheme.colorScheme.no9
             )
         }
     )
-    if (!nameValidationSupportText.status) {
+    if (!heightValidationSupportText.status) {
         Text(
-            text = nameValidationSupportText.message,
+            text = heightValidationSupportText.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )
@@ -200,10 +222,9 @@ internal fun HeightTextField(
 @Composable
 internal fun WeightTextField(
     modifier: Modifier = Modifier,
-    nameText: String,
-    updateNameText: (String) -> Unit,
-    focusManager: FocusManager,
-    nameValidationSupportText: Validator,
+    weightText: State<String>,
+    updateWeightText: (String) -> Unit,
+    weightValidationSupportText: Validator,
 ) {
     Text(
         text = "몸무게",
@@ -212,8 +233,8 @@ internal fun WeightTextField(
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
-        value = nameText,
-        onValueChange = updateNameText,
+        value = weightText.value,
+        onValueChange = updateWeightText,
         modifier = modifier.fillMaxWidth(),
         placeholder = {
             Text(
@@ -223,36 +244,47 @@ internal fun WeightTextField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
+            keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(
-            onNext = {
-                focusManager.moveFocus(FocusDirection.Down)
-            },
+
         ),
         trailingIcon = {
             Text(
-                text="kg",
-                style=LiftTheme.typography.no5,
-                color=LiftTheme.colorScheme.no9
+                text = "kg",
+                style = LiftTheme.typography.no5,
+                color = LiftTheme.colorScheme.no9
             )
         }
     )
-    if (!nameValidationSupportText.status) {
+    if (!weightValidationSupportText.status) {
         Text(
-            text = nameValidationSupportText.message,
+            text = weightValidationSupportText.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 fun RegisterDetailHeightWeightScreenPreview(
     modifier: Modifier = Modifier,
 ) {
     LiftMaterialTheme {
-        RegisterDetailHeightWeightScreen(modifier)
+        RegisterDetailHeightWeightScreen(
+            modifier = modifier,
+            onTopBarBackClick = {},
+            onTopBarSkipButtonClick = {},
+            onNextButtonClick = {},
+            weightText = mutableStateOf(""),
+            heightText = mutableStateOf(""),
+            updateHeightText = {},
+            updateWeightText = {},
+            weightValidationSupportText = mutableStateOf(Validator()),
+            heightValidationSupportText = mutableStateOf(Validator()),
+            navigateCondition = mutableStateOf(true),
+        )
     }
 }
