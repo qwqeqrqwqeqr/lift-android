@@ -1,4 +1,3 @@
-@file:OptIn(FlowPreview::class)
 
 package com.gradation.lift.feature.register_detail.name
 
@@ -41,7 +40,7 @@ import com.gradation.lift.ui.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @Composable
 fun RegisterDetailNameRoute(
     navController: NavController,

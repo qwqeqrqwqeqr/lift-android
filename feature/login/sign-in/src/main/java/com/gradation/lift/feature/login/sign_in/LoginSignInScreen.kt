@@ -46,7 +46,7 @@ fun LoginSignInRoute(
         autoLoginChecked = viewModel.autoLoginChecked,
         onChangeAutoLoginChecked = { viewModel.onChangeAutoLoginChecked() },
         passwordVisible = viewModel.passwordVisible,
-        onChangePasswordVisible = { viewModel.onChangePasswordVisible() },
+        onChangePasswordVisible =  viewModel.onChangePasswordVisible() ,
         passwordVisualTransformation = viewModel.passwordVisualTransformation,
         clearPassword = viewModel.clearPassword()
     )

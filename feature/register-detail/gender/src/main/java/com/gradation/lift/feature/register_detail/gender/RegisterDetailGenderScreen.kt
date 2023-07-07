@@ -1,38 +1,32 @@
 package com.gradation.lift.feature.register_detail.gender
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.*
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
-import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.getStringValue
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -47,6 +41,8 @@ fun RegisterDetailGenderRoute(
         modifier = modifier,
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
         onTopBarBackClick = { navController.popBackStack() },
+        nameText = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY),
+        gender = viewModel.gender.collectAsState()
     )
 }
 
@@ -56,7 +52,9 @@ fun RegisterDetailGenderRoute(
 internal fun RegisterDetailGenderScreen(
     modifier: Modifier = Modifier,
     onTopBarSkipButtonClick: (Int) -> Unit,
-    onTopBarBackClick: () -> Unit
+    onTopBarBackClick: () -> Unit,
+    nameText: String,
+    gender: State<Boolean>,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5
@@ -89,7 +87,6 @@ internal fun RegisterDetailGenderScreen(
                     .padding(padding)
                     .fillMaxSize()
             ) {
-                val focusManager = LocalFocusManager.current
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
                     repeat(4) {
                         NumberCircle(number = it + 1, checked = it + 1 == 2)
@@ -99,7 +96,7 @@ internal fun RegisterDetailGenderScreen(
                 Spacer(modifier = modifier.padding(28.dp))
                 Text(
                     text = buildAnnotatedString {
-                        append("님의 ")
+                        append("${nameText}님의 ")
                         withStyle(
                             style = SpanStyle(color = LiftTheme.colorScheme.no4),
                         ) {
@@ -113,13 +110,13 @@ internal fun RegisterDetailGenderScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 Row {
                     LiftToggleTextBox(
-                        text = "남자", checked = true, modifier = modifier
+                        text = "남자", checked = gender.value, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f)
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
-                        text = "여자", checked = false, modifier = modifier
+                        text = "여자", checked = !gender.value, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f)
                     )
@@ -152,8 +149,10 @@ fun RegisterDetailGenderScreenPreview(
     LiftMaterialTheme {
         RegisterDetailGenderScreen(
             modifier = modifier,
+            onTopBarSkipButtonClick = {},
             onTopBarBackClick = {},
-            onTopBarSkipButtonClick = {}
+            nameText = "리프트",
+            gender = mutableStateOf(true)
         )
     }
 }
