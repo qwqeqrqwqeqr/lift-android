@@ -3,7 +3,6 @@ plugins {
     id("lift.android.compose.library")
     id("lift.android.kotlin")
     id("lift.android.test")
-    id("lift.android.image")
 }
 
 android {
