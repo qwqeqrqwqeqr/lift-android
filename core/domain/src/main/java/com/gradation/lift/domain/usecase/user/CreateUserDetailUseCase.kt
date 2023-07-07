@@ -11,7 +11,7 @@ import com.gradation.lift.model.user.UserDetail
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CreateUserDetailUseCase@Inject constructor(
+class CreateUserDetailUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
     operator fun invoke(userDetail: UserDetail): Flow<DataState<Boolean>> =

@@ -20,7 +20,7 @@ class DefaultRefreshManager @Inject constructor(
 ) : RefreshManager {
     override suspend operator fun <T : Any> invoke(call: suspend (Token) -> Flow<AuthAPIResult<T>>): DataState<T> {
         return when (val refresh =
-            refreshService.refresh(refreshToken = userDataStoreDataSource.refreshToken.first())) {
+            refreshService.refresh(authorization = userDataStoreDataSource.refreshToken.first())) {
             is RefreshResult.Success -> {
                 userDataStoreDataSource.setAccessToken(refresh.accessToken)
                 when (val result = call.invoke(Token(

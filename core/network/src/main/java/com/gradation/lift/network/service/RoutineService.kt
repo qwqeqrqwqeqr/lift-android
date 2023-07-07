@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import kotlinx.datetime.LocalDate
+import retrofit2.http.Body
 
 interface RoutineService {
 
@@ -14,7 +15,7 @@ interface RoutineService {
     suspend fun getRoutineSet(@Query("user_id") userId: String): APIResultWrapper<GetRoutineSetResponseDto>
 
     @POST("routine/routine-set/")
-    suspend fun createRoutineSet(createRoutineSetRequestDto: CreateRoutineSetRequestDto): APIResultWrapper<Boolean>
+    suspend fun createRoutineSet(@Body createRoutineSetRequestDto: CreateRoutineSetRequestDto): APIResultWrapper<Boolean>
 
     @GET("routine/routine-set-by-date/")
     suspend fun getRoutineSetByDate(

@@ -7,20 +7,18 @@ import retrofit2.http.*
 interface UserService {
 
     @GET("user/user-detail/")
-    suspend fun getUserDetail(@Header("Authorization") accessToken: String): APIResultWrapper<GetUserDetailResponseDto>
+    suspend fun getUserDetail(): APIResultWrapper<GetUserDetailResponseDto>
 
     @POST("user/user-detail/")
     suspend fun createUserDetail(
-        @Header("Authorization") accessToken: String,
-        createUserDetailRequestDto: CreateUserDetailRequestDto,
+        @Body createUserDetailRequestDto: CreateUserDetailRequestDto,
     ): APIResultWrapper<CreateUserDetailResponseDto>
 
     @PUT("user/user-detail/")
     suspend fun updateUserDetail(
-        @Header("Authorization") accessToken: String,
-        updateUserDetailRequestDto: UpdateUserDetailRequestDto,
+        @Body updateUserDetailRequestDto: UpdateUserDetailRequestDto,
     ): APIResultWrapper<UpdateUserDetailResponseDto>
 
     @GET("user/exist-user-detail/")
-    suspend fun existUserDetail(@Header("Authorization") accessToken: String): APIResultWrapper<ExistUserDetailResponseDto>
+    suspend fun existUserDetail(): APIResultWrapper<ExistUserDetailResponseDto>
 }

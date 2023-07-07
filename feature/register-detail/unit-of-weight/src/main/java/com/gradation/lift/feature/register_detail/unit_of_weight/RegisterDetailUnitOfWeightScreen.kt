@@ -39,8 +39,6 @@ fun RegisterDetailUnitOfWeightRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailUnitOfWeightViewModel = hiltViewModel(),
 ) {
-
-
     RegisterDetailUnitOfWeightScreen(
         modifier = modifier,
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
@@ -49,8 +47,7 @@ fun RegisterDetailUnitOfWeightRoute(
         lbValue = viewModel.lb,
         onUpdateKg = viewModel.updateKg(),
         onUpdateLb = viewModel.updateLb(),
-        onCompleteButtonClick = {
-        },
+        onCompleteButtonClick = {viewModel.createUserDetail(navController)},
         onCompleteDialogButtonClick={ navController.navigateRegisterDetailToHome()},
         onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
     )

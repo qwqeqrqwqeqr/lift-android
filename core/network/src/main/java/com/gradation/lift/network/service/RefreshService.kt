@@ -9,6 +9,6 @@ import retrofit2.http.Header
 interface RefreshService {
     @GET("auth/refresh/")
     suspend fun refresh(
-        @Header("Authorization") refreshToken: String,
+        @Header("Authorization") authorization: String,
     ): RefreshResult<RefreshResponseDto>
 }

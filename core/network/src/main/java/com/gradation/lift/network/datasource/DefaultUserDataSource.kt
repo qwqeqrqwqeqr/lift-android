@@ -19,9 +19,9 @@ class DefaultUserDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : UserDataSource {
 
-    override suspend fun getUserDetail(token: Token): Flow<AuthAPIResult<UserDetail>> = flow{
+    override suspend fun getUserDetail(token: Token): Flow<AuthAPIResult<UserDetail>> = flow {
         networkResultHandler.executeAuth {
-            userService.getUserDetail(accessToken = token.accessToken)
+            userService.getUserDetail()
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
@@ -37,7 +37,6 @@ class DefaultUserDataSource @Inject constructor(
     ): Flow<AuthAPIResult<Boolean>> = flow {
         networkResultHandler.executeAuth {
             userService.createUserDetail(
-                accessToken = token.accessToken,
                 createUserDetailRequestDto = CreateUserDetailRequestDto(
                     userDetailDto = UserDetailDto(
                         name = userDetail.name,
@@ -69,7 +68,6 @@ class DefaultUserDataSource @Inject constructor(
     ): Flow<AuthAPIResult<Boolean>> = flow {
         networkResultHandler.executeAuth {
             userService.updateUserDetail(
-                accessToken = token.accessToken,
                 updateUserDetailRequestDto = UpdateUserDetailRequestDto(
                     userDetailDto = UserDetailDto(
                         name = userDetail.name,
@@ -90,19 +88,19 @@ class DefaultUserDataSource @Inject constructor(
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
-                AuthAPIResult.Refresh ->  emit(AuthAPIResult.Refresh)
+                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
             }
         }
     }
 
     override suspend fun existUserDetail(token: Token): Flow<AuthAPIResult<Boolean>> = flow {
         networkResultHandler.executeAuth {
-            userService.existUserDetail(accessToken = token.accessToken)
+            userService.existUserDetail()
         }.collect { result ->
             when (result) {
                 is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
                 is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
-                AuthAPIResult.Refresh ->  emit(AuthAPIResult.Refresh)
+                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
             }
         }
     }
