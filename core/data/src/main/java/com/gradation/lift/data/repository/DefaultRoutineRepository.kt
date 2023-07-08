@@ -27,9 +27,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager { routineDataSource.getRoutineSet(userId = "201713721") })
-                }
             }
         }
     }
@@ -40,13 +37,6 @@ class DefaultRoutineRepository @Inject constructor(
                 when (result) {
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
                     is APIResult.Success -> emit(DataState.Success(result.data))
-                    is APIResult.Refresh -> {
-                        emit(refreshManager {
-                            routineDataSource.createRoutineSet(
-                                createRoutineSetRoutine
-                            )
-                        })
-                    }
                 }
             }
         }
@@ -58,13 +48,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager {
-                        routineDataSource.getRoutineSetByDate(
-                            userId = "201713721", date = date
-                        )
-                    })
-                }
             }
         }
     }
@@ -78,13 +61,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager {
-                        routineDataSource.getRoutineSetByRoutineSetId(
-                            userId = "201713721", routineSetId = routineSetId
-                        )
-                    })
-                }
             }
         }
     }
@@ -94,9 +70,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager { routineDataSource.getRoutine(userId = "201713721") })
-                }
             }
         }
     }
@@ -106,13 +79,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager {
-                        routineDataSource.getRoutineByDate(
-                            userId = "201713721", date = date
-                        )
-                    })
-                }
             }
         }
     }
@@ -126,13 +92,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager {
-                        routineDataSource.getRoutineByRoutineSetId(
-                            userId = "201713721", routineSetId = routineSetId
-                        )
-                    })
-                }
             }
         }
     }
@@ -147,13 +106,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager {
-                        routineDataSource.getRoutineByDateAndRoutineSetId(
-                            userId = "201713721", date = date, routineSetId = routineSetId
-                        )
-                    })
-                }
             }
         }
     }
@@ -163,9 +115,6 @@ class DefaultRoutineRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager { routineDataSource.getRoutineSetRoutine(userId = "201713721") })
-                }
             }
         }
     }
@@ -178,13 +127,6 @@ class DefaultRoutineRepository @Inject constructor(
                         is APIResult.Fail -> emit(DataState.Fail(result.message))
                         is APIResult.Success -> {
                             emit(DataState.Success(result.data))
-                        }
-                        is APIResult.Refresh -> {
-                            emit(refreshManager {
-                                routineDataSource.getRoutineSetRoutineByDate(
-                                    userId = "201713721", date = date
-                                )
-                            })
                         }
 
                     }

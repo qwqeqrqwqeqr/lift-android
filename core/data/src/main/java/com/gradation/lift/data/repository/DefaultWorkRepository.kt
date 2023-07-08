@@ -21,9 +21,6 @@ class DefaultWorkRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager { workDataSource.getWorkPart() })
-                }
             }
         }
     }
@@ -34,9 +31,6 @@ class DefaultWorkRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> emit(DataState.Success(result.data))
-                is APIResult.Refresh -> {
-                    emit(refreshManager { workDataSource.getWorkCategory() })
-                }
             }
         }
     }
@@ -47,9 +41,6 @@ class DefaultWorkRepository @Inject constructor(
                 when (result) {
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
                     is APIResult.Success -> emit(DataState.Success(result.data))
-                    is APIResult.Refresh -> {
-                        emit(refreshManager { workDataSource.getWorkCategoryByWorkPart(workpart) })
-                    }
                 }
             }
         }

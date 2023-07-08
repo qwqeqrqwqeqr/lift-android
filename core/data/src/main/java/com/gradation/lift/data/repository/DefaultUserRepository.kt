@@ -24,11 +24,6 @@ class DefaultUserRepository @Inject constructor(
             .collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
-                    APIResult.Refresh -> emit(refreshManager {
-                        userDataSource.getUserDetail(
-                            Token()
-                        )
-                    })
                     is APIResult.Success -> emit(DataState.Success(result.data))
                 }
             }
@@ -41,11 +36,6 @@ class DefaultUserRepository @Inject constructor(
         ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
-                APIResult.Refresh -> emit(refreshManager {
-                    userDataSource.createUserDetail(
-                        Token(), userDetail = userDetail
-                    )
-                })
                 is APIResult.Success -> emit(DataState.Success(result.data))
             }
         }
@@ -60,11 +50,6 @@ class DefaultUserRepository @Inject constructor(
         ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
-                APIResult.Refresh -> emit(refreshManager {
-                    userDataSource.updateUserDetail(
-                        Token(), userDetail = userDetail
-                    )
-                })
                 is APIResult.Success -> emit(DataState.Success(result.data))
             }
         }
@@ -77,9 +62,6 @@ class DefaultUserRepository @Inject constructor(
         ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
-                APIResult.Refresh -> emit(refreshManager {
-                    userDataSource.existUserDetail(Token())
-                })
                 is APIResult.Success -> emit(DataState.Success(result.data))
             }
         }
