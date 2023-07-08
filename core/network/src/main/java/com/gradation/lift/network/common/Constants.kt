@@ -8,7 +8,7 @@ object Constants {
     const val NETWORK_RETRY_DELAY = 1000L
     const val BASE_URL = BuildConfig.LIFT_API_URL
 
-    const val BEARER = "BEARER "
+    const val BEARER = "Bearer "
 
     const val OK = 200
     const val BAD_REQUEST = 400

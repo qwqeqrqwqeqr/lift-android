@@ -25,7 +25,6 @@ class DefaultNetworkResultHandler @Inject constructor(
         flow {
             flowOf(call.invoke())
                 .flowOn(dispatcherProvider.io)
-
                 .catch { error ->
                     if (error is HttpException && error.code() == FORBIDDEN) {
                         emit(AuthAPIResult.Fail(message = error.toMessage()))
