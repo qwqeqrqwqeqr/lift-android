@@ -7,7 +7,7 @@ import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.network.common.AuthAPIResult
+import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.UserDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -23,13 +23,13 @@ class DefaultUserRepository @Inject constructor(
         userDataSource.getUserDetail(Token(accessToken = userDataStoreDataSource.accessToken.first()))
             .collect { result ->
                 when (result) {
-                    is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                    AuthAPIResult.Refresh -> emit(refreshManager {
+                    is APIResult.Fail -> emit(DataState.Fail(result.message))
+                    APIResult.Refresh -> emit(refreshManager {
                         userDataSource.getUserDetail(
                             Token()
                         )
                     })
-                    is AuthAPIResult.Success -> emit(DataState.Success(result.data))
+                    is APIResult.Success -> emit(DataState.Success(result.data))
                 }
             }
     }
@@ -40,13 +40,13 @@ class DefaultUserRepository @Inject constructor(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                AuthAPIResult.Refresh -> emit(refreshManager {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                APIResult.Refresh -> emit(refreshManager {
                     userDataSource.createUserDetail(
                         Token(), userDetail = userDetail
                     )
                 })
-                is AuthAPIResult.Success -> emit(DataState.Success(result.data))
+                is APIResult.Success -> emit(DataState.Success(result.data))
             }
         }
 
@@ -59,13 +59,13 @@ class DefaultUserRepository @Inject constructor(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                AuthAPIResult.Refresh -> emit(refreshManager {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                APIResult.Refresh -> emit(refreshManager {
                     userDataSource.updateUserDetail(
                         Token(), userDetail = userDetail
                     )
                 })
-                is AuthAPIResult.Success -> emit(DataState.Success(result.data))
+                is APIResult.Success -> emit(DataState.Success(result.data))
             }
         }
 
@@ -76,11 +76,11 @@ class DefaultUserRepository @Inject constructor(
             Token(accessToken = userDataStoreDataSource.accessToken.first())
         ).collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(DataState.Fail(result.message))
-                AuthAPIResult.Refresh -> emit(refreshManager {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                APIResult.Refresh -> emit(refreshManager {
                     userDataSource.existUserDetail(Token())
                 })
-                is AuthAPIResult.Success -> emit(DataState.Success(result.data))
+                is APIResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }

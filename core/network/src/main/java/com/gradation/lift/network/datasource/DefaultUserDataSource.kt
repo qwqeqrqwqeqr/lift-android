@@ -4,7 +4,7 @@ import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.network.common.AuthAPIResult
+import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
@@ -19,14 +19,13 @@ class DefaultUserDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : UserDataSource {
 
-    override suspend fun getUserDetail(token: Token): Flow<AuthAPIResult<UserDetail>> = flow {
-        networkResultHandler.executeAuth {
+    override suspend fun getUserDetail(token: Token): Flow<APIResult<UserDetail>> = flow {
+        networkResultHandler {
             userService.getUserDetail()
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toUserDetail()))
-                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toUserDetail()))
             }
         }
     }
@@ -34,8 +33,8 @@ class DefaultUserDataSource @Inject constructor(
     override suspend fun createUserDetail(
         token: Token,
         userDetail: UserDetail,
-    ): Flow<AuthAPIResult<Boolean>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<Boolean>> = flow {
+        networkResultHandler {
             userService.createUserDetail(
                 createUserDetailRequestDto = CreateUserDetailRequestDto(
                     userDetailDto = UserDetailDto(
@@ -55,9 +54,8 @@ class DefaultUserDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
-                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is APIResult.Success -> emit(APIResult.Success(result.data.result))
             }
         }
     }
@@ -65,8 +63,8 @@ class DefaultUserDataSource @Inject constructor(
     override suspend fun updateUserDetail(
         token: Token,
         userDetail: UserDetail,
-    ): Flow<AuthAPIResult<Boolean>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<Boolean>> = flow {
+        networkResultHandler {
             userService.updateUserDetail(
                 updateUserDetailRequestDto = UpdateUserDetailRequestDto(
                     userDetailDto = UserDetailDto(
@@ -86,21 +84,19 @@ class DefaultUserDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
-                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is APIResult.Success -> emit(APIResult.Success(result.data.result))
             }
         }
     }
 
-    override suspend fun existUserDetail(token: Token): Flow<AuthAPIResult<Boolean>> = flow {
-        networkResultHandler.executeAuth {
+    override suspend fun existUserDetail(token: Token): Flow<APIResult<Boolean>> = flow {
+        networkResultHandler {
             userService.existUserDetail()
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.result))
-                AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is APIResult.Success -> emit(APIResult.Success(result.data.result))
             }
         }
     }

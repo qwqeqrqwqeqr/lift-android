@@ -4,12 +4,11 @@ import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.user.Name
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
-import com.gradation.lift.network.common.AuthAPIResult
-import com.gradation.lift.network.common.DefaultAPIResult
+import com.gradation.lift.network.common.APIResult
 import kotlinx.coroutines.flow.Flow
 
 interface CheckerDataSource {
-    suspend fun checkDuplicateEmail(email: Email): Flow<DefaultAPIResult<Boolean>>
+    suspend fun checkDuplicateEmail(email: Email): Flow<APIResult<Boolean>>
 
-    suspend fun checkDuplicateName(name: Name): Flow<DefaultAPIResult<Boolean>>
+    suspend fun checkDuplicateName(name: Name): Flow<APIResult<Boolean>>
 }

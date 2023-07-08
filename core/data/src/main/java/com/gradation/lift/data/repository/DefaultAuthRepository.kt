@@ -7,7 +7,7 @@ import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
-import com.gradation.lift.network.common.DefaultAPIResult
+import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -19,8 +19,8 @@ class DefaultAuthRepository @Inject constructor(
     override fun signIn(signInInfo: SignInInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signIn(signInInfo).collect { result ->
             when (result) {
-                is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Success -> {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Success -> {
                     userDataStoreDataSource.setAccessToken(result.data.accessToken)
                     userDataStoreDataSource.setRefreshToken(result.data.refreshToken)
                     userDataStoreDataSource.setUserId(signInInfo.id)
@@ -33,8 +33,8 @@ class DefaultAuthRepository @Inject constructor(
     override fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signUp(signUpInfo).collect { result ->
             when (result) {
-                is DefaultAPIResult.Fail -> emit(DataState.Fail(result.message))
-                is DefaultAPIResult.Success -> {
+                is APIResult.Fail -> emit(DataState.Fail(result.message))
+                is APIResult.Success -> {
                     emit(DataState.Success(true))
                 }
             }

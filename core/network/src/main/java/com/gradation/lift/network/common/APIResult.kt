@@ -1,10 +1,6 @@
 package com.gradation.lift.network.common
 
-import com.gradation.lift.network.common.AuthAPIResult.*
 import kotlinx.serialization.Serializable
-import org.jetbrains.annotations.NotNull
-import javax.annotation.Nonnull
-import javax.annotation.Nullable
 
 /**
  *  [APIResultWrapper] : API의 응답 형태에 맞게 래핑 해주는 클래스
@@ -18,36 +14,20 @@ data class APIResultWrapper<out T : Any>(
     val message: String,
     val data: T?
 )
-/**
- *  [AuthAPIResult] : API 통신 과정에서의 상태 클래스 (토큰 기반 통신에 사용)
- *  [Success] : API 통신 성공 시의 상태 (not null)
- *  [Fail] : API 통신 결과 실패 시의 상태 (ex: 비밀번호가 맞지 않음)
- *  [Error] : 통신 과정에서 에러가 발생 하였을 떄의 상태 (ex: HTTP Exception, IO Exception)
- *  [Refresh] : 토근이 만료 되어 토큰 재요청 상태
- */
-sealed class AuthAPIResult<out T : Any> {
-    data class Success<out T : Any>(val data: T) : AuthAPIResult<T>()
-    data class Fail(val message: String) : AuthAPIResult<Nothing>()
-    object Refresh : AuthAPIResult<Nothing>()
-}
-
 
 /**
- *  [DefaultAPIResult] : API 통신 과정에서의 상태 클래스
+ *  [APIResult] : API 통신 과정에서의 상태 클래스
  *  [Success] : API 통신 성공 시의 상태 (not null)
  *  [Fail] : API 통신 결과 실패 시의 상태 (ex: 비밀번호가 맞지 않음)
  *  [Error] : 통신 과정에서 에러가 발생 하였을 떄의 상태 (ex: HTTP Exception, IO Exception)
  */
-sealed class DefaultAPIResult<out T : Any>{
-    data class Success<out T : Any>(val data: T) : DefaultAPIResult<T>()
-    data class Fail(val message: String) : DefaultAPIResult<Nothing>()
+sealed class APIResult<out T : Any>{
+    data class Success<out T : Any>(val data: T) : APIResult<T>()
+    data class Fail(val message: String) : APIResult<Nothing>()
 }
 
 
-sealed class RefreshResult<out T : Any>{
-    data class Success<out T : Any>(val accessToken: String) : RefreshResult<T>()
-    object Fail : RefreshResult<Nothing>()
-}
+
 
 
 

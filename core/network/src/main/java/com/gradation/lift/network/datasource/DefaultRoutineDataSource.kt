@@ -5,7 +5,7 @@ import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSet
 import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.network.common.AuthAPIResult
+import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.routine.CreateRoutineDto
 import com.gradation.lift.network.dto.routine.CreateRoutineSetRequestDto
@@ -19,21 +19,21 @@ class DefaultRoutineDataSource @Inject constructor(
     private val routineService: RoutineService,
     private val networkResultHandler: NetworkResultHandler,
 ) : RoutineDataSource {
-    override suspend fun getRoutineSet(userId: String): Flow<AuthAPIResult<List<RoutineSet>>> =
+    override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> =
         flow {
-            networkResultHandler.executeAuth { routineService.getRoutineSet(userId) }
+            networkResultHandler { routineService.getRoutineSet(userId) }
                 .collect { result ->
                     when (result) {
-                        is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                        is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                        is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSet()))
+                        is APIResult.Fail -> emit(APIResult.Fail(result.message))
+              
+                        is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
                     }
                 }
         }
 
-    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<AuthAPIResult<Boolean>> =
+    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>> =
         flow {
-            networkResultHandler.executeAuth {
+            networkResultHandler {
                 routineService.createRoutineSet(CreateRoutineSetRequestDto(
                     userId = createRoutineSetRoutine.userId,
                     shortDescription = createRoutineSetRoutine.shortDescription,
@@ -65,9 +65,9 @@ class DefaultRoutineDataSource @Inject constructor(
                 ))
             }.collect { result ->
                 when (result) {
-                    is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                    is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                    is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data))
+                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
+          
+                    is APIResult.Success -> emit(APIResult.Success(result.data))
                 }
             }
         }
@@ -75,17 +75,17 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineSetByDate(
         userId: String,
         date: LocalDate,
-    ): Flow<AuthAPIResult<List<RoutineSet>>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<List<RoutineSet>>> = flow {
+        networkResultHandler {
             routineService.getRoutineSetByDate(
                 userId = userId,
                 date = date
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSet()))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+      
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
             }
         }
     }
@@ -93,28 +93,28 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineSetByRoutineSetId(
         userId: String,
         routineSetId: Int,
-    ): Flow<AuthAPIResult<RoutineSet>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<RoutineSet>> = flow {
+        networkResultHandler {
             routineService.getRoutineSetByRoutineSetId(
                 userId = userId,
                 routineSetId = routineSetId
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSet()))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+      
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
             }
         }
     }
 
-    override suspend fun getRoutine(userId: String): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.executeAuth { routineService.getRoutine(userId = userId) }
+    override suspend fun getRoutine(userId: String): Flow<APIResult<List<Routine>>> = flow {
+        networkResultHandler { routineService.getRoutine(userId = userId) }
             .collect { result ->
                 when (result) {
-                    is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                    is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                    is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
+                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
+          
+                    is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
                 }
             }
     }
@@ -122,17 +122,17 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineByDate(
         userId: String,
         date: LocalDate,
-    ): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<List<Routine>>> = flow {
+        networkResultHandler {
             routineService.getRoutineByDate(
                 userId = userId,
                 date = date
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+      
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
             }
         }
     }
@@ -140,17 +140,17 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineByRoutineSetId(
         userId: String,
         routineSetId: Int,
-    ): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<List<Routine>>> = flow {
+        networkResultHandler {
             routineService.getRoutineByRoutineSetId(
                 userId = userId,
                 routineSetId = routineSetId
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+      
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
             }
         }
     }
@@ -159,8 +159,8 @@ class DefaultRoutineDataSource @Inject constructor(
         userId: String,
         date: LocalDate,
         routineSetId: Int,
-    ): Flow<AuthAPIResult<List<Routine>>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<List<Routine>>> = flow {
+        networkResultHandler {
             routineService.getRoutineByDateAndRoutineSetId(
                 userId = userId,
                 date = date,
@@ -168,24 +168,24 @@ class DefaultRoutineDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutine()))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+      
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
             }
         }
     }
 
-    override suspend fun getRoutineSetRoutine(userId: String): Flow<AuthAPIResult<List<RoutineSetRoutine>>> =
+    override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>> =
         flow {
-            networkResultHandler.executeAuth {
+            networkResultHandler {
                 routineService.getRoutineSetRoutine(
                     userId = userId,
                 )
             }.collect { result ->
                 when (result) {
-                    is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                    is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                    is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSetRoutine()))
+                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
+          
+                    is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
                 }
             }
         }
@@ -193,17 +193,17 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineSetRoutineByDate(
         userId: String,
         date: LocalDate,
-    ): Flow<AuthAPIResult<List<RoutineSetRoutine>>> = flow {
-        networkResultHandler.executeAuth {
+    ): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
+        networkResultHandler {
             routineService.getRoutineSetRoutineByDate(
                 userId = userId,
                 date = date,
             )
         }.collect { result ->
             when (result) {
-                is AuthAPIResult.Fail -> emit(AuthAPIResult.Fail(result.message))
-                is AuthAPIResult.Refresh -> emit(AuthAPIResult.Refresh)
-                is AuthAPIResult.Success -> emit(AuthAPIResult.Success(result.data.toRoutineSetRoutine()))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+      
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
             }
         }
     }

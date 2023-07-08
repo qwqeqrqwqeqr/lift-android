@@ -3,7 +3,7 @@ package com.gradation.lift.network.datasource
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.model.auth.Token
-import com.gradation.lift.network.common.DefaultAPIResult
+import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
 import com.gradation.lift.network.dto.auth.SignUpDefaultRequestDto
@@ -16,8 +16,8 @@ class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
     private val networkResultHandler: NetworkResultHandler,
 ) : AuthDataSource {
-    override fun signIn(signInInfo: SignInInfo): Flow<DefaultAPIResult<Token>> = flow {
-        networkResultHandler.executeDefault {
+    override fun signIn(signInInfo: SignInInfo): Flow<APIResult<Token>> = flow {
+        networkResultHandler {
             authService.signInDefault(
                 SignInDefaultRequestDto(
                     id = signInInfo.id,
@@ -26,14 +26,14 @@ class DefaultAuthDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(message = result.message,))
-                is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.toToken()))
+                is APIResult.Fail -> emit(APIResult.Fail(message = result.message,))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toToken()))
             }
         }
     }
 
-    override fun signUp(signUpInfo: SignUpInfo): Flow<DefaultAPIResult<Boolean>> = flow {
-        networkResultHandler.executeDefault {
+    override fun signUp(signUpInfo: SignUpInfo): Flow<APIResult<Boolean>> = flow {
+        networkResultHandler {
             authService.signUpDefault(
                 SignUpDefaultRequestDto(
                     email = signUpInfo.id,
@@ -42,8 +42,8 @@ class DefaultAuthDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is DefaultAPIResult.Fail -> emit(DefaultAPIResult.Fail(result.message))
-                is DefaultAPIResult.Success -> emit(DefaultAPIResult.Success(result.data.result))
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is APIResult.Success -> emit(APIResult.Success(result.data.result))
             }
         }
     }
