@@ -1,9 +1,11 @@
 package com.gradation.lift.network.handler
 
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
+import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.Constants.BASE_URL
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
+import com.gradation.lift.network.dto.auth.RefreshResponseDto
 import com.gradation.lift.network.service.RefreshService
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.first
@@ -20,22 +22,28 @@ class AuthAuthenticator @Inject constructor(
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
 
-
+        var isRefreshed = false
         if (response.code == UNAUTHORIZATION) {
             runBlocking {
-                refresh(tokenDataStoreDataSource, moshi)
+                val result = refresh(tokenDataStoreDataSource, moshi)
+                if(result.isSuccessful){
+                    tokenDataStoreDataSource.setAccessToken(result.body()?.data?.accessToken.toString())
+                    isRefreshed=true
+                }
             }
-            return response.request
-                .newBuilder()
-                .removeHeader("Authorization")
-                .addHeader(
-                    "Authorization",
-                    "${Constants.BEARER}${
-                        runBlocking {
-                            tokenDataStoreDataSource.accessToken.first()
-                        }
-                    }"
-                ).build()
+            if(isRefreshed){
+                return response.request
+                    .newBuilder()
+                    .removeHeader("Authorization")
+                    .addHeader(
+                        "Authorization",
+                        "${Constants.BEARER}${
+                            runBlocking {
+                                tokenDataStoreDataSource.accessToken.first()
+                            }
+                        }"
+                    ).build()
+            }
         }
         return null
 
@@ -45,13 +53,15 @@ class AuthAuthenticator @Inject constructor(
     private suspend fun refresh(
         tokenDataStoreDataSource: TokenDataStoreDataSource,
         moshi: Moshi,
-    ) {
+    ): retrofit2.Response<APIResultWrapper<RefreshResponseDto>> {
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
             .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
                 this.level = HttpLoggingInterceptor.Level.BASIC
             }).build())
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
         val service = retrofit.create(RefreshService::class.java)
-        service.refresh(authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}")
+        return service.refresh(authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
+
+        )
     }
 }
