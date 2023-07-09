@@ -1,11 +1,15 @@
 package com.gradation.lift.network.di
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.handler.AuthInterceptor
+import com.gradation.lift.network.handler.DefaultNetworkResultHandler
+import com.gradation.lift.network.handler.NetworkResultHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.*
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
@@ -13,18 +17,18 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object InterceptorModule {
+object HandlerModule {
+
 
     @Provides
     @Singleton
-    fun provideAuthHeaderInterceptor(
-        tokenDataStoreDataSource: TokenDataStoreDataSource,
-    ): Interceptor = AuthInterceptor(tokenDataStoreDataSource)
-
-    @Singleton
-    @Provides
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BASIC
-        }
+    fun provideNetworkResultHandler(dispatcherProvider: DispatcherProvider): NetworkResultHandler =
+        DefaultNetworkResultHandler(dispatcherProvider)
 }
+
+
+
+
+
+
+

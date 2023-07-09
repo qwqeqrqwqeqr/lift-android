@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
@@ -21,6 +22,7 @@ class DefaultAuthRepository @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> {
+                    Log.d("access_token", result.data.accessToken)
                     tokenDataStoreDataSource.setAccessToken(result.data.accessToken)
                     tokenDataStoreDataSource.setRefreshToken(result.data.refreshToken)
                     tokenDataStoreDataSource.setUserId(signInInfo.id)

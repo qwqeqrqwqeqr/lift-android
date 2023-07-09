@@ -66,7 +66,7 @@ class TokenDataStoreDataSource @Inject constructor(
     }
 
 
-    companion object{
+    companion object {
         const val EMPTY_VALUE = ""
     }
 }
