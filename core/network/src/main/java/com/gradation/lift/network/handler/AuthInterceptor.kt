@@ -20,9 +20,7 @@ class AuthInterceptor @Inject constructor(
                     .addHeader(
                         "Authorization",
                         "${BEARER}${
-                            runBlocking {
-                                tokenDataStoreDataSource.accessToken.first()
-                            }
+                            runBlocking { tokenDataStoreDataSource.accessToken.first() }
                         }"
                     )
                     .build()

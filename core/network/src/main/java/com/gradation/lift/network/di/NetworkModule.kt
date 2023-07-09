@@ -42,7 +42,7 @@ object NetworkModule {
     fun provideAuthHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
-        authAuthenticator: AuthAuthenticator
+        moshi: Moshi,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
@@ -52,7 +52,12 @@ object NetworkModule {
             .addInterceptor(
                 AuthInterceptor(tokenDataStoreDataSource = tokenDataStoreDataSource)
             )
-            .authenticator(authAuthenticator)
+            .authenticator(
+                AuthAuthenticator(
+                    tokenDataStoreDataSource = tokenDataStoreDataSource,
+                    moshi = moshi
+                )
+            )
             .build()
     }
 

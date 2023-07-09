@@ -20,11 +20,13 @@ class AuthAuthenticator @Inject constructor(
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
 
+
         if (response.code == UNAUTHORIZATION) {
             runBlocking {
                 refresh(tokenDataStoreDataSource, moshi)
             }
-            return response.request.newBuilder()
+            return response.request
+                .newBuilder()
                 .removeHeader("Authorization")
                 .addHeader(
                     "Authorization",
@@ -46,7 +48,7 @@ class AuthAuthenticator @Inject constructor(
     ) {
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
             .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BODY
+                this.level = HttpLoggingInterceptor.Level.BASIC
             }).build())
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
         val service = retrofit.create(RefreshService::class.java)

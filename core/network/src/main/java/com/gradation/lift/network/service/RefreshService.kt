@@ -6,9 +6,10 @@ import com.gradation.lift.network.dto.auth.RefreshResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 
 interface RefreshService {
-    @GET("auth/refresh/")
+    @POST("auth/refresh/")
     suspend fun refresh(
         @Header("Authorization") authorization: String,
     ): Response<APIResultWrapper<RefreshResponseDto>>
