@@ -5,6 +5,7 @@ import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.DefaultNetworkResultHandler
 import com.gradation.lift.network.handler.NetworkResultHandler
+import com.gradation.lift.network.handler.RefreshHandler
 import com.gradation.lift.network.service.*
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -44,14 +45,20 @@ object NetworkModule {
     @Singleton
     fun provideAuthHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: Interceptor,
-    ): OkHttpClient {
+        userDataStoreDataSource: UserDataStoreDataSource,
+        refreshHandler: RefreshHandler,
+        ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor(authInterceptor)
+            .addInterceptor(
+                AuthInterceptor(
+                    userDataStoreDataSource = userDataStoreDataSource,
+                    refreshHandler = refreshHandler
+                )
+            )
             .build()
     }
 
@@ -61,7 +68,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(
         @DefaultHttpClient okHttpClient: OkHttpClient,
-        moshi: Moshi
+        moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -75,7 +82,7 @@ object NetworkModule {
     @Singleton
     fun provideAuthRetrofit(
         @AuthHttpClient okHttpClient: OkHttpClient,
-        moshi: Moshi
+        moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -83,6 +90,7 @@ object NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
+
     @Provides
     @Singleton
     fun provideNetworkResultHandler(dispatcherProvider: DispatcherProvider): NetworkResultHandler =

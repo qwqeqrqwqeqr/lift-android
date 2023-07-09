@@ -10,14 +10,15 @@ interface UserService {
     suspend fun getUserDetail(): APIResultWrapper<GetUserDetailResponseDto>
 
     @POST("user/user-detail/")
-    suspend fun createUserDetail(@Body createUserDetailRequestDto: CreateUserDetailRequestDto): APIResultWrapper<CreateUserDetailResponseDto>
+    suspend fun createUserDetail(
+        @Body createUserDetailRequestDto: CreateUserDetailRequestDto
+    ): APIResultWrapper<CreateUserDetailResponseDto>
 
     @PUT("user/user-detail/")
     suspend fun updateUserDetail(@Body updateUserDetailRequestDto: UpdateUserDetailRequestDto): APIResultWrapper<UpdateUserDetailResponseDto>
 
     @GET("user/exist-user-detail/")
     suspend fun existUserDetail(): APIResultWrapper<ExistUserDetailResponseDto>
-
 
 
 }

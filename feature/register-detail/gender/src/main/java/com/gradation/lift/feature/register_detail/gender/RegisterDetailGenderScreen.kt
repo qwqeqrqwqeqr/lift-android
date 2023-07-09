@@ -37,18 +37,19 @@ fun RegisterDetailGenderRoute(
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
 
+    val name = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY)
 
     RegisterDetailGenderScreen(
         modifier = modifier,
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
         onTopBarBackClick = { navController.popBackStack() },
-        nameText = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY),
+        nameText = name,
         maleValue = viewModel.male,
         femaleValue = viewModel.female,
         onUpdateMale = viewModel.updateMale(),
         onUpdateFemale = viewModel.updateFemale(),
         onNextButtonClick = {
-            viewModel.updateKey(navController)
+            viewModel.updateKey(navController,name)
             navController.navigateToRegisterDetailHeightWeight()
         },
     )

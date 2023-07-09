@@ -2,15 +2,14 @@ package com.gradation.lift.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
@@ -24,13 +23,13 @@ import javax.inject.Named
 @RunWith(JUnit4::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
-class UserDataStoreTest {
+class TokenDataStoreTest {
 
 
     @Inject
     @Named("test_datastore")
     lateinit var datastore : DataStore<Preferences>
-    private lateinit var dataStoreDataSource : UserDataStoreDataSource
+    private lateinit var dataStoreDataSource : TokenDataStoreDataSource
 
 
     @get:Rule
@@ -39,13 +38,11 @@ class UserDataStoreTest {
     @Before
     fun setUp(){
         hiltRule.inject()
-        dataStoreDataSource = UserDataStoreDataSource(datastore)
+        dataStoreDataSource = TokenDataStoreDataSource(datastore)
     }
 
-    @After
-    fun tearDown() = runTest{
-        dataStoreDataSource.clearAll()
-    }
+
+
 
 
     @Test
@@ -62,13 +59,12 @@ class UserDataStoreTest {
         assertEquals(FAKE_STRING_DATA, accessToken)
         assertEquals(FAKE_STRING_DATA, refreshToken)
         assertEquals(FAKE_STRING_DATA, userId)
+
+        dataStoreDataSource.clearAll()
+        assertEquals(EMPTY_VALUE, dataStoreDataSource.userId.first())
     }
 
-    @Test
-    fun empty_preferences_outputCorrectValue() = runTest {
-        val userId = dataStoreDataSource.userId.first()
-        assertEquals(EMPTY_VALUE, userId)
-    }
+
 
 
 }

@@ -1,9 +1,7 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.network.common.toMessage
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.user.UserDetail
@@ -15,12 +13,11 @@ import javax.inject.Inject
 
 class DefaultUserRepository @Inject constructor(
     private val userDataSource: UserDataSource,
-    private val userDataStoreDataSource: UserDataStoreDataSource,
-    private val refreshManager: RefreshManager,
+    private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : UserRepository {
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
-        userDataSource.getUserDetail(Token(accessToken = userDataStoreDataSource.accessToken.first()))
+        userDataSource.getUserDetail(Token(accessToken = tokenDataStoreDataSource.accessToken.first()))
             .collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
@@ -31,7 +28,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.createUserDetail(
-            Token(accessToken = userDataStoreDataSource.accessToken.first()),
+            Token(accessToken = tokenDataStoreDataSource.accessToken.first()),
             userDetail = userDetail
         ).collect { result ->
             when (result) {
@@ -45,7 +42,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.updateUserDetail(
-            Token(accessToken = userDataStoreDataSource.accessToken.first()),
+            Token(accessToken = tokenDataStoreDataSource.accessToken.first()),
             userDetail = userDetail
         ).collect { result ->
             when (result) {
@@ -58,7 +55,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
         userDataSource.existUserDetail(
-            Token(accessToken = userDataStoreDataSource.accessToken.first())
+            Token(accessToken = tokenDataStoreDataSource.accessToken.first())
         ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))

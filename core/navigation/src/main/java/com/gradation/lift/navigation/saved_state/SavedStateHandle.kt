@@ -15,6 +15,9 @@ fun NavController.getStringValue(key: String): String {
     return this.previousBackStackEntry?.savedStateHandle?.get<String>(key) ?: ""
 }
 
+
+
+
 fun NavController.setFloatValue(key: String, value: Float) {
     this.currentBackStackEntry?.let {
         with(it.savedStateHandle) {

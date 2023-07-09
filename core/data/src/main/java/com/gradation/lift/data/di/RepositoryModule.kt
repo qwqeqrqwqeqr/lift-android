@@ -1,8 +1,7 @@
 package com.gradation.lift.data.di
 
 import com.gradation.lift.data.repository.*
-import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
 import com.gradation.lift.network.datasource.*
 import dagger.Module
@@ -21,26 +20,24 @@ object RepositoryModule {
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
-        refreshManager: RefreshManager,
-    ): WorkRepository = DefaultWorkRepository(workDataSource, refreshManager)
+    ): WorkRepository = DefaultWorkRepository(workDataSource)
 
 
     @ViewModelScoped
     @Provides
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
-        refreshManager: RefreshManager,
-        userDataStoreDataSource: UserDataStoreDataSource,
+        tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): RoutineRepository =
-        DefaultRoutineRepository(routineDataSource, refreshManager, userDataStoreDataSource)
+        DefaultRoutineRepository(routineDataSource, tokenDataStoreDataSource)
 
 
     @ViewModelScoped
     @Provides
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
-        userDataStoreDataSource: UserDataStoreDataSource,
-    ): AuthRepository = DefaultAuthRepository(authDataSource, userDataStoreDataSource)
+        tokenDataStoreDataSource: TokenDataStoreDataSource,
+    ): AuthRepository = DefaultAuthRepository(authDataSource, tokenDataStoreDataSource)
 
 
     @ViewModelScoped
@@ -53,12 +50,10 @@ object RepositoryModule {
     @Provides
     fun provideUserRepository(
         userDataSource: UserDataSource,
-        refreshManager: RefreshManager,
-        userDataStoreDataSource: UserDataStoreDataSource,
+        tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): UserRepository = DefaultUserRepository(
         userDataSource = userDataSource,
-        refreshManager = refreshManager,
-        userDataStoreDataSource = userDataStoreDataSource
+        tokenDataStoreDataSource = tokenDataStoreDataSource
     )
 
 }

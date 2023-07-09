@@ -194,7 +194,7 @@ internal fun HeightTextField(
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
+            keyboardType = KeyboardType.Number, imeAction = ImeAction.Next
         ),
         keyboardActions = KeyboardActions(
             onNext = {

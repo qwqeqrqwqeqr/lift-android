@@ -1,8 +1,6 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.network.common.toMessage
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
@@ -14,7 +12,6 @@ import javax.inject.Inject
 
 class DefaultWorkRepository @Inject constructor(
     private val workDataSource: WorkDataSource,
-    private val refreshManager: RefreshManager,
 ) : WorkRepository {
     override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
         workDataSource.getWorkPart().collect { result ->

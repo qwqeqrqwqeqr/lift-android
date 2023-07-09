@@ -1,9 +1,9 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.network.common.toMessage
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
@@ -14,16 +14,16 @@ import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val userDataStoreDataSource: UserDataStoreDataSource,
+    private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : AuthRepository {
     override fun signIn(signInInfo: SignInInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signIn(signInInfo).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> {
-                    userDataStoreDataSource.setAccessToken(result.data.accessToken)
-                    userDataStoreDataSource.setRefreshToken(result.data.refreshToken)
-                    userDataStoreDataSource.setUserId(signInInfo.id)
+                    tokenDataStoreDataSource.setAccessToken(result.data.accessToken)
+                    tokenDataStoreDataSource.setRefreshToken(result.data.refreshToken)
+                    tokenDataStoreDataSource.setUserId(signInInfo.id)
                     emit(DataState.Success(true))
                 }
             }
@@ -43,14 +43,14 @@ class DefaultAuthRepository @Inject constructor(
 
 
     override fun isSigned(): Flow<DataState<Boolean>> = flow {
-        val condition = userDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
-                userDataStoreDataSource.refreshToken.first() == EMPTY_VALUE
+        val condition = tokenDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
+                tokenDataStoreDataSource.refreshToken.first() == EMPTY_VALUE
         if (condition) emit(DataState.Success(false)) else emit(DataState.Success(true))
     }
 
     override fun signOut(): Flow<DataState<Unit>> = flow {
         try {
-            userDataStoreDataSource.clearAll()
+            tokenDataStoreDataSource.clearAll()
             emit(DataState.Success(Unit))
         } catch (error: Exception) {
             emit(DataState.Fail(error.toMessage()))

@@ -35,11 +35,18 @@ class RegisterDetailGenderViewModel @Inject constructor(
         }
     }
 
-    fun updateKey(navController: NavController) {
+    fun updateKey(navController: NavController, name: String) {
         navController.setStringValue(
             SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
             if (male) "male" else "female"
         )
+
+        navController.setStringValue(
+            SavedStateHandleKey.RegisterDetailKey.NAME_KEY,
+            name
+        )
+
+
     }
 
 }

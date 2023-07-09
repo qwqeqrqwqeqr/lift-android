@@ -1,9 +1,7 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.data.utils.RefreshManager
-import com.gradation.lift.network.common.toMessage
-import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
+import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.routine.Routine
@@ -19,8 +17,7 @@ import javax.inject.Inject
 
 class DefaultRoutineRepository @Inject constructor(
     private val routineDataSource: RoutineDataSource,
-    private val refreshManager: RefreshManager,
-    private val userDataStoreDataSource: UserDataStoreDataSource,
+    private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : RoutineRepository {
     override fun getRoutineSet(): Flow<DataState<List<RoutineSet>>> = flow {
         routineDataSource.getRoutineSet(userId = "201713721").collect { result ->

@@ -1,13 +1,13 @@
-package com.gradation.lift.data.di
+package com.gradation.lift.network.di
 
-import com.gradation.lift.data.utils.DefaultRefreshManager
-import com.gradation.lift.data.utils.RefreshManager
+
 import com.gradation.lift.datastore.datasource.UserDataStoreDataSource
+import com.gradation.lift.network.handler.DefaultRefreshHandler
+import com.gradation.lift.network.handler.RefreshHandler
 import com.gradation.lift.network.service.RefreshService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -17,10 +17,10 @@ import javax.inject.Singleton
 object RefreshModule {
     @Provides
     @Singleton
-    fun provideRefreshManager(
+    fun provideRefreshHandler(
         refreshService: RefreshService,
         userDataStoreDataSource: UserDataStoreDataSource
-    ): RefreshManager = DefaultRefreshManager(refreshService,userDataStoreDataSource)
+    ): RefreshHandler = DefaultRefreshHandler(refreshService,userDataStoreDataSource)
 
 
 }

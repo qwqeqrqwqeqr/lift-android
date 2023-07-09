@@ -51,7 +51,8 @@ class RegisterDetailUnitOfWeightViewModel @Inject constructor(
     fun createUserDetail(navController: NavController) {
         viewModelScope.launch {
             createUserDetailUseCase(UserDetail(
-                name = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY),
+//                name = navController.getStringValue("SavedStateHandleKey.RegisterDetailKey.NAME_KEY"),
+                name = "공상택",
                 gender = when (            navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.GENDER_KEY)) {
                     Gender.MALE_VALUE -> Gender.MALE()
                     Gender.FEMALE_VALUE -> Gender.FEMALE()
@@ -74,12 +75,7 @@ class RegisterDetailUnitOfWeightViewModel @Inject constructor(
     }
 
 
-    fun updateKey(navController: NavController) {
-        navController.setStringValue(
-            SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY,
-            if (kg) "kg" else "lb"
-        )
-    }
+
 
 
 }
