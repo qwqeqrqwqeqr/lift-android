@@ -11,19 +11,6 @@ sealed class Weekday {
     data class Sunday(val name: String = SUNDAY) : Weekday()
     data class None(val name: String = NONE) : Weekday()
 
-
-    fun toWeekDay(weekDay: String): Weekday =
-        when (weekDay) {
-            MONDAY -> Monday()
-            TUESDAY -> Tuesday()
-            WEDNESDAY -> Wednesday()
-            THURSDAY -> Thursday()
-            FRIDAY -> Friday()
-            SATURDAY -> Saturday()
-            SUNDAY -> Sunday()
-            else -> None()
-        }
-
     companion object {
         const val MONDAY = "Monday"
         const val TUESDAY = "Tuesday"
@@ -35,6 +22,19 @@ sealed class Weekday {
         const val NONE = "None"
     }
 }
+
+fun toWeekDay(weekDay: String): Weekday =
+    when (weekDay) {
+        Weekday.MONDAY -> Weekday.Monday()
+        Weekday.TUESDAY -> Weekday.Tuesday()
+        Weekday.WEDNESDAY -> Weekday.Wednesday()
+        Weekday.THURSDAY -> Weekday.Thursday()
+        Weekday.FRIDAY -> Weekday.Friday()
+        Weekday.SATURDAY -> Weekday.Saturday()
+        Weekday.SUNDAY -> Weekday.Sunday()
+        else -> Weekday.None()
+    }
+
 
 
 

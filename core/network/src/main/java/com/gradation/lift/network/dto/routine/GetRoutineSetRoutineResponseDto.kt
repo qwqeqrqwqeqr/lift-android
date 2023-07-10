@@ -1,8 +1,5 @@
 package com.gradation.lift.network.dto.routine
 
-import com.gradation.lift.model.routine.DAY_TYPE
-import com.gradation.lift.domain.model.common.RepeatIntervalType
-import com.gradation.lift.model.routine.WEEK_DAY_TYPE
 import com.gradation.lift.model.routine.toWeekDay
 import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
@@ -18,43 +15,39 @@ data class GetRoutineSetRoutineResponseDto(
     @Json(name = "routine_set_routine")
     val routineSetRoutine: List<RoutineSetRoutineDto>
 ){
-    fun toRoutineSetRoutine(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.id }.map {
+    fun toRoutineSetRoutine(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.routineSetDto.routineSetId }.map {
         RoutineSetRoutine(
-            id = it.value.first().id,
-            shortDescription = it.value.first().shortDescription,
-            longDescription = it.value.first().longDescription,
-            repeatIntervalType = when (it.value.first().repeatType) {
-                WEEK_DAY_TYPE -> RepeatIntervalType.WeekDayType(weekday = toWeekDay(it.value.first().repeatInterval))
-                DAY_TYPE -> RepeatIntervalType.DayType(interval = it.value.first().repeatInterval)
-                else -> null
-            }!!,
+            id = it.value.first().routineSetDto.routineSetId,
+            shortDescription = it.value.first().routineSetDto.shortDescription,
+            longDescription = it.value.first().routineSetDto.longDescription,
+            weekday = toWeekDay(it.value.first().routineSetDto.weekday),
             routine = it.value.map { routine ->
                 Routine(
-                    id = routine.routineId,
-                    routineSetId = routine.id,
+                    id = routine.routineDto.routineId,
+                    routineSetId = routine.routineDto.routineSetId,
                     workCategory = WorkCategory(
-                        id = routine.workCategory.id,
-                        name = routine.workCategory.name,
+                        id = routine.routineDto.workCategory.id,
+                        name = routine.routineDto.workCategory.name,
                         workpart = WorkPart(
-                            id = routine.workCategory.workpart.id,
-                            name = routine.workCategory.workpart.name
+                            id = routine.routineDto.workCategory.workpart.id,
+                            name = routine.routineDto.workCategory.workpart.name
                         ),
-                        shortDescription = routine.workCategory.shortDescription,
-                        longDescription = routine.workCategory.longDescription
+                        shortDescription = routine.routineDto.workCategory.shortDescription,
+                        longDescription = routine.routineDto.workCategory.longDescription
                     ),
-                    workSetList = routine.workWeightList.zip(routine.workRepetitionList)
+                    workSetList = routine.routineDto.workWeightList.zip(routine.routineDto.workRepetitionList)
                         .map { workSet ->
                             WorkSet(
                                 weight = workSet.first,
                                 repetition = workSet.second
                             )
                         },
-                    maxWeight = routine.maxWeight,
-                    minWeight = routine.minWeight,
-                    totalWeight = routine.totalWeight,
-                    maxRepetition = routine.maxRepetition,
-                    minRepetition = routine.minRepetition,
-                    totalRepetition = routine.totalRepetition
+                    maxWeight = routine.routineDto.maxWeight,
+                    minWeight = routine.routineDto.minWeight,
+                    totalWeight = routine.routineDto.totalWeight,
+                    maxRepetition = routine.routineDto.maxRepetition,
+                    minRepetition = routine.routineDto.minRepetition,
+                    totalRepetition = routine.routineDto.totalRepetition
                 )
             }
         )
