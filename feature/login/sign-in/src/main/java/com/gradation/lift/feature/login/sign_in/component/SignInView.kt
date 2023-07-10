@@ -134,7 +134,10 @@ fun SignInView(
     ) {
         LiftButton(
             modifier = modifier.fillMaxWidth(),
-            onClick = onClickSignIn,
+            onClick = {
+                focusManager.clearFocus()
+                onClickSignIn()
+            },
         ) {
             Text(
                 text = "로그인",

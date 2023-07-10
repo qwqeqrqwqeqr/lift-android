@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.SignInUseCase
+import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
+import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.auth.SignInInfo
+import com.gradation.lift.model.user.UserDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -19,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginSignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
+    private val existUserDetail: ExistUserDetailUseCase,
 ) : ViewModel() {
 
 
@@ -31,7 +35,7 @@ class LoginSignInViewModel @Inject constructor(
     )
 
 
-    fun onChangePasswordVisible(): (Boolean) -> Unit ={
+    fun onChangePasswordVisible(): (Boolean) -> Unit = {
         passwordVisible = it
         passwordVisualTransformation =
             if (passwordVisualTransformation == VisualTransformation.None) {
@@ -53,24 +57,29 @@ class LoginSignInViewModel @Inject constructor(
     fun signIn() {
         viewModelScope.launch {
             signInUiState.value = SignInUiState.Loading
-            if(email.isBlank() || password.isBlank()){
+            if (email.isBlank() || password.isBlank()) {
                 signInUiState.value = SignInUiState.Fail(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
-            }else{
-                signInUseCase(SignInInfo(id = email, password = password)).map {
-                    when (it) {
+            } else {
+                signInUseCase(SignInInfo(id = email, password = password)).collect { signInResult ->
+                    when (signInResult) {
                         is DataState.Fail -> {
-                            Log.d("login", "${it.message} 실패")
-                            SignInUiState.Fail(it.message)
+                            signInUiState.value = SignInUiState.Fail(signInResult.message)
                         }
                         is DataState.Success -> {
-                            Log.d("login", "${it.data} 성공")
-                            SignInUiState.Success
+                            existUserDetail().collect { existUserDetailResult ->
+                                when (existUserDetailResult) {
+                                    is DataState.Fail -> signInUiState.value =
+                                        SignInUiState.Fail(existUserDetailResult.message)
+                                    is DataState.Success -> signInUiState.value =
+                                        SignInUiState.Success(
+                                            existUserDetailResult.data
+                                        )
+                                }
+                            }
                         }
                     }
-                }.collect {
-                    signInUiState.value = it
                 }
             }
         }
@@ -80,7 +89,7 @@ class LoginSignInViewModel @Inject constructor(
 
 sealed interface SignInUiState {
 
-    object Success : SignInUiState
+    data class Success(val existUserDetail: Boolean) : SignInUiState
     data class Fail(val message: String) : SignInUiState
     object Loading : SignInUiState
     object None : SignInUiState

@@ -37,7 +37,7 @@ fun LoginSignInRoute(
         modifier = modifier,
         emailText = viewModel.email,
         passwordText = viewModel.password,
-        updateEmailText =  viewModel.updateEmail(),
+        updateEmailText = viewModel.updateEmail(),
         updatePasswordText = viewModel.updatePassword(),
         onClickFindEmail = { navController.navigateToLoginFindEmail() },
         onClickFindPassword = { navController.navigateToLoginFindPassword() },
@@ -46,7 +46,7 @@ fun LoginSignInRoute(
         autoLoginChecked = viewModel.autoLoginChecked,
         onChangeAutoLoginChecked = { viewModel.onChangeAutoLoginChecked() },
         passwordVisible = viewModel.passwordVisible,
-        onChangePasswordVisible =  viewModel.onChangePasswordVisible() ,
+        onChangePasswordVisible = viewModel.onChangePasswordVisible(),
         passwordVisualTransformation = viewModel.passwordVisualTransformation,
         clearPassword = viewModel.clearPassword()
     )
@@ -58,18 +58,18 @@ fun LoginSignInRoute(
                 result.message,
                 Toast.LENGTH_SHORT
             ).show()
-            //TODO 삭제 예정
         }
-        SignInUiState.Loading -> {
-
-
-        }
-        SignInUiState.None -> {
-
-        }
-        SignInUiState.Success -> {
+        SignInUiState.Loading -> {}
+        SignInUiState.None -> {}
+        is SignInUiState.Success -> {
             LaunchedEffect(true) {
-                navController.navigateLoginToHome()
+                if(result.existUserDetail){
+                    navController.navigateLoginToHome()
+                }
+                else{
+                    navController.navigateLoginToRegisterDetail()
+                }
+
             }
         }
     }

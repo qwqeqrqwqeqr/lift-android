@@ -65,7 +65,7 @@ fun LiftApp(
             ) {
                 LiftNavHost(
                     navController = appState.navController,
-                    startDestination = REGISTER_DETAIL_GRAPH_ROUTER_NAME
+                    startDestination = HOME_ROUTER_NAME
                 )
             }
         }
