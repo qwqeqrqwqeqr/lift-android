@@ -1,10 +1,7 @@
 package com.gradation.lift.test.data
 
 import com.gradation.lift.domain.model.common.*
-import com.gradation.lift.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.model.routine.Routine
-import com.gradation.lift.model.routine.RoutineSet
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.routine.*
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.model.work.WorkSet

@@ -1,6 +1,9 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.domain.model.common.*
+import com.gradation.lift.model.routine.DAY_TYPE
+import com.gradation.lift.model.routine.MONDAY
+import com.gradation.lift.model.routine.WEEK_DAY_TYPE
 import com.gradation.lift.network.dto.routine.*
 import com.gradation.lift.network.dto.work.*
 
