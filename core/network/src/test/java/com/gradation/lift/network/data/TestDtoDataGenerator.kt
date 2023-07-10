@@ -172,7 +172,7 @@ internal object TestDtoDataGenerator {
         )
     )
 
-    val getRoutineSetRoutineByDateDto = GetRoutineSetRoutineByDateResponseDto(
+    val getRoutineSetRoutineByDateDto = GetRoutineSetRoutineByWeekdayResponseDto(
         routineSetRoutine = listOf(
             routineSetRoutineDto1,
             routineSetRoutineDto2,

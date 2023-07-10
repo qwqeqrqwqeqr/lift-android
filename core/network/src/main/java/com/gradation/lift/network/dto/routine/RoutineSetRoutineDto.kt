@@ -9,34 +9,8 @@ import kotlinx.serialization.Serializable
 
 @JsonClass(generateAdapter = true)
 data class RoutineSetRoutineDto(
-    @Json(name = "routine_set_id")
-    val id: Int,
-    @Json(name = "short_description")
-    val shortDescription: String,
-    @Json(name = "long_description")
-    val longDescription: String,
-    @Json(name = "repeat_type")
-    val repeatType: String,
-    @Json(name = "repeat_interval")
-    val repeatInterval: Int,
-    @Json(name = "routine_id")
-    val routineId: Int,
-    @Json(name = "work_category")
-    val workCategory: WorkCategoryDto,
-    @Json(name = "work_weight_list")
-    val workWeightList: List<Float>,
-    @Json(name = "work_repetition_list")
-    val workRepetitionList: List<Int>,
-    @Json(name = "max_weight")
-    val maxWeight: Float,
-    @Json(name = "min_weight")
-    val minWeight: Float,
-    @Json(name = "total_weight")
-    val totalWeight: Float,
-    @Json(name = "max_repetition")
-    val maxRepetition: Int,
-    @Json(name = "min_repetition")
-    val minRepetition: Int,
-    @Json(name = "total_repetition")
-    val totalRepetition: Int
+    @Json(name = "routine")
+    val routineDto: RoutineDto,
+    @Json(name = "routine_set")
+    val routineSetDto: RoutineSetDto,
 )

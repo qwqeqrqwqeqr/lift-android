@@ -12,8 +12,9 @@ import com.gradation.lift.model.work.WorkSet
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+
 @JsonClass(generateAdapter = true)
-data class GetRoutineSetRoutineByDateResponseDto(
+data class GetRoutineSetRoutineByRoutineSetIdResponseDto(
     @Json(name = "routine_set_routine")
     val routineSetRoutine: List<RoutineSetRoutineDto>
 ){
@@ -58,6 +59,4 @@ data class GetRoutineSetRoutineByDateResponseDto(
             }
         )
     }
-
-
 }

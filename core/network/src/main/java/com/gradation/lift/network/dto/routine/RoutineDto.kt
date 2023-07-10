@@ -8,7 +8,8 @@ import kotlinx.serialization.Serializable
 
 @JsonClass(generateAdapter = true)
 data class RoutineDto(
-    val id: Int,
+    @Json(name = "routine_id")
+    val routineId: Int,
     @Json(name = "routine_set_id")
     val routineSetId: Int,
     @Json(name = "work_category")
@@ -30,3 +31,5 @@ data class RoutineDto(
     @Json(name = "total_repetition")
     val totalRepetition: Int
 )
+
+
