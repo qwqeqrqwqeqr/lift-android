@@ -4,7 +4,7 @@ import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.AuthAuthenticator
 import com.gradation.lift.network.handler.AuthInterceptor
-import com.gradation.lift.network.handler.ErrorInterceptor
+import com.gradation.lift.network.handler.RetryInterceptor
 import com.gradation.lift.network.service.*
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -32,9 +32,9 @@ object NetworkModule {
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BASIC
+                level = HttpLoggingInterceptor.Level.BODY
             })
-            .addInterceptor(ErrorInterceptor())
+            .addInterceptor(RetryInterceptor())
             .build()
     }
 
@@ -50,12 +50,12 @@ object NetworkModule {
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BASIC
+                level = HttpLoggingInterceptor.Level.BODY
             })
             .addInterceptor(
                 AuthInterceptor(tokenDataStoreDataSource = tokenDataStoreDataSource)
             )
-            .addInterceptor(ErrorInterceptor())
+            .addInterceptor(RetryInterceptor())
             .authenticator(
                 AuthAuthenticator(
                     tokenDataStoreDataSource = tokenDataStoreDataSource,

@@ -52,17 +52,18 @@ fun LoginSignInRoute(
     )
 
     when (val result = signInUiState) {
+        //TODO toast 반복실행 해결
         is SignInUiState.Fail -> {
-            Toast.makeText(
-                LocalContext.current,
-                result.message,
-                Toast.LENGTH_SHORT
-            ).show()
+                Toast.makeText(
+                    LocalContext.current,
+                    result.message,
+                    Toast.LENGTH_SHORT
+                ).show()
         }
         SignInUiState.Loading -> {}
         SignInUiState.None -> {}
         is SignInUiState.Success -> {
-            LaunchedEffect(true) {
+            LaunchedEffect(result) {
                 if(result.existUserDetail){
                     navController.navigateLoginToHome()
                 }

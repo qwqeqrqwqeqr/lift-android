@@ -15,6 +15,7 @@ import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.user.UserDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -70,8 +71,10 @@ class LoginSignInViewModel @Inject constructor(
                         is DataState.Success -> {
                             existUserDetail().collect { existUserDetailResult ->
                                 when (existUserDetailResult) {
-                                    is DataState.Fail -> signInUiState.value =
-                                        SignInUiState.Fail(existUserDetailResult.message)
+                                    is DataState.Fail -> {
+                                        signInUiState.value =
+                                            SignInUiState.Fail(existUserDetailResult.message)
+                                    }
                                     is DataState.Success -> signInUiState.value =
                                         SignInUiState.Success(
                                             existUserDetailResult.data

@@ -11,10 +11,10 @@ interface CheckerService {
 
 
     @GET("checker/duplicate-email/")
-    suspend fun checkDuplicateEmail(@Query("email") email: String ): APIResultWrapper<CheckDuplicateEmailResponseDto>
+    suspend fun checkDuplicateEmail(@Query("email") email: String ): Response<APIResultWrapper<CheckDuplicateEmailResponseDto>>
 
 
     @GET("checker/duplicate-name/")
-    suspend fun checkDuplicateName(@Query("name") name: String): APIResultWrapper<CheckDuplicateNameResponseDto>
+    suspend fun checkDuplicateName(@Query("name") name: String): Response<APIResultWrapper<CheckDuplicateNameResponseDto>>
 
 }

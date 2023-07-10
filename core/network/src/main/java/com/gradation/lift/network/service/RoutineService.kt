@@ -7,57 +7,57 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import kotlinx.datetime.LocalDate
+import retrofit2.Response
 import retrofit2.http.Body
 
 interface RoutineService {
 
     @GET("routine/routine-set/")
-    suspend fun getRoutineSet(@Query("user_id") userId: String): APIResultWrapper<GetRoutineSetResponseDto>
+    suspend fun getRoutineSet(@Query("user_id") userId: String): Response<APIResultWrapper<GetRoutineSetResponseDto>>
 
     @POST("routine/routine-set/")
-    suspend fun createRoutineSet(@Body createRoutineSetRequestDto: CreateRoutineSetRequestDto): APIResultWrapper<Boolean>
+    suspend fun createRoutineSet(@Body createRoutineSetRequestDto: CreateRoutineSetRequestDto): Response<APIResultWrapper<Boolean>>
 
     @GET("routine/routine-set-by-date/")
     suspend fun getRoutineSetByDate(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,
-    ): APIResultWrapper<GetRoutineSetByDateResponseDto>
+    ): Response<APIResultWrapper<GetRoutineSetByDateResponseDto>>
 
     @GET("routine/routine-set-by-date/")
     suspend fun getRoutineSetByRoutineSetId(
         @Query("user_id") userId: String,
         @Query("routine_set_id") routineSetId: Int,
-    ): APIResultWrapper<GetRoutineSetByRoutineSetIdResponseDto>
+    ): Response<APIResultWrapper<GetRoutineSetByRoutineSetIdResponseDto>>
 
     @GET("routine/routine")
-    suspend fun getRoutine(@Query("user_id") userId: String): APIResultWrapper<GetRoutineResponseDto>
-
+    suspend fun getRoutine(@Query("user_id") userId: String): Response<APIResultWrapper<GetRoutineResponseDto>>
     @GET("routine/routine-by-date")
     suspend fun getRoutineByDate(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,
-    ): APIResultWrapper<GetRoutineByDateResponseDto>
+    ): Response<APIResultWrapper<GetRoutineByDateResponseDto>>
 
     @GET("routine/routine-by-routine-set-id/")
     suspend fun getRoutineByRoutineSetId(
         @Query("user_id") userId: String,
         @Query("routine_set_id") routineSetId: Int,
-    ): APIResultWrapper<GetRoutineByRoutineSetIdResponseDto>
+    ): Response<APIResultWrapper<GetRoutineByRoutineSetIdResponseDto>>
 
     @GET("routine/routine-by-date-and-routine-set-id/")
     suspend fun getRoutineByDateAndRoutineSetId(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,
         @Query("routine_set_id") routineSetId: Int,
-    ): APIResultWrapper<GetRoutineByDateAndRoutineSetIdResponseDto>
+    ): Response<APIResultWrapper<GetRoutineByDateAndRoutineSetIdResponseDto>>
 
     @GET("routine/routine-set-routine/")
-    suspend fun getRoutineSetRoutine(@Query("user_id") userId: String): APIResultWrapper<GetRoutineSetRoutineResponseDto>
+    suspend fun getRoutineSetRoutine(@Query("user_id") userId: String): Response<APIResultWrapper<GetRoutineSetRoutineResponseDto>>
 
     @GET("routine/routine-set-routine-by-date/")
     suspend fun getRoutineSetRoutineByDate(
         @Query("user_id") userId: String,
         @Query("date") date: LocalDate,
-    ): APIResultWrapper<GetRoutineSetRoutineByDateResponseDto>
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByDateResponseDto>>
 
 }
