@@ -2,29 +2,25 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
-import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
 
 
 
-
 fun NavController.navigateLoginToHome() {
-    this.navigate(HOME_ROUTER_NAME){
-        popUpTo(LOGIN_GRAPH_ROUTER_NAME){
+    this.navigate(Router.MAIN_GRAPH_ROUTER_NAME){
+        popUpTo(Router.LOGIN_GRAPH_ROUTER_NAME){
             inclusive=true
         }
     }
 }
 
-
-fun NavController.navigateLoginToRegisterDetail() {
-    this.navigate(REGISTER_DETAIL_GRAPH_ROUTER_NAME){
-
-        popUpTo(LOGIN_GRAPH_ROUTER_NAME){
+fun NavController.navigateRegisterDetailToHome() {
+    this.navigate(Router.MAIN_GRAPH_ROUTER_NAME){
+        popUpTo(Router.REGISTER_DETAIL_NAME_ROUTER_NAME){
             inclusive=true
         }
     }

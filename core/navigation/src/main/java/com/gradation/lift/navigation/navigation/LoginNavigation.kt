@@ -37,6 +37,10 @@ fun NavController.navigateToLoginGraph() {
     }
 }
 
+
+
+
+
 fun NavController.navigateSignUpProcessToSignIn(){
     this.navigate(Router.LOGIN_SIGN_IN_ROUTER_NAME){
         popUpTo(Router.LOGIN_SIGN_UP_ROUTER_NAME){

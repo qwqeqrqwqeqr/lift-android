@@ -25,6 +25,8 @@ object Router {
     const val REGISTER_DETAIL_NAME_ROUTER_NAME = "name"
     const val REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME = "unit_of_weight"
 
+
+    const val MAIN_GRAPH_ROUTER_NAME = "main_graph"
     const val HOME_ROUTER_NAME = "home"
     const val ROUTINE_ROUTER_NAME = "routine"
     const val HISTORY_ROUTER_NAME = "history"

@@ -30,9 +30,10 @@ fun NavController.navigateToRegisterDetailGraph() {
     }
 }
 
-fun NavController.navigateRegisterDetailToHome() {
-    this.navigate(Router.HOME_ROUTER_NAME){
-        popUpTo(Router.REGISTER_DETAIL_NAME_ROUTER_NAME){
+
+fun NavController.navigateLoginToRegisterDetail() {
+    this.navigate(Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME){
+        popUpTo(Router.LOGIN_GRAPH_ROUTER_NAME){
             inclusive=true
         }
     }
