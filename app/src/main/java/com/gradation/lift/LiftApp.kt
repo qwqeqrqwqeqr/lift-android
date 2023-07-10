@@ -109,7 +109,6 @@ class AppState(
     val currentTopLevelDestination
         @Composable get() = when (currentDestination?.route) {
             HOME_ROUTER_NAME -> TopLevelNavDestination.Home
-            ROUTINE_ROUTER_NAME -> TopLevelNavDestination.Routine
             HISTORY_ROUTER_NAME -> TopLevelNavDestination.History
             MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
             else -> null
@@ -124,7 +123,6 @@ class AppState(
         trace("Navigation: ${topLevelDestination.name}") {
             when (topLevelDestination) {
                 TopLevelNavDestination.Home -> navController.navigateToHome()
-                TopLevelNavDestination.Routine -> navController.navigateToRoutine()
                 TopLevelNavDestination.History -> navController.navigateToHistory()
                 TopLevelNavDestination.MyInfo -> navController.navigateToMyInfo()
             }

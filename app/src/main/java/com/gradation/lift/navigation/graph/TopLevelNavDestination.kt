@@ -15,11 +15,6 @@ enum class TopLevelNavDestination(
         selectedIcon = LiftIcon.HomeSelected,
         unselectedIcon = LiftIcon.HomeUnSelected
     ),
-    Routine(
-        displayName = R.string.top_level_nav_destination_item_routine,
-        selectedIcon = LiftIcon.RoutineSelected,
-        unselectedIcon = LiftIcon.RoutineUnSelected
-    ),
     History(
         displayName = R.string.top_level_nav_destination_item_history,
         selectedIcon = LiftIcon.HistorySelected,
