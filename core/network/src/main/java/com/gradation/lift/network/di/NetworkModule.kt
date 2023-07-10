@@ -4,6 +4,7 @@ import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.AuthAuthenticator
 import com.gradation.lift.network.handler.AuthInterceptor
+import com.gradation.lift.network.handler.ErrorInterceptor
 import com.gradation.lift.network.service.*
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -25,14 +26,15 @@ object NetworkModule {
     @DefaultHttpClient
     @Provides
     @Singleton
-    fun provideHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
-    ): OkHttpClient {
+    fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BASIC
+            })
+            .addInterceptor(ErrorInterceptor())
             .build()
     }
 
@@ -40,7 +42,6 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
         moshi: Moshi,
     ): OkHttpClient {
@@ -48,10 +49,13 @@ object NetworkModule {
             .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BASIC
+            })
             .addInterceptor(
                 AuthInterceptor(tokenDataStoreDataSource = tokenDataStoreDataSource)
             )
+            .addInterceptor(ErrorInterceptor())
             .authenticator(
                 AuthAuthenticator(
                     tokenDataStoreDataSource = tokenDataStoreDataSource,
