@@ -51,30 +51,32 @@ fun LiftApp(
     ),
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
-        if(isSinged){
-            Scaffold(
-                bottomBar = {
-                    if (appState.currentTopLevelDestination != null) {
-                        BottomBar(
-                            destinations = appState.topLevelDestinations,
-                            onNavigateToDestination = appState::navigateToTopLevelDestination,
-                            currentDestination = appState.currentDestination,
-                        )
-                    }
-                },
-            ) {
+
+        Scaffold(
+            bottomBar = {
+                if (appState.currentTopLevelDestination != null) {
+                    BottomBar(
+                        destinations = appState.topLevelDestinations,
+                        onNavigateToDestination = appState::navigateToTopLevelDestination,
+                        currentDestination = appState.currentDestination,
+                    )
+                }
+            },
+        ) {
+            if (isSinged) {
                 LiftNavHost(
                     navController = appState.navController,
                     startDestination = HOME_ROUTER_NAME
                 )
+            } else {
+                LiftNavHost(
+                    navController = appState.navController,
+                    startDestination = LOGIN_GRAPH_ROUTER_NAME
+                )
+
             }
         }
-        else{
-            LiftNavHost(
-                navController = appState.navController,
-                startDestination = LOGIN_GRAPH_ROUTER_NAME
-            )
-        }
+
 
     }
 }
