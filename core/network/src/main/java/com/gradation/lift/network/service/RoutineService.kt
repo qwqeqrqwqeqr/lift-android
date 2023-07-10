@@ -14,7 +14,7 @@ interface RoutineService {
 
 
     @POST("routine/routine-set/")
-    suspend fun createRoutineSet(@Body createRoutineSetRequestDto: CreateRoutineSetRequestDto): Response<APIResultWrapper<Boolean>>
+    suspend fun createRoutineSet(@Body createRoutineSetRequestDto: CreateRoutineSetRequestDto): Response<APIResultWrapper<CreateRoutineSetResponseDto>>
 
     @GET("routine/routine/")
     suspend fun getRoutine(): Response<APIResultWrapper<GetRoutineResponseDto>>
@@ -23,8 +23,8 @@ interface RoutineService {
     suspend fun getRoutineSetRoutine(): Response<APIResultWrapper<GetRoutineSetRoutineResponseDto>>
 
     @GET("routine/routine-set-routine-by-weekday/")
-    suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") userId: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
+    suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
     @GET("routine/routine-set-routine-by-routine-set-id/")
-    suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id") userId: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
+    suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id") routineSetId: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
 }

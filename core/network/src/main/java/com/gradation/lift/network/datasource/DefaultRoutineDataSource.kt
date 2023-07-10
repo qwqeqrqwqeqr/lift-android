@@ -19,17 +19,6 @@ class DefaultRoutineDataSource @Inject constructor(
     private val routineService: RoutineService,
     private val networkResultHandler: NetworkResultHandler,
 ) : RoutineDataSource {
-    override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>> =
-        flow {
-            networkResultHandler { routineService.getRoutineSet(userId) }
-                .collect { result ->
-                    when (result) {
-                        is APIResult.Fail -> emit(APIResult.Fail(result.message))
-              
-                        is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
-                    }
-                }
-        }
 
     override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>> =
         flow {
@@ -72,44 +61,9 @@ class DefaultRoutineDataSource @Inject constructor(
             }
         }
 
-    override suspend fun getRoutineSetByDate(
-        userId: String,
-        date: LocalDate,
-    ): Flow<APIResult<List<RoutineSet>>> = flow {
-        networkResultHandler {
-            routineService.getRoutineSetByDate(
-                userId = userId,
-                date = date
-            )
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-      
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
-            }
-        }
-    }
 
-    override suspend fun getRoutineSetByRoutineSetId(
-        userId: String,
-        routineSetId: Int,
-    ): Flow<APIResult<RoutineSet>> = flow {
-        networkResultHandler {
-            routineService.getRoutineSetByRoutineSetId(
-                userId = userId,
-                routineSetId = routineSetId
-            )
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-      
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSet()))
-            }
-        }
-    }
-
-    override suspend fun getRoutine(userId: String): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler { routineService.getRoutine(userId = userId) }
+    override suspend fun getRoutine(): Flow<APIResult<List<Routine>>> = flow {
+        networkResultHandler { routineService.getRoutine() }
             .collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail(result.message))
@@ -119,94 +73,21 @@ class DefaultRoutineDataSource @Inject constructor(
             }
     }
 
-    override suspend fun getRoutineByDate(
-        userId: String,
-        date: LocalDate,
-    ): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler {
-            routineService.getRoutineByDate(
-                userId = userId,
-                date = date
-            )
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-      
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
-            }
-        }
+    override suspend fun getRoutineSetRoutine(): Flow<APIResult<List<RoutineSetRoutine>>> {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun getRoutineByRoutineSetId(
-        userId: String,
-        routineSetId: Int,
-    ): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler {
-            routineService.getRoutineByRoutineSetId(
-                userId = userId,
-                routineSetId = routineSetId
-            )
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-      
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
-            }
-        }
+    override suspend fun getRoutineSetRoutineByWeekday(weekday: String): Flow<APIResult<List<RoutineSetRoutine>>> {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun getRoutineByDateAndRoutineSetId(
-        userId: String,
-        date: LocalDate,
-        routineSetId: Int,
-    ): Flow<APIResult<List<Routine>>> = flow {
-        networkResultHandler {
-            routineService.getRoutineByDateAndRoutineSetId(
-                userId = userId,
-                date = date,
-                routineSetId = routineSetId
-            )
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-      
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
-            }
-        }
+    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: String): Flow<APIResult<List<RoutineSetRoutine>>> {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>> =
-        flow {
-            networkResultHandler {
-                routineService.getRoutineSetRoutine(
-                    userId = userId,
-                )
-            }.collect { result ->
-                when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
-          
-                    is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
-                }
-            }
-        }
 
-    override suspend fun getRoutineSetRoutineByDate(
-        userId: String,
-        date: LocalDate,
-    ): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
-        networkResultHandler {
-            routineService.getRoutineSetRoutineByDate(
-                userId = userId,
-                date = date,
-            )
-        }.collect { result ->
-            when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-      
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
-            }
-        }
-    }
+
+
 
 
 }

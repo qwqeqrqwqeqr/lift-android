@@ -8,13 +8,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class GetRoutineResponseDto (
+data class GetRoutineResponseDto(
     @Json(name = "routine")
-    val routine: List<RoutineDto>
-){
+    val routine: List<RoutineDto>,
+) {
     fun toRoutine(): List<Routine> = this.routine.map {
-        val routine1 = Routine(
-            id = it.id,
+        Routine(
+            id = it.routineId,
             routineSetId = it.routineSetId,
             workCategory = WorkCategory(
                 id = it.workCategory.id,
@@ -39,7 +39,6 @@ data class GetRoutineResponseDto (
             minRepetition = it.minRepetition,
             totalRepetition = it.totalRepetition
         )
-        routine1
     }
 }
 

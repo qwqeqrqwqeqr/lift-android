@@ -9,27 +9,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 
 interface RoutineDataSource {
-    suspend fun getRoutineSet(userId: String): Flow<APIResult<List<RoutineSet>>>
 
     suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>>
 
-    suspend fun getRoutineSetByDate(userId: String, date: LocalDate): Flow<APIResult<List<RoutineSet>>>
+    suspend fun getRoutine(): Flow<APIResult<List<Routine>>>
 
-    suspend fun getRoutineSetByRoutineSetId(userId: String, routineSetId: Int): Flow<APIResult<RoutineSet>>
+    suspend fun getRoutineSetRoutine(): Flow<APIResult<List<RoutineSetRoutine>>>
 
-    suspend fun getRoutine(userId: String): Flow<APIResult<List<Routine>>>
+    suspend fun getRoutineSetRoutineByWeekday(weekday: String): Flow<APIResult<List<RoutineSetRoutine>>>
 
-    suspend fun getRoutineByDate(userId: String, date: LocalDate, ): Flow<APIResult<List<Routine>>>
-
-    suspend fun getRoutineByRoutineSetId(userId: String, routineSetId: Int): Flow<APIResult<List<Routine>>>
-
-    suspend fun getRoutineByDateAndRoutineSetId(userId: String, date: LocalDate, routineSetId: Int): Flow<APIResult<List<Routine>>>
-
-    suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<RoutineSetRoutine>>>
-
-    suspend fun getRoutineSetRoutineByDate(userId: String, date: LocalDate) : Flow<APIResult<List<RoutineSetRoutine>>>
-
-
+    suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: String): Flow<APIResult<List<RoutineSetRoutine>>>
 
 
 }
