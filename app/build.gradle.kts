@@ -45,7 +45,6 @@ dependencies{
     implementation(project(":feature:login:find-password"))
 
 
-    implementation(project(":feature:register-detail:complete"))
     implementation(project(":feature:register-detail:gender"))
     implementation(project(":feature:register-detail:height-weight"))
     implementation(project(":feature:register-detail:name"))

@@ -66,7 +66,7 @@ fun LiftApp(
             if (isSinged) {
                 LiftNavHost(
                     navController = appState.navController,
-                    startDestination = HOME_ROUTER_NAME
+                    startDestination = REGISTER_DETAIL_GRAPH_ROUTER_NAME
                 )
             } else {
                 LiftNavHost(

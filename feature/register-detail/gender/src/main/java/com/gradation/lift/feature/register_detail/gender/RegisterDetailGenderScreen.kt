@@ -49,7 +49,7 @@ fun RegisterDetailGenderRoute(
         onUpdateMale = viewModel.updateMale(),
         onUpdateFemale = viewModel.updateFemale(),
         onNextButtonClick = {
-            viewModel.updateKey(navController,name)
+            viewModel.updateKey(navController)
             navController.navigateToRegisterDetailHeightWeight()
         },
     )

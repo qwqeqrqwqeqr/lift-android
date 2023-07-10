@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setFloatValue
+import com.gradation.lift.navigation.saved_state.setStringValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -72,13 +72,13 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
         )
 
     fun updateKey(navController: NavController) {
-        navController.setFloatValue(
+        navController.setStringValue(
             SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY,
-            weight.value.toFloat()
+            weight.value
         )
-        navController.setFloatValue(
+        navController.setStringValue(
             SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY,
-            height.value.toFloat()
+            height.value
         )
     }
 

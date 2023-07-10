@@ -12,35 +12,25 @@ fun NavController.setStringValue(key: String, value: String) {
 }
 
 fun NavController.getStringValue(key: String): String {
+
     return this.previousBackStackEntry?.savedStateHandle?.get<String>(key) ?: ""
 }
 
 
-
-
-fun NavController.setFloatValue(key: String, value: Float) {
-    this.currentBackStackEntry?.let {
-        with(it.savedStateHandle) {
-            set(key, value)
+fun NavController.findValueInBackStackEntry(keyList: List<String>): Map<String, String> {
+    val valueList = HashMap<String, String>()
+    backQueue.reversed().forEach { backStackEntry ->
+        keyList.forEach { key ->
+            backStackEntry.savedStateHandle.get<String>(key)?.let { value ->
+                valueList[key] = value
+            }
         }
     }
+    return valueList
 }
 
-fun NavController.getFloatValue(key: String): Float {
-    return this.previousBackStackEntry?.savedStateHandle?.get<Float>(key) ?: 0f
-}
 
-fun NavController.setIntValue(key: String, value: Int) {
-    this.currentBackStackEntry?.let {
-        with(it.savedStateHandle) {
-            set(key, value)
-        }
-    }
-}
 
-fun NavController.getIntValue(key: String): Int {
-    return this.previousBackStackEntry?.savedStateHandle?.get<Int>(key) ?: 0
-}
 
 
 

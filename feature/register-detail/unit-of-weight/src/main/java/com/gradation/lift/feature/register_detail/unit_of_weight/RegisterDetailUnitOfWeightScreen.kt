@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.register_detail.unit_of_weight
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,19 +13,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftDialog
 import com.gradation.lift.designsystem.component.LiftToggleTextBox
 import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -51,6 +48,7 @@ fun RegisterDetailUnitOfWeightRoute(
         onCompleteDialogButtonClick={ navController.navigateRegisterDetailToHome()},
         onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
     )
+
 }
 
 

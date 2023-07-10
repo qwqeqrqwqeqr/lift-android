@@ -3,7 +3,6 @@ package com.gradation.lift.navigation.graph
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
-import com.gradation.lift.feature.register_detail.complete.registerDetailCompleteScreen
 import com.gradation.lift.feature.register_detail.gender.registerDetailGenderScreen
 import com.gradation.lift.feature.register_detail.height_weight.registerDetailHeightWeightScreen
 import com.gradation.lift.feature.register_detail.name.registerDetailNameScreen
@@ -20,7 +19,6 @@ fun registerDetailGraph(
             route = route,
             startDestination = graphStartDestination,
         ) {
-            registerDetailCompleteScreen(navController, this)
             registerDetailGenderScreen(navController, this)
             registerDetailHeightWeightScreen(navController, this)
             registerDetailNameScreen(navController, this)
