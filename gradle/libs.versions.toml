@@ -46,6 +46,7 @@ retrofitKotlinxSerializationJson = "0.8.0"
 room = "2.5.0"
 robolectric = "4.9"
 timber="5.0.1"
+truth="1.0.1"
 versionCheck = "0.46.0"
 
 [plugins]
@@ -154,10 +155,8 @@ androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
-okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
-
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+truth = {group ="com.google.truth",name="truth",version.ref="truth"}
 
 #TIMBER
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
@@ -167,6 +166,7 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
+okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 
 
 #RETROFIT
@@ -178,6 +178,7 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 #GRADLE
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android" }

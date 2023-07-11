@@ -22,7 +22,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     CreateRoutineSetRequestDto(
                         shortDescription = createRoutineSetRoutine.shortDescription,
                         longDescription = createRoutineSetRoutine.longDescription,
-                        weekday = createRoutineSetRoutine.weekday.getName(),
+                        weekday = createRoutineSetRoutine.weekday.getValue(),
                         routine = createRoutineSetRoutine.routine.map { routine ->
                             CreateRoutineDto(
                                 workCategory = routine.workCategoryId,
@@ -75,7 +75,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 }
         }
 
-    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: String): Flow<APIResult<List<RoutineSetRoutine>>> =
+    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: Int): Flow<APIResult<List<RoutineSetRoutine>>> =
         flow {
             networkResultHandler { routineService.getRoutineSetRoutineByRoutineSetId(routineSetId) }
                 .collect { result ->

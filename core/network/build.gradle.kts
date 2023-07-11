@@ -13,6 +13,7 @@ android {
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
 
+
         buildConfigField("String", "LIFT_API_URL", getApiURL("LIFT_API_URL"))
     }
 }

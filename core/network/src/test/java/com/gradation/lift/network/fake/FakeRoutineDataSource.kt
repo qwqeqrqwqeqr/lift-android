@@ -1,110 +1,60 @@
 package com.gradation.lift.network.fake
 
+import com.gradation.lift.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.routine.Routine
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.data.TestDtoDataGenerator
+import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineSetRoutineByRoutineSetIdResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineSetRoutineByWeekdayResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.utils.TestReturnState
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.LocalDate
 
-class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) : RoutineDataSource{
-    override suspend fun getRoutineSet(userId: String): Flow<APIResult<List<com.gradation.lift.model.routine.RoutineSet>>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineSetDto.toRoutineSet()))
+class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
+    RoutineDataSource {
+    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<APIResult<Boolean>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(APIResult.Fail("오류"))
+                TestReturnState.Success -> emit(APIResult.Success(data = FAKE_BOOLEAN_DATA))
+            }
         }
-    }
 
-    override suspend fun createRoutineSet(createRoutineSetRoutine: com.gradation.lift.model.routine.CreateRoutineSetRoutine): Flow<APIResult<Boolean>> = flow {
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = true))
-        }
-    }
-
-    override suspend fun getRoutineSetByDate(
-        userId: String,
-        date: LocalDate
-    ): Flow<APIResult<List<com.gradation.lift.model.routine.RoutineSet>>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineSetByDateDto.toRoutineSet()))
-        }
-    }
-
-    override suspend fun getRoutineSetByRoutineSetId(
-        userId: String,
-        routineSetId: Int
-    ): Flow<APIResult<com.gradation.lift.model.routine.RoutineSet>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineSetByRoutineSetIdDto.toRoutineSet()))
-        }
-    }
-
-    override suspend fun getRoutine(userId: String): Flow<APIResult<List<com.gradation.lift.model.routine.Routine>>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineDto.toRoutine()))
-        }
-    }
-
-    override suspend fun getRoutineByDate(
-        userId: String,
-        date: LocalDate
-    ): Flow<APIResult<List<com.gradation.lift.model.routine.Routine>>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineByDateDto.toRoutine()))
-        }
-    }
-
-    override suspend fun getRoutineByRoutineSetId(
-        userId: String,
-        routineSetId: Int
-    ): Flow<APIResult<List<com.gradation.lift.model.routine.Routine>>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineByRoutineSetIdDto.toRoutine()))
-        }
-    }
-
-    override suspend fun getRoutineByDateAndRoutineSetId(
-        userId: String,
-        date: LocalDate,
-        routineSetId: Int
-    ): Flow<APIResult<List<com.gradation.lift.model.routine.Routine>>> = flow{
-        when(testReturnState){
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineByDateAndRoutineSetIdDto.toRoutine()))
-        }
-    }
-
-    override suspend fun getRoutineSetRoutine(userId: String): Flow<APIResult<List<com.gradation.lift.model.routine.RoutineSetRoutine>>> = flow {
+    override suspend fun getRoutine(): Flow<APIResult<List<Routine>>> = flow {
         when (testReturnState) {
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success -> emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineSetRoutineDto.toRoutineSetRoutine()))
+            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
+            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineDto.toRoutine()))
         }
     }
-    override suspend fun getRoutineSetRoutineByDate(
-        userId: String,
-        date: LocalDate
-    ): Flow<APIResult<List<com.gradation.lift.model.routine.RoutineSetRoutine>>> = flow {
+
+    override suspend fun getRoutineSetRoutine(): Flow<APIResult<List<RoutineSetRoutine>>> = flow {
         when (testReturnState) {
-            TestReturnState.Error -> emit(APIResult.Error(Throwable(message = "통신 에러")))
-            TestReturnState.Fail -> emit(APIResult.Fail("존재 하지 않는 값"))
-            TestReturnState.Success -> emit(APIResult.Success(data = TestDtoDataGenerator.getRoutineSetRoutineByDateDto.toRoutineSetRoutine()))
+            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
+            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineResponseDto.toRoutineSetRoutine()))
         }
     }
+
+    override suspend fun getRoutineSetRoutineByWeekday(weekday: String): Flow<APIResult<List<RoutineSetRoutine>>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(APIResult.Fail("오류"))
+                TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineByRoutineSetIdResponseDto.toRoutineSetRoutine()))
+            }
+        }
+
+    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: Int): Flow<APIResult<List<RoutineSetRoutine>>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(APIResult.Fail("오류"))
+                TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineByWeekdayResponseDto.toRoutineSetRoutine()))
+            }
+        }
+
 
 }

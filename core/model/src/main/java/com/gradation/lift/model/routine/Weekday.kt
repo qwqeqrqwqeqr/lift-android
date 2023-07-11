@@ -22,7 +22,7 @@ sealed class Weekday {
         const val NONE = "None"
     }
 
-    fun getName(): String = when (val weekday = this) {
+    fun getValue(): String = when (val weekday = this) {
         is Friday -> weekday.name
         is Monday -> weekday.name
         is None -> weekday.name

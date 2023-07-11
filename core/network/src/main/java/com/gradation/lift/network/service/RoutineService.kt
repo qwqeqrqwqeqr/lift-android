@@ -26,5 +26,5 @@ interface RoutineService {
     suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
     @GET("routine/routine-set-routine-by-routine-set-id/")
-    suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id") routineSetId: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
+    suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id") routineSetId: Int): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
 }

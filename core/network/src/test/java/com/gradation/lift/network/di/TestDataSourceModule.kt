@@ -18,7 +18,6 @@ import dagger.hilt.testing.TestInstallIn
     replaces = [DataSourceModule::class]
 )
 object TestDataSourceModule {
-
     @Provides
     fun provideFakeWorkDataSource(
         workService: WorkService,
@@ -31,5 +30,4 @@ object TestDataSourceModule {
         routineService: RoutineService,
         networkResultHandler: NetworkResultHandler,
     ): RoutineDataSource = FakeRoutineDataSource()
-
 }

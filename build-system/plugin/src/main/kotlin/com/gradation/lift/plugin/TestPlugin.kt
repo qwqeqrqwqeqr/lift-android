@@ -13,19 +13,23 @@ class TestPlugin : Plugin<Project> {
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                add("testImplementation", libs.findLibrary("androidx-test-core").get())
-                add("testImplementation", libs.findLibrary("androidx-arch-core-testing").get())
-                add("testImplementation", libs.findLibrary("androidx-test-espresso-core").get())
+
                 add("implementation", libs.findLibrary("androidx-test-rules").get())
                 add("implementation", libs.findLibrary("androidx-test-runner").get())
 
-                add("testImplementation", libs.findLibrary("mockito-core").get())
 
                 add("testImplementation", libs.findLibrary("robolectric").get())
-
-
+                add("testImplementation", libs.findLibrary("mockito-core").get())
                 add("testImplementation", libs.findLibrary("junit4").get())
+                add("testImplementation", libs.findLibrary("truth").get())
+                add("testImplementation", libs.findLibrary("androidx-arch-core-testing").get())
 
+
+                add("androidTestImplementation", libs.findLibrary("junit4").get())
+                add("androidTestImplementation", libs.findLibrary("truth").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-test-core").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-arch-core-testing").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-test-espresso-core").get())
 
 
             }

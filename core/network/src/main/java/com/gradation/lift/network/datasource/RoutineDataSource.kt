@@ -18,7 +18,7 @@ interface RoutineDataSource {
 
     suspend fun getRoutineSetRoutineByWeekday(weekday: String): Flow<APIResult<List<RoutineSetRoutine>>>
 
-    suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: String): Flow<APIResult<List<RoutineSetRoutine>>>
+    suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: Int): Flow<APIResult<List<RoutineSetRoutine>>>
 
 
 }

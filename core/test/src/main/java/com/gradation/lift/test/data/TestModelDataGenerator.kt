@@ -101,7 +101,7 @@ object TestModelDataGenerator {
     val routineSetRoutineModelList = listOf(routineSetRoutineModel1, routineSetRoutineModel2)
 
 
-    val FAKE_CREATE_ROUTINE_SET = CreateRoutineSetRoutine(
+    val createRoutineSetRoutineModel = CreateRoutineSetRoutine(
         shortDescription = FAKE_STRING_DATA,
         longDescription = FAKE_STRING_DATA,
         weekday = Weekday.Monday(),
