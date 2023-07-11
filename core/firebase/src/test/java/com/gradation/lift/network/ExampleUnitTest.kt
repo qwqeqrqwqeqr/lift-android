@@ -1,4 +1,4 @@
-package com.gradation.lift.firebase
+package com.gradation.lift.network
 
 import org.junit.Test
 

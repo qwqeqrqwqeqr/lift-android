@@ -27,6 +27,6 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     FakeWorkDataSourceTest::class,
-    FakeRoutineDataSourceTest::class
+    FakeRoutineDataSourceTest::class,
 )
 class NetworkTestSuit

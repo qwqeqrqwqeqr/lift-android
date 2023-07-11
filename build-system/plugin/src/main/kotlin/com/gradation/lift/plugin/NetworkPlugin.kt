@@ -24,6 +24,7 @@ class NetworkPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("moshi-kotlin").get())
 
                 add("testImplementation", libs.findLibrary("okhttp-mockwebserver").get())
+                add("androidTestImplementation", libs.findLibrary("okhttp-mockwebserver").get())
 
             }
         }
