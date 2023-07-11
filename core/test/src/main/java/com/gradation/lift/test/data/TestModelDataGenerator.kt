@@ -1,11 +1,9 @@
 package com.gradation.lift.test.data
 
-import com.gradation.lift.domain.model.common.*
 import com.gradation.lift.model.routine.*
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.model.work.WorkSet
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 
 
@@ -68,20 +66,20 @@ object TestModelDataGenerator {
         id = 1,
         shortDescription = "Lorem ipsum dolor sit amet",
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        repeatIntervalType = RepeatIntervalType.DayType(interval = 3)
+        weekday = Weekday.Monday()
     )
     private val routineSetModel2 = RoutineSet(
         id = 2,
         shortDescription = "Lorem ipsum dolor sit amet",
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        repeatIntervalType = RepeatIntervalType.WeekDayType(weekday = WeekDay.Monday)
+        weekday = Weekday.Monday()
     )
 
     private val routineSetRoutineModel1 = RoutineSetRoutine(
         id = 1,
         shortDescription = "Lorem ipsum dolor sit amet",
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        repeatIntervalType = RepeatIntervalType.DayType(interval = 3),
+        weekday = Weekday.Monday(),
         routine = listOf(routineModel1)
     )
 
@@ -89,7 +87,7 @@ object TestModelDataGenerator {
         id = 2,
         shortDescription = "Lorem ipsum dolor sit amet",
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        repeatIntervalType = RepeatIntervalType.WeekDayType(weekday = WeekDay.Monday),
+        weekday = Weekday.Monday(),
         routine = listOf(routineModel2)
     )
 
@@ -104,10 +102,9 @@ object TestModelDataGenerator {
 
 
     val FAKE_CREATE_ROUTINE_SET = CreateRoutineSetRoutine(
-        userId = FAKE_STRING_DATA,
         shortDescription = FAKE_STRING_DATA,
         longDescription = FAKE_STRING_DATA,
-        repeatIntervalType = RepeatIntervalType.DayType(interval = FAKE_INT_DATA),
+        weekday = Weekday.Monday(),
         routine = emptyList(),
     )
 
