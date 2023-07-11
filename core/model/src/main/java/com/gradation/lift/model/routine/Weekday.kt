@@ -21,6 +21,17 @@ sealed class Weekday {
         const val SUNDAY = "Sunday"
         const val NONE = "None"
     }
+
+    fun getName(): String = when (val weekday = this) {
+        is Friday -> weekday.name
+        is Monday -> weekday.name
+        is None -> weekday.name
+        is Saturday -> weekday.name
+        is Sunday -> weekday.name
+        is Thursday -> weekday.name
+        is Tuesday -> weekday.name
+        is Wednesday -> weekday.name
+    }
 }
 
 fun toWeekDay(weekDay: String): Weekday =
