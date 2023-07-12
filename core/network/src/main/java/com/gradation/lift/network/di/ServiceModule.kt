@@ -1,5 +1,7 @@
 package com.gradation.lift.network.di
 
+import AuthRetrofit
+import com.gradation.lift.network.di.annotation.DefaultRetrofit
 import com.gradation.lift.network.service.*
 import dagger.Module
 import dagger.Provides

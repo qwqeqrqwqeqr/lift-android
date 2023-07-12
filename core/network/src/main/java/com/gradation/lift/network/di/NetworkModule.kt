@@ -1,7 +1,11 @@
 package com.gradation.lift.network.di
 
+import AuthRetrofit
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.Constants
+import com.gradation.lift.network.di.annotation.AuthHttpClient
+import com.gradation.lift.network.di.annotation.DefaultHttpClient
+import com.gradation.lift.network.di.annotation.DefaultRetrofit
 import com.gradation.lift.network.handler.AuthAuthenticator
 import com.gradation.lift.network.handler.AuthInterceptor
 import com.gradation.lift.network.handler.RetryInterceptor
