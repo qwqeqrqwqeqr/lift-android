@@ -43,6 +43,10 @@ class AuthAuthenticator @Inject constructor(
                             }
                         }"
                     ).build()
+            }else{
+                runBlocking {
+                    tokenDataStoreDataSource.clearAll()
+                }
             }
         }
         return null
