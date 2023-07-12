@@ -45,7 +45,7 @@ internal object TestUserDtoDataGenerator {
     """.trimIndent()
 
 
-    val createUserDetailRequestDto = CreateUserDetailRequestDto(userDetailDto =  userDetailDto)
+    val createUserDetailRequestDto = CreateUserDetailRequestDto(userDetailDto)
     val createUserDetailResponseDto = CreateUserDetailResponseDto(true)
     val existUserDetailResponseDto = ExistUserDetailResponseDto(true)
     val getUserDetailResponseDto = GetUserDetailResponseDto(userDetailDto)
