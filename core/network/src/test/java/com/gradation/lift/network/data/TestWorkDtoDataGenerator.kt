@@ -22,6 +22,55 @@ internal object TestWorkDtoDataGenerator {
         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     )
 
+    val workCategoryResponseJson: String = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "work_category": [
+              {
+                "id": 1,
+                "name": "숄더프레스",
+                "workpart": {
+                  "id": 1,
+                  "name": "어깨"
+                },
+                "short_description": "Lorem ipsum dolor sit amet",
+                "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              },
+              {
+                "id": 2,
+                "name": "데드리프트",
+                "workpart": {
+                  "id": 2,
+                  "name": "등"
+                },
+                "short_description": "Lorem ipsum dolor sit amet",
+                "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              }
+            ]
+          }
+        }
+    """.trimIndent()
+
+    val workPartResponseJson : String = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "workpart": [
+              {
+                "id": 1,
+                "name": "어깨"
+              },
+              {
+                "id": 2,
+                "name": "등"
+              }
+            ]
+          }
+        }
+    """.trimIndent()
 
     val resultResponseJson: String = """
         {

@@ -56,11 +56,11 @@ class RoutineServiceTest {
             MockResponse()
                 .setBody(TestRoutineDtoDataGenerator.resultResponseJson)
                 .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
+                .setResponseCode(Constants.CREATED)
         )
 
         val response = routineService.createRoutineSet(createRoutineSetRequestDto = createRoutineSetRequestDto)
-        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
+        Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
             .isEqualTo(TestRoutineDtoDataGenerator.createRoutineSetResponseDto)
