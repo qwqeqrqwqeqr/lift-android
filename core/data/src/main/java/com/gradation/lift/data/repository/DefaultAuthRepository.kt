@@ -24,7 +24,6 @@ class DefaultAuthRepository @Inject constructor(
                 is APIResult.Success -> {
                     tokenDataStoreDataSource.setAccessToken(result.data.accessToken)
                     tokenDataStoreDataSource.setRefreshToken(result.data.refreshToken)
-                    tokenDataStoreDataSource.setUserId(signInInfo.id)
                     emit(DataState.Success(true))
                 }
             }

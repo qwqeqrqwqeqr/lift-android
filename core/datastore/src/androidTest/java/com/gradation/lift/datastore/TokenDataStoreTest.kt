@@ -50,18 +50,14 @@ class TokenDataStoreTest {
 
         dataStoreDataSource.setAccessToken(FAKE_STRING_DATA)
         dataStoreDataSource.setRefreshToken(FAKE_STRING_DATA)
-        dataStoreDataSource.setUserId(FAKE_STRING_DATA)
 
         val accessToken = dataStoreDataSource.accessToken.first()
         val refreshToken = dataStoreDataSource.refreshToken.first()
-        val userId = dataStoreDataSource.userId.first()
 
         assertEquals(FAKE_STRING_DATA, accessToken)
         assertEquals(FAKE_STRING_DATA, refreshToken)
-        assertEquals(FAKE_STRING_DATA, userId)
 
         dataStoreDataSource.clearAll()
-        assertEquals(EMPTY_VALUE, dataStoreDataSource.userId.first())
     }
 
 

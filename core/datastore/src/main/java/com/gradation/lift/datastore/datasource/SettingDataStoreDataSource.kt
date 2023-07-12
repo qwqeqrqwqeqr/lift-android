@@ -3,26 +3,24 @@ package com.gradation.lift.datastore.datasource
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import com.gradation.lift.datastore.Constants.ACCESS_TOKEN
+import com.gradation.lift.datastore.Constants.AUTO_LOGIN
 import com.gradation.lift.datastore.Constants.REFRESH_TOKEN
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
 
 
-class TokenDataStoreDataSource @Inject constructor(
+class SettingDataStoreDataSource @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) {
 
 
-    suspend fun setAccessToken(accessToken: String) {
-        dataStore.edit { preferences -> preferences[ACCESS_TOKEN] = accessToken }
+    suspend fun setAutoLogin(autoLogin: Boolean) {
+        dataStore.edit { preferences -> preferences[AUTO_LOGIN] = autoLogin }
     }
 
-    suspend fun setRefreshToken(refreshToken: String) {
-        dataStore.edit { preferences -> preferences[REFRESH_TOKEN] = refreshToken }
-    }
 
-    val accessToken: Flow<String> =
+    val autoLogin: Flow<Boolean> =
         dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -31,17 +29,7 @@ class TokenDataStoreDataSource @Inject constructor(
                     throw exception
                 }
             }
-            .map { it[ACCESS_TOKEN] ?: EMPTY_VALUE }
-
-    val refreshToken =
-        dataStore.data.map { it[REFRESH_TOKEN] ?: EMPTY_VALUE }.catch { exception ->
-            if (exception is IOException) {
-                emptyPreferences()
-            } else {
-                throw exception
-            }
-
-        }
+            .map { it[AUTO_LOGIN] ?: EMPTY_VALUE }
 
 
     suspend fun clearAll() {
@@ -52,7 +40,7 @@ class TokenDataStoreDataSource @Inject constructor(
 
 
     companion object {
-        const val EMPTY_VALUE = ""
+        const val EMPTY_VALUE = false
     }
 }
 
