@@ -155,25 +155,3 @@ fun SignInView(
     }
 }
 
-@Composable
-@DevicePreview
-fun LoginSignInPreview() {
-    LiftMaterialTheme {
-        LoginSignInScreen(
-            emailText = "",
-            updateEmailText = {},
-            passwordText = "",
-            updatePasswordText = {},
-            onClickFindEmail = {},
-            onClickFindPassword = {},
-            onClickSignUp = {},
-            onClickSignIn = {},
-            autoLoginChecked = true,
-            onChangeAutoLoginChecked = {},
-            passwordVisible = true,
-            onChangePasswordVisible = {},
-            passwordVisualTransformation = VisualTransformation.None,
-            clearPassword = {}
-        )
-    }
-}

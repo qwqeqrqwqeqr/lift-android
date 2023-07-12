@@ -53,7 +53,7 @@ fun LoginSignInRoute(
     )
 
     when (val result = signInUiState) {
-        //TODO toast 반복실행 해결
+        //TODO toast 변경
         is SignInUiState.Fail -> {
                 Toast.makeText(
                     LocalContext.current,
