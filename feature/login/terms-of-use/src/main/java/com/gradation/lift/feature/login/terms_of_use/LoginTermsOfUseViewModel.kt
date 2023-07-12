@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.auth.SignUpUseCase
+import com.gradation.lift.domain.usecase.auth.SignUpDefaultUseCase
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginTermsOfUseViewModel @Inject constructor(
-    private val signUpUseCase: SignUpUseCase,
+    private val signUpDefaultUseCase: SignUpDefaultUseCase,
 ) : ViewModel() {
 
 
@@ -81,7 +81,7 @@ class LoginTermsOfUseViewModel @Inject constructor(
     fun signUp(navController: NavController) {
         viewModelScope.launch {
             signUpUiState.value = SignUpUiState.Loading
-            signUpUseCase(
+            signUpDefaultUseCase(
                 SignUpInfo(
                     id = navController.getStringValue(SavedStateHandleKey.SignUpKey.EMAIL_KEY),
                     password = navController.getStringValue(SavedStateHandleKey.SignUpKey.PASSWORD_KEY)

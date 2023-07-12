@@ -1,6 +1,5 @@
 package com.gradation.lift.feature.login.sign_in
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,20 +8,17 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.auth.SignInUseCase
+import com.gradation.lift.domain.usecase.auth.SignInDefaultUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
-import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.auth.SignInInfo
-import com.gradation.lift.model.user.UserDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginSignInViewModel @Inject constructor(
-    private val signInUseCase: SignInUseCase,
+    private val signInDefaultUseCase: SignInDefaultUseCase,
     private val existUserDetail: ExistUserDetailUseCase,
 ) : ViewModel() {
 
@@ -63,7 +59,7 @@ class LoginSignInViewModel @Inject constructor(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
             } else {
-                signInUseCase(SignInInfo(id = email, password = password)).collect { signInResult ->
+                signInDefaultUseCase(SignInInfo(id = email, password = password)).collect { signInResult ->
                     when (signInResult) {
                         is DataState.Fail -> {
                             signInUiState.value = SignInUiState.Fail(signInResult.message)

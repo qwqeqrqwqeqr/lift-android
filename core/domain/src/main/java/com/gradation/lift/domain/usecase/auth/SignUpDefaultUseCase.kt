@@ -6,9 +6,9 @@ import com.gradation.lift.model.auth.SignUpInfo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class SignUpUseCase @Inject constructor(
+class SignUpDefaultUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
     operator fun invoke(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> =
-        authRepository.signUp(signUpInfo =signUpInfo)
+        authRepository.signUpDefault(signUpInfo =signUpInfo)
 }

@@ -7,8 +7,8 @@ import com.gradation.lift.model.auth.SignUpInfo
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    fun signIn(signInInfo: SignInInfo): Flow<DataState<Boolean>>
-    fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>>
+    fun signInDefault(signInInfo: SignInInfo): Flow<DataState<Boolean>>
+    fun signUpDefault(signUpInfo: SignUpInfo): Flow<DataState<Boolean>>
     fun isSigned(): Flow<DataState<Boolean>>
     fun signOut(): Flow<DataState<Unit>>
 }

@@ -16,7 +16,7 @@ class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
     private val networkResultHandler: NetworkResultHandler,
 ) : AuthDataSource {
-    override fun signIn(signInInfo: SignInInfo): Flow<APIResult<Token>> = flow {
+    override fun signInDefault(signInInfo: SignInInfo): Flow<APIResult<Token>> = flow {
         networkResultHandler {
             authService.signInDefault(
                 SignInDefaultRequestDto(
@@ -32,7 +32,7 @@ class DefaultAuthDataSource @Inject constructor(
         }
     }
 
-    override fun signUp(signUpInfo: SignUpInfo): Flow<APIResult<Boolean>> = flow {
+    override fun signUpDefault(signUpInfo: SignUpInfo): Flow<APIResult<Boolean>> = flow {
         networkResultHandler {
             authService.signUpDefault(
                 SignUpDefaultRequestDto(

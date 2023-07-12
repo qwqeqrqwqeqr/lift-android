@@ -6,16 +6,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
-import com.gradation.lift.domain.usecase.auth.SignInUseCase
 import com.gradation.lift.domain.usecase.auth.SignOutUseCase
-import com.gradation.lift.model.auth.SignInInfo
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val signInUseCase: SignInUseCase,
     private val signOutUseCase: SignOutUseCase,
     private val isSignedUseCase: IsSignedUseCase,
 ) :

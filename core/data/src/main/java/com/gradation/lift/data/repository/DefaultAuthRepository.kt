@@ -17,8 +17,8 @@ class DefaultAuthRepository @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : AuthRepository {
-    override fun signIn(signInInfo: SignInInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signIn(signInInfo).collect { result ->
+    override fun signInDefault(signInInfo: SignInInfo): Flow<DataState<Boolean>> = flow {
+        authDataSource.signInDefault(signInInfo).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> {
@@ -32,8 +32,8 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun signUp(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signUp(signUpInfo).collect { result ->
+    override fun signUpDefault(signUpInfo: SignUpInfo): Flow<DataState<Boolean>> = flow {
+        authDataSource.signUpDefault(signUpInfo).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))
                 is APIResult.Success -> {

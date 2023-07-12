@@ -8,6 +8,6 @@ import com.gradation.lift.network.common.APIResult
 import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {
-    fun signIn(signInInfo: SignInInfo) : Flow<APIResult<Token>>
-    fun signUp(signUpInfo: SignUpInfo) : Flow<APIResult<Boolean>>
+    fun signInDefault(signInInfo: SignInInfo) : Flow<APIResult<Token>>
+    fun signUpDefault(signUpInfo: SignUpInfo) : Flow<APIResult<Boolean>>
 }
