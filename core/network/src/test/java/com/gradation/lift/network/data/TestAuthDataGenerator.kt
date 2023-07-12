@@ -3,7 +3,7 @@ package com.gradation.lift.network.data
 import com.gradation.lift.network.dto.auth.*
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 
-object TestAuthDtoDataGenerator {
+object TestAuthDataGenerator {
 
     internal const val TEST_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODkxNDk1NTksInN1YiI6IjIwMTcxMzcyMSJ9.hW0xW24LoBbGKvftst-reNFdqxc2P89Q5sxJuSJOvGI"
     internal const val TEST_REFRESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTE3MzQzNTksInN1YiI6IjIwMTcxMzcyMSJ9.CGSYkn3ilfDxD0J7P_XeVO1EA3k7g_tHEh6MHXAPEpk"

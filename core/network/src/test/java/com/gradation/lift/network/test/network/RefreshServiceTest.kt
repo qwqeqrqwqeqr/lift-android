@@ -2,17 +2,13 @@ package com.gradation.lift.network.test.network
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestRefreshDtoDataGenerator
-import com.gradation.lift.network.data.TestUserDtoDataGenerator
+import com.gradation.lift.network.data.TestRefreshDataGenerator
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
-import com.gradation.lift.network.service.AuthService
 import com.gradation.lift.network.service.RefreshService
-import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -50,10 +46,10 @@ class RefreshServiceTest {
     @Test
     fun testRefreshService() = runTest {
 
-        val refreshToken = TestRefreshDtoDataGenerator.TEST_REFRESH_TOKEN
+        val refreshToken = TestRefreshDataGenerator.TEST_REFRESH_TOKEN
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestRefreshDtoDataGenerator.refreshResponseJson)
+                .setBody(TestRefreshDataGenerator.refreshResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Authorization",refreshToken)
                 .setResponseCode(Constants.CREATED)
@@ -69,7 +65,7 @@ class RefreshServiceTest {
         assertThat(response.code()).isEqualTo(Constants.CREATED)
         assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         assertThat(response.body()!!.data)
-            .isEqualTo(TestRefreshDtoDataGenerator.refreshResponseDto)
+            .isEqualTo(TestRefreshDataGenerator.refreshResponseDto)
     }
 
 }

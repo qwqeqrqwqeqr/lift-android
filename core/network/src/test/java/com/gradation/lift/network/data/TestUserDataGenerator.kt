@@ -1,13 +1,9 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.routine.Weekday.Companion.MONDAY
-import com.gradation.lift.network.dto.routine.*
 import com.gradation.lift.network.dto.user.*
-import com.gradation.lift.network.dto.work.*
-import com.squareup.moshi.ToJson
 
 
-internal object TestUserDtoDataGenerator {
+internal object TestUserDataGenerator {
 
     val userDetailDto = UserDetailDto(
         name = "test",

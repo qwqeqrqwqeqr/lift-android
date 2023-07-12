@@ -1,17 +1,13 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.model.routine.Weekday.Companion.MONDAY
-import com.gradation.lift.network.data.TestWorkDtoDataGenerator.workCategoryDto1
-import com.gradation.lift.network.data.TestWorkDtoDataGenerator.workCategoryDto2
-import com.gradation.lift.network.data.TestWorkDtoDataGenerator.workPartDto1
-import com.gradation.lift.network.data.TestWorkDtoDataGenerator.workPartDto2
+import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto1
+import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto2
 import com.gradation.lift.network.dto.routine.*
-import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.squareup.moshi.Json
 
 
-internal object TestRoutineDtoDataGenerator {
+internal object TestRoutineDataGenerator {
 
 
     private val routineDto1 = RoutineDto(

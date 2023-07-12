@@ -2,7 +2,7 @@ package com.gradation.lift.network.data
 
 import com.gradation.lift.network.dto.work.*
 
-internal object TestWorkDtoDataGenerator {
+internal object TestWorkDataGenerator {
 
     internal val workPartDto1 = WorkPartDto(id = 1, name = "어깨")
     internal val workPartDto2 = WorkPartDto(id = 2, name = "등")
