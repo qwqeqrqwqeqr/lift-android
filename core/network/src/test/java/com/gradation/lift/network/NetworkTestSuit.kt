@@ -34,6 +34,7 @@ import org.junit.runners.Suite
     RoutineServiceTest::class,
     WorkServiceTest::class,
     RefreshServiceTest::class,
-    AuthServiceTest::class
+    AuthServiceTest::class,
+    CheckerServiceTest::class,
 )
 class NetworkTestSuit
