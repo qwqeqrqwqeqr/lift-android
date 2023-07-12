@@ -1,4 +1,4 @@
-package com.gradation.lift.network.test
+package com.gradation.lift.network.test.datasource
 
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.WorkDataSource
@@ -19,7 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class FakeWorkDataSourceTest {
+class WorkDataSourceTest {
 
     @get:Rule
     var coroutineRule = CoroutineRule()

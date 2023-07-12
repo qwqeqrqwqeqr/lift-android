@@ -42,7 +42,7 @@ object TestModelDataGenerator {
         totalWeight = 50f,
         maxRepetition = 12,
         minRepetition = 12,
-        totalRepetition = 12
+        totalRepetition = 60
     )
     private val routineModel2 = Routine(
         id = 2,
@@ -60,7 +60,7 @@ object TestModelDataGenerator {
         totalWeight = 50f,
         maxRepetition = 12,
         minRepetition = 12,
-        totalRepetition = 12
+        totalRepetition = 60
     )
     val routineSetModel1 = RoutineSet(
         id = 1,

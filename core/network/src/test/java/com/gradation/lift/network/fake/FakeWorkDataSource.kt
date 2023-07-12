@@ -3,9 +3,9 @@ package com.gradation.lift.network.fake
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.data.TestDtoDataGenerator.getWorkCategoryByWorkPartDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.getWorkCategoryDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.getWorkPartDto
+import com.gradation.lift.network.data.TestWorkDtoDataGenerator.getWorkCategoryByWorkPartResponseDto
+import com.gradation.lift.network.data.TestWorkDtoDataGenerator.getWorkCategoryResponseDto
+import com.gradation.lift.network.data.TestWorkDtoDataGenerator.getWorkPartResponseDto
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
@@ -15,14 +15,14 @@ class FakeWorkDataSource(private val testReturnState: TestReturnState= TestRetur
     override suspend fun getWorkPart(): Flow<APIResult<List<WorkPart>>> =flow{
         when(testReturnState){
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = getWorkPartDto.toWorkPart()))
+            TestReturnState.Success ->  emit(APIResult.Success(data = getWorkPartResponseDto.toWorkPart()))
         }
     }
 
     override suspend fun getWorkCategory(): Flow<APIResult<List<WorkCategory>>> = flow{
         when(testReturnState){
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = getWorkCategoryDto.toWorkCategory()))
+            TestReturnState.Success ->  emit(APIResult.Success(data = getWorkCategoryResponseDto.toWorkCategory()))
         }
     }
 
@@ -30,7 +30,7 @@ class FakeWorkDataSource(private val testReturnState: TestReturnState= TestRetur
     override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>> =flow{
         when(testReturnState){
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success ->  emit(APIResult.Success(data = getWorkCategoryByWorkPartDto.toWorkCategory()))
+            TestReturnState.Success ->  emit(APIResult.Success(data = getWorkCategoryByWorkPartResponseDto.toWorkCategory()))
         }
     }
 

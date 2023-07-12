@@ -5,16 +5,14 @@ import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.data.TestDtoDataGenerator
-import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineSetRoutineByRoutineSetIdResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineSetRoutineByWeekdayResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.getRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestRoutineDtoDataGenerator.getRoutineResponseDto
+import com.gradation.lift.network.data.TestRoutineDtoDataGenerator.getRoutineSetRoutineByRoutineSetIdResponseDto
+import com.gradation.lift.network.data.TestRoutineDtoDataGenerator.getRoutineSetRoutineByWeekdayResponseDto
+import com.gradation.lift.network.data.TestRoutineDtoDataGenerator.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.datetime.LocalDate
 
 class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
     RoutineDataSource {
@@ -29,7 +27,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
     override suspend fun getRoutine(): Flow<APIResult<List<Routine>>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineDto.toRoutine()))
+            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineResponseDto.toRoutine()))
         }
     }
 
