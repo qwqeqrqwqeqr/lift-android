@@ -10,23 +10,13 @@ import kotlinx.datetime.LocalDate
 
 interface RoutineRepository {
 
-    fun getRoutineSet(): Flow<DataState<List<RoutineSet>>>
+    suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Boolean>>
 
-    fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Boolean>>
+    suspend fun getRoutine(): Flow<DataState<List<Routine>>>
 
-    fun getRoutineSetByDate(date: LocalDate): Flow<DataState<List<RoutineSet>>>
+    suspend fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>>
 
-    fun getRoutineSetByRoutineSetId(routineSetId: Int): Flow<DataState<RoutineSet>>
+    suspend fun getRoutineSetRoutineByWeekday(weekday: String): Flow<DataState<List<RoutineSetRoutine>>>
 
-    fun getRoutine(): Flow<DataState<List<Routine>>>
-
-    fun getRoutineByDate(date: LocalDate): Flow<DataState<List<Routine>>>
-
-    fun getRoutineByRoutineSetId(routineSetId: Int): Flow<DataState<List<Routine>>>
-
-    fun getRoutineByDateAndRoutineSetId(date: LocalDate, routineSetId: Int): Flow<DataState<List<Routine>>>
-
-    fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>>
-
-    fun getRoutineSetRoutineByDate(date: LocalDate): Flow<DataState<List<RoutineSetRoutine>>>
+    suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: Int): Flow<DataState<List<RoutineSetRoutine>>>
 }

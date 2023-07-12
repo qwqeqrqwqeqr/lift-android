@@ -19,7 +19,7 @@ class DefaultUserDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : UserDataSource {
 
-    override suspend fun getUserDetail(token: Token): Flow<APIResult<UserDetail>> = flow {
+    override suspend fun getUserDetail(): Flow<APIResult<UserDetail>> = flow {
         networkResultHandler {
             userService.getUserDetail()
         }.collect { result ->
@@ -31,7 +31,6 @@ class DefaultUserDataSource @Inject constructor(
     }
 
     override suspend fun createUserDetail(
-        token: Token,
         userDetail: UserDetail,
     ): Flow<APIResult<Boolean>> = flow {
         networkResultHandler {
@@ -61,7 +60,6 @@ class DefaultUserDataSource @Inject constructor(
     }
 
     override suspend fun updateUserDetail(
-        token: Token,
         userDetail: UserDetail,
     ): Flow<APIResult<Boolean>> = flow {
         networkResultHandler {
@@ -90,7 +88,7 @@ class DefaultUserDataSource @Inject constructor(
         }
     }
 
-    override suspend fun existUserDetail(token: Token): Flow<APIResult<Boolean>> = flow {
+    override suspend fun existUserDetail(): Flow<APIResult<Boolean>> = flow {
         networkResultHandler {
             userService.existUserDetail()
         }.collect { result ->

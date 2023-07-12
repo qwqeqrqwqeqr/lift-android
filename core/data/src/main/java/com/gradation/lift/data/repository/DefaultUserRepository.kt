@@ -13,11 +13,10 @@ import javax.inject.Inject
 
 class DefaultUserRepository @Inject constructor(
     private val userDataSource: UserDataSource,
-    private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : UserRepository {
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
-        userDataSource.getUserDetail(Token(accessToken = tokenDataStoreDataSource.accessToken.first()))
+        userDataSource.getUserDetail()
             .collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
@@ -28,7 +27,6 @@ class DefaultUserRepository @Inject constructor(
 
     override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.createUserDetail(
-            Token(accessToken = tokenDataStoreDataSource.accessToken.first()),
             userDetail = userDetail
         ).collect { result ->
             when (result) {
@@ -42,7 +40,6 @@ class DefaultUserRepository @Inject constructor(
 
     override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.updateUserDetail(
-            Token(accessToken = tokenDataStoreDataSource.accessToken.first()),
             userDetail = userDetail
         ).collect { result ->
             when (result) {
@@ -55,7 +52,6 @@ class DefaultUserRepository @Inject constructor(
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
         userDataSource.existUserDetail(
-            Token(accessToken = tokenDataStoreDataSource.accessToken.first())
         ).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))

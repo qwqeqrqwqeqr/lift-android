@@ -8,11 +8,11 @@ import com.gradation.lift.network.common.APIResult
 import kotlinx.coroutines.flow.Flow
 
 interface UserDataSource {
-    suspend fun getUserDetail(token: Token): Flow<APIResult<UserDetail>>
+    suspend fun getUserDetail(): Flow<APIResult<UserDetail>>
 
-    suspend fun createUserDetail(token: Token,userDetail: UserDetail): Flow<APIResult<Boolean>>
+    suspend fun createUserDetail(userDetail: UserDetail): Flow<APIResult<Boolean>>
 
-    suspend fun updateUserDetail(token: Token,userDetail: UserDetail): Flow<APIResult<Boolean>>
+    suspend fun updateUserDetail(userDetail: UserDetail): Flow<APIResult<Boolean>>
 
-    suspend fun existUserDetail(token: Token): Flow<APIResult<Boolean>>
+    suspend fun existUserDetail(): Flow<APIResult<Boolean>>
 }
