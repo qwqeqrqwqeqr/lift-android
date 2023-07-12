@@ -27,9 +27,8 @@ object RepositoryModule {
     @Provides
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
-        tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): RoutineRepository =
-        DefaultRoutineRepository(routineDataSource, tokenDataStoreDataSource)
+        DefaultRoutineRepository(routineDataSource)
 
 
     @ViewModelScoped
@@ -50,10 +49,8 @@ object RepositoryModule {
     @Provides
     fun provideUserRepository(
         userDataSource: UserDataSource,
-        tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): UserRepository = DefaultUserRepository(
         userDataSource = userDataSource,
-        tokenDataStoreDataSource = tokenDataStoreDataSource
     )
 
 }

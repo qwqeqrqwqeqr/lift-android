@@ -15,6 +15,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -104,7 +105,7 @@ fun LoginSignInScreen(
                 .fillMaxSize()
         ) {
 
-            Spacer(modifier = modifier.padding(32.dp))
+            Spacer(modifier = modifier.padding(48.dp))
             Text(
                 text = buildAnnotatedString {
                     append("매일매일 운동하고, 기록하고! \n")
@@ -115,9 +116,10 @@ fun LoginSignInScreen(
                     }
                 },
                 style = LiftTheme.typography.no1,
+                lineHeight = 30.sp,
                 color = LiftTheme.colorScheme.no11,
             )
-            Spacer(modifier = modifier.padding(24.dp))
+            Spacer(modifier = modifier.padding(12.dp))
             SignInView(
                 emailText = emailText,
                 updateEmailText = updateEmailText,
@@ -134,7 +136,7 @@ fun LoginSignInScreen(
                 passwordVisualTransformation = passwordVisualTransformation,
                 clearPassword = clearPassword
             )
-            Spacer(modifier = modifier.padding(32.dp))
+            Spacer(modifier = modifier.padding(18.dp))
             SimpleLoginView()
 
 
@@ -144,7 +146,7 @@ fun LoginSignInScreen(
 
 
 @Composable
-@Preview
+@DevicePreview
 fun LoginSignInPreview() {
     LiftMaterialTheme {
         LoginSignInScreen(

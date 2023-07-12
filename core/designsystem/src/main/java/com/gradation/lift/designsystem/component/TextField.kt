@@ -1,6 +1,7 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -37,7 +38,7 @@ fun LiftTextField(
         value = value,
         onValueChange = onValueChange,
         textStyle = LiftTheme.typography.no6,
-        modifier = modifier.height(48.dp),
+        modifier = modifier.height(52.dp),
         enabled = enabled,
         singleLine = singleLine,
         maxLines = maxLines,

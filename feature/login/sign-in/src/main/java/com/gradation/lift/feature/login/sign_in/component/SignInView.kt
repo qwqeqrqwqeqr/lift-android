@@ -21,9 +21,12 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.ToggleVisible
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperView
 import com.gradation.lift.feature.login.sign_in.component.detail.SignUpView
+import com.gradation.lift.ui.DevicePreview
 
 @Composable
 fun SignInView(
@@ -90,18 +93,21 @@ fun SignInView(
             keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(onDone = {
-            focusManager.clearFocus().also { onClickSignIn() }
+            focusManager.clearFocus()
+            onClickSignIn()
         }),
         visualTransformation = passwordVisualTransformation,
         trailingIcon = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                ToggleVisible(
-                    checked = passwordVisible,
-                    onCheckedChange = onChangePasswordVisible,
-                    modifier = modifier.size(24.dp)
-                )
+                if(passwordText.isNotBlank()){
+                    ToggleVisible(
+                        checked = passwordVisible,
+                        onCheckedChange = onChangePasswordVisible,
+                        modifier = modifier.size(24.dp)
+                    )
+                }
                 Spacer(modifier = modifier.padding(4.dp))
                 IconButton(
                     onClick = clearPassword,
@@ -126,7 +132,7 @@ fun SignInView(
         autoLoginChecked = autoLoginChecked,
         onChangeAutoLoginChecked = onChangeAutoLoginChecked
     )
-    Spacer(modifier = modifier.padding(36.dp))
+    Spacer(modifier = modifier.padding(18.dp))
 
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
@@ -149,3 +155,25 @@ fun SignInView(
     }
 }
 
+@Composable
+@DevicePreview
+fun LoginSignInPreview() {
+    LiftMaterialTheme {
+        LoginSignInScreen(
+            emailText = "",
+            updateEmailText = {},
+            passwordText = "",
+            updatePasswordText = {},
+            onClickFindEmail = {},
+            onClickFindPassword = {},
+            onClickSignUp = {},
+            onClickSignIn = {},
+            autoLoginChecked = true,
+            onChangeAutoLoginChecked = {},
+            passwordVisible = true,
+            onChangePasswordVisible = {},
+            passwordVisualTransformation = VisualTransformation.None,
+            clearPassword = {}
+        )
+    }
+}

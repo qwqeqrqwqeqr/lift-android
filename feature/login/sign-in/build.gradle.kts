@@ -8,6 +8,14 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.feature.login.sign_in"
+    defaultConfig {
+        testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+    }
+    testOptions {
+        unitTests{
+            isIncludeAndroidResources=true
+        }
+    }
 }
 
 

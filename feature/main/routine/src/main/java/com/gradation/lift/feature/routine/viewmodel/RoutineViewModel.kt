@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
+import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RoutineViewModel @Inject constructor(
     private val getWeekDateUseCase: GetWeekDateUseCase,
-    private val getRoutineSetRoutineByDateUseCase: GetRoutineSetRoutineByDateUseCase,
+    private val getRoutineSetRoutineByDateUseCase: GetRoutineSetRoutineUseCase,
 ) : ViewModel() {
 
     internal val currentDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
@@ -51,7 +52,7 @@ class RoutineViewModel @Inject constructor(
 
     var weekDateRoutineUiState: StateFlow<WeekDateRoutineUiState> =
         weekDateRoutineUiState(
-            getRoutineSetRoutineByDateUseCase = getRoutineSetRoutineByDateUseCase(currentDate),
+            getRoutineSetRoutineByDateUseCase = getRoutineSetRoutineByDateUseCase(),
         ).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -74,7 +75,7 @@ class RoutineViewModel @Inject constructor(
             )
         }
         weekDateRoutineUiState = weekDateRoutineUiState(
-            getRoutineSetRoutineByDateUseCase = getRoutineSetRoutineByDateUseCase(selectedDate),
+            getRoutineSetRoutineByDateUseCase = getRoutineSetRoutineByDateUseCase(),
         ).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),

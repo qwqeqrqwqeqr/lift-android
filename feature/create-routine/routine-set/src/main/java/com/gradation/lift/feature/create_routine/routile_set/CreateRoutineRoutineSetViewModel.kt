@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateRoutineRoutineSetViewModel @Inject constructor(
-   private val createRoutineSetUseCase: CreateRoutineSetUseCase,
    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

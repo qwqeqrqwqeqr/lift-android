@@ -40,31 +40,30 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
     }
     Spacer(modifier = modifier.padding(8.dp))
     Row(
+        horizontalArrangement = Arrangement.spacedBy(36.dp, Alignment.CenterHorizontally),
+
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp)
+        modifier = modifier.fillMaxWidth()
+
     ) {
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginKakao),
             label = "카카오톡",
-            modifier = modifier.weight(3f)
+            modifier = modifier
         )
-        Spacer(modifier = modifier.weight(1f))
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginGoogle),
             label = "구글",
-            modifier = modifier.weight(3f)
+            modifier = modifier
         )
-        Spacer(modifier = modifier.weight(1f))
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginNaver),
             label = "네이버",
-            modifier = modifier.weight(3f)
+            modifier = modifier
         )
     }
 }
+
 //TODO 간편로그인 로직 연동
 @Composable
 fun SimpleLoginButton(
@@ -75,12 +74,12 @@ fun SimpleLoginButton(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        IconButton(onClick = {}) {
+        IconButton(onClick = {}, modifier.size(52.dp)) {
             Icon(
                 painter = painterResource,
                 contentDescription = "",
                 tint = Color.Unspecified,
-                modifier = modifier.size(52.dp)
+
             )
         }
         Text(
@@ -90,6 +89,7 @@ fun SimpleLoginButton(
         )
     }
 }
+
 
 
 

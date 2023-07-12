@@ -22,7 +22,7 @@ fun LiftButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier.height(48.dp),
+        modifier = modifier.height(52.dp),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no4,
