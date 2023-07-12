@@ -118,7 +118,7 @@ internal object TestRoutineDtoDataGenerator {
                           "name": "데드리프트",
                           "workpart": {
                             "id": 2,
-                            "name": "어깨"
+                            "name": "등"
                           },
                           "short_description": "Lorem ipsum dolor sit amet",
                           "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

@@ -59,6 +59,11 @@ class WorkServiceTest {
         )
 
         val response = workService.getWorkPart()
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/work/work-part/")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
@@ -76,6 +81,11 @@ class WorkServiceTest {
         )
 
         val response = workService.getWorkCategory()
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/work/work-category/")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
@@ -94,6 +104,11 @@ class WorkServiceTest {
         )
 
         val response = workService.getWorkCategoryByWorkPart(FAKE_INT_DATA)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/work/work-category-by-work-part/?workpart=${FAKE_INT_DATA}")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)

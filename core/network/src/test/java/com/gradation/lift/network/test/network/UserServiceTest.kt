@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.gradation.lift.network.common.APIResultWrapper
+import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.Constants.CREATED
 import com.gradation.lift.network.common.Constants.OK
 import com.gradation.lift.network.data.TestUserDtoDataGenerator.createUserDetailRequestDto
@@ -64,7 +65,13 @@ class UserServiceTest {
                 .setResponseCode(OK)
         )
 
+
         val response = userService.existUserDetail()
+        val request = mockWebServer.takeRequest()
+
+        assertThat(request.path).isEqualTo("/user/exist-user-detail/")
+        assertThat(request.method).isEqualTo(Constants.GET)
+
         assertThat(response.code()).isEqualTo(OK)
         assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         assertThat(response.body()!!.data).isEqualTo(existUserDetailResponseDto)
@@ -80,6 +87,11 @@ class UserServiceTest {
         )
 
         val response = userService.getUserDetail()
+        val request = mockWebServer.takeRequest()
+
+        assertThat(request.path).isEqualTo("/user/user-detail/")
+        assertThat(request.method).isEqualTo(Constants.GET)
+
         assertThat(response.code()).isEqualTo(OK)
         assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         assertThat(response.body()!!.data).isEqualTo(getUserDetailResponseDto)
@@ -96,6 +108,11 @@ class UserServiceTest {
         )
 
         val response = userService.createUserDetail(createUserDetailRequestDto)
+        val request = mockWebServer.takeRequest()
+
+        assertThat(request.path).isEqualTo("/user/user-detail/")
+        assertThat(request.method).isEqualTo(Constants.POST)
+
         assertThat(response.code()).isEqualTo(CREATED)
         assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         assertThat(response.body()!!.data).isEqualTo(createUserDetailResponseDto)
@@ -112,6 +129,11 @@ class UserServiceTest {
         )
 
         val response = userService.updateUserDetail(updateUserDetailRequestDto)
+        val request = mockWebServer.takeRequest()
+
+        assertThat(request.path).isEqualTo("/user/user-detail/")
+        assertThat(request.method).isEqualTo(Constants.PUT)
+
         assertThat(response.code()).isEqualTo(CREATED)
         assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         assertThat(response.body()!!.data).isEqualTo(updateUserDetailResponseDto)

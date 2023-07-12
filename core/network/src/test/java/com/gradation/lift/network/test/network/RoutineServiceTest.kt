@@ -60,6 +60,11 @@ class RoutineServiceTest {
         )
 
         val response = routineService.createRoutineSet(createRoutineSetRequestDto = createRoutineSetRequestDto)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set/")
+        Truth.assertThat(request.method).isEqualTo(Constants.POST)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
@@ -77,6 +82,11 @@ class RoutineServiceTest {
         )
 
         val response = routineService.getRoutine()
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine/")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
@@ -94,6 +104,11 @@ class RoutineServiceTest {
         )
 
         val response = routineService.getRoutineSetRoutine()
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
@@ -111,6 +126,11 @@ class RoutineServiceTest {
         )
 
         val response = routineService.getRoutineSetRoutineByWeekday(FAKE_STRING_DATA)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine-by-weekday/?weekday=${FAKE_STRING_DATA}")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
@@ -127,6 +147,11 @@ class RoutineServiceTest {
         )
 
         val response = routineService.getRoutineSetRoutineByRoutineSetId(FAKE_INT_DATA)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine-by-routine-set-id/?routine_set_id=${FAKE_INT_DATA}")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)

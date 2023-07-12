@@ -10,7 +10,7 @@ import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 object TestModelDataGenerator {
 
 
-    private val workPartModel1 = WorkPart(id = 1, name = "어꺠")
+    private val workPartModel1 = WorkPart(id = 1, name = "어깨")
     private val workPartModel2 = WorkPart(id = 2, name = "등")
     private val workCategoryModel1 = WorkCategory(
         id = 1,

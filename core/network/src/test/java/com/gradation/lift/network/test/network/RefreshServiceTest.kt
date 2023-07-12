@@ -3,6 +3,7 @@ package com.gradation.lift.network.test.network
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.data.TestRefreshDtoDataGenerator
@@ -61,13 +62,13 @@ class RefreshServiceTest {
         val response = refreshService.refresh(refreshToken)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/auth/refresh/")
-        Truth.assertThat(request.getHeader("Authorization")).isEqualTo(refreshToken)
-        Truth.assertThat(request.method).isEqualTo(Constants.POST)
+        assertThat(request.path).isEqualTo("/auth/refresh/")
+        assertThat(request.method).isEqualTo(Constants.POST)
+        assertThat(request.getHeader("Authorization")).isEqualTo(refreshToken)
 
-        Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
-        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
-        Truth.assertThat(response.body()!!.data)
+        assertThat(response.code()).isEqualTo(Constants.CREATED)
+        assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        assertThat(response.body()!!.data)
             .isEqualTo(TestRefreshDtoDataGenerator.refreshResponseDto)
     }
 
