@@ -17,6 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 
@@ -24,6 +25,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
 
+    @TokenPreferences
     @Singleton
     @Provides
     fun provideTokenDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
@@ -36,7 +38,7 @@ object DataStoreModule {
         )
     }
 
-
+    @SettingPreferences
     @Singleton
     @Provides
     fun provideSettingDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
@@ -52,3 +54,11 @@ object DataStoreModule {
 
 
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class TokenPreferences
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SettingPreferences

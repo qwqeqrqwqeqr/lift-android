@@ -2,16 +2,15 @@ package com.gradation.lift.datastore.datasource
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
-import com.gradation.lift.datastore.Constants.ACCESS_TOKEN
 import com.gradation.lift.datastore.Constants.AUTO_LOGIN
-import com.gradation.lift.datastore.Constants.REFRESH_TOKEN
+import com.gradation.lift.datastore.di.SettingPreferences
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
 
 
 class SettingDataStoreDataSource @Inject constructor(
-    private val dataStore: DataStore<Preferences>,
+    @SettingPreferences private val dataStore: DataStore<Preferences>,
 ) {
 
 

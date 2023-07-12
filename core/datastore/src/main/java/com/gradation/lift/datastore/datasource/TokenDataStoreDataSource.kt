@@ -4,13 +4,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import com.gradation.lift.datastore.Constants.ACCESS_TOKEN
 import com.gradation.lift.datastore.Constants.REFRESH_TOKEN
+import com.gradation.lift.datastore.di.TokenPreferences
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
 
 
 class TokenDataStoreDataSource @Inject constructor(
-    private val dataStore: DataStore<Preferences>,
+    @TokenPreferences private val dataStore: DataStore<Preferences>,
 ) {
 
 
