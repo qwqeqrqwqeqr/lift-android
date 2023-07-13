@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
+import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -15,13 +16,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val isSignedUseCase: IsSignedUseCase
+    private val isSignedUseCase: IsSignedUseCase,
+    private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase
 ): ViewModel() {
 
     val splashUiState:StateFlow<SplashUiState> = splashUiState(isSignedUseCase()).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = SplashUiState.Loading
+    )
+
+    val autoLoginSetting = getAutoLoginSettingUseCase().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = false
     )
 
     fun setDefaultSystemUiController(systemUiController: SystemUiController){

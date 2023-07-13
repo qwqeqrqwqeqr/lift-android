@@ -18,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -44,11 +45,7 @@ class MainActivity : ComponentActivity() {
         var splashUiState: SplashUiState by mutableStateOf(SplashUiState.Loading)
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.splashUiState
-                    .onEach {
-                        splashUiState = it
-                    }
-                    .collect()
+                viewModel.splashUiState.onEach { splashUiState = it }.collect()
             }
         }
         installSplashScreen().apply {
@@ -63,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
 
 
+
         setContent {
             val systemUiController = rememberSystemUiController()
             viewModel.setDefaultSystemUiController(systemUiController)
@@ -71,6 +69,7 @@ class MainActivity : ComponentActivity() {
                 LiftApp(
                     isSinged = splashUiState == SplashUiState.Main,
                     windowSizeClass = calculateWindowSizeClass(this),
+                    autoLoginSetting = viewModel.autoLoginSetting.value
                 )
             }
         }

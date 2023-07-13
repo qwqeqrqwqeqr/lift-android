@@ -40,7 +40,7 @@ class LoginSignInViewModel @Inject constructor(
         getAutoLoginSettingUseCase().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false
+            initialValue = true
         )
 
 
@@ -57,6 +57,7 @@ class LoginSignInViewModel @Inject constructor(
     fun onChangeAutoLoginChecked(): (Boolean) -> Unit = {
         viewModelScope.launch {
             setAutoLoginSettingUseCase(value = it)
+            Log.d("login","autologin button ${it} / ${autoLoginChecked.value}")
         }
 
     }

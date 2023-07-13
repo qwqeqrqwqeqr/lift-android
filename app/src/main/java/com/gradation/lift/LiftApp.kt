@@ -48,6 +48,7 @@ import com.gradation.lift.navigation.route.register_detail.RegisterDetailGraph
 @Composable
 fun LiftApp(
     isSinged: Boolean,
+    autoLoginSetting : Boolean,
     windowSizeClass: WindowSizeClass,
     appState: AppState = rememberAppState(
         windowSizeClass = windowSizeClass
@@ -67,7 +68,9 @@ fun LiftApp(
                 }
             },
         ) {
-            if (isSinged) {
+            Log.d("login","isSigned = ${isSinged}")
+            Log.d("autoLoginSetting","autoLoginSetting = ${autoLoginSetting}")
+            if (isSinged && autoLoginSetting) {
                 LiftNavHost(
                     navController = appState.navController,
                     startDestination = MAIN_GRAPH_ROUTER_NAME
@@ -80,8 +83,6 @@ fun LiftApp(
 
             }
         }
-
-
     }
 }
 
