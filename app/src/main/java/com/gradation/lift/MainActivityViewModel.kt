@@ -22,7 +22,7 @@ class MainActivityViewModel @Inject constructor(
 
     val splashUiState:StateFlow<SplashUiState> = splashUiState(isSignedUseCase()).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Eagerly,
         initialValue = SplashUiState.Loading
     )
 
