@@ -25,6 +25,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
 
+
     @TokenPreferences
     @Singleton
     @Provides
@@ -34,7 +35,7 @@ object DataStoreModule {
                 produceNewData = { emptyPreferences() }
             ),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(TOKEN_PREFERENCES) }
+            produceFile = { appContext.preferencesDataStoreFile(TOKEN_PREFERENCES) },
         )
     }
 
@@ -50,7 +51,6 @@ object DataStoreModule {
             produceFile = { appContext.preferencesDataStoreFile(SETTING_PREFERENCES) }
         )
     }
-
 
 
 }

@@ -46,7 +46,7 @@ fun LoginSignInRoute(
         onClickSignUp = { navController.navigateToLoginSignUp() },
         onClickSignIn = viewModel::signIn,
         autoLoginChecked = autoLoginChecked.value,
-        onChangeAutoLoginChecked = { viewModel.onChangeAutoLoginChecked() },
+        onChangeAutoLoginChecked = viewModel.onChangeAutoLoginChecked(),
         passwordVisible = viewModel.passwordVisible,
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),
         passwordVisualTransformation = viewModel.passwordVisualTransformation,
@@ -56,20 +56,19 @@ fun LoginSignInRoute(
     when (val result = signInUiState) {
         //TODO toast 변경
         is SignInUiState.Fail -> {
-                Toast.makeText(
-                    LocalContext.current,
-                    result.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+            Toast.makeText(
+                LocalContext.current,
+                result.message,
+                Toast.LENGTH_SHORT
+            ).show()
         }
         SignInUiState.Loading -> {}
         SignInUiState.None -> {}
         is SignInUiState.Success -> {
             LaunchedEffect(result) {
-                if(result.existUserDetail){
+                if (result.existUserDetail) {
                     navController.navigateLoginToHome()
-                }
-                else{
+                } else {
                     navController.navigateLoginToRegisterDetail()
                 }
 

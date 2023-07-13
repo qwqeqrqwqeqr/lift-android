@@ -9,7 +9,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.domain.usecase.auth.SignInDefaultUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.setting.SetAutoLoginSettingUseCase
@@ -58,7 +57,6 @@ class LoginSignInViewModel @Inject constructor(
     fun onChangeAutoLoginChecked(): (Boolean) -> Unit = {
         viewModelScope.launch {
             setAutoLoginSettingUseCase(value = it)
-            Log.d("test","변경완료 ${it}")
         }
 
     }
