@@ -1,6 +1,7 @@
 package com.gradation.lift.data.di
 
 import com.gradation.lift.data.repository.*
+import com.gradation.lift.datastore.datasource.SettingDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
 import com.gradation.lift.network.datasource.*
@@ -39,11 +40,21 @@ object RepositoryModule {
     ): AuthRepository = DefaultAuthRepository(authDataSource, tokenDataStoreDataSource)
 
 
+
+
     @ViewModelScoped
     @Provides
     fun provideCheckerRepository(
         checkerDataSource: CheckerDataSource,
     ): CheckerRepository = DefaultCheckerRepository(checkerDataSource=checkerDataSource)
+
+
+    @ViewModelScoped
+    @Provides
+    fun provideSettingRepository(
+        settingDataStoreDataSource: SettingDataStoreDataSource,
+    ): SettingRepository = DefaultSettingRepository(settingDataStoreDataSource=settingDataStoreDataSource)
+
 
     @ViewModelScoped
     @Provides

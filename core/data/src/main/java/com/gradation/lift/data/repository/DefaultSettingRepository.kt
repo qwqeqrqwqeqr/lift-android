@@ -19,11 +19,11 @@ class DefaultSettingRepository @Inject constructor(
 ) : SettingRepository {
 
 
-    override suspend fun getAutoLogin(): Flow<Boolean> = settingDataStoreDataSource.autoLogin
+    override suspend fun getAutoLoginSetting(): Flow<Boolean> = settingDataStoreDataSource.autoLoginSetting
 
 
-    override suspend fun setAutoLogin(value: Boolean) {
-        settingDataStoreDataSource.setAutoLogin(value)
+    override suspend fun setAutoLoginSetting(value: Boolean) {
+        settingDataStoreDataSource.setAutoLoginSetting(value)
     }
 
 }

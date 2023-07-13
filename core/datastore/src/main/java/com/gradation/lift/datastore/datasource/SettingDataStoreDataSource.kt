@@ -14,12 +14,12 @@ class SettingDataStoreDataSource @Inject constructor(
 ) {
 
 
-    suspend fun setAutoLogin(autoLogin: Boolean) {
+    suspend fun setAutoLoginSetting(autoLogin: Boolean) {
         dataStore.edit { preferences -> preferences[AUTO_LOGIN] = autoLogin }
     }
 
 
-    val autoLogin: Flow<Boolean> =
+    val autoLoginSetting: Flow<Boolean> =
         dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
