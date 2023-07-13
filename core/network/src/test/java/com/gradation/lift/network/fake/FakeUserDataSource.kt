@@ -19,18 +19,18 @@ import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeUserDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
-    UserDataSource {
+class FakeUserDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) : UserDataSource {
 
-    override suspend fun getUserDetail(token: Token): Flow<APIResult<UserDetail>> = flow {
+    override suspend fun getUserDetail(): Flow<APIResult<UserDetail>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
             TestReturnState.Success -> emit(APIResult.Success(data = getUserDetailResponseDto.toUserDetail()))
         }
     }
 
+
+
     override suspend fun createUserDetail(
-        token: Token,
         userDetail: UserDetail,
     ): Flow<APIResult<Boolean>> = flow {
         when (testReturnState) {
@@ -40,7 +40,6 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
     }
 
     override suspend fun updateUserDetail(
-        token: Token,
         userDetail: UserDetail,
     ): Flow<APIResult<Boolean>> = flow {
         when (testReturnState) {
@@ -49,11 +48,13 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
         }
     }
 
-    override suspend fun existUserDetail(token: Token): Flow<APIResult<Boolean>> = flow {
+    override suspend fun existUserDetail(): Flow<APIResult<Boolean>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
             TestReturnState.Success -> emit(APIResult.Success(data = existUserDetailResponseDto.result))
         }
     }
+
+
 
 }

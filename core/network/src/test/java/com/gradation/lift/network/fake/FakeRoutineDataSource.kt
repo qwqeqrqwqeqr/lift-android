@@ -3,6 +3,7 @@ package com.gradation.lift.network.fake
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.routine.Weekday
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.data.TestRoutineDataGenerator.getRoutineResponseDto
@@ -38,7 +39,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
         }
     }
 
-    override suspend fun getRoutineSetRoutineByWeekday(weekday: String): Flow<APIResult<List<RoutineSetRoutine>>> =
+    override suspend fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<APIResult<List<RoutineSetRoutine>>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(APIResult.Fail("오류"))

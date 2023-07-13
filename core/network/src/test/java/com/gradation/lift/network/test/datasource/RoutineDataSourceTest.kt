@@ -1,5 +1,6 @@
 package com.gradation.lift.network.test.datasource
 
+import com.gradation.lift.model.routine.Weekday
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
@@ -71,7 +72,7 @@ class RoutineDataSourceTest {
 
         TestCase.assertEquals(
             APIResult.Success(routineSetRoutineModelList),
-            dataSource.getRoutineSetRoutineByWeekday(FAKE_STRING_DATA).first()
+            dataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
         )
     }
 

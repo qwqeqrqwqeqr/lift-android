@@ -24,7 +24,6 @@ fun getApiURL(propertyKey: String): String {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.5")
     testImplementation(project(":core:test"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))

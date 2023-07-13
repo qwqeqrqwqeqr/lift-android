@@ -50,10 +50,6 @@ gradlePlugin {
             id = property("IMAGE_PLUGIN_ID").toString()
             implementationClass = property("IMAGE_PLUGIN_IMPL_CLASS").toString()
         }
-        register(property("JACOCO_PLUGIN_ID").toString()) {
-            id = property("JACOCO_PLUGIN_ID").toString()
-            implementationClass = property("JACOCO_PLUGIN_IMPL_CLASS").toString()
-        }
         register(property("KOTLIN_PLUGIN_ID").toString()) {
             id = property("KOTLIN_PLUGIN_ID").toString()
             implementationClass = property("KOTLIN_PLUGIN_IMPL_CLASS").toString()

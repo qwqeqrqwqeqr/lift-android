@@ -19,10 +19,7 @@ package com.gradation.lift.plugin.extension
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 /**
@@ -42,11 +39,19 @@ internal fun Project.extensionAndroid(
             }
 
         }
+        buildTypes{
+
+        }
+
+
+
 
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_11
             targetCompatibility = JavaVersion.VERSION_11
         }
+
+
 
 
         kotlinOptions {
