@@ -33,6 +33,7 @@ fun LoginSignInRoute(
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
     val signInUiState: SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
+    val autoLoginChecked = viewModel.autoLoginChecked.collectAsStateWithLifecycle()
 
     LoginSignInScreen(
         modifier = modifier,
@@ -44,7 +45,7 @@ fun LoginSignInRoute(
         onClickFindPassword = { navController.navigateToLoginFindPassword() },
         onClickSignUp = { navController.navigateToLoginSignUp() },
         onClickSignIn = viewModel::signIn,
-        autoLoginChecked = viewModel.autoLoginChecked,
+        autoLoginChecked = autoLoginChecked.value,
         onChangeAutoLoginChecked = { viewModel.onChangeAutoLoginChecked() },
         passwordVisible = viewModel.passwordVisible,
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),

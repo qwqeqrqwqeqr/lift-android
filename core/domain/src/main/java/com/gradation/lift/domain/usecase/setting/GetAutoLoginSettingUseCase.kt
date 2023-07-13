@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetAutoLoginSettingUseCase  @Inject constructor(
     private val settingRepository: SettingRepository,
 ) {
-    suspend operator fun invoke():Flow<Boolean>{
+    operator fun invoke():Flow<Boolean>{
         return settingRepository.getAutoLoginSetting()
 
     }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface SettingRepository {
 
 
-    suspend fun getAutoLoginSetting(): Flow<Boolean>
+    fun getAutoLoginSetting(): Flow<Boolean>
 
 
     suspend fun setAutoLoginSetting(value: Boolean)

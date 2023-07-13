@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.login.sign_in
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,7 +9,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.domain.usecase.auth.SignInDefaultUseCase
+import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
+import com.gradation.lift.domain.usecase.setting.SetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
 import com.gradation.lift.model.auth.SignInInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,17 +23,26 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginSignInViewModel @Inject constructor(
     private val signInDefaultUseCase: SignInDefaultUseCase,
+    private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
+    private val setAutoLoginSettingUseCase: SetAutoLoginSettingUseCase,
     private val existUserDetail: ExistUserDetailUseCase,
 ) : ViewModel() {
 
 
     var email by mutableStateOf("")
     var password by mutableStateOf("")
-    var autoLoginChecked by mutableStateOf(true)
+
     var passwordVisible by mutableStateOf(false)
     var passwordVisualTransformation: VisualTransformation by mutableStateOf(
         PasswordVisualTransformation()
     )
+
+    var autoLoginChecked =
+        getAutoLoginSettingUseCase().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
 
 
     fun onChangePasswordVisible(): (Boolean) -> Unit = {
@@ -42,8 +55,12 @@ class LoginSignInViewModel @Inject constructor(
             }
     }
 
-    fun onChangeAutoLoginChecked() {
-        autoLoginChecked = !autoLoginChecked
+    fun onChangeAutoLoginChecked(): (Boolean) -> Unit = {
+        viewModelScope.launch {
+            setAutoLoginSettingUseCase(value = it)
+            Log.d("test","변경완료 ${it}")
+        }
+
     }
 
     fun clearPassword(): () -> Unit = { password = "" }
@@ -59,7 +76,12 @@ class LoginSignInViewModel @Inject constructor(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
             } else {
-                signInDefaultUseCase(SignInInfo(id = email, password = password)).collect { signInResult ->
+                signInDefaultUseCase(
+                    SignInInfo(
+                        id = email,
+                        password = password
+                    )
+                ).collect { signInResult ->
                     when (signInResult) {
                         is DataState.Fail -> {
                             signInUiState.value = SignInUiState.Fail(signInResult.message)
