@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.route.main.RoutineRoute
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun routineScreen(navController: NavController,navGraphBuilder: NavGraphBuilder) {

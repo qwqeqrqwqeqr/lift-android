@@ -29,16 +29,12 @@ import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MAIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME
 
-import com.gradation.lift.navigation.Router.ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
 import com.gradation.lift.navigation.navigation.navigateToHistory
 import com.gradation.lift.navigation.navigation.navigateToHome
 import com.gradation.lift.navigation.navigation.navigateToMyInfo
-import com.gradation.lift.navigation.navigation.navigateToRoutine
-import com.gradation.lift.navigation.route.register_detail.RegisterDetailGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
@@ -68,8 +64,6 @@ fun LiftApp(
                 }
             },
         ) {
-            Log.d("login","isSigned = ${isSinged}")
-            Log.d("autoLoginSetting","autoLoginSetting = ${autoLoginSetting}")
             if (isSinged && autoLoginSetting) {
                 LiftNavHost(
                     navController = appState.navController,

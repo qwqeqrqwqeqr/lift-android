@@ -1,16 +1,12 @@
-package com.gradation.lift.feature.routine.viewmodel
+package com.gradation.lift.feature.data
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.todayIn
 
 data class WeekDate(
     var day: String,

@@ -3,7 +3,7 @@ package com.gradation.lift.feature.routine.component
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
+import com.gradation.lift.feature.data.WeekDateRoutineUiState
 
 @Composable
 fun RoutineView(

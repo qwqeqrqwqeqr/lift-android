@@ -33,7 +33,6 @@ include(":core:ui")
 
 
 include(":feature:main:home")
-include(":feature:main:routine")
 include(":feature:main:history")
 include(":feature:main:my-info")
 

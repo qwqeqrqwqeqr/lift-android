@@ -25,7 +25,6 @@ dependencies{
 
 
     implementation(project(":feature:main:home"))
-    implementation(project(":feature:main:routine"))
     implementation(project(":feature:main:history"))
     implementation(project(":feature:main:my-info"))
 

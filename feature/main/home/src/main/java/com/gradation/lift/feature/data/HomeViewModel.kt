@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine.viewmodel
+package com.gradation.lift.feature.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
-class RoutineViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val getWeekDateUseCase: GetWeekDateUseCase,
     private val getRoutineSetRoutineByDateUseCase: GetRoutineSetRoutineUseCase,
 ) : ViewModel() {

@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
-import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
+import com.gradation.lift.feature.data.WeekDateRoutineUiState
+import com.gradation.lift.feature.data.WeekDateUiState
 import kotlinx.datetime.LocalDate
 
 @Composable

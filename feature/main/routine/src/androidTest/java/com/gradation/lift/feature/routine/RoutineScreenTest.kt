@@ -29,11 +29,13 @@ class RoutineScreenTest {
     @Test
     fun test_loading_showsLoading_spinner() {
         composeAndroidTestRule.setContent {
-            RoutineScreen(
+            com.gradation.lift.feature.routine.RoutineScreen(
                 currentDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-                weekDateRoutineUiState = WeekDateRoutineUiState.Loading,
-                weekDateUiState = WeekDateUiState(emptyList()),
-                navigateCreateRoutineClick= {},
+                weekDateRoutineUiState = com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState.Loading,
+                weekDateUiState = com.gradation.lift.feature.routine.viewmodel.WeekDateUiState(
+                    emptyList()
+                ),
+                navigateCreateRoutineClick = {},
                 weekCardClick = {}
             )
         }

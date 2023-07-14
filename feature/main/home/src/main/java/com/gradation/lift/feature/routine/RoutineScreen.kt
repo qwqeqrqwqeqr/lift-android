@@ -14,9 +14,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.feature.routine.component.RoutineBody
 import com.gradation.lift.feature.routine.component.RoutineHeader
-import com.gradation.lift.feature.routine.viewmodel.RoutineViewModel
-import com.gradation.lift.feature.routine.viewmodel.WeekDateRoutineUiState
-import com.gradation.lift.feature.routine.viewmodel.WeekDateUiState
+import com.gradation.lift.feature.data.RoutineViewModel
+import com.gradation.lift.feature.data.WeekDateRoutineUiState
+import com.gradation.lift.feature.data.WeekDateUiState
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
 import kotlinx.datetime.LocalDate
 

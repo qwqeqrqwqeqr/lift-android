@@ -7,6 +7,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.gradation.lift.feature.data.HomeViewModel
 
 
 @Composable
@@ -15,7 +16,7 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-    Button(onClick = { viewModel.signOut() }) {
+    Button(onClick = {  }) {
         Text(text = "test")
     }
     HomeScreen(
