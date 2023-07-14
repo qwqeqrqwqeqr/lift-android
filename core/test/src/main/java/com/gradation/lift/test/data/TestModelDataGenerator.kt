@@ -1,5 +1,6 @@
 package com.gradation.lift.test.data
 
+import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.*
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart

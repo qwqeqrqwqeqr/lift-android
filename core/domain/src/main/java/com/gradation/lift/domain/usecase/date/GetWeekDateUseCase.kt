@@ -6,7 +6,7 @@ import kotlinx.datetime.*
 import java.time.DayOfWeek
 import javax.inject.Inject
 
-class GetWeekDateUseCase   @Inject constructor(){
+class GetWeekDateUseCase @Inject constructor(){
     @RequiresApi(Build.VERSION_CODES.O)
     operator fun invoke(): List<LocalDate> {
         return Clock.System.todayIn(TimeZone.currentSystemDefault()).let { date ->

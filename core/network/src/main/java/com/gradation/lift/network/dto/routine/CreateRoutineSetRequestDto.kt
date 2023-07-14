@@ -1,6 +1,5 @@
 package com.gradation.lift.network.dto.routine
 
-import com.gradation.lift.model.routine.Weekday
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)

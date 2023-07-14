@@ -1,5 +1,7 @@
 package com.gradation.lift.model.routine
 
+import com.gradation.lift.model.common.Weekday
+
 
 data class RoutineSetRoutine(
     val id: Int,

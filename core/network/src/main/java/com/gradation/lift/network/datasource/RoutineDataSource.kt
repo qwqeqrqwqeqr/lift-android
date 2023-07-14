@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource
 
+import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.*
 import com.gradation.lift.network.common.APIResult
 import kotlinx.coroutines.flow.Flow

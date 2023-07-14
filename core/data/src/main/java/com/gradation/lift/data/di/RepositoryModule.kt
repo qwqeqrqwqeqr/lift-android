@@ -16,12 +16,11 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @InstallIn(ViewModelComponent::class)
 object RepositoryModule {
 
-
     @ViewModelScoped
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
-    ): WorkRepository = DefaultWorkRepository(workDataSource)
+    ): WorkRepository = DefaultWorkRepository(workDataSource= workDataSource)
 
 
     @ViewModelScoped
@@ -29,7 +28,7 @@ object RepositoryModule {
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
     ): RoutineRepository =
-        DefaultRoutineRepository(routineDataSource)
+        DefaultRoutineRepository(routineDataSource= routineDataSource)
 
 
     @ViewModelScoped
@@ -37,7 +36,7 @@ object RepositoryModule {
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
-    ): AuthRepository = DefaultAuthRepository(authDataSource, tokenDataStoreDataSource)
+    ): AuthRepository = DefaultAuthRepository(authDataSource= authDataSource,tokenDataStoreDataSource= tokenDataStoreDataSource)
 
 
 

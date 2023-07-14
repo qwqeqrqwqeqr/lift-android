@@ -1,4 +1,4 @@
-package com.gradation.lift.model.routine
+package com.gradation.lift.model.common
 
 
 sealed class Weekday {

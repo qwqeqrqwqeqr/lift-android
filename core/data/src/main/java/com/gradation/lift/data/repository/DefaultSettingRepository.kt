@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 
-class DefaultSettingRepository @Inject constructor(
+class DefaultSettingRepository @Inject  constructor(
     private val settingDataStoreDataSource: SettingDataStoreDataSource,
 ) : SettingRepository {
 

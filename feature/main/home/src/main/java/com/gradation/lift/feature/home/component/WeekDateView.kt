@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine.component
+package com.gradation.lift.feature.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.feature.data.WeekDate
-import com.gradation.lift.feature.data.WeekDateUiState
+import com.gradation.lift.feature.home.data.WeekDate
+import com.gradation.lift.feature.home.data.WeekDateUiState
 import kotlinx.datetime.LocalDate
 
 @Composable

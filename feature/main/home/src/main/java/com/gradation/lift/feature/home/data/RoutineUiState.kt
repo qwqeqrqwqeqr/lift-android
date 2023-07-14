@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.data
+package com.gradation.lift.feature.home.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi

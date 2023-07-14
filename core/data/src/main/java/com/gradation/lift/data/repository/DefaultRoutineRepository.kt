@@ -4,6 +4,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.auth.Token
+import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.*
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.network.common.APIResult

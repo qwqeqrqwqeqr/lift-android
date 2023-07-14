@@ -1,6 +1,6 @@
 package com.gradation.lift.network.dto.routine
 
-import com.gradation.lift.model.routine.toWeekDay
+import com.gradation.lift.model.common.toWeekDay
 import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.work.WorkCategory
