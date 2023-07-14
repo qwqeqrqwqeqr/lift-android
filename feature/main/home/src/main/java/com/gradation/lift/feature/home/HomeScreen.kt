@@ -20,13 +20,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.home.component.CreateRoutineView
-import com.gradation.lift.feature.home.component.RoutineBody
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
-import com.gradation.lift.ui.DevicePreview
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -50,7 +48,7 @@ fun HomeRoute(
     HomeScreen(
         modifier = modifier,
         currentDate = currentDate,
-        userDetailUiState= userDetailUiState,
+        userDetailUiState = userDetailUiState,
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
         navigateCreateRoutineClick = { navController.navigateToCreateRoutineGraph() },
@@ -97,7 +95,8 @@ internal fun HomeScreen(
                 Image(
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = "로고",
-                    modifier.size(72.dp),
+                    modifier
+                        .size(72.dp),
                 )
                 Row(
                     modifier = modifier.fillMaxWidth()
@@ -122,7 +121,7 @@ internal fun HomeScreen(
                     Column(
                         verticalArrangement = Arrangement.Bottom
                     ) {
-                        when(userDetailUiState){
+                        when (userDetailUiState) {
                             is UserDetailUiState.Fail -> {
                                 Text(
                                     text = "",
@@ -136,21 +135,18 @@ internal fun HomeScreen(
                                     color = LiftTheme.colorScheme.no11
                                 )
                             }
-                            UserDetailUiState.Loading -> {
-                                Text(
-                                    text = "",
-                                    style = LiftTheme.typography.no1,
-                                    color = LiftTheme.colorScheme.no11,
+                            UserDetailUiState.Loading ->Row(
+                                verticalAlignment = Alignment.Bottom,
+                            ) {
+                                Box(
+                                    modifier.background(SkeletonBrush()).width(54.dp),
                                 )
                                 Spacer(modifier = modifier.padding(4.dp))
-                                Text(
-                                    text = "",
-                                    style = LiftTheme.typography.no4,
-                                    color = LiftTheme.colorScheme.no11
+                                Box(
+                                    modifier.background(SkeletonBrush()).width(96.dp),
                                 )
                             }
-                            is UserDetailUiState.Success ->  Row(
-                                modifier,
+                            is UserDetailUiState.Success -> Row(
                                 verticalAlignment = Alignment.Bottom,
                             ) {
                                 Text(
@@ -177,8 +173,6 @@ internal fun HomeScreen(
 }
 
 
-
-
 @Preview
 @Composable
 @SuppressLint("UnrememberedMutableState")
@@ -187,7 +181,7 @@ fun HomeScreenPreview() {
         HomeScreen(
             currentDate = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
             weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
-            userDetailUiState= UserDetailUiState.Loading,
+            userDetailUiState = UserDetailUiState.Loading,
             weekDate = emptyList(),
             navigateCreateRoutineClick = { },
             onClickWeekDateCard = {}
