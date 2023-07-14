@@ -1,5 +1,9 @@
 package com.gradation.lift.model.common
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import kotlinx.datetime.*
+
 
 sealed class Weekday {
     data class Monday(val name: String = MONDAY) : Weekday()
@@ -34,8 +38,8 @@ sealed class Weekday {
     }
 }
 
-fun toWeekDay(weekDay: String): Weekday =
-    when (weekDay) {
+fun String.toWeekDay(): Weekday =
+    when (this) {
         Weekday.MONDAY -> Weekday.Monday()
         Weekday.TUESDAY -> Weekday.Tuesday()
         Weekday.WEDNESDAY -> Weekday.Wednesday()
@@ -46,7 +50,18 @@ fun toWeekDay(weekDay: String): Weekday =
         else -> Weekday.None()
     }
 
-
+@RequiresApi(Build.VERSION_CODES.O)
+fun LocalDate.toWeekday(): Weekday =
+    when (this.dayOfWeek) {
+        DayOfWeek.MONDAY -> Weekday.Monday()
+        DayOfWeek.TUESDAY -> Weekday.Tuesday()
+        DayOfWeek.WEDNESDAY -> Weekday.Wednesday()
+        DayOfWeek.THURSDAY -> Weekday.Thursday()
+        DayOfWeek.FRIDAY -> Weekday.Friday()
+        DayOfWeek.SATURDAY -> Weekday.Saturday()
+        DayOfWeek.SUNDAY -> Weekday.Sunday()
+        else -> Weekday.None()
+    }
 
 
 
