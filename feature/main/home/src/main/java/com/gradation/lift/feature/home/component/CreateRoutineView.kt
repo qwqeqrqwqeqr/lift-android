@@ -27,18 +27,16 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun CreateRoutineView(
-    navigateCreateRoutineClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .background(
-                color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
+                color = LiftTheme.colorScheme.no5,
+                shape = RoundedCornerShape(24.dp)
             )
             .fillMaxWidth()
-            .padding(16.dp)
-
+            .padding(20.dp)
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -73,7 +71,8 @@ fun CreateRoutineView(
             Spacer(modifier = modifier.padding(8.dp))
             LiftOutlineButton(
                 modifier = modifier.fillMaxWidth(),
-                onClick =  navigateCreateRoutineClick
+                //TODO implement onclick create routine
+                onClick =  {}
             ) {
                 Text(
                     text = "루틴 리스트 만들기",
@@ -94,6 +93,6 @@ fun CreateRoutineView(
 @Composable
 internal fun RoutineHeaderPreview() {
     LiftMaterialTheme {
-        CreateRoutineView({})
+        CreateRoutineView()
     }
 }

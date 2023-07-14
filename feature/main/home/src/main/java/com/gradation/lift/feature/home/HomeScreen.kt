@@ -26,6 +26,8 @@ import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.home.component.BadgeView
+import com.gradation.lift.feature.home.component.CreateRoutineView
 import com.gradation.lift.feature.home.component.ProfileView
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.model.common.UnitOfWeight
@@ -85,6 +87,13 @@ internal fun HomeScreen(
                 userDetailUiState = userDetailUiState
             )
             Spacer(modifier = modifier.padding(8.dp))
+            BadgeView(modifier = modifier)
+            Spacer(modifier = modifier.padding(8.dp))
+
+            CreateRoutineView(
+                modifier = modifier,
+            )
+
             Column(
                 modifier = modifier
                     .background(
@@ -94,36 +103,7 @@ internal fun HomeScreen(
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
-                Row(
-                    modifier = modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
 
-                ) {
-                    Text(
-                        text = "내 뱃지",
-                        style = LiftTheme.typography.no1,
-                        color = LiftTheme.colorScheme.no9,
-                    )
-                    LiftOutlineButton(
-                        modifier = modifier
-                            .height(32.dp),
-                        contentPadding = PaddingValues(
-                            start = 10.dp,
-                        ),
-                        onClick = navigateCreateRoutineClick
-                    ) {
-                        Text(
-                            text = "전체보기",
-                            style = LiftTheme.typography.no5,
-                            color = LiftTheme.colorScheme.no4,
-                        )
-                        Icon(
-                            imageVector = LiftIcon.ChevronRight,
-                            contentDescription = null,
-                        )
-                    }
-                }
             }
         }
     }
