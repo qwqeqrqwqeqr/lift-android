@@ -91,7 +91,7 @@ fun WeekCardItem(
 
             Text(
                 color = if (weekDate.selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                text = weekDate.weekDay.getName(),
+                text = weekDate.weekDay.getWeekdayName(),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge
             )

@@ -12,8 +12,8 @@ fun RoutineView(
 ) {
     when(weekDateRoutineUiState){
         WeekDateRoutineUiState.Empty -> Text("empty")
-        WeekDateRoutineUiState.Error -> Text("error")
         WeekDateRoutineUiState.Loading ->Text("loading")
-        is WeekDateRoutineUiState.Success ->Text("${weekDateRoutineUiState.weekDateRoutine.weekDateRoutine}")
+        is WeekDateRoutineUiState.Success ->Text("${weekDateRoutineUiState.weekDateRoutine}")
+        is WeekDateRoutineUiState.Fail ->  Text("error")
     }
 }

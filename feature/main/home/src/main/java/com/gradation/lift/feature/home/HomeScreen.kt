@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.feature.home.component.CreateRoutineView
 import com.gradation.lift.feature.home.component.RoutineBody
 import com.gradation.lift.feature.home.component.RoutineHeader
 import com.gradation.lift.feature.home.data.*
@@ -60,7 +61,7 @@ internal fun HomeScreen(
         color = MaterialTheme.colorScheme.surface,
     ) {
         Column {
-            RoutineHeader(
+            CreateRoutineView(
                 navigateCreateRoutineClick = navigateCreateRoutineClick,
                 modifier = modifier
             )

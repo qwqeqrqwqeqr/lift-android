@@ -21,10 +21,11 @@ import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun RoutineHeader(
+fun CreateRoutineView(
     navigateCreateRoutineClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -32,7 +33,7 @@ fun RoutineHeader(
         modifier = modifier
             .background(
                 color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(0.dp,0.dp,24.dp,24.dp)
+                shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
             )
             .fillMaxWidth()
             .padding(16.dp)
@@ -45,30 +46,30 @@ fun RoutineHeader(
             Image(
                 painter = painterResource(id = R.drawable.dumbbell),
                 contentDescription = "덤벨",
-                Modifier.size(64.dp),
+                modifier.size(72.dp),
                 alignment = Alignment.Center,
             )
             Text(
                 text = buildAnnotatedString {
-                    append("나만의 ")
                     withStyle(
-                        style = SpanStyle(color = MaterialTheme.colorScheme.primary),
+                        style = SpanStyle(color = LiftTheme.colorScheme.no4),
                     ) {
-                        append("루틴")
+                        append("루틴 리스트")
                     }
-                    append("을 만들어봐요!")
+                    append(" 만들기")
                 },
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.secondary,
+                style = LiftTheme.typography.no1,
+                color = LiftTheme.colorScheme.no9,
                 textAlign = TextAlign.Center,
             )
+            Spacer(modifier = modifier.padding(4.dp))
             Text(
-                text = "나만의 루틴을 만들어 \n" +
-                        "간편하게 사용해보세요",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSecondary,
+                text = "루틴리스트를 만들고 편하게 운동해요",
+                style = LiftTheme.typography.no4,
+                color = LiftTheme.colorScheme.no9,
                 textAlign = TextAlign.Center,
             )
+            Spacer(modifier = modifier.padding(4.dp))
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
                 onClick =  navigateCreateRoutineClick
@@ -92,6 +93,6 @@ fun RoutineHeader(
 @Composable
 internal fun RoutineHeaderPreview() {
     LiftMaterialTheme {
-        RoutineHeader({})
+        CreateRoutineView({})
     }
 }

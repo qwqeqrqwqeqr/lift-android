@@ -23,7 +23,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     CreateRoutineSetRequestDto(
                         shortDescription = createRoutineSetRoutine.shortDescription,
                         longDescription = createRoutineSetRoutine.longDescription,
-                        weekday = createRoutineSetRoutine.weekday.getValue(),
+                        weekday = createRoutineSetRoutine.weekday.getWeekdayValue(),
                         routine = createRoutineSetRoutine.routine.map { routine ->
                             CreateRoutineDto(
                                 workCategory = routine.workCategoryId,
@@ -66,7 +66,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<APIResult<List<RoutineSetRoutine>>> =
         flow {
-            networkResultHandler { routineService.getRoutineSetRoutineByWeekday(weekday.getValue()) }
+            networkResultHandler { routineService.getRoutineSetRoutineByWeekday(weekday.getWeekdayValue()) }
                 .collect { result ->
                     when (result) {
                         is APIResult.Fail -> emit(APIResult.Fail(result.message))
