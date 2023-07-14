@@ -52,9 +52,6 @@ fun LiftOutlineButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no5,
             contentColor = LiftTheme.colorScheme.no4,
-            disabledContainerColor = LiftTheme.colorScheme.no13,
-            disabledContentColor = LiftTheme.colorScheme.no5,
-
         ),
         border= BorderStroke(
             width= 2.dp,

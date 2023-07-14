@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -69,15 +70,15 @@ fun CreateRoutineView(
                 color = LiftTheme.colorScheme.no9,
                 textAlign = TextAlign.Center,
             )
-            Spacer(modifier = modifier.padding(4.dp))
-            LiftButton(
+            Spacer(modifier = modifier.padding(8.dp))
+            LiftOutlineButton(
                 modifier = modifier.fillMaxWidth(),
                 onClick =  navigateCreateRoutineClick
             ) {
                 Text(
                     text = "루틴 리스트 만들기",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no4,
                 )
                 Icon(
                     imageVector = LiftIcon.ChevronRight,

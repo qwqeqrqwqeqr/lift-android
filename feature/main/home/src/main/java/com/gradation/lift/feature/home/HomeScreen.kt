@@ -1,27 +1,28 @@
 package com.gradation.lift.feature.home
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.CreateRoutineView
 import com.gradation.lift.feature.home.component.RoutineBody
-import com.gradation.lift.feature.home.component.RoutineHeader
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
+import com.gradation.lift.ui.DevicePreview
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -58,22 +59,29 @@ internal fun HomeScreen(
     onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.surface,
+        color = LiftTheme.colorScheme.no5,
     ) {
-        Column {
-            CreateRoutineView(
-                navigateCreateRoutineClick = navigateCreateRoutineClick,
-                modifier = modifier
-            )
-            Spacer(modifier = modifier.height(16.dp))
-            RoutineBody(
-                modifier = modifier,
-                currentDate =currentDate,
-                weekDateRoutine = weekDateRoutine,
-                weekDate = weekDate,
-                onClickWeekDateCard = onClickWeekDateCard,
-            )
+        Column(
+            modifier = modifier
+                .padding(16.dp)
+                .fillMaxSize()
+        ) {
+
         }
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
+@DevicePreview
+@Composable
+fun HomeScreenPreview(){
+    LiftMaterialTheme {
+        HomeScreen(
+            currentDate = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())) ,
+            weekDateRoutine = WeekDateRoutineUiState.Empty ,
+            weekDate = emptyList(),
+            navigateCreateRoutineClick = {  },
+            onClickWeekDateCard = {}
+        )
+    }
+}
