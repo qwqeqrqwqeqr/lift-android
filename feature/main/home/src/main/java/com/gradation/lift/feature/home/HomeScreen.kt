@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -105,16 +107,18 @@ internal fun HomeScreen(
                     Box(
                         modifier = modifier
                             .background(
-                                color = LiftTheme.colorScheme.no1,
+                                color = LiftTheme.colorScheme.no4,
                                 shape = RoundedCornerShape(96.dp)
                             )
                             .size(72.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "사진",
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no11
+                        Image(
+                            painter = painterResource(id = R.drawable.logo),
+                            contentDescription = "로고",
+                            modifier.size(32.dp),
+                            colorFilter = ColorFilter.tint(Color.White)
+
                         )
                     }
                     Spacer(modifier = modifier.padding(8.dp))
@@ -135,15 +139,19 @@ internal fun HomeScreen(
                                     color = LiftTheme.colorScheme.no11
                                 )
                             }
-                            UserDetailUiState.Loading ->Row(
+                            UserDetailUiState.Loading -> Row(
                                 verticalAlignment = Alignment.Bottom,
                             ) {
                                 Box(
-                                    modifier.background(SkeletonBrush()).width(54.dp),
+                                    modifier
+                                        .background(SkeletonBrush())
+                                        .width(54.dp),
                                 )
                                 Spacer(modifier = modifier.padding(4.dp))
                                 Box(
-                                    modifier.background(SkeletonBrush()).width(96.dp),
+                                    modifier
+                                        .background(SkeletonBrush())
+                                        .width(96.dp),
                                 )
                             }
                             is UserDetailUiState.Success -> Row(
