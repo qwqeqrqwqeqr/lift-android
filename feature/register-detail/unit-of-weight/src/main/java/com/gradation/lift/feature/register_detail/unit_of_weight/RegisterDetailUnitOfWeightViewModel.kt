@@ -58,18 +58,18 @@ class RegisterDetailUnitOfWeightViewModel @Inject constructor(
                     UserDetail(
                         name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY] ?: "",
                         gender = when (it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY] ?: "") {
-                            Gender.MALE_VALUE -> Gender.MALE()
-                            Gender.FEMALE_VALUE -> Gender.FEMALE()
-                            else -> Gender.MALE()
+                            Gender.MALE_VALUE -> Gender.Male()
+                            Gender.FEMALE_VALUE -> Gender.Female()
+                            else -> Gender.Male()
                         },
                         height = it[SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY]?.toFloat()
                             ?: 0f,
                         weight = it[SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY]?.toFloat()
                             ?: 0f,
                         unitOfWeight = when (if (kg) UnitOfWeight.KG_VALUE else UnitOfWeight.LB_VALUE) {
-                            UnitOfWeight.KG_VALUE -> UnitOfWeight.KG()
-                            UnitOfWeight.LB_VALUE -> UnitOfWeight.LB()
-                            else -> UnitOfWeight.KG()
+                            UnitOfWeight.KG_VALUE -> UnitOfWeight.Kg()
+                            UnitOfWeight.LB_VALUE -> UnitOfWeight.Lb()
+                            else -> UnitOfWeight.Kg()
                         },
                     )
                 }

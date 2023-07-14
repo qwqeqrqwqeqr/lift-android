@@ -19,16 +19,16 @@ data class GetUserDetailResponseDto(
     fun toUserDetail() = UserDetail(
         name = userDetailDto.name ?: "",
         gender = when (userDetailDto.gender) {
-            MALE_VALUE -> Gender.MALE()
-            FEMALE_VALUE -> Gender.FEMALE()
-            else -> Gender.MALE()
+            MALE_VALUE -> Gender.Male()
+            FEMALE_VALUE -> Gender.Female()
+            else -> Gender.Male()
         },
         height = userDetailDto.height ?: 0f,
         weight = userDetailDto.weight ?: 0f,
         unitOfWeight = when (userDetailDto.unitOfWeight) {
-            KG_VALUE-> UnitOfWeight.KG()
-            LB_VALUE-> UnitOfWeight.LB()
-            else -> UnitOfWeight.KG()
+            KG_VALUE-> UnitOfWeight.Kg()
+            LB_VALUE-> UnitOfWeight.Lb()
+            else -> UnitOfWeight.Kg()
         }
     )
 }

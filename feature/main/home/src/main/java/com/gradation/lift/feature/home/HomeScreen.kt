@@ -25,7 +25,11 @@ import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.home.component.ProfileView
 import com.gradation.lift.feature.home.data.*
+import com.gradation.lift.model.common.UnitOfWeight
+import com.gradation.lift.model.user.Gender
+import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -75,107 +79,10 @@ internal fun HomeScreen(
         Column(
             modifier = modifier.fillMaxSize()
         ) {
-            Column(
-                modifier = modifier
-                    .background(
-                        color = LiftTheme.colorScheme.no5,
-                        shape = RoundedCornerShape(
-                            topStart = 0.dp,
-                            topEnd = 0.dp,
-                            bottomEnd = 24.dp,
-                            bottomStart = 24.dp
-                        )
-
-                    )
-                    .fillMaxWidth()
-                    .padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                        bottom = 20.dp
-                    )
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "로고",
-                    modifier
-                        .size(72.dp),
-                )
-                Row(
-                    modifier = modifier.fillMaxWidth()
-                ) {
-                    //TODO Profile 이미지 끌고오기
-                    Box(
-                        modifier = modifier
-                            .background(
-                                color = LiftTheme.colorScheme.no4,
-                                shape = RoundedCornerShape(96.dp)
-                            )
-                            .size(72.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.logo),
-                            contentDescription = "로고",
-                            modifier.size(32.dp),
-                            colorFilter = ColorFilter.tint(Color.White)
-
-                        )
-                    }
-                    Spacer(modifier = modifier.padding(8.dp))
-                    Column(
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        when (userDetailUiState) {
-                            is UserDetailUiState.Fail -> {
-                                Text(
-                                    text = "",
-                                    style = LiftTheme.typography.no1,
-                                    color = LiftTheme.colorScheme.no11,
-                                )
-                                Spacer(modifier = modifier.padding(4.dp))
-                                Text(
-                                    text = "",
-                                    style = LiftTheme.typography.no4,
-                                    color = LiftTheme.colorScheme.no11
-                                )
-                            }
-                            UserDetailUiState.Loading -> Row(
-                                verticalAlignment = Alignment.Bottom,
-                            ) {
-                                Box(
-                                    modifier
-                                        .background(SkeletonBrush())
-                                        .width(54.dp),
-                                )
-                                Spacer(modifier = modifier.padding(4.dp))
-                                Box(
-                                    modifier
-                                        .background(SkeletonBrush())
-                                        .width(96.dp),
-                                )
-                            }
-                            is UserDetailUiState.Success -> Row(
-                                verticalAlignment = Alignment.Bottom,
-                            ) {
-                                Text(
-                                    text = userDetailUiState.userDetail.name,
-                                    style = LiftTheme.typography.no1,
-                                    color = LiftTheme.colorScheme.no11,
-                                )
-                                Spacer(modifier = modifier.padding(4.dp))
-                                Text(
-                                    text = "${userDetailUiState.userDetail.height}cm/${userDetailUiState.userDetail.weight}kg",
-                                    style = LiftTheme.typography.no4,
-                                    color = LiftTheme.colorScheme.no11
-                                )
-                            }
-                        }
-
-                    }
-
-                }
-            }
-
+            ProfileView(
+                modifier = modifier,
+                userDetailUiState = userDetailUiState
+            )
         }
     }
 }
@@ -189,7 +96,7 @@ fun HomeScreenPreview() {
         HomeScreen(
             currentDate = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
             weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
-            userDetailUiState = UserDetailUiState.Loading,
+            userDetailUiState = UserDetailUiState.Success(UserDetail(name="리프트", weight = 90f, height = 180f, gender = Gender.Male(), unitOfWeight = UnitOfWeight.Kg())),
             weekDate = emptyList(),
             navigateCreateRoutineClick = { },
             onClickWeekDateCard = {}

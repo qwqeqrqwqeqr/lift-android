@@ -39,14 +39,14 @@ class DefaultUserDataSource @Inject constructor(
                     userDetailDto = UserDetailDto(
                         name = userDetail.name,
                         gender = when (val gender = userDetail.gender) {
-                            is Gender.FEMALE -> gender.value
-                            is Gender.MALE -> gender.value
+                            is Gender.Female -> gender.value
+                            is Gender.Male -> gender.value
                         },
                         height = userDetail.height,
                         weight = userDetail.weight,
                         unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
-                            is UnitOfWeight.KG -> unitOfWeight.value
-                            is UnitOfWeight.LB -> unitOfWeight.value
+                            is UnitOfWeight.Kg -> unitOfWeight.value
+                            is UnitOfWeight.Lb -> unitOfWeight.value
                         }
                     )
                 )
@@ -68,14 +68,14 @@ class DefaultUserDataSource @Inject constructor(
                     userDetailDto = UserDetailDto(
                         name = userDetail.name,
                         gender = when (val gender = userDetail.gender) {
-                            is Gender.FEMALE -> gender.value
-                            is Gender.MALE -> gender.value
+                            is Gender.Female -> gender.value
+                            is Gender.Male -> gender.value
                         },
                         height = userDetail.height,
                         weight = userDetail.weight,
                         unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
-                            is UnitOfWeight.KG -> unitOfWeight.value
-                            is UnitOfWeight.LB -> unitOfWeight.value
+                            is UnitOfWeight.Kg -> unitOfWeight.value
+                            is UnitOfWeight.Lb -> unitOfWeight.value
                         }
                     )
                 )
