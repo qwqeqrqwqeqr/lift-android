@@ -5,22 +5,20 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.feature.home.data.HomeViewModel
-import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
-import com.gradation.lift.feature.home.data.WeekDateUiState
 import com.gradation.lift.feature.home.component.RoutineBody
 import com.gradation.lift.feature.home.component.RoutineHeader
+import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
 import kotlinx.datetime.LocalDate
 
@@ -33,18 +31,18 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-    val weekDateRoutineUiState : WeekDateRoutineUiState by viewModel.weekDateRoutineUiState.collectAsStateWithLifecycle()
-    val weekDateUiState  : WeekDateUiState by viewModel.weekDateUiState.collectAsStateWithLifecycle()
-    val currentDate  = viewModel.currentDate
+    val weekDateRoutine : WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
+    val weekDate : List<WeekDate> by viewModel.weekDate.collectAsStateWithLifecycle()
+    val currentDate  = viewModel.currentDate.collectAsState()
 
 
     HomeScreen(
         modifier = modifier,
         currentDate = currentDate,
-        weekDateRoutineUiState = weekDateRoutineUiState,
-        weekDateUiState= weekDateUiState,
+        weekDateRoutine = weekDateRoutine,
+        weekDate = weekDate,
         navigateCreateRoutineClick = {navController.navigateToCreateRoutineGraph()},
-        weekCardClick = viewModel::onClickDate
+        onClickWeekDateCard = viewModel::onClickDate
     )
 }
 
@@ -52,11 +50,11 @@ fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    currentDate: LocalDate,
-    weekDateRoutineUiState: WeekDateRoutineUiState,
-    weekDateUiState: WeekDateUiState,
+    currentDate: State<LocalDate>,
+    weekDateRoutine: WeekDateRoutineUiState,
+    weekDate: List<WeekDate>,
     navigateCreateRoutineClick: () -> Unit,
-    weekCardClick: (LocalDate) -> Unit,
+    onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -69,10 +67,10 @@ internal fun HomeScreen(
             Spacer(modifier = modifier.height(16.dp))
             RoutineBody(
                 modifier = modifier,
-                currentDate  =currentDate,
-                weekDateRoutineUiState= weekDateRoutineUiState,
-                weekDateUiState = weekDateUiState,
-                weekCardClick = weekCardClick,
+                currentDate =currentDate,
+                weekDateRoutine = weekDateRoutine,
+                weekDate = weekDate,
+                onClickWeekDateCard = onClickWeekDateCard,
             )
         }
     }

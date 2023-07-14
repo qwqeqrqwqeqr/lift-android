@@ -7,25 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
-import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineUseCase
-import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.model.routine.RoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
-import java.time.DayOfWeek
 import javax.inject.Inject
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getWeekDateUseCase: GetWeekDateUseCase,
-    private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
+    getWeekDateUseCase: GetWeekDateUseCase,
+    getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
 ) : ViewModel() {
 
     private val _currentDate =
@@ -52,24 +48,23 @@ class HomeViewModel @Inject constructor(
         getRoutineSetRoutineByWeekdayUseCase(currentDate.value.toWeekday()).map {
             when (it) {
                 is DataState.Fail -> WeekDateRoutineUiState.Fail(message = it.message)
-                is DataState.Success ->
-                {
+                is DataState.Success -> {
                     if (it.data.isEmpty()) {
                         WeekDateRoutineUiState.Empty
                     } else {
 
                         WeekDateRoutineUiState.Success(
-                            weekDateRoutine = WeekDateRoutine(it.data)
+                            weekDateRoutine = it.data
                         )
                     }
                 }
             }
         }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = WeekDateRoutineUiState.Loading
-        )
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = WeekDateRoutineUiState.Loading
+            )
 
 
     fun onClickDate(selectedDate: LocalDate) {
@@ -78,12 +73,5 @@ class HomeViewModel @Inject constructor(
 }
 
 
-
-sealed interface WeekDateRoutineUiState {
-    data class Success(val weekDateRoutine: WeekDateRoutine) : WeekDateRoutineUiState
-    data class Fail(val message: String) : WeekDateRoutineUiState
-    object Loading : WeekDateRoutineUiState
-    object Empty: WeekDateRoutineUiState
-}
 
 

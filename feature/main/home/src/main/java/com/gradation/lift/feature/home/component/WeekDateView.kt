@@ -12,14 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.feature.home.data.WeekDate
-import com.gradation.lift.feature.home.data.WeekDateUiState
 import kotlinx.datetime.LocalDate
 
 @Composable
 fun WeekDateView(
-    weekDateUiState: WeekDateUiState,
+    weekDate: List<WeekDate>,
     modifier: Modifier = Modifier,
-    weekCardClick: (LocalDate) -> Unit,
+    onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -27,8 +26,8 @@ fun WeekDateView(
             .background(color = MaterialTheme.colorScheme.background)
     ) {
         WeekCard(
-            weekDateUiState = weekDateUiState,
-            weekCardClick = weekCardClick
+            weekDate = weekDate,
+            onClickWeekDateCard = onClickWeekDateCard
         )
     }
 }
@@ -37,14 +36,14 @@ fun WeekDateView(
 @Composable
 fun WeekCard(
     modifier: Modifier = Modifier,
-    weekDateUiState: WeekDateUiState,
-    weekCardClick: (LocalDate) -> Unit,
+    weekDate: List<WeekDate>,
+    onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Row(modifier = modifier.fillMaxWidth()) {
         WeekCardList(
             modifier = modifier.weight(1f),
-            weekDateList = weekDateUiState,
-            weekCardClick = weekCardClick)
+            weekDate = weekDate,
+            onClickWeekDateCard = onClickWeekDateCard)
     }
 }
 
@@ -52,14 +51,14 @@ fun WeekCard(
 @Composable
 fun WeekCardList(
     modifier: Modifier = Modifier,
-    weekDateList: WeekDateUiState,
-    weekCardClick: (LocalDate) -> Unit,
+    weekDate: List<WeekDate>,
+    onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
-    repeat(weekDateList.weekDate.size) {
+    repeat(weekDate.size) {
         WeekCardItem(
             modifier = modifier.fillMaxWidth(),
-            weekDate = weekDateList.weekDate[it],
-            weekCardClick = weekCardClick
+            weekDate = weekDate[it],
+            onClickWeekDateCard = onClickWeekDateCard
         )
     }
 }
@@ -68,7 +67,7 @@ fun WeekCardList(
 fun WeekCardItem(
     modifier: Modifier = Modifier,
     weekDate: WeekDate,
-    weekCardClick: (LocalDate) -> Unit,
+    onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -76,7 +75,7 @@ fun WeekCardItem(
                 color = if (weekDate.selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(16.dp)
             )
-            .clickable(onClick = { weekCardClick(weekDate.localDate!!) })
+            .clickable(onClick = { onClickWeekDateCard(weekDate.localDate!!) })
             .padding(8.dp, 24.dp, 8.dp, 24.dp)
     ) {
         Column(
@@ -89,12 +88,14 @@ fun WeekCardItem(
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge
             )
+
             Text(
                 color = if (weekDate.selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                text = weekDate.weekDay,
+                text = weekDate.weekDay.getName(),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge
             )
+
         }
     }
 }

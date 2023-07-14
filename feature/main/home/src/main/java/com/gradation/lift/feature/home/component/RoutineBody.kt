@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,17 +19,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.feature.home.data.WeekDate
 import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
-import com.gradation.lift.feature.home.data.WeekDateUiState
 import kotlinx.datetime.LocalDate
 
 @Composable
 fun RoutineBody(
     modifier: Modifier = Modifier,
-    currentDate: LocalDate,
-    weekDateRoutineUiState: WeekDateRoutineUiState,
-    weekDateUiState : WeekDateUiState,
-    weekCardClick: (LocalDate) -> Unit,
+    currentDate: State<LocalDate>,
+    weekDateRoutine: WeekDateRoutineUiState,
+    weekDate: List<WeekDate>,
+    onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -68,7 +69,7 @@ fun RoutineBody(
                     withStyle(
                         style = SpanStyle(fontWeight = FontWeight.Bold),
                     ) {
-                        append("${currentDate.monthNumber}월 ${currentDate.dayOfMonth}일")
+                        append("${currentDate.value.monthNumber}월 ${currentDate.value.dayOfMonth}일")
                     }
                     append("이에요!\n" + "루틴을 선택해서 운동을 해봐요!")
                 },
@@ -78,9 +79,8 @@ fun RoutineBody(
             )
             Spacer(modifier = modifier.height(16.dp))
 
-            WeekDateView(weekDateUiState=weekDateUiState,weekCardClick= weekCardClick)
+            WeekDateView(weekDate=weekDate, onClickWeekDateCard = onClickWeekDateCard)
 
-            RoutineView(weekDateRoutineUiState= weekDateRoutineUiState)
         }
     }
 }

@@ -6,14 +6,14 @@ import kotlinx.datetime.*
 
 
 sealed class Weekday {
-    data class Monday(val name: String = MONDAY) : Weekday()
-    data class Tuesday(val name: String = TUESDAY) : Weekday()
-    data class Wednesday(val name: String = WEDNESDAY) : Weekday()
-    data class Thursday(val name: String = THURSDAY) : Weekday()
-    data class Friday(val name: String = FRIDAY) : Weekday()
-    data class Saturday(val name: String = SATURDAY) : Weekday()
-    data class Sunday(val name: String = SUNDAY) : Weekday()
-    data class None(val name: String = NONE) : Weekday()
+    data class Monday(val value: String = MONDAY, val name: String = "월") : Weekday()
+    data class Tuesday(val value: String = TUESDAY, val name: String = "화") : Weekday()
+    data class Wednesday(val value: String = WEDNESDAY, val name: String = "수") : Weekday()
+    data class Thursday(val value: String = THURSDAY, val name: String = "목") : Weekday()
+    data class Friday(val value: String = FRIDAY, val name: String = "금") : Weekday()
+    data class Saturday(val value: String = SATURDAY, val name: String = "토") : Weekday()
+    data class Sunday(val value: String = SUNDAY, val name: String = "일") : Weekday()
+    data class None(val value: String = NONE, val name: String = "") : Weekday()
 
     companion object {
         const val MONDAY = "Monday"
@@ -27,6 +27,17 @@ sealed class Weekday {
     }
 
     fun getValue(): String = when (val weekday = this) {
+        is Friday -> weekday.value
+        is Monday -> weekday.value
+        is None -> weekday.value
+        is Saturday -> weekday.value
+        is Sunday -> weekday.value
+        is Thursday -> weekday.value
+        is Tuesday -> weekday.value
+        is Wednesday -> weekday.value
+    }
+
+    fun getName(): String = when (val weekday = this) {
         is Friday -> weekday.name
         is Monday -> weekday.name
         is None -> weekday.name

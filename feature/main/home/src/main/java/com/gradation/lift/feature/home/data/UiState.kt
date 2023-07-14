@@ -1,12 +1,7 @@
 package com.gradation.lift.feature.home.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.datetime.LocalDate
 
 data class WeekDate(
@@ -17,10 +12,13 @@ data class WeekDate(
 )
 
 
-data class WeekDateRoutine(
-    val weekDateRoutine: List<RoutineSetRoutine>,
-)
 
 
+sealed interface WeekDateRoutineUiState {
+    data class Success(val weekDateRoutine: List<RoutineSetRoutine>) : WeekDateRoutineUiState
+    data class Fail(val message: String) : WeekDateRoutineUiState
+    object Loading : WeekDateRoutineUiState
+    object Empty: WeekDateRoutineUiState
+}
 
 
