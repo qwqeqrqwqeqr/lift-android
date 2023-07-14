@@ -6,10 +6,9 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Absolute.Center
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +22,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.ProfileView
@@ -83,6 +84,47 @@ internal fun HomeScreen(
                 modifier = modifier,
                 userDetailUiState = userDetailUiState
             )
+            Spacer(modifier = modifier.padding(8.dp))
+            Column(
+                modifier = modifier
+                    .background(
+                        color = LiftTheme.colorScheme.no5,
+                        shape = RoundedCornerShape(24.dp)
+                    )
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Row(
+                    modifier = modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+
+                ) {
+                    Text(
+                        text = "내 뱃지",
+                        style = LiftTheme.typography.no1,
+                        color = LiftTheme.colorScheme.no9,
+                    )
+                    LiftOutlineButton(
+                        modifier = modifier
+                            .height(32.dp),
+                        contentPadding = PaddingValues(
+                            start = 10.dp,
+                        ),
+                        onClick = navigateCreateRoutineClick
+                    ) {
+                        Text(
+                            text = "전체보기",
+                            style = LiftTheme.typography.no5,
+                            color = LiftTheme.colorScheme.no4,
+                        )
+                        Icon(
+                            imageVector = LiftIcon.ChevronRight,
+                            contentDescription = null,
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -96,7 +138,15 @@ fun HomeScreenPreview() {
         HomeScreen(
             currentDate = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
             weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
-            userDetailUiState = UserDetailUiState.Success(UserDetail(name="리프트", weight = 90f, height = 180f, gender = Gender.Male(), unitOfWeight = UnitOfWeight.Kg())),
+            userDetailUiState = UserDetailUiState.Success(
+                UserDetail(
+                    name = "리프트",
+                    weight = 90f,
+                    height = 180f,
+                    gender = Gender.Male(),
+                    unitOfWeight = UnitOfWeight.Kg()
+                )
+            ),
             weekDate = emptyList(),
             navigateCreateRoutineClick = { },
             onClickWeekDateCard = {}
