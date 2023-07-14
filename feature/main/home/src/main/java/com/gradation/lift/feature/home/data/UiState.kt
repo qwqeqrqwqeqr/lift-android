@@ -2,6 +2,7 @@ package com.gradation.lift.feature.home.data
 
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.user.UserDetail
 import kotlinx.datetime.LocalDate
 
 data class WeekDate(
@@ -22,3 +23,9 @@ sealed interface WeekDateRoutineUiState {
 }
 
 
+
+sealed interface UserDetailUiState {
+    data class Success(val userDetail: UserDetail) : UserDetailUiState
+    data class Fail(val message: String) : UserDetailUiState
+    object Loading : UserDetailUiState
+}

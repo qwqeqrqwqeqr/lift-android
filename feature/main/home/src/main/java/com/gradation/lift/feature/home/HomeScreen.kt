@@ -41,7 +41,8 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
 
-    val weekDateRoutine: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
+    val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
+    val userDetailUiState: UserDetailUiState by viewModel.userDetail.collectAsStateWithLifecycle()
     val weekDate: List<WeekDate> by viewModel.weekDate.collectAsStateWithLifecycle()
     val currentDate = viewModel.currentDate.collectAsState()
 
@@ -49,7 +50,8 @@ fun HomeRoute(
     HomeScreen(
         modifier = modifier,
         currentDate = currentDate,
-        weekDateRoutine = weekDateRoutine,
+        userDetailUiState= userDetailUiState,
+        weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
         navigateCreateRoutineClick = { navController.navigateToCreateRoutineGraph() },
         onClickWeekDateCard = viewModel::onClickDate
@@ -61,7 +63,8 @@ fun HomeRoute(
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
     currentDate: State<LocalDate>,
-    weekDateRoutine: WeekDateRoutineUiState,
+    weekDateRoutineUiState: WeekDateRoutineUiState,
+    userDetailUiState: UserDetailUiState,
     weekDate: List<WeekDate>,
     navigateCreateRoutineClick: () -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
@@ -119,21 +122,51 @@ internal fun HomeScreen(
                     Column(
                         verticalArrangement = Arrangement.Bottom
                     ) {
-                        Row(
-                            modifier,
-                            verticalAlignment = Alignment.Bottom,
-                        ) {
-                            Text(
-                                text = "리프트",
-                                style = LiftTheme.typography.no1,
-                                color = LiftTheme.colorScheme.no11,
-                            )
-                            Text(
-                                text = "180cm/50kg",
-                                style = LiftTheme.typography.no4,
-                                color = LiftTheme.colorScheme.no11
-                            )
+                        when(userDetailUiState){
+                            is UserDetailUiState.Fail -> {
+                                Text(
+                                    text = "",
+                                    style = LiftTheme.typography.no1,
+                                    color = LiftTheme.colorScheme.no11,
+                                )
+                                Spacer(modifier = modifier.padding(4.dp))
+                                Text(
+                                    text = "",
+                                    style = LiftTheme.typography.no4,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+                            }
+                            UserDetailUiState.Loading -> {
+                                Text(
+                                    text = "",
+                                    style = LiftTheme.typography.no1,
+                                    color = LiftTheme.colorScheme.no11,
+                                )
+                                Spacer(modifier = modifier.padding(4.dp))
+                                Text(
+                                    text = "",
+                                    style = LiftTheme.typography.no4,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+                            }
+                            is UserDetailUiState.Success ->  Row(
+                                modifier,
+                                verticalAlignment = Alignment.Bottom,
+                            ) {
+                                Text(
+                                    text = userDetailUiState.userDetail.name,
+                                    style = LiftTheme.typography.no1,
+                                    color = LiftTheme.colorScheme.no11,
+                                )
+                                Spacer(modifier = modifier.padding(4.dp))
+                                Text(
+                                    text = "${userDetailUiState.userDetail.height}cm/${userDetailUiState.userDetail.weight}kg",
+                                    style = LiftTheme.typography.no4,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+                            }
                         }
+
                     }
 
                 }
@@ -143,6 +176,9 @@ internal fun HomeScreen(
     }
 }
 
+
+
+
 @Preview
 @Composable
 @SuppressLint("UnrememberedMutableState")
@@ -150,7 +186,8 @@ fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
             currentDate = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutine = WeekDateRoutineUiState.Empty,
+            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            userDetailUiState= UserDetailUiState.Loading,
             weekDate = emptyList(),
             navigateCreateRoutineClick = { },
             onClickWeekDateCard = {}

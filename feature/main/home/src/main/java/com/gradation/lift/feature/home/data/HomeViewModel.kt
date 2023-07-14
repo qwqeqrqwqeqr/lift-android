@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
+import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.common.toWeekday
+import com.gradation.lift.model.user.UserDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -17,11 +20,13 @@ import kotlinx.datetime.todayIn
 import javax.inject.Inject
 
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     getWeekDateUseCase: GetWeekDateUseCase,
     getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
+    private val getUserDetailUseCase: GetUserDetailUseCase,
 ) : ViewModel() {
 
     private val _currentDate =
@@ -65,6 +70,18 @@ class HomeViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = WeekDateRoutineUiState.Loading
             )
+
+
+    val userDetail: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
+        when (it) {
+            is DataState.Fail ->  UserDetailUiState.Fail(it.message)
+            is DataState.Success -> UserDetailUiState.Success(it.data)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = UserDetailUiState.Loading
+    )
 
 
     fun onClickDate(selectedDate: LocalDate) {
