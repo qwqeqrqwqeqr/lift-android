@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.register_detail.unit_of_weight
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.ExperimentalMaterial3Api

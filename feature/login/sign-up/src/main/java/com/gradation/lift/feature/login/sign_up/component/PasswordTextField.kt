@@ -7,6 +7,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -27,14 +28,14 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun PasswordTextField(
     modifier: Modifier = Modifier,
-    passwordText: String,
+    passwordText: State<String>,
     updatePasswordText: (String) -> Unit,
     focusManager: FocusManager,
-    passwordVisualTransformation: VisualTransformation,
-    passwordVisible: Boolean,
+    passwordVisualTransformation: State<VisualTransformation>,
+    passwordVisible: State<Boolean>,
     onChangePasswordVisible: (Boolean) -> Unit,
     clearPassword: () -> Unit,
-    passwordValidationSupportText: Validator,
+    passwordValidationSupportText: State<Validator>,
 ) {
     Text(
         text = "비밀번호",
@@ -43,7 +44,7 @@ internal fun PasswordTextField(
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
-        value = passwordText,
+        value = passwordText.value,
         onValueChange = updatePasswordText,
         modifier = modifier.fillMaxWidth(),
         placeholder = {
@@ -59,13 +60,13 @@ internal fun PasswordTextField(
         keyboardActions = KeyboardActions(onNext = {
             focusManager.moveFocus(FocusDirection.Down)
         }),
-        visualTransformation = passwordVisualTransformation,
+        visualTransformation = passwordVisualTransformation.value,
         trailingIcon = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 ToggleVisible(
-                    checked = passwordVisible,
+                    checked = passwordVisible.value,
                     onCheckedChange = onChangePasswordVisible,
                     modifier = modifier.size(24.dp)
                 )
@@ -84,9 +85,9 @@ internal fun PasswordTextField(
             }
         }
     )
-    if (!passwordValidationSupportText.status) {
+    if (!passwordValidationSupportText.value.status) {
         Text(
-            text = passwordValidationSupportText.message,
+            text = passwordValidationSupportText.value.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )

@@ -1,13 +1,17 @@
 package com.gradation.lift.feature.login.sign_up
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftButton
@@ -19,9 +23,11 @@ import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginTermsOfUse
-import com.gradation.lift.navigation.navigation.navigateToLoginVerification
 import com.gradation.lift.ui.DevicePreview
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun LoginSignUpRoute(
     navController: NavController,
@@ -29,40 +35,55 @@ fun LoginSignUpRoute(
     viewModel: LoginSignUpViewModel = hiltViewModel(),
 ) {
 
+    val email = viewModel.email.collectAsStateWithLifecycle()
+    val password = viewModel.password.collectAsStateWithLifecycle()
+    val passwordVerification = viewModel.passwordVerification.collectAsStateWithLifecycle()
+
+    val passwordVisible = viewModel.passwordVisible.collectAsStateWithLifecycle()
+    val passwordVerificationVisible = viewModel.passwordVerificationVisible.collectAsStateWithLifecycle()
+
+    val passwordVisualTransformation =  viewModel.passwordVisualTransformation.collectAsStateWithLifecycle()
+    val passwordVerificationVisualTransformation =  viewModel.passwordVerificationVisualTransformation.collectAsStateWithLifecycle()
+
+    val emailValidator =  viewModel.emailValidator.collectAsStateWithLifecycle()
+    val passwordValidator =  viewModel.passwordValidator.collectAsStateWithLifecycle()
+    val passwordVerificationValidator =  viewModel.passwordVerificationValidator.collectAsStateWithLifecycle()
+
+    val navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
 
     LoginSignUpScreen(
         modifier = modifier,
         onTopBarBackClick = { navController.navigateSignUpProcessToSignIn() },
 
-        emailText = viewModel.email,
-        passwordText = viewModel.password,
-        passwordVerificationText = viewModel.passwordVerification,
+        emailText = email,
+        passwordText = password,
+        passwordVerificationText = passwordVerification,
 
         updateEmailText = viewModel.updateEmail(),
         updatePasswordText = viewModel.updatePassword(),
         updatePasswordVerificationText = viewModel.updatePasswordVerification(),
 
-        passwordVisible = viewModel.passwordVisible,
-        passwordVerificationVisible = viewModel.passwordVerificationVisible,
+        passwordVisible = passwordVisible,
+        passwordVerificationVisible = passwordVerificationVisible,
 
-        passwordVisualTransformation = viewModel.passwordVisualTransformation,
-        passwordVerificationVisualTransformation = viewModel.passwordVerificationVisualTransformation,
+        passwordVisualTransformation = passwordVisualTransformation,
+        passwordVerificationVisualTransformation = passwordVerificationVisualTransformation,
 
         clearPassword = viewModel.clearPassword(),
         clearPasswordVerification = viewModel.clearPasswordVerification(),
 
-        onChangePasswordVisible = viewModel.onChangePasswordVisible(),
-        onChangePasswordVerificationVisible = viewModel.onChangePasswordVerificationVisible(),
+        onChangePasswordVisible = viewModel.updatePasswordVisible(),
+        onChangePasswordVerificationVisible = viewModel.updatePasswordVerificationVisible(),
 
-        emailValidationSupportText = viewModel.emailValidationSupportText,
-        passwordValidationSupportText = viewModel.passwordValidationSupportText,
-        passwordVerificationValidationSupportText = viewModel.passwordVerificationValidationSupportText,
+        emailValidationSupportText = emailValidator,
+        passwordValidationSupportText = passwordValidator,
+        passwordVerificationValidationSupportText = passwordVerificationValidator,
 
         onNextButtonClick = {
             viewModel.updateKey(navController)
             navController.navigateToLoginTermsOfUse()
         },
-        navigateCondition = viewModel.navigateCondition
+        navigateCondition = navigateCondition
     )
 }
 
@@ -72,25 +93,25 @@ fun LoginSignUpRoute(
 internal fun LoginSignUpScreen(
     modifier: Modifier = Modifier,
     onTopBarBackClick: () -> Unit,
-    emailText: String,
-    passwordText: String,
-    passwordVerificationText: String,
+    emailText: State<String>,
+    passwordText: State<String>,
+    passwordVerificationText: State<String>,
     updateEmailText: (String) -> Unit,
     updatePasswordText: (String) -> Unit,
     updatePasswordVerificationText: (String) -> Unit,
-    passwordVisible: Boolean,
-    passwordVerificationVisible: Boolean,
-    passwordVisualTransformation: VisualTransformation,
-    passwordVerificationVisualTransformation: VisualTransformation,
+    passwordVisible: State<Boolean>,
+    passwordVerificationVisible: State<Boolean>,
+    passwordVisualTransformation: State<VisualTransformation>,
+    passwordVerificationVisualTransformation: State<VisualTransformation>,
     clearPassword: () -> Unit,
     clearPasswordVerification: () -> Unit,
     onChangePasswordVisible: (Boolean) -> Unit,
     onChangePasswordVerificationVisible: (Boolean) -> Unit,
-    emailValidationSupportText: Validator,
-    passwordValidationSupportText: Validator,
-    passwordVerificationValidationSupportText: Validator,
+    emailValidationSupportText: State<Validator>,
+    passwordValidationSupportText: State<Validator>,
+    passwordVerificationValidationSupportText: State<Validator>,
     onNextButtonClick: () -> Unit,
-    navigateCondition: Boolean,
+    navigateCondition: State<Boolean>,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5
@@ -146,7 +167,7 @@ internal fun LoginSignUpScreen(
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
                     onClick = onNextButtonClick,
-                    enabled = navigateCondition
+                    enabled = navigateCondition.value
                 ) {
                     Text(
                         text = "다음",
@@ -161,6 +182,7 @@ internal fun LoginSignUpScreen(
 }
 
 
+@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 fun LoginSignInPreview() {
@@ -168,25 +190,25 @@ fun LoginSignInPreview() {
         LoginSignUpScreen(
             modifier = Modifier,
             onTopBarBackClick = { },
-            emailText = "",
-            passwordText = "",
-            passwordVerificationText = "",
+            emailText = mutableStateOf("") ,
+            passwordText = mutableStateOf(""),
+            passwordVerificationText = mutableStateOf(""),
             updateEmailText = {},
             updatePasswordText = {},
             updatePasswordVerificationText = { },
-            passwordVisible = true,
-            passwordVerificationVisible = true,
-            passwordVisualTransformation = VisualTransformation.None,
-            passwordVerificationVisualTransformation = VisualTransformation.None,
+            passwordVisible = mutableStateOf(true),
+            passwordVerificationVisible = mutableStateOf(true),
+            passwordVisualTransformation = mutableStateOf(VisualTransformation.None),
+            passwordVerificationVisualTransformation = mutableStateOf(VisualTransformation.None),
             clearPassword = { },
             clearPasswordVerification = { },
             onChangePasswordVisible = { },
             onChangePasswordVerificationVisible = {},
-            emailValidationSupportText = Validator(status = false, message = "실패"),
-            passwordValidationSupportText = Validator(status = false, message = "실패"),
-            passwordVerificationValidationSupportText = Validator(status = false, message = "실패"),
+            emailValidationSupportText = mutableStateOf(Validator(status = false, message = "실패")),
+            passwordValidationSupportText = mutableStateOf(Validator(status = false, message = "실패")),
+            passwordVerificationValidationSupportText = mutableStateOf(Validator(status = false, message = "실패")),
             onNextButtonClick = {},
-            navigateCondition = true
+            navigateCondition = mutableStateOf(true)
         )
     }
 }

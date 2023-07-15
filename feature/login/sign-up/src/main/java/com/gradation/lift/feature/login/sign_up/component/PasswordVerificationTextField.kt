@@ -7,6 +7,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
@@ -25,14 +26,14 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun PasswordVerificationTextField(
     modifier: Modifier = Modifier,
-    passwordVerificationText: String,
+    passwordVerificationText: State<String>,
     updatePasswordVerificationText: (String) -> Unit,
     focusManager: FocusManager,
-    passwordVerificationVisualTransformation: VisualTransformation,
-    passwordVerificationVisible: Boolean,
+    passwordVerificationVisualTransformation: State<VisualTransformation>,
+    passwordVerificationVisible: State<Boolean>,
     onChangePasswordVerificationVisible: (Boolean) -> Unit,
     clearPasswordVerification: () -> Unit,
-    passwordVerificationValidationSupportText: Validator,
+    passwordVerificationValidationSupportText: State<Validator>,
 ) {
     Text(
         text = "비밀번호 확인",
@@ -41,7 +42,7 @@ fun PasswordVerificationTextField(
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
-        value = passwordVerificationText,
+        value = passwordVerificationText.value,
         onValueChange = updatePasswordVerificationText,
         modifier = modifier.fillMaxWidth(),
         placeholder = {
@@ -58,13 +59,13 @@ fun PasswordVerificationTextField(
             onDone = {
                 focusManager.clearFocus()
             }),
-        visualTransformation = passwordVerificationVisualTransformation,
+        visualTransformation = passwordVerificationVisualTransformation.value,
         trailingIcon = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 ToggleVisible(
-                    checked = passwordVerificationVisible,
+                    checked = passwordVerificationVisible.value,
                     onCheckedChange = onChangePasswordVerificationVisible,
                     modifier = modifier.size(24.dp)
                 )
@@ -82,10 +83,11 @@ fun PasswordVerificationTextField(
                 Spacer(modifier = modifier.padding(8.dp))
             }
         }
+
     )
-    if (!passwordVerificationValidationSupportText.status) {
+    if (!passwordVerificationValidationSupportText.value.status) {
         Text(
-            text = passwordVerificationValidationSupportText.message,
+            text = passwordVerificationValidationSupportText.value.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )

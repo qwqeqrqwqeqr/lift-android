@@ -18,13 +18,8 @@ import com.gradation.lift.designsystem.component.LiftTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.navigation.navigateLoginToHome
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
-import com.gradation.lift.navigation.navigation.navigateToLoginSignIn
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.EMAIL_KEY
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.PASSWORD_KEY
-import com.gradation.lift.navigation.saved_state.getStringValue
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
