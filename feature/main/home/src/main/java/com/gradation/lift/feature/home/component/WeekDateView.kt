@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.data.WeekDate
 import kotlinx.datetime.LocalDate
 
@@ -20,48 +21,21 @@ fun WeekDateView(
     modifier: Modifier = Modifier,
     onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.background)
+
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally)
     ) {
-        WeekCard(
-            weekDate = weekDate,
-            onClickWeekDateCard = onClickWeekDateCard
-        )
+        repeat(weekDate.size) {
+            WeekCardItem(
+                modifier = modifier.weight(1f),
+                weekDate = weekDate[it],
+                onClickWeekDateCard = onClickWeekDateCard
+            )
+        }
     }
 }
 
-
-@Composable
-fun WeekCard(
-    modifier: Modifier = Modifier,
-    weekDate: List<WeekDate>,
-    onClickWeekDateCard: (LocalDate) -> Unit,
-) {
-    Row(modifier = modifier.fillMaxWidth()) {
-        WeekCardList(
-            modifier = modifier.weight(1f),
-            weekDate = weekDate,
-            onClickWeekDateCard = onClickWeekDateCard)
-    }
-}
-
-
-@Composable
-fun WeekCardList(
-    modifier: Modifier = Modifier,
-    weekDate: List<WeekDate>,
-    onClickWeekDateCard: (LocalDate) -> Unit,
-) {
-    repeat(weekDate.size) {
-        WeekCardItem(
-            modifier = modifier.fillMaxWidth(),
-            weekDate = weekDate[it],
-            onClickWeekDateCard = onClickWeekDateCard
-        )
-    }
-}
 
 @Composable
 fun WeekCardItem(
@@ -72,29 +46,32 @@ fun WeekCardItem(
     Box(
         modifier = modifier
             .background(
-                color = if (weekDate.selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(16.dp)
+                color = if (weekDate.selected) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no1,
+                shape = RoundedCornerShape(8.dp)
             )
-            .clickable(onClick = { onClickWeekDateCard(weekDate.localDate!!) })
-            .padding(8.dp, 24.dp, 8.dp, 24.dp)
+            .fillMaxWidth()
+            .padding(10.dp)
+            .clickable(onClick = { onClickWeekDateCard(weekDate.localDate) })
     ) {
         Column(
-            modifier = modifier,
+            modifier = modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                color = if (weekDate.selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (weekDate.selected) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
                 text = weekDate.day,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.labelLarge
+                style =   if (weekDate.selected) LiftTheme.typography.no5 else  LiftTheme.typography.no6,
+
+
             )
 
             Text(
-                color = if (weekDate.selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (weekDate.selected) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
                 text = weekDate.weekDay.getWeekdayName(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.labelLarge
-            )
+                style =   if (weekDate.selected) LiftTheme.typography.no5 else  LiftTheme.typography.no6,
+                )
 
         }
     }

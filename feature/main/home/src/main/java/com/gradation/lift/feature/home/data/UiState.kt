@@ -3,13 +3,16 @@ package com.gradation.lift.feature.home.data
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.user.UserDetail
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 data class WeekDate(
-    var day: String,
-    val weekDay: Weekday,
-    var localDate: LocalDate?,
-    var selected: Boolean,
+    var day: String = "",
+    val weekDay: Weekday = Weekday.None(),
+    var localDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+    var selected: Boolean = false,
 )
 
 
