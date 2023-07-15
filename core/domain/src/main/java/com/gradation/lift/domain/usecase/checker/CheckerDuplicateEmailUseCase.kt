@@ -9,7 +9,7 @@ import com.gradation.lift.model.user.Name
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CheckerDuplicateEmailUseCase @Inject constructor(
+class CheckDuplicateEmailUseCase @Inject constructor(
     private val checkerRepository: CheckerRepository
 ) {
     operator fun invoke(email: Email): Flow<DataState<Boolean>> =

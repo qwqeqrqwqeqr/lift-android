@@ -26,7 +26,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun CancelDialog(
     modifier: Modifier = Modifier,
-    onClickDialogCancelButton: () -> Unit,
+    onClickDialogSuspendButton: () -> Unit,
+    onClickDialogDismissButton: () -> Unit,
 ) {
     LiftDialog(onDismissRequest = {}) {
         Column(
@@ -36,10 +37,11 @@ fun CancelDialog(
                     shape = RoundedCornerShape(size = 24.dp)
                 )
                 .padding(
-                    start= 20.dp,
+                    start = 20.dp,
                     end = 20.dp,
                     top = 20.dp,
-                    bottom = 10.dp),
+                    bottom = 10.dp
+                ),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
 
@@ -76,10 +78,10 @@ fun CancelDialog(
                 horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.CenterHorizontally),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier.fillMaxWidth()
-            ){
+            ) {
                 LiftCancelButton(
                     modifier = modifier.weight(1f),
-                    onClick = onClickDialogCancelButton,
+                    onClick = onClickDialogDismissButton,
                 ) {
                     Text(
                         text = "취소",
@@ -90,7 +92,7 @@ fun CancelDialog(
 
                 LiftErrorButton(
                     modifier = modifier.weight(1f),
-                    onClick = onClickDialogCancelButton,
+                    onClick = onClickDialogSuspendButton,
                 ) {
                     Text(
                         text = "중단",
@@ -109,6 +111,9 @@ fun CancelDialog(
 @Composable
 fun CompleteDialogPreview() {
     LiftMaterialTheme {
-        CancelDialog(onClickDialogCancelButton = {})
+        CancelDialog(
+            onClickDialogSuspendButton = {},
+            onClickDialogDismissButton = {}
+        )
     }
 }
