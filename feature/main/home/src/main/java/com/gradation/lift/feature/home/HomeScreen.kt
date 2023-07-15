@@ -31,10 +31,7 @@ import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.home.component.BadgeView
-import com.gradation.lift.feature.home.component.CreateRoutineView
-import com.gradation.lift.feature.home.component.ProfileView
-import com.gradation.lift.feature.home.component.WeekDateView
+import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
@@ -57,12 +54,11 @@ fun HomeRoute(
     val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetail.collectAsStateWithLifecycle()
     val weekDate: List<WeekDate> by viewModel.weekDate.collectAsStateWithLifecycle()
-    val currentDate = viewModel.currentDate.collectAsState()
-
+    val today = viewModel.today.collectAsStateWithLifecycle()
 
     HomeScreen(
         modifier = modifier,
-        currentDate = currentDate,
+        today = today,
         userDetailUiState = userDetailUiState,
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
@@ -75,7 +71,7 @@ fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    currentDate: State<LocalDate>,
+    today: State<LocalDate>,
     weekDateRoutineUiState: WeekDateRoutineUiState,
     userDetailUiState: UserDetailUiState,
     weekDate: List<WeekDate>,
@@ -96,41 +92,15 @@ internal fun HomeScreen(
             BadgeView(modifier = modifier)
             Spacer(modifier = modifier.padding(8.dp))
 
-
-            Column(
-                modifier = modifier
-                    .background(
-                        color = LiftTheme.colorScheme.no5,
-                        shape = RoundedCornerShape(24.dp)
-                    )
-                    .fillMaxWidth()
-                    .padding(20.dp)
-            ) {
-
-                Text(
-                    text = "내 루틴 리스트",
-                    style = LiftTheme.typography.no1,
-                    color = LiftTheme.colorScheme.no9,
-                )
-                Text(
-                    text = buildAnnotatedString {
-                        append("오늘은 ")
-                        withStyle(
-                            style = SpanStyle(fontWeight = FontWeight.Bold),
-                        ) {
-                            append("${currentDate.value.monthNumber}월 ${currentDate.value.dayOfMonth}일")
-                        }
-                        append("이에요!")
-                    },
-                    style = LiftTheme.typography.no4,
-                    color = LiftTheme.colorScheme.no9,
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                WeekDateView(weekDate=weekDate, onClickWeekDateCard = onClickWeekDateCard)
-            }
-
-
-
+            RoutineView(
+                modifier = modifier,
+                today,
+                weekDateRoutineUiState,
+                userDetailUiState,
+                weekDate,
+                navigateCreateRoutineClick,
+                onClickWeekDateCard
+            )
         }
     }
 }
@@ -142,7 +112,7 @@ internal fun HomeScreen(
 fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
-            currentDate = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
+            today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
             weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(

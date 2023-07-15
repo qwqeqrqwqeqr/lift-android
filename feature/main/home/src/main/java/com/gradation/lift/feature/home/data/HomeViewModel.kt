@@ -2,6 +2,7 @@ package com.gradation.lift.feature.home.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -9,7 +10,6 @@ import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.model.user.UserDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -26,55 +26,60 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     getWeekDateUseCase: GetWeekDateUseCase,
     getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
-    private val getUserDetailUseCase: GetUserDetailUseCase,
+    getUserDetailUseCase: GetUserDetailUseCase,
 ) : ViewModel() {
 
-    private val _currentDate =
-        MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
-    var currentDate = _currentDate.asStateFlow()
+    private val _today = MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
+    var today = _today.asStateFlow()
 
-    private val _weekDate =
-        MutableStateFlow(getWeekDateUseCase(currentDate.value).map { localDate ->
+    private val currentDate =
+        MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
+
+
+    val weekDate = currentDate.map {
+        getWeekDateUseCase(it).map { localDate ->
             WeekDate(
                 day = localDate.dayOfMonth.toString(),
                 weekDay = localDate.toWeekday(),
                 localDate = localDate,
                 selected = false
-            )
-        }.apply {
-            map { weekDate ->
-                if (weekDate.localDate == currentDate.value) weekDate.selected = true
+            ).apply {
+                if (this.localDate == currentDate.value) this.selected = true
             }
-        })
-    var weekDate = _weekDate.asStateFlow()
-
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = emptyList()
+    )
 
     val weekDateRoutine: StateFlow<WeekDateRoutineUiState> =
-        getRoutineSetRoutineByWeekdayUseCase(currentDate.value.toWeekday()).map {
-            when (it) {
-                is DataState.Fail -> WeekDateRoutineUiState.Fail(message = it.message)
-                is DataState.Success -> {
-                    if (it.data.isEmpty()) {
-                        WeekDateRoutineUiState.Empty
-                    } else {
+        currentDate.flatMapLatest { currentDate ->
+            getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
+                when (it) {
+                    is DataState.Fail -> WeekDateRoutineUiState.Fail(message = it.message)
+                    is DataState.Success -> {
+                        if (it.data.isEmpty()) {
+                            WeekDateRoutineUiState.Empty
+                        } else {
 
-                        WeekDateRoutineUiState.Success(
-                            weekDateRoutine = it.data
-                        )
+                            WeekDateRoutineUiState.Success(
+                                weekDateRoutine = it.data
+                            )
+                        }
                     }
                 }
             }
-        }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = WeekDateRoutineUiState.Loading
-            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = WeekDateRoutineUiState.Loading
+        )
 
 
     val userDetail: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
         when (it) {
-            is DataState.Fail ->  UserDetailUiState.Fail(it.message)
+            is DataState.Fail -> UserDetailUiState.Fail(it.message)
             is DataState.Success -> UserDetailUiState.Success(it.data)
         }
     }.stateIn(
@@ -85,7 +90,7 @@ class HomeViewModel @Inject constructor(
 
 
     fun onClickDate(selectedDate: LocalDate) {
-        _currentDate.value = selectedDate
+        currentDate.value = selectedDate
     }
 }
 
