@@ -12,10 +12,10 @@ import com.gradation.lift.domain.usecase.auth.SignUpDefaultUseCase
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import com.gradation.lift.navigation.saved_state.getStringValue
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,80 +25,94 @@ class LoginTermsOfUseViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var allAcceptChecked by mutableStateOf(false)
-    var termsOfUseChecked by mutableStateOf(false)
-    var personalInformationChecked by mutableStateOf(false)
-    var locationTermsOfUseChecked by mutableStateOf(false)
-    var marketingChecked by mutableStateOf(false)
+    var allAcceptChecked = MutableStateFlow(false)
+    var termsOfUseChecked = MutableStateFlow(false)
+    var personalInformationChecked = MutableStateFlow(false)
+    var locationTermsOfUseChecked = MutableStateFlow(false)
+    var marketingChecked = MutableStateFlow(false)
 
-
-    var navigateCondition by mutableStateOf(false)
     var signUpUiState = MutableStateFlow<SignUpUiState>(SignUpUiState.None)
 
+
+    val navigateCondition: StateFlow<Boolean> = combine(
+        termsOfUseChecked,
+        personalInformationChecked,
+        locationTermsOfUseChecked
+    ) { e1, e2, e3 ->
+        (e1 && e2 && e3)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    )
+
+
+
+    var onVisibleDialog = MutableStateFlow(false)
+
+
+    fun updateOnVisibleDialog(value : Boolean) : () -> Unit ={
+        onVisibleDialog.value = value
+    }
+
+
+
+
     fun onChangeAllAcceptChecked(): (Boolean) -> Unit = {
-        allAcceptChecked = it
-        if (allAcceptChecked) {
-            termsOfUseChecked = true
-            personalInformationChecked = true
-            locationTermsOfUseChecked = true
-            marketingChecked = true
+        allAcceptChecked.value = it
+        if (allAcceptChecked.value) {
+            termsOfUseChecked.value = true
+            personalInformationChecked.value = true
+            locationTermsOfUseChecked.value = true
+            marketingChecked.value = true
         } else {
-            termsOfUseChecked = false
-            personalInformationChecked = false
-            locationTermsOfUseChecked = false
-            marketingChecked = false
+            termsOfUseChecked.value = false
+            personalInformationChecked.value = false
+            locationTermsOfUseChecked.value = false
+            marketingChecked.value = false
         }
-        updateNavigateCondition()
     }
 
     fun onChangeTermsOfUseChecked(): (Boolean) -> Unit = {
-        termsOfUseChecked = it
-        updateNavigateCondition()
+        termsOfUseChecked.value = it
     }
 
     fun onChangePersonalInformationChecked(): (Boolean) -> Unit = {
-        personalInformationChecked = it
-        updateNavigateCondition()
+        personalInformationChecked.value = it
     }
 
     fun onChangeLocationTermsOfUseChecked(): (Boolean) -> Unit = {
-        locationTermsOfUseChecked = it
-        updateNavigateCondition()
+        locationTermsOfUseChecked.value = it
     }
 
     fun onChangeMarketingChecked(): (Boolean) -> Unit = {
-        marketingChecked = it
-        updateNavigateCondition()
-    }
-
-
-    private fun updateNavigateCondition() {
-        navigateCondition =
-            (termsOfUseChecked && personalInformationChecked && locationTermsOfUseChecked)
+        marketingChecked.value = it
     }
 
 
     fun signUp(navController: NavController) {
         viewModelScope.launch {
-            signUpUiState.value = SignUpUiState.Loading
-            signUpDefaultUseCase(
-                SignUpInfo(
-                    id = navController.getStringValue(SavedStateHandleKey.SignUpKey.EMAIL_KEY),
-                    password = navController.getStringValue(SavedStateHandleKey.SignUpKey.PASSWORD_KEY)
+            navController.findValueInBackStackEntry(
+                listOf(
+                    SavedStateHandleKey.SignUpKey.EMAIL_KEY,
+                    SavedStateHandleKey.SignUpKey.PASSWORD_KEY
                 )
-            ).map {
-                when (it) {
-                    is DataState.Fail -> {
-                        Log.d("login", "${it.message} 실패")
-                        SignUpUiState.Fail(it.message)
+            ).apply {
+                signUpUiState.value = SignUpUiState.Loading
+                signUpDefaultUseCase(
+                    SignUpInfo(
+                        id = this[SavedStateHandleKey.SignUpKey.EMAIL_KEY] ?: "",
+                        password = this[SavedStateHandleKey.SignUpKey.PASSWORD_KEY] ?: ""
+                    )
+                ).map {
+                    when (it) {
+                        is DataState.Fail -> { SignUpUiState.Fail(it.message) }
+                        is DataState.Success -> { SignUpUiState.Success }
                     }
-                    is DataState.Success -> {
-                        Log.d("login", "${it.data} 성공")
-                        SignUpUiState.Success
-                    }
+                }.collect {
+                    signUpUiState.value = it
                 }
-            }.collect {
-                signUpUiState.value = it
+
             }
         }
     }
