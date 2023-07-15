@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.login.complete
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -8,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -53,6 +55,10 @@ internal fun LoginCompleteScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Image(
+                painter = painterResource(id = com.gradation.lift.designsystem.R.drawable.lift_congrats),
+                contentDescription = "",
+            )
             Text(
                 textAlign = TextAlign.Center,
                 modifier= modifier.fillMaxWidth(),
@@ -68,7 +74,7 @@ internal fun LoginCompleteScreen(
                 style = LiftTheme.typography.no1,
                 color = LiftTheme.colorScheme.no11,
             )
-            Spacer(modifier = modifier.padding(32.dp))
+            Spacer(modifier = modifier.padding(16.dp))
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
                 onClick = onClickComplete,
