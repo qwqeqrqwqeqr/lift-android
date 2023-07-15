@@ -1,25 +1,41 @@
 package com.gradation.lift.feature.home.component
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.home.HomeScreen
+import com.gradation.lift.feature.home.R
 import com.gradation.lift.feature.home.data.UserDetailUiState
 import com.gradation.lift.feature.home.data.WeekDate
 import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
+import com.gradation.lift.model.common.UnitOfWeight
+import com.gradation.lift.model.user.Gender
+import com.gradation.lift.model.user.UserDetail
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 
 @Composable
@@ -27,10 +43,9 @@ fun RoutineView(
     modifier: Modifier = Modifier,
     today: State<LocalDate>,
     weekDateRoutineUiState: WeekDateRoutineUiState,
-    userDetailUiState: UserDetailUiState,
     weekDate: List<WeekDate>,
-    navigateCreateRoutineClick: () -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
+    onClickCreateRoutine: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -39,9 +54,9 @@ fun RoutineView(
                 shape = RoundedCornerShape(24.dp)
             )
             .fillMaxSize()
-            .padding(20.dp)
-    ) {
+            .padding(20.dp),
 
+        ) {
         Text(
             text = "내 루틴 리스트",
             style = LiftTheme.typography.no1,
@@ -62,5 +77,53 @@ fun RoutineView(
         )
         Spacer(modifier = modifier.padding(8.dp))
         WeekDateView(weekDate = weekDate, onClickWeekDateCard = onClickWeekDateCard)
+
+        when (weekDateRoutineUiState) {
+            WeekDateRoutineUiState.Empty -> {
+                EmptyRoutineListView(
+                    modifier = modifier,
+                    onClickCreateRoutine = onClickCreateRoutine
+                )
+            }
+            is WeekDateRoutineUiState.Fail -> TODO()
+            WeekDateRoutineUiState.Loading -> TODO()
+            is WeekDateRoutineUiState.Success -> TODO()
+        }
+
+        
+
+
+    }
+}
+
+@Preview
+@Composable
+@SuppressLint("UnrememberedMutableState")
+fun HomeScreenPreview() {
+    LiftMaterialTheme {
+        HomeScreen(
+            today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
+            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            userDetailUiState = UserDetailUiState.Success(
+                UserDetail(
+                    name = "리프트",
+                    weight = 90f,
+                    height = 180f,
+                    gender = Gender.Male(),
+                    unitOfWeight = UnitOfWeight.Kg()
+                )
+            ),
+            weekDate = listOf(
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(selected = true),
+            ),
+            onClickCreateRoutine = { },
+            onClickWeekDateCard = {}
+        )
     }
 }

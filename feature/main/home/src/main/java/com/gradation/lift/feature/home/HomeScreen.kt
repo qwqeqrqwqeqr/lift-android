@@ -62,7 +62,7 @@ fun HomeRoute(
         userDetailUiState = userDetailUiState,
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
-        navigateCreateRoutineClick = { navController.navigateToCreateRoutineGraph() },
+        onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
         onClickWeekDateCard = viewModel::onClickDate
     )
 }
@@ -75,7 +75,7 @@ internal fun HomeScreen(
     weekDateRoutineUiState: WeekDateRoutineUiState,
     userDetailUiState: UserDetailUiState,
     weekDate: List<WeekDate>,
-    navigateCreateRoutineClick: () -> Unit,
+    onClickCreateRoutine: () -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Surface(
@@ -94,12 +94,11 @@ internal fun HomeScreen(
 
             RoutineView(
                 modifier = modifier,
-                today,
-                weekDateRoutineUiState,
-                userDetailUiState,
-                weekDate,
-                navigateCreateRoutineClick,
-                onClickWeekDateCard
+                today=today,
+                weekDateRoutineUiState=weekDateRoutineUiState,
+                weekDate=weekDate,
+                onClickCreateRoutine=onClickCreateRoutine,
+                onClickWeekDateCard=onClickWeekDateCard
             )
         }
     }
@@ -132,7 +131,7 @@ fun HomeScreenPreview() {
                 WeekDate(),
                 WeekDate(selected = true),
             ),
-            navigateCreateRoutineClick = { },
+            onClickCreateRoutine = { },
             onClickWeekDateCard = {}
         )
     }
