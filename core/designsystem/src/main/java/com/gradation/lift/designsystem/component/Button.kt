@@ -38,6 +38,53 @@ fun LiftButton(
 
 
 @Composable
+fun LiftErrorButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: @Composable RowScope.() -> Unit,
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.height(52.dp),
+        enabled = enabled,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = LiftTheme.colorScheme.no12,
+            contentColor = LiftTheme.colorScheme.no21,
+            disabledContainerColor = LiftTheme.colorScheme.no13,
+            disabledContentColor = LiftTheme.colorScheme.no5
+        ),
+        contentPadding = contentPadding,
+        content = content,
+    )
+}
+
+
+@Composable
+fun LiftCancelButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: @Composable RowScope.() -> Unit,
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.height(52.dp),
+        enabled = enabled,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = LiftTheme.colorScheme.no13,
+            contentColor = LiftTheme.colorScheme.no5,
+            disabledContainerColor = LiftTheme.colorScheme.no13,
+            disabledContentColor = LiftTheme.colorScheme.no5
+        ),
+        contentPadding = contentPadding,
+        content = content,
+    )
+}
+
+@Composable
 fun LiftOutlineButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

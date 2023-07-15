@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
  * [COLOR_NO18] :일러스트 컬러
  * [COLOR_NO19] :일러스트 컬러
  * [COLOR_NO20] :일러스트 컬러
+ * [COLOR_NO21] :오류
  *
  */
 internal val COLOR_NO1: Color = Color(0xFFF2F2F5)
@@ -47,6 +48,7 @@ internal val COLOR_NO17: Color = Color(0xFFEEF1F6)
 internal val COLOR_NO18: Color = Color(0xFF40E2BD)
 internal val COLOR_NO19: Color = Color(0xFFFC5858)
 internal val COLOR_NO20: Color = Color(0xFFFFC124)
+internal val COLOR_NO21: Color = Color(0xFFFFEDED)
 
 data class LiftColorScheme(
     val no1: Color,
@@ -69,6 +71,7 @@ data class LiftColorScheme(
     val no18: Color,
     val no19: Color,
     val no20: Color,
+    val no21: Color
 )
 
 fun liftLightColorScheme(
@@ -92,6 +95,7 @@ fun liftLightColorScheme(
     no18: Color = COLOR_NO18,
     no19: Color = COLOR_NO19,
     no20: Color = COLOR_NO20,
+    no21: Color = COLOR_NO21,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -114,6 +118,7 @@ fun liftLightColorScheme(
         no18,
         no19,
         no20,
+        no21
     )
 
 fun liftDarkColorScheme(
@@ -137,6 +142,7 @@ fun liftDarkColorScheme(
     no18: Color = Color.Cyan,
     no19: Color = Color.Cyan,
     no20: Color = Color.Cyan,
+    no21: Color= Color.Cyan
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -159,6 +165,7 @@ fun liftDarkColorScheme(
         no18,
         no19,
         no20,
+        no21
     )
 
 val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }
