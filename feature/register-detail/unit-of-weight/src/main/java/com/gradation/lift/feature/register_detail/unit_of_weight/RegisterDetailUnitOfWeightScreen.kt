@@ -44,7 +44,7 @@ fun RegisterDetailUnitOfWeightRoute(
         onUpdateKg = viewModel.updateKg(),
         onUpdateLb = viewModel.updateLb(),
         onCompleteButtonClick = {viewModel.createUserDetail(navController)},
-        onCompleteDialogButtonClick={ navController.navigateRegisterDetailToHome()},
+        onClickCompleteDialogButton={ navController.navigateRegisterDetailToHome()},
         onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
     )
 
@@ -62,7 +62,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
     onUpdateKg: (Boolean) -> Unit,
     onUpdateLb: (Boolean) -> Unit,
     onCompleteButtonClick: () -> Unit,
-    onCompleteDialogButtonClick: () -> Unit,
+    onClickCompleteDialogButton: () -> Unit,
     onVisibleDialog: State<Boolean>
 ) {
     if(onVisibleDialog.value){
@@ -70,7 +70,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
             color = LiftTheme.colorScheme.no8,
             modifier = modifier.fillMaxSize()
         ){
-            CompleteDialog(onCompleteDialogButtonClick=onCompleteDialogButtonClick)
+            CompleteDialog(onClickCompleteDialogButton=onClickCompleteDialogButton)
         }
     }else{
         Surface(
@@ -98,9 +98,6 @@ internal fun RegisterDetailUnitOfWeightScreen(
                     )
                 },
             ) { padding ->
-
-
-
                 Column(
                     modifier = modifier
                         .padding(16.dp)
@@ -191,7 +188,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
 @SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
-fun RegisterDetailUnitOfWeightScreenPreview(
+internal fun RegisterDetailUnitOfWeightScreenPreview(
     modifier: Modifier = Modifier,
 ) {
     LiftMaterialTheme {
@@ -204,7 +201,7 @@ fun RegisterDetailUnitOfWeightScreenPreview(
             onUpdateKg = {},
             onUpdateLb = { },
             onCompleteButtonClick = {},
-            onCompleteDialogButtonClick={},
+            onClickCompleteDialogButton={},
             onVisibleDialog = mutableStateOf(false)
         )
     }

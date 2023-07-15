@@ -19,9 +19,9 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun CompleteDialog(
+internal fun CompleteDialog(
     modifier: Modifier=Modifier,
-    onCompleteDialogButtonClick : () -> Unit
+    onClickCompleteDialogButton : () -> Unit
 ){
     LiftDialog(onDismissRequest = {}) {
         Column(
@@ -73,7 +73,7 @@ fun CompleteDialog(
 
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
-                onClick = onCompleteDialogButtonClick,
+                onClick = onClickCompleteDialogButton,
             ) {
                 Text(
                     text = "확인",
@@ -90,6 +90,6 @@ fun CompleteDialog(
 @Composable
 fun CompleteDialogPreview(){
   LiftMaterialTheme {
-      CompleteDialog(onCompleteDialogButtonClick={})
+      CompleteDialog(onClickCompleteDialogButton={})
   }
 }
