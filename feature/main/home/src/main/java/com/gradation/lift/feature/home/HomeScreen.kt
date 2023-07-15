@@ -3,9 +3,12 @@ package com.gradation.lift.feature.home
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -37,7 +40,7 @@ fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-
+    val scrollState = rememberScrollState()
     val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetail.collectAsStateWithLifecycle()
     val weekDate: List<WeekDate> by viewModel.weekDate.collectAsStateWithLifecycle()
@@ -51,7 +54,8 @@ fun HomeRoute(
         weekDate = weekDate,
         onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
         onClickStartWork = {},
-        onClickWeekDateCard = viewModel::onClickDate
+        onClickWeekDateCard = viewModel::onClickDate,
+        scrollState = scrollState
     )
 }
 
@@ -66,12 +70,15 @@ internal fun HomeScreen(
     onClickCreateRoutine: () -> Unit,
     onClickStartWork: () -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
+    scrollState: ScrollState,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no1,
     ) {
         Column(
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
         ) {
             ProfileView(
                 modifier = modifier,
@@ -90,6 +97,9 @@ internal fun HomeScreen(
                 onClickStartWork = onClickStartWork,
                 onClickWeekDateCard = onClickWeekDateCard
             )
+
+
+
         }
     }
 }
@@ -123,7 +133,8 @@ fun HomeScreenPreview() {
             ),
             onClickCreateRoutine = { },
             onClickStartWork = {},
-            onClickWeekDateCard = {}
+            onClickWeekDateCard = {},
+            scrollState = rememberScrollState()
         )
     }
 }

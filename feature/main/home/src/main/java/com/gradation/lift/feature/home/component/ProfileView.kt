@@ -93,14 +93,20 @@ fun ProfileView(
                     ) {
                         Box(
                             modifier
-                                .background(SkeletonBrush())
+                                .background(
+                                    SkeletonBrush(),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
                                 .width(54.dp)
                                 .height(24.dp),
                         )
                         Spacer(modifier = modifier.padding(4.dp))
                         Box(
                             modifier
-                                .background(SkeletonBrush())
+                                .background(
+                                    SkeletonBrush(),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
                                 .width(96.dp)
                                 .height(24.dp),
 

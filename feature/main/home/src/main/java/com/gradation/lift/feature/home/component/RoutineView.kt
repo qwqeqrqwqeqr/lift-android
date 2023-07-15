@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -27,6 +29,7 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.HomeScreen
 import com.gradation.lift.feature.home.R
+import com.gradation.lift.feature.home.component.routine_list_view.LoadingRoutineListView
 import com.gradation.lift.feature.home.data.UserDetailUiState
 import com.gradation.lift.feature.home.data.WeekDate
 import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
@@ -90,28 +93,47 @@ fun RoutineView(
                     )
                 }
                 is WeekDateRoutineUiState.Fail -> TODO()
-                WeekDateRoutineUiState.Loading -> TODO()
+                WeekDateRoutineUiState.Loading -> {
+                    LoadingRoutineListView(modifier = modifier)
+                }
                 is WeekDateRoutineUiState.Success -> TODO()
             }
 
 
         }
-        LiftButton(
-            modifier = modifier
-                .fillMaxWidth(),
+        Column{
+            Spacer(
+                modifier = modifier
+                    .padding(16.dp)
+                    .background(
+                        color = LiftTheme.colorScheme.no5
+                    )
+            )
+            LiftButton(
+                modifier = modifier.fillMaxWidth(),
+                onClick = onClickStartWork
+            ) {
+                Text(
+                    text = "운동시작하기",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no5,
+                )
+                Icon(
+                    imageVector = LiftIcon.ChevronRight,
+                    contentDescription = null,
+                )
+            }
+            Spacer(
+                modifier = modifier
+                    .padding(48.dp)
+                    .background(
+                        color = LiftTheme.colorScheme.no5
+                    )
+            )
 
-            onClick = onClickStartWork
-        ) {
-            Text(
-                text = "운동시작하기",
-                style = LiftTheme.typography.no3,
-                color = LiftTheme.colorScheme.no5,
-            )
-            Icon(
-                imageVector = LiftIcon.ChevronRight,
-                contentDescription = null,
-            )
+
         }
+
     }
 
 }
@@ -123,7 +145,7 @@ fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
             today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            weekDateRoutineUiState = WeekDateRoutineUiState.Loading,
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(
                     name = "리프트",
@@ -144,7 +166,8 @@ fun HomeScreenPreview() {
             ),
             onClickCreateRoutine = {},
             onClickWeekDateCard = {},
-            onClickStartWork = {}
+            onClickStartWork = {},
+            scrollState = rememberScrollState()
         )
     }
 }
