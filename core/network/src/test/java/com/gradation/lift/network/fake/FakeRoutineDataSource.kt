@@ -1,9 +1,9 @@
 package com.gradation.lift.network.fake
 
+import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.routine.Weekday
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.data.TestRoutineDataGenerator.getRoutineResponseDto

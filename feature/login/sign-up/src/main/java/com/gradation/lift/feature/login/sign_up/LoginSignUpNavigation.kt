@@ -5,7 +5,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.route.login.LoginSignUpRoute
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 fun loginSignUpScreen(
     navController : NavController,
     navGraphBuilder: NavGraphBuilder,

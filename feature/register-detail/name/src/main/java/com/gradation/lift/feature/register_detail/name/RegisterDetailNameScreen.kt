@@ -1,4 +1,3 @@
-
 package com.gradation.lift.feature.register_detail.name
 
 import android.annotation.SuppressLint
@@ -65,7 +64,7 @@ fun RegisterDetailNameRoute(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun RegisterDetailNameScreen(
+private fun RegisterDetailNameScreen(
     modifier: Modifier = Modifier,
     onTopBarSkipButtonClick: (Int) -> Unit,
     nameText: State<String>,
@@ -145,15 +144,12 @@ internal fun RegisterDetailNameScreen(
                     )
                 }
             }
-
-
         }
-
     }
 }
 
 @Composable
-internal fun NameTextField(
+private fun NameTextField(
     modifier: Modifier = Modifier,
     nameText: String,
     updateNameText: (String) -> Unit,
@@ -199,7 +195,7 @@ internal fun NameTextField(
 @SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
-fun RegisterDetailNameScreenPreview(
+internal fun RegisterDetailNameScreenPreview(
     modifier: Modifier = Modifier,
 ) {
     LiftMaterialTheme {

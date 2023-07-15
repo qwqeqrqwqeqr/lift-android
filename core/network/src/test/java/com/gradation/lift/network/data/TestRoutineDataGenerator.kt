@@ -1,6 +1,6 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.routine.Weekday.Companion.MONDAY
+import com.gradation.lift.model.common.Weekday.Companion.MONDAY
 import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto1
 import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto2
 import com.gradation.lift.network.dto.routine.*

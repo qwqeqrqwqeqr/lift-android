@@ -24,7 +24,7 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun CancelDialog(
+internal fun CancelDialog(
     modifier: Modifier = Modifier,
     onClickDialogSuspendButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,

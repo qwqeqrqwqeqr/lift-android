@@ -185,7 +185,7 @@ internal fun LoginSignUpScreen(
 @SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
-fun LoginSignInPreview() {
+internal fun LoginSignInUpPreview() {
     LiftMaterialTheme {
         LoginSignUpScreen(
             modifier = Modifier,

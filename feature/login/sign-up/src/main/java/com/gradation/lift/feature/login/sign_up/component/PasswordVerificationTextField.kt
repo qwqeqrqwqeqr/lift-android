@@ -24,7 +24,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun PasswordVerificationTextField(
+internal fun PasswordVerificationTextField(
     modifier: Modifier = Modifier,
     passwordVerificationText: State<String>,
     updatePasswordVerificationText: (String) -> Unit,

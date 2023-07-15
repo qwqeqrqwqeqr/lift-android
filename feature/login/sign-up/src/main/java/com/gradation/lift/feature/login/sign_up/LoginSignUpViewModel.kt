@@ -27,12 +27,12 @@ class LoginSignUpViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var email = MutableStateFlow("")
-    var password = MutableStateFlow("")
-    var passwordVerification = MutableStateFlow("")
+    val email = MutableStateFlow("")
+    val password = MutableStateFlow("")
+    val passwordVerification = MutableStateFlow("")
 
 
-    var emailValidator: StateFlow<Validator> =
+    val emailValidator: StateFlow<Validator> =
         email.debounce(1000).distinctUntilChanged().flatMapLatest { email ->
             validateEmail(email)
         }.stateIn(
@@ -41,7 +41,7 @@ class LoginSignUpViewModel @Inject constructor(
             initialValue = Validator()
         )
 
-    var passwordValidator: StateFlow<Validator> =
+    val passwordValidator: StateFlow<Validator> =
         password.map { validatePassWord(it) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -49,7 +49,7 @@ class LoginSignUpViewModel @Inject constructor(
         )
 
 
-    var passwordVerificationValidator: StateFlow<Validator> =
+    val passwordVerificationValidator: StateFlow<Validator> =
         passwordVerification.combine(password) { passwordVerification, password ->
             validatePasswordVerification(password, passwordVerification)
         }.stateIn(
@@ -59,7 +59,7 @@ class LoginSignUpViewModel @Inject constructor(
         )
 
 
-    var navigateCondition: StateFlow<Boolean> = combine(
+    val navigateCondition: StateFlow<Boolean> = combine(
         emailValidator,
         passwordValidator,
         passwordVerificationValidator
@@ -72,10 +72,10 @@ class LoginSignUpViewModel @Inject constructor(
     )
 
 
-    var passwordVisible = MutableStateFlow(false)
-    var passwordVerificationVisible = MutableStateFlow(false)
+    val passwordVisible = MutableStateFlow(false)
+    val passwordVerificationVisible = MutableStateFlow(false)
 
-    var passwordVisualTransformation = passwordVisible.map {
+    val passwordVisualTransformation = passwordVisible.map {
         if (it) VisualTransformation.None else PasswordVisualTransformation()
     }.stateIn(
         scope = viewModelScope,
@@ -83,7 +83,7 @@ class LoginSignUpViewModel @Inject constructor(
         initialValue = PasswordVisualTransformation()
     )
 
-    var passwordVerificationVisualTransformation = passwordVerificationVisible.map {
+    val passwordVerificationVisualTransformation = passwordVerificationVisible.map {
         if (it) VisualTransformation.None else PasswordVisualTransformation()
     }.stateIn(
         scope = viewModelScope,
@@ -159,7 +159,7 @@ class LoginSignUpViewModel @Inject constructor(
         }
 
 
-    fun updateKey(navController: NavController) {
+    internal fun updateKey(navController: NavController) {
         navController.setStringValue(EMAIL_KEY, email.value)
         navController.setStringValue(PASSWORD_KEY, password.value)
     }
