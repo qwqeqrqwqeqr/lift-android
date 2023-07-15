@@ -3,31 +3,18 @@ package com.gradation.lift.feature.home
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement.Absolute.Center
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.brush.SkeletonBrush
-import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -63,6 +50,7 @@ fun HomeRoute(
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
         onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
+        onClickStartWork = {},
         onClickWeekDateCard = viewModel::onClickDate
     )
 }
@@ -76,6 +64,7 @@ internal fun HomeScreen(
     userDetailUiState: UserDetailUiState,
     weekDate: List<WeekDate>,
     onClickCreateRoutine: () -> Unit,
+    onClickStartWork: () -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
 ) {
     Surface(
@@ -94,11 +83,12 @@ internal fun HomeScreen(
 
             RoutineView(
                 modifier = modifier,
-                today=today,
-                weekDateRoutineUiState=weekDateRoutineUiState,
-                weekDate=weekDate,
-                onClickCreateRoutine=onClickCreateRoutine,
-                onClickWeekDateCard=onClickWeekDateCard
+                today = today,
+                weekDateRoutineUiState = weekDateRoutineUiState,
+                weekDate = weekDate,
+                onClickCreateRoutine = onClickCreateRoutine,
+                onClickStartWork = onClickStartWork,
+                onClickWeekDateCard = onClickWeekDateCard
             )
         }
     }
@@ -132,6 +122,7 @@ fun HomeScreenPreview() {
                 WeekDate(selected = true),
             ),
             onClickCreateRoutine = { },
+            onClickStartWork = {},
             onClickWeekDateCard = {}
         )
     }

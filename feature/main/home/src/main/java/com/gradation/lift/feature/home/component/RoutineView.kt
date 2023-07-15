@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -46,6 +47,7 @@ fun RoutineView(
     weekDate: List<WeekDate>,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickCreateRoutine: () -> Unit,
+    onClickStartWork: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -55,45 +57,63 @@ fun RoutineView(
             )
             .fillMaxSize()
             .padding(20.dp),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
 
-        ) {
-        Text(
-            text = "내 루틴 리스트",
-            style = LiftTheme.typography.no1,
-            color = LiftTheme.colorScheme.no9,
-        )
-        Text(
-            text = buildAnnotatedString {
-                append("오늘은 ")
-                withStyle(
-                    style = SpanStyle(fontWeight = FontWeight.Bold),
-                ) {
-                    append("${today.value.monthNumber}월 ${today.value.dayOfMonth}일")
+        Column {
+            Text(
+                text = "내 루틴 리스트",
+                style = LiftTheme.typography.no1,
+                color = LiftTheme.colorScheme.no9,
+            )
+            Text(
+                text = buildAnnotatedString {
+                    append("오늘은 ")
+                    withStyle(
+                        style = SpanStyle(fontWeight = FontWeight.Bold),
+                    ) {
+                        append("${today.value.monthNumber}월 ${today.value.dayOfMonth}일")
+                    }
+                    append("이에요!")
+                },
+                style = LiftTheme.typography.no4,
+                color = LiftTheme.colorScheme.no9,
+            )
+            Spacer(modifier = modifier.padding(8.dp))
+            WeekDateView(weekDate = weekDate, onClickWeekDateCard = onClickWeekDateCard)
+
+            when (weekDateRoutineUiState) {
+                WeekDateRoutineUiState.Empty -> {
+                    EmptyRoutineListView(
+                        modifier = modifier,
+                        onClickCreateRoutine = onClickCreateRoutine
+                    )
                 }
-                append("이에요!")
-            },
-            style = LiftTheme.typography.no4,
-            color = LiftTheme.colorScheme.no9,
-        )
-        Spacer(modifier = modifier.padding(8.dp))
-        WeekDateView(weekDate = weekDate, onClickWeekDateCard = onClickWeekDateCard)
-
-        when (weekDateRoutineUiState) {
-            WeekDateRoutineUiState.Empty -> {
-                EmptyRoutineListView(
-                    modifier = modifier,
-                    onClickCreateRoutine = onClickCreateRoutine
-                )
+                is WeekDateRoutineUiState.Fail -> TODO()
+                WeekDateRoutineUiState.Loading -> TODO()
+                is WeekDateRoutineUiState.Success -> TODO()
             }
-            is WeekDateRoutineUiState.Fail -> TODO()
-            WeekDateRoutineUiState.Loading -> TODO()
-            is WeekDateRoutineUiState.Success -> TODO()
+
+
         }
+        LiftButton(
+            modifier = modifier
+                .fillMaxWidth(),
 
-        
-
-
+            onClick = onClickStartWork
+        ) {
+            Text(
+                text = "운동시작하기",
+                style = LiftTheme.typography.no3,
+                color = LiftTheme.colorScheme.no5,
+            )
+            Icon(
+                imageVector = LiftIcon.ChevronRight,
+                contentDescription = null,
+            )
+        }
     }
+
 }
 
 @Preview
@@ -122,8 +142,9 @@ fun HomeScreenPreview() {
                 WeekDate(),
                 WeekDate(selected = true),
             ),
-            onClickCreateRoutine = { },
-            onClickWeekDateCard = {}
+            onClickCreateRoutine = {},
+            onClickWeekDateCard = {},
+            onClickStartWork = {}
         )
     }
 }
