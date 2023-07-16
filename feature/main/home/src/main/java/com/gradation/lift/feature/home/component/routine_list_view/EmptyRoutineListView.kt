@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
@@ -17,9 +18,9 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun EmptyRoutineListView(
-    modifier : Modifier = Modifier,
-    onClickCreateRoutine : () -> Unit
-){
+    modifier: Modifier = Modifier,
+    onClickCreateRoutine: () -> Unit,
+) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -34,7 +35,7 @@ fun EmptyRoutineListView(
         Spacer(modifier = modifier.padding(8.dp))
         LiftOutlineButton(
             modifier = modifier.fillMaxWidth(),
-            onClick =  onClickCreateRoutine
+            onClick = onClickCreateRoutine
         ) {
             Text(
                 text = "루틴 리스트 만들기",
@@ -42,7 +43,7 @@ fun EmptyRoutineListView(
                 color = LiftTheme.colorScheme.no4,
             )
             Icon(
-                imageVector = LiftIcon.ChevronRight,
+                painterResource(id = LiftIcon.ChevronRight),
                 contentDescription = null,
             )
         }

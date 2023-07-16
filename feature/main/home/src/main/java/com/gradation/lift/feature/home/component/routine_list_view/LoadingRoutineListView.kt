@@ -10,25 +10,28 @@ import com.gradation.lift.designsystem.brush.SkeletonBrush
 
 @Composable
 fun LoadingRoutineListView(modifier:Modifier=Modifier){
-    Spacer(modifier = modifier.padding(8.dp))
-    Box(
-        modifier
-            .background(
-                SkeletonBrush(),
-                shape = RoundedCornerShape(8.dp)
-            )
-            .fillMaxWidth()
-            .height(96.dp),
-    )
-    Spacer(modifier = modifier.padding(8.dp))
+    Column {
+        Spacer(modifier = modifier.padding(8.dp))
+        Box(
+            modifier
+                .background(
+                    SkeletonBrush(),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .fillMaxWidth()
+                .height(96.dp),
+        )
+        Spacer(modifier = modifier.padding(8.dp))
 
-    Box(
-        modifier
-            .background(
-                SkeletonBrush(),
-                shape = RoundedCornerShape(8.dp)
-            )
-            .fillMaxWidth()
-            .height(96.dp),
-    )
+        Box(
+            modifier
+                .background(
+                    SkeletonBrush(),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .fillMaxWidth()
+                .height(96.dp),
+        )
+    }
 }
+

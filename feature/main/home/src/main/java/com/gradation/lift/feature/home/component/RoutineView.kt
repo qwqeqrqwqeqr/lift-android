@@ -21,14 +21,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.HomeScreen
-import com.gradation.lift.feature.home.R
 import com.gradation.lift.feature.home.component.routine_list_view.LoadingRoutineListView
 import com.gradation.lift.feature.home.data.UserDetailUiState
 import com.gradation.lift.feature.home.data.WeekDate
@@ -36,6 +34,7 @@ import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.test.data.TestModelDataGenerator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -51,6 +50,8 @@ fun RoutineView(
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickCreateRoutine: () -> Unit,
     onClickStartWork: () -> Unit,
+    onClickAddRoutine: () -> Unit,
+    onClickUpdateRoutine : () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -92,16 +93,67 @@ fun RoutineView(
                         onClickCreateRoutine = onClickCreateRoutine
                     )
                 }
-                is WeekDateRoutineUiState.Fail -> TODO()
+                is WeekDateRoutineUiState.Fail -> {
+
+                }
                 WeekDateRoutineUiState.Loading -> {
                     LoadingRoutineListView(modifier = modifier)
                 }
-                is WeekDateRoutineUiState.Success -> TODO()
+                is WeekDateRoutineUiState.Success -> {
+                    Column {
+                            Spacer(modifier = modifier.padding(7.dp))
+                            Row(
+                                modifier = modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.End),
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                LiftOutlineButton(
+                                    modifier = modifier
+                                        .height(32.dp),
+                                    contentPadding = PaddingValues(
+                                        start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                                    ),
+                                    onClick = onClickAddRoutine,
+                                ) {
+                                    Text(
+                                        text = "추가",
+                                        style = LiftTheme.typography.no5,
+                                        color = LiftTheme.colorScheme.no4,
+                                    )
+                                    Spacer(modifier = modifier.padding(1.dp))
+                                    Icon(
+                                        painter =  painterResource(id = LiftIcon.Plus),
+                                        contentDescription = null,
+                                    )
+                                }
+
+                                LiftOutlineButton(
+                                    modifier = modifier
+                                        .height(32.dp),
+                                    contentPadding = PaddingValues(
+                                        start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                                    ),
+                                    onClick = onClickUpdateRoutine,
+                                ) {
+                                    Text(
+                                        text = "수정",
+                                        style = LiftTheme.typography.no5,
+                                        color = LiftTheme.colorScheme.no4,
+                                    )
+                                    Spacer(modifier = modifier.padding(1.dp))
+                                    Icon(
+                                        painter =  painterResource(id = LiftIcon.ChevronRight),
+                                        contentDescription = null,
+                                    )
+                                }
+                            }
+                    }
+                }
             }
 
 
         }
-        Column{
+        Column {
             Spacer(
                 modifier = modifier
                     .padding(16.dp)
@@ -111,6 +163,9 @@ fun RoutineView(
             )
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(
+                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                ),
                 onClick = onClickStartWork
             ) {
                 Text(
@@ -118,8 +173,9 @@ fun RoutineView(
                     style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no5,
                 )
+                Spacer(modifier = modifier.padding(2.dp))
                 Icon(
-                    imageVector = LiftIcon.ChevronRight,
+                    painterResource(id = LiftIcon.ChevronRight),
                     contentDescription = null,
                 )
             }
@@ -130,12 +186,8 @@ fun RoutineView(
                         color = LiftTheme.colorScheme.no5
                     )
             )
-
-
         }
-
     }
-
 }
 
 @Preview
@@ -145,7 +197,9 @@ fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
             today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Loading,
+            weekDateRoutineUiState = WeekDateRoutineUiState.Success(
+                TestModelDataGenerator.Routine.routineSetRoutineModelList
+            ),
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(
                     name = "리프트",
@@ -167,6 +221,8 @@ fun HomeScreenPreview() {
             onClickCreateRoutine = {},
             onClickWeekDateCard = {},
             onClickStartWork = {},
+            onClickAddRoutine={},
+            onClickUpdateRoutine={},
             scrollState = rememberScrollState()
         )
     }

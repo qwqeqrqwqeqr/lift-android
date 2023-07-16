@@ -36,8 +36,8 @@ object LiftIcon{
 
     val ArrowBack = R.drawable.arrow_back
 
-
-    val ChevronRight = Icons.Rounded.ChevronRight
+    val ChevronRight = R.drawable.chevron_right
+    val Plus = R.drawable.plus
 }
 
 

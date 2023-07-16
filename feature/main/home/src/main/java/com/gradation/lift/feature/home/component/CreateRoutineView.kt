@@ -27,7 +27,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun CreateRoutineView(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -72,7 +72,7 @@ fun CreateRoutineView(
             LiftOutlineButton(
                 modifier = modifier.fillMaxWidth(),
                 //TODO implement onclick create routine
-                onClick =  {}
+                onClick = {}
             ) {
                 Text(
                     text = "루틴 리스트 만들기",
@@ -80,7 +80,7 @@ fun CreateRoutineView(
                     color = LiftTheme.colorScheme.no4,
                 )
                 Icon(
-                    imageVector = LiftIcon.ChevronRight,
+                    painterResource(id = LiftIcon.ChevronRight),
                     contentDescription = null,
                 )
             }

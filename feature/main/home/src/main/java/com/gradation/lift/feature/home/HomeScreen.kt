@@ -55,6 +55,8 @@ fun HomeRoute(
         onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
         onClickStartWork = {},
         onClickWeekDateCard = viewModel::onClickDate,
+        onClickAddRoutine={},
+        onClickUpdateRoutine={},
         scrollState = scrollState
     )
 }
@@ -70,6 +72,8 @@ internal fun HomeScreen(
     onClickCreateRoutine: () -> Unit,
     onClickStartWork: () -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
+    onClickAddRoutine: () -> Unit,
+    onClickUpdateRoutine : () -> Unit,
     scrollState: ScrollState,
 ) {
     Surface(
@@ -95,7 +99,9 @@ internal fun HomeScreen(
                 weekDate = weekDate,
                 onClickCreateRoutine = onClickCreateRoutine,
                 onClickStartWork = onClickStartWork,
-                onClickWeekDateCard = onClickWeekDateCard
+                onClickWeekDateCard = onClickWeekDateCard,
+                onClickAddRoutine=onClickAddRoutine,
+                onClickUpdateRoutine=onClickUpdateRoutine
             )
 
 
@@ -134,6 +140,8 @@ fun HomeScreenPreview() {
             onClickCreateRoutine = { },
             onClickStartWork = {},
             onClickWeekDateCard = {},
+            onClickAddRoutine={},
+            onClickUpdateRoutine={},
             scrollState = rememberScrollState()
         )
     }

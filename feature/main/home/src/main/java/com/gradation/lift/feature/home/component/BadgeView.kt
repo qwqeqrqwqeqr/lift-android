@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -42,7 +43,7 @@ fun BadgeView(
                 modifier = modifier
                     .height(32.dp),
                 contentPadding = PaddingValues(
-                    start = 10.dp,
+                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
                 ),
                 onClick = {},
             ) {
@@ -51,8 +52,9 @@ fun BadgeView(
                     style = LiftTheme.typography.no5,
                     color = LiftTheme.colorScheme.no4,
                 )
+                Spacer(modifier = modifier.padding(2.dp))
                 Icon(
-                    imageVector = LiftIcon.ChevronRight,
+                    painterResource(id =LiftIcon.ChevronRight),
                     contentDescription = null,
                 )
             }
