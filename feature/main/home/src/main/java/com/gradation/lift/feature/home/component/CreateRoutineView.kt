@@ -26,7 +26,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun CreateRoutineView(
+internal fun CreateRoutineView(
     modifier: Modifier = Modifier,
 ) {
     Box(

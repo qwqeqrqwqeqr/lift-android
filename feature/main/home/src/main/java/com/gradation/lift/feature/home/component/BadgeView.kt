@@ -16,7 +16,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun BadgeView(
+internal fun BadgeView(
     modifier: Modifier= Modifier
 ){
     Column(

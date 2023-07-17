@@ -105,13 +105,14 @@ fun EmptyRoutineListPreview() {
                 WeekDate(),
                 WeekDate(selected = true),
             ),
-            onClickCreateRoutine = {},
-            onClickWeekDateCard = {},
+            onClickCreateRoutine = { },
             onClickStartWork = {},
+            onClickStartWorkWithRoutineSetId = {},
+            onClickWeekDateCard = {},
             onClickAddRoutine = {},
-            onClickUpdateRoutine = {},
-            onClickAlarm={},
-            onClickType={},
+            onClickModifyRoutine = {},
+            onClickAlarm = {},
+            onClickType = {},
             scrollState = rememberScrollState()
         )
     }

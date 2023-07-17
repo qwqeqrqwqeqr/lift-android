@@ -39,7 +39,6 @@ class HomeViewModel @Inject constructor(
     private val currentDate =
         MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
 
-
     internal val weekDate = currentDate.map {
         getWeekDateUseCase(it).map { localDate ->
             WeekDate(

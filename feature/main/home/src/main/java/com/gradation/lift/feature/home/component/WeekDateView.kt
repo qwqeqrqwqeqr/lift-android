@@ -17,7 +17,7 @@ import com.gradation.lift.feature.home.data.WeekDate
 import kotlinx.datetime.LocalDate
 
 @Composable
-fun WeekDateView(
+internal fun WeekDateView(
     weekDate: List<WeekDate>,
     modifier: Modifier = Modifier,
     onClickWeekDateCard: (LocalDate) -> Unit,
@@ -39,7 +39,7 @@ fun WeekDateView(
 
 
 @Composable
-fun WeekCard(
+private fun WeekCard(
     modifier: Modifier = Modifier,
     weekDate: WeekDate,
     onClickWeekDateCard: (LocalDate) -> Unit,

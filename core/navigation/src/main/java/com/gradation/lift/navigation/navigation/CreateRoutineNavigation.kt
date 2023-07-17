@@ -29,6 +29,6 @@ fun NavController.navigateToCreateRoutineRoutineSet() {
 fun NavController.navigateToCreateRoutineRoutine() {
     this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
 }
-fun NavController.navigateToCreateRoutineGraph() {
+fun NavController.navigateHomeToCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_GRAPH_ROUTER_NAME)
 }

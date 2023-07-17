@@ -24,7 +24,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 @Composable
-fun LoadingRoutineListView(modifier:Modifier=Modifier){
+internal fun LoadingRoutineListView(modifier:Modifier=Modifier){
     Column {
         Spacer(modifier = modifier.padding(8.dp))
         Box(
@@ -53,7 +53,7 @@ fun LoadingRoutineListView(modifier:Modifier=Modifier){
 @Preview
 @Composable
 @SuppressLint("UnrememberedMutableState")
-fun LoadingRoutineListPreview() {
+internal fun LoadingRoutineListPreview() {
     LiftMaterialTheme {
         HomeScreen(
             today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
@@ -76,13 +76,14 @@ fun LoadingRoutineListPreview() {
                 WeekDate(),
                 WeekDate(selected = true),
             ),
-            onClickCreateRoutine = {},
-            onClickWeekDateCard = {},
+            onClickCreateRoutine = { },
             onClickStartWork = {},
+            onClickStartWorkWithRoutineSetId = {},
+            onClickWeekDateCard = {},
             onClickAddRoutine = {},
-            onClickUpdateRoutine = {},
-            onClickAlarm={},
-            onClickType={},
+            onClickModifyRoutine = {},
+            onClickAlarm = {},
+            onClickType = {},
             scrollState = rememberScrollState()
         )
     }

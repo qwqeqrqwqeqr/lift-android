@@ -5,20 +5,15 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftHomeTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -28,7 +23,8 @@ import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.navigation.navigation.navigateToCreateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateHomeToCreateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateHomeToReadyWorkGraph
 import com.gradation.lift.ui.DevicePreview
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -38,7 +34,7 @@ import kotlinx.datetime.todayIn
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeRoute(
+internal fun HomeRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -55,17 +51,18 @@ fun HomeRoute(
         userDetailUiState = userDetailUiState,
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
-        onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
+        onClickCreateRoutine = { navController.navigateHomeToCreateRoutineGraph() },
         onClickStartWork = {
-
+            navController.navigateHomeToReadyWorkGraph()
         },
         onClickStartWorkWithRoutineSetId = { routineSetId ->
             viewModel.updateKey(navController = navController, routineSetId = routineSetId)
+            navController.navigateHomeToReadyWorkGraph()
         },
         onClickWeekDateCard = viewModel::onClickDate,
-        onClickAddRoutine = {},
-        onClickUpdateRoutine = {},
-        onClickAlarm = { },
+        onClickAddRoutine = { navController.navigateHomeToCreateRoutineGraph() },
+        onClickModifyRoutine = {},
+        onClickAlarm = {},
         onClickType = {},
         scrollState = scrollState
     )
@@ -74,7 +71,7 @@ fun HomeRoute(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeScreen(
+private fun HomeScreen(
     modifier: Modifier = Modifier,
     today: State<LocalDate>,
     weekDateRoutineUiState: WeekDateRoutineUiState,
@@ -85,7 +82,7 @@ internal fun HomeScreen(
     onClickStartWorkWithRoutineSetId: (Int) -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickAddRoutine: () -> Unit,
-    onClickUpdateRoutine: () -> Unit,
+    onClickModifyRoutine: () -> Unit,
     onClickAlarm: () -> Unit,
     onClickType: () -> Unit,
     scrollState: ScrollState,
@@ -151,7 +148,7 @@ internal fun HomeScreen(
                 onClickWeekDateCard = onClickWeekDateCard,
                 onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
                 onClickAddRoutine = onClickAddRoutine,
-                onClickUpdateRoutine = onClickUpdateRoutine
+                onClickUpdateRoutine = onClickModifyRoutine
             )
             Spacer(modifier = modifier.padding(72.dp))
         }
@@ -162,7 +159,7 @@ internal fun HomeScreen(
 @DevicePreview
 @Composable
 @SuppressLint("UnrememberedMutableState")
-fun HomeScreenPreview() {
+internal fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
             today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
@@ -190,7 +187,7 @@ fun HomeScreenPreview() {
             onClickStartWorkWithRoutineSetId = {},
             onClickWeekDateCard = {},
             onClickAddRoutine = {},
-            onClickUpdateRoutine = {},
+            onClickModifyRoutine = {},
             onClickAlarm = {},
             onClickType = {},
             scrollState = rememberScrollState()

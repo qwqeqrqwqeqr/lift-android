@@ -8,14 +8,12 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
-data class WeekDate(
+internal data class WeekDate(
     var day: String = "",
     val weekDay: Weekday = Weekday.None(),
     var localDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     var selected: Boolean = false,
 )
-
-
 
 
 sealed interface WeekDateRoutineUiState {

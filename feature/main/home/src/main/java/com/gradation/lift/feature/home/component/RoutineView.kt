@@ -12,7 +12,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.routine_list_view.EmptyRoutineListView
 import com.gradation.lift.feature.home.component.routine_list_view.LoadingRoutineListView
@@ -23,7 +22,7 @@ import kotlinx.datetime.LocalDate
 
 
 @Composable
-fun RoutineView(
+internal fun RoutineView(
     modifier: Modifier = Modifier,
     today: State<LocalDate>,
     weekDateRoutineUiState: WeekDateRoutineUiState,
