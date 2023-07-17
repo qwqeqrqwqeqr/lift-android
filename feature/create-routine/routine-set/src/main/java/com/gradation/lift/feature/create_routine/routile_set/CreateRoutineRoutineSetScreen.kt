@@ -38,7 +38,7 @@ fun CreateRoutineRoutineSetRoute(
     val onClickPlusCircle = {navController.navigateToCreateRoutineFindWorkpart()}
     val onClickCreateRoutine ={navController.navigateToCreateRoutineRoutineDetail() }
     CreateRoutineRoutineSetScreen(
-        onBackClickTopbar = { navController.popBackStack() },
+        onBackClickTopBar = { navController.popBackStack() },
         modifier = modifier,
         routineSetName = routineSetName,
         updateRoutineSetName = updateRoutineSetName,
@@ -53,7 +53,7 @@ fun CreateRoutineRoutineSetRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CreateRoutineRoutineSetScreen(
-    onBackClickTopbar: () -> Unit,
+    onBackClickTopBar: () -> Unit,
     modifier: Modifier = Modifier,
     routineSetName: String,
     updateRoutineSetName: (updateText: String) -> Unit,
@@ -66,7 +66,7 @@ internal fun CreateRoutineRoutineSetScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "루틴리스트 만들기",
-                    onBackClickTopbar = onBackClickTopbar,
+                    onBackClickTopBar = onBackClickTopBar,
                 )
             },
         ) { padding ->

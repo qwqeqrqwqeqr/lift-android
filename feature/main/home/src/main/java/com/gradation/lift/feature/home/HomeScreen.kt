@@ -71,7 +71,7 @@ internal fun HomeRoute(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreen(
+internal fun HomeScreen(
     modifier: Modifier = Modifier,
     today: State<LocalDate>,
     weekDateRoutineUiState: WeekDateRoutineUiState,

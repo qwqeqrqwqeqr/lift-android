@@ -123,7 +123,7 @@ internal fun LoginTermsOfUseScreen(
                 topBar = {
                     LiftBackTopBar(
                         title = "이용약관 동의",
-                        onBackClick = onBackClickTopBar,
+                        onBackClickTopBar = onBackClickTopBar,
                     )
                 },
             ) { padding ->

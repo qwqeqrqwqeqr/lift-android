@@ -10,7 +10,7 @@ import kotlinx.datetime.todayIn
 
 internal data class WeekDate(
     var day: String = "",
-    val weekDay: Weekday = Weekday.None(),
+    val weekday: Weekday = Weekday.None(),
     var localDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     var selected: Boolean = false,
 )

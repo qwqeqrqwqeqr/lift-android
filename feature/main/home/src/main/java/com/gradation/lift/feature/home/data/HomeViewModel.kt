@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
         getWeekDateUseCase(it).map { localDate ->
             WeekDate(
                 day = localDate.dayOfMonth.toString(),
-                weekDay = localDate.toWeekday(),
+                weekday = localDate.toWeekday(),
                 localDate = localDate,
                 selected = false
             ).apply {
