@@ -60,139 +60,136 @@ fun RoutineView(
                 shape = RoundedCornerShape(24.dp)
             )
             .fillMaxSize()
+            .fillMaxHeight()
             .padding(20.dp),
-        verticalArrangement = Arrangement.SpaceBetween
     ) {
+        Text(
+            text = "내 루틴 리스트",
+            style = LiftTheme.typography.no1,
+            color = LiftTheme.colorScheme.no9,
+        )
+        Text(
+            text = buildAnnotatedString {
+                append("오늘은 ")
+                withStyle(
+                    style = SpanStyle(fontWeight = FontWeight.Bold),
+                ) {
+                    append("${today.value.monthNumber}월 ${today.value.dayOfMonth}일")
+                }
+                append("이에요!")
+            },
+            style = LiftTheme.typography.no4,
+            color = LiftTheme.colorScheme.no9,
+        )
+        Spacer(modifier = modifier.padding(8.dp))
+        WeekDateView(weekDate = weekDate, onClickWeekDateCard = onClickWeekDateCard)
 
-        Column {
-            Text(
-                text = "내 루틴 리스트",
-                style = LiftTheme.typography.no1,
-                color = LiftTheme.colorScheme.no9,
-            )
-            Text(
-                text = buildAnnotatedString {
-                    append("오늘은 ")
-                    withStyle(
-                        style = SpanStyle(fontWeight = FontWeight.Bold),
+        when (weekDateRoutineUiState) {
+            WeekDateRoutineUiState.Empty -> {
+                EmptyRoutineListView(
+                    modifier = modifier,
+                    onClickCreateRoutine = onClickCreateRoutine
+                )
+            }
+            is WeekDateRoutineUiState.Fail -> {
+
+            }
+            WeekDateRoutineUiState.Loading -> {
+                LoadingRoutineListView(modifier = modifier)
+            }
+            is WeekDateRoutineUiState.Success -> {
+                Column {
+                    Spacer(modifier = modifier.padding(7.dp))
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.End),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        append("${today.value.monthNumber}월 ${today.value.dayOfMonth}일")
-                    }
-                    append("이에요!")
-                },
-                style = LiftTheme.typography.no4,
-                color = LiftTheme.colorScheme.no9,
-            )
-            Spacer(modifier = modifier.padding(8.dp))
-            WeekDateView(weekDate = weekDate, onClickWeekDateCard = onClickWeekDateCard)
-
-            when (weekDateRoutineUiState) {
-                WeekDateRoutineUiState.Empty -> {
-                    EmptyRoutineListView(
-                        modifier = modifier,
-                        onClickCreateRoutine = onClickCreateRoutine
-                    )
-                }
-                is WeekDateRoutineUiState.Fail -> {
-
-                }
-                WeekDateRoutineUiState.Loading -> {
-                    LoadingRoutineListView(modifier = modifier)
-                }
-                is WeekDateRoutineUiState.Success -> {
-                    Column {
-                        Spacer(modifier = modifier.padding(7.dp))
-                        Row(
-                            modifier = modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.End),
-                            verticalAlignment = Alignment.CenterVertically
+                        LiftOutlineButton(
+                            modifier = modifier
+                                .height(32.dp),
+                            contentPadding = PaddingValues(
+                                start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                            ),
+                            onClick = onClickAddRoutine,
                         ) {
-                            LiftOutlineButton(
-                                modifier = modifier
-                                    .height(32.dp),
-                                contentPadding = PaddingValues(
-                                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                                ),
-                                onClick = onClickAddRoutine,
-                            ) {
-                                Text(
-                                    text = "추가",
-                                    style = LiftTheme.typography.no5,
-                                    color = LiftTheme.colorScheme.no4,
-                                )
-                                Spacer(modifier = modifier.padding(2.dp))
-                                Icon(
-                                    painter = painterResource(id = LiftIcon.Plus),
-                                    contentDescription = null,
-                                )
-                            }
-
-                            LiftOutlineButton(
-                                modifier = modifier
-                                    .height(32.dp),
-                                contentPadding = PaddingValues(
-                                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                                ),
-                                onClick = onClickUpdateRoutine,
-                            ) {
-                                Text(
-                                    text = "수정",
-                                    style = LiftTheme.typography.no5,
-                                    color = LiftTheme.colorScheme.no4,
-                                )
-                                Spacer(modifier = modifier.padding(2.dp))
-                                Icon(
-                                    painter = painterResource(id = LiftIcon.ChevronRight),
-                                    contentDescription = null,
-                                )
-                            }
-                        }
-                        Spacer(modifier = modifier.padding(5.dp))
-                        Column(
-
-                            verticalArrangement = Arrangement.spacedBy(
-                                4.dp,
-                                alignment = Alignment.CenterVertically
+                            Text(
+                                text = "추가",
+                                style = LiftTheme.typography.no5,
+                                color = LiftTheme.colorScheme.no4,
                             )
+                            Spacer(modifier = modifier.padding(2.dp))
+                            Icon(
+                                painter = painterResource(id = LiftIcon.Plus),
+                                contentDescription = null,
+                            )
+                        }
+
+                        LiftOutlineButton(
+                            modifier = modifier
+                                .height(32.dp),
+                            contentPadding = PaddingValues(
+                                start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                            ),
+                            onClick = onClickUpdateRoutine,
                         ) {
-                            weekDateRoutineUiState.weekDateRoutine.forEach { routineSetRoutine ->
-                                Box(
-                                    modifier = modifier
-                                        .border(
-                                            width = 1.dp,
-                                            color = LiftTheme.colorScheme.no8,
-                                            shape = RoundedCornerShape(size = 16.dp)
-                                        )
-                                        .fillMaxWidth()
-                                        .padding(8.dp)
-                                )
-                                {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically
+                            Text(
+                                text = "수정",
+                                style = LiftTheme.typography.no5,
+                                color = LiftTheme.colorScheme.no4,
+                            )
+                            Spacer(modifier = modifier.padding(2.dp))
+                            Icon(
+                                painter = painterResource(id = LiftIcon.ChevronRight),
+                                contentDescription = null,
+                            )
+                        }
+                    }
+                    Spacer(modifier = modifier.padding(5.dp))
+                    Column(
+
+                        verticalArrangement = Arrangement.spacedBy(
+                            4.dp,
+                            alignment = Alignment.CenterVertically
+                        )
+                    ) {
+                        weekDateRoutineUiState.weekDateRoutine.forEach { routineSetRoutine ->
+                            Box(
+                                modifier = modifier
+                                    .border(
+                                        width = 1.dp,
+                                        color = LiftTheme.colorScheme.no8,
+                                        shape = RoundedCornerShape(size = 16.dp)
+                                    )
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                            )
+                            {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Box(
+                                        modifier
+                                            .background(
+                                                color = LiftTheme.colorScheme.no1,
+                                                shape = RoundedCornerShape(8.dp)
+                                            )
+                                            .size(38.dp)
+                                    )
+                                    Spacer(modifier = modifier.padding(4.dp))
+                                    Column(
+                                        horizontalAlignment = Alignment.Start
                                     ) {
-                                        Box(
-                                            modifier
-                                                .background(
-                                                    color = LiftTheme.colorScheme.no1,
-                                                    shape = RoundedCornerShape(8.dp)
-                                                )
-                                                .size(38.dp)
+                                        Text(
+                                            text = routineSetRoutine.name,
+                                            style = LiftTheme.typography.no2,
+                                            color = LiftTheme.colorScheme.no9
                                         )
-                                        Spacer(modifier = modifier.padding(4.dp))
-                                        Column(
-                                            horizontalAlignment = Alignment.Start
-                                        ) {
-                                            Text(
-                                                text = routineSetRoutine.name,
-                                                style = LiftTheme.typography.no2,
-                                                color = LiftTheme.colorScheme.no9
-                                            )
-                                            Text(
-                                                text = routineSetRoutine.description,
-                                                style = LiftTheme.typography.no4,
-                                                color = LiftTheme.colorScheme.no9
-                                            )
-                                        }
+                                        Text(
+                                            text = routineSetRoutine.description,
+                                            style = LiftTheme.typography.no4,
+                                            color = LiftTheme.colorScheme.no9
+                                        )
                                     }
                                 }
                             }
@@ -200,45 +197,6 @@ fun RoutineView(
                     }
                 }
             }
-
-
-        }
-        Column {
-            Spacer(
-                modifier = modifier
-                    .padding(16.dp)
-                    .background(
-                        color = LiftTheme.colorScheme.no5
-                    )
-            )
-            LiftButton(
-                modifier = modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(
-                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                ),
-                onClick = onClickStartWork
-            ) {
-                Text(
-                    text = "운동시작하기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no5,
-                )
-                Spacer(modifier = modifier.padding(2.dp))
-                Icon(
-                    painterResource(id = LiftIcon.ChevronRight),
-                    contentDescription = null,
-                    modifier = modifier
-                        .fillMaxHeight()
-                        .width(8.dp)
-                )
-            }
-            Spacer(
-                modifier = modifier
-                    .padding(48.dp)
-                    .background(
-                        color = LiftTheme.colorScheme.no5
-                    )
-            )
         }
     }
 }

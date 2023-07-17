@@ -36,7 +36,6 @@ fun ProfileView(
 
             )
             .fillMaxWidth()
-            .height(198.dp)
             .padding(
                 start = 20.dp,
                 end = 20.dp,
@@ -46,14 +45,11 @@ fun ProfileView(
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "로고",
-            modifier
-                .size(72.dp),
-
+            modifier=modifier.size(72.dp)
             )
         Row(
             modifier = modifier.fillMaxWidth()
         ) {
-            //TODO Profile 이미지 끌고오기
             Box(
                 modifier = modifier
                     .background(
@@ -63,17 +59,11 @@ fun ProfileView(
                     .size(72.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "로고",
-                    modifier.size(32.dp),
-                    colorFilter = ColorFilter.tint(Color.White)
-
-                )
             }
             Spacer(modifier = modifier.padding(8.dp))
             Column(
-                verticalArrangement = Arrangement.Bottom
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.Start
             ) {
                 when (userDetailUiState) {
                     is UserDetailUiState.Fail -> {
