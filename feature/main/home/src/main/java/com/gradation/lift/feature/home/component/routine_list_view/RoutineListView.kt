@@ -1,12 +1,11 @@
 package com.gradation.lift.feature.home.component.routine_list_view
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -98,20 +97,20 @@ internal fun RoutineListView(
             )
         ) {
             routineSetRoutineList.forEach { routineSetRoutine ->
-                Box(
+                Column(
                     modifier = modifier
-                        .clickable {
-                            onClickStartWorkWithRoutineSetId(routineSetRoutine.id)
-                        }
+                        .background(LiftTheme.colorScheme.no5)
                         .border(
                             width = 1.dp,
                             color = LiftTheme.colorScheme.no8,
                             shape = RoundedCornerShape(size = 16.dp)
                         )
-                        .fillMaxWidth()
+                        .clickable { onClickStartWorkWithRoutineSetId(routineSetRoutine.id) }
                         .padding(8.dp)
-                        .height(65.dp),
-                    contentAlignment = Alignment.CenterStart
+                        .fillMaxWidth()
+                        .height(72.dp),
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.Start,
                 )
                 {
                     Row(

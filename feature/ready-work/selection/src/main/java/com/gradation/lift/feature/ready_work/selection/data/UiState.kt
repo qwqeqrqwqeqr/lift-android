@@ -15,6 +15,12 @@ internal data class WeekdayCard(
 )
 
 
+sealed interface WeekDateRoutineUiState {
+    data class Success(val weekDateRoutine: List<RoutineSetRoutine>) : WeekDateRoutineUiState
+    data class Fail(val message: String) : WeekDateRoutineUiState
+    object Loading : WeekDateRoutineUiState
+    object Empty: WeekDateRoutineUiState
+}
 
 
 
