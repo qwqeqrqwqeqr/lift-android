@@ -10,6 +10,7 @@ import kotlinx.datetime.todayIn
 
 internal data class WeekdayCard(
     val weekday: Weekday = Weekday.None(),
+    val localDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     var selected: Boolean = false,
 )
 

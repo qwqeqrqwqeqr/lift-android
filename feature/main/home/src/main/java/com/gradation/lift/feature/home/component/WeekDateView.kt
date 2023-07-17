@@ -46,13 +46,13 @@ private fun WeekCard(
 ) {
     Box(
         modifier = modifier
+            .clickable(onClick = { onClickWeekDateCard(weekDate.localDate) })
             .background(
                 color = if (weekDate.selected) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no1,
                 shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth()
             .padding(10.dp)
-            .clickable(onClick = { onClickWeekDateCard(weekDate.localDate) })
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -69,7 +69,7 @@ private fun WeekCard(
 
             Text(
                 color = if (weekDate.selected) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
-                text = weekDate.weekDay.getWeekdayName(),
+                text = weekDate.weekday.getWeekdayName(),
                 textAlign = TextAlign.Center,
                 style = if (weekDate.selected) LiftTheme.typography.no5 else LiftTheme.typography.no6,
             )

@@ -9,19 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.ready_work.selection.ReadyWorkSelectionScreen
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
+import kotlinx.datetime.LocalDate
 
 @Composable
 internal fun WeekdayView(
     weekday: List<WeekdayCard>,
     modifier: Modifier = Modifier,
-    onClickWeekDayCard: (Weekday) -> Unit,
+    onClickWeekDayCard: (LocalDate) -> Unit,
 ) {
 
     Row(
@@ -44,16 +42,16 @@ internal fun WeekdayView(
 private fun WeekdayCard(
     modifier: Modifier = Modifier,
     weekday: WeekdayCard,
-    onClickWeekDayCard: (Weekday) -> Unit,
+    onClickWeekDayCard: (LocalDate) -> Unit,
 ) {
     Box(
         modifier = modifier
+            .clickable(onClick = { onClickWeekDayCard(weekday.localDate) })
             .background(
                 color = if (weekday.selected) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no1,
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(vertical = 18.dp)
-            .clickable(onClick = { onClickWeekDayCard(weekday.weekday) })
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -70,24 +68,3 @@ private fun WeekdayCard(
     }
 }
 
-@Composable
-@Preview
-fun ReadyWorkSelectionPreview() {
-    LiftMaterialTheme {
-        ReadyWorkSelectionScreen(
-            modifier = Modifier,
-            weekday = listOf(
-                WeekdayCard(weekday = Weekday.Monday()),
-                WeekdayCard(weekday = Weekday.Tuesday()),
-                WeekdayCard(weekday = Weekday.Wednesday()),
-                WeekdayCard(weekday = Weekday.Thursday()),
-                WeekdayCard(weekday = Weekday.Friday()),
-                WeekdayCard(weekday = Weekday.Saturday()),
-                WeekdayCard(weekday = Weekday.Sunday(),selected = true)
-            ),
-            onBackClickTopBar = {},
-            onClickWeekDayCard = {}
-        )
-
-    }
-}

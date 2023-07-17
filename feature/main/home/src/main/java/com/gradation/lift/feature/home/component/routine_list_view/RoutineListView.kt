@@ -100,6 +100,9 @@ internal fun RoutineListView(
             routineSetRoutineList.forEach { routineSetRoutine ->
                 Box(
                     modifier = modifier
+                        .clickable {
+                            onClickStartWorkWithRoutineSetId(routineSetRoutine.id)
+                        }
                         .border(
                             width = 1.dp,
                             color = LiftTheme.colorScheme.no8,
@@ -107,10 +110,7 @@ internal fun RoutineListView(
                         )
                         .fillMaxWidth()
                         .padding(8.dp)
-                        .height(65.dp)
-                        .clickable {
-                            onClickStartWorkWithRoutineSetId(routineSetRoutine.id)
-                        },
+                        .height(65.dp),
                     contentAlignment = Alignment.CenterStart
                 )
                 {

@@ -57,7 +57,7 @@ fun LiftApp(
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier= modifier.fillMaxSize().background(LiftTheme.colorScheme.no1)
+        modifier= modifier.fillMaxSize().background(LiftTheme.colorScheme.no17)
     ) {
         Scaffold(
             bottomBar = {
