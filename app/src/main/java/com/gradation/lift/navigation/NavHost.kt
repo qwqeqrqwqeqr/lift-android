@@ -4,10 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.gradation.lift.navigation.graph.createRoutineGraph
-import com.gradation.lift.navigation.graph.loginGraph
-import com.gradation.lift.navigation.graph.mainGraph
-import com.gradation.lift.navigation.graph.registerDetailGraph
+import com.gradation.lift.navigation.graph.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -34,6 +31,14 @@ fun LiftNavHost(
             navGraphBuilder = this
         )
         registerDetailGraph(
+            navController = navController,
+            navGraphBuilder = this
+        )
+        readyWorkGraph(
+            navController = navController,
+            navGraphBuilder = this
+        )
+        workGraph(
             navController = navController,
             navGraphBuilder = this
         )
