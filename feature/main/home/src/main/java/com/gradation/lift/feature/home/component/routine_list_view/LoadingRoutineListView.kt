@@ -81,6 +81,8 @@ fun LoadingRoutineListPreview() {
             onClickStartWork = {},
             onClickAddRoutine = {},
             onClickUpdateRoutine = {},
+            onClickAlarm={},
+            onClickType={},
             scrollState = rememberScrollState()
         )
     }

@@ -15,7 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
@@ -118,7 +118,7 @@ internal fun LoginSignUpScreen(
     ) {
         Scaffold(
             topBar = {
-                LiftTopBar(
+                LiftBackTopBar(
                     title = "회원가입",
                     onBackClick = onTopBarBackClick,
                 )

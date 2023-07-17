@@ -71,7 +71,7 @@ internal fun RegisterDetailGenderScreen(
     ) {
         Scaffold(
             topBar = {
-                LiftTopBar(
+                LiftBackTopBar(
                     title = "추가정보 입력",
                     onBackClick = onTopBarBackClick,
                     actions = {

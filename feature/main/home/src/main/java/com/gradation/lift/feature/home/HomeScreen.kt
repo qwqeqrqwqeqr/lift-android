@@ -3,14 +3,12 @@ package com.gradation.lift.feature.home
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,8 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftHomeTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -60,6 +60,8 @@ fun HomeRoute(
         onClickWeekDateCard = viewModel::onClickDate,
         onClickAddRoutine = {},
         onClickUpdateRoutine = {},
+        onClickAlarm={},
+        onClickType={},
         scrollState = scrollState
     )
 }
@@ -78,72 +80,73 @@ internal fun HomeScreen(
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickAddRoutine: () -> Unit,
     onClickUpdateRoutine: () -> Unit,
+    onClickAlarm : () -> Unit,
+    onClickType : () -> Unit,
     scrollState: ScrollState,
 ) {
-
-    Surface(
-        color = LiftTheme.colorScheme.no1,
-    ) {
-        Scaffold(
-            floatingActionButton = {
-                LiftButton(
-                    contentPadding = PaddingValues(
-                        start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                    ),
-                    onClick = onClickStartWork,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = 20.dp,
-                            end = 20.dp,
-                            bottom = 72.dp
-                        )
-                ) {
-                    Text(
-                        text = "운동시작하기",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                    Spacer(modifier = modifier.padding(2.dp))
-                    Icon(
-                        painterResource(id = LiftIcon.ChevronRight),
-                        contentDescription = null,
-                        modifier = modifier
-                            .fillMaxHeight()
-                            .width(8.dp)
-                    )
-
-                }
-            },
-            floatingActionButtonPosition = FabPosition.Center,
-        ) { padding ->
-            Column(
+    Scaffold(
+        topBar = {
+            LiftHomeTopBar()
+        },
+        floatingActionButton = {
+            LiftButton(
+                contentPadding = PaddingValues(
+                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                ),
+                onClick = onClickStartWork,
                 modifier = modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .padding(padding)
+                    .fillMaxWidth()
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                    )
             ) {
-                ProfileView(
-                    modifier = modifier,
-                    userDetailUiState = userDetailUiState
+                Text(
+                    text = "운동시작하기",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no5,
                 )
-                Spacer(modifier = modifier.padding(8.dp))
-                BadgeView(modifier = modifier)
-                Spacer(modifier = modifier.padding(8.dp))
+                Spacer(modifier = modifier.padding(2.dp))
+                Icon(
+                    painterResource(id = LiftIcon.ChevronRight),
+                    contentDescription = null,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .width(8.dp)
+                )
 
-                RoutineView(
-                    modifier = modifier,
-                    today = today,
-                    weekDateRoutineUiState = weekDateRoutineUiState,
-                    weekDate = weekDate,
-                    onClickCreateRoutine = onClickCreateRoutine,
-                    onClickStartWork = onClickStartWork,
-                    onClickWeekDateCard = onClickWeekDateCard,
-                    onClickAddRoutine = onClickAddRoutine,
-                    onClickUpdateRoutine = onClickUpdateRoutine
-                )
-                Spacer(modifier = modifier.padding(72.dp))
             }
+        },
+        floatingActionButtonPosition = FabPosition.Center,
+    ) { padding ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(padding)
+        ) {
+
+            ProfileView(
+                modifier = modifier,
+                userDetailUiState = userDetailUiState,
+                onClickAlarm=onClickAlarm,
+                onClickType=onClickType,
+            )
+            Spacer(modifier = modifier.padding(8.dp))
+            BadgeView(modifier = modifier)
+            Spacer(modifier = modifier.padding(8.dp))
+
+            RoutineView(
+                modifier = modifier,
+                today = today,
+                weekDateRoutineUiState = weekDateRoutineUiState,
+                weekDate = weekDate,
+                onClickCreateRoutine = onClickCreateRoutine,
+                onClickWeekDateCard = onClickWeekDateCard,
+                onClickAddRoutine = onClickAddRoutine,
+                onClickUpdateRoutine = onClickUpdateRoutine
+            )
+            Spacer(modifier = modifier.padding(72.dp))
         }
     }
 }
@@ -180,6 +183,8 @@ fun HomeScreenPreview() {
             onClickWeekDateCard = {},
             onClickAddRoutine = {},
             onClickUpdateRoutine = {},
+            onClickAlarm={},
+            onClickType={},
             scrollState = rememberScrollState()
         )
     }

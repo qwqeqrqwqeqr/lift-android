@@ -12,6 +12,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -19,7 +20,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LiftTopBar(
+fun LiftBackTopBar(
     title: String,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -53,14 +54,14 @@ fun LiftTopBar(
             titleContentColor = LiftTheme.colorScheme.no9,
             actionIconContentColor = LiftTheme.colorScheme.no9,
         ),
-        actions=actions
+        actions = actions
     )
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LiftNotIconTopBar(
+fun LiftTitleTopBar(
     title: String,
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {},
@@ -83,22 +84,56 @@ fun LiftNotIconTopBar(
         ),
         actions = actions
     )
-
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LiftHomeTopBar(
+    modifier: Modifier = Modifier,
+    actions: @Composable RowScope.() -> Unit = {},
+    scrollBehavior: TopAppBarScrollBehavior? = null
+) {
+    TopAppBar(
+        modifier = modifier.statusBarsPadding(),
+        title={
+            Icon(
+                painter = painterResource(R.drawable.logo_extension),
+                contentDescription = "",
+                tint = Color.Unspecified,
+                modifier = modifier.size(72.dp)
+            )
+        },
 
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = LiftTheme.colorScheme.no5,
+            scrolledContainerColor = LiftTheme.colorScheme.no5,
+            navigationIconContentColor = LiftTheme.colorScheme.no9,
+            titleContentColor = LiftTheme.colorScheme.no9,
+            actionIconContentColor = LiftTheme.colorScheme.no9,
+        ),
+        actions = actions,
+        scrollBehavior=scrollBehavior
+    )
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun LiftTopBarPreview() {
+fun LiftBackTopBarPreview() {
     LiftMaterialTheme {
         Column() {
-            LiftTopBar(
+            LiftBackTopBar(
                 title = "리프트",
                 onBackClick = {}
             )
             Spacer(modifier = Modifier.padding(48.dp))
-
+            LiftTitleTopBar(
+                title = "리프트",
+            )
+            Spacer(modifier = Modifier.padding(48.dp))
+            LiftHomeTopBar()
 
         }
     }

@@ -30,7 +30,7 @@ import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
-import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
@@ -82,7 +82,7 @@ internal fun RegisterDetailHeightWeightScreen(
     ) {
         Scaffold(
             topBar = {
-                LiftTopBar(
+                LiftBackTopBar(
                     title = "추가정보 입력",
                     onBackClick = onTopBarBackClick,
                     actions = {

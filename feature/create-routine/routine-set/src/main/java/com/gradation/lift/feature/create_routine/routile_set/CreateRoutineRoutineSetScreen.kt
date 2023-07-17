@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftTopBar
+import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetListView
 import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetNameView
 import com.gradation.lift.feature.create_routine.routile_set.component.RoutineSetWeekDateView
@@ -64,7 +64,7 @@ internal fun CreateRoutineRoutineSetScreen(
     Surface(color = MaterialTheme.colorScheme.surface) {
         Scaffold(
             topBar = {
-                LiftTopBar(
+                LiftBackTopBar(
                     title = "루틴리스트 만들기",
                     onBackClick = onTopBarBackClick,
                 )

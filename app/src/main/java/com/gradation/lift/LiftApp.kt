@@ -5,7 +5,11 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -23,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.tracing.trace
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.*
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
@@ -44,14 +49,16 @@ import com.gradation.lift.navigation.navigation.navigateToMyInfo
 @Composable
 fun LiftApp(
     isSinged: Boolean,
-    autoLoginSetting : Boolean,
+    autoLoginSetting: Boolean,
     windowSizeClass: WindowSizeClass,
     appState: AppState = rememberAppState(
         windowSizeClass = windowSizeClass
     ),
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
 ) {
-    Surface(modifier = Modifier.fillMaxSize()) {
-
+    Surface(
+        modifier= modifier.fillMaxSize().background(LiftTheme.colorScheme.no1)
+    ) {
         Scaffold(
             bottomBar = {
                 if (appState.currentTopLevelDestination != null) {
@@ -60,21 +67,24 @@ fun LiftApp(
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
                         currentDestination = appState.currentDestination,
 
-                    )
+                        )
                 }
             },
         ) {
-            if (isSinged && autoLoginSetting) {
-                LiftNavHost(
-                    navController = appState.navController,
-                    startDestination = MAIN_GRAPH_ROUTER_NAME
-                )
-            } else {
-                LiftNavHost(
-                    navController = appState.navController,
-                    startDestination = LOGIN_GRAPH_ROUTER_NAME
-                )
-
+            Box(
+                modifier = modifier.padding(it)
+            ) {
+                if (isSinged && autoLoginSetting) {
+                    LiftNavHost(
+                        navController = appState.navController,
+                        startDestination = MAIN_GRAPH_ROUTER_NAME
+                    )
+                } else {
+                    LiftNavHost(
+                        navController = appState.navController,
+                        startDestination = LOGIN_GRAPH_ROUTER_NAME
+                    )
+                }
             }
         }
     }

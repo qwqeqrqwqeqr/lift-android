@@ -30,6 +30,8 @@ object LiftIcon{
     val Lock = R.drawable.lock
     val Mail = R.drawable.mail
 
+    val Bell = R.drawable.bell
+
     val LoginKakao = R.drawable.login_kakao
     val LoginNaver = R.drawable.login_naver
     val LoginGoogle = R.drawable.login_google
@@ -37,6 +39,7 @@ object LiftIcon{
     val ArrowBack = R.drawable.arrow_back
 
     val ChevronRight = R.drawable.chevron_right
+    val ChevronRightSharp = R.drawable.chevorn_right_sharp
     val Plus = R.drawable.plus
 }
 

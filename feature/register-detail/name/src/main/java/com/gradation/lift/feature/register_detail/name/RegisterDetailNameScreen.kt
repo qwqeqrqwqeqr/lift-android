@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftNotIconTopBar
+import com.gradation.lift.designsystem.component.LiftTitleTopBar
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -78,7 +78,7 @@ private fun RegisterDetailNameScreen(
     ) {
         Scaffold(
             topBar = {
-                LiftNotIconTopBar(
+                LiftTitleTopBar(
                     title = "추가정보 입력",
                     actions = {
                         ClickableText(

@@ -110,6 +110,8 @@ fun EmptyRoutineListPreview() {
             onClickStartWork = {},
             onClickAddRoutine = {},
             onClickUpdateRoutine = {},
+            onClickAlarm={},
+            onClickType={},
             scrollState = rememberScrollState()
         )
     }
