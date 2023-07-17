@@ -27,6 +27,7 @@ fun BadgeView(
             )
             .fillMaxWidth()
             .padding(20.dp)
+            .height(160.dp)
     ) {
         Row(
             modifier = modifier.fillMaxWidth(),
@@ -59,6 +60,5 @@ fun BadgeView(
                 )
             }
         }
-        Spacer(modifier = modifier.padding(52.dp))
     }
 }

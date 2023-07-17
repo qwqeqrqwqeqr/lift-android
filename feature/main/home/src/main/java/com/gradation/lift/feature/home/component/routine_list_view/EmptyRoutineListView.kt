@@ -1,20 +1,33 @@
-package com.gradation.lift.feature.home.component
+package com.gradation.lift.feature.home.component.routine_list_view
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.home.HomeScreen
+import com.gradation.lift.feature.home.data.UserDetailUiState
+import com.gradation.lift.feature.home.data.WeekDate
+import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
+import com.gradation.lift.model.common.UnitOfWeight
+import com.gradation.lift.model.user.Gender
+import com.gradation.lift.model.user.UserDetail
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 @Composable
 fun EmptyRoutineListView(
@@ -23,11 +36,21 @@ fun EmptyRoutineListView(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = modifier.padding(54.dp))
+
+        Spacer(modifier = modifier.padding(18.dp))
+        Image(
+            painter = painterResource(id = com.gradation.lift.designsystem.R.drawable.open_box),
+            contentDescription = "",
+            modifier = modifier
+                .width(72.dp)
+                .height(54.dp)
+        )
+        Spacer(modifier = modifier.padding(4.dp))
         Text(
-            text = "아직 루틴리스트가 없네요.",
+            text = "아직 루틴리스트가 없네요...",
             style = LiftTheme.typography.no4,
             color = LiftTheme.colorScheme.no9,
             textAlign = TextAlign.Center,
@@ -42,10 +65,52 @@ fun EmptyRoutineListView(
                 style = LiftTheme.typography.no3,
                 color = LiftTheme.colorScheme.no4,
             )
+            Spacer(modifier = modifier.padding(2.dp))
             Icon(
                 painterResource(id = LiftIcon.ChevronRight),
                 contentDescription = null,
+                modifier = modifier
+                    .fillMaxHeight()
+                    .width(8.dp)
             )
         }
+        Spacer(modifier = modifier.padding(24.dp))
+
+    }
+}
+
+@Preview
+@Composable
+@SuppressLint("UnrememberedMutableState")
+fun EmptyRoutineListPreview() {
+    LiftMaterialTheme {
+        HomeScreen(
+            today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
+            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            userDetailUiState = UserDetailUiState.Success(
+                UserDetail(
+                    name = "리프트",
+                    weight = 90f,
+                    height = 180f,
+                    gender = Gender.Male(),
+                    unitOfWeight = UnitOfWeight.Kg()
+                )
+            ),
+            weekDate = listOf(
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(),
+                WeekDate(selected = true),
+            ),
+            onClickCreateRoutine = {},
+            onClickWeekDateCard = {},
+            onClickStartWork = {},
+            onClickAddRoutine = {},
+            onClickUpdateRoutine = {},
+            scrollState = rememberScrollState()
+        )
     }
 }

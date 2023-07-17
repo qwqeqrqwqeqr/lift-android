@@ -79,9 +79,13 @@ fun CreateRoutineView(
                     style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no4,
                 )
+                Spacer(modifier = modifier.padding(2.dp))
                 Icon(
                     painterResource(id = LiftIcon.ChevronRight),
                     contentDescription = null,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .width(8.dp)
                 )
             }
         }

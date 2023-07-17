@@ -1,11 +1,9 @@
 package com.gradation.lift.feature.home.component
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -19,7 +17,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +26,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.HomeScreen
+import com.gradation.lift.feature.home.component.routine_list_view.EmptyRoutineListView
 import com.gradation.lift.feature.home.component.routine_list_view.LoadingRoutineListView
 import com.gradation.lift.feature.home.data.UserDetailUiState
 import com.gradation.lift.feature.home.data.WeekDate
@@ -229,6 +227,9 @@ fun RoutineView(
                 Icon(
                     painterResource(id = LiftIcon.ChevronRight),
                     contentDescription = null,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .width(8.dp)
                 )
             }
             Spacer(
@@ -249,9 +250,7 @@ fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
             today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Success(
-                TestModelDataGenerator.Routine.routineSetRoutineModelList
-            ),
+            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(
                     name = "리프트",

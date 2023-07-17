@@ -36,6 +36,7 @@ fun ProfileView(
 
             )
             .fillMaxWidth()
+            .height(198.dp)
             .padding(
                 start = 20.dp,
                 end = 20.dp,
