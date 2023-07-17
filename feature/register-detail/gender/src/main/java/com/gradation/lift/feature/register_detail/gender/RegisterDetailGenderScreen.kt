@@ -38,7 +38,7 @@ fun RegisterDetailGenderRoute(
     RegisterDetailGenderScreen(
         modifier = modifier,
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
-        onTopBarBackClick = { navController.popBackStack() },
+        onBackClickTopbar = { navController.popBackStack() },
         nameText = name,
         maleValue = viewModel.male,
         femaleValue = viewModel.female,
@@ -57,7 +57,7 @@ fun RegisterDetailGenderRoute(
 internal fun RegisterDetailGenderScreen(
     modifier: Modifier = Modifier,
     onTopBarSkipButtonClick: (Int) -> Unit,
-    onTopBarBackClick: () -> Unit,
+    onBackClickTopbar: () -> Unit,
     nameText: String,
     maleValue: Boolean,
     femaleValue: Boolean,
@@ -73,7 +73,7 @@ internal fun RegisterDetailGenderScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "추가정보 입력",
-                    onBackClick = onTopBarBackClick,
+                    onBackClickTopbar = onBackClickTopbar,
                     actions = {
                         ClickableText(
                             text = AnnotatedString("건너뛰기"),
@@ -163,7 +163,7 @@ fun RegisterDetailGenderScreenPreview(
         RegisterDetailGenderScreen(
             modifier = modifier,
             onTopBarSkipButtonClick = {},
-            onTopBarBackClick = {},
+            onBackClickTopbar = {},
             nameText = "리프트",
             maleValue = true,
             femaleValue = false,

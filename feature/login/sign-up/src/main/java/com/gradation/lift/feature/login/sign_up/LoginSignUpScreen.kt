@@ -53,7 +53,7 @@ fun LoginSignUpRoute(
 
     LoginSignUpScreen(
         modifier = modifier,
-        onTopBarBackClick = { navController.navigateSignUpProcessToSignIn() },
+        onBackClickTopbar = { navController.navigateSignUpProcessToSignIn() },
 
         emailText = email,
         passwordText = password,
@@ -92,7 +92,7 @@ fun LoginSignUpRoute(
 @Composable
 internal fun LoginSignUpScreen(
     modifier: Modifier = Modifier,
-    onTopBarBackClick: () -> Unit,
+    onBackClickTopbar: () -> Unit,
     emailText: State<String>,
     passwordText: State<String>,
     passwordVerificationText: State<String>,
@@ -120,7 +120,7 @@ internal fun LoginSignUpScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "회원가입",
-                    onBackClick = onTopBarBackClick,
+                    onBackClickTopbar = onBackClickTopbar,
                 )
             },
         ) { padding ->
@@ -189,7 +189,7 @@ internal fun LoginSignInUpPreview() {
     LiftMaterialTheme {
         LoginSignUpScreen(
             modifier = Modifier,
-            onTopBarBackClick = { },
+            onBackClickTopbar = { },
             emailText = mutableStateOf("") ,
             passwordText = mutableStateOf(""),
             passwordVerificationText = mutableStateOf(""),

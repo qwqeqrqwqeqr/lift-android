@@ -45,7 +45,7 @@ fun RegisterHeightWeightNameRoute(
 ) {
     RegisterDetailHeightWeightScreen(
         modifier = modifier,
-        onTopBarBackClick = { navController.popBackStack() },
+        onBackClickTopbar = { navController.popBackStack() },
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
         onNextButtonClick = {
             viewModel.updateKey(navController)
@@ -66,7 +66,7 @@ fun RegisterHeightWeightNameRoute(
 @Composable
 internal fun RegisterDetailHeightWeightScreen(
     modifier: Modifier = Modifier,
-    onTopBarBackClick: () -> Unit,
+    onBackClickTopbar: () -> Unit,
     onTopBarSkipButtonClick: (Int) -> Unit,
     onNextButtonClick: () -> Unit,
     weightText: State<String>,
@@ -84,7 +84,7 @@ internal fun RegisterDetailHeightWeightScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "추가정보 입력",
-                    onBackClick = onTopBarBackClick,
+                    onBackClickTopbar = onBackClickTopbar,
                     actions = {
                         ClickableText(
                             text = AnnotatedString("건너뛰기"),
@@ -274,7 +274,7 @@ fun RegisterDetailHeightWeightScreenPreview(
     LiftMaterialTheme {
         RegisterDetailHeightWeightScreen(
             modifier = modifier,
-            onTopBarBackClick = {},
+            onBackClickTopbar = {},
             onTopBarSkipButtonClick = {},
             onNextButtonClick = {},
             weightText = mutableStateOf(""),

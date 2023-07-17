@@ -38,7 +38,7 @@ fun RegisterDetailUnitOfWeightRoute(
     RegisterDetailUnitOfWeightScreen(
         modifier = modifier,
         onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
-        onTopBarBackClick = { navController.popBackStack() },
+        onBackClickTopbar = { navController.popBackStack() },
         kgValue = viewModel.kg,
         lbValue = viewModel.lb,
         onUpdateKg = viewModel.updateKg(),
@@ -56,7 +56,7 @@ fun RegisterDetailUnitOfWeightRoute(
 internal fun RegisterDetailUnitOfWeightScreen(
     modifier: Modifier = Modifier,
     onTopBarSkipButtonClick: (Int) -> Unit,
-    onTopBarBackClick: () -> Unit,
+    onBackClickTopbar: () -> Unit,
     kgValue: Boolean,
     lbValue: Boolean,
     onUpdateKg: (Boolean) -> Unit,
@@ -80,7 +80,7 @@ internal fun RegisterDetailUnitOfWeightScreen(
                 topBar = {
                     LiftBackTopBar(
                         title = "추가정보 입력",
-                        onBackClick = onTopBarBackClick,
+                        onBackClickTopbar = onBackClickTopbar,
                         actions = {
                             ClickableText(
                                 text = AnnotatedString("건너뛰기"),
@@ -195,7 +195,7 @@ internal fun RegisterDetailUnitOfWeightScreenPreview(
         RegisterDetailUnitOfWeightScreen(
             modifier = modifier,
             onTopBarSkipButtonClick = { },
-            onTopBarBackClick = { },
+            onBackClickTopbar = { },
             kgValue = true,
             lbValue = false,
             onUpdateKg = {},

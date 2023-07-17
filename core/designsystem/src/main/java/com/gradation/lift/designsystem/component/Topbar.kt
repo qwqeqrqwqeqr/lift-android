@@ -22,7 +22,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun LiftBackTopBar(
     title: String,
-    onBackClick: () -> Unit,
+    onBackClickTopbar: () -> Unit,
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
@@ -37,7 +37,7 @@ fun LiftBackTopBar(
         modifier = modifier.statusBarsPadding(),
         navigationIcon = {
             LiftIconButton(
-                onClick = onBackClick,
+                onClick = onBackClickTopbar,
                 modifier = modifier
             ) {
                 Icon(
@@ -126,7 +126,7 @@ fun LiftBackTopBarPreview() {
         Column() {
             LiftBackTopBar(
                 title = "리프트",
-                onBackClick = {}
+                onBackClickTopbar = {}
             )
             Spacer(modifier = Modifier.padding(48.dp))
             LiftTitleTopBar(
