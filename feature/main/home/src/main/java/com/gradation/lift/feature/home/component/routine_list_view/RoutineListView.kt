@@ -3,6 +3,7 @@ package com.gradation.lift.feature.home.component.routine_list_view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,11 +36,12 @@ import kotlinx.datetime.todayIn
 
 @Composable
 fun RoutineListView(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     onClickUpdateRoutine: () -> Unit,
     onClickAddRoutine: () -> Unit,
-    routineSetRoutineList:  List<RoutineSetRoutine>
-){
+    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
+    routineSetRoutineList: List<RoutineSetRoutine>,
+) {
     Column {
         Spacer(modifier = modifier.padding(7.dp))
         Row(
@@ -105,8 +107,11 @@ fun RoutineListView(
                         )
                         .fillMaxWidth()
                         .padding(8.dp)
-                        .height(65.dp),
-                    contentAlignment= Alignment.CenterStart
+                        .height(65.dp)
+                        .clickable {
+                            onClickStartWorkWithRoutineSetId(routineSetRoutine.id)
+                        },
+                    contentAlignment = Alignment.CenterStart
                 )
                 {
                     Row(
@@ -176,8 +181,9 @@ fun RoutineListPreview() {
             onClickStartWork = {},
             onClickAddRoutine = {},
             onClickUpdateRoutine = {},
-            onClickAlarm={},
-            onClickType={},
+            onClickStartWorkWithRoutineSetId = {},
+            onClickAlarm = {},
+            onClickType = {},
             scrollState = rememberScrollState()
         )
     }

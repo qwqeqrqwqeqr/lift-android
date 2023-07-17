@@ -56,12 +56,17 @@ fun HomeRoute(
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
         onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
-        onClickStartWork = {},
+        onClickStartWork = {
+            
+        },
+        onClickStartWorkWithRoutineSetId = { routineSetId ->
+            viewModel.updateKey(navController = navController, routineSetId = routineSetId)
+        },
         onClickWeekDateCard = viewModel::onClickDate,
         onClickAddRoutine = {},
         onClickUpdateRoutine = {},
-        onClickAlarm={},
-        onClickType={},
+        onClickAlarm = { },
+        onClickType = {},
         scrollState = scrollState
     )
 }
@@ -77,11 +82,12 @@ internal fun HomeScreen(
     weekDate: List<WeekDate>,
     onClickCreateRoutine: () -> Unit,
     onClickStartWork: () -> Unit,
+    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickAddRoutine: () -> Unit,
     onClickUpdateRoutine: () -> Unit,
-    onClickAlarm : () -> Unit,
-    onClickType : () -> Unit,
+    onClickAlarm: () -> Unit,
+    onClickType: () -> Unit,
     scrollState: ScrollState,
 ) {
     Scaffold(
@@ -129,8 +135,8 @@ internal fun HomeScreen(
             ProfileView(
                 modifier = modifier,
                 userDetailUiState = userDetailUiState,
-                onClickAlarm=onClickAlarm,
-                onClickType=onClickType,
+                onClickAlarm = onClickAlarm,
+                onClickType = onClickType,
             )
             Spacer(modifier = modifier.padding(8.dp))
             BadgeView(modifier = modifier)
@@ -143,6 +149,7 @@ internal fun HomeScreen(
                 weekDate = weekDate,
                 onClickCreateRoutine = onClickCreateRoutine,
                 onClickWeekDateCard = onClickWeekDateCard,
+                onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
                 onClickAddRoutine = onClickAddRoutine,
                 onClickUpdateRoutine = onClickUpdateRoutine
             )
@@ -180,11 +187,12 @@ fun HomeScreenPreview() {
             ),
             onClickCreateRoutine = { },
             onClickStartWork = {},
+            onClickStartWorkWithRoutineSetId = {},
             onClickWeekDateCard = {},
             onClickAddRoutine = {},
             onClickUpdateRoutine = {},
-            onClickAlarm={},
-            onClickType={},
+            onClickAlarm = {},
+            onClickType = {},
             scrollState = rememberScrollState()
         )
     }

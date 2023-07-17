@@ -5,11 +5,15 @@ import androidx.annotation.RequiresApi
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.common.toWeekday
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.setIntValue
+import com.gradation.lift.navigation.saved_state.setStringValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -36,7 +40,7 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
 
 
-    val weekDate = currentDate.map {
+    internal val weekDate = currentDate.map {
         getWeekDateUseCase(it).map { localDate ->
             WeekDate(
                 day = localDate.dayOfMonth.toString(),
@@ -53,7 +57,7 @@ class HomeViewModel @Inject constructor(
         initialValue = emptyList()
     )
 
-    val weekDateRoutine: StateFlow<WeekDateRoutineUiState> =
+    internal val weekDateRoutine: StateFlow<WeekDateRoutineUiState> =
         currentDate.flatMapLatest { currentDate ->
             getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
                 when (it) {
@@ -77,7 +81,7 @@ class HomeViewModel @Inject constructor(
         )
 
 
-    val userDetail: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
+    internal val userDetail: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
         when (it) {
             is DataState.Fail -> UserDetailUiState.Fail(it.message)
             is DataState.Success -> UserDetailUiState.Success(it.data)
@@ -89,8 +93,12 @@ class HomeViewModel @Inject constructor(
     )
 
 
-    fun onClickDate(selectedDate: LocalDate) {
+    internal fun onClickDate(selectedDate: LocalDate) {
         currentDate.value = selectedDate
+    }
+
+    internal fun updateKey(navController: NavController,routineSetId :Int) {
+        navController.setIntValue(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY, routineSetId)
     }
 }
 

@@ -12,4 +12,8 @@ object SavedStateHandleKey {
         const val WEIGHT_KEY = "REGISTER_DETAIL_WEIGHT_KEY"
         const val UNIT_OF_WEIGHT_KEY = "REGISTER_DETAIL_UNIT_OF_WEIGHT_KEY"
     }
+
+    object WorkKey{
+        const val ROUTINE_SET_ID_KEY ="WORK_ROUTINE_SET_ID_KEY"
+    }
 }

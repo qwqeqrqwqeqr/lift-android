@@ -30,6 +30,7 @@ fun RoutineView(
     weekDate: List<WeekDate>,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickCreateRoutine: () -> Unit,
+    onClickStartWorkWithRoutineSetId: (Int)->Unit,
     onClickAddRoutine: () -> Unit,
     onClickUpdateRoutine: () -> Unit,
 ) {
@@ -82,6 +83,7 @@ fun RoutineView(
                     modifier = modifier,
                     onClickUpdateRoutine = onClickUpdateRoutine,
                     onClickAddRoutine = onClickAddRoutine,
+                    onClickStartWorkWithRoutineSetId=onClickStartWorkWithRoutineSetId,
                     routineSetRoutineList = weekDateRoutineUiState.weekDateRoutine
                 )
             }

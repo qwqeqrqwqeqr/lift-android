@@ -62,17 +62,17 @@ fun WeekCard(
                 color = if (weekDate.selected) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
                 text = weekDate.day,
                 textAlign = TextAlign.Center,
-                style =   if (weekDate.selected) LiftTheme.typography.no5 else  LiftTheme.typography.no6,
+                style = if (weekDate.selected) LiftTheme.typography.no5 else LiftTheme.typography.no6,
 
 
-            )
+                )
 
             Text(
                 color = if (weekDate.selected) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
                 text = weekDate.weekDay.getWeekdayName(),
                 textAlign = TextAlign.Center,
-                style =   if (weekDate.selected) LiftTheme.typography.no5 else  LiftTheme.typography.no6,
-                )
+                style = if (weekDate.selected) LiftTheme.typography.no5 else LiftTheme.typography.no6,
+            )
 
         }
     }

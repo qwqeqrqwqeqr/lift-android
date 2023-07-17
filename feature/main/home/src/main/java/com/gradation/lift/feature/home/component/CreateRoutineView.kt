@@ -71,7 +71,6 @@ fun CreateRoutineView(
             Spacer(modifier = modifier.padding(8.dp))
             LiftOutlineButton(
                 modifier = modifier.fillMaxWidth(),
-                //TODO implement onclick create routine
                 onClick = {}
             ) {
                 Text(
@@ -93,10 +92,3 @@ fun CreateRoutineView(
 }
 
 
-@Preview
-@Composable
-internal fun RoutineHeaderPreview() {
-    LiftMaterialTheme {
-        CreateRoutineView()
-    }
-}

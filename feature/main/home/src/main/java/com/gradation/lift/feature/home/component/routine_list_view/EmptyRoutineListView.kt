@@ -40,7 +40,7 @@ fun EmptyRoutineListView(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Spacer(modifier = modifier.padding(18.dp))
+        Spacer(modifier = modifier.padding(36.dp))
         Image(
             painter = painterResource(id = com.gradation.lift.designsystem.R.drawable.open_box),
             contentDescription = "",

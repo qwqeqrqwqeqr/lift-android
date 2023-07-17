@@ -16,6 +16,19 @@ fun NavController.getStringValue(key: String): String {
     return this.previousBackStackEntry?.savedStateHandle?.get<String>(key) ?: ""
 }
 
+fun NavController.setIntValue(key: String, value: Int) {
+    this.currentBackStackEntry?.let {
+        with(it.savedStateHandle) {
+            set(key, value)
+        }
+    }
+}
+
+fun NavController.getIntValue(key: String): Int {
+    return this.previousBackStackEntry?.savedStateHandle?.get<Int>(key) ?: 0
+}
+
+
 
 fun NavController.findValueInBackStackEntry(keyList: List<String>): Map<String, String> {
     val valueList = HashMap<String, String>()
