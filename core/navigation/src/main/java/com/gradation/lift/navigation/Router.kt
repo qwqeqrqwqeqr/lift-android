@@ -19,7 +19,7 @@ object Router {
     const val LOGIN_FIND_PASSWORD_ROUTER_NAME = "find_password"
 
 
-    const val REGISTER_DETAIL_GRAPH_ROUTER_NAME = "register_graph"
+    const val REGISTER_DETAIL_GRAPH_ROUTER_NAME = "register_detail_graph"
     const val REGISTER_DETAIL_GENDER_ROUTER_NAME = "gender"
     const val REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME = "height_weight"
     const val REGISTER_DETAIL_NAME_ROUTER_NAME = "name"
@@ -30,4 +30,12 @@ object Router {
     const val HOME_ROUTER_NAME = "home"
     const val HISTORY_ROUTER_NAME = "history"
     const val MY_INFO_ROUTER_NAME = "myinfo"
+
+    const val READY_WORK_GRAPH_ROUTER_NAME = "ready_work_graph"
+    const val READY_WORK_SELECTION_ROUTER_NAME = "selection"
+    const val READY_WORK_CHANGE_ORDER_ROUTER_NAME = "change_order"
+
+    const val WORK_GRAPH_ROUTER_NAME = "work_graph"
+    const val WORK_WORK_ROUTER_NAME = "work"
+
 }

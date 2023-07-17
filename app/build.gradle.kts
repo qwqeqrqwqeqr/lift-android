@@ -49,4 +49,10 @@ dependencies{
     implementation(project(":feature:register-detail:name"))
     implementation(project(":feature:register-detail:unit-of-weight"))
 
+
+    implementation(project(":feature:ready-work:selection"))
+    implementation(project(":feature:ready-work:change-order"))
+
+    implementation(project(":feature:work:work"))
+
 }

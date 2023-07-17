@@ -57,7 +57,7 @@ fun HomeRoute(
         weekDate = weekDate,
         onClickCreateRoutine = { navController.navigateToCreateRoutineGraph() },
         onClickStartWork = {
-            
+
         },
         onClickStartWorkWithRoutineSetId = { routineSetId ->
             viewModel.updateKey(navController = navController, routineSetId = routineSetId)

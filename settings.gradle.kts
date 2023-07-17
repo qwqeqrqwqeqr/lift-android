@@ -55,3 +55,10 @@ include(":feature:register-detail:name")
 include(":feature:register-detail:gender")
 include(":feature:register-detail:unit-of-weight")
 include(":feature:register-detail:height-weight")
+
+
+include(":feature:ready-work:selection")
+include(":feature:ready-work:change-order")
+
+
+include(":feature:work:work")
