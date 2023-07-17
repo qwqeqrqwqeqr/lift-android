@@ -1,6 +1,7 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.model.common.Weekday.Companion.MONDAY
+import com.gradation.lift.model.common.Weekday.Companion.TUESDAY
 import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto1
 import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto2
 import com.gradation.lift.network.dto.routine.*
@@ -45,14 +46,14 @@ internal object TestRoutineDataGenerator {
 
     private val routineSetDto1 = RoutineSetDto(
         routineSetId = 1,
-        shortDescription = "Lorem ipsum dolor sit amet",
-        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        name = "Lorem ipsum dolor sit amet",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         weekday = MONDAY
     )
     private val routineSetDto2 = RoutineSetDto(
         routineSetId = 2,
-        shortDescription = "Lorem ipsum dolor sit amet",
-        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        name = "Lorem ipsum dolor sit amet",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         weekday = MONDAY
     )
 
@@ -188,9 +189,9 @@ internal object TestRoutineDataGenerator {
                 },
                 "routine_set": {
                   "routine_set_id": 1,
-                  "short_description": "Lorem ipsum dolor sit amet",
-                  "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  "weekday": "Monday"
+                  "name": "Lorem ipsum dolor sit amet",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                  "weekday": "Mon"
                 }
               },
               {
@@ -230,9 +231,9 @@ internal object TestRoutineDataGenerator {
                 },
                 "routine_set": {
                   "routine_set_id": 2,
-                  "short_description": "Lorem ipsum dolor sit amet",
-                  "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  "weekday": "Monday"
+                  "name": "Lorem ipsum dolor sit amet",
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                  "weekday": "Mon"
                 }
               }
             ]
@@ -253,9 +254,9 @@ internal object TestRoutineDataGenerator {
 
 
     val createRoutineSetRequestDto = CreateRoutineSetRequestDto(
-        shortDescription = "Lorem ipsum dolor sit amet",
-        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        weekday = MONDAY,
+        name = "Lorem ipsum dolor sit amet",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        weekday = listOf(MONDAY, TUESDAY),
         routine = listOf(createRoutineDto)
     )
 

@@ -8,10 +8,10 @@ import com.squareup.moshi.JsonClass
 data class RoutineSetDto(
     @Json(name = "routine_set_id")
     val routineSetId: Int,
-    @Json(name = "short_description")
-    val shortDescription: String,
-    @Json(name = "long_description")
-    val longDescription: String,
+    @Json(name = "name")
+    val name: String,
+    @Json(name = "description")
+    val description: String,
     @Json(name = "weekday")
     val weekday: String
 )

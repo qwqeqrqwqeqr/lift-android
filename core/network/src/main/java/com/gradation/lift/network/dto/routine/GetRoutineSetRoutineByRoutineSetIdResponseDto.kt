@@ -17,8 +17,8 @@ data class GetRoutineSetRoutineByRoutineSetIdResponseDto(
     fun toRoutineSetRoutine(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.routineSetDto.routineSetId }.map {
         RoutineSetRoutine(
             id = it.value.first().routineSetDto.routineSetId,
-            shortDescription = it.value.first().routineSetDto.shortDescription,
-            longDescription = it.value.first().routineSetDto.longDescription,
+            name = it.value.first().routineSetDto.name,
+            description = it.value.first().routineSetDto.description,
             weekday = it.value.first().routineSetDto.weekday.toWeekDay(),
             routine = it.value.map { routine ->
                 Routine(

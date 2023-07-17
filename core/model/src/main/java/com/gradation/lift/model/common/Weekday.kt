@@ -16,13 +16,13 @@ sealed class Weekday {
     data class None(val value: String = NONE, val name: String = "") : Weekday()
 
     companion object {
-        const val MONDAY = "Monday"
-        const val TUESDAY = "Tuesday"
-        const val WEDNESDAY = "Wednesday"
-        const val THURSDAY = "Thursday"
-        const val FRIDAY = "Friday"
-        const val SATURDAY = "Saturday"
-        const val SUNDAY = "Sunday"
+        const val MONDAY = "Mon"
+        const val TUESDAY = "Tue"
+        const val WEDNESDAY = "Wed"
+        const val THURSDAY = "Thu"
+        const val FRIDAY = "Fri"
+        const val SATURDAY = "Sat"
+        const val SUNDAY = "Sun"
         const val NONE = "None"
     }
 

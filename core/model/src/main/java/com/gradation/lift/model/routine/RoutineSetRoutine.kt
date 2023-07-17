@@ -5,8 +5,8 @@ import com.gradation.lift.model.common.Weekday
 
 data class RoutineSetRoutine(
     val id: Int,
-    val shortDescription: String,
-    val longDescription: String,
+    val name: String,
+    val description: String,
     val weekday: Weekday,
     val routine : List<Routine>
 )

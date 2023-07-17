@@ -185,16 +185,15 @@ fun RoutineView(
                                             horizontalAlignment = Alignment.Start
                                         ) {
                                             Text(
-                                                text = "이름",
+                                                text = routineSetRoutine.name,
                                                 style = LiftTheme.typography.no2,
                                                 color = LiftTheme.colorScheme.no9
                                             )
                                             Text(
-                                                text = routineSetRoutine.shortDescription,
+                                                text = routineSetRoutine.description,
                                                 style = LiftTheme.typography.no4,
                                                 color = LiftTheme.colorScheme.no9
                                             )
-
                                         }
                                     }
                                 }

@@ -21,9 +21,9 @@ class DefaultRoutineDataSource @Inject constructor(
             networkResultHandler {
                 routineService.createRoutineSet(
                     CreateRoutineSetRequestDto(
-                        shortDescription = createRoutineSetRoutine.shortDescription,
-                        longDescription = createRoutineSetRoutine.longDescription,
-                        weekday = createRoutineSetRoutine.weekday.getWeekdayValue(),
+                        name = createRoutineSetRoutine.name,
+                        description = createRoutineSetRoutine.description,
+                        weekday = createRoutineSetRoutine.weekday.map { it.getWeekdayValue() },
                         routine = createRoutineSetRoutine.routine.map { routine ->
                             CreateRoutineDto(
                                 workCategory = routine.workCategoryId,

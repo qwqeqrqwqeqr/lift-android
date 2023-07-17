@@ -72,29 +72,29 @@ object TestModelDataGenerator {
         )
         private val routineSetModel1 = RoutineSet(
             id = 1,
-            shortDescription = "Lorem ipsum dolor sit amet",
-            longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             weekday = Weekday.Monday()
         )
         private val routineSetModel2 = RoutineSet(
             id = 2,
-            shortDescription = "Lorem ipsum dolor sit amet",
-            longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             weekday = Weekday.Monday()
         )
 
         private val routineSetRoutineModel1 = RoutineSetRoutine(
             id = 1,
-            shortDescription = "Lorem ipsum dolor sit amet",
-            longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             weekday = Weekday.Monday(),
             routine = listOf(routineModel1)
         )
 
         private val routineSetRoutineModel2 = RoutineSetRoutine(
             id = 2,
-            shortDescription = "Lorem ipsum dolor sit amet",
-            longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             weekday = Weekday.Monday(),
             routine = listOf(routineModel2)
         )
@@ -110,9 +110,9 @@ object TestModelDataGenerator {
 
 
         val createRoutineSetRoutineModel = CreateRoutineSetRoutine(
-            shortDescription = FAKE_STRING_DATA,
-            longDescription = FAKE_STRING_DATA,
-            weekday = Weekday.Monday(),
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            weekday = listOf(Weekday.Monday(),Weekday.Tuesday()) ,
             routine = emptyList(),
         )
     }

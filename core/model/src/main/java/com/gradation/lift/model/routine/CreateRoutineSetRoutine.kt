@@ -4,9 +4,9 @@ import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.work.WorkSet
 
 data class CreateRoutineSetRoutine(
-    val shortDescription: String,
-    val longDescription: String,
-    val weekday: Weekday,
+    val name: String,
+    val description: String,
+    val weekday: List<Weekday>,
     val routine : List<CreateRoutineSetRoutineDetail>
 )
 
