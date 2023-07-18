@@ -51,13 +51,15 @@ internal fun HomeRoute(
         userDetailUiState = userDetailUiState,
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
-        onClickCreateRoutine = { navController.navigateHomeToCreateRoutineGraph() },
+        onClickCreateRoutine = {
+            navController.navigateHomeToCreateRoutineGraph()
+        },
         onClickStartWork = {
-            navController.navigateHomeToReadyWorkGraph()
+            navController.navigateHomeToReadyWorkGraph(null)
         },
         onClickStartWorkWithRoutineSetId = { routineSetId ->
             viewModel.updateKey(navController = navController, routineSetId = routineSetId)
-            navController.navigateHomeToReadyWorkGraph()
+            navController.navigateHomeToReadyWorkGraph(routineSetId)
         },
         onClickWeekDateCard = viewModel::onClickDate,
         onClickAddRoutine = { navController.navigateHomeToCreateRoutineGraph() },

@@ -12,6 +12,7 @@ import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUs
 import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getIntValue
+import com.gradation.lift.navigation.saved_state.setIntValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -90,18 +91,14 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         } else {
             selectedRoutineSetIdList.update { it.minusElement(id) }
         }
+        Log.d("list",selectedRoutineSetIdList.value.toString())
     }
 
-    fun updatePreviousRoutineSetId(navController: NavController) {
-        selectedRoutineSetIdList.update {
-            it.plusElement(
-                navController.getIntValue(
-                    SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY
-                )
-            )
+    fun updatePreviousRoutineSetId(previousRoutineSetId :Int?) {
+        previousRoutineSetId?.let { id ->
+            selectedRoutineSetIdList.update { list ->
+                list.plusElement(id)
+            }
         }
-
-
     }
-
 }

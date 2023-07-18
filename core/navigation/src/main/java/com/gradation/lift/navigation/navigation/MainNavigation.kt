@@ -25,6 +25,17 @@ fun NavController.navigateRegisterDetailToHome() {
     }
 }
 
+fun NavController.navigateReadyWorkToMain() {
+    this.navigate(Router.MAIN_GRAPH_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(Router.READY_WORK_GRAPH_ROUTER_NAME){
+            inclusive=true
+            saveState=true
+        }
+    }
+}
+
+
 
 
 fun NavHostController.navigateToHome() {

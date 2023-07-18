@@ -1,6 +1,8 @@
 package com.gradation.lift.feature.ready_work.selection
 
 import android.os.Build
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -31,7 +34,7 @@ import com.gradation.lift.feature.ready_work.selection.component.routine_list.Lo
 import com.gradation.lift.feature.ready_work.selection.data.*
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.navigation.navigation.navigateHomeToReadyWorkGraph
+import com.gradation.lift.navigation.navigation.navigateReadyWorkToMain
 import com.gradation.lift.test.data.TestModelDataGenerator
 import kotlinx.datetime.LocalDate
 
@@ -39,6 +42,7 @@ import kotlinx.datetime.LocalDate
 @Composable
 internal fun ReadyWorkSelectionRoute(
     navController: NavController,
+    previousRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: ReadyWorkSelectionViewModel = hiltViewModel(),
 ) {
@@ -52,14 +56,22 @@ internal fun ReadyWorkSelectionRoute(
         modifier = modifier,
         weekday = weekDate,
         routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = { navController.navigateHomeToReadyWorkGraph() },
+        onBackClickTopBar = {
+            navController.navigateReadyWorkToMain()
+        },
         onClickWeekDayCard = viewModel.onClickWeekDayCard(),
+        onClickStartWork = {},
         selectedRoutineSetIdList = selectedRoutineSetIdList,
         onUpdateRoutineSetIdList = viewModel.updateRoutineSetIdList(),
     )
+
     LaunchedEffect(key1 = true) {
-        viewModel.updatePreviousRoutineSetId(navController)
+        viewModel.updatePreviousRoutineSetId(previousRoutineSetId)
     }
+    BackHandler(enabled = true, onBack = {
+        navController.navigateReadyWorkToMain()
+    })
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,9 +82,11 @@ internal fun ReadyWorkSelectionScreen(
     routineSetRoutineSelection: RoutineSetRoutineSelectionUiState,
     onBackClickTopBar: () -> Unit,
     onClickWeekDayCard: (LocalDate) -> Unit,
+    onClickStartWork: () -> Unit,
     onUpdateRoutineSetIdList: (Int, Boolean) -> Unit,
     selectedRoutineSetIdList: List<Int>,
 ) {
+
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -80,6 +94,37 @@ internal fun ReadyWorkSelectionScreen(
                 onBackClickTopBar = onBackClickTopBar
             )
         },
+        floatingActionButton = {
+            LiftButton(
+                contentPadding = PaddingValues(
+                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                ),
+                onClick = onClickStartWork,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                    ),
+                enabled = selectedRoutineSetIdList.isNotEmpty()
+            ) {
+                Text(
+                    text = "운동시작하기 (${selectedRoutineSetIdList.size}개)",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no5,
+                )
+                Spacer(modifier = modifier.padding(2.dp))
+                Icon(
+                    painterResource(id = LiftIcon.ChevronRight),
+                    contentDescription = null,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .width(8.dp)
+                )
+
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center
     ) {
         Column(
             modifier = modifier.padding(it)
@@ -241,6 +286,7 @@ fun ReadyWorkSelectionPreview() {
             ),
             onBackClickTopBar = {},
             onClickWeekDayCard = {},
+            onClickStartWork = {},
             onUpdateRoutineSetIdList = { _, _ -> },
             selectedRoutineSetIdList = listOf()
         )
