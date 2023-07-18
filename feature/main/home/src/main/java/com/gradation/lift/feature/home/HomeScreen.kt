@@ -19,6 +19,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.*
+import com.gradation.lift.feature.home.component.profile_view.ProfileView
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
@@ -89,72 +90,71 @@ internal fun HomeScreen(
     onClickType: () -> Unit,
     scrollState: ScrollState,
 ) {
-    Scaffold(
-        topBar = {
-            LiftHomeTopBar()
-        },
-        floatingActionButton = {
-            LiftButton(
-                contentPadding = PaddingValues(
-                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                ),
-                onClick = onClickStartWork,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                    )
-            ) {
-                Text(
-                    text = "운동시작하기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no5,
-                )
-                Spacer(modifier = modifier.padding(2.dp))
-                Icon(
-                    painterResource(id = LiftIcon.ChevronRight),
-                    contentDescription = null,
+    Surface(color = LiftTheme.colorScheme.no12) {
+        Scaffold(
+            topBar = {
+                LiftHomeTopBar()
+            },
+            floatingActionButton = {
+                LiftButton(
+                    contentPadding = PaddingValues(
+                        start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
+                    ),
+                    onClick = onClickStartWork,
                     modifier = modifier
-                        .fillMaxHeight()
-                        .width(8.dp)
+                        .fillMaxWidth()
+                        .padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                        )
+                ) {
+                    Text(
+                        text = "운동시작하기",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no5,
+                    )
+                    Spacer(modifier = modifier.padding(2.dp))
+                    Icon(
+                        painterResource(id = LiftIcon.ChevronRight),
+                        contentDescription = null,
+                        modifier = modifier
+                            .fillMaxHeight()
+                            .width(8.dp)
+                    )
+
+                }
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+        ) { padding ->
+            Column(
+                modifier = modifier
+                    .verticalScroll(scrollState)
+                    .padding(padding)
+            ) {
+                ProfileView(
+                    modifier = modifier,
+                    userDetailUiState = userDetailUiState,
+                    onClickAlarm = onClickAlarm,
+                    onClickType = onClickType,
                 )
 
+
+                RoutineView(
+                    modifier = modifier,
+                    today = today,
+                    weekDateRoutineUiState = weekDateRoutineUiState,
+                    weekDate = weekDate,
+                    onClickCreateRoutine = onClickCreateRoutine,
+                    onClickWeekDateCard = onClickWeekDateCard,
+                    onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
+                    onClickAddRoutine = onClickAddRoutine,
+                    onClickUpdateRoutine = onClickModifyRoutine
+                )
+                Spacer(modifier = modifier.padding(72.dp))
             }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-    ) { padding ->
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .padding(padding)
-        ) {
-
-            ProfileView(
-                modifier = modifier,
-                userDetailUiState = userDetailUiState,
-                onClickAlarm = onClickAlarm,
-                onClickType = onClickType,
-            )
-            Spacer(modifier = modifier.padding(8.dp))
-            BadgeView(modifier = modifier)
-            Spacer(modifier = modifier.padding(8.dp))
-
-            RoutineView(
-                modifier = modifier,
-                today = today,
-                weekDateRoutineUiState = weekDateRoutineUiState,
-                weekDate = weekDate,
-                onClickCreateRoutine = onClickCreateRoutine,
-                onClickWeekDateCard = onClickWeekDateCard,
-                onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
-                onClickAddRoutine = onClickAddRoutine,
-                onClickUpdateRoutine = onClickModifyRoutine
-            )
-            Spacer(modifier = modifier.padding(72.dp))
         }
     }
+
 }
 
 

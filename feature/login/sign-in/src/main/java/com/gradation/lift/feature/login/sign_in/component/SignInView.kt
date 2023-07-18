@@ -22,7 +22,6 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.ToggleVisible
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperView
 import com.gradation.lift.feature.login.sign_in.component.detail.SignUpView
 
 @Composable
