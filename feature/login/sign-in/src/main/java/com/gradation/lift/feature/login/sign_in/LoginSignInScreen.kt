@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftErrorSnackbar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -27,7 +26,11 @@ import com.gradation.lift.ui.DevicePreview
 
 @Composable
 internal fun LoginSignInRoute(
-    navController: NavController,
+    navigateToLoginFindEmail: () -> Unit,
+    navigateToLoginFindPassword: () -> Unit,
+    navigateToLoginSignUp: () -> Unit,
+    navigateLoginToHome: () -> Unit,
+    navigateLoginToRegisterDetail: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
@@ -41,10 +44,10 @@ internal fun LoginSignInRoute(
         passwordText = viewModel.password,
         updateEmailText = viewModel.updateEmail(),
         updatePasswordText = viewModel.updatePassword(),
-        onClickFindEmail = { navController.navigateToLoginFindEmail() },
-        onClickFindPassword = { navController.navigateToLoginFindPassword() },
-        onClickSignUp = { navController.navigateToLoginSignUp() },
-        onClickSignIn = viewModel::signIn,
+        onClickFindEmail = navigateToLoginFindEmail,
+        onClickFindPassword = navigateToLoginFindPassword,
+        onClickSignUp = navigateToLoginSignUp,
+        onClickSignIn = viewModel.signIn(),
         autoLoginChecked = autoLoginChecked.value,
         onChangeAutoLoginChecked = viewModel.onChangeAutoLoginChecked(),
         passwordVisible = viewModel.passwordVisible,
@@ -64,14 +67,13 @@ internal fun LoginSignInRoute(
                 )
             }
         }
-        SignInUiState.Loading -> {}
         SignInUiState.None -> {}
         is SignInUiState.Success -> {
             LaunchedEffect(result) {
                 if (result.existUserDetail) {
-                    navController.navigateLoginToHome()
+                     navigateLoginToHome()
                 } else {
-                    navController.navigateLoginToRegisterDetail()
+                    navigateLoginToRegisterDetail()
                 }
 
             }
@@ -102,7 +104,7 @@ internal fun LoginSignInScreen(
     Scaffold(
         modifier = modifier.padding(16.dp),
         snackbarHost = {
-            LiftErrorSnackbar(snackbarHostState=snackbarHostState)
+            LiftErrorSnackbar(snackbarHostState = snackbarHostState)
         }
     ) { it ->
         Column(

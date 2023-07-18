@@ -63,15 +63,14 @@ class LoginSignInViewModel @Inject constructor(
     }
 
 
-
     fun clearPassword(): () -> Unit = { password = "" }
     fun updateEmail(): (String) -> Unit = { email = it }
     fun updatePassword(): (String) -> Unit = { password = it }
 
     var signInUiState = MutableStateFlow<SignInUiState>(SignInUiState.None)
-    fun signIn() {
+    fun signIn(): () -> Unit = {
         viewModelScope.launch {
-            signInUiState.value = SignInUiState.Loading
+            signInUiState.value = SignInUiState.None
             if (email.isBlank() || password.isBlank()) {
                 signInUiState.value = SignInUiState.Fail(
                     message = "아이디 또는 비밀번호를 입력해주세요."
@@ -108,12 +107,9 @@ class LoginSignInViewModel @Inject constructor(
 }
 
 
-
-
 sealed interface SignInUiState {
 
     data class Success(val existUserDetail: Boolean) : SignInUiState
     data class Fail(val message: String) : SignInUiState
-    object Loading : SignInUiState
     object None : SignInUiState
 }

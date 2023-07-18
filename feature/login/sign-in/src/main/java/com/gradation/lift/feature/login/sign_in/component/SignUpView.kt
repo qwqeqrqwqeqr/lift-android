@@ -37,7 +37,7 @@ internal fun SignUpView(
                     TextStyle(
                         color = LiftTheme.colorScheme.no11,
                         textDecoration = TextDecoration.Underline),
-            onClick = { offset ->
+            onClick = { _ ->
                 onClickSignUp()
             },
         )
