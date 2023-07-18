@@ -1,24 +1,23 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.gradation.lift.feature.login.sign_in
 
-import android.widget.Toast
+import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.component.LiftErrorSnackbar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
@@ -27,7 +26,7 @@ import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
-fun LoginSignInRoute(
+internal fun LoginSignInRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
@@ -35,6 +34,7 @@ fun LoginSignInRoute(
     val signInUiState: SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
     val autoLoginChecked = viewModel.autoLoginChecked.collectAsStateWithLifecycle()
 
+    val snackbarHostState = remember { mutableStateOf(SnackbarHostState()) }
     LoginSignInScreen(
         modifier = modifier,
         emailText = viewModel.email,
@@ -50,17 +50,19 @@ fun LoginSignInRoute(
         passwordVisible = viewModel.passwordVisible,
         onChangePasswordVisible = viewModel.onChangePasswordVisible(),
         passwordVisualTransformation = viewModel.passwordVisualTransformation,
-        clearPassword = viewModel.clearPassword()
+        clearPassword = viewModel.clearPassword(),
+        snackbarHostState = snackbarHostState.value
     )
 
     when (val result = signInUiState) {
-        //TODO toast 변경
         is SignInUiState.Fail -> {
-            Toast.makeText(
-                LocalContext.current,
-                result.message,
-                Toast.LENGTH_SHORT
-            ).show()
+            //TODO 클릭시 마다 실행 되도록 구현할 것
+            LaunchedEffect(result.message) {
+                snackbarHostState.value.showSnackbar(
+                    message = result.message,
+                    duration = SnackbarDuration.Short
+                )
+            }
         }
         SignInUiState.Loading -> {}
         SignInUiState.None -> {}
@@ -79,7 +81,7 @@ fun LoginSignInRoute(
 
 
 @Composable
-fun LoginSignInScreen(
+internal fun LoginSignInScreen(
     modifier: Modifier = Modifier,
     emailText: String,
     updateEmailText: (String) -> Unit,
@@ -95,16 +97,20 @@ fun LoginSignInScreen(
     onChangePasswordVisible: (Boolean) -> Unit,
     passwordVisualTransformation: VisualTransformation,
     clearPassword: () -> Unit,
+    snackbarHostState: SnackbarHostState,
 ) {
-    Surface(
-        color = LiftTheme.colorScheme.no5
-    ) {
+    Scaffold(
+        modifier = modifier.padding(16.dp),
+        snackbarHost = {
+            LiftErrorSnackbar(snackbarHostState=snackbarHostState)
+        }
+    ) { it ->
         Column(
             modifier = modifier
-                .padding(16.dp)
+                .padding(it)
                 .fillMaxSize()
+                .background(LiftTheme.colorScheme.no5)
         ) {
-
             Spacer(modifier = modifier.padding(48.dp))
             Text(
                 text = buildAnnotatedString {
@@ -138,16 +144,16 @@ fun LoginSignInScreen(
             )
             Spacer(modifier = modifier.padding(18.dp))
             SimpleLoginView()
-
-
         }
     }
+
 }
 
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 @DevicePreview
-fun LoginSignInPreview() {
+internal fun LoginSignInPreview() {
     LiftMaterialTheme {
         LoginSignInScreen(
             emailText = "",
@@ -163,7 +169,8 @@ fun LoginSignInPreview() {
             passwordVisible = true,
             onChangePasswordVisible = {},
             passwordVisualTransformation = VisualTransformation.None,
-            clearPassword = {}
+            clearPassword = {},
+            snackbarHostState = SnackbarHostState()
         )
     }
 }

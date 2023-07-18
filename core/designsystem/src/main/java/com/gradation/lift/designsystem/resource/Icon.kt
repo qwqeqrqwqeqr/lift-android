@@ -29,8 +29,10 @@ object LiftIcon{
     val Gallery = R.drawable.gallery
     val Lock = R.drawable.lock
     val Mail = R.drawable.mail
-
+    val Warn = R.drawable.warn
     val Bell = R.drawable.bell
+
+
 
     val LoginKakao = R.drawable.login_kakao
     val LoginNaver = R.drawable.login_naver

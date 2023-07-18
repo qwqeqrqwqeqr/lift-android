@@ -17,7 +17,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 
 @Composable
-fun SignUpView(
+internal fun SignUpView(
     modifier: Modifier = Modifier,
     onClickSignUp: () -> Unit,
 ) {

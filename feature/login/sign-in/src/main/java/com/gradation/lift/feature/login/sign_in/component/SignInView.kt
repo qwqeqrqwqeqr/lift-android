@@ -26,7 +26,7 @@ import com.gradation.lift.feature.login.sign_in.component.detail.SignInHelperVie
 import com.gradation.lift.feature.login.sign_in.component.detail.SignUpView
 
 @Composable
-fun SignInView(
+internal fun SignInView(
     modifier: Modifier = Modifier,
     emailText: String,
     updateEmailText: (String) -> Unit,

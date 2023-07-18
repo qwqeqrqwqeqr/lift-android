@@ -49,6 +49,8 @@ internal val COLOR_NO18: Color = Color(0xFF40E2BD)
 internal val COLOR_NO19: Color = Color(0xFFFC5858)
 internal val COLOR_NO20: Color = Color(0xFFFFC124)
 internal val COLOR_NO21: Color = Color(0xFFFFEDED)
+internal val COLOR_NO22: Color = Color(0xDDFF4F4F)
+
 
 data class LiftColorScheme(
     val no1: Color,
@@ -71,7 +73,8 @@ data class LiftColorScheme(
     val no18: Color,
     val no19: Color,
     val no20: Color,
-    val no21: Color
+    val no21: Color,
+    val no22: Color
 )
 
 fun liftLightColorScheme(
@@ -96,6 +99,7 @@ fun liftLightColorScheme(
     no19: Color = COLOR_NO19,
     no20: Color = COLOR_NO20,
     no21: Color = COLOR_NO21,
+    no22: Color = COLOR_NO22,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -118,31 +122,33 @@ fun liftLightColorScheme(
         no18,
         no19,
         no20,
-        no21
+        no21,
+        no22
     )
 
 fun liftDarkColorScheme(
-    no1: Color = Color.Cyan,
-    no2: Color = Color.Cyan,
-    no3: Color = Color.Cyan,
-    no4: Color = Color.Cyan,
-    no5: Color = Color.Cyan,
-    no6: Color = Color.Cyan,
-    no7: Color = Color.Cyan,
-    no8: Color = Color.Cyan,
-    no9: Color = Color.Cyan,
-    no10: Color = Color.Cyan,
-    no11: Color = Color.Cyan,
-    no12: Color = Color.Cyan,
-    no13: Color = Color.Cyan,
-    no14: Color = Color.Cyan,
-    no15: Color = Color.Cyan,
-    no16: Color = Color.Cyan,
-    no17: Color = Color.Cyan,
-    no18: Color = Color.Cyan,
-    no19: Color = Color.Cyan,
-    no20: Color = Color.Cyan,
-    no21: Color= Color.Cyan
+    no1: Color = Color.Unspecified,
+    no2: Color = Color.Unspecified,
+    no3: Color = Color.Unspecified,
+    no4: Color = Color.Unspecified,
+    no5: Color = Color.Unspecified,
+    no6: Color = Color.Unspecified,
+    no7: Color = Color.Unspecified,
+    no8: Color = Color.Unspecified,
+    no9: Color = Color.Unspecified,
+    no10: Color = Color.Unspecified,
+    no11: Color = Color.Unspecified,
+    no12: Color = Color.Unspecified,
+    no13: Color = Color.Unspecified,
+    no14: Color = Color.Unspecified,
+    no15: Color = Color.Unspecified,
+    no16: Color = Color.Unspecified,
+    no17: Color = Color.Unspecified,
+    no18: Color = Color.Unspecified,
+    no19: Color = Color.Unspecified,
+    no20: Color = Color.Unspecified,
+    no21: Color= Color.Unspecified,
+    no22: Color= Color.Unspecified
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -165,7 +171,8 @@ fun liftDarkColorScheme(
         no18,
         no19,
         no20,
-        no21
+        no21,
+        no22
     )
 
 val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }

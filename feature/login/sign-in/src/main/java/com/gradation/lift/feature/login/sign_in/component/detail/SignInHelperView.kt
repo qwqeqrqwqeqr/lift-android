@@ -23,7 +23,7 @@ import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
-fun SignInHelperView(
+internal fun SignInHelperView(
     modifier: Modifier = Modifier,
     onClickFindEmail: () -> Unit,
     onClickFindPassword: () -> Unit,

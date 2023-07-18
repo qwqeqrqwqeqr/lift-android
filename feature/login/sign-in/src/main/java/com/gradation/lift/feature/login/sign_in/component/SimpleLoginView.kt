@@ -18,7 +18,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 
 @Composable
-fun SimpleLoginView(modifier: Modifier = Modifier) {
+internal fun SimpleLoginView(modifier: Modifier = Modifier) {
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Divider(
@@ -49,7 +49,7 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginKakao),
             label = "카카오톡",
-            modifier = modifier
+            modifier = modifier,
         )
         SimpleLoginButton(
             painterResource = painterResource(LiftIcon.LoginGoogle),
@@ -66,7 +66,7 @@ fun SimpleLoginView(modifier: Modifier = Modifier) {
 
 //TODO 간편로그인 로직 연동
 @Composable
-fun SimpleLoginButton(
+internal fun SimpleLoginButton(
     painterResource: Painter,
     label: String,
     modifier: Modifier = Modifier,

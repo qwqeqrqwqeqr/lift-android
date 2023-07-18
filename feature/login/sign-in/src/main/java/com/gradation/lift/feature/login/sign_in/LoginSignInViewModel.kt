@@ -36,6 +36,7 @@ class LoginSignInViewModel @Inject constructor(
         PasswordVisualTransformation()
     )
 
+
     var autoLoginChecked =
         getAutoLoginSettingUseCase().stateIn(
             scope = viewModelScope,
@@ -57,10 +58,11 @@ class LoginSignInViewModel @Inject constructor(
     fun onChangeAutoLoginChecked(): (Boolean) -> Unit = {
         viewModelScope.launch {
             setAutoLoginSettingUseCase(value = it)
-            Log.d("login","autologin button ${it} / ${autoLoginChecked.value}")
         }
 
     }
+
+
 
     fun clearPassword(): () -> Unit = { password = "" }
     fun updateEmail(): (String) -> Unit = { email = it }
@@ -89,8 +91,7 @@ class LoginSignInViewModel @Inject constructor(
                             existUserDetail().collect { existUserDetailResult ->
                                 when (existUserDetailResult) {
                                     is DataState.Fail -> {
-                                        signInUiState.value =
-                                            SignInUiState.Fail(existUserDetailResult.message)
+                                        signInUiState.value = SignInUiState.Fail("로그인을 실패하였습니다.")
                                     }
                                     is DataState.Success -> signInUiState.value =
                                         SignInUiState.Success(
@@ -105,6 +106,8 @@ class LoginSignInViewModel @Inject constructor(
         }
     }
 }
+
+
 
 
 sealed interface SignInUiState {
