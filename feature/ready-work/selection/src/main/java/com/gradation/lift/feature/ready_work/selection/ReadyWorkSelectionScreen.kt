@@ -4,16 +4,16 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,10 +26,9 @@ import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.ready_work.selection.component.WeekdayView
+import com.gradation.lift.feature.ready_work.selection.component.WeekdayCardListView
 import com.gradation.lift.feature.ready_work.selection.component.routine_list.LoadingRoutineListView
-import com.gradation.lift.feature.ready_work.selection.data.ReadyWorkSelectionViewModel
-import com.gradation.lift.feature.ready_work.selection.data.WeekDateRoutineUiState
+import com.gradation.lift.feature.ready_work.selection.data.*
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.navigation.navigation.navigateHomeToReadyWorkGraph
@@ -45,15 +44,22 @@ internal fun ReadyWorkSelectionRoute(
 ) {
 
     val weekDate: List<WeekdayCard> by viewModel.weekDate.collectAsStateWithLifecycle()
-    val weekDateRoutine: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
+    val routineSetRoutineSelection: RoutineSetRoutineSelectionUiState by viewModel.routineSetRoutineSelection.collectAsStateWithLifecycle()
+    val selectedRoutineSetIdList by viewModel.selectedRoutineSetIdList.collectAsStateWithLifecycle()
+
 
     ReadyWorkSelectionScreen(
         modifier = modifier,
         weekday = weekDate,
-        weekDateRoutine = weekDateRoutine,
+        routineSetRoutineSelection = routineSetRoutineSelection,
         onBackClickTopBar = { navController.navigateHomeToReadyWorkGraph() },
-        onClickWeekDayCard = viewModel.onClickWeekDayCard()
+        onClickWeekDayCard = viewModel.onClickWeekDayCard(),
+        selectedRoutineSetIdList = selectedRoutineSetIdList,
+        onUpdateRoutineSetIdList = viewModel.updateRoutineSetIdList(),
     )
+    LaunchedEffect(key1 = true) {
+        viewModel.updatePreviousRoutineSetId(navController)
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,9 +67,11 @@ internal fun ReadyWorkSelectionRoute(
 internal fun ReadyWorkSelectionScreen(
     modifier: Modifier = Modifier,
     weekday: List<WeekdayCard>,
-    weekDateRoutine: WeekDateRoutineUiState,
+    routineSetRoutineSelection: RoutineSetRoutineSelectionUiState,
     onBackClickTopBar: () -> Unit,
     onClickWeekDayCard: (LocalDate) -> Unit,
+    onUpdateRoutineSetIdList: (Int, Boolean) -> Unit,
+    selectedRoutineSetIdList: List<Int>,
 ) {
     Scaffold(
         topBar = {
@@ -76,32 +84,30 @@ internal fun ReadyWorkSelectionScreen(
         Column(
             modifier = modifier.padding(it)
         ) {
-            WeekdayView(
+            WeekdayCardListView(
                 weekday = weekday,
                 modifier = modifier,
                 onClickWeekDayCard = onClickWeekDayCard
             )
 
-            when (weekDateRoutine) {
-                WeekDateRoutineUiState.Empty -> {
+            when (routineSetRoutineSelection) {
+                RoutineSetRoutineSelectionUiState.Empty -> {
 
                 }
-                is WeekDateRoutineUiState.Fail -> {
+                is RoutineSetRoutineSelectionUiState.Fail -> {
 
 
                 }
-                WeekDateRoutineUiState.Loading -> {
+                RoutineSetRoutineSelectionUiState.Loading -> {
                     LoadingRoutineListView(modifier = modifier)
                 }
-                is WeekDateRoutineUiState.Success -> {
-                    Column(
-                        modifier = modifier.padding(20.dp),
-                        verticalArrangement = Arrangement.spacedBy(
-                            12.dp,
-                            Alignment.CenterVertically
-                        ),
+                is RoutineSetRoutineSelectionUiState.Success -> {
+                    LazyColumn(
+                        contentPadding = PaddingValues(all = 20.dp),
+                        modifier = modifier,
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        weekDateRoutine.weekDateRoutine.forEach { routineSetRoutine ->
+                        itemsIndexed(routineSetRoutineSelection.routineSetRoutineSelection) { _, routineSetRoutine ->
                             Column(
                                 modifier = modifier
                                     .background(LiftTheme.colorScheme.no5)
@@ -110,13 +116,13 @@ internal fun ReadyWorkSelectionScreen(
                                         color = LiftTheme.colorScheme.no8,
                                         shape = RoundedCornerShape(size = 16.dp)
                                     )
-                                    .clickable { }
                                     .fillMaxWidth(),
                                 verticalArrangement = Arrangement.Top,
                                 horizontalAlignment = Alignment.Start,
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
+
                                     modifier = modifier.padding(
                                         start = 16.dp,
                                         top = 12.dp,
@@ -125,24 +131,30 @@ internal fun ReadyWorkSelectionScreen(
                                     )
                                 ) {
                                     ToggleCheckbox(
-                                        checked = false,
-                                        onCheckedChange = {},
+                                        checked = routineSetRoutine.selected,
+                                        onCheckedChange = { checked ->
+                                            onUpdateRoutineSetIdList(
+                                                routineSetRoutine.routineSetRoutine.id,
+                                                checked
+                                            )
+                                        },
                                         modifier = modifier.size(26.dp)
                                     )
                                     Spacer(modifier = modifier.padding(4.dp))
                                     Column(
                                         horizontalAlignment = Alignment.Start,
-                                        verticalArrangement = Arrangement.Center
+                                        verticalArrangement = Arrangement.Center,
+                                        modifier = modifier.weight(1f)
                                     ) {
                                         Text(
-                                            text = routineSetRoutine.name,
+                                            text = routineSetRoutine.routineSetRoutine.name,
                                             style = LiftTheme.typography.no2,
-                                            color = LiftTheme.colorScheme.no9,
+                                            color = if (routineSetRoutine.selected) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no9,
                                             overflow = TextOverflow.Ellipsis,
                                             maxLines = 1
                                         )
                                         Text(
-                                            text = routineSetRoutine.description,
+                                            text = routineSetRoutine.routineSetRoutine.description,
                                             style = LiftTheme.typography.no4,
                                             color = LiftTheme.colorScheme.no9,
                                             overflow = TextOverflow.Ellipsis,
@@ -151,17 +163,20 @@ internal fun ReadyWorkSelectionScreen(
                                     }
                                     Spacer(modifier = modifier.padding(4.dp))
                                     Icon(
-                                        painterResource(id = LiftIcon.ChevronRightSharp),
+                                        painterResource(id = LiftIcon.ChevronRight),
                                         contentDescription = null,
+                                        modifier = modifier
+                                            .width(10.dp)
+                                            .height(16.dp)
                                     )
                                 }
-                                routineSetRoutine.routine.forEach { routine ->
-
+                                routineSetRoutine.routineSetRoutine.routine.forEach { routine ->
                                     Divider(
                                         modifier = modifier,
                                         thickness = 4.dp,
                                         color = LiftTheme.colorScheme.no1,
                                     )
+                                    Spacer(modifier = modifier.padding(2.dp))
                                     Column(
                                         modifier = modifier.padding(
                                             start = 16.dp,
@@ -170,12 +185,26 @@ internal fun ReadyWorkSelectionScreen(
                                             end = 24.dp
                                         )
                                     ) {
-                                        Text(
-                                            text = routine.workCategory.name,
-                                            style = LiftTheme.typography.no3,
-                                            color = LiftTheme.colorScheme.no9,
-                                        )
+                                        Row(
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = modifier.fillMaxWidth()
+                                        ) {
+                                            Text(
+                                                text = routine.workCategory.name,
+                                                style = LiftTheme.typography.no3,
+                                                color = LiftTheme.colorScheme.no9,
+                                            )
+                                            Icon(
+                                                painterResource(id = LiftIcon.ChevronRight),
+                                                contentDescription = null,
+                                                modifier = modifier
+                                                    .width(10.dp)
+                                                    .height(16.dp)
+                                            )
+                                        }
                                     }
+                                    Spacer(modifier = modifier.padding(2.dp))
                                 }
                             }
                         }
@@ -185,6 +214,7 @@ internal fun ReadyWorkSelectionScreen(
         }
     }
 }
+
 
 @Composable
 @Preview
@@ -201,11 +231,18 @@ fun ReadyWorkSelectionPreview() {
                 WeekdayCard(weekday = Weekday.Saturday()),
                 WeekdayCard(weekday = Weekday.Sunday(), selected = true)
             ),
-            weekDateRoutine = WeekDateRoutineUiState.Success(
-                weekDateRoutine = TestModelDataGenerator.Routine.routineSetRoutineModelList
+            routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Success(
+                routineSetRoutineSelection = TestModelDataGenerator.Routine.routineSetRoutineModelList.map {
+                    RoutineSetRoutineSelection(
+                        routineSetRoutine = it,
+                        selected = false
+                    )
+                }
             ),
             onBackClickTopBar = {},
-            onClickWeekDayCard = {}
+            onClickWeekDayCard = {},
+            onUpdateRoutineSetIdList = { _, _ -> },
+            selectedRoutineSetIdList = listOf()
         )
 
     }

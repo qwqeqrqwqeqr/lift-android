@@ -1,14 +1,17 @@
 package com.gradation.lift.feature.ready_work.selection.data
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.getIntValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -23,14 +26,16 @@ import javax.inject.Inject
 @RequiresApi(Build.VERSION_CODES.O)
 class ReadyWorkSelectionViewModel @Inject constructor(
     private val getWeekDateUseCase: GetWeekDateUseCase,
-    private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase
+    private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
 ) : ViewModel() {
+
 
     private val currentDate =
         MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
 
 
-    internal val selectedRoutineSet = MutableStateFlow(emptyList<RoutineSetRoutine>())
+    internal val selectedRoutineSetIdList = MutableStateFlow(emptyList<Int>())
+
 
     internal val weekDate = currentDate.map {
         getWeekDateUseCase(it).map { localDate ->
@@ -48,30 +53,55 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         initialValue = emptyList()
     )
 
-    internal val weekDateRoutine: StateFlow<WeekDateRoutineUiState> =
-        currentDate.flatMapLatest { currentDate ->
+    val routineSetRoutineSelection =
+        selectedRoutineSetIdList.combine(currentDate) { routineSetIdList, currentDate ->
             getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
                 when (it) {
-                    is DataState.Fail -> WeekDateRoutineUiState.Fail(message = it.message)
+                    is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = it.message)
                     is DataState.Success -> {
                         if (it.data.isEmpty()) {
-                            WeekDateRoutineUiState.Empty
+                            RoutineSetRoutineSelectionUiState.Empty
                         } else {
-
-                            WeekDateRoutineUiState.Success(
-                                weekDateRoutine = it.data
+                            RoutineSetRoutineSelectionUiState.Success(
+                                it.data.map { routineSetRoutine ->
+                                    RoutineSetRoutineSelection(
+                                        routineSetRoutine = routineSetRoutine,
+                                        selected = (routineSetIdList.contains(routineSetRoutine.id))
+                                    )
+                                }
                             )
                         }
                     }
                 }
             }
-        }.stateIn(
+        }.flatMapLatest { it }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = WeekDateRoutineUiState.Loading
+            initialValue = RoutineSetRoutineSelectionUiState.Loading
         )
 
     internal fun onClickWeekDayCard(): (LocalDate) -> Unit = {
         currentDate.value = it
     }
+
+    fun updateRoutineSetIdList(): (Int, Boolean) -> Unit = { id, checked ->
+        if (checked) {
+            selectedRoutineSetIdList.update { it.plusElement(id) }
+        } else {
+            selectedRoutineSetIdList.update { it.minusElement(id) }
+        }
+    }
+
+    fun updatePreviousRoutineSetId(navController: NavController) {
+        selectedRoutineSetIdList.update {
+            it.plusElement(
+                navController.getIntValue(
+                    SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY
+                )
+            )
+        }
+
+
+    }
+
 }

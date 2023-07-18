@@ -15,7 +15,7 @@ import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import kotlinx.datetime.LocalDate
 
 @Composable
-internal fun WeekdayView(
+internal fun WeekdayCardListView(
     weekday: List<WeekdayCard>,
     modifier: Modifier = Modifier,
     onClickWeekDayCard: (LocalDate) -> Unit,

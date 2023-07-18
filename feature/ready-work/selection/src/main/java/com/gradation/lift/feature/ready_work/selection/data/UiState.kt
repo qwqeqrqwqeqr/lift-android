@@ -14,12 +14,18 @@ internal data class WeekdayCard(
     var selected: Boolean = false,
 )
 
+data class RoutineSetRoutineSelection(
+    val routineSetRoutine: RoutineSetRoutine,
+    val selected: Boolean,
+)
 
-sealed interface WeekDateRoutineUiState {
-    data class Success(val weekDateRoutine: List<RoutineSetRoutine>) : WeekDateRoutineUiState
-    data class Fail(val message: String) : WeekDateRoutineUiState
-    object Loading : WeekDateRoutineUiState
-    object Empty: WeekDateRoutineUiState
+
+sealed interface RoutineSetRoutineSelectionUiState {
+    data class Success(val routineSetRoutineSelection: List<RoutineSetRoutineSelection>) :
+        RoutineSetRoutineSelectionUiState
+    data class Fail(val message: String) : RoutineSetRoutineSelectionUiState
+    object Loading : RoutineSetRoutineSelectionUiState
+    object Empty : RoutineSetRoutineSelectionUiState
 }
 
 
