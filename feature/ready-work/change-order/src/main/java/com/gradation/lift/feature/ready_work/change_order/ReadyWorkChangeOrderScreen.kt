@@ -2,18 +2,26 @@ package com.gradation.lift.feature.ready_work.change_order
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -103,7 +111,7 @@ fun ReadyWorkChangeOrderScreen(
                 .padding(16.dp)
                 .fillMaxSize()
         ) {
-            when(routineSetRoutine){
+            when (routineSetRoutine) {
                 RoutineSetRoutineUiState.Empty -> TODO()
                 is RoutineSetRoutineUiState.Fail -> TODO()
                 RoutineSetRoutineUiState.Loading -> TODO()
@@ -114,6 +122,74 @@ fun ReadyWorkChangeOrderScreen(
                         color = LiftTheme.colorScheme.no9,
                         textAlign = TextAlign.Start
                     )
+                    Spacer(modifier = modifier.padding(8.dp))
+                    LazyColumn(
+                        modifier = modifier,
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        itemsIndexed(routineSetRoutine.routineSetRoutine) { index, routineSetRoutine ->
+                            Row(
+                                modifier = modifier
+                                    .background(LiftTheme.colorScheme.no5)
+                                    .border(
+                                        width = 1.dp,
+                                        color = LiftTheme.colorScheme.no8,
+                                        shape = RoundedCornerShape(size = 16.dp)
+                                    )
+                                    .padding(16.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement=Arrangement.SpaceBetween
+                            ) {
+                                Row {
+                                    NumberCircle(
+                                        number = index + 1,
+                                        modifier = modifier.align(CenterVertically)
+                                    )
+                                    Spacer(modifier = modifier.padding(8.dp))
+
+                                    Column(
+                                        horizontalAlignment = Alignment.Start,
+                                        verticalArrangement = Arrangement.Center,
+                                        modifier = modifier.align(CenterVertically)
+                                    ) {
+                                        Row {
+                                            Text(
+                                                text = routineSetRoutine.name,
+                                                style = LiftTheme.typography.no2,
+                                                color = LiftTheme.colorScheme.no9,
+                                                overflow = TextOverflow.Ellipsis,
+                                                textAlign = TextAlign.Start,
+                                                maxLines = 1
+                                            )
+                                            Spacer(modifier = modifier.padding(4.dp))
+                                            Icon(
+                                                painter = painterResource(LiftIcon.Trash),
+                                                contentDescription = "",
+                                                tint = Color.Unspecified,
+                                                modifier = modifier.align(CenterVertically)
+
+                                            )
+                                        }
+                                        Text(
+                                            text = routineSetRoutine.description,
+                                            style = LiftTheme.typography.no4,
+                                            color = LiftTheme.colorScheme.no9,
+                                            textAlign = TextAlign.Start,
+                                            overflow = TextOverflow.Ellipsis,
+                                            maxLines = 1
+                                        )
+                                    }
+                                }
+                                Icon(
+                                    painter = painterResource(LiftIcon.Order),
+                                    contentDescription = "",
+                                    tint = Color.Unspecified,
+                                    modifier = modifier.align(CenterVertically)
+                                )
+
+                            }
+                        }
+                    }
                 }
             }
         }
