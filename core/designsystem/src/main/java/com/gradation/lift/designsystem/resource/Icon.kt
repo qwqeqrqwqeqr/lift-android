@@ -42,6 +42,8 @@ object LiftIcon{
 
     val ChevronRight = R.drawable.chevron_right
     val ChevronRightSharp = R.drawable.chevorn_right_sharp
+    val ChevronUp = R.drawable.chevorn_up
+    val ChevronDown = R.drawable.chevorn_down
     val Plus = R.drawable.plus
 }
 

@@ -1,11 +1,11 @@
 package com.gradation.lift.feature.ready_work.selection
 
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -17,6 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,7 +64,8 @@ internal fun ReadyWorkSelectionRoute(
         onClickWeekDayCard = viewModel.onClickWeekDayCard(),
         onClickStartWork = {},
         selectedRoutineSetIdList = selectedRoutineSetIdList,
-        onUpdateRoutineSetIdList = viewModel.updateRoutineSetIdList(),
+        onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
+        onUpdateRoutineList = viewModel.updateOpenedRoutineIdList(),
     )
 
     LaunchedEffect(key1 = true) {
@@ -83,7 +86,8 @@ internal fun ReadyWorkSelectionScreen(
     onBackClickTopBar: () -> Unit,
     onClickWeekDayCard: (LocalDate) -> Unit,
     onClickStartWork: () -> Unit,
-    onUpdateRoutineSetIdList: (Int, Boolean) -> Unit,
+    onUpdateRoutineSetRoutineList: (Int, Boolean) -> Unit,
+    onUpdateRoutineList: (Int, Boolean) -> Unit,
     selectedRoutineSetIdList: List<Int>,
 ) {
 
@@ -118,6 +122,7 @@ internal fun ReadyWorkSelectionScreen(
                     painterResource(id = LiftIcon.ChevronRight),
                     contentDescription = null,
                     modifier = modifier
+                        .align(Alignment.CenterVertically)
                         .fillMaxHeight()
                         .width(8.dp)
                 )
@@ -167,22 +172,26 @@ internal fun ReadyWorkSelectionScreen(
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
+                                    modifier = modifier
+                                        .clickable(
+                                            onClick = {
+                                                onUpdateRoutineSetRoutineList(
+                                                    routineSetRoutine.id,
+                                                    !routineSetRoutine.selected
+                                                )
+                                            })
+                                        .padding(
+                                            start = 16.dp,
+                                            top = 12.dp,
+                                            bottom = 12.dp,
+                                            end = 24.dp
+                                        )
 
-                                    modifier = modifier.padding(
-                                        start = 16.dp,
-                                        top = 12.dp,
-                                        bottom = 12.dp,
-                                        end = 24.dp
-                                    )
+
                                 ) {
                                     ToggleCheckbox(
                                         checked = routineSetRoutine.selected,
-                                        onCheckedChange = { checked ->
-                                            onUpdateRoutineSetIdList(
-                                                routineSetRoutine.routineSetRoutine.id,
-                                                checked
-                                            )
-                                        },
+                                        onCheckedChange = {},
                                         modifier = modifier.size(26.dp)
                                     )
                                     Spacer(modifier = modifier.padding(4.dp))
@@ -192,14 +201,14 @@ internal fun ReadyWorkSelectionScreen(
                                         modifier = modifier.weight(1f)
                                     ) {
                                         Text(
-                                            text = routineSetRoutine.routineSetRoutine.name,
+                                            text = routineSetRoutine.name,
                                             style = LiftTheme.typography.no2,
                                             color = if (routineSetRoutine.selected) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no9,
                                             overflow = TextOverflow.Ellipsis,
                                             maxLines = 1
                                         )
                                         Text(
-                                            text = routineSetRoutine.routineSetRoutine.description,
+                                            text = routineSetRoutine.description,
                                             style = LiftTheme.typography.no4,
                                             color = LiftTheme.colorScheme.no9,
                                             overflow = TextOverflow.Ellipsis,
@@ -215,7 +224,7 @@ internal fun ReadyWorkSelectionScreen(
                                             .height(16.dp)
                                     )
                                 }
-                                routineSetRoutine.routineSetRoutine.routine.forEach { routine ->
+                                routineSetRoutine.routine.forEach { routine ->
                                     Divider(
                                         modifier = modifier,
                                         thickness = 4.dp,
@@ -233,25 +242,133 @@ internal fun ReadyWorkSelectionScreen(
                                         Row(
                                             horizontalArrangement = Arrangement.SpaceBetween,
                                             verticalAlignment = Alignment.CenterVertically,
-                                            modifier = modifier.fillMaxWidth()
+                                            modifier = modifier
+                                                .fillMaxWidth()
+                                                .clickable(
+                                                    onClick = {
+                                                        onUpdateRoutineList(
+                                                            routine.routine.id,
+                                                            !routine.opened
+                                                        )
+                                                    }
+                                                )
                                         ) {
                                             Text(
-                                                text = routine.workCategory.name,
+                                                text = routine.routine.workCategory.name,
                                                 style = LiftTheme.typography.no3,
                                                 color = LiftTheme.colorScheme.no9,
                                             )
                                             Icon(
-                                                painterResource(id = LiftIcon.ChevronRight),
+                                                painterResource(id = if (routine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
                                                 contentDescription = null,
                                                 modifier = modifier
-                                                    .width(10.dp)
-                                                    .height(16.dp)
+                                                    .height(12.dp)
                                             )
                                         }
+                                        Spacer(modifier = modifier.padding(4.dp))
+
                                     }
-                                    Spacer(modifier = modifier.padding(2.dp))
+                                    if (routine.opened) {
+                                        Column(
+                                            modifier = modifier.padding(horizontal =  16.dp)
+                                        ) {
+                                            Row(
+                                                horizontalArrangement = Arrangement.spacedBy(24.dp)
+                                            )  {
+                                                Text(
+                                                    text = "Set",
+                                                    style = LiftTheme.typography.no3,
+                                                    color = LiftTheme.colorScheme.no9,
+                                                    textAlign = TextAlign.Center,
+                                                    modifier = modifier.weight(1f)
+                                                )
+                                                Text(
+                                                    text = "Kg",
+                                                    style = LiftTheme.typography.no3,
+                                                    color = LiftTheme.colorScheme.no9,
+                                                    textAlign = TextAlign.Center,
+                                                    modifier = modifier.weight(1f)
+                                                )
+                                                Text(
+                                                    text = "Reps",
+                                                    style = LiftTheme.typography.no3,
+                                                    color = LiftTheme.colorScheme.no9,
+                                                    textAlign = TextAlign.Center,
+                                                    modifier = modifier.weight(1f)
+                                                )
+                                            }
+                                            Spacer(modifier = modifier.padding(4.dp))
+                                            routine.routine.workSetList.forEachIndexed { index, workSet ->
+                                                Row(
+                                                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                                                ) {
+                                                    Box(
+                                                        modifier = modifier
+                                                            .weight(1f)
+                                                            .background(
+                                                                color = LiftTheme.colorScheme.no1,
+                                                                shape = RoundedCornerShape(
+                                                                    size = 30.dp
+                                                                )
+                                                            )
+                                                            .padding(4.dp)
+                                                        ,
+                                                        contentAlignment = Alignment.Center
+                                                    ) {
+                                                        Text(
+                                                            text = "${index + 1}",
+                                                            style = LiftTheme.typography.no3,
+                                                            color = LiftTheme.colorScheme.no9,
+                                                            textAlign = TextAlign.Center,
+                                                        )
+                                                    }
+                                                    Box(
+                                                        modifier = modifier
+                                                            .weight(1f)
+                                                            .background(
+                                                                color = LiftTheme.colorScheme.no1,
+                                                                shape = RoundedCornerShape(
+                                                                    size = 30.dp
+                                                                )
+                                                            )
+                                                            .padding(4.dp),
+                                                        contentAlignment = Alignment.Center
+                                                    ) {
+                                                        Text(
+                                                            text = "${workSet.weight}",
+                                                            style = LiftTheme.typography.no3,
+                                                            color = LiftTheme.colorScheme.no9,
+                                                            textAlign = TextAlign.Center,
+                                                        )
+                                                    }
+                                                    Box(
+                                                        modifier = modifier
+                                                            .weight(1f)
+                                                            .background(
+                                                                color = LiftTheme.colorScheme.no1,
+                                                                shape = RoundedCornerShape(
+                                                                    size = 30.dp
+                                                                )
+                                                            )
+                                                            .padding(4.dp),
+                                                        contentAlignment = Alignment.Center
+                                                    ) {
+                                                        Text(
+                                                            text = "${workSet.repetition}",
+                                                            style = LiftTheme.typography.no3,
+                                                            color = LiftTheme.colorScheme.no9,
+                                                            textAlign = TextAlign.Center,
+                                                        )
+                                                    }
+                                                }
+                                                Spacer(modifier = modifier.padding(4.dp))
+                                            }
+                                        }
+                                    }
                                 }
+                                Spacer(modifier = modifier.padding(4.dp))
                             }
+                            Spacer(modifier = modifier.padding(2.dp))
                         }
                     }
                 }
@@ -279,15 +396,25 @@ fun ReadyWorkSelectionPreview() {
             routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Success(
                 routineSetRoutineSelection = TestModelDataGenerator.Routine.routineSetRoutineModelList.map {
                     RoutineSetRoutineSelection(
-                        routineSetRoutine = it,
-                        selected = false
+                        id = it.id,
+                        name = it.name,
+                        description = it.description,
+                        weekday = it.weekday,
+                        selected = false,
+                        routine = it.routine.map { routine ->
+                            RoutineSelection(
+                                routine = routine,
+                                opened = true
+                            )
+                        }
                     )
                 }
             ),
             onBackClickTopBar = {},
             onClickWeekDayCard = {},
             onClickStartWork = {},
-            onUpdateRoutineSetIdList = { _, _ -> },
+            onUpdateRoutineSetRoutineList = { _, _ -> },
+            onUpdateRoutineList = { _, _ -> },
             selectedRoutineSetIdList = listOf()
         )
 

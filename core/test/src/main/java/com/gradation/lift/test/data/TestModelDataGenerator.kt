@@ -72,29 +72,29 @@ object TestModelDataGenerator {
         )
         private val routineSetModel1 = RoutineSet(
             id = 1,
-            name = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "행복한 월요일 루틴",
+            description = "가볍게 하는 운동",
             weekday = Weekday.Monday()
         )
         private val routineSetModel2 = RoutineSet(
             id = 2,
-            name = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "등 단련 루틴",
+            description = "집중 등 운동",
             weekday = Weekday.Monday()
         )
 
         private val routineSetRoutineModel1 = RoutineSetRoutine(
             id = 1,
-            name = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "행복한 월요일 루틴",
+            description = "가볍게 하는 운동",
             weekday = Weekday.Monday(),
             routine = listOf(routineModel1)
         )
 
         private val routineSetRoutineModel2 = RoutineSetRoutine(
             id = 2,
-            name = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            name = "등 단련 루틴",
+            description = "집중 등 운동",
             weekday = Weekday.Monday(),
             routine = listOf(routineModel2)
         )

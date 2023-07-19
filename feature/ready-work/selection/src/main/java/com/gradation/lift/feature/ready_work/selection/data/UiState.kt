@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.ready_work.selection.data
 
 import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.user.UserDetail
 import kotlinx.datetime.Clock
@@ -15,8 +16,16 @@ internal data class WeekdayCard(
 )
 
 data class RoutineSetRoutineSelection(
-    val routineSetRoutine: RoutineSetRoutine,
+    val id: Int,
+    val name: String,
+    val description: String,
+    val weekday: Weekday,
+    val routine: List<RoutineSelection>,
     val selected: Boolean,
+)
+data class RoutineSelection(
+    val routine: Routine,
+    val opened: Boolean
 )
 
 

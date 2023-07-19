@@ -36,6 +36,7 @@ class ReadyWorkSelectionViewModel @Inject constructor(
 
 
     internal val selectedRoutineSetIdList = MutableStateFlow(emptyList<Int>())
+    internal val openedRoutineIdList = MutableStateFlow(emptyList<Int>())
 
 
     internal val weekDate = currentDate.map {
@@ -55,7 +56,7 @@ class ReadyWorkSelectionViewModel @Inject constructor(
     )
 
     val routineSetRoutineSelection =
-        selectedRoutineSetIdList.combine(currentDate) { routineSetIdList, currentDate ->
+        combine(openedRoutineIdList,selectedRoutineSetIdList,currentDate) {openedRoutineIdList, routineSetIdList, currentDate ->
             getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
                 when (it) {
                     is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = it.message)
@@ -66,8 +67,17 @@ class ReadyWorkSelectionViewModel @Inject constructor(
                             RoutineSetRoutineSelectionUiState.Success(
                                 it.data.map { routineSetRoutine ->
                                     RoutineSetRoutineSelection(
-                                        routineSetRoutine = routineSetRoutine,
-                                        selected = (routineSetIdList.contains(routineSetRoutine.id))
+                                        id = routineSetRoutine.id,
+                                        name = routineSetRoutine.name,
+                                        description = routineSetRoutine.description,
+                                        weekday = routineSetRoutine.weekday,
+                                        selected = (routineSetIdList.contains(routineSetRoutine.id)),
+                                        routine = routineSetRoutine.routine.map { routine ->
+                                            RoutineSelection(
+                                                routine=routine,
+                                                opened = (openedRoutineIdList.contains(routine.id))
+                                            )
+                                        }
                                     )
                                 }
                             )
@@ -85,7 +95,7 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         currentDate.value = it
     }
 
-    fun updateRoutineSetIdList(): (Int, Boolean) -> Unit = { id, checked ->
+    fun updateSelectedRoutineSetIdList(): (Int, Boolean) -> Unit = { id, checked ->
         if (checked) {
             selectedRoutineSetIdList.update { it.plusElement(id) }
         } else {
@@ -93,6 +103,16 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         }
         Log.d("list",selectedRoutineSetIdList.value.toString())
     }
+
+    fun updateOpenedRoutineIdList(): (Int, Boolean) -> Unit = { id, checked ->
+        if (checked) {
+            openedRoutineIdList.update{ it.plusElement(id) }
+        } else {
+            openedRoutineIdList.update { it.minusElement(id) }
+        }
+        Log.d("list",openedRoutineIdList.value.toString())
+    }
+
 
     fun updatePreviousRoutineSetId(previousRoutineSetId :Int?) {
         previousRoutineSetId?.let { id ->
