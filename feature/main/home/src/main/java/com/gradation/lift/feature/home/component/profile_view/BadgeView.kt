@@ -36,12 +36,7 @@ internal fun BadgeView(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .background(
-                color = LiftTheme.colorScheme.no5,
-                shape = RoundedCornerShape(24.dp)
-            )
-            .fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

@@ -44,7 +44,10 @@ internal fun ProfileView(
     Column(
         modifier = modifier
             .fillMaxWidth()
-   
+            .background(
+                color = LiftTheme.colorScheme.no5,
+                shape = RoundedCornerShape(0.dp,0.dp,24.dp,24.dp)
+            )
             .padding(20.dp),
     ) {
         Row(

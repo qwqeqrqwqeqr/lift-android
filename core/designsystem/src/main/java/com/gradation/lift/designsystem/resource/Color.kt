@@ -49,7 +49,7 @@ internal val COLOR_NO18: Color = Color(0xFF40E2BD)
 internal val COLOR_NO19: Color = Color(0xFFFC5858)
 internal val COLOR_NO20: Color = Color(0xFFFFC124)
 internal val COLOR_NO21: Color = Color(0xFFFFEDED)
-internal val COLOR_NO22: Color = Color(0xDFF4F4F)
+internal val COLOR_NO22: Color = Color(0xDDFF4F4F)
 
 
 data class LiftColorScheme(

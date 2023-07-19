@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -90,7 +91,6 @@ internal fun HomeScreen(
     onClickType: () -> Unit,
     scrollState: ScrollState,
 ) {
-    Surface(color = LiftTheme.colorScheme.no12) {
         Scaffold(
             topBar = {
                 LiftHomeTopBar()
@@ -137,6 +137,7 @@ internal fun HomeScreen(
                     onClickAlarm = onClickAlarm,
                     onClickType = onClickType,
                 )
+                Spacer(modifier = modifier.padding(8.dp))
 
 
                 RoutineView(
@@ -153,12 +154,11 @@ internal fun HomeScreen(
                 Spacer(modifier = modifier.padding(72.dp))
             }
         }
-    }
 
 }
 
 
-@DevicePreview
+@Preview
 @Composable
 @SuppressLint("UnrememberedMutableState")
 internal fun HomeScreenPreview() {
