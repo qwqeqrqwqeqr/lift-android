@@ -47,7 +47,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
             }
         }
 
-    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetId: Int): Flow<APIResult<List<RoutineSetRoutine>>> =
+    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: List<Int>): Flow<APIResult<List<RoutineSetRoutine>>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(APIResult.Fail("오류"))

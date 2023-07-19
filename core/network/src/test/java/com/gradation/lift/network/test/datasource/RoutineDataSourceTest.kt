@@ -82,7 +82,7 @@ class RoutineDataSourceTest {
 
         TestCase.assertEquals(
             APIResult.Success(routineSetRoutineModelList),
-            dataSource.getRoutineSetRoutineByRoutineSetId(FAKE_INT_DATA).first()
+            dataSource.getRoutineSetRoutineByRoutineSetId(listOf(12,13,14)).first()
         )
     }
 

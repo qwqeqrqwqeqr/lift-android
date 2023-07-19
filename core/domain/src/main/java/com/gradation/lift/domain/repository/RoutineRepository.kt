@@ -16,5 +16,5 @@ interface RoutineRepository {
 
      fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<DataState<List<RoutineSetRoutine>>>
 
-     fun getRoutineSetRoutineByRoutineSetId(routineSetId: Int): Flow<DataState<List<RoutineSetRoutine>>>
+     fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: List<Int>): Flow<DataState<List<RoutineSetRoutine>>>
 }

@@ -144,10 +144,10 @@ class RoutineServiceTest {
                 .setResponseCode(Constants.OK)
         )
 
-        val response = routineService.getRoutineSetRoutineByRoutineSetId(FAKE_INT_DATA)
+        val response = routineService.getRoutineSetRoutineByRoutineSetId("12,13,14")
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine-by-routine-set-id/?routine_set_id=${FAKE_INT_DATA}")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine-by-routine-set-id/?routine_set_id_list=12%2C13%2C14")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
