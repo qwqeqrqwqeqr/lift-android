@@ -56,7 +56,7 @@ class RegisterDetailUnitOfWeightViewModel @Inject constructor(
                     )
                 ).let {
                     UserDetail(
-                        name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY] ?: "",
+                        name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY]?: "",
                         gender = when (it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY] ?: "") {
                             Gender.MALE_VALUE -> Gender.Male()
                             Gender.FEMALE_VALUE -> Gender.Female()

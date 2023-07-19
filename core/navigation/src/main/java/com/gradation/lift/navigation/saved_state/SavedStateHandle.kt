@@ -3,34 +3,21 @@ package com.gradation.lift.navigation.saved_state
 import androidx.navigation.NavController
 
 
-fun NavController.setStringValue(key: String, value: String) {
+
+fun <T> NavController.setValueSavedStateHandle(key: String, value:T){
     this.currentBackStackEntry?.let {
         with(it.savedStateHandle) {
             set(key, value)
         }
     }
 }
-
-fun NavController.getStringValue(key: String): String {
-
-    return this.previousBackStackEntry?.savedStateHandle?.get<String>(key) ?: ""
-}
-
-fun NavController.setIntValue(key: String, value: Int) {
-    this.currentBackStackEntry?.let {
-        with(it.savedStateHandle) {
-            set(key, value)
-        }
-    }
-}
-
-fun NavController.getIntValue(key: String): Int {
-    return this.previousBackStackEntry?.savedStateHandle?.get<Int>(key) ?: 0
+fun <T> NavController.getValueSavedStateHandle(key: String): T? {
+    return this.previousBackStackEntry?.savedStateHandle?.get<T>(key)
 }
 
 
 
-fun NavController.findValueInBackStackEntry(keyList: List<String>): Map<String, String> {
+fun  NavController.findValueInBackStackEntry(keyList: List<String>): Map<String, String> {
     val valueList = HashMap<String, String>()
     backQueue.reversed().forEach { backStackEntry ->
         keyList.forEach { key ->

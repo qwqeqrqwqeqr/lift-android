@@ -23,7 +23,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
 import com.gradation.lift.navigation.navigation.navigateToRegisterDetailHeightWeight
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getStringValue
+import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 import com.gradation.lift.ui.DevicePreview
 
 @Composable
@@ -33,7 +33,7 @@ fun RegisterDetailGenderRoute(
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
 
-    val name = navController.getStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY)
+    val name = navController.getValueSavedStateHandle<String>(SavedStateHandleKey.RegisterDetailKey.NAME_KEY) ?: ""
 
     RegisterDetailGenderScreen(
         modifier = modifier,

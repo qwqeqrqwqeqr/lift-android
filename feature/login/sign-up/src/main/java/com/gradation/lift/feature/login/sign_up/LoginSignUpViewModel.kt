@@ -11,7 +11,7 @@ import com.gradation.lift.domain.usecase.checker.CheckDuplicateEmailUseCase
 import com.gradation.lift.model.user.Email
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.EMAIL_KEY
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.PASSWORD_KEY
-import com.gradation.lift.navigation.saved_state.setStringValue
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -160,8 +160,8 @@ class LoginSignUpViewModel @Inject constructor(
 
 
     internal fun updateKey(navController: NavController) {
-        navController.setStringValue(EMAIL_KEY, email.value)
-        navController.setStringValue(PASSWORD_KEY, password.value)
+        navController.setValueSavedStateHandle(EMAIL_KEY, email.value)
+        navController.setValueSavedStateHandle(PASSWORD_KEY, password.value)
     }
 
 }

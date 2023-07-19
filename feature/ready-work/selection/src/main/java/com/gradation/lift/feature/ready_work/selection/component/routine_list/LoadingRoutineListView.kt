@@ -7,11 +7,20 @@ import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.feature.ready_work.selection.ReadyWorkSelectionScreen
+import com.gradation.lift.feature.ready_work.selection.data.RoutineSelection
+import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSelection
+import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSelectionUiState
+import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
+import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.test.data.TestModelDataGenerator
 
 @Composable
-fun LoadingRoutineListView(
+fun LoadingRoutineSetRoutineListView(
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -61,5 +70,31 @@ fun LoadingRoutineListView(
 
 
         }
+    }
+}
+@Composable
+@Preview
+fun LoadingRoutineListViewPreview() {
+    LiftMaterialTheme {
+        ReadyWorkSelectionScreen(
+            modifier = Modifier,
+            weekday = listOf(
+                WeekdayCard(weekday = Weekday.Monday()),
+                WeekdayCard(weekday = Weekday.Tuesday()),
+                WeekdayCard(weekday = Weekday.Wednesday()),
+                WeekdayCard(weekday = Weekday.Thursday()),
+                WeekdayCard(weekday = Weekday.Friday()),
+                WeekdayCard(weekday = Weekday.Saturday()),
+                WeekdayCard(weekday = Weekday.Sunday(), selected = true)
+            ),
+            routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Loading,
+            onBackClickTopBar = {},
+            onClickWeekDayCard = {},
+            onClickStartWork = {},
+            onUpdateRoutineSetRoutineList = { _, _ -> },
+            onUpdateRoutineList = { _, _ -> },
+            selectedRoutine = 2
+        )
+
     }
 }

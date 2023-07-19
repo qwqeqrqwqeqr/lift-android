@@ -5,14 +5,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getIntValue
-import com.gradation.lift.navigation.saved_state.setIntValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -35,9 +31,14 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
 
 
-    internal val selectedRoutineSetIdList = MutableStateFlow(emptyList<Int>())
-    internal val openedRoutineIdList = MutableStateFlow(emptyList<Int>())
+    private val selectedRoutineSetIdList = MutableStateFlow(emptyList<Int>())
+    private val openedRoutineIdList = MutableStateFlow(emptyList<Int>())
 
+    internal val selectedRoutine = selectedRoutineSetIdList.map { it -> it.size }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = 0
+    )
 
     internal val weekDate = currentDate.map {
         getWeekDateUseCase(it).map { localDate ->
@@ -56,7 +57,11 @@ class ReadyWorkSelectionViewModel @Inject constructor(
     )
 
     val routineSetRoutineSelection =
-        combine(openedRoutineIdList,selectedRoutineSetIdList,currentDate) {openedRoutineIdList, routineSetIdList, currentDate ->
+        combine(
+            openedRoutineIdList,
+            selectedRoutineSetIdList,
+            currentDate
+        ) { openedRoutineIdList, routineSetIdList, currentDate ->
             getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
                 when (it) {
                     is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = it.message)
@@ -74,7 +79,7 @@ class ReadyWorkSelectionViewModel @Inject constructor(
                                         selected = (routineSetIdList.contains(routineSetRoutine.id)),
                                         routine = routineSetRoutine.routine.map { routine ->
                                             RoutineSelection(
-                                                routine=routine,
+                                                routine = routine,
                                                 opened = (openedRoutineIdList.contains(routine.id))
                                             )
                                         }
@@ -101,20 +106,18 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         } else {
             selectedRoutineSetIdList.update { it.minusElement(id) }
         }
-        Log.d("list",selectedRoutineSetIdList.value.toString())
     }
 
     fun updateOpenedRoutineIdList(): (Int, Boolean) -> Unit = { id, checked ->
         if (checked) {
-            openedRoutineIdList.update{ it.plusElement(id) }
+            openedRoutineIdList.update { it.plusElement(id) }
         } else {
             openedRoutineIdList.update { it.minusElement(id) }
         }
-        Log.d("list",openedRoutineIdList.value.toString())
     }
 
 
-    fun updatePreviousRoutineSetId(previousRoutineSetId :Int?) {
+    fun updatePreviousRoutineSetId(previousRoutineSetId: Int?) {
         previousRoutineSetId?.let { id ->
             selectedRoutineSetIdList.update { list ->
                 list.plusElement(id)

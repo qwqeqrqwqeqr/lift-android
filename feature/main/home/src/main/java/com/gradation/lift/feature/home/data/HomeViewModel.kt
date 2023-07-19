@@ -12,8 +12,8 @@ import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUs
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setIntValue
-import com.gradation.lift.navigation.saved_state.setStringValue
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -97,7 +97,7 @@ class HomeViewModel @Inject constructor(
     }
 
     internal fun updateKey(navController: NavController,routineSetId :Int) {
-        navController.setIntValue(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY, routineSetId)
+        navController.setValueSavedStateHandle(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY, routineSetId)
     }
 }
 

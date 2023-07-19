@@ -14,7 +14,7 @@ import com.gradation.lift.common.utils.nameValidator
 import com.gradation.lift.domain.usecase.checker.CheckerDuplicateNameUseCase
 import com.gradation.lift.model.user.Name
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setStringValue
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -56,7 +56,7 @@ class RegisterDetailNameViewModel @Inject constructor(
 
 
     fun updateKey(navController: NavController) {
-        navController.setStringValue(SavedStateHandleKey.RegisterDetailKey.NAME_KEY, name.value)
+        navController.setValueSavedStateHandle(SavedStateHandleKey.RegisterDetailKey.NAME_KEY, name.value)
     }
 
 

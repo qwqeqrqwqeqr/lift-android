@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.READY_WORK_SELECTION_ROUTER_NAME
 import com.gradation.lift.navigation.route.ready_work.ReadyWorkSelectionRoute
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -18,7 +19,7 @@ fun readyWorkSelectionScreen(
     ReadyWorkSelectionRoute { route ->
         navGraphBuilder.composable(route) { backStackEntry ->
             val previousRoutineSetId =
-                navController.previousBackStackEntry?.savedStateHandle?.get<Int>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY)
+                navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY)
             ReadyWorkSelectionRoute(
                 navController = navController,
                 previousRoutineSetId = previousRoutineSetId

@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setStringValue
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -36,7 +36,7 @@ class RegisterDetailGenderViewModel @Inject constructor(
     }
 
     fun updateKey(navController: NavController) {
-        navController.setStringValue(
+        navController.setValueSavedStateHandle(
             SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
             if (male) "male" else "female"
         )
