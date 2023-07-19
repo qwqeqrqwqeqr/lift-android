@@ -77,7 +77,12 @@ fun RoutineSetRoutineListView(
                 ) {
                     ToggleCheckbox(
                         checked = routineSetRoutine.selected,
-                        onCheckedChange = {},
+                        onCheckedChange = {
+                            onUpdateRoutineSetRoutineList(
+                                routineSetRoutine.id,
+                                it
+                            )
+                        },
                         modifier = modifier.size(26.dp)
                     )
                     Spacer(modifier = modifier.padding(4.dp))

@@ -129,7 +129,7 @@ class ReadyWorkSelectionViewModel @Inject constructor(
     }
 
     internal fun updateKey(navController: NavController) {
-        navController.setValueSavedStateHandle(SavedStateHandleKey.WorkKey.SELECTED_ROUTINE_SET_KEY, selectedRoutineSetIdList)
+        navController.setValueSavedStateHandle(SavedStateHandleKey.WorkKey.SELECTED_ROUTINE_SET_KEY, selectedRoutineSetIdList.value)
     }
 
 }

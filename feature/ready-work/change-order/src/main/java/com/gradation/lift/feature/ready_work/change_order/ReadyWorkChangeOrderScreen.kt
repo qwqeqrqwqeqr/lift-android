@@ -3,6 +3,8 @@ package com.gradation.lift.feature.ready_work.change_order
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.DraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -43,11 +45,14 @@ fun ReadyWorkChangeOrderRoute(
 ) {
     val routineSetRoutine by viewModel.routineSetRoutine.collectAsStateWithLifecycle()
 
+    //TODO Implement DraggableState
+//    val dragAndDropState= remember { mutableStateOf(DraggableState()) }
     ReadyWorkChangeOrderScreen(
         modifier = modifier,
         onBackClickTopBar = navigateToReadyWorkSelection,
         onClickStartWork = navigateReadyWorkToWorkGraph,
-        routineSetRoutine = routineSetRoutine
+        routineSetRoutine = routineSetRoutine,
+        onDeleteRoutineSetRoutineList = viewModel.onDeleteRoutineSetRoutineList()
     )
 
     LaunchedEffect(key1 = true) {
@@ -55,6 +60,7 @@ fun ReadyWorkChangeOrderRoute(
             selectedRoutineSetIdList ?: emptyList()
         )
     }
+
 }
 
 @ExperimentalMaterial3Api
@@ -63,6 +69,7 @@ fun ReadyWorkChangeOrderScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
     onClickStartWork: () -> Unit,
+    onDeleteRoutineSetRoutineList: (Int) -> Unit,
     routineSetRoutine: RoutineSetRoutineUiState,
 ) {
     Scaffold(
@@ -95,7 +102,7 @@ fun ReadyWorkChangeOrderScreen(
                     painterResource(id = LiftIcon.ChevronRight),
                     contentDescription = null,
                     modifier = modifier
-                        .align(Alignment.CenterVertically)
+                        .align(CenterVertically)
                         .fillMaxHeight()
                         .width(8.dp)
                 )
@@ -112,9 +119,15 @@ fun ReadyWorkChangeOrderScreen(
                 .fillMaxSize()
         ) {
             when (routineSetRoutine) {
-                RoutineSetRoutineUiState.Empty -> TODO()
-                is RoutineSetRoutineUiState.Fail -> TODO()
-                RoutineSetRoutineUiState.Loading -> TODO()
+                RoutineSetRoutineUiState.Empty -> {
+
+                }
+                is RoutineSetRoutineUiState.Fail -> {
+
+                }
+                RoutineSetRoutineUiState.Loading -> {
+
+                }
                 is RoutineSetRoutineUiState.Success -> {
                     Text(
                         text = "운동순서",
@@ -138,7 +151,7 @@ fun ReadyWorkChangeOrderScreen(
                                     )
                                     .padding(16.dp)
                                     .fillMaxWidth(),
-                                horizontalArrangement=Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Row {
                                     NumberCircle(
@@ -166,7 +179,15 @@ fun ReadyWorkChangeOrderScreen(
                                                 painter = painterResource(LiftIcon.Trash),
                                                 contentDescription = "",
                                                 tint = Color.Unspecified,
-                                                modifier = modifier.align(CenterVertically)
+                                                modifier = modifier
+                                                    .clickable(
+                                                        onClick = {
+                                                            onDeleteRoutineSetRoutineList(
+                                                                routineSetRoutine.id
+                                                            )
+                                                        }
+                                                    )
+                                                    .align(CenterVertically)
 
                                             )
                                         }
@@ -180,13 +201,19 @@ fun ReadyWorkChangeOrderScreen(
                                         )
                                     }
                                 }
-                                Icon(
-                                    painter = painterResource(LiftIcon.Order),
-                                    contentDescription = "",
-                                    tint = Color.Unspecified,
-                                    modifier = modifier.align(CenterVertically)
-                                )
 
+                                IconButton(onClick = {}) {
+                                    Icon(
+                                        painter = painterResource(LiftIcon.Order),
+                                        contentDescription = "",
+                                        tint = Color.Unspecified,
+                                        modifier = modifier
+                                            .align(CenterVertically)
+                                            .clickable {
+
+                                            }
+                                    )
+                                }
                             }
                         }
                     }
@@ -206,6 +233,7 @@ fun ReadyWorkChangeOrderScreenPreview() {
             modifier = Modifier,
             onBackClickTopBar = {},
             onClickStartWork = {},
+            onDeleteRoutineSetRoutineList = {},
             routineSetRoutine =
             RoutineSetRoutineUiState.Success(
                 routineSetRoutine = routineSetRoutineModelList

@@ -20,8 +20,8 @@ fun NavController.navigateToReadyWorkChangeOrder() {
 }
 
 fun NavController.navigateToReadyWorkSelection() {
-    this.navigate(Router.READY_WORK_CHANGE_ORDER_ROUTER_NAME){
-        popUpTo(Router.READY_WORK_SELECTION_ROUTER_NAME){
+    this.navigate(Router.READY_WORK_SELECTION_ROUTER_NAME){
+        popUpTo(Router.READY_WORK_CHANGE_ORDER_ROUTER_NAME){
             this.inclusive=true
         }
     }

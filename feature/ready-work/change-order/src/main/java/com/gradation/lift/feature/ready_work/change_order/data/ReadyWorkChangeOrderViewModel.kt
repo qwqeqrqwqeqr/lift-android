@@ -12,7 +12,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class ReadyWorkChangeOrderViewModel @Inject constructor(
-    getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase
+    getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
 ) : ViewModel() {
 
 
@@ -20,13 +20,13 @@ class ReadyWorkChangeOrderViewModel @Inject constructor(
 
 
     val routineSetRoutine = routineSetIdList.flatMapLatest {
-        getRoutineSetRoutineByRoutineSetIdUseCase(it).map {  result ->
-            when(result){
+        getRoutineSetRoutineByRoutineSetIdUseCase(it).map { result ->
+            when (result) {
                 is DataState.Fail -> RoutineSetRoutineUiState.Fail(message = result.message)
                 is DataState.Success -> {
-                    if(result.data.isEmpty()){
+                    if (result.data.isEmpty()) {
                         RoutineSetRoutineUiState.Empty
-                    }else{
+                    } else {
                         RoutineSetRoutineUiState.Success(result.data)
                     }
                 }
@@ -43,6 +43,12 @@ class ReadyWorkChangeOrderViewModel @Inject constructor(
             routineSetIdList.update { list ->
                 list.plus(selectedRoutineSetIdList)
             }
+        }
+    }
+
+    fun onDeleteRoutineSetRoutineList(): (Int) -> Unit = { id ->
+        if (routineSetIdList.value.size > 1) {
+            routineSetIdList.update { it.minusElement(id) }
         }
     }
 }
