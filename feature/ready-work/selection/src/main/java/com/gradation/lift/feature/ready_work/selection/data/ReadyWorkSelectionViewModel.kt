@@ -5,10 +5,13 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.model.common.toWeekday
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -96,7 +99,7 @@ class ReadyWorkSelectionViewModel @Inject constructor(
             initialValue = RoutineSetRoutineSelectionUiState.Loading
         )
 
-    internal fun onClickWeekDayCard(): (LocalDate) -> Unit = {
+    internal fun updateCurrentDate(): (LocalDate) -> Unit = {
         currentDate.value = it
     }
 
@@ -124,4 +127,9 @@ class ReadyWorkSelectionViewModel @Inject constructor(
             }
         }
     }
+
+    internal fun updateKey(navController: NavController) {
+        navController.setValueSavedStateHandle(SavedStateHandleKey.WorkKey.SELECTED_ROUTINE_SET_KEY, selectedRoutineSetIdList)
+    }
+
 }

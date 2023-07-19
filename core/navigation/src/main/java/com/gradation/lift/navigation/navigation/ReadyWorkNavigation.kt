@@ -14,5 +14,15 @@ fun NavController.navigateHomeToReadyWorkGraph(routineSetId: Int?) {
 
 
 fun NavController.navigateToReadyWorkChangeOrder() {
-    this.navigate(Router.READY_WORK_CHANGE_ORDER_ROUTER_NAME)
+    this.navigate(Router.READY_WORK_CHANGE_ORDER_ROUTER_NAME){
+        restoreState =true
+    }
+}
+
+fun NavController.navigateToReadyWorkSelection() {
+    this.navigate(Router.READY_WORK_CHANGE_ORDER_ROUTER_NAME){
+        popUpTo(Router.READY_WORK_SELECTION_ROUTER_NAME){
+            this.inclusive=true
+        }
+    }
 }

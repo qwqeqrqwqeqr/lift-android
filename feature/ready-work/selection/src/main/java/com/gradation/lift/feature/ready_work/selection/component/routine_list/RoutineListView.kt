@@ -33,11 +33,11 @@ import com.gradation.lift.test.data.TestModelDataGenerator
 
 @Composable
 fun RoutineSetRoutineListView(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     routineSetRoutineSelection: List<RoutineSetRoutineSelection>,
-    onUpdateRoutineSetRoutineList: (Int,Boolean) -> Unit,
-    onUpdateRoutineList: (Int,Boolean) -> Unit
-){
+    onUpdateRoutineSetRoutineList: (Int, Boolean) -> Unit,
+    onUpdateRoutineList: (Int, Boolean) -> Unit,
+) {
     LazyColumn(
         contentPadding = PaddingValues(all = 20.dp),
         modifier = modifier,
@@ -129,7 +129,7 @@ fun RoutineListView(
     modifier: Modifier = Modifier,
     routine: RoutineSelection,
     onUpdateRoutineList: (Int, Boolean) -> Unit,
-){
+) {
     Divider(
         modifier = modifier,
         thickness = 4.dp,
@@ -137,26 +137,28 @@ fun RoutineListView(
     )
     Spacer(modifier = modifier.padding(2.dp))
     Column(
-        modifier = modifier.padding(
-            start = 16.dp,
-            top = 12.dp,
-            bottom = 12.dp,
-            end = 24.dp
-        )
+        modifier = modifier
+            .clickable(
+                onClick = {
+                    onUpdateRoutineList(
+                        routine.routine.id,
+                        !routine.opened
+                    )
+                }
+            )
+            .padding(
+                start = 16.dp,
+                top = 12.dp,
+                bottom = 12.dp,
+                end = 24.dp
+            )
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
                 .fillMaxWidth()
-                .clickable(
-                    onClick = {
-                        onUpdateRoutineList(
-                            routine.routine.id,
-                            !routine.opened
-                        )
-                    }
-                )
+
         ) {
             Text(
                 text = routine.routine.workCategory.name,
@@ -175,11 +177,11 @@ fun RoutineListView(
     }
     if (routine.opened) {
         Column(
-            modifier = modifier.padding(horizontal =  16.dp)
+            modifier = modifier.padding(horizontal = 16.dp)
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp)
-            )  {
+            ) {
                 Text(
                     text = "Set",
                     style = LiftTheme.typography.no3,
@@ -216,8 +218,7 @@ fun RoutineListView(
                                     size = 30.dp
                                 )
                             )
-                            .padding(4.dp)
-                        ,
+                            .padding(4.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(

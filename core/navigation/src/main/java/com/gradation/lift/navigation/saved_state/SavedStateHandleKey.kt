@@ -15,5 +15,6 @@ object SavedStateHandleKey {
 
     object WorkKey{
         const val ROUTINE_SET_ID_KEY ="WORK_ROUTINE_SET_ID_KEY"
+        const val SELECTED_ROUTINE_SET_KEY ="WORK_SELECTED_ROUTINE_SET_KEY"
     }
 }

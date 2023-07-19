@@ -39,6 +39,8 @@ import kotlinx.datetime.LocalDate
 @Composable
 internal fun ReadyWorkSelectionRoute(
     navController: NavController,
+    navigateToReadyWorkChangeOrder : () -> Unit,
+    navigateReadyWorkToMain  : () -> Unit,
     previousRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: ReadyWorkSelectionViewModel = hiltViewModel(),
@@ -53,9 +55,12 @@ internal fun ReadyWorkSelectionRoute(
         modifier = modifier,
         weekday = weekDate,
         routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = { navController.navigateReadyWorkToMain() },
-        onClickWeekDayCard = viewModel.onClickWeekDayCard(),
-        onClickStartWork = { navController.navigateToReadyWorkChangeOrder()},
+        onBackClickTopBar = navigateReadyWorkToMain,
+        onClickWeekDayCard = viewModel.updateCurrentDate(),
+        onClickStartWork = {
+            viewModel.updateKey(navController)
+            navigateToReadyWorkChangeOrder()
+        },
         selectedRoutine = selectedRoutine,
         onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
         onUpdateRoutineList = viewModel.updateOpenedRoutineIdList(),
@@ -64,9 +69,7 @@ internal fun ReadyWorkSelectionRoute(
     LaunchedEffect(key1 = true) {
         viewModel.updatePreviousRoutineSetId(previousRoutineSetId)
     }
-    BackHandler(enabled = true, onBack = {
-        navController.navigateReadyWorkToMain()
-    })
+    BackHandler(enabled = true, onBack = navigateReadyWorkToMain)
 
 }
 
@@ -103,7 +106,7 @@ internal fun ReadyWorkSelectionScreen(
                         start = 20.dp,
                         end = 20.dp,
                     ),
-                enabled = selectedRoutine!=0
+                enabled = selectedRoutine != 0
             ) {
                 Text(
                     text = "운동시작하기 (${selectedRoutine}개)",
@@ -169,11 +172,11 @@ internal fun ReadyWorkSelectionScreen(
                 }
                 is RoutineSetRoutineSelectionUiState.Success -> {
                     RoutineSetRoutineListView(
-                       modifier=modifier,
-                       routineSetRoutineSelection=routineSetRoutineSelection.routineSetRoutineSelection,
-                       onUpdateRoutineSetRoutineList=onUpdateRoutineSetRoutineList,
-                       onUpdateRoutineList=onUpdateRoutineList
-                   )
+                        modifier = modifier,
+                        routineSetRoutineSelection = routineSetRoutineSelection.routineSetRoutineSelection,
+                        onUpdateRoutineSetRoutineList = onUpdateRoutineSetRoutineList,
+                        onUpdateRoutineList = onUpdateRoutineList
+                    )
 
                 }
             }
