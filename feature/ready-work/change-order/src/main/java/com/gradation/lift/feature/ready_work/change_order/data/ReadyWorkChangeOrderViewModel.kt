@@ -16,7 +16,7 @@ class ReadyWorkChangeOrderViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val routineSetIdList = MutableStateFlow(emptyList<Int>())
+    private val routineSetIdList = MutableStateFlow(emptyList<Int>())
 
 
     val routineSetRoutine = routineSetIdList.flatMapLatest {

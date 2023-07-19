@@ -29,6 +29,8 @@ object LiftIcon{
     val Gallery = R.drawable.gallery
     val Lock = R.drawable.lock
     val Mail = R.drawable.mail
+    val Trash = R.drawable.trash
+    val Order = R.drawable.order
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
 
