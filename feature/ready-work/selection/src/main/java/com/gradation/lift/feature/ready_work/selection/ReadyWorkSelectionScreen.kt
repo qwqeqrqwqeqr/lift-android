@@ -25,6 +25,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.ready_work.selection.component.WeekdayCardListView
+import com.gradation.lift.feature.ready_work.selection.component.routine_list.EmptyRoutineListView
 import com.gradation.lift.feature.ready_work.selection.component.routine_list.LoadingRoutineSetRoutineListView
 import com.gradation.lift.feature.ready_work.selection.component.routine_list.RoutineSetRoutineListView
 import com.gradation.lift.feature.ready_work.selection.data.*
@@ -138,30 +139,7 @@ internal fun ReadyWorkSelectionScreen(
 
             when (routineSetRoutineSelection) {
                 RoutineSetRoutineSelectionUiState.Empty -> {
-                    Box(
-                        modifier = modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.open_box),
-                                contentDescription = "",
-                                modifier = modifier
-                                    .size(96.dp)
-                            )
-                            Spacer(modifier = modifier.padding(4.dp))
-                            Text(
-                                text = "루틴이 존재하지 않네요...",
-                                style = LiftTheme.typography.no4,
-                                color = LiftTheme.colorScheme.no9,
-                                textAlign = TextAlign.Center,
-                            )
-                            Spacer(modifier = modifier.padding(8.dp))
-                        }
-                    }
+                    EmptyRoutineListView(modifier=modifier)
                 }
                 is RoutineSetRoutineSelectionUiState.Fail -> {
 
