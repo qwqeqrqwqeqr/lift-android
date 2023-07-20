@@ -25,6 +25,7 @@ data class GetUserDetailResponseDto(
         },
         height = userDetailDto.height ?: 0f,
         weight = userDetailDto.weight ?: 0f,
+        profile = userDetailDto.profile,
         unitOfWeight = when (userDetailDto.unitOfWeight) {
             KG_VALUE-> UnitOfWeight.Kg()
             LB_VALUE-> UnitOfWeight.Lb()

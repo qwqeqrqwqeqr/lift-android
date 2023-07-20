@@ -10,6 +10,7 @@ internal object TestUserDataGenerator {
         gender = "male",
         height = 180.0f,
         weight = 83.3f,
+        profile = null,
         unitOfWeight = "kg"
     )
 
@@ -23,6 +24,7 @@ internal object TestUserDataGenerator {
               "gender": "male",
               "height": 180.0,
               "weight": 83.3,
+              "profile": null,
               "unit_of_weight": "kg"
             }
           }

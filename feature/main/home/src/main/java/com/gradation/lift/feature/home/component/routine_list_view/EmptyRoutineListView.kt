@@ -93,6 +93,7 @@ fun EmptyRoutineListPreview() {
                     weight = 90f,
                     height = 180f,
                     gender = Gender.Male(),
+                    profile = null,
                     unitOfWeight = UnitOfWeight.Kg()
                 )
             ),

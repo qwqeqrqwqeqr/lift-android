@@ -44,6 +44,7 @@ class DefaultUserDataSource @Inject constructor(
                         },
                         height = userDetail.height,
                         weight = userDetail.weight,
+                        profile = userDetail.profile,
                         unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
                             is UnitOfWeight.Kg -> unitOfWeight.value
                             is UnitOfWeight.Lb -> unitOfWeight.value
@@ -73,6 +74,7 @@ class DefaultUserDataSource @Inject constructor(
                         },
                         height = userDetail.height,
                         weight = userDetail.weight,
+                        profile = userDetail.profile,
                         unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
                             is UnitOfWeight.Kg -> unitOfWeight.value
                             is UnitOfWeight.Lb -> unitOfWeight.value

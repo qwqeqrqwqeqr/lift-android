@@ -14,6 +14,8 @@ data class UserDetailDto(
     val height: Float? = null,
     @Json(name = "weight")
     val weight: Float? = null,
+    @Json(name = "profile")
+    val profile: String? = null,
     @Json(name = "unit_of_weight")
     val unitOfWeight: String? = null,
 )
