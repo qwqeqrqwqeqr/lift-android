@@ -44,13 +44,7 @@ object TestModelDataGenerator {
                 WorkSet(weight = 10f, repetition = 12),
                 WorkSet(weight = 10f, repetition = 12),
                 WorkSet(weight = 10f, repetition = 12)
-            ),
-            maxWeight = 10f,
-            minWeight = 10f,
-            totalWeight = 50f,
-            maxRepetition = 12,
-            minRepetition = 12,
-            totalRepetition = 60
+            )
         )
         private val routineModel2 = Routine(
             id = 2,
@@ -62,13 +56,7 @@ object TestModelDataGenerator {
                 WorkSet(weight = 10f, repetition = 12),
                 WorkSet(weight = 10f, repetition = 12),
                 WorkSet(weight = 10f, repetition = 12)
-            ),
-            maxWeight = 10f,
-            minWeight = 10f,
-            totalWeight = 50f,
-            maxRepetition = 12,
-            minRepetition = 12,
-            totalRepetition = 60
+            )
         )
         private val routineSetModel1 = RoutineSet(
             id = 1,

@@ -18,12 +18,6 @@ internal object TestRoutineDataGenerator {
         workCategory = workCategoryDto1,
         workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
         workRepetitionList = listOf(12, 12, 12, 12, 12),
-        maxWeight = 10f,
-        minWeight = 10f,
-        totalWeight = 50f,
-        maxRepetition = 12,
-        minRepetition = 12,
-        totalRepetition = 60
     )
     private val routineDto2 = RoutineDto(
         routineId = 2,
@@ -31,12 +25,6 @@ internal object TestRoutineDataGenerator {
         workCategory = workCategoryDto2,
         workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
         workRepetitionList = listOf(12, 12, 12, 12, 12),
-        maxWeight = 10f,
-        minWeight = 10f,
-        totalWeight = 50f,
-        maxRepetition = 12,
-        minRepetition = 12,
-        totalRepetition = 60
     )
 
     private val createRoutineDto = CreateRoutineDto(

@@ -40,13 +40,7 @@ data class GetRoutineSetRoutineByRoutineSetIdResponseDto(
                                 weight = workSet.first,
                                 repetition = workSet.second
                             )
-                        },
-                    maxWeight = routine.routineDto.maxWeight,
-                    minWeight = routine.routineDto.minWeight,
-                    totalWeight = routine.routineDto.totalWeight,
-                    maxRepetition = routine.routineDto.maxRepetition,
-                    minRepetition = routine.routineDto.minRepetition,
-                    totalRepetition = routine.routineDto.totalRepetition
+                        }
                 )
             }
         )

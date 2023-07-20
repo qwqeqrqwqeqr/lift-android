@@ -31,13 +31,7 @@ data class GetRoutineResponseDto(
                     weight = workSet.first,
                     repetition = workSet.second
                 )
-            },
-            maxWeight = it.maxWeight,
-            minWeight = it.minWeight,
-            totalWeight = it.totalWeight,
-            maxRepetition = it.maxRepetition,
-            minRepetition = it.minRepetition,
-            totalRepetition = it.totalRepetition
+            }
         )
     }
 }
