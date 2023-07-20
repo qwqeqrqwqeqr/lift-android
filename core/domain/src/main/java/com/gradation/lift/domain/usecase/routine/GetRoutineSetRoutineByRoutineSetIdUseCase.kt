@@ -10,6 +10,6 @@ import javax.inject.Inject
 class GetRoutineSetRoutineByRoutineSetIdUseCase @Inject constructor(
     private val routineRepository: RoutineRepository
 ) {
-    operator fun invoke(routineSetIdList: List<Int>): Flow<DataState<List<RoutineSetRoutine>>> =
+    operator fun invoke(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> =
         routineRepository.getRoutineSetRoutineByRoutineSetId(routineSetIdList)
 }

@@ -19,14 +19,14 @@ fun readyWorkChangeOrderScreen(
     ReadyWorkChangeOrderRoute { route ->
         navGraphBuilder.composable(route) {
             val selectedRoutineSetIdList =
-                navController.getValueSavedStateHandle<List<Int>>(SavedStateHandleKey.WorkKey.SELECTED_ROUTINE_SET_KEY)
+                navController.getValueSavedStateHandle<Set<Int>>(SavedStateHandleKey.WorkKey.SELECTED_ROUTINE_SET_KEY)
 
-            val navigateToReadyWorkSelection = { navController.navigateToReadyWorkSelection()}
+            val navigateToReadyWorkSelection ={ navController.navigateUp() }
             val navigateReadyWorkToWorkGraph = { navController.navigateReadyWorkToWorkGraph()}
 
             ReadyWorkChangeOrderRoute(
                 navController = navController,
-                navigateToReadyWorkSelection=navigateToReadyWorkSelection,
+                navigateToReadyWorkSelection={navigateToReadyWorkSelection()},
                 navigateReadyWorkToWorkGraph=navigateReadyWorkToWorkGraph,
                 selectedRoutineSetIdList=selectedRoutineSetIdList
             )

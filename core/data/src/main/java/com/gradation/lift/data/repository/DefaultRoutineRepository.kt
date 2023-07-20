@@ -57,7 +57,7 @@ class DefaultRoutineRepository @Inject constructor(
         }
     }
 
-    override  fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: List<Int>): Flow<DataState<List<RoutineSetRoutine>>> = flow{
+    override  fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> = flow{
         routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList).collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(DataState.Fail(result.message))

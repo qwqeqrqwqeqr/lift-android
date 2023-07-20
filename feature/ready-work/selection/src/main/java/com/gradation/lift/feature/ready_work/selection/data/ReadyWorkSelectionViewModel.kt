@@ -34,8 +34,8 @@ class ReadyWorkSelectionViewModel @Inject constructor(
         MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
 
 
-    private val selectedRoutineSetIdList = MutableStateFlow(emptyList<Int>())
-    private val openedRoutineIdList = MutableStateFlow(emptyList<Int>())
+    private val selectedRoutineSetIdList = MutableStateFlow(emptySet<Int>())
+    private val openedRoutineIdList = MutableStateFlow(emptySet<Int>())
 
     internal val selectedRoutine = selectedRoutineSetIdList.map { it -> it.size }.stateIn(
         scope = viewModelScope,

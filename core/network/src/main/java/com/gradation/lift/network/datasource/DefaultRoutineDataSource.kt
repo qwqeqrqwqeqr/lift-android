@@ -76,7 +76,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 }
         }
 
-    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: List<Int>): Flow<APIResult<List<RoutineSetRoutine>>> =
+    override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<APIResult<List<RoutineSetRoutine>>> =
         flow {
             networkResultHandler {
                 routineService.getRoutineSetRoutineByRoutineSetId(

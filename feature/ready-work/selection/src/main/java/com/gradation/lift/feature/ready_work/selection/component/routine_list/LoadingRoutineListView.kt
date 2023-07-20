@@ -31,7 +31,7 @@ fun LoadingRoutineSetRoutineListView(
         ),
     ) {
         repeat(3) {
-            Card(
+            Box(
                 modifier
                     .background(
                         SkeletonBrush(),
@@ -39,8 +39,8 @@ fun LoadingRoutineSetRoutineListView(
                     )
                     .fillMaxWidth()
                     .height(96.dp),
-            ) {}
-            Card(
+            )
+            Box(
                 modifier
                     .background(
                         SkeletonBrush(),
@@ -48,8 +48,8 @@ fun LoadingRoutineSetRoutineListView(
                     )
                     .fillMaxWidth()
                     .height(32.dp),
-            ) {}
-            Card(
+            )
+            Box(
                 modifier
                     .background(
                         SkeletonBrush(),
@@ -57,8 +57,8 @@ fun LoadingRoutineSetRoutineListView(
                     )
                     .fillMaxWidth()
                     .height(16.dp),
-            ) {}
-            Card(
+            )
+            Box(
                 modifier
                     .background(
                         SkeletonBrush(),
@@ -66,7 +66,7 @@ fun LoadingRoutineSetRoutineListView(
                     )
                     .fillMaxWidth()
                     .height(16.dp),
-            ) {}
+            )
 
 
         }
