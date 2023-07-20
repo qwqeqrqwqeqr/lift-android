@@ -76,6 +76,7 @@ object TestModelDataGenerator {
             name = "행복한 월요일 루틴",
             description = "가볍게 하는 운동",
             weekday = Weekday.Monday(),
+            profile = null,
             routine = listOf(routineModel1)
         )
 
@@ -84,6 +85,7 @@ object TestModelDataGenerator {
             name = "등 단련 루틴",
             description = "집중 등 운동",
             weekday = Weekday.Monday(),
+            profile = null,
             routine = listOf(routineModel2)
         )
 
@@ -101,6 +103,7 @@ object TestModelDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             weekday = listOf(Weekday.Monday(),Weekday.Tuesday()) ,
+            profile = null,
             routine = emptyList(),
         )
     }
