@@ -20,7 +20,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.terms_of_use.component.CancelDialog
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
-import com.gradation.lift.ui.DevicePreview
+import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 fun LoginTermsOfUseRoute(

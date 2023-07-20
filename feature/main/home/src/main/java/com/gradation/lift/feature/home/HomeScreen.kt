@@ -27,7 +27,6 @@ import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.navigation.navigation.navigateHomeToCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateHomeToReadyWorkGraph
-import com.gradation.lift.ui.DevicePreview
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone

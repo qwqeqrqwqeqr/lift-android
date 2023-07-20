@@ -1,4 +1,4 @@
-package com.gradation.lift.ui
+package com.gradation.lift.ui.utils
 
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_3
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_4_XL

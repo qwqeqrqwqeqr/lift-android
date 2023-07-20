@@ -19,7 +19,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
-import com.gradation.lift.ui.DevicePreview
+import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 fun LoginCompleteRoute(

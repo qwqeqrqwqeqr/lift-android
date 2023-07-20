@@ -23,7 +23,7 @@ import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
 import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginTermsOfUse
-import com.gradation.lift.ui.DevicePreview
+import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 

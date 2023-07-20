@@ -24,7 +24,7 @@ import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
 import com.gradation.lift.navigation.navigation.navigateToRegisterDetailHeightWeight
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
-import com.gradation.lift.ui.DevicePreview
+import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 fun RegisterDetailGenderRoute(

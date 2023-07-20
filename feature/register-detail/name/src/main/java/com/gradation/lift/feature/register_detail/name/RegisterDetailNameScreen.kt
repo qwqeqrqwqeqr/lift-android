@@ -35,7 +35,7 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
 import com.gradation.lift.navigation.navigation.navigateToRegisterDetailGender
-import com.gradation.lift.ui.DevicePreview
+import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
