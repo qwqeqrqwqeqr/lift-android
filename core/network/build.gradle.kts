@@ -15,6 +15,10 @@ android {
 
 
         buildConfigField("String", "LIFT_API_URL", getApiURL("LIFT_API_URL"))
+        buildConfigField("String", "LIFT_S3_URL", getApiURL("LIFT_S3_URL"))
+
+
+
     }
 }
 
