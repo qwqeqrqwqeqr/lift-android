@@ -10,16 +10,16 @@ internal object TestWorkDataGenerator {
         id = 1,
         name = "숄더프레스",
         workpart = workPartDto1,
-        shortDescription = "Lorem ipsum dolor sit amet",
-        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        introduce = "Lorem ipsum dolor sit amet",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
     )
     internal val workCategoryDto2 = WorkCategoryDto(
         id = 2,
         name = "데드리프트",
         workpart = workPartDto2,
-        shortDescription = "Lorem ipsum dolor sit amet",
-        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        introduce = "Lorem ipsum dolor sit amet",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     )
 
     val workCategoryResponseJson: String = """
@@ -35,8 +35,8 @@ internal object TestWorkDataGenerator {
                   "id": 1,
                   "name": "어깨"
                 },
-                "short_description": "Lorem ipsum dolor sit amet",
-                "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                "introduce": "Lorem ipsum dolor sit amet",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
               },
               {
                 "id": 2,
@@ -45,8 +45,8 @@ internal object TestWorkDataGenerator {
                   "id": 2,
                   "name": "등"
                 },
-                "short_description": "Lorem ipsum dolor sit amet",
-                "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                "introduce": "Lorem ipsum dolor sit amet",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
               }
             ]
           }

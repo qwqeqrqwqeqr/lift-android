@@ -19,8 +19,8 @@ data class GetWorkCategoryResponseDto(
                     id = it.workpart.id,
                     name = it.workpart.name
                 ),
-                shortDescription = it.shortDescription,
-                longDescription = it.longDescription
+                introduce = it.introduce,
+                description = it.description
             )
         }.filter { true }
 }

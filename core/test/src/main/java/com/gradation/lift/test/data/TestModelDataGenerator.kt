@@ -22,15 +22,15 @@ object TestModelDataGenerator {
             id = 1,
             name = "숄더프레스",
             workpart = workPartModel1,
-            shortDescription = "Lorem ipsum dolor sit amet",
-            longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            introduce = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
          val workCategoryModel2 = WorkCategory(
             id = 2,
             name = "데드리프트",
             workpart = workPartModel2,
-            shortDescription = "Lorem ipsum dolor sit amet",
-            longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            introduce = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
     }
     object Routine{

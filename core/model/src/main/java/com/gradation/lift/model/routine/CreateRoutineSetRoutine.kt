@@ -7,6 +7,7 @@ data class CreateRoutineSetRoutine(
     val name: String,
     val description: String,
     val weekday: List<Weekday>,
+    val profile : String?,
     val routine : List<CreateRoutineSetRoutineDetail>
 )
 

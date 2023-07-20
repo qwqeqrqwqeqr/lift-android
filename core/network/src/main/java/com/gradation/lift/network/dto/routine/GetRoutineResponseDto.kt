@@ -23,8 +23,8 @@ data class GetRoutineResponseDto(
                     id = it.workCategory.workpart.id,
                     name = it.workCategory.workpart.name
                 ),
-                shortDescription = it.workCategory.shortDescription,
-                longDescription = it.workCategory.longDescription
+                introduce = it.workCategory.introduce,
+                description = it.workCategory.description
             ),
             workSetList = it.workWeightList.zip(it.workRepetitionList).map { workSet ->
                 WorkSet(

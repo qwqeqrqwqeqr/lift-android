@@ -47,7 +47,7 @@ internal object TestDataGenerator {
 
     val testRoutineSet1 = RoutineSetEntity(
         name = "테스트 루틴 1",
-        shortDescription = "테스트용 루틴입니다",
+        introduce = "테스트용 루틴입니다",
         week = com.gradation.lift.domain.model.Week.Monday,
         routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
@@ -55,7 +55,7 @@ internal object TestDataGenerator {
     val testRoutineSet2 = RoutineSetEntity(
         id = 50,
         name = "테스트 루틴 2",
-        shortDescription = "테스트용 루틴입니다.",
+        introduce = "테스트용 루틴입니다.",
         week = com.gradation.lift.domain.model.Week.Tuesday,
         routineList = listOf(testRoutine1, testRoutine2, testRoutine3)
     )
@@ -63,8 +63,8 @@ internal object TestDataGenerator {
     val testWorkCategory1 = WorkCategoryEntity(
         name = "스쿼트",
         workPart = testWorkPart1,
-        shortDescription = "테스트용 카테고리",
-        longDescription = "테스트용 카테고리입니다.",
+        introduce = "테스트용 카테고리",
+        description = "테스트용 카테고리입니다.",
         customFlag = false
     )
 
@@ -72,8 +72,8 @@ internal object TestDataGenerator {
         id = 30,
         name = "바벨컬",
         workPart = testWorkPart2,
-        shortDescription = "테스트용 카테고리",
-        longDescription = "테스트용 카테고리입니다.",
+        introduce = "테스트용 카테고리",
+        description = "테스트용 카테고리입니다.",
         customFlag = true
     )
 

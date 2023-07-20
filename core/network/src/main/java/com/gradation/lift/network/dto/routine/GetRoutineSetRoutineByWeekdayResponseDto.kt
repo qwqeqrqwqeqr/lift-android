@@ -20,6 +20,7 @@ data class GetRoutineSetRoutineByWeekdayResponseDto(
             name = it.value.first().routineSetDto.name,
             description = it.value.first().routineSetDto.description,
             weekday = it.value.first().routineSetDto.weekday.toWeekDay(),
+            profile = it.value.first().routineSetDto.profile,
             routine = it.value.map { routine ->
                 Routine(
                     id = routine.routineDto.routineId,
@@ -31,8 +32,8 @@ data class GetRoutineSetRoutineByWeekdayResponseDto(
                             id = routine.routineDto.workCategory.workpart.id,
                             name = routine.routineDto.workCategory.workpart.name
                         ),
-                        shortDescription = routine.routineDto.workCategory.shortDescription,
-                        longDescription = routine.routineDto.workCategory.longDescription
+                        introduce = routine.routineDto.workCategory.introduce,
+                        description = routine.routineDto.workCategory.description
                     ),
                     workSetList = routine.routineDto.workWeightList.zip(routine.routineDto.workRepetitionList)
                         .map { workSet ->

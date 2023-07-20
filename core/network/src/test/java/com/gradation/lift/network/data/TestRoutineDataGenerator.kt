@@ -37,13 +37,15 @@ internal object TestRoutineDataGenerator {
         routineSetId = 1,
         name = "행복한 월요일 루틴",
         description =  "가볍게 하는 운동",
-        weekday = MONDAY
+        weekday = MONDAY,
+        profile = null
     )
     private val routineSetDto2 = RoutineSetDto(
         routineSetId = 2,
         name = "등 단련 루틴",
         description =  "집중 등 운동",
-        weekday = MONDAY
+        weekday = MONDAY,
+        profile = null
     )
 
     private val routineSetRoutineDto1 = RoutineSetRoutineDto(
@@ -72,8 +74,8 @@ internal object TestRoutineDataGenerator {
                             "id": 1,
                             "name": "어깨"
                           },
-                          "short_description": "Lorem ipsum dolor sit amet",
-                          "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                          "introduce": "Lorem ipsum dolor sit amet",
+                          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         },
                         "work_weight_list": [
                           10,
@@ -88,13 +90,7 @@ internal object TestRoutineDataGenerator {
                           12,
                           12,
                           12
-                        ],
-                        "max_weight": 10,
-                        "min_weight": 10,
-                        "total_weight": 50,
-                        "max_repetition": 12,
-                        "min_repetition": 12,
-                        "total_repetition": 60
+                        ]
                       },
                       {
                         "routine_id": 2,
@@ -106,8 +102,8 @@ internal object TestRoutineDataGenerator {
                             "id": 2,
                             "name": "등"
                           },
-                          "short_description": "Lorem ipsum dolor sit amet",
-                          "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                          "introduce": "Lorem ipsum dolor sit amet",
+                          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         },
                         "work_weight_list": [
                           10,
@@ -122,13 +118,7 @@ internal object TestRoutineDataGenerator {
                           12,
                           12,
                           12
-                        ],
-                        "max_weight": 10,
-                        "min_weight": 10,
-                        "total_weight": 50,
-                        "max_repetition": 12,
-                        "min_repetition": 12,
-                        "total_repetition": 60
+                        ]
                       }
                     ]
                   }
@@ -152,8 +142,8 @@ internal object TestRoutineDataGenerator {
                       "id": 1,
                       "name": "어깨"
                     },
-                    "short_description": "Lorem ipsum dolor sit amet",
-                    "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    "introduce": "Lorem ipsum dolor sit amet",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                   },
                   "work_weight_list": [
                     10,
@@ -168,19 +158,14 @@ internal object TestRoutineDataGenerator {
                     12,
                     12,
                     12
-                  ],
-                  "max_weight": 10,
-                  "min_weight": 10,
-                  "total_weight": 50,
-                  "max_repetition": 12,
-                  "min_repetition": 12,
-                  "total_repetition": 60
+                  ]
                 },
                 "routine_set": {
                   "routine_set_id": 1,
                   "name": "행복한 월요일 루틴",
                   "description": "가볍게 하는 운동",
-                  "weekday": "Mon"
+                  "weekday": "Mon",
+                  "profile" null
                 }
               },
               {
@@ -194,8 +179,8 @@ internal object TestRoutineDataGenerator {
                       "id": 2,
                       "name": "등"
                     },
-                    "short_description": "Lorem ipsum dolor sit amet",
-                    "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    "introduce": "Lorem ipsum dolor sit amet",
+                    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                   },
                   "work_weight_list": [
                     10,
@@ -210,19 +195,14 @@ internal object TestRoutineDataGenerator {
                     12,
                     12,
                     12
-                  ],
-                  "max_weight": 10,
-                  "min_weight": 10,
-                  "total_weight": 50,
-                  "max_repetition": 12,
-                  "min_repetition": 12,
-                  "total_repetition": 60
+                  ]
                 },
                 "routine_set": {
                   "routine_set_id": 2,
                   "name": "등 단련 루틴",
                   "description": "집중 등 운동",
-                  "weekday": "Mon"
+                  "weekday": "Mon",
+                  "profile" null
                 }
               }
             ]
@@ -246,6 +226,7 @@ internal object TestRoutineDataGenerator {
         name =  TestDefaultDataGenerator.FAKE_STRING_DATA,
         description = TestDefaultDataGenerator.FAKE_STRING_DATA,
         weekday = listOf(MONDAY, TUESDAY),
+        profile = null,
         routine = listOf(createRoutineDto)
     )
 

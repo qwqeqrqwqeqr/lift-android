@@ -12,8 +12,8 @@ data class WorkCategoryDto(
     val name: String,
     @Json(name = "workpart")
     val workpart: WorkPartDto,
-    @Json(name = "short_description")
-    val shortDescription: String,
-    @Json(name = "long_description")
-    val longDescription: String
+    @Json(name = "introduce")
+    val introduce: String,
+    @Json(name = "description")
+    val description: String
 )
