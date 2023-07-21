@@ -24,14 +24,18 @@ class DefaultNetworkResultHandler @Inject constructor(
                         emit(APIResult.Fail(message = error.toMessage()))
                     }
                 }
-                .collect { response ->
+                .map { response ->
                     if (response.isSuccessful) {
                         emit(APIResult.Success(data = response.body()?.data!!))
                     } else {
                         emit(
-                            APIResult.Fail(message = JSONObject(response.errorBody()?.string()!!).getString("message"))
+                            APIResult.Fail(
+                                message = JSONObject(
+                                    response.errorBody()?.string()!!
+                                ).getString("message")
+                            )
                         )
                     }
-                }
+                }.collect()
         }
 }

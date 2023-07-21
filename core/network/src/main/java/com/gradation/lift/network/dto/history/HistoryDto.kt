@@ -21,5 +21,5 @@ data class HistoryDto(
     @Json(name = "history_time_stamp")
     val historyTimeStamp :LocalDate,
     @Json(name = "history_routine")
-    val historyRoutine : List<HistoryRoutineDto>,
+    val historyRoutine : HistoryRoutineDto,
 )
