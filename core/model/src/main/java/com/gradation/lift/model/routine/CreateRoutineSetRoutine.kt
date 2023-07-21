@@ -8,12 +8,8 @@ data class CreateRoutineSetRoutine(
     val description: String,
     val weekday: List<Weekday>,
     val profile : String?,
-    val routine : List<CreateRoutineSetRoutineDetail>
+    val routine : List<CreateRoutine>
 )
 
-data class CreateRoutineSetRoutineDetail(
-    val workCategoryId: Int,
-    val workSet: List<WorkSet>
-)
 
 

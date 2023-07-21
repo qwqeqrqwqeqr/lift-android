@@ -47,4 +47,9 @@ object ServiceModule {
     @Singleton
     fun provideUserService(@AuthRetrofit retrofit: Retrofit): UserService =
         retrofit.create(UserService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideHistoryService(@AuthRetrofit retrofit: Retrofit): HistoryService =
+        retrofit.create(HistoryService::class.java)
 }
