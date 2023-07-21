@@ -28,8 +28,8 @@ class DefaultRoutineDataSource @Inject constructor(
                         routine = createRoutineSetRoutine.routine.map { routine ->
                             CreateRoutineDto(
                                 workCategory = routine.workCategoryId,
-                                workWeightList = routine.workSet.map { it.weight }.toList(),
-                                workRepetitionList = routine.workSet.map { it.repetition }.toList()
+                                workWeightList = routine.workSet.map { it.weight },
+                                workRepetitionList = routine.workSet.map { it.repetition }
                             )
                         }
                     ))

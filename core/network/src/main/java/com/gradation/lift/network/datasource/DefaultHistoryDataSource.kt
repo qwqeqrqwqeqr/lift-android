@@ -3,11 +3,15 @@ package com.gradation.lift.network.datasource
 import com.gradation.lift.model.history.CreateHistory
 import com.gradation.lift.model.history.History
 import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
+import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.HistoryService
 import com.gradation.lift.network.service.RoutineService
+import com.squareup.moshi.Json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.datetime.LocalTime
 import javax.inject.Inject
 
 class DefaultHistoryDataSource @Inject constructor(
@@ -41,6 +45,23 @@ class DefaultHistoryDataSource @Inject constructor(
 
     override suspend fun createHistory(createHistory: CreateHistory): Flow<APIResult<Boolean>> =
         flow {
+            networkResultHandler {
+                historyService.createHistory(
+                    CreateHistoryRequestDto(
+                        comment = createHistory.comment,
+                        score = createHistory.score,
+                        restTime = createHistory.restTime,
+                        totalTime = createHistory.totalTime,
+                        historyRoutine = createHistory.historyRoutine.map { historyRoutine ->
+                            CreateHistoryRoutineDto(
+                                workCategory = historyRoutine.workCategoryId,
+                                workWeightList = historyRoutine.workSet.map { it.weight },
+                                workRepetitionList = historyRoutine.workSet.map { it.repetition }
+                            )
+                        }
+                    )
+                )
+            }
         }
 
     override suspend fun deleteHistory(historyId: Int): Flow<APIResult<Boolean>> = flow {
