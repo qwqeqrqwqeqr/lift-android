@@ -14,17 +14,34 @@ class DefaultHistoryDataSource @Inject constructor(
     private val historyService: HistoryService,
     private val networkResultHandler: NetworkResultHandler,
 ) : HistoryDataSource {
-    override suspend fun getHistory(): Flow<APIResult<History>> = flow{
-        networkResultHandler{
+    override suspend fun getHistory(): Flow<APIResult<List<History>>> = flow {
+        networkResultHandler {
             historyService.getHistory()
+        }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+
+                is APIResult.Success -> emit(APIResult.Success(result.data.toHistory()))
+            }
         }
     }
 
-    override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<APIResult<History>> = flow{
-    }
+    override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<APIResult<List<History>>> =
+        flow {
+            networkResultHandler {
+                historyService.getHistoryByHistoryId(historyIdList.joinToString(","))
+            }.collect { result ->
+                when (result) {
+                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-    override suspend fun createHistory(createHistory: CreateHistory): Flow<APIResult<Boolean>> = flow{
-    }
+                    is APIResult.Success -> emit(APIResult.Success(result.data.toHistory()))
+                }
+            }
+        }
+
+    override suspend fun createHistory(createHistory: CreateHistory): Flow<APIResult<Boolean>> =
+        flow {
+        }
 
     override suspend fun deleteHistory(historyId: Int): Flow<APIResult<Boolean>> = flow {
     }
