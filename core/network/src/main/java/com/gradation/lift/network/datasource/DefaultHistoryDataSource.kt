@@ -61,10 +61,25 @@ class DefaultHistoryDataSource @Inject constructor(
                         }
                     )
                 )
+            }.collect { result ->
+                when (result) {
+                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
+
+                    is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                }
             }
         }
 
     override suspend fun deleteHistory(historyId: Int): Flow<APIResult<Boolean>> = flow {
+        networkResultHandler {
+            historyService.deleteHistory(historyId)
+        }.collect { result ->
+            when (result) {
+                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+
+                is APIResult.Success -> emit(APIResult.Success(result.data.result))
+            }
+        }
     }
 
 }
