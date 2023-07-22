@@ -43,6 +43,12 @@ object DataSourceModule {
 
 
     @Provides
+    fun providePictureDataSource(
+        pictureService: PictureService,
+        networkResultHandler: NetworkResultHandler,
+    ): PictureDataSource = DefaultPictureDataSource(pictureService,networkResultHandler)
+
+    @Provides
     fun provideUserDataSource(
         userService: UserService,
         networkResultHandler: NetworkResultHandler,
