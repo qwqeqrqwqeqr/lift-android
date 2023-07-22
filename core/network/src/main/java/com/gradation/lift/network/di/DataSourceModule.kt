@@ -47,4 +47,10 @@ object DataSourceModule {
         userService: UserService,
         networkResultHandler: NetworkResultHandler,
     ): UserDataSource = DefaultUserDataSource(userService,networkResultHandler)
+
+    @Provides
+    fun provideHistoryDataSource(
+        historyService: HistoryService,
+        networkResultHandler: NetworkResultHandler,
+    ): HistoryDataSource = DefaultHistoryDataSource(historyService,networkResultHandler)
 }

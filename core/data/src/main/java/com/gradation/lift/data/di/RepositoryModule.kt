@@ -54,6 +54,13 @@ object RepositoryModule {
         settingDataStoreDataSource: SettingDataStoreDataSource,
     ): SettingRepository = DefaultSettingRepository(settingDataStoreDataSource=settingDataStoreDataSource)
 
+    @ViewModelScoped
+    @Provides
+    fun provideHistoryRepository(
+        historyDataSource: HistoryDataSource,
+    ): HistoryRepository = DefaultHistoryRepository(historyDataSource=historyDataSource)
+
+
 
     @ViewModelScoped
     @Provides
