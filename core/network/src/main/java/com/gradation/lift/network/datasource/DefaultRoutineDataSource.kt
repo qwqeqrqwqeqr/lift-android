@@ -24,7 +24,7 @@ class DefaultRoutineDataSource @Inject constructor(
                         name = createRoutineSetRoutine.name,
                         description = createRoutineSetRoutine.description,
                         weekday = createRoutineSetRoutine.weekday.map { it.getWeekdayValue() },
-                        profile = createRoutineSetRoutine.profile,
+                        picture = createRoutineSetRoutine.picture,
                         routine = createRoutineSetRoutine.routine.map { routine ->
                             CreateRoutineDto(
                                 workCategory = routine.workCategoryId,

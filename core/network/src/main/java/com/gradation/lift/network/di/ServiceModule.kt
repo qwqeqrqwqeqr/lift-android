@@ -20,6 +20,12 @@ object ServiceModule {
     fun provideWorkService(@DefaultRetrofit retrofit: Retrofit): WorkService =
         retrofit.create(WorkService::class.java)
 
+
+    @Provides
+    @Singleton
+    fun providePictureService(@DefaultRetrofit retrofit: Retrofit): PictureService =
+        retrofit.create(PictureService::class.java)
+
     @Provides
     @Singleton
     fun provideRoutineService(@AuthRetrofit retrofit: Retrofit): RoutineService =

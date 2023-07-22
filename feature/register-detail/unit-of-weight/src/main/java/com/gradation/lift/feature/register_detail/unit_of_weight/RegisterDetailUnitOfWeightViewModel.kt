@@ -66,8 +66,8 @@ class RegisterDetailUnitOfWeightViewModel @Inject constructor(
                             ?: 0f,
                         weight = it[SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY]?.toFloat()
                             ?: 0f,
-                        //TODO profile 추가
-                        profile = null,
+                        //TODO profilePicture 추가
+                        profilePicture = null,
                         unitOfWeight = when (if (kg) UnitOfWeight.KG_VALUE else UnitOfWeight.LB_VALUE) {
                             UnitOfWeight.KG_VALUE -> UnitOfWeight.Kg()
                             UnitOfWeight.LB_VALUE -> UnitOfWeight.Lb()

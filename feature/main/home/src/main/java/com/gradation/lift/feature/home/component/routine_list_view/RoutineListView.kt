@@ -163,7 +163,7 @@ internal fun RoutineListPreview() {
                     weight = 90f,
                     height = 180f,
                     gender = Gender.Male(),
-                    profile = null,
+                    profilePicture = null,
                     unitOfWeight = UnitOfWeight.Kg()
                 )
             ),

@@ -21,7 +21,7 @@ data class GetRoutineSetRoutineResponseDto(
             name = it.value.first().routineSetDto.name,
             description = it.value.first().routineSetDto.description,
             weekday = it.value.first().routineSetDto.weekday.toWeekDay(),
-            profile = it.value.first().routineSetDto.profile,
+            picture = it.value.first().routineSetDto.picture,
             routine = it.value.map { routine ->
                 Routine(
                     id = routine.routineDto.routineId,
