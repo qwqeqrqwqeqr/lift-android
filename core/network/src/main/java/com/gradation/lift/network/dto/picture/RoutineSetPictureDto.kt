@@ -5,7 +5,9 @@ import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class GetRoutineSetPictureResponseDto(
-    @Json(name = "routine_set_picture")
-    val getRoutineSetPicture : List<RoutineSetPictureDto>
+data class RoutineSetPictureDto(
+    @Json(name = "category")
+    val category :String,
+    @Json(name = "url")
+    val url :String,
 )

@@ -6,6 +6,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GetUserProfilePictureResponseDto(
-    @Json(name = "url")
-    val url :String,
+    @Json(name = "user_profile_picture")
+    val userProfilePicture : List<UserProfilePictureDto>
 )
