@@ -20,7 +20,7 @@ object RepositoryModule {
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
-    ): WorkRepository = DefaultWorkRepository(workDataSource= workDataSource)
+    ): WorkRepository = DefaultWorkRepository(workDataSource = workDataSource)
 
 
     @ViewModelScoped
@@ -28,7 +28,7 @@ object RepositoryModule {
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
     ): RoutineRepository =
-        DefaultRoutineRepository(routineDataSource= routineDataSource)
+        DefaultRoutineRepository(routineDataSource = routineDataSource)
 
 
     @ViewModelScoped
@@ -36,30 +36,38 @@ object RepositoryModule {
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
-    ): AuthRepository = DefaultAuthRepository(authDataSource= authDataSource,tokenDataStoreDataSource= tokenDataStoreDataSource)
-
-
+    ): AuthRepository = DefaultAuthRepository(
+        authDataSource = authDataSource,
+        tokenDataStoreDataSource = tokenDataStoreDataSource
+    )
 
 
     @ViewModelScoped
     @Provides
     fun provideCheckerRepository(
         checkerDataSource: CheckerDataSource,
-    ): CheckerRepository = DefaultCheckerRepository(checkerDataSource=checkerDataSource)
+    ): CheckerRepository = DefaultCheckerRepository(checkerDataSource = checkerDataSource)
 
 
     @ViewModelScoped
     @Provides
     fun provideSettingRepository(
         settingDataStoreDataSource: SettingDataStoreDataSource,
-    ): SettingRepository = DefaultSettingRepository(settingDataStoreDataSource=settingDataStoreDataSource)
+    ): SettingRepository =
+        DefaultSettingRepository(settingDataStoreDataSource = settingDataStoreDataSource)
 
     @ViewModelScoped
     @Provides
     fun provideHistoryRepository(
         historyDataSource: HistoryDataSource,
-    ): HistoryRepository = DefaultHistoryRepository(historyDataSource=historyDataSource)
+    ): HistoryRepository = DefaultHistoryRepository(historyDataSource = historyDataSource)
 
+
+    @ViewModelScoped
+    @Provides
+    fun providePictureRepository(
+        pictureDataSource: PictureDataSource,
+    ): PictureRepository = DefaultPictureRepository(pictureDataSource = pictureDataSource)
 
 
     @ViewModelScoped

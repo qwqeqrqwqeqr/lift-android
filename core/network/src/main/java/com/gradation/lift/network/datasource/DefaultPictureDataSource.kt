@@ -4,7 +4,6 @@ import com.gradation.lift.model.picture.RoutineSetPicture
 import com.gradation.lift.model.picture.UserProfilePicture
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
-import com.gradation.lift.network.service.HistoryService
 import com.gradation.lift.network.service.PictureService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

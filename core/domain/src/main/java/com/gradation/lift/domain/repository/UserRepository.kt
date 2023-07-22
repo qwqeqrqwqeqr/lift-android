@@ -13,4 +13,5 @@ interface UserRepository {
      fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
 
      fun existUserDetail(): Flow<DataState<Boolean>>
+
 }
