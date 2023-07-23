@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.gradation.lift.model.user.Gender
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,27 +19,24 @@ class RegisterDetailGenderViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var male by mutableStateOf(true)
-    var female by mutableStateOf(false)
+    var gender by mutableStateOf(true)
 
     internal fun updateMale(): (Boolean) -> Unit = {
-        if (!male) {
-            male = it
-            female = !it
+        if(!gender){
+            gender = true
         }
     }
 
     internal fun updateFemale(): (Boolean) -> Unit = {
-        if (!female) {
-            female = it
-            male = !it
+        if(gender) {
+            gender = false
         }
     }
 
     fun updateKey(navController: NavController) {
         navController.setValueSavedStateHandle(
             SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
-            if (male) "male" else "female"
+            if (gender) Gender.MALE_VALUE else Gender.FEMALE_VALUE
         )
     }
 

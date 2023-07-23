@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.picture.GetUserProfilePictureUseCase
 import com.gradation.lift.domain.usecase.user.CreateUserDetailUseCase
 import com.gradation.lift.model.common.UnitOfWeight
+import com.gradation.lift.model.picture.UserProfilePicture
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
@@ -21,11 +23,22 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterDetailProfilePictureViewModel @Inject constructor(
     private val createUserDetailUseCase: CreateUserDetailUseCase,
+    private val getUserProfilePictureUseCase: GetUserProfilePictureUseCase
 ) : ViewModel() {
 
 
     var onVisibleDialog = MutableStateFlow(false)
 
+    val list = getUserProfilePictureUseCase().map {
+        when(it){
+            is DataState.Fail -> emptyList()
+            is DataState.Success -> it.data
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = emptyList()
+    )
 
     fun createUserDetail(navController: NavController) {
         viewModelScope.launch {

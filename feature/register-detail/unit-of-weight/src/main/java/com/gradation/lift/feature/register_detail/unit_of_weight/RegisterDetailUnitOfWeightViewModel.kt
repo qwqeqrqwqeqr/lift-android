@@ -21,35 +21,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterDetailUnitOfWeightViewModel @Inject constructor(
-    private val createUserDetailUseCase: CreateUserDetailUseCase,
 ) : ViewModel() {
 
 
-    var kg by mutableStateOf(true)
-    var lb by mutableStateOf(false)
+    var unitOfWeight by mutableStateOf(true)
 
     internal fun updateKg(): (Boolean) -> Unit = {
-        if (!kg) {
-            kg = it
-            lb = !it
+        if (!unitOfWeight) {
+            unitOfWeight = true
         }
     }
 
     internal fun updateLb(): (Boolean) -> Unit = {
-        if (!lb) {
-            lb = it
-            kg = !it
+        if (unitOfWeight) {
+            unitOfWeight = false
         }
     }
-
-
-
 
 
     fun updateKey(navController: NavController) {
         navController.setValueSavedStateHandle(
             SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY,
-            if (kg) "kg" else "lb"
+            if (unitOfWeight) UnitOfWeight.KG_VALUE else UnitOfWeight.LB_VALUE
 
         )
     }

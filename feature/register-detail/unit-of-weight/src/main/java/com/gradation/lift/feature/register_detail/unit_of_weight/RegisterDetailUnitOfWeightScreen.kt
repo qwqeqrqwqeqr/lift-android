@@ -33,8 +33,7 @@ fun RegisterDetailUnitOfWeightRoute(
     RegisterDetailUnitOfWeightScreen(
         modifier = modifier,
         onBackClickTopBar = navigateRegisterDetailUnitOfWeightToHeightWeight,
-        kgValue = viewModel.kg,
-        lbValue = viewModel.lb,
+        unitOfWeightValue = viewModel.unitOfWeight,
         onUpdateKg = viewModel.updateKg(),
         onUpdateLb = viewModel.updateLb(),
         onNextButtonClick = {
@@ -55,8 +54,7 @@ fun RegisterDetailUnitOfWeightRoute(
 internal fun RegisterDetailUnitOfWeightScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
-    kgValue: Boolean,
-    lbValue: Boolean,
+    unitOfWeightValue: Boolean,
     onUpdateKg: (Boolean) -> Unit,
     onUpdateLb: (Boolean) -> Unit,
     onNextButtonClick: () -> Unit,
@@ -126,14 +124,14 @@ internal fun RegisterDetailUnitOfWeightScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 Row {
                     LiftToggleTextBox(
-                        text = "미터법", checked = kgValue, modifier = modifier
+                        text = "미터법", checked = unitOfWeightValue, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
                         onCheckedChange = onUpdateKg
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
-                        text = "야드법", checked = lbValue, modifier = modifier
+                        text = "야드법", checked = !unitOfWeightValue, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
                         onCheckedChange = onUpdateLb
@@ -167,8 +165,7 @@ internal fun RegisterDetailUnitOfWeightScreenPreview(
         RegisterDetailUnitOfWeightScreen(
             modifier = modifier,
             onBackClickTopBar = { },
-            kgValue = true,
-            lbValue = false,
+            unitOfWeightValue = true,
             onUpdateKg = {},
             onUpdateLb = {},
             onNextButtonClick = {},

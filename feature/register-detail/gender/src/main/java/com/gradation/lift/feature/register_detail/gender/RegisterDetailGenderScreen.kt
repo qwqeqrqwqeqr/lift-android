@@ -38,8 +38,7 @@ fun RegisterDetailGenderRoute(
         modifier = modifier,
         onBackClickTopBar = navigateRegisterDetailGenderToName,
         nameText = name,
-        maleValue = viewModel.male,
-        femaleValue = viewModel.female,
+        genderValue = viewModel.gender,
         onUpdateMale = viewModel.updateMale(),
         onUpdateFemale = viewModel.updateFemale(),
         onNextButtonClick = {
@@ -60,8 +59,7 @@ internal fun RegisterDetailGenderScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
     nameText: String,
-    maleValue: Boolean,
-    femaleValue: Boolean,
+    genderValue: Boolean,
     onUpdateMale: (Boolean) -> Unit,
     onUpdateFemale: (Boolean) -> Unit,
     onNextButtonClick: () -> Unit,
@@ -107,7 +105,7 @@ internal fun RegisterDetailGenderScreen(
                 Spacer(modifier = modifier.padding(15.dp))
                 Row {
                     LiftToggleTextBox(
-                        text = "남자", checked = maleValue,
+                        text = "남자", checked = genderValue,
                         modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
@@ -115,7 +113,7 @@ internal fun RegisterDetailGenderScreen(
                     )
                     Spacer(modifier = modifier.padding(4.dp))
                     LiftToggleTextBox(
-                        text = "여자", checked = femaleValue, modifier = modifier
+                        text = "여자", checked = !genderValue, modifier = modifier
                             .fillMaxWidth()
                             .weight(1f),
                         onCheckedChange = onUpdateFemale
@@ -151,8 +149,7 @@ fun RegisterDetailGenderScreenPreview(
             modifier = modifier,
             onBackClickTopBar = {},
             nameText = "리프트",
-            maleValue = true,
-            femaleValue = false,
+            genderValue = true,
             onUpdateMale = {},
             onUpdateFemale = {},
             onNextButtonClick = {}
