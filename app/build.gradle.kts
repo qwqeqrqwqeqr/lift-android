@@ -48,6 +48,7 @@ dependencies{
     implementation(project(":feature:register-detail:height-weight"))
     implementation(project(":feature:register-detail:name"))
     implementation(project(":feature:register-detail:unit-of-weight"))
+    implementation(project(":feature:register-detail:profile-picture"))
 
 
     implementation(project(":feature:ready-work:selection"))

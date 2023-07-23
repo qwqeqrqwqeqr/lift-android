@@ -24,6 +24,7 @@ object Router {
     const val REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME = "height_weight"
     const val REGISTER_DETAIL_NAME_ROUTER_NAME = "name"
     const val REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME = "unit_of_weight"
+    const val REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME = "profile_picture"
 
 
     const val MAIN_GRAPH_ROUTER_NAME = "main_graph"

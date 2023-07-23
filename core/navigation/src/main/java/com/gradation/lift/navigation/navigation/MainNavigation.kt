@@ -11,6 +11,7 @@ import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
 
 fun NavController.navigateLoginToHome() {
     this.navigate(Router.MAIN_GRAPH_ROUTER_NAME){
+        launchSingleTop=true
         popUpTo(Router.LOGIN_GRAPH_ROUTER_NAME){
             inclusive=true
         }
@@ -19,6 +20,7 @@ fun NavController.navigateLoginToHome() {
 
 fun NavController.navigateRegisterDetailToHome() {
     this.navigate(Router.MAIN_GRAPH_ROUTER_NAME){
+        launchSingleTop=true
         popUpTo(Router.REGISTER_DETAIL_NAME_ROUTER_NAME){
             inclusive=true
         }

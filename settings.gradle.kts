@@ -62,3 +62,4 @@ include(":feature:ready-work:change-order")
 
 
 include(":feature:work:work")
+include(":feature:register-detail:profile-picture")
