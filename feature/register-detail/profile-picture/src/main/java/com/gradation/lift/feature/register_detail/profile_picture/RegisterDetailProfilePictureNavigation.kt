@@ -5,15 +5,17 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 
-fun registerDetailProfilePicturetScreen(
-    navController : NavController,
+import com.gradation.lift.navigation.route.register_detail.RegisterDetailProfilePictureRoute
+
+fun registerDetailProfilePictureScreen(
+    navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    RegisterDetailProfilePictureRoute {route ->
+    RegisterDetailProfilePictureRoute { route ->
         navGraphBuilder.composable(route) {
             RegisterDetailProfilePictureRoute(navController)
         }
-    }.registerDetailProfilePicturetScreen(route = Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME)
+    }.registerDetailProfilePictureScreen(route = Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME)
 }
 
 
