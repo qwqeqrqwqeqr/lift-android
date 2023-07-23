@@ -42,17 +42,19 @@ fun RegisterDetailNameRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
+    val name = viewModel.name.collectAsStateWithLifecycle()
+    val navigationCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
 
     RegisterDetailNameScreen(
         modifier = modifier,
-        nameText = viewModel.name.collectAsStateWithLifecycle(),
+        nameText = name,
         updateNameText = viewModel.updateName(),
         nameValidationSupportText = viewModel.nameValidationSupportText.collectAsStateWithLifecycle(),
         onNextButtonClick = {
-            navigateRegisterDetailNameToGender()
             viewModel.updateKey(navController)
+            navigateRegisterDetailNameToGender()
         },
-        navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
+        navigateCondition = navigationCondition
     )
 }
 

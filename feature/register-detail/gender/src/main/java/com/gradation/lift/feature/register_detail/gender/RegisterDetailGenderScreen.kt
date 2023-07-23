@@ -2,7 +2,6 @@ package com.gradation.lift.feature.register_detail.gender
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -11,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.*
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -20,17 +17,21 @@ import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 fun RegisterDetailGenderRoute(
     navController: NavController,
-    name: String,
     navigateRegisterDetailGenderToHeightWeight: () -> Unit,
     navigateRegisterDetailGenderToName: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
+
+    val name =
+        navController.getValueSavedStateHandle<String>(SavedStateHandleKey.RegisterDetailKey.NAME_KEY) ?: "aa"
 
 
     RegisterDetailGenderScreen(

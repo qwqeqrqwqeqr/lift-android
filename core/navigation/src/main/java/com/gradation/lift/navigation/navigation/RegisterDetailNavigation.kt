@@ -5,10 +5,12 @@ import com.gradation.lift.navigation.Router
 
 
 fun NavController.navigateRegisterDetailNameToGender() {
+
     this.navigate(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
         this.restoreState = true
     }
 }
+
 fun NavController.navigateRegisterDetailGenderToName() {
     this.popBackStack(
         route = Router.REGISTER_DETAIL_NAME_ROUTER_NAME,
@@ -18,12 +20,12 @@ fun NavController.navigateRegisterDetailGenderToName() {
 }
 
 
-
 fun NavController.navigateRegisterDetailGenderToHeightWeight() {
     this.navigate(Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
         this.restoreState = true
     }
 }
+
 fun NavController.navigateRegisterDetailHeightWeightToGender() {
     this.popBackStack(
         route = Router.REGISTER_DETAIL_GENDER_ROUTER_NAME,
@@ -38,6 +40,7 @@ fun NavController.navigateRegisterDetailHeightWeightToUnitOfWeight() {
         this.restoreState = true
     }
 }
+
 fun NavController.navigateRegisterDetailUnitOfWeightToHeightWeight() {
     this.popBackStack(
         route = Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME,

@@ -16,7 +16,7 @@ fun registerDetailNameScreen(
 ) {
     RegisterDetailNameRoute { route ->
 
-        val navigateRegisterDetailNameToGender =
+        val navigateRegisterDetailNameToGender: () -> Unit =
             { navController.navigateRegisterDetailNameToGender() }
 
 

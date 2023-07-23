@@ -61,6 +61,5 @@ sealed interface SplashUiState {
     object Loading : SplashUiState
     object Main : SplashUiState
     object Login : SplashUiState
-
     object RegisterDetail : SplashUiState
 }
