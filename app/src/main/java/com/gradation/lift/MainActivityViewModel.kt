@@ -1,6 +1,5 @@
 package com.gradation.lift
 
-import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,9 +9,7 @@ import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import org.junit.internal.runners.statements.Fail
 import javax.inject.Inject
 
 
@@ -20,18 +17,16 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     isSignedUseCase: IsSignedUseCase,
     existUserDetailUseCase: ExistUserDetailUseCase,
-    getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
+    private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
 ) : ViewModel() {
 
-    val splashUiState = combine(
-        isSignedUseCase(),
-        existUserDetailUseCase(),
-        getAutoLoginSettingUseCase()
-    ) { isSigned, existUserDetail, autoLogined ->
+    val splashUiState = isSignedUseCase().combine(
+        existUserDetailUseCase()
+    ) { isSigned, existUserDetail ->
         when (isSigned) {
             is DataState.Fail -> SplashUiState.Login
             is DataState.Success -> {
-                if (!autoLogined) {
+                if (!getAutoLoginSettingUseCase().first()) {
                     SplashUiState.Login
                 } else {
                     when (existUserDetail) {

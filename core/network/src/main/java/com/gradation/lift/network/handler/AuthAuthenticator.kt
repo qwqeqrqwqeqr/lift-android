@@ -4,6 +4,7 @@ import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.Constants.BASE_URL
+import com.gradation.lift.network.common.Constants.FORBIDDEN
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import com.gradation.lift.network.dto.auth.RefreshResponseDto
 import com.gradation.lift.network.service.RefreshService
@@ -26,12 +27,12 @@ class AuthAuthenticator @Inject constructor(
         if (response.code == UNAUTHORIZATION) {
             runBlocking {
                 val result = refresh(tokenDataStoreDataSource, moshi)
-                if(result.isSuccessful){
+                if (result.isSuccessful) {
                     tokenDataStoreDataSource.setAccessToken(result.body()?.data?.accessToken.toString())
-                    isRefreshed=true
+                    isRefreshed = true
                 }
             }
-            if(isRefreshed){
+            if (isRefreshed) {
                 return response.request
                     .newBuilder()
                     .removeHeader("Authorization")
@@ -43,14 +44,13 @@ class AuthAuthenticator @Inject constructor(
                             }
                         }"
                     ).build()
-            }else{
+            } else {
                 runBlocking {
                     tokenDataStoreDataSource.clearAll()
                 }
             }
         }
         return null
-
     }
 
 
@@ -64,7 +64,8 @@ class AuthAuthenticator @Inject constructor(
             }).build())
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
         val service = retrofit.create(RefreshService::class.java)
-        return service.refresh(authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
+        return service.refresh(
+            authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
 
         )
     }
