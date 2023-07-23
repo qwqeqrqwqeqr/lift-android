@@ -27,7 +27,7 @@ fun registerDetailProfilePictureScreen(
                 navigateRegisterDetailToHome=navigateRegisterDetailToHome
             )
         }
-    }.registerDetailProfilePictureScreen(route = Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME)
+    }.registerDetailProfilePictureScreen(route = Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME)
 }
 
 

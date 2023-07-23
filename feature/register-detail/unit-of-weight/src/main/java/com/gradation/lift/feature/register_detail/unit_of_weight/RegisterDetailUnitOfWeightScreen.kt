@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.register_detail.unit_of_weight
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -42,6 +43,9 @@ fun RegisterDetailUnitOfWeightRoute(
         }
     )
 
+    BackHandler(onBack = {
+        navigateRegisterDetailUnitOfWeightToHeightWeight()
+    })
 
 }
 

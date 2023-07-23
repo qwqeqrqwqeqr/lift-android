@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.register_detail.gender
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -31,8 +32,7 @@ fun RegisterDetailGenderRoute(
 ) {
 
     val name =
-        navController.getValueSavedStateHandle<String>(SavedStateHandleKey.RegisterDetailKey.NAME_KEY) ?: "aa"
-
+        navController.getValueSavedStateHandle<String>(SavedStateHandleKey.RegisterDetailKey.NAME_KEY) ?: ""
 
     RegisterDetailGenderScreen(
         modifier = modifier,
@@ -47,6 +47,10 @@ fun RegisterDetailGenderRoute(
             navigateRegisterDetailGenderToHeightWeight()
         },
     )
+
+    BackHandler(onBack = {
+        navigateRegisterDetailGenderToName()
+    })
 }
 
 

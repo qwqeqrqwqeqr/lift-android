@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.register_detail.profile_picture
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -41,6 +42,11 @@ fun RegisterDetailProfilePictureRoute(
         onCompleteButtonClick = { viewModel.createUserDetail(navController) }
     )
 
+
+    BackHandler(onBack = {
+        navigateRegisterDetailProfilePictureToUnitOfWeight()
+    })
+
 }
 
 
@@ -77,7 +83,7 @@ internal fun RegisterDetailProfilePictureScreen(
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
                     repeat(5) {
-                        NumberCircle(number = it + 1, checked = it + 1 == 4)
+                        NumberCircle(number = it + 1, checked = it + 1 == 5)
                     }
 
                 }
@@ -87,9 +93,9 @@ internal fun RegisterDetailProfilePictureScreen(
                         withStyle(
                             style = SpanStyle(color = LiftTheme.colorScheme.no4),
                         ) {
-                            append("단위")
+                            append("프로필 사진")
                         }
-                        append("를 선택해주세요")
+                        append("을 등록해주세요")
                     },
                     style = LiftTheme.typography.no1,
                     color = LiftTheme.colorScheme.no11,

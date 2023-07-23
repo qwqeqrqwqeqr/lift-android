@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.register_detail.height_weight
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -55,6 +56,11 @@ internal fun RegisterHeightWeightRoute(
         weightValidationSupportText = viewModel.weightValidationSupportText.collectAsStateWithLifecycle(),
         navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
     )
+
+    BackHandler(onBack = {
+        navigateRegisterDetailHeightWeightToGender()
+    })
+
 }
 
 

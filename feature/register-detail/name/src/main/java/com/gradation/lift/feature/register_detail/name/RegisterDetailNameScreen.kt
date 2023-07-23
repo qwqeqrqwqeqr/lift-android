@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.register_detail.name
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -56,6 +57,8 @@ fun RegisterDetailNameRoute(
         },
         navigateCondition = navigationCondition
     )
+    
+
 }
 
 
