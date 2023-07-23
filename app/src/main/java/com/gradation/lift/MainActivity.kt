@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
                     SplashUiState.Loading -> false
                     SplashUiState.Login -> true
                     SplashUiState.Main -> true
+                    SplashUiState.RegisterDetail -> true
                 }
             }
         }
@@ -67,9 +68,8 @@ class MainActivity : ComponentActivity() {
             LiftMaterialTheme()
             {
                 LiftApp(
-                    isSinged = splashUiState == SplashUiState.Main,
+                    splashUiState = splashUiState,
                     windowSizeClass = calculateWindowSizeClass(this),
-                    autoLoginSetting = viewModel.autoLoginSetting.value
                 )
             }
         }

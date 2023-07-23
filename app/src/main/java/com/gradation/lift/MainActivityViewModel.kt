@@ -8,54 +8,64 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
+import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import org.junit.internal.runners.statements.Fail
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val isSignedUseCase: IsSignedUseCase,
-    private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase
-): ViewModel() {
+    isSignedUseCase: IsSignedUseCase,
+    existUserDetailUseCase: ExistUserDetailUseCase,
+    getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
+) : ViewModel() {
 
-    val splashUiState:StateFlow<SplashUiState> = splashUiState(isSignedUseCase()).stateIn(
+    val splashUiState = combine(
+        isSignedUseCase(),
+        existUserDetailUseCase(),
+        getAutoLoginSettingUseCase()
+    ) { isSigned, existUserDetail, autoLogined ->
+        when (isSigned) {
+            is DataState.Fail -> SplashUiState.Login
+            is DataState.Success -> {
+                if (!autoLogined) {
+                    SplashUiState.Login
+                } else {
+                    when (existUserDetail) {
+                        is DataState.Fail -> SplashUiState.Login
+                        is DataState.Success -> {
+                            if (!isSigned.data) {
+                                SplashUiState.Login
+                            } else {
+                                if (existUserDetail.data) SplashUiState.Main else SplashUiState.RegisterDetail
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
         initialValue = SplashUiState.Loading
     )
 
-    val autoLoginSetting = getAutoLoginSettingUseCase().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = false
-    )
-
-    fun setDefaultSystemUiController(systemUiController: SystemUiController){
+    fun setDefaultSystemUiController(systemUiController: SystemUiController) {
         systemUiController.setStatusBarColor(Color.White)
         systemUiController.setNavigationBarColor(Color.White)
         systemUiController.setSystemBarsColor(Color.White)
     }
 
-    private fun splashUiState(isSignedUseCase: Flow<DataState<Boolean>>): Flow<SplashUiState> {
-        return  isSignedUseCase.map {
-            when(it){
-                is DataState.Fail -> SplashUiState.Login
-                is DataState.Success ->
-                {
-                    if(it.data) SplashUiState.Main else  SplashUiState.Login
-                }
-            }
-        }
-
-    }
 }
-
 
 
 sealed interface SplashUiState {
     object Loading : SplashUiState
     object Main : SplashUiState
     object Login : SplashUiState
+
+    object RegisterDetail : SplashUiState
 }

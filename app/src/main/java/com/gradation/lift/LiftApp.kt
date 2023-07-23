@@ -34,6 +34,7 @@ import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MAIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME
 
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
@@ -48,8 +49,7 @@ import com.gradation.lift.navigation.navigation.navigateToMyInfo
 )
 @Composable
 fun LiftApp(
-    isSinged: Boolean,
-    autoLoginSetting: Boolean,
+    splashUiState: SplashUiState,
     windowSizeClass: WindowSizeClass,
     appState: AppState = rememberAppState(
         windowSizeClass = windowSizeClass
@@ -74,15 +74,19 @@ fun LiftApp(
             Box(
                 modifier = modifier.padding(it)
             ) {
-                if (isSinged && autoLoginSetting) {
-                    LiftNavHost(
+                when(splashUiState){
+                    SplashUiState.Loading ->{}
+                    SplashUiState.Login ->  LiftNavHost(
+                        navController = appState.navController,
+                        startDestination = LOGIN_GRAPH_ROUTER_NAME
+                    )
+                    SplashUiState.Main ->  LiftNavHost(
                         navController = appState.navController,
                         startDestination = MAIN_GRAPH_ROUTER_NAME
                     )
-                } else {
-                    LiftNavHost(
+                    SplashUiState.RegisterDetail -> LiftNavHost(
                         navController = appState.navController,
-                        startDestination = LOGIN_GRAPH_ROUTER_NAME
+                        startDestination = REGISTER_DETAIL_GRAPH_ROUTER_NAME
                     )
                 }
             }
