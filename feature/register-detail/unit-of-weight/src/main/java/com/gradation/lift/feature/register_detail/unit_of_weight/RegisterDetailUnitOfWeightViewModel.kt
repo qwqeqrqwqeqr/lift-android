@@ -13,6 +13,7 @@ import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -41,48 +42,16 @@ class RegisterDetailUnitOfWeightViewModel @Inject constructor(
         }
     }
 
-    var onVisibleDialog = MutableStateFlow(false)
 
 
-    fun createUserDetail(navController: NavController) {
-        viewModelScope.launch {
-            createUserDetailUseCase(
-                navController.findValueInBackStackEntry(
-                    listOf(
-                        SavedStateHandleKey.RegisterDetailKey.NAME_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY
-                    )
-                ).let {
-                    UserDetail(
-                        name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY]?: "",
-                        gender = when (it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY] ?: "") {
-                            Gender.MALE_VALUE -> Gender.Male()
-                            Gender.FEMALE_VALUE -> Gender.Female()
-                            else -> Gender.Male()
-                        },
-                        height = it[SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY]?.toFloat()
-                            ?: 0f,
-                        weight = it[SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY]?.toFloat()
-                            ?: 0f,
-                        //TODO profilePicture 추가
-                        profilePicture = null,
-                        unitOfWeight = when (if (kg) UnitOfWeight.KG_VALUE else UnitOfWeight.LB_VALUE) {
-                            UnitOfWeight.KG_VALUE -> UnitOfWeight.Kg()
-                            UnitOfWeight.LB_VALUE -> UnitOfWeight.Lb()
-                            else -> UnitOfWeight.Kg()
-                        },
-                    )
-                }
-            ).collect {
-                when (it) {
-                    is DataState.Success -> onVisibleDialog.value = it.data
-                    is DataState.Fail -> onVisibleDialog.value = false
-                }
-            }
-        }
+
+
+    fun updateKey(navController: NavController) {
+        navController.setValueSavedStateHandle(
+            SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY,
+            if (kg) "kg" else "lb"
+
+        )
     }
-
 
 }

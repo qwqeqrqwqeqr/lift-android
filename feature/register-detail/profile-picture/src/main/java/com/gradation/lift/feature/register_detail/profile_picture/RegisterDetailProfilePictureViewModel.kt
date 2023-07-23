@@ -24,6 +24,48 @@ class RegisterDetailProfilePictureViewModel @Inject constructor(
 ) : ViewModel() {
 
 
+    var onVisibleDialog = MutableStateFlow(false)
 
+
+    fun createUserDetail(navController: NavController) {
+        viewModelScope.launch {
+            createUserDetailUseCase(
+                navController.findValueInBackStackEntry(
+                    listOf(
+                        SavedStateHandleKey.RegisterDetailKey.NAME_KEY,
+                        SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
+                        SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY,
+                        SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY,
+                        SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY,
+                    )
+                ).let {
+                    UserDetail(
+                        name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY]?: "",
+                        gender = when (it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY] ?: "") {
+                            Gender.MALE_VALUE -> Gender.Male()
+                            Gender.FEMALE_VALUE -> Gender.Female()
+                            else -> Gender.Male()
+                        },
+                        height = it[SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY]?.toFloat()
+                            ?: 0f,
+                        weight = it[SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY]?.toFloat()
+                            ?: 0f,
+                        //TODO profilePicture 추가
+                        profilePicture = null,
+                        unitOfWeight = when (it[SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY] ?: "") {
+                            UnitOfWeight.KG_VALUE -> UnitOfWeight.Kg()
+                            UnitOfWeight.LB_VALUE -> UnitOfWeight.Lb()
+                            else -> UnitOfWeight.Kg()
+                        },
+                    )
+                }
+            ).collect {
+                when (it) {
+                    is DataState.Success -> onVisibleDialog.value = it.data
+                    is DataState.Fail -> onVisibleDialog.value = false
+                }
+            }
+        }
+    }
 
 }

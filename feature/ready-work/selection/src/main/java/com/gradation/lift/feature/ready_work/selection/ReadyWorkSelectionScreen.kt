@@ -31,9 +31,6 @@ import com.gradation.lift.feature.ready_work.selection.component.routine_list.Ro
 import com.gradation.lift.feature.ready_work.selection.data.*
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.navigation.navigation.navigateReadyWorkToMain
-import com.gradation.lift.navigation.navigation.navigateToReadyWorkChangeOrder
-import com.gradation.lift.test.data.TestModelDataGenerator
 import kotlinx.datetime.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)

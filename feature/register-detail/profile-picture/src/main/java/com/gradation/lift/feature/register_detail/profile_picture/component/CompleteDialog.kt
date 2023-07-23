@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.register_detail.component
+package com.gradation.lift.feature.register_detail.profile_picture.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
