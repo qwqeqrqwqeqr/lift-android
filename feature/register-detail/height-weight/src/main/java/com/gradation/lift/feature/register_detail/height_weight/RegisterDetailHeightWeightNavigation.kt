@@ -4,15 +4,27 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.navigation.navigateRegisterDetailHeightWeightToGender
+import com.gradation.lift.navigation.navigation.navigateRegisterDetailHeightWeightToUnitOfWeight
 import com.gradation.lift.navigation.route.register_detail.RegisterDetailHeightWeightRoute
 
 fun registerDetailHeightWeightScreen(
-    navController : NavController,
+    navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    RegisterDetailHeightWeightRoute {route ->
+    val navigateRegisterDetailHeightWeightToUnitOfWeight =
+        { navController.navigateRegisterDetailHeightWeightToUnitOfWeight() }
+    val navigateRegisterDetailHeightWeightToGender =
+        { navController.navigateRegisterDetailHeightWeightToGender() }
+
+
+    RegisterDetailHeightWeightRoute { route ->
         navGraphBuilder.composable(route) {
-            RegisterHeightWeightNameRoute(navController)
+            RegisterHeightWeightRoute(
+                navController = navController,
+                navigateRegisterDetailHeightWeightToUnitOfWeight = navigateRegisterDetailHeightWeightToUnitOfWeight,
+                navigateRegisterDetailHeightWeightToGender = navigateRegisterDetailHeightWeightToGender
+            )
         }
     }.registerDetailHeightWeightScreen(route = Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME)
 }

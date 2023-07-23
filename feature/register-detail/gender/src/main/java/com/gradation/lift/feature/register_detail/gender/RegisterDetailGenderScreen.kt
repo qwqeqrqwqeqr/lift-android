@@ -20,25 +20,22 @@ import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
-import com.gradation.lift.navigation.navigation.navigateToRegisterDetailHeightWeight
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 fun RegisterDetailGenderRoute(
     navController: NavController,
+    name: String,
+    navigateRegisterDetailGenderToHeightWeight: () -> Unit,
+    navigateRegisterDetailGenderToName: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
 
-    val name = navController.getValueSavedStateHandle<String>(SavedStateHandleKey.RegisterDetailKey.NAME_KEY) ?: ""
 
     RegisterDetailGenderScreen(
         modifier = modifier,
-        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
-        onBackClickTopBar = { navController.popBackStack() },
+        onBackClickTopBar = navigateRegisterDetailGenderToName,
         nameText = name,
         maleValue = viewModel.male,
         femaleValue = viewModel.female,
@@ -46,7 +43,7 @@ fun RegisterDetailGenderRoute(
         onUpdateFemale = viewModel.updateFemale(),
         onNextButtonClick = {
             viewModel.updateKey(navController)
-            navController.navigateToRegisterDetailHeightWeight()
+            navigateRegisterDetailGenderToHeightWeight()
         },
     )
 }
@@ -56,7 +53,6 @@ fun RegisterDetailGenderRoute(
 @Composable
 internal fun RegisterDetailGenderScreen(
     modifier: Modifier = Modifier,
-    onTopBarSkipButtonClick: (Int) -> Unit,
     onBackClickTopBar: () -> Unit,
     nameText: String,
     maleValue: Boolean,
@@ -73,21 +69,7 @@ internal fun RegisterDetailGenderScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "추가정보 입력",
-                    onBackClickTopBar = onBackClickTopBar,
-                    actions = {
-                        ClickableText(
-                            text = AnnotatedString("건너뛰기"),
-                            style = LiftTheme.typography.no7 +
-                                    TextStyle(
-                                        textDecoration = TextDecoration.Underline,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center
-                                    ),
-                            onClick = onTopBarSkipButtonClick,
-                        )
-
-                        Spacer(modifier = modifier.padding(8.dp))
-                    }
+                    onBackClickTopBar = onBackClickTopBar
                 )
             },
         ) { padding ->
@@ -98,7 +80,7 @@ internal fun RegisterDetailGenderScreen(
                     .fillMaxSize()
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(4) {
+                    repeat(5) {
                         NumberCircle(number = it + 1, checked = it + 1 == 2)
                     }
 
@@ -162,7 +144,6 @@ fun RegisterDetailGenderScreenPreview(
     LiftMaterialTheme {
         RegisterDetailGenderScreen(
             modifier = modifier,
-            onTopBarSkipButtonClick = {},
             onBackClickTopBar = {},
             nameText = "리프트",
             maleValue = true,

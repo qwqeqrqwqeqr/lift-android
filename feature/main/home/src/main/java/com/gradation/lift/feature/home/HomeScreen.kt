@@ -59,7 +59,7 @@ internal fun HomeRoute(
             navController.navigateHomeToReadyWorkGraph(null)
         },
         onClickStartWorkWithRoutineSetId = { routineSetId ->
-            viewModel.updateKey(navController = navController, routineSetId = routineSetId)
+//            viewModel.updateKey(navController = navController, routineSetId = routineSetId)
             navController.navigateHomeToReadyWorkGraph(routineSetId)
         },
         onClickWeekDateCard = viewModel::onClickDate,

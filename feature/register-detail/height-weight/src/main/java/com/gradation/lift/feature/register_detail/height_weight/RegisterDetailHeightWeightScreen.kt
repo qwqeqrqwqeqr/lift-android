@@ -33,23 +33,22 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
-import com.gradation.lift.navigation.navigation.navigateToRegisterDetailUnitOfWeight
 import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
-fun RegisterHeightWeightNameRoute(
+internal fun RegisterHeightWeightRoute(
     navController: NavController,
+    navigateRegisterDetailHeightWeightToUnitOfWeight: () -> Unit,
+    navigateRegisterDetailHeightWeightToGender: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailHeightWeightViewModel = hiltViewModel(),
 ) {
     RegisterDetailHeightWeightScreen(
         modifier = modifier,
-        onBackClickTopBar = { navController.popBackStack() },
-        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
+        onBackClickTopBar = navigateRegisterDetailHeightWeightToGender,
         onNextButtonClick = {
             viewModel.updateKey(navController)
-            navController.navigateToRegisterDetailUnitOfWeight()
+            navigateRegisterDetailHeightWeightToUnitOfWeight()
         },
         weightText = viewModel.weight.collectAsStateWithLifecycle(),
         updateWeightText = viewModel.updateWeight(),
@@ -67,7 +66,6 @@ fun RegisterHeightWeightNameRoute(
 internal fun RegisterDetailHeightWeightScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
-    onTopBarSkipButtonClick: (Int) -> Unit,
     onNextButtonClick: () -> Unit,
     weightText: State<String>,
     updateWeightText: (String) -> Unit,
@@ -85,20 +83,6 @@ internal fun RegisterDetailHeightWeightScreen(
                 LiftBackTopBar(
                     title = "추가정보 입력",
                     onBackClickTopBar = onBackClickTopBar,
-                    actions = {
-                        ClickableText(
-                            text = AnnotatedString("건너뛰기"),
-                            style = LiftTheme.typography.no7 +
-                                    TextStyle(
-                                        textDecoration = TextDecoration.Underline,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center
-                                    ),
-                            onClick = onTopBarSkipButtonClick,
-                        )
-
-                        Spacer(modifier = modifier.padding(8.dp))
-                    }
                 )
             },
         ) { padding ->
@@ -110,7 +94,7 @@ internal fun RegisterDetailHeightWeightScreen(
             ) {
                 val focusManager = LocalFocusManager.current
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(4) {
+                    repeat(5) {
                         NumberCircle(number = it + 1, checked = it + 1 == 3)
                     }
                 }
@@ -275,7 +259,6 @@ fun RegisterDetailHeightWeightScreenPreview(
         RegisterDetailHeightWeightScreen(
             modifier = modifier,
             onBackClickTopBar = {},
-            onTopBarSkipButtonClick = {},
             onNextButtonClick = {},
             weightText = mutableStateOf(""),
             heightText = mutableStateOf(""),

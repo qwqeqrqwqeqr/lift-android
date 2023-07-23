@@ -2,7 +2,6 @@ package com.gradation.lift.feature.register_detail.name
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,8 +19,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,8 +30,6 @@ import com.gradation.lift.designsystem.component.LiftTitleTopBar
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
-import com.gradation.lift.navigation.navigation.navigateToRegisterDetailGender
 import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -43,19 +38,19 @@ import kotlinx.coroutines.FlowPreview
 @Composable
 fun RegisterDetailNameRoute(
     navController: NavController,
+    navigateRegisterDetailNameToGender: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
 
     RegisterDetailNameScreen(
         modifier = modifier,
-        onTopBarSkipButtonClick = { navController.navigateRegisterDetailToHome() },
         nameText = viewModel.name.collectAsStateWithLifecycle(),
         updateNameText = viewModel.updateName(),
         nameValidationSupportText = viewModel.nameValidationSupportText.collectAsStateWithLifecycle(),
         onNextButtonClick = {
+            navigateRegisterDetailNameToGender()
             viewModel.updateKey(navController)
-            navController.navigateToRegisterDetailGender()
         },
         navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
     )
@@ -66,7 +61,6 @@ fun RegisterDetailNameRoute(
 @Composable
 private fun RegisterDetailNameScreen(
     modifier: Modifier = Modifier,
-    onTopBarSkipButtonClick: (Int) -> Unit,
     nameText: State<String>,
     updateNameText: (String) -> Unit,
     nameValidationSupportText: State<Validator>,
@@ -79,21 +73,8 @@ private fun RegisterDetailNameScreen(
         Scaffold(
             topBar = {
                 LiftTitleTopBar(
-                    title = "추가정보 입력",
-                    actions = {
-                        ClickableText(
-                            text = AnnotatedString("건너뛰기"),
-                            style = LiftTheme.typography.no7 +
-                                    TextStyle(
-                                        textDecoration = TextDecoration.Underline,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center
-                                    ),
-                            onClick = onTopBarSkipButtonClick,
-                        )
-
-                        Spacer(modifier = modifier.padding(8.dp))
-                    })
+                    title = "추가정보 입력"
+                )
 
             },
         ) { padding ->
@@ -105,7 +86,7 @@ private fun RegisterDetailNameScreen(
             ) {
                 val focusManager = LocalFocusManager.current
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(4) {
+                    repeat(5) {
                         NumberCircle(number = it + 1, checked = it + 1 == 1)
                     }
                 }
@@ -201,8 +182,7 @@ internal fun RegisterDetailNameScreenPreview(
     LiftMaterialTheme {
         RegisterDetailNameScreen(
             modifier = modifier,
-            onTopBarSkipButtonClick = { },
-            nameText = mutableStateOf("name"),
+            nameText = mutableStateOf(""),
             updateNameText = { },
             nameValidationSupportText = mutableStateOf(Validator()),
             onNextButtonClick = { },
