@@ -23,13 +23,13 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterDetailProfilePictureViewModel @Inject constructor(
     private val createUserDetailUseCase: CreateUserDetailUseCase,
-    private val getUserProfilePictureUseCase: GetUserProfilePictureUseCase
+    getUserProfilePictureUseCase: GetUserProfilePictureUseCase
 ) : ViewModel() {
 
 
     var onVisibleDialog = MutableStateFlow(false)
 
-    val list = getUserProfilePictureUseCase().map {
+    val profilePictureList = getUserProfilePictureUseCase().map {
         when(it){
             is DataState.Fail -> emptyList()
             is DataState.Success -> it.data

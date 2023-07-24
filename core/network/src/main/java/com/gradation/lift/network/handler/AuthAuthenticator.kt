@@ -3,7 +3,7 @@ package com.gradation.lift.network.handler
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.common.Constants.BASE_URL
+import com.gradation.lift.network.common.Constants.DEFAULT_API_URL
 import com.gradation.lift.network.common.Constants.FORBIDDEN
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import com.gradation.lift.network.dto.auth.RefreshResponseDto
@@ -58,7 +58,7 @@ class AuthAuthenticator @Inject constructor(
         tokenDataStoreDataSource: TokenDataStoreDataSource,
         moshi: Moshi,
     ): retrofit2.Response<APIResultWrapper<RefreshResponseDto>> {
-        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+        val retrofit = Retrofit.Builder().baseUrl(DEFAULT_API_URL)
             .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
                 this.level = HttpLoggingInterceptor.Level.BASIC
             }).build())

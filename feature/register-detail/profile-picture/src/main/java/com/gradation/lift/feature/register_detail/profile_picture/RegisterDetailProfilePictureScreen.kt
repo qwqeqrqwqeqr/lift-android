@@ -28,6 +28,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.register_detail.profile_picture.component.CompleteDialog
+import com.gradation.lift.model.picture.UserProfilePicture
 
 
 @Composable
@@ -40,9 +41,11 @@ fun RegisterDetailProfilePictureRoute(
 ) {
 
     val onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
+    val profilePictureList = viewModel.profilePictureList.collectAsStateWithLifecycle()
     RegisterDetailProfilePictureScreen(
         modifier = modifier,
         onVisibleDialog = onVisibleDialog,
+        profilePictureList = profilePictureList,
         onClickCompleteDialogButton = navigateRegisterDetailToHome,
         onBackClickTopBar = navigateRegisterDetailProfilePictureToUnitOfWeight,
         onCompleteButtonClick = { viewModel.createUserDetail(navController) }
@@ -61,6 +64,7 @@ fun RegisterDetailProfilePictureRoute(
 internal fun RegisterDetailProfilePictureScreen(
     modifier: Modifier = Modifier,
     onVisibleDialog: State<Boolean>,
+    profilePictureList : State<List<UserProfilePicture>>,
     onClickCompleteDialogButton: () -> Unit,
     onBackClickTopBar: () -> Unit,
     onCompleteButtonClick: () -> Unit,
@@ -106,11 +110,14 @@ internal fun RegisterDetailProfilePictureScreen(
                     style = LiftTheme.typography.no1,
                     color = LiftTheme.colorScheme.no11,
                 )
-//                GlideImage(
-//                    model = "https://lift-s3.s3.ap-northeast-2.amazonaws.com/work-part/abs_3.png",
-//                    contentDescription = "",
-//                    modifier= modifier.size(35.dp)
-//                )
+                profilePictureList.value.forEach {
+                    GlideImage(
+                        model = it.url,
+                        contentDescription = "",
+                        modifier= modifier.size(35.dp)
+                    )
+                }
+
 
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
@@ -135,6 +142,7 @@ fun PreviewRegisterDetailProfilePictureScreen(){
     LiftMaterialTheme {
         RegisterDetailProfilePictureScreen(
             onVisibleDialog = mutableStateOf(false),
+            profilePictureList = mutableStateOf(emptyList()),
             onClickCompleteDialogButton={},
             onBackClickTopBar={},
             onCompleteButtonClick={}

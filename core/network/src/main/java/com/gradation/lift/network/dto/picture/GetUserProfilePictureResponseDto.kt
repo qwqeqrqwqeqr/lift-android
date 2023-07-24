@@ -1,6 +1,7 @@
 package com.gradation.lift.network.dto.picture
 
 import com.gradation.lift.model.picture.UserProfilePicture
+import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -12,7 +13,7 @@ data class GetUserProfilePictureResponseDto(
 ){
     fun toUserProfilePicture() = this.userProfilePicture.map {
         UserProfilePicture(
-            url = it.url
+            url = DEFAULT_S3_URL+it.url
         )
     }
 }
