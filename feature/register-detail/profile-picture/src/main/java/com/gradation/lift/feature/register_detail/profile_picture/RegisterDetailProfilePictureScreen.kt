@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.register_detail.profile_picture
 
+import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -8,18 +9,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.register_detail.profile_picture.component.CompleteDialog
 
@@ -50,7 +56,7 @@ fun RegisterDetailProfilePictureRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
 @Composable
 internal fun RegisterDetailProfilePictureScreen(
     modifier: Modifier = Modifier,
@@ -100,13 +106,18 @@ internal fun RegisterDetailProfilePictureScreen(
                     style = LiftTheme.typography.no1,
                     color = LiftTheme.colorScheme.no11,
                 )
+//                GlideImage(
+//                    model = "https://lift-s3.s3.ap-northeast-2.amazonaws.com/work-part/abs_3.png",
+//                    contentDescription = "",
+//                    modifier= modifier.size(35.dp)
+//                )
 
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
                     onClick = onCompleteButtonClick,
                 ) {
                     Text(
-                        text = "다음",
+                        text = "완료",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no5,
                     )
@@ -117,4 +128,16 @@ internal fun RegisterDetailProfilePictureScreen(
 }
 
 
-
+@SuppressLint("UnrememberedMutableState")
+@Preview
+@Composable
+fun PreviewRegisterDetailProfilePictureScreen(){
+    LiftMaterialTheme {
+        RegisterDetailProfilePictureScreen(
+            onVisibleDialog = mutableStateOf(false),
+            onClickCompleteDialogButton={},
+            onBackClickTopBar={},
+            onCompleteButtonClick={}
+        )
+    }
+}
