@@ -101,7 +101,7 @@ fun LiftOutlineButton(
             contentColor = LiftTheme.colorScheme.no4,
         ),
         border= BorderStroke(
-            width= 2.dp,
+            width= 1.dp,
             color= LiftTheme.colorScheme.no4
         ),
         contentPadding = contentPadding,

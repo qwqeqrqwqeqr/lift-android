@@ -53,7 +53,7 @@ internal fun ProfileView(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
             )
-            .padding(horizontal = 16.dp),
+            .padding(16.dp,0.dp,16.dp,16.dp),
     ) {
         ProfileDetailView(
             modifier = modifier,
@@ -61,7 +61,7 @@ internal fun ProfileView(
             onClickAlarm = onClickAlarm,
             onClickType = onClickType,
         )
-        Spacer(modifier = modifier.padding(16.dp))
+        Spacer(modifier = modifier.padding(10.dp))
         BadgeView(modifier = modifier)
     }
 

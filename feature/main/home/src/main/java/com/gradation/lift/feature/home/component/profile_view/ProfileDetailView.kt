@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.brush.SkeletonLightBrush
 import com.gradation.lift.designsystem.component.LiftIconButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -59,8 +60,68 @@ fun ProfileDetailView(
             .fillMaxWidth()
     ) {
         when (userDetailUiState) {
-            is UserDetailUiState.Fail -> {}
-            UserDetailUiState.Loading -> {}
+            is UserDetailUiState.Fail -> {
+                Spacer(modifier = modifier.height(72.dp))
+            }
+            UserDetailUiState.Loading -> {
+
+                Box(
+                    modifier
+                        .clip(CircleShape)
+                        .size(72.dp)
+                        .background(SkeletonLightBrush())
+
+                )
+                Spacer(modifier = modifier.padding(10.dp))
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = modifier
+                        .padding(vertical = 10.dp)
+                        .fillMaxHeight()
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = modifier.fillMaxSize()
+                    ) {
+                        Spacer(
+                            modifier
+                                .background(
+                                    SkeletonLightBrush(),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .width(64.dp)
+                                .height(18.dp)
+                        )
+                        Spacer(modifier = modifier.padding(4.dp))
+                        Spacer(
+                            modifier
+                                .background(
+                                    SkeletonLightBrush(),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .width(72.dp)
+                                .height(18.dp)
+                        )
+                    }
+                    Spacer(modifier = modifier.padding(8.dp))
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Spacer(
+                            modifier
+                                .background(
+                                    SkeletonLightBrush(),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .width(140.dp)
+                                .height(18.dp)
+                        )
+                    }
+                }
+            }
             is UserDetailUiState.Success -> {
                 GlideImage(
                     model = userDetailUiState.userDetail.profilePicture,
@@ -73,7 +134,9 @@ fun ProfileDetailView(
                 Column(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center,
-                    modifier = modifier.padding(vertical = 10.dp).fillMaxHeight()
+                    modifier = modifier
+                        .padding(vertical = 10.dp)
+                        .fillMaxHeight()
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -96,7 +159,7 @@ fun ProfileDetailView(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically){
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 text = "운동 초심자",
                                 style = LiftTheme.typography.no4,
@@ -131,82 +194,9 @@ fun ProfileDetailView(
     }
 }
 
-@Preview
-@Composable
-@SuppressLint("UnrememberedMutableState")
-internal fun HomeScreenPreview() {
-    LiftMaterialTheme {
-        HomeScreen(
-            today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
-            userDetailUiState = UserDetailUiState.Success(
-                UserDetail(
-                    name = "리프트",
-                    weight = 90f,
-                    height = 180f,
-                    gender = Gender.Male(),
-                    profilePicture = "https://plchldr.co/i/245x155?bg=EB6361",
-                    unitOfWeight = UnitOfWeight.Kg()
-                )
-            ),
-            weekDate = listOf(
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(selected = true),
-            ),
-            onClickCreateRoutine = { },
-            onClickStartWork = {},
-            onClickStartWorkWithRoutineSetId = {},
-            onClickWeekDateCard = {},
-            onClickAddRoutine = {},
-            onClickModifyRoutine = {},
-            onClickAlarm = {},
-            onClickType = {},
-            scrollState = rememberScrollState()
-        )
-    }
-}
 
 
-//Row(
-//verticalAlignment = Alignment.Bottom,
-//) {
-//    Box(
-//        modifier
-//            .background(
-//                SkeletonBrush(),
-//                shape = RoundedCornerShape(8.dp)
-//            )
-//            .width(54.dp)
-//            .height(24.dp),
-//    )
-//    Spacer(modifier = modifier.padding(4.dp))
-//    Box(
-//        modifier
-//            .background(
-//                SkeletonBrush(),
-//                shape = RoundedCornerShape(8.dp)
-//            )
-//            .width(96.dp)
-//            .height(24.dp),
-//
-//        )
-//}
 
 
-//is UserDetailUiState.Fail -> {
-//    Text(
-//        text = "",
-//        style = LiftTheme.typography.no1,
-//        color = LiftTheme.colorScheme.no11,
-//    )
-//    Spacer(modifier = modifier.padding(4.dp))
-//    Text(
-//        text = "",
-//        style = LiftTheme.typography.no4,
-//        color = LiftTheme.colorScheme.no11
-//    )
+
+
