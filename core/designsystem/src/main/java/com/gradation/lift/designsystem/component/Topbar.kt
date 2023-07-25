@@ -98,7 +98,7 @@ fun LiftHomeTopBar(
         modifier = modifier.statusBarsPadding(),
         title={
             Icon(
-                painter = painterResource(R.drawable.logo_extension),
+                painter = painterResource(R.drawable.logo_extension_kor),
                 contentDescription = "",
                 tint = Color.Unspecified,
                 modifier = modifier.size(72.dp)

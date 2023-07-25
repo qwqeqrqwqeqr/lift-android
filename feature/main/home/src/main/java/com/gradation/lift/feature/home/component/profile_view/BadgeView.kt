@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
@@ -25,27 +27,34 @@ internal fun BadgeView(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            modifier= modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp,Alignment.CenterHorizontally)
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
         ) {
-            repeat(5) {
-                Column (
-                    horizontalAlignment = Alignment.CenterHorizontally
-                        ){
-                    Box(
-                        modifier = modifier
-                            .background(
-                                color = LiftTheme.colorScheme.no1,
-                                shape = RoundedCornerShape(96.dp)
-                            )
-                            .size(56.dp)
-                    )
-                    Text(
-                        text = "뱃지",
-                        style = LiftTheme.typography.no4,
-                        color = LiftTheme.colorScheme.no9,
-                    )
+
+            Column(
+                horizontalAlignment = Alignment.Start
+            ) {
+                Box(
+                    modifier = modifier
+                        .background(
+                            color = LiftTheme.colorScheme.no1,
+                            shape = RoundedCornerShape(96.dp)
+                        )
+                        .size(56.dp)
+                ){
+                    IconButton(onClick = {}, modifier=modifier.size(56.dp)) {
+                        Icon(
+                            painter = painterResource(LiftIcon.Plus),
+                            contentDescription = "",
+                            tint = LiftTheme.colorScheme.no6,
+                        )
+                    }
                 }
+                Text(
+                    text = "뱃지추가",
+                    style = LiftTheme.typography.no4,
+                    color = LiftTheme.colorScheme.no9,
+                )
 
             }
 
