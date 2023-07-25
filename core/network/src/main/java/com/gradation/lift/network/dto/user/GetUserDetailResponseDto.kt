@@ -7,6 +7,8 @@ import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.common.UnitOfWeight.Companion.KG_VALUE
 import com.gradation.lift.model.common.UnitOfWeight.Companion.LB_VALUE
 import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.network.common.Constants
+import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -25,7 +27,7 @@ data class GetUserDetailResponseDto(
         },
         height = userDetailDto.height ?: 0f,
         weight = userDetailDto.weight ?: 0f,
-        profilePicture = userDetailDto.profilePicture,
+        profilePicture = DEFAULT_S3_URL+userDetailDto.profilePicture,
         unitOfWeight = when (userDetailDto.unitOfWeight) {
             KG_VALUE-> UnitOfWeight.Kg()
             LB_VALUE-> UnitOfWeight.Lb()

@@ -2,7 +2,14 @@ package com.gradation.lift.feature.register_detail.profile_picture
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -12,6 +19,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -32,7 +40,7 @@ import com.gradation.lift.model.picture.UserProfilePicture
 
 
 @Composable
-fun RegisterDetailProfilePictureRoute(
+internal fun RegisterDetailProfilePictureRoute(
     navController: NavController,
     navigateRegisterDetailProfilePictureToUnitOfWeight: () -> Unit,
     navigateRegisterDetailToHome: () -> Unit,
@@ -42,10 +50,18 @@ fun RegisterDetailProfilePictureRoute(
 
     val onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
     val profilePictureList = viewModel.profilePictureList.collectAsStateWithLifecycle()
+    val selectedProfile = viewModel.selectedProfile.collectAsStateWithLifecycle()
+    val navigationCondition = viewModel.navigationCondition.collectAsStateWithLifecycle()
+
+
+
     RegisterDetailProfilePictureScreen(
         modifier = modifier,
         onVisibleDialog = onVisibleDialog,
         profilePictureList = profilePictureList,
+        selectedProfile = selectedProfile,
+        navigationCondition = navigationCondition,
+        onUpdateSelectedProfile = viewModel.updateSelectedProfile(),
         onClickCompleteDialogButton = navigateRegisterDetailToHome,
         onBackClickTopBar = navigateRegisterDetailProfilePictureToUnitOfWeight,
         onCompleteButtonClick = { viewModel.createUserDetail(navController) }
@@ -64,7 +80,10 @@ fun RegisterDetailProfilePictureRoute(
 internal fun RegisterDetailProfilePictureScreen(
     modifier: Modifier = Modifier,
     onVisibleDialog: State<Boolean>,
-    profilePictureList : State<List<UserProfilePicture>>,
+    profilePictureList: State<List<UserProfilePicture>>,
+    selectedProfile: State<String>,
+    navigationCondition : State<Boolean>,
+    onUpdateSelectedProfile: (String) -> Unit,
     onClickCompleteDialogButton: () -> Unit,
     onBackClickTopBar: () -> Unit,
     onCompleteButtonClick: () -> Unit,
@@ -110,18 +129,74 @@ internal fun RegisterDetailProfilePictureScreen(
                     style = LiftTheme.typography.no1,
                     color = LiftTheme.colorScheme.no11,
                 )
-                profilePictureList.value.forEach {
+                Spacer(modifier = modifier.padding(30.dp))
+
+
+                if (selectedProfile.value.isEmpty()) {
+                    Box(
+                        modifier
+                            .clip(CircleShape)
+                            .size(96.dp)
+                            .background(
+                                LiftTheme.colorScheme.no1
+                            )
+                            .align(Alignment.CenterHorizontally)
+                    )
+                } else {
                     GlideImage(
-                        model = it.url,
+                        model = selectedProfile.value,
                         contentDescription = "",
-                        modifier= modifier.size(35.dp)
+                        modifier = modifier
+                            .clip(CircleShape)
+                            .size(96.dp)
+                            .align(Alignment.CenterHorizontally)
+
                     )
                 }
+
+                Spacer(modifier = modifier.padding(13.dp))
+
+
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(5),
+                    modifier = modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(profilePictureList.value) { item ->
+                        if (item.url == selectedProfile.value) {
+                            GlideImage(
+                                model = item.url,
+                                contentDescription = "",
+                                modifier = modifier
+                                    .border(width = 3.dp, color = LiftTheme.colorScheme.no4, shape = CircleShape)
+                                    .clip(CircleShape)
+
+                            )
+                        } else {
+                            GlideImage(
+                                model = item.url,
+                                contentDescription = "",
+                                modifier = modifier
+                                    .clip(CircleShape)
+                                    .clickable(
+                                        onClick = { onUpdateSelectedProfile(item.url) }
+                                    )
+                            )
+                        }
+
+                    }
+                }
+
+
+
+                Spacer(modifier = modifier.padding(18.dp))
 
 
                 LiftButton(
                     modifier = modifier.fillMaxWidth(),
                     onClick = onCompleteButtonClick,
+                    enabled = navigationCondition.value
                 ) {
                     Text(
                         text = "완료",
@@ -138,14 +213,25 @@ internal fun RegisterDetailProfilePictureScreen(
 @SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
-fun PreviewRegisterDetailProfilePictureScreen(){
+fun PreviewRegisterDetailProfilePictureScreen() {
     LiftMaterialTheme {
         RegisterDetailProfilePictureScreen(
             onVisibleDialog = mutableStateOf(false),
-            profilePictureList = mutableStateOf(emptyList()),
-            onClickCompleteDialogButton={},
-            onBackClickTopBar={},
-            onCompleteButtonClick={}
+            profilePictureList = mutableStateOf(
+                listOf(
+                    UserProfilePicture("1"),
+                    UserProfilePicture("1"),
+                    UserProfilePicture("1"),
+                    UserProfilePicture("1"),
+                    UserProfilePicture("1"),
+                )
+            ),
+            selectedProfile = mutableStateOf(""),
+            navigationCondition= mutableStateOf(false),
+            onUpdateSelectedProfile = {},
+            onClickCompleteDialogButton = {},
+            onBackClickTopBar = {},
+            onCompleteButtonClick = {}
         )
     }
 }

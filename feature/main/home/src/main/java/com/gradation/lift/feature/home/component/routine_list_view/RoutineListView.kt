@@ -28,6 +28,7 @@ import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.test.data.TestModelDataGenerator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -163,7 +164,7 @@ internal fun RoutineListPreview() {
                     weight = 90f,
                     height = 180f,
                     gender = Gender.Male(),
-                    profilePicture = null,
+                    profilePicture = FAKE_STRING_DATA,
                     unitOfWeight = UnitOfWeight.Kg()
                 )
             ),

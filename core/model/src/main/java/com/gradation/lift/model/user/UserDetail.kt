@@ -7,7 +7,7 @@ data class UserDetail(
     val gender: Gender,
     val height: Float,
     val weight: Float,
-    val profilePicture: String?,
+    val profilePicture: String,
     val unitOfWeight: UnitOfWeight,
 )
 

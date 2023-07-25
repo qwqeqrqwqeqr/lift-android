@@ -5,6 +5,7 @@ import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
@@ -44,7 +45,7 @@ class DefaultUserDataSource @Inject constructor(
                         },
                         height = userDetail.height,
                         weight = userDetail.weight,
-                        profilePicture = userDetail.profilePicture,
+                        profilePicture = userDetail.profilePicture?.replace(Constants.DEFAULT_S3_URL,""),
                         unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
                             is UnitOfWeight.Kg -> unitOfWeight.value
                             is UnitOfWeight.Lb -> unitOfWeight.value

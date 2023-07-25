@@ -17,12 +17,6 @@ class CreateUserDetailUseCase @Inject constructor(
 ) {
     operator fun invoke(userDetail: UserDetail): Flow<DataState<Boolean>> {
 
-
-        Log.d("test","${userDetail.gender}")
-        Log.d("test","${userDetail.height}")
-        Log.d("test","${userDetail.weight}")
-        Log.d("test","${userDetail.unitOfWeight}")
-        Log.d("test","${userDetail.name}")
         return userRepository.createUserDetail(userDetail)
 
     }
