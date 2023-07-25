@@ -5,8 +5,8 @@ import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 
 
-fun NavController.navigateHomeToReadyWorkGraph(routineSetId: Int?) {
-    this.navigate("${Router.READY_WORK_GRAPH_ROUTER_NAME}?${SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY}=${routineSetId}") {
+fun NavController.navigateHomeToReadyWorkGraph() {
+    this.navigate(Router.READY_WORK_GRAPH_ROUTER_NAME) {
     }
 }
 

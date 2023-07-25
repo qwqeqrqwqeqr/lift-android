@@ -38,6 +38,8 @@ import kotlinx.datetime.todayIn
 @Composable
 internal fun HomeRoute(
     navController: NavController,
+    navigateHomeToCreateRoutineGraph : () -> Unit,
+    navigateHomeToReadyWorkGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -53,18 +55,14 @@ internal fun HomeRoute(
         userDetailUiState = userDetailUiState,
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
-        onClickCreateRoutine = {
-            navController.navigateHomeToCreateRoutineGraph()
-        },
-        onClickStartWork = {
-            navController.navigateHomeToReadyWorkGraph(null)
-        },
+        onClickCreateRoutine = navigateHomeToCreateRoutineGraph,
+        onClickStartWork = navigateHomeToReadyWorkGraph,
         onClickStartWorkWithRoutineSetId = { routineSetId ->
-//            viewModel.updateKey(navController = navController, routineSetId = routineSetId)
-            navController.navigateHomeToReadyWorkGraph(routineSetId)
+            viewModel.updateKey(navController = navController, routineSetId = routineSetId)
+            navigateHomeToReadyWorkGraph()
         },
-        onClickWeekDateCard = viewModel::onClickDate,
-        onClickAddRoutine = { navController.navigateHomeToCreateRoutineGraph() },
+        onClickWeekDateCard = viewModel.updateCurrentDate(),
+        onClickAddRoutine = navigateHomeToCreateRoutineGraph,
         onClickModifyRoutine = {},
         onClickAlarm = {},
         onClickType = {},

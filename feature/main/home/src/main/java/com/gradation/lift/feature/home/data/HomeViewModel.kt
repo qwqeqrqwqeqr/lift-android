@@ -92,12 +92,15 @@ class HomeViewModel @Inject constructor(
     )
 
 
-    internal fun onClickDate(selectedDate: LocalDate) {
-        currentDate.value = selectedDate
+    internal fun updateCurrentDate(): (LocalDate) -> Unit = { localDate ->
+        currentDate.value = localDate
     }
 
-    internal fun updateKey(navController: NavController,routineSetId :Int) {
-        navController.setValueSavedStateHandle(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY, routineSetId)
+    internal fun updateKey(navController: NavController, routineSetId: Int) {
+        navController.setValueSavedStateHandle(
+            SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY,
+            routineSetId
+        )
     }
 }
 
