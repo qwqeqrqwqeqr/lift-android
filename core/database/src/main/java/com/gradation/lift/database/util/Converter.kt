@@ -2,47 +2,103 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.gradation.lift.database.model.WorkPartEntity
-import com.gradation.lift.model.work.WorkPart
+import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import javax.inject.Inject
 
+
+
 @ProvidedTypeConverter
-class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
+class WeekdayTypeConverter @Inject constructor(private val moshi: Moshi) {
+    @TypeConverter
+    fun jsonTypeToWeekdayType(value: String): Weekday? {
+        val adapter: JsonAdapter<Weekday> = moshi.adapter(Weekday::class.java)
+        return adapter.fromJson(value)
+    }
+
 
     @TypeConverter
-    fun jsonTypeToRoutineList(value: String): List<com.gradation.lift.domain.model.Routine>? {
-        val listType = Types.newParameterizedType(List::class.java, com.gradation.lift.domain.model.Routine::class.java)
-        val adapter: JsonAdapter<List<com.gradation.lift.domain.model.Routine>> = moshi.adapter(listType)
+    fun weekdayTypeToJsonType(type: Weekday): String {
+        val adapter: JsonAdapter<Weekday> = moshi.adapter(Weekday::class.java)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
+class StringListTypeConverter @Inject constructor(private val moshi: Moshi) {
+    @TypeConverter
+    fun jsonTypeToStringList(value: String): List<String>? {
+        val listType = Types.newParameterizedType(List::class.java, String::class.java)
+        val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun routineListToJsonType(type: List<com.gradation.lift.domain.model.Routine>): String {
-        val listType = Types.newParameterizedType(List::class.java, com.gradation.lift.domain.model.Routine::class.java)
-        val adapter: JsonAdapter<List<com.gradation.lift.domain.model.Routine>> = moshi.adapter(listType)
+    fun stringListToJsonType(type: List<String>): String {
+        val listType = Types.newParameterizedType(List::class.java, String::class.java)
+        val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
+class FloatListTypeConverter @Inject constructor(private val moshi: Moshi) {
+    @TypeConverter
+    fun jsonTypeToFloatList(value: String): List<Float>? {
+        val listType = Types.newParameterizedType(List::class.java, Float::class.java)
+        val adapter: JsonAdapter<List<Float>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun floatListToJsonType(type: List<Float>): String {
+        val listType = Types.newParameterizedType(List::class.java, Float::class.java)
+        val adapter: JsonAdapter<List<Float>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
+class IntListTypeConverter @Inject constructor(private val moshi: Moshi) {
+    @TypeConverter
+    fun jsonTypeToIntList(value: String): List<Int>? {
+        val listType = Types.newParameterizedType(List::class.java, Int::class.java)
+        val adapter: JsonAdapter<List<Int>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun intListToJsonType(type: List<Int>): String {
+        val listType = Types.newParameterizedType(List::class.java, Int::class.java)
+        val adapter: JsonAdapter<List<Int>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
 
 
 
-
-
 @ProvidedTypeConverter
-class WorkPartTypeConverter @Inject constructor(private val moshi: Moshi) {
+class WorkSetListTypeConverter(
+    private val moshi: Moshi,
+) {
+
     @TypeConverter
-    fun jsonTypeToWeekType(value: String): WorkPartEntity? {
-        val adapter: JsonAdapter<WorkPartEntity> = moshi.adapter(WorkPartEntity::class.java)
+    fun jsonTypeToWorkSetList(value: String): List<WorkSet>? {
+        val listType = Types.newParameterizedType(List::class.java, WorkSet::class.java)
+        val adapter: JsonAdapter<List<WorkSet>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
-
     @TypeConverter
-    fun weekTypeToJsonType(type: WorkPartEntity): String {
-        val adapter: JsonAdapter<WorkPartEntity> = moshi.adapter(WorkPartEntity::class.java)
+    fun workSetListToJsonType(type: List<WorkSet>): String {
+        val listType = Types.newParameterizedType(List::class.java, WorkSet::class.java)
+        val adapter: JsonAdapter<List<WorkSet>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }

@@ -52,6 +52,7 @@ class DefaultHistoryDataSource @Inject constructor(
                         score = createHistory.score,
                         restTime = createHistory.restTime,
                         totalTime = createHistory.totalTime,
+                        historyTimeStamp  = createHistory.historyTimeStamp,
                         historyRoutine = createHistory.historyRoutine.map { historyRoutine ->
                             CreateHistoryRoutineDto(
                                 workCategory = historyRoutine.workCategoryId,

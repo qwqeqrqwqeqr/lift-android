@@ -5,15 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "user_profile_picture")
-data class UserProfilePictureEntity(
+@Entity(tableName = "routine_profile_picture")
+data class RoutineSetPictureEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val url: String
-
-
-
+    val id: Int,
+    @ColumnInfo(name = "category")
     val category: String,
+    @ColumnInfo(name = "url")
+    val url: String,
 )
 
-data class RoutineSetPictureEntity()
+
+

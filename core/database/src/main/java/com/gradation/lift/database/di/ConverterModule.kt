@@ -1,7 +1,6 @@
 package com.gradation.lift.database.di
 
-import com.gradation.lift.database.util.RoutineListTypeConverter
-import com.gradation.lift.database.util.WorkPartTypeConverter
+import com.gradation.lift.database.util.*
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -14,21 +13,34 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ConverterModule {
 
-    @Provides
-    @Singleton
-    fun provideRoutineListTypeConverter(moshi: Moshi): RoutineListTypeConverter =
-        RoutineListTypeConverter(moshi)
 
     @Provides
     @Singleton
-    fun provideWeekTypeConverter(moshi: Moshi): WeekTypeConverter =
-        WeekTypeConverter(moshi)
+    fun provideWeekdayTypeConverter(moshi: Moshi): WeekdayTypeConverter =
+        WeekdayTypeConverter(moshi)
 
 
     @Provides
     @Singleton
-    fun provideWorkPartTypeConverter(moshi: Moshi): WorkPartTypeConverter =
-        WorkPartTypeConverter(moshi)
+    fun provideWorkSetListTypeConverter(moshi: Moshi): WorkSetListTypeConverter =
+        WorkSetListTypeConverter(moshi)
 
+
+
+    @Provides
+    @Singleton
+    fun provideStringListTypeConverter(moshi: Moshi): StringListTypeConverter =
+        StringListTypeConverter(moshi)
+
+
+    @Provides
+    @Singleton
+    fun provideFloatListTypeConverter(moshi: Moshi): FloatListTypeConverter =
+        FloatListTypeConverter(moshi)
+
+    @Provides
+    @Singleton
+    fun provideIntListTypeConverter(moshi: Moshi): IntListTypeConverter =
+        IntListTypeConverter(moshi)
 
 }

@@ -2,9 +2,7 @@ package com.gradation.lift.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gradation.lift.database.util.RoutineListTypeConverter
-import com.gradation.lift.database.util.WeekTypeConverter
-import com.gradation.lift.database.util.WorkPartTypeConverter
+import com.gradation.lift.database.util.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,14 +19,18 @@ object DatabaseModule {
     @Singleton
     fun providesLiftDatabase(
         @ApplicationContext context: Context,
-        routineListTypeConverter: RoutineListTypeConverter,
-        weekTypeConverter: WeekTypeConverter,
-        workPartTypeConverter: WorkPartTypeConverter,
+        weekdayTypeConverter: WeekdayTypeConverter,
+        stringListTypeConverter: StringListTypeConverter,
+        intListTypeConverter: IntListTypeConverter,
+        floatListTypeConverter: FloatListTypeConverter,
+        workSetListTypeConverter: WorkSetListTypeConverter
     ) =
         Room.databaseBuilder(context, LiftDatabase::class.java, "lift_database")
-            .addTypeConverter(routineListTypeConverter)
-            .addTypeConverter(weekTypeConverter)
-            .addTypeConverter(workPartTypeConverter)
+            .addTypeConverter(weekdayTypeConverter)
+            .addTypeConverter(stringListTypeConverter)
+            .addTypeConverter(intListTypeConverter)
+            .addTypeConverter(floatListTypeConverter)
+            .addTypeConverter(workSetListTypeConverter)
             .build()
 }
 

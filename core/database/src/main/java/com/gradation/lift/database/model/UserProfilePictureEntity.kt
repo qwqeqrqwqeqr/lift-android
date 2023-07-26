@@ -10,8 +10,14 @@ import androidx.room.PrimaryKey
 data class UserProfilePictureEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
+    val id: Int,
+    @ColumnInfo(name = "url")
     val url : String
 )
+
+
+
+
 
 
 
