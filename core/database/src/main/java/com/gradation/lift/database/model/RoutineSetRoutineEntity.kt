@@ -5,7 +5,16 @@ import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TAB
 import com.gradation.lift.database.util.WeekdayTypeConverter
 import com.gradation.lift.model.common.Weekday
 
-@Entity(tableName = ROUTINE_SET_ROUTINE_TABLE_NAME)
+@Entity(
+    tableName = ROUTINE_SET_ROUTINE_TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = RoutineEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["routine_set_id"]
+        )
+    ]
+)
 data class RoutineSetRoutineEntity(
 
     @PrimaryKey
@@ -22,12 +31,7 @@ data class RoutineSetRoutineEntity(
     @TypeConverters(WeekdayTypeConverter::class)
     val weekday: Weekday,
 
-
     @ColumnInfo(name = "picture")
     val picture: String,
 
-
-    //TODO
-    @Embedded(prefix = "routine_")
-    val routine: List<RoutineEntity>,
 )

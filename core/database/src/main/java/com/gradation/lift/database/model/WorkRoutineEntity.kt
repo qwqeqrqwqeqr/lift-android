@@ -10,8 +10,8 @@ data class WorkRoutineEntity(
     @ColumnInfo(name = "id")
     val id :Int,
 
-    @ColumnInfo(name = "history_id")
-    val historyId :Int,
+    @ColumnInfo(name = "work_id")
+    val workId :Int,
 
     @Embedded(prefix = "work_category_")
     val workCategoryEntity: WorkCategoryEntity,

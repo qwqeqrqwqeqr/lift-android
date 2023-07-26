@@ -7,7 +7,16 @@ import com.gradation.lift.database.util.LocalTimeTypeConverter
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
-@Entity(tableName = HISTORY_TABLE_NAME)
+@Entity(
+    tableName = HISTORY_TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = HistoryRoutineEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["history_id"]
+        )
+    ]
+)
 data class HistoryEntity(
 
     @PrimaryKey
@@ -33,10 +42,7 @@ data class HistoryEntity(
     @ColumnInfo(name = "history_time_stamp")
     val historyTimeStamp: LocalDate,
 
-    //TODO
-    @Embedded(prefix = "history_routine_")
-    val historyRoutine: List<HistoryRoutineEntity>,
-)
+    )
 
 
 

@@ -11,7 +11,16 @@ import kotlinx.datetime.LocalTime
  * [WorkEntity]
  * 진행중인 운동 가록하는 Entity
  */
-@Entity(tableName = WORK_TABLE_NAME)
+@Entity(
+    tableName = WORK_TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = WorkRoutineEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["work_id"]
+        )
+    ]
+)
 
 data class WorkEntity(
 
@@ -33,9 +42,6 @@ data class WorkEntity(
     @ColumnInfo(name = "total_time")
     val totalTime: LocalTime,
 
-    //TODO
-    @Embedded(prefix = "work_routine_")
-    val workRoutineEntity: List<WorkRoutineEntity>,
-)
+    )
 
 
