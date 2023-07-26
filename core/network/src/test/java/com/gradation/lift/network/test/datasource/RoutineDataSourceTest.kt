@@ -5,11 +5,9 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator.Routine.createRoutineSetRoutineModel
 import com.gradation.lift.test.data.TestModelDataGenerator.Routine.routineModelList
-import com.gradation.lift.test.data.TestModelDataGenerator.Routine.routineSetRoutineModelList
+import com.gradation.lift.test.data.TestModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel
+import com.gradation.lift.test.data.TestModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

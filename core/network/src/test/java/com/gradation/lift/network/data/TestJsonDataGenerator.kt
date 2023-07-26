@@ -12,8 +12,8 @@ object TestJsonDataGenerator {
           "status": true,
           "message": "",
           "data": {
-            "access_token": $FAKE_ACCESS_TOKEN,
-            "refresh_token": $FAKE_REFRESH_TOKEN
+            "access_token": "$FAKE_ACCESS_TOKEN",
+            "refresh_token": "$FAKE_REFRESH_TOKEN"
           }
         }
     """.trimIndent()
@@ -29,7 +29,7 @@ object TestJsonDataGenerator {
           "status": true,
           "message": "",
           "data": {
-            "access_token": $FAKE_ACCESS_TOKEN
+            "access_token": "$FAKE_ACCESS_TOKEN"
           }
         }
     """.trimIndent()

@@ -3,9 +3,9 @@ package com.gradation.lift.network.fake
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.data.TestWorkDataGenerator.getWorkCategoryByWorkPartResponseDto
-import com.gradation.lift.network.data.TestWorkDataGenerator.getWorkCategoryResponseDto
-import com.gradation.lift.network.data.TestWorkDataGenerator.getWorkPartResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryByWorkPartResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.getWorkPartResponseDto
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
