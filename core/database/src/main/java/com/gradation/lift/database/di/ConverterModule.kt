@@ -43,4 +43,16 @@ object ConverterModule {
     fun provideIntListTypeConverter(moshi: Moshi): IntListTypeConverter =
         IntListTypeConverter(moshi)
 
+
+
+    @Provides
+    @Singleton
+    fun provideLocalTimeTypeConverter(moshi: Moshi): LocalTimeTypeConverter =
+        LocalTimeTypeConverter(moshi)
+
+
+    @Provides
+    @Singleton
+    fun provideLocalDateTypeConverter(moshi: Moshi): LocalDateTypeConverter =
+        LocalDateTypeConverter(moshi)
 }

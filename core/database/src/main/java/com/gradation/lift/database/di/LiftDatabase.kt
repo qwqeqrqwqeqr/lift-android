@@ -19,7 +19,9 @@ import com.gradation.lift.database.util.*
     IntListTypeConverter::class,
     FloatListTypeConverter::class,
     StringListTypeConverter::class,
-    WorkSetListTypeConverter::class
+    WorkSetListTypeConverter::class,
+    LocalTimeTypeConverter::class,
+    LocalDateTypeConverter::class
 ])
 abstract class LiftDatabase : RoomDatabase() {
     abstract fun routineSetDao(): RoutineSetDao

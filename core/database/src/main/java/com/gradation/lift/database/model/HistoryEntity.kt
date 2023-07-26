@@ -14,28 +14,30 @@ data class HistoryEntity(
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id :Int,
+    val id: Int,
 
     @ColumnInfo(name = "comment")
-    val comment : String?,
+    val comment: String?,
 
     @ColumnInfo(name = "int")
-    val score :Int,
+    val score: Int,
 
 
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "int")
-    val restTime : LocalTime,
+    val restTime: LocalTime,
 
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "int")
-    val totalTime : LocalTime,
+    val totalTime: LocalTime,
 
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "int")
-    val historyTimeStamp : LocalDate,
+    val historyTimeStamp: LocalDate,
 
-    val historyRoutine : List<HistoryRoutine>,
+
+    @Embedded(prefix = "history_routine_")
+    val historyRoutine: List<HistoryRoutineEntity>,
 )
 
 

@@ -7,6 +7,8 @@ import com.gradation.lift.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
 import javax.inject.Inject
 
 
@@ -103,3 +105,46 @@ class WorkSetListTypeConverter(
     }
 }
 
+
+
+@ProvidedTypeConverter
+class LocalTimeTypeConverter(
+    private val moshi: Moshi,
+) {
+
+    @TypeConverter
+    fun jsonTypeToLocalTime(value: String): LocalTime? {
+        val listType = Types.newParameterizedType(LocalTime::class.java)
+        val adapter: JsonAdapter<LocalTime> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun localTimeToJsonType(type: LocalTime): String {
+        val listType = Types.newParameterizedType(LocalTime::class.java)
+        val adapter: JsonAdapter<LocalTime> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+
+@ProvidedTypeConverter
+class LocalDateTypeConverter(
+    private val moshi: Moshi,
+) {
+
+    @TypeConverter
+    fun jsonTypeToLocalDate(value: String): LocalDate? {
+        val listType = Types.newParameterizedType(LocalDate::class.java)
+        val adapter: JsonAdapter<LocalDate> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun localDateToJsonType(type: LocalDate): String {
+        val listType = Types.newParameterizedType(LocalDate::class.java)
+        val adapter: JsonAdapter<LocalDate> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}

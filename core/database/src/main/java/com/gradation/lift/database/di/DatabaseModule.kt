@@ -23,7 +23,9 @@ object DatabaseModule {
         stringListTypeConverter: StringListTypeConverter,
         intListTypeConverter: IntListTypeConverter,
         floatListTypeConverter: FloatListTypeConverter,
-        workSetListTypeConverter: WorkSetListTypeConverter
+        workSetListTypeConverter: WorkSetListTypeConverter,
+        localTimeTypeConverter: LocalTimeTypeConverter,
+        localDateTypeConverter: LocalDateTypeConverter
     ) =
         Room.databaseBuilder(context, LiftDatabase::class.java, "lift_database")
             .addTypeConverter(weekdayTypeConverter)
@@ -31,6 +33,8 @@ object DatabaseModule {
             .addTypeConverter(intListTypeConverter)
             .addTypeConverter(floatListTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
+            .addTypeConverter(localTimeTypeConverter)
+            .addTypeConverter(localDateTypeConverter)
             .build()
 }
 

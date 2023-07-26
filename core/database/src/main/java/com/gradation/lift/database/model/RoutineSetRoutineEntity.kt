@@ -29,5 +29,4 @@ data class RoutineSetRoutineEntity(
 
     @Embedded(prefix = "routine_")
     val routine: RoutineEntity,
-
-    )
+)
