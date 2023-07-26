@@ -3,6 +3,7 @@ package com.gradation.lift.database.di
 import android.content.Context
 import androidx.room.Room
 import com.gradation.lift.database.util.*
+import com.gradation.lift.database.util.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +28,7 @@ object DatabaseModule {
         localTimeTypeConverter: LocalTimeTypeConverter,
         localDateTypeConverter: LocalDateTypeConverter
     ) =
-        Room.databaseBuilder(context, LiftDatabase::class.java, "lift_database")
+        Room.databaseBuilder(context, LiftDatabase::class.java, DATABASE_NAME)
             .addTypeConverter(weekdayTypeConverter)
             .addTypeConverter(stringListTypeConverter)
             .addTypeConverter(intListTypeConverter)

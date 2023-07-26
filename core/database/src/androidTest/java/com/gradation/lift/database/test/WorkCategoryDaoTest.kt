@@ -2,10 +2,9 @@ package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import com.gradation.lift.database.Constants.TEST_DATABASE
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.di.LiftDatabase
-import com.gradation.lift.database.util.TestDataGenerator
-import com.gradation.lift.domain.model.WorkPart
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +21,7 @@ import javax.inject.Named
 class WorkCategoryDaoTest {
 
     @Inject
-    @Named("test_database")
+    @Named(TEST_DATABASE)
     lateinit var database: LiftDatabase
     private lateinit var workCategoryDao: WorkCategoryDao
 
@@ -118,10 +117,12 @@ class WorkCategoryDaoTest {
     }
 
 
-    companion object{
-        const val updatedTestWorkCategoryName = "데드리프트"
-        const val testId = 1L
-    }
 
+    Truth.assertThat(request.path).isEqualTo("/auth/sign-up/default/")
+    Truth.assertThat(request.method).isEqualTo(Constants.POST)
 
+    Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
+    Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+    Truth.assertThat(response.body()!!.data)
+    .isEqualTo(TestAuthDataGenerator.signUpDefaultResponseDto)
 }

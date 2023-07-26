@@ -6,14 +6,7 @@ import com.gradation.lift.database.util.WeekdayTypeConverter
 import com.gradation.lift.model.common.Weekday
 
 @Entity(
-    tableName = ROUTINE_SET_ROUTINE_TABLE_NAME,
-    foreignKeys = [
-        ForeignKey(
-            entity = RoutineEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["routine_set_id"]
-        )
-    ]
+    tableName = ROUTINE_SET_ROUTINE_TABLE_NAME
 )
 data class RoutineSetRoutineEntity(
 

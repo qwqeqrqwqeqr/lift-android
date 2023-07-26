@@ -10,14 +10,7 @@ import kotlinx.datetime.LocalTime
  * 진행중인 운동 가록하는 Entity
  */
 @Entity(
-    tableName = WORK_TABLE_NAME,
-    foreignKeys = [
-        ForeignKey(
-            entity = WorkRoutineEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["work_id"]
-        )
-    ]
+    tableName = WORK_TABLE_NAME
 )
 
 data class WorkEntity(

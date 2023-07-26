@@ -2,6 +2,8 @@ package com.gradation.lift.database.util
 
 object Constants {
 
+
+    const val DATABASE_NAME = "lift_database"
     object Entity {
         const val HISTORY_TABLE_NAME = "history"
         const val HISTORY_ROUTINE_TABLE_NAME = "history_routine"

@@ -8,14 +8,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
 @Entity(
-    tableName = HISTORY_TABLE_NAME,
-    foreignKeys = [
-        ForeignKey(
-            entity = HistoryRoutineEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["history_id"]
-        )
-    ]
+    tableName = HISTORY_TABLE_NAME
 )
 data class HistoryEntity(
 

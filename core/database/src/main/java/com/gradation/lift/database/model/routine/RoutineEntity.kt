@@ -6,7 +6,16 @@ import com.gradation.lift.database.util.Constants.Entity.ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.work.WorkSet
 
-@Entity(tableName = ROUTINE_TABLE_NAME)
+@Entity(
+    tableName = ROUTINE_TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = RoutineSetRoutineEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["routine_set_id"]
+        )
+    ]
+)
 data class RoutineEntity(
 
     @PrimaryKey

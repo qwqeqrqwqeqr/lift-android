@@ -6,7 +6,15 @@ import com.gradation.lift.database.util.Constants.Entity.HISTORY_ROUTINE_TABLE_N
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.work.WorkSet
 
-@Entity(tableName = HISTORY_ROUTINE_TABLE_NAME)
+@Entity(tableName = HISTORY_ROUTINE_TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = HistoryEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["history_id"]
+        )
+    ]
+)
 data class HistoryRoutineEntity(
 
 

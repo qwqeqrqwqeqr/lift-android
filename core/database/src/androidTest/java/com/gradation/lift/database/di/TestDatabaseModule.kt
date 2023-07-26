@@ -2,10 +2,8 @@ package com.gradation.lift.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gradation.lift.database.util.RoutineListTypeConverter
-import com.gradation.lift.database.util.WeekTypeConverter
-import com.gradation.lift.database.util.WorkPartTypeConverter
-import com.squareup.moshi.Moshi
+import com.gradation.lift.database.Constants.TEST_DATABASE
+import com.gradation.lift.database.util.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,18 +18,26 @@ import javax.inject.Named
 )
 object TestDatabaseModule {
 
-    @Named("test_database")
+    @Named(TEST_DATABASE)
     @Provides
     fun provideInMemoryDatabase(
         @ApplicationContext context: Context,
-        routineListTypeConverter: RoutineListTypeConverter,
-        weekTypeConverter: WeekTypeConverter,
-        workPartTypeConverter: WorkPartTypeConverter,
+        weekdayTypeConverter: WeekdayTypeConverter,
+        stringListTypeConverter: StringListTypeConverter,
+        intListTypeConverter: IntListTypeConverter,
+        floatListTypeConverter: FloatListTypeConverter,
+        workSetListTypeConverter: WorkSetListTypeConverter,
+        localTimeTypeConverter: LocalTimeTypeConverter,
+        localDateTypeConverter: LocalDateTypeConverter
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
-            .addTypeConverter(routineListTypeConverter)
-            .addTypeConverter(weekTypeConverter)
-            .addTypeConverter(workPartTypeConverter)
+            .addTypeConverter(weekdayTypeConverter)
+            .addTypeConverter(stringListTypeConverter)
+            .addTypeConverter(intListTypeConverter)
+            .addTypeConverter(floatListTypeConverter)
+            .addTypeConverter(workSetListTypeConverter)
+            .addTypeConverter(localTimeTypeConverter)
+            .addTypeConverter(localDateTypeConverter)
             .allowMainThreadQueries()
             .build()
 }
