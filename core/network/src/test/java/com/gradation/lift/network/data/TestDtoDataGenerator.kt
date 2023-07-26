@@ -24,6 +24,7 @@ import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.test.data.TestDefaultDataGenerator
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.datetime.LocalDate
@@ -112,6 +113,22 @@ object TestDtoDataGenerator {
             listOf(
                 historyDto1, historyDto2
             )
+        )
+
+        internal val createHistoryRoutineDto = CreateHistoryRoutineDto(
+            workCategory = "숄더프레스",
+            workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
+            workRepetitionList = listOf(12, 12, 12, 12, 12),
+        )
+
+
+        val createHistoryRequestDto = CreateHistoryRequestDto(
+            comment = "보람찬 하루",
+            score = 5,
+            restTime = LocalTime(0, 10, 0),
+            totalTime = LocalTime(0, 30, 0),
+            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            historyRoutine = listOf(createHistoryRoutineDto)
         )
     }
 

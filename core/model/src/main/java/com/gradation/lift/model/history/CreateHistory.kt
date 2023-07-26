@@ -1,6 +1,6 @@
 package com.gradation.lift.model.history
 
-import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
 data class CreateHistory(
@@ -8,6 +8,6 @@ data class CreateHistory(
     val score :Int,
     val restTime : LocalTime,
     val totalTime : LocalTime,
-    val historyTimeStamp : LocalDate,
+    val historyTimeStamp : LocalDateTime,
     val historyRoutine : List<CreateHistoryRoutine>
 )

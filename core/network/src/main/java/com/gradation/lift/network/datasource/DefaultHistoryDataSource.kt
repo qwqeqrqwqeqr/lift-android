@@ -55,7 +55,7 @@ class DefaultHistoryDataSource @Inject constructor(
                         historyTimeStamp  = createHistory.historyTimeStamp,
                         historyRoutine = createHistory.historyRoutine.map { historyRoutine ->
                             CreateHistoryRoutineDto(
-                                workCategory = historyRoutine.workCategoryId,
+                                workCategory = historyRoutine.workCategory,
                                 workWeightList = historyRoutine.workSet.map { it.weight },
                                 workRepetitionList = historyRoutine.workSet.map { it.repetition }
                             )
