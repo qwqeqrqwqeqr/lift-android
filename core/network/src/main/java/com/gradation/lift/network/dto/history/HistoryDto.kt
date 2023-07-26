@@ -3,6 +3,7 @@ package com.gradation.lift.network.dto.history
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
 
@@ -19,7 +20,7 @@ data class HistoryDto(
     @Json(name = "total_time")
     val totalTime : LocalTime,
     @Json(name = "history_time_stamp")
-    val historyTimeStamp :LocalDate,
+    val historyTimeStamp :LocalDateTime,
     @Json(name = "history_routine")
     val historyRoutine : HistoryRoutineDto,
 )

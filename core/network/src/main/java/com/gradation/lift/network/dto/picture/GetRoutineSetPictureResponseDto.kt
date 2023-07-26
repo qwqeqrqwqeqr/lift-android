@@ -11,7 +11,7 @@ data class GetRoutineSetPictureResponseDto(
     @Json(name = "routine_set_picture")
     val getRoutineSetPicture : List<RoutineSetPictureDto>
 ){
-    fun toGetRoutineSetPicture() = this.getRoutineSetPicture.map {
+    fun toRoutineSetPicture() :List<RoutineSetPicture> = this.getRoutineSetPicture.map {
         RoutineSetPicture(
             id = it.id,
             url = Constants.DEFAULT_S3_URL+it.url,

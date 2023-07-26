@@ -53,6 +53,6 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideLocalDateTypeConverter(moshi: Moshi): LocalDateTypeConverter =
-        LocalDateTypeConverter(moshi)
+    fun provideLocalDateTimeTypeConverter(moshi: Moshi): LocalDateTimeTypeConverter =
+        LocalDateTimeTypeConverter(moshi)
 }

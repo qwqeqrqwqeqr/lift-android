@@ -28,7 +28,7 @@ object TestDatabaseModule {
         floatListTypeConverter: FloatListTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
-        localDateTypeConverter: LocalDateTypeConverter
+        localDateTypeConverter: LocalDateTimeTypeConverter
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
             .addTypeConverter(weekdayTypeConverter)

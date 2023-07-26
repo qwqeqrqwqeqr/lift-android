@@ -32,7 +32,7 @@ class DefaultPictureDataSource @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toGetRoutineSetPicture()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetPicture()))
             }
         }
     }

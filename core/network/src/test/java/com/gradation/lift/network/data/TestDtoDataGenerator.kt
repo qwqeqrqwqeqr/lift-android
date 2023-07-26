@@ -13,12 +13,22 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.workPartDto
 import com.gradation.lift.network.dto.auth.*
 import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
 import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
+import com.gradation.lift.network.dto.history.*
+import com.gradation.lift.network.dto.picture.GetRoutineSetPictureResponseDto
+import com.gradation.lift.network.dto.picture.GetUserProfilePictureResponseDto
+import com.gradation.lift.network.dto.picture.RoutineSetPictureDto
+import com.gradation.lift.network.dto.picture.UserProfilePictureDto
 import com.gradation.lift.network.dto.routine.*
 import com.gradation.lift.network.dto.user.*
 import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.test.data.TestDefaultDataGenerator
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
 object TestDtoDataGenerator {
 
@@ -57,11 +67,89 @@ object TestDtoDataGenerator {
         )
     }
 
+
+    object History {
+
+        internal val historyRoutineDto1 = HistoryRoutineDto(
+            historyId = 1,
+            historyRoutineId = 1,
+            workCategory = workCategoryDto1,
+            workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
+            workRepetitionList = listOf(12, 12, 12, 12, 12),
+        )
+        internal val historyRoutineDto2 = HistoryRoutineDto(
+            historyId = 2,
+            historyRoutineId = 2,
+            workCategory = workCategoryDto2,
+            workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
+            workRepetitionList = listOf(12, 12, 12, 12, 12),
+        )
+
+        internal val historyDto1 = HistoryDto(
+            historyId = 1,
+            comment = "보람찬 하루",
+            score = 5,
+            restTime = LocalTime(0, 10, 0),
+            totalTime = LocalTime(0, 30, 0),
+            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            historyRoutine = historyRoutineDto1
+        )
+        internal val historyDto2 = HistoryDto(
+            historyId = 2,
+            comment = "행복한 하루",
+            score = 4,
+            restTime = LocalTime(0, 10, 0),
+            totalTime = LocalTime(0, 30, 0),
+            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            historyRoutine = historyRoutineDto2
+        )
+
+
+        internal val createHistoryResponseDto = CreateHistoryResponseDto(FAKE_BOOLEAN_DATA)
+        internal val deleteHistoryResponseDto = DeleteHistoryResponseDto(FAKE_BOOLEAN_DATA)
+        internal val getHistoryResponseDto = GetHistoryResponseDto(listOf(historyDto1, historyDto2))
+        internal val getHistoryByHistoryIdResponseDto = GetHistoryByHistoryIdResponseDto(
+            listOf(
+                historyDto1, historyDto2
+            )
+        )
+    }
+
+    object Picture {
+        internal val routineSetPictureDto1 = RoutineSetPictureDto(
+            id = 1,
+            category = FAKE_STRING_DATA,
+            url = "http://"
+        )
+        internal val routineSetPictureDto2 = RoutineSetPictureDto(
+            id = 2,
+            category = FAKE_STRING_DATA,
+            url = "http://"
+        )
+
+        internal val userProfilePictureDto1 = UserProfilePictureDto(
+            id = 1,
+            url = "http://"
+        )
+        internal val userProfilePictureDto2 = UserProfilePictureDto(
+            id = 2,
+            url = "http://"
+        )
+
+        internal val getRoutineSetPictureResponseDto =
+            GetRoutineSetPictureResponseDto(listOf(routineSetPictureDto1, routineSetPictureDto2))
+
+        internal val userProfilePictureResponseDto =
+            GetUserProfilePictureResponseDto(listOf(userProfilePictureDto1, userProfilePictureDto2))
+
+    }
+
     object Refresh {
         internal val refreshResponseDto = RefreshResponseDto(
             accessToken = FAKE_ACCESS_TOKEN
         )
     }
+
 
     object WorkPart {
         internal val workPartDto1 = WorkPartDto(id = 1, name = "어깨")
@@ -99,7 +187,7 @@ object TestDtoDataGenerator {
             )
     }
 
-    object Routine{
+    object Routine {
         internal val routineDto1 = RoutineDto(
             routineId = 1,
             routineSetId = 1,
@@ -129,36 +217,38 @@ object TestDtoDataGenerator {
 
     }
 
-    object RoutineSet{
+
+    object RoutineSet {
         internal val routineSetDto1 = RoutineSetDto(
             routineSetId = 1,
             name = "행복한 월요일 루틴",
-            description =  "가볍게 하는 운동",
+            description = "가볍게 하는 운동",
             weekday = Weekday.MONDAY,
             picture = null
         )
         internal val routineSetDto2 = RoutineSetDto(
             routineSetId = 2,
             name = "등 단련 루틴",
-            description =  "집중 등 운동",
+            description = "집중 등 운동",
             weekday = Weekday.MONDAY,
             picture = null
         )
 
         val createRoutineSetRequestDto = CreateRoutineSetRequestDto(
-            name =  TestDefaultDataGenerator.FAKE_STRING_DATA,
+            name = TestDefaultDataGenerator.FAKE_STRING_DATA,
             description = TestDefaultDataGenerator.FAKE_STRING_DATA,
             weekday = listOf(Weekday.MONDAY, Weekday.TUESDAY),
             picture = null,
             routine = listOf(createRoutineDto)
         )
 
-        val createRoutineSetResponseDto = CreateRoutineSetResponseDto(result = TestDefaultDataGenerator.FAKE_BOOLEAN_DATA)
-
+        val createRoutineSetResponseDto =
+            CreateRoutineSetResponseDto(result = TestDefaultDataGenerator.FAKE_BOOLEAN_DATA)
 
     }
 
-    object RoutineSetRoutine{
+
+    object RoutineSetRoutine {
         internal val routineSetRoutineDto1 = RoutineSetRoutineDto(
             routineDto = routineDto1,
             routineSetDto = routineSetDto1
@@ -194,7 +284,7 @@ object TestDtoDataGenerator {
     }
 
 
-    object User{
+    object User {
         val userDetailDto = UserDetailDto(
             name = "test",
             gender = "male",
@@ -203,8 +293,6 @@ object TestDtoDataGenerator {
             profilePicture = null,
             unitOfWeight = "kg"
         )
-
-
 
 
         val createUserDetailRequestDto = CreateUserDetailRequestDto(userDetailDto)

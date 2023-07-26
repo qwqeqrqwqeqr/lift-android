@@ -8,6 +8,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import javax.inject.Inject
 
@@ -130,21 +131,21 @@ class LocalTimeTypeConverter(
 
 
 @ProvidedTypeConverter
-class LocalDateTypeConverter(
+class LocalDateTimeTypeConverter(
     private val moshi: Moshi,
 ) {
 
     @TypeConverter
-    fun jsonTypeToLocalDate(value: String): LocalDate? {
-        val listType = Types.newParameterizedType(LocalDate::class.java)
-        val adapter: JsonAdapter<LocalDate> = moshi.adapter(listType)
+    fun jsonTypeToLocalDateTime(value: String): LocalDateTime? {
+        val listType = Types.newParameterizedType(LocalDateTime::class.java)
+        val adapter: JsonAdapter<LocalDateTime> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun localDateToJsonType(type: LocalDate): String {
-        val listType = Types.newParameterizedType(LocalDate::class.java)
-        val adapter: JsonAdapter<LocalDate> = moshi.adapter(listType)
+    fun localDateTimeToJsonType(type: LocalDateTime): String {
+        val listType = Types.newParameterizedType(LocalDateTime::class.java)
+        val adapter: JsonAdapter<LocalDateTime> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
