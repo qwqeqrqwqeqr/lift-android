@@ -1,4 +1,4 @@
-package com.gradation.lift.database.model
+package com.gradation.lift.database.model.routine
 
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME

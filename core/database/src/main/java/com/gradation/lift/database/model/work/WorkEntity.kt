@@ -1,10 +1,8 @@
-package com.gradation.lift.database.model
+package com.gradation.lift.database.model.work
 
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.WORK_TABLE_NAME
 import com.gradation.lift.database.util.LocalTimeTypeConverter
-import com.gradation.lift.database.util.WorkSetListTypeConverter
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
 /**

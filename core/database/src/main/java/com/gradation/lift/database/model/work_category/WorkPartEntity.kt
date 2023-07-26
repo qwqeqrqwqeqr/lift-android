@@ -1,4 +1,4 @@
-package com.gradation.lift.database.model
+package com.gradation.lift.database.model.work_category
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

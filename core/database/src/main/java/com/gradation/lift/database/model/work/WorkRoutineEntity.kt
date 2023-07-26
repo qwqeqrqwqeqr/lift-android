@@ -1,6 +1,7 @@
-package com.gradation.lift.database.model
+package com.gradation.lift.database.model.work
 
 import androidx.room.*
+import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import com.gradation.lift.database.util.Constants.Entity.WORK_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.work.WorkSet

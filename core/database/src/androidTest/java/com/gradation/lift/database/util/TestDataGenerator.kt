@@ -1,7 +1,7 @@
 package com.gradation.lift.database.util
 
 import com.gradation.lift.database.model.RoutineSetEntity
-import com.gradation.lift.database.model.WorkCategoryEntity
+import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import com.gradation.lift.domain.model.Routine
 import com.gradation.lift.domain.model.Week
 import com.gradation.lift.domain.model.WorkPart

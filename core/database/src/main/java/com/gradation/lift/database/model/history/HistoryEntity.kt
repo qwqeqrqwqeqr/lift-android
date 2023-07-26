@@ -1,4 +1,4 @@
-package com.gradation.lift.database.model
+package com.gradation.lift.database.model.history
 
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.HISTORY_TABLE_NAME

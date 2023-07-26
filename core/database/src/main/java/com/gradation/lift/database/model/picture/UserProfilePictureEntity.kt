@@ -1,4 +1,4 @@
-package com.gradation.lift.database.model
+package com.gradation.lift.database.model.picture
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

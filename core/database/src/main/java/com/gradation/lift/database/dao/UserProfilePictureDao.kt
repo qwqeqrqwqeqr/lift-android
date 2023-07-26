@@ -1,9 +1,8 @@
 package com.gradation.lift.database.dao
 
 import androidx.room.*
-import com.gradation.lift.database.model.UserProfilePictureEntity
+import com.gradation.lift.database.model.picture.UserProfilePictureEntity
 import com.gradation.lift.database.util.Constants
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserProfilePictureDao {
