@@ -2,6 +2,7 @@ package com.gradation.lift.network.data
 
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 
 object TestJsonDataGenerator {
 
@@ -19,7 +20,7 @@ object TestJsonDataGenerator {
     """.trimIndent()
     }
 
-    object Checker{
+    object Checker {
 
     }
 
@@ -194,7 +195,7 @@ object TestJsonDataGenerator {
     """.trimIndent()
     }
 
-    object RoutineSetRoutine{
+    object RoutineSetRoutine {
         val routineSetRoutineResponseJson: String = """
         {
           "status": true,
@@ -279,5 +280,133 @@ object TestJsonDataGenerator {
           }
         }
     """.trimIndent()
+    }
+
+    object Picture {
+        val routineSetPictureResponseJson = """
+            {
+              "status": true,
+              "message": "",
+              "data": {
+                "routine_set_picture": [
+                  {
+                    "id": 1,
+                    "category": "$FAKE_STRING_DATA",
+                    "url": "http://"
+                  },
+                  {
+                    "id": 2,
+                    "category": "$FAKE_STRING_DATA",
+                    "url": "http://"
+                  }
+                ]
+              }
+            }
+        """.trimIndent()
+    }
+
+    val userProfilePictureResponseJson = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "user_profile_picture": [
+              {
+                "id": 1,
+                "url": "http://"
+              },
+              {
+                "id": 2,
+                "url": "http://"
+              }
+            ]
+          }
+        }
+    """.trimIndent()
+
+
+    object History{
+        val historyResponseJson = """
+            {
+              "status": true,
+              "message": "",
+              "data": {
+                "history": [
+                  {
+                    "history_id": 1,
+                    "comment": "보람찬 하루",
+                    "score": 5,
+                    "rest_time": 600,
+                    "total_time": 1800,
+                    "history_time_stamp": "2023-08-31T00:00:00",
+                    "history_routine": {
+                      "history_routine_id": 1,
+                      "history_id": 1,
+                      "work_category": {
+                        "id": 1,
+                        "name": "숄더프레스",
+                        "work_part": {
+                          "id": 1,
+                          "name": "어깨"
+                        },
+                        "introduce": "Lorem ipsum dolor sit amet",
+                        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                      },
+                      "work_weight_list": [
+                        10,
+                        10,
+                        10,
+                        10,
+                        10
+                      ],
+                      "work_repetition_list": [
+                        12,
+                        12,
+                        12,
+                        12,
+                        12
+                      ]
+                    }
+                  },
+                  {
+                    "history_id": 2,
+                    "comment": "행복한 하루",
+                    "score": 2,
+                    "rest_time": 600,
+                    "total_time": 1800,
+                    "history_time_stamp": "2023-08-31T00:00:00",
+                    "history_routine": {
+                      "history_routine_id": 2,
+                      "history_id": 2,
+                      "work_category": {
+                        "id": 2,
+                        "name": "데드리프트",
+                        "work_part": {
+                          "id": 2,
+                          "name": "등"
+                        },
+                        "introduce": "Lorem ipsum dolor sit amet",
+                        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                      },
+                      "work_weight_list": [
+                        10,
+                        10,
+                        10,
+                        10,
+                        10
+                      ],
+                      "work_repetition_list": [
+                        12,
+                        12,
+                        12,
+                        12,
+                        12
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+        """.trimIndent()
     }
 }
