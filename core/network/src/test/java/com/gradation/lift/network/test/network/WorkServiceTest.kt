@@ -10,6 +10,7 @@ import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.WorkService
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -101,10 +102,10 @@ class WorkServiceTest {
                 .setResponseCode(Constants.OK)
         )
 
-        val response = workService.getWorkCategoryByWorkPart(FAKE_INT_DATA)
+        val response = workService.getWorkCategoryByWorkPart(FAKE_STRING_DATA)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/work/work-category-by-work-part/?workpart=${FAKE_INT_DATA}")
+        Truth.assertThat(request.path).isEqualTo("/work/work-category-by-work-part/?work_part=${FAKE_STRING_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)

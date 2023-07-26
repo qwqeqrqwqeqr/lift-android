@@ -10,8 +10,8 @@ data class WorkCategoryDto(
     val id: Int,
     @Json(name = "name")
     val name: String,
-    @Json(name = "workpart")
-    val workpart: WorkPartDto,
+    @Json(name = "work_part")
+    val workPart: WorkPartDto,
     @Json(name = "introduce")
     val introduce: String,
     @Json(name = "description")

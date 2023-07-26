@@ -19,9 +19,9 @@ data class GetRoutineResponseDto(
             workCategory = WorkCategory(
                 id = it.workCategory.id,
                 name = it.workCategory.name,
-                workpart = WorkPart(
-                    id = it.workCategory.workpart.id,
-                    name = it.workCategory.workpart.name
+                workPart = WorkPart(
+                    id = it.workCategory.workPart.id,
+                    name = it.workCategory.workPart.name
                 ),
                 introduce = it.workCategory.introduce,
                 description = it.workCategory.description

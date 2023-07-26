@@ -27,7 +27,7 @@ class FakeWorkDataSource(private val testReturnState: TestReturnState= TestRetur
     }
 
 
-    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>> =flow{
+    override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<APIResult<List<WorkCategory>>> =flow{
         when(testReturnState){
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
             TestReturnState.Success ->  emit(APIResult.Success(data = getWorkCategoryByWorkPartResponseDto.toWorkCategory()))

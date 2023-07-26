@@ -32,9 +32,9 @@ class DefaultWorkDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>> =
+    override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<APIResult<List<WorkCategory>>> =
         flow {
-            networkResultHandler { workService.getWorkCategoryByWorkPart(workpart) }
+            networkResultHandler { workService.getWorkCategoryByWorkPart(workPart) }
                 .collect { result ->
                     when (result) {
                         is APIResult.Fail -> emit(APIResult.Fail(result.message))

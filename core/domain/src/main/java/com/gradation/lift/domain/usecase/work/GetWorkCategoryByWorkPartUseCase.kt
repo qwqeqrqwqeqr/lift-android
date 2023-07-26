@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetWorkCategoryByWorkPartUseCase @Inject constructor(
-    private val workRepository: WorkRepository
+    private val workRepository: WorkRepository,
 ) {
-    operator fun invoke(workPart:Int): Flow<DataState<List<WorkCategory>>> =
+    operator fun invoke(workPart: String): Flow<DataState<List<WorkCategory>>> =
         workRepository.getWorkCategoryByWorkPart(workPart)
 }

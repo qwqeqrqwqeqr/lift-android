@@ -15,9 +15,9 @@ data class GetWorkCategoryResponseDto(
             WorkCategory(
                 id = it.id,
                 name = it.name,
-                workpart = WorkPart(
-                    id = it.workpart.id,
-                    name = it.workpart.name
+                workPart = WorkPart(
+                    id = it.workPart.id,
+                    name = it.workPart.name
                 ),
                 introduce = it.introduce,
                 description = it.description

@@ -16,7 +16,7 @@ interface WorkService {
     suspend fun getWorkCategory(): Response<APIResultWrapper<GetWorkCategoryResponseDto>>
 
     @GET("work/work-category-by-work-part/")
-    suspend fun getWorkCategoryByWorkPart(@Query("workpart") workpart: Int): Response<APIResultWrapper<GetWorkCategoryByWorkPartResponseDto>>
+    suspend fun getWorkCategoryByWorkPart(@Query("work_part") workPart: String): Response<APIResultWrapper<GetWorkCategoryByWorkPartResponseDto>>
 }
 
 

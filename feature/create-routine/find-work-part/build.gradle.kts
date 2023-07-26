@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.create_routine.find_workpart"
+    namespace = "com.gradation.lift.feature.create_routine.find_work_part"
 }
 
 

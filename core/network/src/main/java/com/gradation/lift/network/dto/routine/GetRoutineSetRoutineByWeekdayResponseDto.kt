@@ -28,9 +28,9 @@ data class GetRoutineSetRoutineByWeekdayResponseDto(
                     workCategory = WorkCategory(
                         id = routine.routineDto.workCategory.id,
                         name = routine.routineDto.workCategory.name,
-                        workpart = WorkPart(
-                            id = routine.routineDto.workCategory.workpart.id,
-                            name = routine.routineDto.workCategory.workpart.name
+                        workPart = WorkPart(
+                            id = routine.routineDto.workCategory.workPart.id,
+                            name = routine.routineDto.workCategory.workPart.name
                         ),
                         introduce = routine.routineDto.workCategory.introduce,
                         description = routine.routineDto.workCategory.description

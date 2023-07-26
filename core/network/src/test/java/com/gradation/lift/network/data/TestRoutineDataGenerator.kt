@@ -28,7 +28,7 @@ internal object TestRoutineDataGenerator {
     )
 
     private val createRoutineDto = CreateRoutineDto(
-        workCategory = 1,
+        workCategory = "숄더프레스",
         workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
         workRepetitionList = listOf(12, 12, 12, 12, 12),
     )
@@ -70,7 +70,7 @@ internal object TestRoutineDataGenerator {
                         "work_category": {
                           "id": 1,
                           "name": "숄더프레스",
-                          "workpart": {
+                          "work_part": {
                             "id": 1,
                             "name": "어깨"
                           },
@@ -98,7 +98,7 @@ internal object TestRoutineDataGenerator {
                         "work_category": {
                           "id": 2,
                           "name": "데드리프트",
-                          "workpart": {
+                          "work_part": {
                             "id": 2,
                             "name": "등"
                           },
@@ -138,7 +138,7 @@ internal object TestRoutineDataGenerator {
                   "work_category": {
                     "id": 1,
                     "name": "숄더프레스",
-                    "workpart": {
+                    "work_part": {
                       "id": 1,
                       "name": "어깨"
                     },
@@ -175,7 +175,7 @@ internal object TestRoutineDataGenerator {
                   "work_category": {
                     "id": 2,
                     "name": "데드리프트",
-                    "workpart": {
+                    "work_part": {
                       "id": 2,
                       "name": "등"
                     },

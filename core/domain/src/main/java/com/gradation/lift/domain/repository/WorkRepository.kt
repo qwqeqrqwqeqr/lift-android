@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface WorkRepository {
     fun getWorkPart(): Flow<DataState<List<WorkPart>>>
     fun getWorkCategory(): Flow<DataState<List<WorkCategory>>>
-    fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>>
+    fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>>
 }

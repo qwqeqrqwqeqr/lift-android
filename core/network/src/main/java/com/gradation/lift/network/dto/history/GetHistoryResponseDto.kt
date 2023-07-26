@@ -31,9 +31,9 @@ data class GetHistoryResponseDto(
                     workCategory = WorkCategory(
                         id = history.historyRoutine.workCategory.id,
                         name = history.historyRoutine.workCategory.name,
-                        workpart = WorkPart(
-                            id = history.historyRoutine.workCategory.workpart.id,
-                            name = history.historyRoutine.workCategory.workpart.name
+                        workPart = WorkPart(
+                            id = history.historyRoutine.workCategory.workPart.id,
+                            name = history.historyRoutine.workCategory.workPart.name
                         ),
                         introduce = history.historyRoutine.workCategory.introduce,
                         description = history.historyRoutine.workCategory.description

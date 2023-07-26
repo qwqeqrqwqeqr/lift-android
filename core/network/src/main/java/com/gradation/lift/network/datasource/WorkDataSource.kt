@@ -10,5 +10,5 @@ interface WorkDataSource {
 
     suspend fun getWorkCategory(): Flow<APIResult<List<WorkCategory>>>
 
-    suspend fun getWorkCategoryByWorkPart(workpart: Int): Flow<APIResult<List<WorkCategory>>>
+    suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<APIResult<List<WorkCategory>>>
 }

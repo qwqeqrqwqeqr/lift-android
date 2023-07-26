@@ -2,6 +2,8 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.gradation.lift.database.model.WorkPartEntity
+import com.gradation.lift.model.work.WorkPart
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -25,48 +27,23 @@ class RoutineListTypeConverter @Inject constructor(private val moshi: Moshi) {
     }
 }
 
-@ProvidedTypeConverter
-class WeekTypeConverter @Inject constructor(private val moshi: Moshi) {
 
-    @TypeConverter
-    fun jsonTypeToWeekType(value: String): com.gradation.lift.domain.model.Week? {
-        val adapter: JsonAdapter<com.gradation.lift.domain.model.Week> = moshi.adapter(com.gradation.lift.domain.model.Week::class.java)
-        return adapter.fromJson(value)
-    }
-
-
-    @TypeConverter
-    fun weekTypeToJsonType(type: com.gradation.lift.domain.model.Week): String {
-        val adapter: JsonAdapter<com.gradation.lift.domain.model.Week> = moshi.adapter(com.gradation.lift.domain.model.Week::class.java)
-        return adapter.toJson(type)
-    }
-}
 
 
 
 @ProvidedTypeConverter
 class WorkPartTypeConverter @Inject constructor(private val moshi: Moshi) {
     @TypeConverter
-    fun jsonTypeToWeekType(value: String): com.gradation.lift.domain.model.WorkPart? {
-        val adapter: JsonAdapter<com.gradation.lift.domain.model.WorkPart> = moshi.adapter(com.gradation.lift.domain.model.WorkPart::class.java)
+    fun jsonTypeToWeekType(value: String): WorkPartEntity? {
+        val adapter: JsonAdapter<WorkPartEntity> = moshi.adapter(WorkPartEntity::class.java)
         return adapter.fromJson(value)
     }
 
 
     @TypeConverter
-    fun weekTypeToJsonType(type: com.gradation.lift.domain.model.WorkPart): String {
-        val adapter: JsonAdapter<com.gradation.lift.domain.model.WorkPart> = moshi.adapter(com.gradation.lift.domain.model.WorkPart::class.java)
+    fun weekTypeToJsonType(type: WorkPartEntity): String {
+        val adapter: JsonAdapter<WorkPartEntity> = moshi.adapter(WorkPartEntity::class.java)
         return adapter.toJson(type)
     }
 }
 
-
-//@TypeConverter
-//fun fromTimestamp(value: Long?): Date? {
-//    return if (value == null) null else Date(value)
-//}
-//
-//@TypeConverter
-//fun dateToTimestamp(date: Date?): Long? {
-//    return date?.time
-//}

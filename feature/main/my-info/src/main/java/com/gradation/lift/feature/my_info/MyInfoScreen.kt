@@ -22,10 +22,7 @@ fun MyInfoScreen(navController: NavController) {
     Box(
 
     ) {
-        Text(
-            text = "이거 왜이래",
-            color = Color.Black
-        )
+
 
     }
 }

@@ -25,7 +25,7 @@ week : 금
 usingCount :5
  */
 @Entity(tableName = "routine_sets")
-data class RoutineSetEntity (
+data class RoutineSetRoutineEntity (
 
     @PrimaryKey(autoGenerate = true)
     var id: Long=0,

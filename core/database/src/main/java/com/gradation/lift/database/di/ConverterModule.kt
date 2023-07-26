@@ -1,7 +1,6 @@
 package com.gradation.lift.database.di
 
 import com.gradation.lift.database.util.RoutineListTypeConverter
-import com.gradation.lift.database.util.WeekTypeConverter
 import com.gradation.lift.database.util.WorkPartTypeConverter
 import com.squareup.moshi.Moshi
 import dagger.Module

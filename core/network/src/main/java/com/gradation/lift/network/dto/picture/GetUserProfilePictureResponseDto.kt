@@ -13,6 +13,7 @@ data class GetUserProfilePictureResponseDto(
 ){
     fun toUserProfilePicture() = this.userProfilePicture.map {
         UserProfilePicture(
+            id = it.id,
             url = DEFAULT_S3_URL+it.url
         )
     }

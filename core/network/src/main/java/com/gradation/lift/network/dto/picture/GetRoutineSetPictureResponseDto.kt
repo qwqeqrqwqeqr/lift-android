@@ -13,6 +13,7 @@ data class GetRoutineSetPictureResponseDto(
 ){
     fun toGetRoutineSetPicture() = this.getRoutineSetPicture.map {
         RoutineSetPicture(
+            id = it.id,
             url = Constants.DEFAULT_S3_URL+it.url,
             category = it.category
         )

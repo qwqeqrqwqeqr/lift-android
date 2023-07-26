@@ -32,9 +32,9 @@ class DefaultWorkRepository @Inject constructor(
         }
     }
 
-    override fun getWorkCategoryByWorkPart(workpart: Int): Flow<DataState<List<WorkCategory>>> =
+    override fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>> =
         flow {
-            workDataSource.getWorkCategoryByWorkPart(workpart).collect { result ->
+            workDataSource.getWorkCategoryByWorkPart(workPart).collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(DataState.Fail(result.message))
                     is APIResult.Success -> emit(DataState.Success(result.data))

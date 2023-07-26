@@ -19,6 +19,7 @@ dependencies{
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(project(":core:database"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
@@ -30,7 +31,7 @@ dependencies{
 
 
     implementation(project(":feature:create-routine:find-work-category"))
-    implementation(project(":feature:create-routine:find-workpart"))
+    implementation(project(":feature:create-routine:find-work-part"))
     implementation(project(":feature:create-routine:routine"))
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:routine-detail"))

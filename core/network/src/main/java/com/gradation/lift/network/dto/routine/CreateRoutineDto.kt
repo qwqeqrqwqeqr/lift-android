@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class CreateRoutineDto(
     @Json(name = "work_category")
-    val workCategory: Int,
+    val workCategory: String,
     @Json(name = "work_weight_list")
     val workWeightList: List<Float>,
     @Json(name = "work_repetition_list")

@@ -21,14 +21,14 @@ object TestModelDataGenerator {
         val workCategoryModel1 = WorkCategory(
             id = 1,
             name = "숄더프레스",
-            workpart = workPartModel1,
+            workPart = workPartModel1,
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
          val workCategoryModel2 = WorkCategory(
             id = 2,
             name = "데드리프트",
-            workpart = workPartModel2,
+            workPart = workPartModel2,
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )

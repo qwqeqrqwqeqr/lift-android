@@ -2,7 +2,6 @@ package com.gradation.lift.database.dao
 
 import androidx.room.*
 import com.gradation.lift.database.model.WorkCategoryEntity
-import com.gradation.lift.domain.model.WorkPart
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,17 +27,17 @@ interface WorkCategoryDao {
     @Query("SELECT * FROM work_categories WHERE id=:id")
     fun getWorkCategoryById(id: Long): Flow<WorkCategoryEntity>
 
-    @Transaction
-    @Query(
-        value = """
-            SELECT * FROM 'work_categories'
-            WHERE  `custom_flag` = :customFlag and `work_part` = :workPart
-    """
-    )
-     fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
-        workPart: com.gradation.lift.domain.model.WorkPart,
-        customFlag: Boolean
-    ): Flow<List<WorkCategoryEntity>>
+//    @Transaction
+//    @Query(
+//        value = """
+//            SELECT * FROM 'work_categories'
+//            WHERE  `custom_flag` = :customFlag and `work_part` = :workPart
+//    """
+//    )
+//     fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
+//        workPart: com.gradation.lift.domain.model.WorkPart,
+//        customFlag: Boolean
+//    ): Flow<List<WorkCategoryEntity>>
 
     @Transaction
     @Query(

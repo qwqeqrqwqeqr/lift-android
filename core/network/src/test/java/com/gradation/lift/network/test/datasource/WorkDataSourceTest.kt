@@ -5,6 +5,7 @@ import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.test.data.TestModelDataGenerator.Routine.workCategoryModelList
 import com.gradation.lift.test.data.TestModelDataGenerator.Routine.workPartModelList
 import com.gradation.lift.test.rule.CoroutineRule
@@ -49,6 +50,7 @@ class WorkDataSourceTest {
     @Test
     fun testGetWorkCategoryByWorkPart() = runTest{
         dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
-        assertEquals(APIResult.Success(workCategoryModelList),dataSource.getWorkCategoryByWorkPart(FAKE_INT_DATA).first())
+        assertEquals(APIResult.Success(workCategoryModelList),dataSource.getWorkCategoryByWorkPart(
+            FAKE_STRING_DATA).first())
     }
 }

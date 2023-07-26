@@ -3,7 +3,6 @@ package com.gradation.lift.database.dao
 import androidx.room.*
 
 import com.gradation.lift.database.model.RoutineSetEntity
-import com.gradation.lift.domain.model.Week
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -25,9 +24,9 @@ interface RoutineSetDao {
     /*
         요일에 따른 루틴을 불러옵니다.
      */
-    @Transaction
-    @Query("SELECT * FROM routine_sets WHERE week=:week")
-    fun getAllRoutineSetByWeek(week: com.gradation.lift.domain.model.Week): Flow<List<RoutineSetEntity>>
+//    @Transaction
+//    @Query("SELECT * FROM routine_sets WHERE week=:week")
+//    fun getAllRoutineSetByWeek(week: com.gradation.lift.domain.model.Week): Flow<List<RoutineSetEntity>>
 
 
     /*

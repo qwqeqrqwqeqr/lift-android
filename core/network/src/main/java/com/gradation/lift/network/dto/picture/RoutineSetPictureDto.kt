@@ -6,6 +6,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class RoutineSetPictureDto(
+    @Json(name = "id")
+    val id : Int,
     @Json(name = "category")
     val category :String,
     @Json(name = "url")
