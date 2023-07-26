@@ -26,4 +26,10 @@ object TestServiceModule {
 
     fun testUserService(retrofit: TestRetrofit): UserService =
         retrofit.build().create(UserService::class.java)
+
+    fun testHistoryService(retrofit: TestRetrofit): HistoryService =
+        retrofit.build().create(HistoryService::class.java)
+
+    fun testPictureService(retrofit: TestRetrofit): PictureService =
+        retrofit.build().create(PictureService::class.java)
 }
