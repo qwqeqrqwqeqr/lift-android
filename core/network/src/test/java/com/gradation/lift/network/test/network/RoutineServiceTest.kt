@@ -5,12 +5,18 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestRoutineDataGenerator
-import com.gradation.lift.network.data.TestRoutineDataGenerator.createRoutineSetRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.routineResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.RoutineService
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -52,7 +58,7 @@ class RoutineServiceTest {
     fun testCreateRoutineSetService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestRoutineDataGenerator.resultResponseJson)
+                .setBody(resultResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.CREATED)
         )
@@ -66,7 +72,7 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestRoutineDataGenerator.createRoutineSetResponseDto)
+            .isEqualTo(createRoutineSetResponseDto)
     }
 
 
@@ -74,7 +80,7 @@ class RoutineServiceTest {
     fun testGetRoutineService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestRoutineDataGenerator.routineResponseJson)
+                .setBody(routineResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -88,7 +94,7 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestRoutineDataGenerator.getRoutineResponseDto)
+            .isEqualTo(getRoutineResponseDto)
     }
 
 
@@ -96,7 +102,7 @@ class RoutineServiceTest {
     fun testGetRoutineSetRoutineService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestRoutineDataGenerator.routineSetRoutineResponseJson)
+                .setBody(routineSetRoutineResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -110,7 +116,7 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestRoutineDataGenerator.getRoutineSetRoutineResponseDto)
+            .isEqualTo(getRoutineSetRoutineResponseDto)
     }
 
 
@@ -118,7 +124,7 @@ class RoutineServiceTest {
     fun testGetRoutineSetRoutineByWeekdayService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestRoutineDataGenerator.routineSetRoutineResponseJson)
+                .setBody(routineSetRoutineResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -132,14 +138,14 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestRoutineDataGenerator.getRoutineSetRoutineByWeekdayResponseDto)
+            .isEqualTo(getRoutineSetRoutineByWeekdayResponseDto)
     }
 
     @Test
     fun testGetRoutineSetRoutineByRoutineSetIdService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestRoutineDataGenerator.routineSetRoutineResponseJson)
+                .setBody(routineSetRoutineResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -153,7 +159,7 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestRoutineDataGenerator.getRoutineSetRoutineByRoutineSetIdResponseDto)
+            .isEqualTo(getRoutineSetRoutineByRoutineSetIdResponseDto)
     }
 
 }

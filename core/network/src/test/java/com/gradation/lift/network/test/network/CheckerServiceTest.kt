@@ -5,13 +5,12 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestCheckerDataGenerator
-import com.gradation.lift.network.data.TestCheckerDataGenerator.checkDuplicateEmailResponseDto
-import com.gradation.lift.network.data.TestCheckerDataGenerator.checkDuplicateNameResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Checker.checkDuplicateEmailResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Checker.checkDuplicateNameResponseDto
+import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.CheckerService
-import com.gradation.lift.network.service.UserService
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -54,7 +53,7 @@ class CheckerServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestCheckerDataGenerator.resultResponseJson)
+                .setBody(resultResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -76,7 +75,7 @@ class CheckerServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestCheckerDataGenerator.resultResponseJson)
+                .setBody(resultResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )

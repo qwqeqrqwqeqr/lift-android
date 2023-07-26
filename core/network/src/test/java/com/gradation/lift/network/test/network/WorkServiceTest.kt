@@ -5,11 +5,14 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestWorkDataGenerator
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryByWorkPartResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.getWorkPartResponseDto
+import com.gradation.lift.network.data.TestJsonDataGenerator.WorkCategory.workCategoryResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.WorkPart.workPartResponseJson
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.WorkService
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -52,7 +55,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestWorkDataGenerator.workPartResponseJson)
+                .setBody(workPartResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -66,7 +69,7 @@ class WorkServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestWorkDataGenerator.getWorkPartResponseDto)
+            .isEqualTo(getWorkPartResponseDto)
     }
 
     @Test
@@ -74,7 +77,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestWorkDataGenerator.workCategoryResponseJson)
+                .setBody(workCategoryResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -88,7 +91,7 @@ class WorkServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestWorkDataGenerator.getWorkCategoryResponseDto)
+            .isEqualTo(getWorkCategoryResponseDto)
     }
 
 
@@ -97,7 +100,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestWorkDataGenerator.workCategoryResponseJson)
+                .setBody(workCategoryResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -111,6 +114,6 @@ class WorkServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestWorkDataGenerator.getWorkCategoryByWorkPartResponseDto)
+            .isEqualTo(getWorkCategoryByWorkPartResponseDto)
     }
 }

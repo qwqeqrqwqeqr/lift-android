@@ -1,64 +1,132 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.common.Weekday.Companion.MONDAY
-import com.gradation.lift.model.common.Weekday.Companion.TUESDAY
-import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto1
-import com.gradation.lift.network.data.TestWorkDataGenerator.workCategoryDto2
-import com.gradation.lift.network.dto.routine.*
-import com.gradation.lift.test.data.TestDefaultDataGenerator
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
+
+object TestJsonDataGenerator {
 
 
-internal object TestRoutineDataGenerator {
+    object Auth {
+        internal val signInDefaultResponseJson = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "access_token": $FAKE_ACCESS_TOKEN,
+            "refresh_token": $FAKE_REFRESH_TOKEN
+          }
+        }
+    """.trimIndent()
+    }
+
+    object Checker{
+
+    }
+
+    object Refresh {
+        internal val refreshResponseJson = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "access_token": $FAKE_ACCESS_TOKEN
+          }
+        }
+    """.trimIndent()
+    }
+
+    object WorkPart {
+        val workPartResponseJson: String = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "work_part": [
+              {
+                "id": 1,
+                "name": "어깨"
+              },
+              {
+                "id": 2,
+                "name": "등"
+              }
+            ]
+          }
+        }
+    """.trimIndent()
+    }
+
+    object WorkCategory {
+
+        val workCategoryResponseJson: String = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "work_category": [
+              {
+                "id": 1,
+                "name": "숄더프레스",
+                "work_part": {
+                  "id": 1,
+                  "name": "어깨"
+                },
+                "introduce": "Lorem ipsum dolor sit amet",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              },
+              {
+                "id": 2,
+                "name": "데드리프트",
+                "work_part": {
+                  "id": 2,
+                  "name": "등"
+                },
+                "introduce": "Lorem ipsum dolor sit amet",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              }
+            ]
+          }
+        }
+    """.trimIndent()
+    }
 
 
-    private val routineDto1 = RoutineDto(
-        routineId = 1,
-        routineSetId = 1,
-        workCategory = workCategoryDto1,
-        workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
-        workRepetitionList = listOf(12, 12, 12, 12, 12),
-    )
-    private val routineDto2 = RoutineDto(
-        routineId = 2,
-        routineSetId = 2,
-        workCategory = workCategoryDto2,
-        workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
-        workRepetitionList = listOf(12, 12, 12, 12, 12),
-    )
+    object Common {
+        val resultResponseJson: String = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "result": true
+          }
+        }
+    """.trimIndent()
+    }
 
-    private val createRoutineDto = CreateRoutineDto(
-        workCategory = "숄더프레스",
-        workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
-        workRepetitionList = listOf(12, 12, 12, 12, 12),
-    )
 
-    private val routineSetDto1 = RoutineSetDto(
-        routineSetId = 1,
-        name = "행복한 월요일 루틴",
-        description =  "가볍게 하는 운동",
-        weekday = MONDAY,
-        picture = null
-    )
-    private val routineSetDto2 = RoutineSetDto(
-        routineSetId = 2,
-        name = "등 단련 루틴",
-        description =  "집중 등 운동",
-        weekday = MONDAY,
-        picture = null
-    )
+    object User {
+        val userDetailResponseJson: String = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "user_detail": {
+              "name": "test",
+              "gender": "male",
+              "height": 180.0,
+              "weight": 83.3,
+              "profile_picture": null,
+              "unit_of_weight": "kg"
+            }
+          }
+        }
+    """.trimIndent()
 
-    private val routineSetRoutineDto1 = RoutineSetRoutineDto(
-        routineDto = routineDto1,
-        routineSetDto = routineSetDto1
-    )
 
-    private val routineSetRoutineDto2 = RoutineSetRoutineDto(
-        routineDto = routineDto2,
-        routineSetDto = routineSetDto2
-    )
+    }
 
-    val routineResponseJson: String = """
+    object Routine {
+        val routineResponseJson: String = """
                        {
                   "status": true,
                   "message": "",
@@ -124,8 +192,10 @@ internal object TestRoutineDataGenerator {
                   }
                 }
     """.trimIndent()
+    }
 
-    val routineSetRoutineResponseJson: String = """
+    object RoutineSetRoutine{
+        val routineSetRoutineResponseJson: String = """
         {
           "status": true,
           "message": "",
@@ -209,60 +279,5 @@ internal object TestRoutineDataGenerator {
           }
         }
     """.trimIndent()
-
-
-    val resultResponseJson: String = """
-        {
-          "status": true,
-          "message": "",
-          "data": {
-            "result": true
-          }
-        }
-    """.trimIndent()
-
-
-    val createRoutineSetRequestDto = CreateRoutineSetRequestDto(
-        name =  TestDefaultDataGenerator.FAKE_STRING_DATA,
-        description = TestDefaultDataGenerator.FAKE_STRING_DATA,
-        weekday = listOf(MONDAY, TUESDAY),
-        picture = null,
-        routine = listOf(createRoutineDto)
-    )
-
-    val createRoutineSetResponseDto = CreateRoutineSetResponseDto(result = FAKE_BOOLEAN_DATA)
-
-
-    val getRoutineResponseDto = GetRoutineResponseDto(
-        routine = listOf(
-            routineDto1,
-            routineDto2
-        )
-    )
-
-
-    val getRoutineSetRoutineResponseDto = GetRoutineSetRoutineResponseDto(
-        routineSetRoutine = listOf(
-            routineSetRoutineDto1,
-            routineSetRoutineDto2,
-        )
-    )
-
-    val getRoutineSetRoutineByRoutineSetIdResponseDto =
-        GetRoutineSetRoutineByRoutineSetIdResponseDto(
-            routineSetRoutine = listOf(
-                routineSetRoutineDto1,
-                routineSetRoutineDto2
-            )
-        )
-
-    val getRoutineSetRoutineByWeekdayResponseDto = GetRoutineSetRoutineByWeekdayResponseDto(
-        routineSetRoutine = listOf(
-            routineSetRoutineDto1,
-            routineSetRoutineDto2,
-        )
-    )
-
-
+    }
 }
-

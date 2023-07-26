@@ -5,9 +5,12 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestAuthDataGenerator
-import com.gradation.lift.network.data.TestAuthDataGenerator.signInDefaultRequestDto
-import com.gradation.lift.network.data.TestAuthDataGenerator.signUpDefaultRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signUpDefaultRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signUpDefaultResponseDto
+import com.gradation.lift.network.data.TestJsonDataGenerator.Auth.signInDefaultResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.AuthService
@@ -51,7 +54,7 @@ class AuthServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestAuthDataGenerator.signInDefaultResponseJson)
+                .setBody(signInDefaultResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.CREATED)
 
@@ -65,7 +68,7 @@ class AuthServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestAuthDataGenerator.signInDefaultResponseDto)
+            .isEqualTo(signInDefaultResponseDto)
     }
 
 
@@ -74,7 +77,7 @@ class AuthServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestAuthDataGenerator.resultResponseJson)
+                .setBody(resultResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.CREATED)
 
@@ -88,6 +91,6 @@ class AuthServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(TestAuthDataGenerator.signUpDefaultResponseDto)
+            .isEqualTo(signUpDefaultResponseDto)
     }
 }
