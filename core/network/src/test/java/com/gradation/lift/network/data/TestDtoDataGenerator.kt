@@ -139,7 +139,7 @@ object TestDtoDataGenerator {
         internal val getRoutineSetPictureResponseDto =
             GetRoutineSetPictureResponseDto(listOf(routineSetPictureDto1, routineSetPictureDto2))
 
-        internal val userProfilePictureResponseDto =
+        internal val getUserProfilePictureResponseDto =
             GetUserProfilePictureResponseDto(listOf(userProfilePictureDto1, userProfilePictureDto2))
 
     }

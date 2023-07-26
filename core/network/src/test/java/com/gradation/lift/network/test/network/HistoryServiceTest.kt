@@ -11,6 +11,7 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -37,4 +38,6 @@ class HistoryServiceTest {
     fun teardown() {
         mockWebServer.shutdown()
     }
+
+
 }
