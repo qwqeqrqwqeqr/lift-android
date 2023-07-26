@@ -1,11 +1,11 @@
 package com.gradation.lift.database.model
 
 import androidx.room.*
+import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WeekdayTypeConverter
 import com.gradation.lift.model.common.Weekday
 
-
-@Entity(tableName = "routine_set_routine")
+@Entity(tableName = ROUTINE_SET_ROUTINE_TABLE_NAME)
 data class RoutineSetRoutineEntity(
 
     @PrimaryKey
@@ -27,6 +27,7 @@ data class RoutineSetRoutineEntity(
     val picture: String,
 
 
+    //TODO
     @Embedded(prefix = "routine_")
-    val routine: RoutineEntity,
+    val routine: List<RoutineEntity>,
 )

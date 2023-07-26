@@ -1,11 +1,11 @@
 package com.gradation.lift.database.model
 
 import androidx.room.*
+import com.gradation.lift.database.util.Constants.Entity.HISTORY_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.work.WorkSet
 
-
-@Entity(tableName = "history_routine")
+@Entity(tableName = HISTORY_ROUTINE_TABLE_NAME)
 data class HistoryRoutineEntity(
 
 

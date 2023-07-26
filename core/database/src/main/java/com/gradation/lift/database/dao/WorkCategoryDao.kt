@@ -2,6 +2,8 @@ package com.gradation.lift.database.dao
 
 import androidx.room.*
 import com.gradation.lift.database.model.WorkCategoryEntity
+import com.gradation.lift.database.model.WorkEntity
+import com.gradation.lift.database.util.Constants
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,33 +20,9 @@ interface WorkCategoryDao {
     suspend fun deleteWorkCategory(workCategoryEntity: WorkCategoryEntity)
 
 
-    @Query("DELETE FROM 'work_categories'")
+
+    @Query("DELETE FROM '${Constants.Entity.WORK_CATEGORY_TABLE_NAME}'")
     suspend fun deleteAllWorkCategory()
 
-
-
-    @Transaction
-    @Query("SELECT * FROM work_categories WHERE id=:id")
-    fun getWorkCategoryById(id: Long): Flow<WorkCategoryEntity>
-
-//    @Transaction
-//    @Query(
-//        value = """
-//            SELECT * FROM 'work_categories'
-//            WHERE  `custom_flag` = :customFlag and `work_part` = :workPart
-//    """
-//    )
-//     fun getAllWorkCategoryEntriesByWorkPartCustomFlag(
-//        workPart: com.gradation.lift.domain.model.WorkPart,
-//        customFlag: Boolean
-//    ): Flow<List<WorkCategoryEntity>>
-
-    @Transaction
-    @Query(
-        value = """
-            SELECT * FROM 'work_categories'
-            """
-    )
-     fun getAllWorkCategory(): Flow<List<WorkCategoryEntity>>
 
 }

@@ -1,12 +1,12 @@
 package com.gradation.lift.database.model
 
 import androidx.room.*
+import com.gradation.lift.database.util.Constants.Entity.ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WeekdayTypeConverter
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.work.WorkSet
 
-
-@Entity(tableName = "routine")
+@Entity(tableName = ROUTINE_TABLE_NAME)
 data class RoutineEntity(
 
     @PrimaryKey

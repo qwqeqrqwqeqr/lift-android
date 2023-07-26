@@ -1,4 +1,4 @@
-package com.gradation.lift.network.di
+package com.gradation.lift.common.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

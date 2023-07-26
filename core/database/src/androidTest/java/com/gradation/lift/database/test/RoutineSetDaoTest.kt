@@ -2,7 +2,6 @@ package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
-import com.gradation.lift.database.dao.RoutineSetDao
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.util.TestDataGenerator
 import com.gradation.lift.domain.model.Week

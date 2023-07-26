@@ -1,15 +1,13 @@
 package com.gradation.lift.database.model
 
 import androidx.room.*
-import com.gradation.lift.database.util.WorkSetListTypeConverter
-import com.gradation.lift.model.history.HistoryRoutine
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.database.util.Constants.Entity.HISTORY_TABLE_NAME
+import com.gradation.lift.database.util.LocalDateTypeConverter
+import com.gradation.lift.database.util.LocalTimeTypeConverter
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
-
-@Entity(tableName = "history")
-
+@Entity(tableName = HISTORY_TABLE_NAME)
 data class HistoryEntity(
 
     @PrimaryKey
@@ -19,23 +17,23 @@ data class HistoryEntity(
     @ColumnInfo(name = "comment")
     val comment: String?,
 
-    @ColumnInfo(name = "int")
+    @ColumnInfo(name = "score")
     val score: Int,
 
 
-    @TypeConverters(WorkSetListTypeConverter::class)
-    @ColumnInfo(name = "int")
+    @TypeConverters(LocalTimeTypeConverter::class)
+    @ColumnInfo(name = "rest_time")
     val restTime: LocalTime,
 
-    @TypeConverters(WorkSetListTypeConverter::class)
-    @ColumnInfo(name = "int")
+    @TypeConverters(LocalTimeTypeConverter::class)
+    @ColumnInfo(name = "total_time")
     val totalTime: LocalTime,
 
-    @TypeConverters(WorkSetListTypeConverter::class)
-    @ColumnInfo(name = "int")
+    @TypeConverters(LocalDateTypeConverter::class)
+    @ColumnInfo(name = "history_time_stamp")
     val historyTimeStamp: LocalDate,
 
-
+    //TODO
     @Embedded(prefix = "history_routine_")
     val historyRoutine: List<HistoryRoutineEntity>,
 )

@@ -82,7 +82,7 @@ internal fun RegisterDetailProfilePictureScreen(
     onVisibleDialog: State<Boolean>,
     profilePictureList: State<List<UserProfilePicture>>,
     selectedProfile: State<String>,
-    navigationCondition : State<Boolean>,
+    navigationCondition: State<Boolean>,
     onUpdateSelectedProfile: (String) -> Unit,
     onClickCompleteDialogButton: () -> Unit,
     onBackClickTopBar: () -> Unit,
@@ -169,7 +169,11 @@ internal fun RegisterDetailProfilePictureScreen(
                                 model = item.url,
                                 contentDescription = "",
                                 modifier = modifier
-                                    .border(width = 3.dp, color = LiftTheme.colorScheme.no4, shape = CircleShape)
+                                    .border(
+                                        width = 3.dp,
+                                        color = LiftTheme.colorScheme.no4,
+                                        shape = CircleShape
+                                    )
                                     .clip(CircleShape)
 
                             )
@@ -219,15 +223,15 @@ fun PreviewRegisterDetailProfilePictureScreen() {
             onVisibleDialog = mutableStateOf(false),
             profilePictureList = mutableStateOf(
                 listOf(
-                    UserProfilePicture("1"),
-                    UserProfilePicture("1"),
-                    UserProfilePicture("1"),
-                    UserProfilePicture("1"),
-                    UserProfilePicture("1"),
+                    UserProfilePicture(id = 1, url = "1"),
+                    UserProfilePicture(id = 1, url = "1"),
+                    UserProfilePicture(id = 1, url = "1"),
+                    UserProfilePicture(id = 1, url = "1"),
+                    UserProfilePicture(id = 1, url = "1"),
                 )
             ),
             selectedProfile = mutableStateOf(""),
-            navigationCondition= mutableStateOf(false),
+            navigationCondition = mutableStateOf(false),
             onUpdateSelectedProfile = {},
             onClickCompleteDialogButton = {},
             onBackClickTopBar = {},

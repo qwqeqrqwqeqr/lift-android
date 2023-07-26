@@ -1,9 +1,9 @@
 package com.gradation.lift.database.model
 
 import androidx.room.*
+import com.gradation.lift.database.util.Constants.Entity.WORK_CATEGORY_TABLE_NAME
 
-
-@Entity(tableName = "work_category")
+@Entity(tableName = WORK_CATEGORY_TABLE_NAME)
 data class WorkCategoryEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
