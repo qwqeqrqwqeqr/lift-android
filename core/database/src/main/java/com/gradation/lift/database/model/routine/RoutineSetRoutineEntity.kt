@@ -25,6 +25,6 @@ data class RoutineSetRoutineEntity(
     val weekday: Weekday,
 
     @ColumnInfo(name = "picture")
-    val picture: String,
+    val picture: String?,
 
 )

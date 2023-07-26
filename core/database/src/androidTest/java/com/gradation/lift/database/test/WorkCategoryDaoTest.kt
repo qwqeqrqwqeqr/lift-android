@@ -2,8 +2,8 @@ package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
-import com.gradation.lift.database.Constants.TEST_DATABASE
 import com.gradation.lift.database.dao.WorkCategoryDao
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.di.LiftDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

@@ -6,18 +6,26 @@ import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator.Work.workCategoryModel1
-import com.gradation.lift.test.data.TestModelDataGenerator.Work.workCategoryModel2
-import com.gradation.lift.test.data.TestModelDataGenerator.Work.workPartModel1
-import com.gradation.lift.test.data.TestModelDataGenerator.Work.workPartModel2
+import com.gradation.lift.test.data.TestModelDataGenerator.Routine.routineModel1
+import com.gradation.lift.test.data.TestModelDataGenerator.Routine.routineModel2
+import com.gradation.lift.test.data.TestModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.test.data.TestModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.test.data.TestModelDataGenerator.WorkPart.workPartModel1
+import com.gradation.lift.test.data.TestModelDataGenerator.WorkPart.workPartModel2
 
 
 object TestModelDataGenerator {
 
 
-    object Work{
+    object WorkPart {
         val workPartModel1 = WorkPart(id = 1, name = "어깨")
         val workPartModel2 = WorkPart(id = 2, name = "등")
+
+        val workPartModelList = listOf(workPartModel1, workPartModel2)
+
+    }
+
+    object WorkCategory {
         val workCategoryModel1 = WorkCategory(
             id = 1,
             name = "숄더프레스",
@@ -25,16 +33,20 @@ object TestModelDataGenerator {
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
-         val workCategoryModel2 = WorkCategory(
+        val workCategoryModel2 = WorkCategory(
             id = 2,
             name = "데드리프트",
             workPart = workPartModel2,
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
+
+        val workCategoryModelList = listOf(workCategoryModel1, workCategoryModel2)
+
     }
-    object Routine{
-        private val routineModel1 = Routine(
+
+    object Routine {
+        val routineModel1 = Routine(
             id = 1,
             routineSetId = 1,
             workCategory = workCategoryModel1,
@@ -46,7 +58,7 @@ object TestModelDataGenerator {
                 WorkSet(weight = 10f, repetition = 12)
             )
         )
-        private val routineModel2 = Routine(
+        val routineModel2 = Routine(
             id = 2,
             routineSetId = 2,
             workCategory = workCategoryModel2,
@@ -58,20 +70,28 @@ object TestModelDataGenerator {
                 WorkSet(weight = 10f, repetition = 12)
             )
         )
-        private val routineSetModel1 = RoutineSet(
+        val routineModelList = listOf(routineModel1, routineModel2)
+    }
+
+    object RoutineSet {
+        val routineSetModel1 = RoutineSet(
             id = 1,
             name = "행복한 월요일 루틴",
             description = "가볍게 하는 운동",
             weekday = Weekday.Monday()
         )
-        private val routineSetModel2 = RoutineSet(
+        val routineSetModel2 = RoutineSet(
             id = 2,
             name = "등 단련 루틴",
             description = "집중 등 운동",
             weekday = Weekday.Monday()
         )
+        val routineSetModelList = listOf(routineSetModel1, routineSetModel2)
 
-        private val routineSetRoutineModel1 = RoutineSetRoutine(
+    }
+
+    object RoutineSetRoutine {
+        val routineSetRoutineModel1 = RoutineSetRoutine(
             id = 1,
             name = "행복한 월요일 루틴",
             description = "가볍게 하는 운동",
@@ -80,7 +100,7 @@ object TestModelDataGenerator {
             routine = listOf(routineModel1)
         )
 
-        private val routineSetRoutineModel2 = RoutineSetRoutine(
+        val routineSetRoutineModel2 = RoutineSetRoutine(
             id = 2,
             name = "등 단련 루틴",
             description = "집중 등 운동",
@@ -88,26 +108,22 @@ object TestModelDataGenerator {
             picture = null,
             routine = listOf(routineModel2)
         )
-
-
-
-        val workPartModelList = listOf(workPartModel1, workPartModel2)
-        val workCategoryModelList = listOf(workCategoryModel1, workCategoryModel2)
-
-        val routineModelList = listOf(routineModel1, routineModel2)
-        val routineSetModelList = listOf(routineSetModel1, routineSetModel2)
         val routineSetRoutineModelList = listOf(routineSetRoutineModel1, routineSetRoutineModel2)
+
 
 
         val createRoutineSetRoutineModel = CreateRoutineSetRoutine(
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = listOf(Weekday.Monday(),Weekday.Tuesday()) ,
+            weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
             picture = null,
             routine = emptyList(),
         )
     }
 
 
+
 }
+
+
 
