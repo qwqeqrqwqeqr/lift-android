@@ -25,6 +25,10 @@ object TestDataGenerator {
 
     }
 
+    object User {
+
+    }
+
     object WorkCategory {
         internal val workCategoryEntity1 = WorkCategoryEntity(
             id = 1,
