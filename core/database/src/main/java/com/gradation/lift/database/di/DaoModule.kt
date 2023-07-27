@@ -46,4 +46,9 @@ object DaoModule {
         database: LiftDatabase,
     ): WorkDao = database.workDao()
 
+    @Provides
+    fun provideUserDao(
+        database: LiftDatabase,
+    ): UserDao = database.userDao()
+
 }

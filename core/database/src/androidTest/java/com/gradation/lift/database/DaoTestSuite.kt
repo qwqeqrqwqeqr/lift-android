@@ -13,9 +13,10 @@ import org.junit.runners.Suite
     HistoryDaoTest::class,
     RoutineSetPictureDaoTest::class,
     RoutineSetRoutineDaoTest::class,
-    UserProfileDaoTest::class,
+    UserProfilePictureDaoTest::class,
     WorkCategoryDaoTest::class,
     WorkDaoTest::class,
     WorkPartDaoTest::class,
+    UserDaoTest::class,
 )
 class DaoTestSuite

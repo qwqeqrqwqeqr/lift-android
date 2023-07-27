@@ -17,7 +17,7 @@ import javax.inject.Named
 @ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
-class UserProfileDaoTest {
+class UserProfilePictureDaoTest {
     @Inject
     @Named(TEST_DATABASE)
     lateinit var database: LiftDatabase

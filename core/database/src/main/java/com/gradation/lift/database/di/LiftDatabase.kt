@@ -12,11 +12,13 @@ import com.gradation.lift.database.model.picture.RoutineSetPictureEntity
 import com.gradation.lift.database.model.picture.UserProfilePictureEntity
 import com.gradation.lift.database.model.routine.RoutineEntity
 import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
+import com.gradation.lift.database.model.user.UserEntity
 import com.gradation.lift.database.model.work.WorkEntity
 import com.gradation.lift.database.model.work.WorkRoutineEntity
 import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import com.gradation.lift.database.model.work_category.WorkPartEntity
 import com.gradation.lift.database.util.*
+
 @SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 @Database(
     entities = [
@@ -30,6 +32,7 @@ import com.gradation.lift.database.util.*
         WorkEntity::class,
         WorkPartEntity::class,
         WorkRoutineEntity::class,
+        UserEntity::class,
     ],
     version = 1,
     exportSchema = false,
@@ -42,7 +45,7 @@ import com.gradation.lift.database.util.*
         StringListTypeConverter::class,
         WorkSetListTypeConverter::class,
         LocalTimeTypeConverter::class,
-        LocalDateTypeConverter::class
+        LocalDateTimeTypeConverter::class
     ]
 )
 abstract class LiftDatabase : RoomDatabase() {
@@ -55,6 +58,7 @@ abstract class LiftDatabase : RoomDatabase() {
 
     abstract fun historyDao(): HistoryDao
     abstract fun workDao(): WorkDao
+    abstract fun userDao(): UserDao
 
 }
 

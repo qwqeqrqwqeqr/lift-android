@@ -2,7 +2,7 @@ package com.gradation.lift.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gradation.lift.database.Constants.TEST_DATABASE
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.util.*
 import dagger.Module
 import dagger.Provides
@@ -28,7 +28,7 @@ object TestDatabaseModule {
         floatListTypeConverter: FloatListTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
-        localDateTypeConverter: LocalDateTimeTypeConverter
+        localDateTimeTypeConverter: LocalDateTimeTypeConverter
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
             .addTypeConverter(weekdayTypeConverter)
@@ -37,7 +37,7 @@ object TestDatabaseModule {
             .addTypeConverter(floatListTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
-            .addTypeConverter(localDateTypeConverter)
+            .addTypeConverter(localDateTimeTypeConverter)
             .allowMainThreadQueries()
             .build()
 }

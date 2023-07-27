@@ -26,7 +26,7 @@ object DatabaseModule {
         floatListTypeConverter: FloatListTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
-        localDateTypeConverter: LocalDateTypeConverter
+        localDateTimeTypeConverter: LocalDateTimeTypeConverter
     ) =
         Room.databaseBuilder(context, LiftDatabase::class.java, DATABASE_NAME)
             .addTypeConverter(weekdayTypeConverter)
@@ -35,7 +35,7 @@ object DatabaseModule {
             .addTypeConverter(floatListTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
-            .addTypeConverter(localDateTypeConverter)
+            .addTypeConverter(localDateTimeTypeConverter)
             .build()
 }
 
