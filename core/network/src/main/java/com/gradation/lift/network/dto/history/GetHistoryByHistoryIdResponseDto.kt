@@ -7,6 +7,8 @@ import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.model.work.WorkSet
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
+import kotlinx.datetime.LocalDateTime.Companion.parse
 
 @JsonClass(generateAdapter = true)
 data class GetHistoryByHistoryIdResponseDto(
@@ -18,9 +20,9 @@ data class GetHistoryByHistoryIdResponseDto(
             historyId = it.value.first().historyId,
             comment = it.value.first().comment,
             score = it.value.first().score,
-            restTime = it.value.first().restTime,
-            totalTime = it.value.first().totalTime,
-            historyTimeStamp = it.value.first().historyTimeStamp,
+            restTime = fromSecondOfDay(it.value.first().restTime),
+            totalTime = fromSecondOfDay(it.value.first().totalTime),
+            historyTimeStamp = parse(it.value.first().historyTimeStamp),
             historyRoutine = it.value.map { history ->
                 HistoryRoutine(
                     id = history.historyRoutine.historyRoutineId,
@@ -41,7 +43,6 @@ data class GetHistoryByHistoryIdResponseDto(
                                 weight = workSet.first,
                                 repetition = workSet.second
                             )
-
                         }
                 )
             }

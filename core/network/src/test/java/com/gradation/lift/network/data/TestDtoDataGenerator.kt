@@ -21,15 +21,11 @@ import com.gradation.lift.network.dto.picture.UserProfilePictureDto
 import com.gradation.lift.network.dto.routine.*
 import com.gradation.lift.network.dto.user.*
 import com.gradation.lift.network.dto.work.*
-import com.gradation.lift.test.data.TestDefaultDataGenerator
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.LocalTime
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_URL_DATA
 
 object TestDtoDataGenerator {
 
@@ -42,15 +38,15 @@ object TestDtoDataGenerator {
         )
 
         internal val signInDefaultRequestDto = SignInDefaultRequestDto(
-            id = TestDefaultDataGenerator.FAKE_STRING_DATA,
-            password = TestDefaultDataGenerator.FAKE_STRING_DATA
+            id = FAKE_STRING_DATA,
+            password = FAKE_STRING_DATA
         )
 
         internal val signUpDefaultRequestDto = SignUpDefaultRequestDto(
-            email = TestDefaultDataGenerator.FAKE_STRING_DATA,
-            password = TestDefaultDataGenerator.FAKE_STRING_DATA,
-            name = TestDefaultDataGenerator.FAKE_STRING_DATA,
-            phoneNumber = TestDefaultDataGenerator.FAKE_STRING_DATA
+            email = FAKE_STRING_DATA,
+            password = FAKE_STRING_DATA,
+            name = FAKE_STRING_DATA,
+            phoneNumber = FAKE_STRING_DATA
         )
         internal val signUpDefaultResponseDto = SignUpDefaultResponseDto(
             result = true
@@ -90,18 +86,18 @@ object TestDtoDataGenerator {
             historyId = 1,
             comment = "보람찬 하루",
             score = 5,
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
-            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            restTime = 600,
+            totalTime = 1800,
+            historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = historyRoutineDto1
         )
         internal val historyDto2 = HistoryDto(
             historyId = 2,
             comment = "행복한 하루",
-            score = 4,
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
-            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            score = 2,
+            restTime = 600,
+            totalTime = 1800,
+            historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = historyRoutineDto2
         )
 
@@ -125,9 +121,9 @@ object TestDtoDataGenerator {
         val createHistoryRequestDto = CreateHistoryRequestDto(
             comment = "보람찬 하루",
             score = 5,
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
-            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            restTime = 600,
+            totalTime = 1800,
+            historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = listOf(createHistoryRoutineDto)
         )
     }
@@ -136,21 +132,21 @@ object TestDtoDataGenerator {
         internal val routineSetPictureDto1 = RoutineSetPictureDto(
             id = 1,
             category = FAKE_STRING_DATA,
-            url = "http://"
+            url = FAKE_URL_DATA
         )
         internal val routineSetPictureDto2 = RoutineSetPictureDto(
             id = 2,
             category = FAKE_STRING_DATA,
-            url = "http://"
+            url = FAKE_URL_DATA
         )
 
         internal val userProfilePictureDto1 = UserProfilePictureDto(
             id = 1,
-            url = "http://"
+            url = FAKE_URL_DATA
         )
         internal val userProfilePictureDto2 = UserProfilePictureDto(
             id = 2,
-            url = "http://"
+            url = FAKE_URL_DATA
         )
 
         internal val getRoutineSetPictureResponseDto =
@@ -252,15 +248,15 @@ object TestDtoDataGenerator {
         )
 
         val createRoutineSetRequestDto = CreateRoutineSetRequestDto(
-            name = TestDefaultDataGenerator.FAKE_STRING_DATA,
-            description = TestDefaultDataGenerator.FAKE_STRING_DATA,
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
             weekday = listOf(Weekday.MONDAY, Weekday.TUESDAY),
             picture = null,
             routine = listOf(createRoutineDto)
         )
 
         val createRoutineSetResponseDto =
-            CreateRoutineSetResponseDto(result = TestDefaultDataGenerator.FAKE_BOOLEAN_DATA)
+            CreateRoutineSetResponseDto(result = FAKE_BOOLEAN_DATA)
 
     }
 
@@ -307,7 +303,7 @@ object TestDtoDataGenerator {
             gender = "male",
             height = 180.0f,
             weight = 83.3f,
-            profilePicture = null,
+            profilePicture = FAKE_URL_DATA,
             unitOfWeight = "kg"
         )
 

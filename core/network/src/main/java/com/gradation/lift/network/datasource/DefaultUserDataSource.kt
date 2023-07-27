@@ -45,7 +45,7 @@ class DefaultUserDataSource @Inject constructor(
                         },
                         height = userDetail.height,
                         weight = userDetail.weight,
-                        profilePicture = userDetail.profilePicture?.replace(Constants.DEFAULT_S3_URL,""),
+                        profilePicture = userDetail.profilePicture.replace(Constants.DEFAULT_S3_URL,""),
                         unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
                             is UnitOfWeight.Kg -> unitOfWeight.value
                             is UnitOfWeight.Lb -> unitOfWeight.value

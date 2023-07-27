@@ -27,16 +27,10 @@ class RoutineDataSourceTest {
 
     private lateinit var dataSource: RoutineDataSource
 
-    @Before
-    fun tearUp() {
-    }
 
-    @After
-    fun tearDown() {
-    }
 
     @Test
-    fun testCreateRoutineSet() = runTest {
+    fun testCreateRoutineSetDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             APIResult.Success(true),
@@ -45,7 +39,7 @@ class RoutineDataSourceTest {
     }
 
     @Test
-    fun testGetRoutine() = runTest {
+    fun testGetRoutineDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
@@ -55,7 +49,7 @@ class RoutineDataSourceTest {
     }
 
     @Test
-    fun testGetRoutineSetRoutine() = runTest {
+    fun testGetRoutineSetRoutineDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
@@ -65,7 +59,7 @@ class RoutineDataSourceTest {
     }
 
     @Test
-    fun testGetRoutineSetRoutineByWeekday() = runTest {
+    fun testGetRoutineSetRoutineByWeekdayDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
@@ -75,7 +69,7 @@ class RoutineDataSourceTest {
     }
 
     @Test
-    fun testGetRoutineSetRoutineByRoutineSetId() = runTest {
+    fun testGetRoutineSetRoutineByRoutineSetIdDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(

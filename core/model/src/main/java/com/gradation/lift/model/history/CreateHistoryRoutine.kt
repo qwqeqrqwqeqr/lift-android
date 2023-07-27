@@ -4,5 +4,5 @@ import com.gradation.lift.model.work.WorkSet
 
 data class CreateHistoryRoutine(
     val workCategory: String,
-    val workSet: List<WorkSet>
+    val workSetList: List<WorkSet>
 )

@@ -29,6 +29,7 @@ import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSel
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.test.data.TestModelDataGenerator
+import com.gradation.lift.test.data.TestModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 
 
 @Composable
@@ -294,7 +295,7 @@ fun ReadyWorkSelectionPreview() {
                 WeekdayCard(weekday = Weekday.Sunday(), selected = true)
             ),
             routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Success(
-                routineSetRoutineSelection = TestModelDataGenerator.Routine.routineSetRoutineModelList.map {
+                routineSetRoutineSelection = routineSetRoutineModelList.map {
                     RoutineSetRoutineSelection(
                         id = it.id,
                         name = it.name,

@@ -50,14 +50,14 @@ class DefaultHistoryDataSource @Inject constructor(
                     CreateHistoryRequestDto(
                         comment = createHistory.comment,
                         score = createHistory.score,
-                        restTime = createHistory.restTime,
-                        totalTime = createHistory.totalTime,
-                        historyTimeStamp  = createHistory.historyTimeStamp,
+                        restTime = createHistory.restTime.toSecondOfDay(),
+                        totalTime = createHistory.totalTime.toSecondOfDay(),
+                        historyTimeStamp  = createHistory.historyTimeStamp.toString(),
                         historyRoutine = createHistory.historyRoutine.map { historyRoutine ->
                             CreateHistoryRoutineDto(
                                 workCategory = historyRoutine.workCategory,
-                                workWeightList = historyRoutine.workSet.map { it.weight },
-                                workRepetitionList = historyRoutine.workSet.map { it.repetition }
+                                workWeightList = historyRoutine.workSetList.map { it.weight },
+                                workRepetitionList = historyRoutine.workSetList.map { it.repetition }
                             )
                         }
                     )

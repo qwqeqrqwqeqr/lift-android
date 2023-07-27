@@ -3,6 +3,7 @@ package com.gradation.lift.network.data
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_URL_DATA
 
 object TestJsonDataGenerator {
 
@@ -116,7 +117,7 @@ object TestJsonDataGenerator {
               "gender": "male",
               "height": 180.0,
               "weight": 83.3,
-              "profile_picture": null,
+              "profile_picture": "$FAKE_URL_DATA",
               "unit_of_weight": "kg"
             }
           }
@@ -292,12 +293,12 @@ object TestJsonDataGenerator {
                   {
                     "id": 1,
                     "category": "$FAKE_STRING_DATA",
-                    "url": "http://"
+                    "url": "$FAKE_URL_DATA"
                   },
                   {
                     "id": 2,
                     "category": "$FAKE_STRING_DATA",
-                    "url": "http://"
+                    "url": "$FAKE_URL_DATA"
                   }
                 ]
               }
@@ -313,11 +314,11 @@ object TestJsonDataGenerator {
             "user_profile_picture": [
               {
                 "id": 1,
-                "url": "http://"
+                "url": "$FAKE_URL_DATA"
               },
               {
                 "id": 2,
-                "url": "http://"
+                "url": "$FAKE_URL_DATA"
               }
             ]
           }

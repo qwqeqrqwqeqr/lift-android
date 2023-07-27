@@ -31,7 +31,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.ready_work.change_order.ReadyWorkChangeOrderScreen
 import com.gradation.lift.feature.ready_work.change_order.data.RoutineSetRoutineUiState
 import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.test.data.TestModelDataGenerator.Routine.routineSetRoutineModelList
+import com.gradation.lift.test.data.TestModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 
 
 @Composable

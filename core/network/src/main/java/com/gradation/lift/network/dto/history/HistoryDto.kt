@@ -5,6 +5,10 @@ import com.squareup.moshi.JsonClass
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.serializers.LocalDateComponentSerializer
+import kotlinx.datetime.serializers.LocalDateTimeComponentSerializer
+import kotlinx.datetime.serializers.LocalTimeComponentSerializer
+import kotlinx.serialization.Serializable
 
 
 @JsonClass(generateAdapter = true)
@@ -15,12 +19,16 @@ data class HistoryDto(
     val comment : String?,
     @Json(name = "score")
     val score :Int,
+
     @Json(name = "rest_time")
-    val restTime : LocalTime,
+    val restTime : Int,
+
     @Json(name = "total_time")
-    val totalTime : LocalTime,
+    val totalTime : Int,
+
     @Json(name = "history_time_stamp")
-    val historyTimeStamp :LocalDateTime,
+    val historyTimeStamp :String,
+
     @Json(name = "history_routine")
     val historyRoutine : HistoryRoutineDto,
 )

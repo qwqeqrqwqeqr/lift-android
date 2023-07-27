@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class HistoryRoutineDto(
+data class  HistoryRoutineDto(
     @Json(name = "history_routine_id")
     val historyRoutineId :Int,
     @Json(name = "history_id")

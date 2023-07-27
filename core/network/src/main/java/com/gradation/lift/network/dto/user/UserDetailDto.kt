@@ -7,15 +7,15 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class UserDetailDto(
     @Json(name = "name")
-    val name: String? = null,
+    val name: String,
     @Json(name = "gender")
-    val gender: String? = null,
+    val gender: String,
     @Json(name = "height")
-    val height: Float? = null,
+    val height: Float,
     @Json(name = "weight")
-    val weight: Float? = null,
+    val weight: Float,
     @Json(name = "profile_picture")
-    val profilePicture: String? = null,
+    val profilePicture: String,
     @Json(name = "unit_of_weight")
-    val unitOfWeight: String? = null,
+    val unitOfWeight: String,
 )

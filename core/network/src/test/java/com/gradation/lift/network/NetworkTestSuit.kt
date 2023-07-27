@@ -16,8 +16,7 @@
 
 package com.gradation.lift.network
 
-import com.gradation.lift.network.test.datasource.RoutineDataSourceTest
-import com.gradation.lift.network.test.datasource.WorkDataSourceTest
+import com.gradation.lift.network.test.datasource.*
 import com.gradation.lift.network.test.network.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
@@ -27,14 +26,22 @@ import org.junit.runners.Suite
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-    WorkDataSourceTest::class,
+    AuthDataSourceTest::class,
+    CheckerDataSourceTest::class,
+    UserDataSourceTest::class,
     RoutineDataSourceTest::class,
+    WorkDataSourceTest::class,
+    PictureDataSourceTest::class,
+    HistoryDataSourceTest::class,
 
+    AuthServiceTest::class,
+    CheckerServiceTest::class,
     UserServiceTest::class,
     RoutineServiceTest::class,
     WorkServiceTest::class,
     RefreshServiceTest::class,
-    AuthServiceTest::class,
-    CheckerServiceTest::class,
+    PictureServiceTest::class,
+    HistoryServiceTest::class,
+
 )
 class NetworkTestSuit

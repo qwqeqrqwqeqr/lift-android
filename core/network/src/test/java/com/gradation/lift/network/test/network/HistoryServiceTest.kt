@@ -92,7 +92,7 @@ class HistoryServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/history/history-by-history-id/history_id_list=12%2C13%2C14")
+            .isEqualTo("/history/history-by-history-id/?history_id_list=12%2C13%2C14")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -132,11 +132,11 @@ class HistoryServiceTest {
                 .setResponseCode(Constants.OK)
         )
 
-        val response = historyService.deleteHistory(10)
+        val response = historyService.deleteHistory(1)
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/history/history/history_id=10")
+            .isEqualTo("/history/history/?history_id=1")
         Truth.assertThat(request.method).isEqualTo(Constants.DELETE)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)

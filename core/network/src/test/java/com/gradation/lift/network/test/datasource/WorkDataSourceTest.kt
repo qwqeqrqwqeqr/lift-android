@@ -25,29 +25,23 @@ class WorkDataSourceTest {
     var coroutineRule = CoroutineRule()
 
     private lateinit var dataSource: WorkDataSource
-    @Before
-    fun tearUp() {
-    }
-
-    @After
-    fun tearDown() {}
 
 
 
     @Test
-    fun testGetWorkPart() = runTest{
+    fun testGetWorkPartDataSource() = runTest{
         dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
         assertEquals(APIResult.Success(workPartModelList),dataSource.getWorkPart().first())
     }
 
     @Test
-    fun testGetWorkCategory() = runTest{
+    fun testGetWorkCategoryDataSource() = runTest{
         dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
         assertEquals(APIResult.Success(workCategoryModelList),dataSource.getWorkCategory().first())
     }
 
     @Test
-    fun testGetWorkCategoryByWorkPart() = runTest{
+    fun testGetWorkCategoryByWorkPartDataSource() = runTest{
         dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
         assertEquals(APIResult.Success(workCategoryModelList),dataSource.getWorkCategoryByWorkPart(
             FAKE_STRING_DATA).first())
