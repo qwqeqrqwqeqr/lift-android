@@ -14,20 +14,23 @@ import kotlinx.coroutines.flow.Flow
 interface HistoryDao {
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHistory(historyEntity: HistoryEntity)
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateHistory(historyEntity: HistoryEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllHistory(vararg historyEntity: HistoryEntity)
 
     @Delete
     suspend fun deleteHistory(historyEntity: HistoryEntity)
-
 
     @Query("DELETE FROM '${HISTORY_TABLE_NAME}'")
     suspend fun deleteAllHistory()
 
 
     @Query("SELECT * FROM  $HISTORY_TABLE_NAME JOIN $HISTORY_ROUTINE_TABLE_NAME  ON ${HISTORY_TABLE_NAME}.id = ${HISTORY_ROUTINE_TABLE_NAME}.history_id")
-    fun getAllRoutineSetRoutine(): Flow<Map<HistoryEntity, List<HistoryRoutineEntity>>>
+    fun getAllHistory(): Flow<List<Map<HistoryEntity, List<HistoryRoutineEntity>>>>
+
+
+    @Query("SELECT * FROM $HISTORY_TABLE_NAME JOIN $HISTORY_ROUTINE_TABLE_NAME  ON ${HISTORY_TABLE_NAME}.id = ${HISTORY_ROUTINE_TABLE_NAME}.history_id  WHERE id IN (:historyIdList)")
+    fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<List<Map<HistoryEntity, List<HistoryRoutineEntity>>>>
+
 }
