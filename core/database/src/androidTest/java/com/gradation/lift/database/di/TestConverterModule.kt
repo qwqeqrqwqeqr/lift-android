@@ -17,32 +17,37 @@ import javax.inject.Singleton
 )
 object TestConverterModule {
 
-        @Provides
-        @Singleton
-        fun provideWeekdayTypeConverter(): WeekdayTypeConverter =
-            WeekdayTypeConverter(
-                Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-            )
+    @Provides
+    @Singleton
+    fun provideWeekdayTypeConverter(): WeekdayTypeConverter =
+        WeekdayTypeConverter()
+    @Provides
+    @Singleton
+    fun provideUnitOfWeightTypeConverter(): UnitOfWeightTypeConverter =
+        UnitOfWeightTypeConverter()
 
 
-        @Provides
-        @Singleton
-        fun provideWorkSetListTypeConverter(): WorkSetListTypeConverter =
-            WorkSetListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
+    @Provides
+    @Singleton
+    fun provideGenderTypeConverter(): GenderTypeConverter =
+        GenderTypeConverter()
 
 
+    @Provides
+    @Singleton
+    fun provideWorkSetListTypeConverter(): WorkSetListTypeConverter =
+        WorkSetListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
 
+    @Provides
+    @Singleton
+    fun provideLocalTimeTypeConverter(): LocalTimeTypeConverter =
+        LocalTimeTypeConverter()
 
-        @Provides
-        @Singleton
-        fun provideLocalTimeTypeConverter(): LocalTimeTypeConverter =
-            LocalTimeTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
-
-        @Provides
-        @Singleton
-        fun provideLocalDateTimeTypeConverter(): LocalDateTimeTypeConverter =
-            LocalDateTimeTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
+    @Provides
+    @Singleton
+    fun provideLocalDateTimeTypeConverter(): LocalDateTimeTypeConverter =
+        LocalDateTimeTypeConverter()
 
 }

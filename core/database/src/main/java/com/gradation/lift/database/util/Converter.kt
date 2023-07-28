@@ -2,34 +2,65 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.common.toUnitOfWeight
+import com.gradation.lift.model.common.toWeekDay
+import com.gradation.lift.model.user.Gender
+import com.gradation.lift.model.user.toGender
 import com.gradation.lift.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.LocalTime.Companion.parse as localTimeParse
+import kotlinx.datetime.LocalDateTime.Companion.parse as localDateTimeParse
 import javax.inject.Inject
 
 
-
 @ProvidedTypeConverter
-class WeekdayTypeConverter @Inject constructor(private val moshi: Moshi) {
+class WeekdayTypeConverter @Inject constructor() {
     @TypeConverter
-    fun jsonTypeToWeekdayType(value: String): Weekday? {
-        val adapter: JsonAdapter<Weekday> = moshi.adapter(Weekday::class.java)
-        return adapter.fromJson(value)
+    fun jsonTypeToWeekdayType(value: String): Weekday{
+        return value.toWeekDay()
     }
 
 
     @TypeConverter
     fun weekdayTypeToJsonType(type: Weekday): String {
-        val adapter: JsonAdapter<Weekday> = moshi.adapter(Weekday::class.java)
-        return adapter.toJson(type)
+        return type.getWeekdayValue()
     }
 }
 
+
+@ProvidedTypeConverter
+class GenderTypeConverter @Inject constructor() {
+    @TypeConverter
+    fun jsonTypeToGenderType(value: String): Gender {
+        return value.toGender()
+    }
+
+
+    @TypeConverter
+    fun genderTypeToJsonType(type: Gender): String {
+        return type.getGenderValue()
+    }
+}
+
+@ProvidedTypeConverter
+class UnitOfWeightTypeConverter @Inject constructor() {
+    @TypeConverter
+    fun jsonTypeToUnitOfWeightType(value: String): UnitOfWeight {
+        return value.toUnitOfWeight()
+    }
+
+
+    @TypeConverter
+    fun unitOfWeightTypeToJsonType(type: UnitOfWeight): String {
+        return type.getUnitOfWeightValue()
+    }
+}
 
 
 
@@ -54,45 +85,30 @@ class WorkSetListTypeConverter(
 }
 
 
-
 @ProvidedTypeConverter
-class LocalTimeTypeConverter(
-    private val moshi: Moshi,
-) {
-
+class LocalTimeTypeConverter {
     @TypeConverter
-    fun jsonTypeToLocalTime(value: String): LocalTime? {
-        val listType = Types.newParameterizedType(LocalTime::class.java)
-        val adapter: JsonAdapter<LocalTime> = moshi.adapter(listType)
-        return adapter.fromJson(value)
+    fun jsonTypeToLocalTime(value: String): LocalTime {
+        return localTimeParse(value)
     }
 
     @TypeConverter
     fun localTimeToJsonType(type: LocalTime): String {
-        val listType = Types.newParameterizedType(LocalTime::class.java)
-        val adapter: JsonAdapter<LocalTime> = moshi.adapter(listType)
-        return adapter.toJson(type)
+        return type.toString()
     }
 }
 
 
-
 @ProvidedTypeConverter
-class LocalDateTimeTypeConverter(
-    private val moshi: Moshi,
-) {
+class LocalDateTimeTypeConverter{
 
     @TypeConverter
-    fun jsonTypeToLocalDateTime(value: String): LocalDateTime? {
-        val listType = Types.newParameterizedType(LocalDateTime::class.java)
-        val adapter: JsonAdapter<LocalDateTime> = moshi.adapter(listType)
-        return adapter.fromJson(value)
+    fun jsonTypeToLocalDateTime(value: String): LocalDateTime {
+        return localDateTimeParse(isoString = value)
     }
 
     @TypeConverter
     fun localDateTimeToJsonType(type: LocalDateTime): String {
-        val listType = Types.newParameterizedType(LocalDateTime::class.java)
-        val adapter: JsonAdapter<LocalDateTime> = moshi.adapter(listType)
-        return adapter.toJson(type)
+        return type.toString()
     }
 }

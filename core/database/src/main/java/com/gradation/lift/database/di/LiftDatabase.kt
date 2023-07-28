@@ -42,6 +42,8 @@ import com.gradation.lift.database.util.*
         WeekdayTypeConverter::class,
         WorkSetListTypeConverter::class,
         LocalTimeTypeConverter::class,
+        GenderTypeConverter::class,
+        UnitOfWeightTypeConverter::class,
         LocalDateTimeTypeConverter::class
     ]
 )

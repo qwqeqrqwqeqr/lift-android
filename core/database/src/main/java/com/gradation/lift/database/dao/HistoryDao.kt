@@ -25,12 +25,10 @@ interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllHistoryRoutine(vararg historyRoutineEntity: HistoryRoutineEntity)
 
-    @Transaction
     suspend fun insert(historyEntity: HistoryEntity, historyRoutineEntity: HistoryRoutineEntity){
         insertHistory(historyEntity)
         insertHistoryRoutine(historyRoutineEntity)
     }
-    @Transaction
     suspend fun insertAll(historyEntity: List<HistoryEntity>, historyRoutineEntity: List<HistoryRoutineEntity>){
         insertAllHistory(*historyEntity.toTypedArray())
         insertAllHistoryRoutine(*historyRoutineEntity.toTypedArray())
@@ -40,8 +38,10 @@ interface HistoryDao {
     @Delete
     suspend fun deleteHistory(historyEntity: HistoryEntity)
 
+
     @Query("DELETE FROM '${HISTORY_TABLE_NAME}'")
     suspend fun deleteAllHistory()
+
 
 
     @Query("SELECT * FROM  $HISTORY_TABLE_NAME JOIN $HISTORY_ROUTINE_TABLE_NAME  ON ${HISTORY_TABLE_NAME}.id = ${HISTORY_ROUTINE_TABLE_NAME}.history_id")

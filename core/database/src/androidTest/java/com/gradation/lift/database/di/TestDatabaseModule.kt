@@ -24,14 +24,16 @@ object TestDatabaseModule {
     fun provideInMemoryDatabase(
         @ApplicationContext context: Context,
         weekdayTypeConverter: WeekdayTypeConverter,
-
+        unitOfWeightTypeConverter: UnitOfWeightTypeConverter,
+        genderTypeConverter : GenderTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
         localDateTimeTypeConverter: LocalDateTimeTypeConverter
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
             .addTypeConverter(weekdayTypeConverter)
-
+            .addTypeConverter(genderTypeConverter)
+            .addTypeConverter(unitOfWeightTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
             .addTypeConverter(localDateTimeTypeConverter)

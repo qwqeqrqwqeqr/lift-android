@@ -12,7 +12,9 @@ import com.gradation.lift.model.work.WorkSet
         ForeignKey(
             entity = RoutineSetRoutineEntity::class,
             parentColumns = ["id"],
-            childColumns = ["routine_set_id"]
+            childColumns = ["routine_set_id"],
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     ]
 )

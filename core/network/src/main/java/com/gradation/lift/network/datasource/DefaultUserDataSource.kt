@@ -39,17 +39,14 @@ class DefaultUserDataSource @Inject constructor(
                 createUserDetailRequestDto = CreateUserDetailRequestDto(
                     userDetailDto = UserDetailDto(
                         name = userDetail.name,
-                        gender = when (val gender = userDetail.gender) {
-                            is Gender.Female -> gender.value
-                            is Gender.Male -> gender.value
-                        },
+                        gender = userDetail.gender.getGenderValue(),
                         height = userDetail.height,
                         weight = userDetail.weight,
-                        profilePicture = userDetail.profilePicture.replace(Constants.DEFAULT_S3_URL,""),
-                        unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
-                            is UnitOfWeight.Kg -> unitOfWeight.value
-                            is UnitOfWeight.Lb -> unitOfWeight.value
-                        }
+                        profilePicture = userDetail.profilePicture.replace(
+                            Constants.DEFAULT_S3_URL,
+                            ""
+                        ),
+                        unitOfWeight = userDetail.unitOfWeight.getUnitOfWeightValue()
                     )
                 )
             )
@@ -69,17 +66,12 @@ class DefaultUserDataSource @Inject constructor(
                 updateUserDetailRequestDto = UpdateUserDetailRequestDto(
                     userDetailDto = UserDetailDto(
                         name = userDetail.name,
-                        gender = when (val gender = userDetail.gender) {
-                            is Gender.Female -> gender.value
-                            is Gender.Male -> gender.value
-                        },
+                        gender = userDetail.gender.getGenderValue(),
                         height = userDetail.height,
                         weight = userDetail.weight,
                         profilePicture = userDetail.profilePicture,
-                        unitOfWeight = when (val unitOfWeight = userDetail.unitOfWeight) {
-                            is UnitOfWeight.Kg -> unitOfWeight.value
-                            is UnitOfWeight.Lb -> unitOfWeight.value
-                        }
+                        unitOfWeight = userDetail.unitOfWeight.getUnitOfWeightValue()
+
                     )
                 )
             )

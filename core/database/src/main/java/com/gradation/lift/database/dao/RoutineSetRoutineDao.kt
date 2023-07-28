@@ -25,13 +25,11 @@ interface RoutineSetRoutineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllRoutine(vararg routineEntity: RoutineEntity)
 
-    @Transaction
     suspend fun insert(routineSetRoutineEntity: RoutineSetRoutineEntity, routineEntity: RoutineEntity){
         insertRoutineSetRoutine(routineSetRoutineEntity)
         insertRoutine(routineEntity)
     }
 
-    @Transaction
     suspend fun insertAll(routineSetRoutineEntity: List<RoutineSetRoutineEntity>, routineEntity: List<RoutineEntity>){
         insertAllRoutineSetRoutine(*routineSetRoutineEntity.toTypedArray())
         insertAllRoutine(*routineEntity.toTypedArray())

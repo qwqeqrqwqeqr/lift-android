@@ -16,9 +16,6 @@ interface UserDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateUser(userEntity: UserEntity)
 
-    @Delete
-    suspend fun deleteUser(userEntity: UserEntity)
-
     @Query("DELETE FROM '${USER_TABLE_NAME}'")
     suspend fun deleteAllUser()
 

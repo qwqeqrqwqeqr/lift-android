@@ -2,17 +2,23 @@ package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import com.google.common.truth.Truth
 import com.gradation.lift.database.dao.UserDao
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
+import com.gradation.lift.database.data.TestEntityDataGenerator.User.userEntity
 import com.gradation.lift.database.di.LiftDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
+import kotlin.Int.Companion.MAX_VALUE
 
 @ExperimentalCoroutinesApi
 @SmallTest
@@ -41,5 +47,37 @@ class UserDaoTest {
         database.close()
     }
 
+    @Test
+    fun testInsetUser() = runTest{
+        userDao.insertUser(userEntity = userEntity)
+        val result = userDao.getAllUser().first()
+        Truth.assertThat(result.size).isEqualTo(1)
+    }
+
+
+    @Test
+    fun testUpdateUser() = runTest{
+        userDao.insertUser(userEntity = userEntity)
+        userDao.updateUser(userEntity.copy(height = Float.MAX_VALUE))
+        val result = userDao.getAllUser().first()
+        Truth.assertThat(result.first().height).isEqualTo(Float.MAX_VALUE)
+    }
+
+    @Test
+    fun testDeleteUser() = runTest{
+        userDao.insertUser(userEntity = userEntity)
+        userDao.deleteAllUser()
+        val result = userDao.getAllUser().first()
+        Truth.assertThat(result.size).isEqualTo(0)
+    }
+
+
+
+    @Test
+    fun testExistUser() = runTest{
+        Truth.assertThat(userDao.existUser().first()).isEqualTo(false)
+        userDao.insertUser(userEntity = userEntity)
+        Truth.assertThat(userDao.existUser().first()).isEqualTo(true)
+    }
 }
 

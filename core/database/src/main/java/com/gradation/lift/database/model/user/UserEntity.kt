@@ -8,7 +8,6 @@ import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
 
 
-
 @Entity(
     tableName =USER_TABLE_NAME
 )
@@ -19,7 +18,7 @@ data class UserEntity(
     val name: String,
 
     @ColumnInfo(name = "gender")
-    val gender: String,
+    val gender: Gender,
 
     @ColumnInfo(name = "height")
     val height: Float,
@@ -31,5 +30,5 @@ data class UserEntity(
     val profilePicture: String,
 
     @ColumnInfo(name = "unit_of_weight")
-    val unitOfWeight: String,
+    val unitOfWeight: UnitOfWeight,
 )

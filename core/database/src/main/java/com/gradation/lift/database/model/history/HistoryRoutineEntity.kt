@@ -12,7 +12,9 @@ import com.gradation.lift.model.work.WorkSet
         ForeignKey(
             entity = HistoryEntity::class,
             parentColumns = ["id"],
-            childColumns = ["history_id"]
+            childColumns = ["history_id"],
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE
         )
     ]
 )

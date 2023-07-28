@@ -11,9 +11,11 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.picture.GetUserProfilePictureUseCase
 import com.gradation.lift.domain.usecase.user.CreateUserDetailUseCase
 import com.gradation.lift.model.common.UnitOfWeight
+import com.gradation.lift.model.common.toUnitOfWeight
 import com.gradation.lift.model.picture.UserProfilePicture
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.user.toGender
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -68,22 +70,13 @@ class RegisterDetailProfilePictureViewModel @Inject constructor(
                 ).let {
                     UserDetail(
                         name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY] ?: "",
-                        gender = when (it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY] ?: "") {
-                            Gender.MALE_VALUE -> Gender.Male()
-                            Gender.FEMALE_VALUE -> Gender.Female()
-                            else -> Gender.Male()
-                        },
+                        gender = it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY].toGender(),
                         height = it[SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY]?.toFloat()
                             ?: 0f,
                         weight = it[SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY]?.toFloat()
                             ?: 0f,
                         profilePicture = selectedProfile.value,
-                        unitOfWeight = when (it[SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY]
-                            ?: "") {
-                            UnitOfWeight.KG_VALUE -> UnitOfWeight.Kg()
-                            UnitOfWeight.LB_VALUE -> UnitOfWeight.Lb()
-                            else -> UnitOfWeight.Kg()
-                        },
+                        unitOfWeight = it[SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY].toUnitOfWeight(),
                     )
                 }
             ).collect {

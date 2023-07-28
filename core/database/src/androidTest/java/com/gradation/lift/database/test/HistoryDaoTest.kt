@@ -2,12 +2,19 @@ package com.gradation.lift.database.test
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import com.google.common.truth.Truth
 import com.gradation.lift.database.dao.HistoryDao
+import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyEntity1
+import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyEntity2
+import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyEntityList
+import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyRoutineEntity1
+import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyRoutineEntityList
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.di.LiftDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -44,7 +51,44 @@ class HistoryDaoTest {
 
     @Test
     fun testInsertHistory() = runTest {
-        historyDao.insertHistory()
+        historyDao.insert(
+            historyEntity = historyEntity1,
+            historyRoutineEntity = historyRoutineEntity1
+        )
+        historyDao.insertAll(
+            historyEntity = historyEntityList,
+            historyRoutineEntity = historyRoutineEntityList
+        )
+
+        val result = historyDao.getAllHistory().first()
+        Truth.assertThat(result.size).isEqualTo(2)
+        Truth.assertThat(result.keys.map { it.id }.toSet()).isEqualTo(setOf(1, 2))
+    }
+
+    @Test
+    fun testDeleteHistory() = runTest {
+        historyDao.insertAll(
+            historyEntity = historyEntityList,
+            historyRoutineEntity = historyRoutineEntityList
+        )
+        historyDao.deleteHistory(historyEntity1)
+        Truth.assertThat(historyDao.getAllHistory().first().size).isEqualTo(1)
+
+
+        historyDao.deleteAllHistory()
+        Truth.assertThat(historyDao.getAllHistory().first().size).isEqualTo(0)
+    }
+
+    @Test
+    fun testGetHistoryByHistoryId() = runTest {
+        historyDao.insertAll(
+            historyEntity = historyEntityList,
+            historyRoutineEntity = historyRoutineEntityList
+        )
+        val result =
+            historyDao.getHistoryByHistoryId(setOf(historyEntity1.id, historyEntity2.id, Int.MAX_VALUE)).first()
+
+        Truth.assertThat(result.size).isEqualTo(2)
     }
 
 }
