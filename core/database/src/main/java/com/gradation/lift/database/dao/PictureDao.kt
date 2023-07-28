@@ -15,7 +15,6 @@ interface PictureDao {
     suspend fun insertAllUserProfilePicture(vararg userProfilePictureEntity: UserProfilePictureEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllRoutineSetPicture(vararg routineSetPictureEntity: RoutineSetPictureEntity)
-
     
 
 

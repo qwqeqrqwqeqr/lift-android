@@ -49,7 +49,7 @@ abstract class LiftDatabase : RoomDatabase() {
     abstract fun workCategoryDao(): WorkCategoryDao
     abstract fun workPartDao(): WorkPartDao
     abstract fun routineSetRoutineDao(): RoutineSetRoutineDao
-    abstract fun userProfilePictureDao(): PictureDao
+    abstract fun pictureDao(): PictureDao
     abstract fun historyDao(): HistoryDao
     abstract fun workDao(): WorkDao
     abstract fun userDao(): UserDao

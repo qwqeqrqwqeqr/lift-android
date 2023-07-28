@@ -11,12 +11,12 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     HistoryDaoTest::class,
-    RoutineSetPictureDaoTest::class,
+    PictureDaoTest::class,
     RoutineSetRoutineDaoTest::class,
-    UserProfilePictureDaoTest::class,
-    WorkCategoryDaoTest::class,
+    PictureDaoTest::class,
     WorkDaoTest::class,
     WorkPartDaoTest::class,
+    WorkCategoryDaoTest::class,
     UserDaoTest::class,
 )
 class DaoTestSuite

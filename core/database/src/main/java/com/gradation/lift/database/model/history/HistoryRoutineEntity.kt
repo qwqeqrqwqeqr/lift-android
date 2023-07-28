@@ -27,7 +27,7 @@ data class HistoryRoutineEntity(
     val historyId: Int,
 
     @Embedded(prefix = "work_category_")
-    val workCategoryEntity: WorkCategoryEntity,
+    val workCategory: WorkCategoryEntity,
 
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "work_set_list")

@@ -8,9 +8,11 @@ import com.gradation.lift.database.di.LiftDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -38,6 +40,11 @@ class HistoryDaoTest {
     @After
     fun tearDown() {
         database.close()
+    }
+
+    @Test
+    fun testInsertHistory() = runTest {
+        historyDao.insertHistory()
     }
 
 }

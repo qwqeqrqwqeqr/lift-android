@@ -7,7 +7,6 @@ import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity2
-import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntityList
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -18,7 +17,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
-
 
 @ExperimentalCoroutinesApi
 @SmallTest

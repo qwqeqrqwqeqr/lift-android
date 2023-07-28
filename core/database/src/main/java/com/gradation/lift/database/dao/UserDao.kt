@@ -22,9 +22,6 @@ interface UserDao {
     @Query("DELETE FROM '${USER_TABLE_NAME}'")
     suspend fun deleteAllUser()
 
-    @Query("SELECT * FROM `${USER_TABLE_NAME}` WHERE limit 1")
-    fun getUser() : Flow<UserEntity>
-
     @Query("SELECT * FROM `${USER_TABLE_NAME}`")
      fun getAllUser() : Flow<List<UserEntity>>
 

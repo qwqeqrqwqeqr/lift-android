@@ -17,7 +17,7 @@ import javax.inject.Named
 @ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
-class UserProfilePictureDaoTest {
+class PictureDaoTest {
     @Inject
     @Named(TEST_DATABASE)
     lateinit var database: LiftDatabase
@@ -32,7 +32,7 @@ class UserProfilePictureDaoTest {
     @Before
     fun setup() {
         hiltRule.inject()
-        userProfilePictureDao = database.userProfilePictureDao()
+        userProfilePictureDao = database.pictureDao()
     }
 
     @After

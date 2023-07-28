@@ -15,6 +15,7 @@ interface WorkPartDao {
     suspend fun insertWorkPart(workPartEntity: WorkPartEntity)
 
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllWorkPart(vararg workPartEntity: WorkPartEntity)
 

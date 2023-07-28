@@ -14,12 +14,6 @@ data class WorkEntity(
     @ColumnInfo(name = "id")
     val id: Int,
 
-    @ColumnInfo(name = "comment")
-    val comment: String?,
-
-    @ColumnInfo(name = "score")
-    val score: Int,
-
     @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "rest_time")
     val restTime: LocalTime,

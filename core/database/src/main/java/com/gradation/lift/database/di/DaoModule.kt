@@ -36,9 +36,9 @@ object DaoModule {
     ): RoutineSetRoutineDao = database.routineSetRoutineDao()
 
     @Provides
-    fun provideUserProfilePictureDao(
+    fun providePictureDao(
         database: LiftDatabase,
-    ): PictureDao = database.userProfilePictureDao()
+    ): PictureDao = database.pictureDao()
 
     @Provides
     @Singleton

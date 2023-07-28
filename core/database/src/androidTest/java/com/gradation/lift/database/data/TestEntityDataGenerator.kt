@@ -2,9 +2,13 @@ package com.gradation.lift.database.data
 
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity2
+import com.gradation.lift.database.model.history.HistoryEntity
+import com.gradation.lift.database.model.history.HistoryRoutineEntity
 import com.gradation.lift.database.model.routine.RoutineEntity
 import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.model.user.UserEntity
+import com.gradation.lift.database.model.work.WorkEntity
+import com.gradation.lift.database.model.work.WorkRoutineEntity
 import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import com.gradation.lift.database.model.work_category.WorkPartEntity
 import com.gradation.lift.model.BuildConfig
@@ -13,7 +17,10 @@ import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.model.work.WorkSet
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
 object TestEntityDataGenerator {
     const val TEST_DATABASE = "test_database"
@@ -28,9 +35,72 @@ object TestEntityDataGenerator {
             workpartEntity1,
             workpartEntity2
         )
-
     }
 
+    object History{
+        internal val historyEntity1 = HistoryEntity(
+            id = 1,
+            comment = "보람찬 하루",
+            score = 5,
+            restTime = LocalTime(0, 10, 0),
+            totalTime = LocalTime(0, 30, 0),
+            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+        )
+        internal val historyEntity2 = HistoryEntity(
+            id = 2,
+            comment = "행복한 하루",
+            score = 2,
+            restTime = LocalTime(0, 10, 0),
+            totalTime = LocalTime(0, 30, 0),
+            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+        )
+
+        internal val historyRoutineEntity1 = HistoryRoutineEntity(
+            id = 1,
+            historyId = 1,
+            workCategory = workCategoryEntity1,
+            workSetList = listOf(
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12)
+            )
+        )
+
+        internal val historyRoutineEntity2 = HistoryRoutineEntity(
+            id = 2,
+            historyId = 2,
+            workCategory= workCategoryEntity2,
+            workSetList = listOf(
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12)
+            )
+        )
+    }
+
+    object Work{
+        internal val workEntity = WorkEntity(
+            id = 1,
+            restTime = LocalTime(0, 10, 0),
+            totalTime = LocalTime(0, 30, 0),
+        )
+        internal val workRoutineEntity = WorkRoutineEntity(
+            id = 1,
+            workId = 1,
+            workCategory = workCategoryEntity1,
+            workSetList = listOf(
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12)
+            )
+        )
+    }
 
     object User {
         internal val userEntity = UserEntity(
