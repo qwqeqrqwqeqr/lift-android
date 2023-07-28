@@ -1,8 +1,8 @@
 package com.gradation.lift.domain.usecase
 
 import com.gradation.lift.domain.usecase.date.getCurrentWeekDate
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_DATE_DATA1
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_DATE_DATA2
+import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_DATE_DATA1
+import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_DATE_DATA2
 import kotlinx.datetime.LocalDate
 import org.junit.Test
 import org.junit.Assert.*

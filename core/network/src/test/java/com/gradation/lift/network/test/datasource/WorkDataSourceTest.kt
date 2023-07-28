@@ -4,17 +4,15 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator.WorkCategory.workCategoryModelList
-import com.gradation.lift.test.data.TestModelDataGenerator.WorkPart.workPartModelList
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 
 import kotlinx.coroutines.test.runTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 

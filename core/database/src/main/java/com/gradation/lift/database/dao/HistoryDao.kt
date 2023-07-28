@@ -2,9 +2,13 @@ package com.gradation.lift.database.dao
 
 import androidx.room.*
 import com.gradation.lift.database.model.history.HistoryEntity
+import com.gradation.lift.database.model.history.HistoryRoutineEntity
 import com.gradation.lift.database.model.routine.RoutineEntity
 import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.util.Constants
+import com.gradation.lift.database.util.Constants.Entity.HISTORY_ROUTINE_TABLE_NAME
+import com.gradation.lift.database.util.Constants.Entity.HISTORY_TABLE_NAME
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HistoryDao {
@@ -20,11 +24,10 @@ interface HistoryDao {
     suspend fun deleteHistory(historyEntity: HistoryEntity)
 
 
-
-    @Query("DELETE FROM '${Constants.Entity.HISTORY_TABLE_NAME}'")
+    @Query("DELETE FROM '${HISTORY_TABLE_NAME}'")
     suspend fun deleteAllHistory()
 
 
-    @Query("SELECT * FROM  ${Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME} JOIN ${Constants.Entity.ROUTINE_TABLE_NAME}  ON ${Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME}.id = ${Constants.Entity.ROUTINE_TABLE_NAME}.routine_set_id")
-    suspend fun getRoutineSetRoutine(): Map<RoutineSetRoutineEntity, List<RoutineEntity>>
+    @Query("SELECT * FROM  $HISTORY_TABLE_NAME JOIN $HISTORY_ROUTINE_TABLE_NAME  ON ${HISTORY_TABLE_NAME}.id = ${HISTORY_ROUTINE_TABLE_NAME}.history_id")
+    fun getAllRoutineSetRoutine(): Flow<Map<HistoryEntity, List<HistoryRoutineEntity>>>
 }

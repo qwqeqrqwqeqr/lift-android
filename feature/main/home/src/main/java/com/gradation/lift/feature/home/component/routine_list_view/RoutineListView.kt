@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,8 +26,8 @@ import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
@@ -157,7 +155,7 @@ internal fun RoutineListPreview() {
     LiftMaterialTheme {
         HomeScreen(
             today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Success(weekDateRoutine = TestModelDataGenerator.Routine.routineSetRoutineModelList),
+            weekDateRoutineUiState = WeekDateRoutineUiState.Success(weekDateRoutine = routineSetRoutineModelList),
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(
                     name = "리프트",

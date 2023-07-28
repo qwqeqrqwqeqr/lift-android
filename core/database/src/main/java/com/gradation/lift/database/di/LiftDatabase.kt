@@ -30,8 +30,8 @@ import com.gradation.lift.database.util.*
         UserProfilePictureEntity::class,
         WorkCategoryEntity::class,
         WorkEntity::class,
-        WorkPartEntity::class,
         WorkRoutineEntity::class,
+        WorkPartEntity::class,
         UserEntity::class,
     ],
     version = 1,
@@ -40,9 +40,6 @@ import com.gradation.lift.database.util.*
 @TypeConverters(
     value = [
         WeekdayTypeConverter::class,
-        IntListTypeConverter::class,
-        FloatListTypeConverter::class,
-        StringListTypeConverter::class,
         WorkSetListTypeConverter::class,
         LocalTimeTypeConverter::class,
         LocalDateTimeTypeConverter::class
@@ -51,11 +48,8 @@ import com.gradation.lift.database.util.*
 abstract class LiftDatabase : RoomDatabase() {
     abstract fun workCategoryDao(): WorkCategoryDao
     abstract fun workPartDao(): WorkPartDao
-
-    abstract fun routineSetPictureDao(): RoutineSetPictureDao
     abstract fun routineSetRoutineDao(): RoutineSetRoutineDao
-    abstract fun userProfilePictureDao(): UserProfilePictureDao
-
+    abstract fun userProfilePictureDao(): PictureDao
     abstract fun historyDao(): HistoryDao
     abstract fun workDao(): WorkDao
     abstract fun userDao(): UserDao

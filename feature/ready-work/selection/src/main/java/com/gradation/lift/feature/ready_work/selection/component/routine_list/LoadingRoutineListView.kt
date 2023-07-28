@@ -3,7 +3,6 @@ package com.gradation.lift.feature.ready_work.selection.component.routine_list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,12 +11,9 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.feature.ready_work.selection.ReadyWorkSelectionScreen
-import com.gradation.lift.feature.ready_work.selection.data.RoutineSelection
-import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSelection
 import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.test.data.TestModelDataGenerator
 
 @Composable
 fun LoadingRoutineSetRoutineListView(

@@ -25,9 +25,7 @@ import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.navigation.navigation.navigateHomeToCreateRoutineGraph
-import com.gradation.lift.navigation.navigation.navigateHomeToReadyWorkGraph
-import com.gradation.lift.test.data.TestDefaultDataGenerator
+import com.gradation.lift.model.TestDefaultDataGenerator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -170,7 +168,7 @@ internal fun HomeScreenPreview() {
                     weight = 90f,
                     height = 180f,
                     gender = Gender.Male(),
-                    profilePicture = TestDefaultDataGenerator.FAKE_STRING_DATA,
+                    profilePicture = com.gradation.lift.model.TestDefaultDataGenerator.FAKE_STRING_DATA,
                     unitOfWeight = UnitOfWeight.Kg()
                 )
             ),

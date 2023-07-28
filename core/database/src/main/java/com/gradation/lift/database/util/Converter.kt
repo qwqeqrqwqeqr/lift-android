@@ -31,59 +31,6 @@ class WeekdayTypeConverter @Inject constructor(private val moshi: Moshi) {
 }
 
 
-@ProvidedTypeConverter
-class StringListTypeConverter @Inject constructor(private val moshi: Moshi) {
-    @TypeConverter
-    fun jsonTypeToStringList(value: String): List<String>? {
-        val listType = Types.newParameterizedType(List::class.java, String::class.java)
-        val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-    @TypeConverter
-    fun stringListToJsonType(type: List<String>): String {
-        val listType = Types.newParameterizedType(List::class.java, String::class.java)
-        val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-}
-
-
-@ProvidedTypeConverter
-class FloatListTypeConverter @Inject constructor(private val moshi: Moshi) {
-    @TypeConverter
-    fun jsonTypeToFloatList(value: String): List<Float>? {
-        val listType = Types.newParameterizedType(List::class.java, Float::class.java)
-        val adapter: JsonAdapter<List<Float>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-    @TypeConverter
-    fun floatListToJsonType(type: List<Float>): String {
-        val listType = Types.newParameterizedType(List::class.java, Float::class.java)
-        val adapter: JsonAdapter<List<Float>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-}
-
-
-@ProvidedTypeConverter
-class IntListTypeConverter @Inject constructor(private val moshi: Moshi) {
-    @TypeConverter
-    fun jsonTypeToIntList(value: String): List<Int>? {
-        val listType = Types.newParameterizedType(List::class.java, Int::class.java)
-        val adapter: JsonAdapter<List<Int>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-    @TypeConverter
-    fun intListToJsonType(type: List<Int>): String {
-        val listType = Types.newParameterizedType(List::class.java, Int::class.java)
-        val adapter: JsonAdapter<List<Int>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-}
-
 
 
 @ProvidedTypeConverter

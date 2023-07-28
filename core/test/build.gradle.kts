@@ -10,17 +10,12 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.test"
-    defaultConfig{
-        buildConfigField("String", "LIFT_API_URL", getApiURL("LIFT_API_URL"))
-        buildConfigField("String", "LIFT_S3_URL", getApiURL("LIFT_S3_URL"))
 
-    }
 }
 
-fun getApiURL(propertyKey: String): String {
-    return gradleLocalProperties(rootDir).getProperty(propertyKey)
-}
+
+
 dependencies {
-    implementation(project(":core:model"))
+
 }
 

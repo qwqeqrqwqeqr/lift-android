@@ -6,6 +6,7 @@ import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.util.Constants
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_TABLE_NAME
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RoutineSetRoutineDao {
@@ -25,5 +26,5 @@ interface RoutineSetRoutineDao {
 
 
     @Query("SELECT * FROM  $ROUTINE_SET_ROUTINE_TABLE_NAME JOIN $ROUTINE_TABLE_NAME  ON $ROUTINE_SET_ROUTINE_TABLE_NAME.id = $ROUTINE_TABLE_NAME.routine_set_id")
-    suspend fun getRoutineSetRoutine(): Map<RoutineSetRoutineEntity, List<RoutineEntity>>
+     fun getAllRoutineSetRoutine(): Flow<Map<RoutineSetRoutineEntity, List<RoutineEntity>>>
 }

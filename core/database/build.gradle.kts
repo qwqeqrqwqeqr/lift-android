@@ -11,6 +11,9 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.database"
+    defaultConfig {
+        testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+    }
 }
 dependencies {
     implementation(project(":core:test"))

@@ -11,7 +11,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.ge
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

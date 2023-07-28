@@ -3,13 +3,10 @@ package com.gradation.lift.network.test.datasource
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.PictureDataSource
-import com.gradation.lift.network.datasource.RoutineDataSource
-import com.gradation.lift.network.fake.FakeHistoryDataSource
 import com.gradation.lift.network.fake.FakePictureDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.test.data.TestModelDataGenerator
-import com.gradation.lift.test.data.TestModelDataGenerator.Picture.routineSetPictureModelList
-import com.gradation.lift.test.data.TestModelDataGenerator.Picture.userProfilePictureModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.Picture.routineSetPictureModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.Picture.userProfilePictureModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

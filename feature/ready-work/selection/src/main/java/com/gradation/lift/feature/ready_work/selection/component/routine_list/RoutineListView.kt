@@ -28,8 +28,7 @@ import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSel
 import com.gradation.lift.feature.ready_work.selection.data.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.ready_work.selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.test.data.TestModelDataGenerator
-import com.gradation.lift.test.data.TestModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 
 
 @Composable

@@ -5,14 +5,9 @@ import com.gradation.lift.database.util.Constants.Entity.WORK_TABLE_NAME
 import com.gradation.lift.database.util.LocalTimeTypeConverter
 import kotlinx.datetime.LocalTime
 
-/**
- * [WorkEntity]
- * 진행중인 운동 가록하는 Entity
- */
 @Entity(
     tableName = WORK_TABLE_NAME
 )
-
 data class WorkEntity(
 
     @PrimaryKey

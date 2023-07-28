@@ -1,10 +1,11 @@
 package com.gradation.lift.database.dao
 
 import androidx.room.*
-import com.gradation.lift.database.model.routine.RoutineEntity
-import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.model.work.WorkEntity
-import com.gradation.lift.database.util.Constants
+import com.gradation.lift.database.model.work.WorkRoutineEntity
+import com.gradation.lift.database.util.Constants.Entity.WORK_ROUTINE_TABLE_NAME
+import com.gradation.lift.database.util.Constants.Entity.WORK_TABLE_NAME
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WorkDao {
@@ -18,11 +19,11 @@ interface WorkDao {
     suspend fun deleteWork(workEntity: WorkEntity)
 
 
-    @Query("DELETE FROM '${Constants.Entity.WORK_TABLE_NAME}'")
+    @Query("DELETE FROM '${WORK_TABLE_NAME}'")
     suspend fun deleteAllWork()
 
+    @Query("SELECT * FROM  ${WORK_TABLE_NAME} JOIN ${WORK_ROUTINE_TABLE_NAME}  ON ${WORK_TABLE_NAME}.id = ${WORK_ROUTINE_TABLE_NAME}.work_id")
+    fun getAllWork(): Map<WorkEntity, List<WorkRoutineEntity>>
 
-    @Query("SELECT * FROM  ${Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME} JOIN ${Constants.Entity.ROUTINE_TABLE_NAME}  ON ${Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME}.id = ${Constants.Entity.ROUTINE_TABLE_NAME}.routine_set_id")
-    suspend fun getRoutineSetRoutine(): Map<RoutineSetRoutineEntity, List<RoutineEntity>>
 
 }

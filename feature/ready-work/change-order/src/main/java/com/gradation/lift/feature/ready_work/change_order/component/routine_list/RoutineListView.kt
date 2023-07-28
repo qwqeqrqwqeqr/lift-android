@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -31,7 +30,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.ready_work.change_order.ReadyWorkChangeOrderScreen
 import com.gradation.lift.feature.ready_work.change_order.data.RoutineSetRoutineUiState
 import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.test.data.TestModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 
 
 @Composable

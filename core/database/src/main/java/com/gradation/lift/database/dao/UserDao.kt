@@ -1,12 +1,16 @@
 package com.gradation.lift.database.dao
 
 import androidx.room.*
+import com.gradation.lift.database.model.picture.RoutineSetPictureEntity
 import com.gradation.lift.database.model.user.UserEntity
 import com.gradation.lift.database.util.Constants
+import com.gradation.lift.database.util.Constants.Entity.USER_TABLE_NAME
+import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface UserDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(userEntity: UserEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
@@ -15,7 +19,16 @@ interface UserDao {
     @Delete
     suspend fun deleteUser(userEntity: UserEntity)
 
-
-    @Query("DELETE FROM '${Constants.Entity.USER_TABLE_NAME}'")
+    @Query("DELETE FROM '${USER_TABLE_NAME}'")
     suspend fun deleteAllUser()
+
+    @Query("SELECT * FROM `${USER_TABLE_NAME}` WHERE limit 1")
+    fun getUser() : Flow<UserEntity>
+
+    @Query("SELECT * FROM `${USER_TABLE_NAME}`")
+     fun getAllUser() : Flow<List<UserEntity>>
+
+    @Query("SELECT EXISTS(SELECT * FROM `${USER_TABLE_NAME}`)")
+    fun existUser() : Flow<Boolean>
+
 }

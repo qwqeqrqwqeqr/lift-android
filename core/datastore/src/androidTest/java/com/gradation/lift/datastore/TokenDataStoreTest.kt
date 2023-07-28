@@ -3,8 +3,7 @@ package com.gradation.lift.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
-import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_STRING_DATA
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi

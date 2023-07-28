@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 @Module
@@ -12,21 +13,24 @@ import dagger.hilt.components.SingletonComponent
 object DaoModule {
 
     @Provides
+    @Singleton
+
     fun provideWorkCategoryDao(
         database: LiftDatabase,
     ): WorkCategoryDao = database.workCategoryDao()
 
     @Provides
+    @Singleton
+
     fun provideWorkPartDao(
         database: LiftDatabase,
     ): WorkPartDao = database.workPartDao()
 
-    @Provides
-    fun provideRoutineSetPictureDao(
-        database: LiftDatabase,
-    ): RoutineSetPictureDao = database.routineSetPictureDao()
+
 
     @Provides
+    @Singleton
+
     fun provideRoutineSetRoutineDao(
         database: LiftDatabase,
     ): RoutineSetRoutineDao = database.routineSetRoutineDao()
@@ -34,12 +38,16 @@ object DaoModule {
     @Provides
     fun provideUserProfilePictureDao(
         database: LiftDatabase,
-    ): UserProfilePictureDao = database.userProfilePictureDao()
+    ): PictureDao = database.userProfilePictureDao()
 
     @Provides
+    @Singleton
+
     fun provideHistoryDao(
         database: LiftDatabase,
     ): HistoryDao = database.historyDao()
+
+    @Singleton
 
     @Provides
     fun provideWorkDao(
@@ -47,6 +55,8 @@ object DaoModule {
     ): WorkDao = database.workDao()
 
     @Provides
+    @Singleton
+
     fun provideUserDao(
         database: LiftDatabase,
     ): UserDao = database.userDao()

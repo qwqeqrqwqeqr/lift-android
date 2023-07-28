@@ -27,22 +27,6 @@ object ConverterModule {
 
 
 
-    @Provides
-    @Singleton
-    fun provideStringListTypeConverter(moshi: Moshi): StringListTypeConverter =
-        StringListTypeConverter(moshi)
-
-
-    @Provides
-    @Singleton
-    fun provideFloatListTypeConverter(moshi: Moshi): FloatListTypeConverter =
-        FloatListTypeConverter(moshi)
-
-    @Provides
-    @Singleton
-    fun provideIntListTypeConverter(moshi: Moshi): IntListTypeConverter =
-        IntListTypeConverter(moshi)
-
 
 
     @Provides

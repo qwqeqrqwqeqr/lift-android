@@ -1,15 +1,12 @@
 package com.gradation.lift.network.test.datasource
 
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.datasource.UserDataSource
 import com.gradation.lift.network.fake.FakeUserDataSource
-import com.gradation.lift.network.fake.FakeWorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.test.data.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.test.data.TestModelDataGenerator
-import com.gradation.lift.test.data.TestModelDataGenerator.User.createUserDetailModel
-import com.gradation.lift.test.data.TestModelDataGenerator.User.userDetailModel
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.User.createUserDetailModel
+import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

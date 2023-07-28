@@ -1,8 +1,8 @@
-package com.gradation.lift.test.data
+package com.gradation.lift.model.utils
 
 import kotlinx.datetime.LocalDate
 
-object TestDefaultDataGenerator {
+object DefaultDataGenerator {
 
     const val FAKE_INT_DATA = 8888
     const val FAKE_BOOLEAN_DATA = true
