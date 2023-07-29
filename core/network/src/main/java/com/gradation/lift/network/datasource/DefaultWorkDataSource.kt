@@ -17,7 +17,7 @@ class DefaultWorkDataSource @Inject constructor(
         networkResultHandler { workService.getWorkPart() }.collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.toWorkPart()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
             }
         }
 
@@ -27,7 +27,7 @@ class DefaultWorkDataSource @Inject constructor(
         networkResultHandler { workService.getWorkCategory() }.collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.toWorkCategory()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
             }
         }
     }
@@ -38,7 +38,7 @@ class DefaultWorkDataSource @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                        is APIResult.Success -> emit(APIResult.Success(result.data.toWorkCategory()))
+                        is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
                     }
                 }
         }

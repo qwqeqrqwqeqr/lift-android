@@ -11,7 +11,7 @@ data class GetUserProfilePictureResponseDto(
     @Json(name = "user_profile_picture")
     val userProfilePicture : List<UserProfilePictureDto>
 ){
-    fun toUserProfilePicture() = this.userProfilePicture.map {
+    fun toDomain() = this.userProfilePicture.map {
         UserProfilePicture(
             id = it.id,
             url = DEFAULT_S3_URL+it.url

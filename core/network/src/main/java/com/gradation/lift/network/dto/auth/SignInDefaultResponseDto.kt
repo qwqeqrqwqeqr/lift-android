@@ -12,7 +12,7 @@ data class SignInDefaultResponseDto(
     @Json(name = "refresh_token")
     val refreshToken: String,
 ) {
-    fun toToken(): Token = Token(
+    fun toDomain(): Token = Token(
         accessToken = accessToken,
         refreshToken = refreshToken
     )

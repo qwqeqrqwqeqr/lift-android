@@ -17,7 +17,7 @@ class FakeHistoryDataSource(private val testReturnState: TestReturnState = TestR
     override suspend fun getHistory(): Flow<APIResult<List<History>>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getHistoryResponseDto.toHistory()))
+            TestReturnState.Success -> emit(APIResult.Success(data = getHistoryResponseDto.toDomain()))
         }
     }
 
@@ -26,7 +26,7 @@ class FakeHistoryDataSource(private val testReturnState: TestReturnState = TestR
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-                TestReturnState.Success -> emit(APIResult.Success(data = getHistoryByHistoryIdResponseDto.toHistory()))
+                TestReturnState.Success -> emit(APIResult.Success(data = getHistoryByHistoryIdResponseDto.toDomain()))
             }
         }
 

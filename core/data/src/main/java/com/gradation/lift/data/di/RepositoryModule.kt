@@ -1,6 +1,7 @@
 package com.gradation.lift.data.di
 
 import com.gradation.lift.data.repository.*
+import com.gradation.lift.database.dao.WorkDao
 import com.gradation.lift.datastore.datasource.SettingDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
@@ -20,7 +21,8 @@ object RepositoryModule {
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
-    ): WorkRepository = DefaultWorkRepository(workDataSource = workDataSource)
+        workDao: WorkDao
+    ): WorkRepository = DefaultWorkRepository(workDataSource = workDataSource,workDao=workDao)
 
 
     @ViewModelScoped

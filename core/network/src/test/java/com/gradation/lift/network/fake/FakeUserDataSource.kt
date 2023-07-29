@@ -16,7 +16,7 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
     override suspend fun getUserDetail(): Flow<APIResult<UserDetail>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getUserDetailResponseDto.toUserDetail()))
+            TestReturnState.Success -> emit(APIResult.Success(data = getUserDetailResponseDto.toDomain()))
         }
     }
 

@@ -17,7 +17,7 @@ class FakeAuthDataSource(private val testReturnState: TestReturnState = TestRetu
     override fun signInDefault(signInInfo: SignInInfo): Flow<APIResult<Token>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = signInDefaultResponseDto.toToken()))
+            TestReturnState.Success -> emit(APIResult.Success(data = signInDefaultResponseDto.toDomain()))
         }
     }
 

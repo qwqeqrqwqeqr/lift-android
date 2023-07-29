@@ -15,7 +15,7 @@ data class GetRoutineSetRoutineResponseDto(
     @Json(name = "routine_set_routine")
     val routineSetRoutine: List<RoutineSetRoutineDto>
 ){
-    fun toRoutineSetRoutine(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.routineSetDto.routineSetId }.map {
+    fun toDomain(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.routineSetDto.routineSetId }.map {
         RoutineSetRoutine(
             id = it.value.first().routineSetDto.routineSetId,
             name = it.value.first().routineSetDto.name,

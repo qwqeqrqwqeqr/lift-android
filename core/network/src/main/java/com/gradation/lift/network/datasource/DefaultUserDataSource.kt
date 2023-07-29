@@ -27,7 +27,7 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.toUserDetail()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
             }
         }
     }

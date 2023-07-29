@@ -299,7 +299,7 @@ object TestDtoDataGenerator {
 
     object User {
         val userDetailDto = UserDetailDto(
-            name = "test",
+            name = FAKE_STRING_DATA,
             gender = "male",
             height = 180.0f,
             weight = 83.3f,

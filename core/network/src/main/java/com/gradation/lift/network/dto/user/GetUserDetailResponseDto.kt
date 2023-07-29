@@ -20,7 +20,7 @@ data class GetUserDetailResponseDto(
     @Json(name = "user_detail")
     val userDetailDto: UserDetailDto,
 ) {
-    fun toUserDetail() = UserDetail(
+    fun toDomain() = UserDetail(
         name = userDetailDto.name,
         gender = userDetailDto.gender.toGender(),
         height = userDetailDto.height,

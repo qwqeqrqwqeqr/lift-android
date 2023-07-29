@@ -15,14 +15,14 @@ class FakePictureDataSource(private val testReturnState: TestReturnState = TestR
     override suspend fun getUserProfilePicture(): Flow<APIResult<List<UserProfilePicture>>> =flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getUserProfilePictureResponseDto.toUserProfilePicture()))
+            TestReturnState.Success -> emit(APIResult.Success(data = getUserProfilePictureResponseDto.toDomain()))
         }
     }
 
     override suspend fun getRoutineSetPicture(): Flow<APIResult<List<RoutineSetPicture>>> =flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetPictureResponseDto.toRoutineSetPicture()))
+            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetPictureResponseDto.toDomain()))
         }
     }
 }

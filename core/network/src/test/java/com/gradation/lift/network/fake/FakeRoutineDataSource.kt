@@ -11,7 +11,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.ge
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -28,7 +28,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
     override suspend fun getRoutine(): Flow<APIResult<List<Routine>>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineResponseDto.toRoutine()))
+            TestReturnState.Success -> emit(APIResult.Success(data = getRoutineResponseDto.toDomain()))
         }
     }
 
@@ -38,7 +38,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
             TestReturnState.Success -> {
                 emit(
                     APIResult.Success(
-                        data = getRoutineSetRoutineResponseDto.toRoutineSetRoutine()
+                        data = getRoutineSetRoutineResponseDto.toDomain()
                     )
                 )
             }
@@ -49,7 +49,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-                TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineByRoutineSetIdResponseDto.toRoutineSetRoutine()))
+                TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineByRoutineSetIdResponseDto.toDomain()))
             }
         }
 
@@ -57,7 +57,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-                TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineByWeekdayResponseDto.toRoutineSetRoutine()))
+                TestReturnState.Success -> emit(APIResult.Success(data = getRoutineSetRoutineByWeekdayResponseDto.toDomain()))
             }
         }
 

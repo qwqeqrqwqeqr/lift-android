@@ -1,9 +1,9 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_ACCESS_TOKEN
-import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_REFRESH_TOKEN
-import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.TestDefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 
 object TestJsonDataGenerator {
 
@@ -113,7 +113,7 @@ object TestJsonDataGenerator {
           "message": "",
           "data": {
             "user_detail": {
-              "name": "test",
+              "name": "$FAKE_STRING_DATA",
               "gender": "male",
               "height": 180.0,
               "weight": 83.3,

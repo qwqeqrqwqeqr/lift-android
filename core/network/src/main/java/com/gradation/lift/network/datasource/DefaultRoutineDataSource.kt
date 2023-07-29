@@ -39,7 +39,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                    is APIResult.Success -> emit(APIResult.Success(result.data.toRoutine()))
+                    is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
                 }
             }
     }
@@ -50,7 +50,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                    is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
+                    is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
                 }
             }
     }
@@ -62,7 +62,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     when (result) {
                         is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                        is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
+                        is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
                     }
                 }
         }
@@ -78,7 +78,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     when (result) {
                         is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                        is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetRoutine()))
+                        is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
                     }
                 }
         }

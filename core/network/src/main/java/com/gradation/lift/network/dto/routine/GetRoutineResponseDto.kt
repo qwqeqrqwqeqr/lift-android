@@ -12,7 +12,7 @@ data class GetRoutineResponseDto(
     @Json(name = "routine")
     val routine: List<RoutineDto>,
 ) {
-    fun toRoutine(): List<Routine> = this.routine.map {
+    fun toDomain(): List<Routine> = this.routine.map {
         Routine(
             id = it.routineId,
             routineSetId = it.routineSetId,

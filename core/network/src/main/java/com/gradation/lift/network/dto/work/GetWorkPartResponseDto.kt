@@ -10,7 +10,7 @@ data class GetWorkPartResponseDto(
     @Json(name="work_part")
     val workPart: List<WorkPartDto>
 ) {
-    fun toWorkPart(): List<WorkPart> = this.workPart.map {
+    fun toDomain(): List<WorkPart> = this.workPart.map {
         WorkPart(
             id = it.id,
             name = it.name

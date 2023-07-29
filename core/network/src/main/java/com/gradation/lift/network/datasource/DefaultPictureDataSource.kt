@@ -20,7 +20,7 @@ class DefaultPictureDataSource @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toUserProfilePicture()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
             }
         }
     }
@@ -32,7 +32,7 @@ class DefaultPictureDataSource @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toRoutineSetPicture()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
             }
         }
     }

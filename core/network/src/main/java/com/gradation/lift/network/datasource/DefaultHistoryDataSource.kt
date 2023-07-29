@@ -26,7 +26,7 @@ class DefaultHistoryDataSource @Inject constructor(
             when (result) {
                 is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toHistory()))
+                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
             }
         }
     }
@@ -39,7 +39,7 @@ class DefaultHistoryDataSource @Inject constructor(
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail(result.message))
 
-                    is APIResult.Success -> emit(APIResult.Success(result.data.toHistory()))
+                    is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
                 }
             }
         }

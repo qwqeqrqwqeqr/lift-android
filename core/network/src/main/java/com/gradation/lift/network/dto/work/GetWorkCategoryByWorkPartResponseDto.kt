@@ -11,7 +11,7 @@ data class GetWorkCategoryByWorkPartResponseDto (
     @Json(name = "work_category")
     val workCategory: List<WorkCategoryDto>
 ){
-    fun toWorkCategory(): List<WorkCategory> =
+    fun toDomain(): List<WorkCategory> =
         this.workCategory.map {
             WorkCategory(
                 id = it.id,

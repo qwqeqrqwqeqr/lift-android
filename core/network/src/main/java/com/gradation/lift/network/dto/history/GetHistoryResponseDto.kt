@@ -17,7 +17,7 @@ data class GetHistoryResponseDto(
     @Json(name = "history")
     val history: List<HistoryDto>,
 ) {
-    fun toHistory(): List<History> = this.history.groupBy { it.historyId }.map {
+    fun toDomain(): List<History> = this.history.groupBy { it.historyId }.map {
         History(
             historyId = it.value.first().historyId,
             comment = it.value.first().comment,
