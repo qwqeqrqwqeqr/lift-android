@@ -60,9 +60,11 @@ class HistoryDaoTest {
             historyRoutineEntity = historyRoutineEntityList
         )
 
-        val result = historyDao.getAllHistory().first()
-        Truth.assertThat(result.size).isEqualTo(2)
-        Truth.assertThat(result.keys.map { it.id }.toSet()).isEqualTo(setOf(1, 2))
+        with(historyDao.getAllHistory().first()) {
+            Truth.assertThat(this.size).isEqualTo(2)
+            Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(setOf(1, 2))
+        }
+
     }
 
     @Test
@@ -85,10 +87,19 @@ class HistoryDaoTest {
             historyEntity = historyEntityList,
             historyRoutineEntity = historyRoutineEntityList
         )
-        val result =
-            historyDao.getHistoryByHistoryId(setOf(historyEntity1.id, historyEntity2.id, Int.MAX_VALUE)).first()
+        with(
+            historyDao.getHistoryByHistoryId(
+                setOf(
+                    historyEntity1.id,
+                    historyEntity2.id,
+                    Int.MAX_VALUE
+                )
+            ).first()
+        ) {
+            Truth.assertThat(this.size).isEqualTo(2)
+        }
 
-        Truth.assertThat(result.size).isEqualTo(2)
+
     }
 
 }

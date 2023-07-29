@@ -13,21 +13,14 @@ interface WorkPartDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorkPart(workPartEntity: WorkPartEntity)
-
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllWorkPart(vararg workPartEntity: WorkPartEntity)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateWorkPart(workPartEntity: WorkPartEntity)
-
     @Delete
     suspend fun deleteWorkPart(workPartEntity: WorkPartEntity)
-
-
     @Query("DELETE FROM '${WORK_PART_TABLE_NAME}'")
     suspend fun deleteAllWorkPart()
+
 
     @Query("SELECT * FROM `${WORK_PART_TABLE_NAME}`")
     fun getAllWorkPart() : Flow<List<WorkPartEntity>>

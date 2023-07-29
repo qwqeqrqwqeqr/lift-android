@@ -31,13 +31,13 @@ object TestEntityDataGenerator {
 
 
     object WorkPart {
-        internal val workpartEntity1 = WorkPartEntity(id = 1, name = "어깨")
-        internal val workpartEntity2 = WorkPartEntity(id = 2, name = "등")
+        internal val workPartEntity1 = WorkPartEntity(id = 1, name = "어깨")
+        internal val workPartEntity2 = WorkPartEntity(id = 2, name = "등")
 
 
         val workPartEntityList = listOf(
-            workpartEntity1,
-            workpartEntity2
+            workPartEntity1,
+            workPartEntity2
         )
     }
 
@@ -139,6 +139,8 @@ object TestEntityDataGenerator {
                 WorkSet(weight = 10f, repetition = 12)
             )
         )
+
+        internal val workRoutineEntityList = listOf(workRoutineEntity)
     }
 
     object User {
@@ -157,7 +159,7 @@ object TestEntityDataGenerator {
         internal val workCategoryEntity1 = WorkCategoryEntity(
             id = 1,
             name = "숄더프레스",
-            workPart = WorkPart.workpartEntity1,
+            workPart = WorkPart.workPartEntity1,
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
@@ -165,7 +167,7 @@ object TestEntityDataGenerator {
         internal val workCategoryEntity2 = WorkCategoryEntity(
             id = 2,
             name = "데드리프트",
-            workPart = WorkPart.workpartEntity2,
+            workPart = WorkPart.workPartEntity2,
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )

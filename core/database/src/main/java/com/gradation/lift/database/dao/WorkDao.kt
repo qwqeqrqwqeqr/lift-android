@@ -22,16 +22,16 @@ interface WorkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllWorkRoutine(vararg workRoutineEntity: WorkRoutineEntity)
 
-    @Transaction
-    suspend fun insert(workEntity: WorkEntity, workRoutineEntity: WorkRoutineEntity){
+
+    suspend fun insert(workEntity: WorkEntity, workRoutineEntity: List<WorkRoutineEntity>){
         insertWork(workEntity)
-        insertWorkRoutine(workRoutineEntity)
-    }
-    @Transaction
-    suspend fun insertAll(workEntity: List<WorkEntity>, workRoutineEntity: List<WorkRoutineEntity>){
-        insertAllWork(*workEntity.toTypedArray())
         insertAllWorkRoutine(*workRoutineEntity.toTypedArray())
+
     }
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateWorkRoutine(workRoutineEntity: WorkRoutineEntity)
+
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateWork(workEntity: WorkEntity)

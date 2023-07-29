@@ -8,6 +8,7 @@ import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity2
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntityList
+import com.gradation.lift.database.data.TestEntityDataGenerator.WorkPart.workPartEntityList
 import com.gradation.lift.database.di.LiftDatabase
 import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -52,18 +53,25 @@ class WorkCategoryDaoTest {
     fun testInsertWorkCategory() = runTest {
         workCategoryDao.insertWorkCategory(workCategoryEntity1)
         workCategoryDao.insertAllWorkCategory(*workCategoryEntityList.toTypedArray())
-        val result: List<WorkCategoryEntity> = workCategoryDao.getAllWorkCategory().first()
-        Truth.assertThat(result.size).isEqualTo(2)
-        Truth.assertThat(result.map { it.id }.toSet()).isEqualTo(setOf(1, 2))
+        with(workCategoryDao.getAllWorkCategory().first()){
+            Truth.assertThat(this.size).isEqualTo(2)
+            Truth.assertThat(this.map { it.id }.toSet())
+                .isEqualTo(workCategoryEntityList.map { it.id }.toSet())
+            Truth.assertThat(this.map { it.workPart.name }.toSet())
+                .isEqualTo(workPartEntityList.map { it.name }.toSet())
+        }
+
     }
 
     @Test
     fun testUpdateWorkCategory() = runTest {
         workCategoryDao.insertWorkCategory(workCategoryEntity1)
         workCategoryDao.updateWorkCategory(workCategoryEntity1.copy(name = workCategoryEntity2.name))
-        val result: List<WorkCategoryEntity> = workCategoryDao.getAllWorkCategory().first()
-        Truth.assertThat(result.size).isEqualTo(1)
-        Truth.assertThat(result.first().name).isEqualTo(workCategoryEntity2.name)
+        with(workCategoryDao.getAllWorkCategory().first()){
+            Truth.assertThat(this.size).isEqualTo(1)
+            Truth.assertThat(this.first().name).isEqualTo(workCategoryEntity2.name)
+        }
+
     }
 
 
@@ -71,8 +79,9 @@ class WorkCategoryDaoTest {
     fun testDeleteWorkCategory() = runTest {
         workCategoryDao.insertWorkCategory(workCategoryEntity1)
         workCategoryDao.deleteWorkCategory(workCategoryEntity1)
-        val result: List<WorkCategoryEntity> = workCategoryDao.getAllWorkCategory().first()
-        Truth.assertThat(result.size).isEqualTo(0)
+        with(workCategoryDao.getAllWorkCategory().first()){
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
     }
 
     @Test
@@ -80,17 +89,20 @@ class WorkCategoryDaoTest {
         workCategoryDao.insertWorkCategory(workCategoryEntity1)
         workCategoryDao.insertWorkCategory(workCategoryEntity2)
         workCategoryDao.deleteAllWorkCategory()
-        val result: List<WorkCategoryEntity> = workCategoryDao.getAllWorkCategory().first()
-        Truth.assertThat(result.size).isEqualTo(0)
+        with(workCategoryDao.getAllWorkCategory().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
+
     }
 
 
     @Test
     fun testGetWorkCategoryByWorkPart() = runTest {
         workCategoryDao.insertAllWorkCategory(workCategoryEntity1, workCategoryEntity2)
-        val result: WorkCategoryEntity =
-            workCategoryDao.getWorkCategoryByWorkPart(workCategoryEntity1.workPart.name).first()
-        Truth.assertThat(result.workPart.name).isEqualTo(workCategoryEntity1.workPart.name)
+        with(workCategoryDao.getWorkCategoryByWorkPart(workCategoryEntity1.workPart.name).first()) {
+            Truth.assertThat(this.workPart.name).isEqualTo(workCategoryEntity1.workPart.name)
+        }
+
     }
 
 }

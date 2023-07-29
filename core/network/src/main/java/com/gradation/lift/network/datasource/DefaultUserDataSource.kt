@@ -10,6 +10,7 @@ import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UserDetailDto
+import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -37,17 +38,7 @@ class DefaultUserDataSource @Inject constructor(
         networkResultHandler {
             userService.createUserDetail(
                 createUserDetailRequestDto = CreateUserDetailRequestDto(
-                    userDetailDto = UserDetailDto(
-                        name = userDetail.name,
-                        gender = userDetail.gender.getGenderValue(),
-                        height = userDetail.height,
-                        weight = userDetail.weight,
-                        profilePicture = userDetail.profilePicture.replace(
-                            Constants.DEFAULT_S3_URL,
-                            ""
-                        ),
-                        unitOfWeight = userDetail.unitOfWeight.getUnitOfWeightValue()
-                    )
+                    userDetailDto = userDetail.toDto()
                 )
             )
         }.collect { result ->
@@ -64,15 +55,7 @@ class DefaultUserDataSource @Inject constructor(
         networkResultHandler {
             userService.updateUserDetail(
                 updateUserDetailRequestDto = UpdateUserDetailRequestDto(
-                    userDetailDto = UserDetailDto(
-                        name = userDetail.name,
-                        gender = userDetail.gender.getGenderValue(),
-                        height = userDetail.height,
-                        weight = userDetail.weight,
-                        profilePicture = userDetail.profilePicture,
-                        unitOfWeight = userDetail.unitOfWeight.getUnitOfWeightValue()
-
-                    )
+                    userDetailDto = userDetail.toDto()
                 )
             )
         }.collect { result ->

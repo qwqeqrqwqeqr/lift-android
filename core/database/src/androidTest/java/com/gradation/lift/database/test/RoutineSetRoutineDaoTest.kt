@@ -60,15 +60,17 @@ class RoutineSetRoutineDaoTest {
             routineEntity = routineEntityList
         )
 
-        val result = routineSetRoutineDao.getAllRoutineSetRoutine().first()
-
-        Truth.assertThat(result.size).isEqualTo(2)
-        Truth.assertThat(result.keys.map { it.id }.toSet()).isEqualTo(
-            setOf(
-                routineSetRoutineEntity1.id,
-                routineSetRoutineEntity2.id
+        with(routineSetRoutineDao.getAllRoutineSetRoutine().first()){
+            Truth.assertThat(this.size).isEqualTo(2)
+            Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(
+                setOf(
+                    routineSetRoutineEntity1.id,
+                    routineSetRoutineEntity2.id
+                )
             )
-        )
+        }
+
+
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.routine.CreateRoutineDto
 import com.gradation.lift.network.dto.routine.CreateRoutineSetRequestDto
+import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.RoutineService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,19 +21,8 @@ class DefaultRoutineDataSource @Inject constructor(
         flow {
             networkResultHandler {
                 routineService.createRoutineSet(
-                    CreateRoutineSetRequestDto(
-                        name = createRoutineSetRoutine.name,
-                        description = createRoutineSetRoutine.description,
-                        weekday = createRoutineSetRoutine.weekday.map { it.getWeekdayValue() },
-                        picture = createRoutineSetRoutine.picture,
-                        routine = createRoutineSetRoutine.routine.map { routine ->
-                            CreateRoutineDto(
-                                workCategory = routine.workCategory,
-                                workWeightList = routine.workSetList.map { it.weight },
-                                workRepetitionList = routine.workSetList.map { it.repetition }
-                            )
-                        }
-                    ))
+                    createRoutineSetRequestDto = createRoutineSetRoutine.toDto()
+                )
             }.collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail(result.message))

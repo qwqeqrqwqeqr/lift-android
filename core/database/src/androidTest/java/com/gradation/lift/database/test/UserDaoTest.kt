@@ -48,33 +48,36 @@ class UserDaoTest {
     }
 
     @Test
-    fun testInsetUser() = runTest{
+    fun testInsetUser() = runTest {
         userDao.insertUser(userEntity = userEntity)
-        val result = userDao.getAllUser().first()
-        Truth.assertThat(result.size).isEqualTo(1)
+        with(userDao.getAllUser().first()) {
+            Truth.assertThat(this.size).isEqualTo(1)
+        }
+
     }
 
 
     @Test
-    fun testUpdateUser() = runTest{
+    fun testUpdateUser() = runTest {
         userDao.insertUser(userEntity = userEntity)
         userDao.updateUser(userEntity.copy(height = Float.MAX_VALUE))
-        val result = userDao.getAllUser().first()
-        Truth.assertThat(result.first().height).isEqualTo(Float.MAX_VALUE)
+        with(userDao.getAllUser().first()) {
+            Truth.assertThat(this.first().height).isEqualTo(Float.MAX_VALUE)
+        }
     }
 
     @Test
-    fun testDeleteUser() = runTest{
+    fun testDeleteUser() = runTest {
         userDao.insertUser(userEntity = userEntity)
         userDao.deleteAllUser()
-        val result = userDao.getAllUser().first()
-        Truth.assertThat(result.size).isEqualTo(0)
+        with(userDao.getAllUser().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
     }
 
 
-
     @Test
-    fun testExistUser() = runTest{
+    fun testExistUser() = runTest {
         Truth.assertThat(userDao.existUser().first()).isEqualTo(false)
         userDao.insertUser(userEntity = userEntity)
         Truth.assertThat(userDao.existUser().first()).isEqualTo(true)

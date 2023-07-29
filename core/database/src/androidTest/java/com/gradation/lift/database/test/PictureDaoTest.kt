@@ -55,40 +55,42 @@ class PictureDaoTest {
     fun testInsertUserProfilePicture() = runTest {
         pictureDao.insertAllUserProfilePicture(userProfilePictureEntity = userProfilePictureEntityList.toTypedArray())
 
-        val result = pictureDao.getAllUserProfilePicture().first()
-
-        Truth.assertThat(result.size).isEqualTo(2)
-        Truth.assertThat(result.map { it.id }.toSet()).isEqualTo(
-            setOf(
-                userProfilePictureEntity1.id,
-                userProfilePictureEntity2.id
+        with(pictureDao.getAllUserProfilePicture().first()){
+            Truth.assertThat(this.size).isEqualTo(2)
+            Truth.assertThat(this.map { it.id }.toSet()).isEqualTo(
+                setOf(
+                    userProfilePictureEntity1.id,
+                    userProfilePictureEntity2.id
+                )
             )
-        )
+        }
+
     }
 
     @Test
     fun testInsertRoutineSetPicture() = runTest {
         pictureDao.insertAllRoutineSetPicture(routineSetPictureEntity = routineSetPictureEntityList.toTypedArray())
 
-        val result = pictureDao.getAllRoutineSetPicture().first()
-
-        Truth.assertThat(result.size).isEqualTo(2)
-        Truth.assertThat(result.map { it.id }.toSet()).isEqualTo(
-            setOf(
-                routineSetPictureEntity1.id,
-                routineSetPictureEntity2.id
+        with(pictureDao.getAllRoutineSetPicture().first()){
+            Truth.assertThat(this.size).isEqualTo(2)
+            Truth.assertThat(this.map { it.id }.toSet()).isEqualTo(
+                setOf(
+                    routineSetPictureEntity1.id,
+                    routineSetPictureEntity2.id
+                )
             )
-        )
+        }
+
+
     }
 
     @Test
     fun testDeleteUserProfilePicture() = runTest {
         pictureDao.insertAllUserProfilePicture(userProfilePictureEntity = userProfilePictureEntityList.toTypedArray())
         pictureDao.deleteAllUserProfilePicture()
-        val result = pictureDao.getAllUserProfilePicture().first()
-
-        Truth.assertThat(result.size).isEqualTo(0)
-
+        with(pictureDao.getAllUserProfilePicture().first()){
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
     }
 
 
@@ -97,9 +99,8 @@ class PictureDaoTest {
         pictureDao.insertAllRoutineSetPicture(routineSetPictureEntity = routineSetPictureEntityList.toTypedArray())
         pictureDao.deleteAllRoutineSetPicture()
 
-        val result = pictureDao.getAllRoutineSetPicture().first()
-
-        Truth.assertThat(result.size).isEqualTo(0)
-
+        with(pictureDao.getAllRoutineSetPicture().first()){
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
     }
 }

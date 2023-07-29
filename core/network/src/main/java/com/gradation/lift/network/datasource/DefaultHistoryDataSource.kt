@@ -6,6 +6,7 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
 import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto
 import com.gradation.lift.network.handler.NetworkResultHandler
+import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.HistoryService
 import com.gradation.lift.network.service.RoutineService
 import com.squareup.moshi.Json
@@ -47,20 +48,7 @@ class DefaultHistoryDataSource @Inject constructor(
         flow {
             networkResultHandler {
                 historyService.createHistory(
-                    CreateHistoryRequestDto(
-                        comment = createHistory.comment,
-                        score = createHistory.score,
-                        restTime = createHistory.restTime.toSecondOfDay(),
-                        totalTime = createHistory.totalTime.toSecondOfDay(),
-                        historyTimeStamp  = createHistory.historyTimeStamp.toString(),
-                        historyRoutine = createHistory.historyRoutine.map { historyRoutine ->
-                            CreateHistoryRoutineDto(
-                                workCategory = historyRoutine.workCategory,
-                                workWeightList = historyRoutine.workSetList.map { it.weight },
-                                workRepetitionList = historyRoutine.workSetList.map { it.repetition }
-                            )
-                        }
-                    )
+                    createHistory.toDto()
                 )
             }.collect { result ->
                 when (result) {
