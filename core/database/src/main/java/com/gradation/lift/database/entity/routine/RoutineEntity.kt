@@ -1,9 +1,10 @@
-package com.gradation.lift.database.model.routine
+package com.gradation.lift.database.entity.routine
 
 import androidx.room.*
-import com.gradation.lift.database.model.work_category.WorkCategoryEntity
+import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
+import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.work.WorkSet
 
 @Entity(
@@ -34,7 +35,14 @@ data class RoutineEntity(
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "work_set_list")
     val workSetList: List<WorkSet>,
-)
+) {
+    fun toDomain() = Routine(
+        id = id,
+        routineSetId = routineSetId,
+        workCategory = workCategoryEntity.toDomain(),
+        workSetList = workSetList
+    )
+}
 
 
 

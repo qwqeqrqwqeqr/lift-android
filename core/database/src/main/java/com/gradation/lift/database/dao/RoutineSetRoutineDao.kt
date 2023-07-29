@@ -1,11 +1,8 @@
 package com.gradation.lift.database.dao
 
 import androidx.room.*
-import com.gradation.lift.database.model.history.HistoryEntity
-import com.gradation.lift.database.model.history.HistoryRoutineEntity
-import com.gradation.lift.database.model.routine.RoutineEntity
-import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
-import com.gradation.lift.database.util.Constants
+import com.gradation.lift.database.entity.routine.RoutineEntity
+import com.gradation.lift.database.entity.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_TABLE_NAME
 import kotlinx.coroutines.flow.Flow

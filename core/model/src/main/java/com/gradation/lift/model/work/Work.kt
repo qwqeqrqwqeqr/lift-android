@@ -1,4 +1,10 @@
 package com.gradation.lift.model.work
 
-class Work {
-}
+import kotlinx.datetime.LocalTime
+
+data class Work(
+    val id: Int,
+    val restTime: LocalTime,
+    val totalTime: LocalTime,
+    val routine: List<WorkRoutine>
+)

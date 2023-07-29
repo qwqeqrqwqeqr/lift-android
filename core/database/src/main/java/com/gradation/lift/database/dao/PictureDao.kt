@@ -1,8 +1,8 @@
 package com.gradation.lift.database.dao
 
 import androidx.room.*
-import com.gradation.lift.database.model.picture.RoutineSetPictureEntity
-import com.gradation.lift.database.model.picture.UserProfilePictureEntity
+import com.gradation.lift.database.entity.picture.RoutineSetPictureEntity
+import com.gradation.lift.database.entity.picture.UserProfilePictureEntity
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_PICTURE_TABLE_NAME
 import com.gradation.lift.database.util.Constants.Entity.USER_PROFILE_PICTURE_TABLE_NAME
 import kotlinx.coroutines.flow.Flow

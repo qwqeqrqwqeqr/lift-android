@@ -1,8 +1,9 @@
-package com.gradation.lift.database.model.work_category
+package com.gradation.lift.database.entity.work_category
 
 import androidx.room.*
-import com.gradation.lift.database.model.work_category.WorkPartEntity
 import com.gradation.lift.database.util.Constants.Entity.WORK_CATEGORY_TABLE_NAME
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkPart
 
 @Entity(tableName = WORK_CATEGORY_TABLE_NAME)
 data class WorkCategoryEntity(
@@ -21,7 +22,16 @@ data class WorkCategoryEntity(
 
     @ColumnInfo(name = "description")
     val description: String,
-)
+) {
+    fun toDomain() = WorkCategory(
+        id = id,
+        name = name,
+        workPart = workPart.toDomain(),
+        introduce = introduce,
+        description = description
+    )
+}
+
 
 
 

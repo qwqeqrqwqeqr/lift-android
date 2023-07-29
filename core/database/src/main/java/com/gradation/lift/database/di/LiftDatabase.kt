@@ -5,18 +5,18 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomWarnings
 import androidx.room.TypeConverters
 import com.gradation.lift.database.dao.*
-import com.gradation.lift.database.model.*
-import com.gradation.lift.database.model.history.HistoryEntity
-import com.gradation.lift.database.model.history.HistoryRoutineEntity
-import com.gradation.lift.database.model.picture.RoutineSetPictureEntity
-import com.gradation.lift.database.model.picture.UserProfilePictureEntity
-import com.gradation.lift.database.model.routine.RoutineEntity
-import com.gradation.lift.database.model.routine.RoutineSetRoutineEntity
-import com.gradation.lift.database.model.user.UserEntity
-import com.gradation.lift.database.model.work.WorkEntity
-import com.gradation.lift.database.model.work.WorkRoutineEntity
-import com.gradation.lift.database.model.work_category.WorkCategoryEntity
-import com.gradation.lift.database.model.work_category.WorkPartEntity
+import com.gradation.lift.database.entity.*
+import com.gradation.lift.database.entity.history.HistoryEntity
+import com.gradation.lift.database.entity.history.HistoryRoutineEntity
+import com.gradation.lift.database.entity.picture.RoutineSetPictureEntity
+import com.gradation.lift.database.entity.picture.UserProfilePictureEntity
+import com.gradation.lift.database.entity.routine.RoutineEntity
+import com.gradation.lift.database.entity.routine.RoutineSetRoutineEntity
+import com.gradation.lift.database.entity.user.UserEntity
+import com.gradation.lift.database.entity.work.WorkEntity
+import com.gradation.lift.database.entity.work.WorkRoutineEntity
+import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
+import com.gradation.lift.database.entity.work_category.WorkPartEntity
 import com.gradation.lift.database.util.*
 
 @SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)

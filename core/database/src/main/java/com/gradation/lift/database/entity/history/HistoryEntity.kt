@@ -1,9 +1,10 @@
-package com.gradation.lift.database.model.history
+package com.gradation.lift.database.entity.history
 
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.HISTORY_TABLE_NAME
 import com.gradation.lift.database.util.LocalDateTimeTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
+import com.gradation.lift.model.history.History
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
@@ -34,7 +35,17 @@ data class HistoryEntity(
     @TypeConverters(LocalDateTimeTypeConverter::class)
     @ColumnInfo(name = "history_time_stamp")
     val historyTimeStamp: LocalDateTime,
-)
+) {
+    fun toDomain() = History(
+        historyId = id,
+        comment = comment,
+        score = score,
+        restTime = restTime,
+        totalTime = totalTime,
+        historyTimeStamp = historyTimeStamp,
+        historyRoutine = emptyList()
+    )
+}
 
 
 

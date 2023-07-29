@@ -10,7 +10,6 @@ import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.wor
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntityList
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkPart.workPartEntityList
 import com.gradation.lift.database.di.LiftDatabase
-import com.gradation.lift.database.model.work_category.WorkCategoryEntity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi

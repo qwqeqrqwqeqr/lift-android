@@ -1,4 +1,4 @@
-package com.gradation.lift.database.model.user
+package com.gradation.lift.database.entity.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 import com.gradation.lift.database.util.Constants.Entity.USER_TABLE_NAME
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
+import com.gradation.lift.model.user.UserDetail
 
 
 @Entity(
-    tableName =USER_TABLE_NAME
+    tableName = USER_TABLE_NAME
 )
 data class UserEntity(
 
@@ -31,4 +32,8 @@ data class UserEntity(
 
     @ColumnInfo(name = "unit_of_weight")
     val unitOfWeight: UnitOfWeight,
-)
+) {
+    fun toDomain() = UserDetail(
+        name, gender, height, weight, profilePicture, unitOfWeight
+    )
+}

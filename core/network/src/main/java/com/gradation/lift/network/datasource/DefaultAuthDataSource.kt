@@ -7,6 +7,7 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
 import com.gradation.lift.network.dto.auth.SignUpDefaultRequestDto
+import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,14 +20,11 @@ class DefaultAuthDataSource @Inject constructor(
     override fun signInDefault(signInInfo: SignInInfo): Flow<APIResult<Token>> = flow {
         networkResultHandler {
             authService.signInDefault(
-                SignInDefaultRequestDto(
-                    id = signInInfo.id,
-                    password = signInInfo.password
-                )
+                signInInfo.toDto()
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(message = result.message,))
+                is APIResult.Fail -> emit(APIResult.Fail(message = result.message))
                 is APIResult.Success -> emit(APIResult.Success(result.data.toToken()))
             }
         }
@@ -35,10 +33,7 @@ class DefaultAuthDataSource @Inject constructor(
     override fun signUpDefault(signUpInfo: SignUpInfo): Flow<APIResult<Boolean>> = flow {
         networkResultHandler {
             authService.signUpDefault(
-                SignUpDefaultRequestDto(
-                    email = signUpInfo.id,
-                    password = signUpInfo.password
-                )
+                signUpInfo.toDto()
             )
         }.collect { result ->
             when (result) {

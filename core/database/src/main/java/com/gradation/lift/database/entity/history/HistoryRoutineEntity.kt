@@ -1,9 +1,10 @@
-package com.gradation.lift.database.model.history
+package com.gradation.lift.database.entity.history
 
 import androidx.room.*
-import com.gradation.lift.database.model.work_category.WorkCategoryEntity
+import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
 import com.gradation.lift.database.util.Constants.Entity.HISTORY_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
+import com.gradation.lift.model.history.HistoryRoutine
 import com.gradation.lift.model.work.WorkSet
 
 @Entity(
@@ -34,7 +35,13 @@ data class HistoryRoutineEntity(
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "work_set_list")
     val workSetList: List<WorkSet>,
-)
-
+) {
+    fun toDomain() = HistoryRoutine(
+        id = id,
+        historyId = historyId,
+        workCategory = workCategory.toDomain(),
+        workSetList = workSetList
+    )
+}
 
 
