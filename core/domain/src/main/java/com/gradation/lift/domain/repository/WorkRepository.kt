@@ -13,6 +13,7 @@ interface WorkRepository {
 
     fun getWork(): Flow<DataState<Work>>
 
+    fun createWork(work: Work):  Flow<DataState<Unit>>
     fun updateWork(work: Work): Flow<DataState<Unit>>
 
     fun deleteWork(work: Work): Flow<DataState<Unit>>

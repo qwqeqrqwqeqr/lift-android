@@ -27,6 +27,7 @@ import javax.inject.Inject
 class ReadyWorkSelectionViewModel @Inject constructor(
     private val getWeekDateUseCase: GetWeekDateUseCase,
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
+    private val insertWorkUse:
 ) : ViewModel() {
 
 

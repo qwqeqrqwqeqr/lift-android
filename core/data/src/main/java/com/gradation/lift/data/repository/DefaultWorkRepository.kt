@@ -65,8 +65,22 @@ class DefaultWorkRepository @Inject constructor(
         emit(DataState.Fail("운동 불러오기를 실패하였습니다."))
     }
 
+    override fun createWork(work: Work): Flow<DataState<Unit>> = flow {
+        workDao.insert(
+            workEntity = work.toEntity(),
+            workRoutineEntity = work.routine.map { it.toEntity() }
+        )
+    }
+
+
     override fun updateWork(work: Work): Flow<DataState<Unit>> = flow {
         workDao.updateWork(work.toEntity())
+
+        work.routine.map {
+            workDao.updateWorkRoutine(it.toEntity())
+        }
+
+
         emit(DataState.Success(Unit))
     }
 
