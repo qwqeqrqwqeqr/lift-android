@@ -30,7 +30,6 @@ internal fun Project.extensionAndroidCompose(
 
 
             add("implementation", libs.findLibrary("androidx-activity-compose").get())
-            add("implementation", libs.findLibrary("androidx-hilt-navigation-compose").get())
             add("implementation", libs.findLibrary("androidx-lifecycle-runtime-compose").get())
             add("implementation", libs.findLibrary("androidx-lifecycle-viewmodel-compose").get())
 

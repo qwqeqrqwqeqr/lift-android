@@ -41,9 +41,12 @@ fun ReadyWorkChangeOrderRoute(
     ReadyWorkChangeOrderScreen(
         modifier = modifier,
         onBackClickTopBar = navigateToReadyWorkSelection,
-        onClickStartWork = navigateReadyWorkToWorkGraph,
+        onClickStartWork = {
+            viewModel.createWork()
+            navigateReadyWorkToWorkGraph()
+        },
         routineSetRoutine = routineSetRoutine,
-        onDeleteRoutineSetRoutineList = viewModel.onDeleteRoutineSetRoutineList()
+        onDeleteRoutineSetRoutineList = viewModel.deleteRoutineSetIdList()
     )
 
     LaunchedEffect(key1 = true) {

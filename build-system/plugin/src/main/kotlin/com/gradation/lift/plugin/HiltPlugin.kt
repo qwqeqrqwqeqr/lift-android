@@ -22,8 +22,12 @@ class HiltPlugin : Plugin<Project> {
 
 
                 add("implementation", libs.findLibrary("hilt-android-testing").get())
+                add("implementation", libs.findLibrary("hilt-work").get())
+                add("implementation", libs.findLibrary("hilt-navigation-compose").get())
                 add("kaptTest", libs.findLibrary("hilt-compiler").get())
                 add("kaptAndroidTest", libs.findLibrary("hilt-compiler").get())
+
+
             }
 
         }

@@ -70,5 +70,9 @@ gradlePlugin {
             id =property("TEST_PLUGIN_ID").toString()
             implementationClass = property("TEST_PLUGIN_IMPL_CLASS").toString()
         }
+        register(property("WORK_PLUGIN_ID").toString()) {
+            id =property("WORK_PLUGIN_ID").toString()
+            implementationClass = property("WORK_PLUGIN_IMPL_CLASS").toString()
+        }
     }
 }

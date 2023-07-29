@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
+import com.gradation.lift.domain.usecase.work.CreateWorkUseCase
 import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
@@ -27,7 +28,6 @@ import javax.inject.Inject
 class ReadyWorkSelectionViewModel @Inject constructor(
     private val getWeekDateUseCase: GetWeekDateUseCase,
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
-    private val insertWorkUse:
 ) : ViewModel() {
 
 

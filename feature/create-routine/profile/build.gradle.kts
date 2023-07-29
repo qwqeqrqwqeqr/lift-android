@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.create_routine.routine_detail"
+    namespace = "com.gradation.lift.feature.create_routine.profile"
 
 }
 
@@ -20,7 +20,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
-    implementation(project(mapOf("path" to ":core:ui")))
+    implementation(project(":core:ui"))
 
 
 }

@@ -21,6 +21,7 @@ dependencies{
     implementation(project(":core:model"))
     implementation(project(":core:database"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:work"))
     implementation(project(":core:ui"))
 
 
@@ -34,7 +35,7 @@ dependencies{
     implementation(project(":feature:create-routine:find-work-part"))
     implementation(project(":feature:create-routine:routine"))
     implementation(project(":feature:create-routine:routine-set"))
-    implementation(project(":feature:create-routine:routine-detail"))
+    implementation(project(":feature:create-routine:profile"))
 
     implementation(project(":feature:login:verification"))
     implementation(project(":feature:login:terms-of-use"))
