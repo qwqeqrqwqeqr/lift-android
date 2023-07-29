@@ -13,9 +13,9 @@ interface WorkRepository {
 
     fun getWork(): Flow<DataState<Work>>
 
-    fun updateWork(work: Work): Flow<DataState<Work>>
+    fun updateWork(work: Work): Flow<DataState<Unit>>
 
-    fun deleteWork(work: Work): Flow<DataState<Boolean>>
+    fun deleteWork(work: Work): Flow<DataState<Unit>>
 
     fun existWork(): Flow<DataState<Boolean>>
 }

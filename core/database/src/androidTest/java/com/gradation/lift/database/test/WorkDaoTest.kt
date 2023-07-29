@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.database.dao.WorkDao
+import com.gradation.lift.database.data.TestEntityDataGenerator
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.data.TestEntityDataGenerator.Work.workEntity
 import com.gradation.lift.database.data.TestEntityDataGenerator.Work.workRoutineEntity
@@ -51,7 +52,7 @@ class WorkDaoTest {
     @Test
     fun testInsertWork() = runTest {
         workDao.insert(workEntity = workEntity, workRoutineEntity = workRoutineEntityList)
-        with(workDao.getAllWork().first()){
+        with(workDao.getAllWork().first()) {
             Truth.assertThat(this.size).isEqualTo(1)
             Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(setOf(workEntity.id))
             Truth.assertThat(this.values.first().flatMap { it.workSetList }.toSet()).isEqualTo(
@@ -71,16 +72,25 @@ class WorkDaoTest {
                 )
             )
         )
-        with(workDao.getAllWork().first()){
+        with(workDao.getAllWork().first()) {
             Truth.assertThat(this.values.first().flatMap { it.workSetList }.size).isEqualTo(3)
         }
 
-        workDao.updateWork(workEntity.copy(totalTime = LocalTime(23,29,59)))
+        workDao.updateWork(workEntity.copy(totalTime = LocalTime(23, 29, 59)))
 
-        with(workDao.getAllWork().first()){
-            Truth.assertThat(this.keys.first().totalTime).isEqualTo(LocalTime(23,29,59))
+        with(workDao.getAllWork().first()) {
+            Truth.assertThat(this.keys.first().totalTime).isEqualTo(LocalTime(23, 29, 59))
             Truth.assertThat(this.keys.size).isEqualTo(1)
         }
     }
+
+
+    @Test
+    fun testExistUser() = runTest {
+        Truth.assertThat(workDao.existWork().first()).isEqualTo(false)
+        workDao.insert(workEntity = workEntity, workRoutineEntity = workRoutineEntityList)
+        Truth.assertThat(workDao.existWork().first()).isEqualTo(true)
+    }
+
 
 }
