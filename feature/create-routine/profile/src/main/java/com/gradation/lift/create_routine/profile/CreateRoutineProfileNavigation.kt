@@ -16,7 +16,8 @@ fun createRoutineProfileScreen(
         navGraphBuilder.composable(CREATE_ROUTINE_PROFILE_ROUTER_NAME) {
 
             CreateRoutineProfileRoute(
-                navController = navController
+                navController = navController,
+                sharedViewModel=sharedViewModel
             )
         }
 

@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.gradation.lift.feature.create_routine.CreateRoutineSharedViewModel
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.graph.*
 
@@ -19,7 +20,7 @@ fun LiftNavHost(
     startDestination: String,
 ) {
     val crateRoutineBackStackEntry = remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
-    val createRoutineViewModel: CreateRoutineViewModel = viewModel(crateRoutineBackStackEntry)
+    val createRoutineViewModel: CreateRoutineSharedViewModel = viewModel(crateRoutineBackStackEntry)
 
     NavHost(
         navController = navController,
