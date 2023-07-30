@@ -4,17 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
+import com.gradation.lift.create_routine.find_work_part.createRoutineFindWorkPartScreen
+import com.gradation.lift.create_routine.profile.createRoutineProfileScreen
+import com.gradation.lift.create_routine.routine.createRoutineRoutineScreen
+import com.gradation.lift.feature.create_routine.CreateRoutineSharedViewModel
 import com.gradation.lift.feature.create_routine.createRoutineScreen
+import com.gradation.lift.feature.create_routine.find_work_category.createRoutineFindWorkCategoryScreen
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.route.create_routine.CreateRoutineGraph
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 fun createRoutineGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
-    sharedViewModel: CreateRoutineViewModel,
+    sharedViewModel: CreateRoutineSharedViewModel,
 ) {
     navGraphBuilder.navigation(
         route = CREATE_ROUTINE_GRAPH_ROUTER_NAME,
@@ -29,9 +31,5 @@ fun createRoutineGraphBuilder(
 }
 
 
-@HiltViewModel
-class CreateRoutineViewModel @Inject constructor(
-) : ViewModel() {
-}
 
 
