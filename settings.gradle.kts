@@ -37,7 +37,7 @@ include(":feature:main:history")
 include(":feature:main:my-info")
 
 
-include(":feature:create-routine:routine-set")
+include(":feature:create-routine")
 include(":feature:create-routine:find-work-category")
 include(":feature:create-routine:find-work-part")
 include(":feature:create-routine:profile")

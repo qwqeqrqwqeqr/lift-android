@@ -31,10 +31,10 @@ dependencies{
     implementation(project(":feature:main:my-info"))
 
 
+    implementation(project(":feature:create-routine"))
     implementation(project(":feature:create-routine:find-work-category"))
     implementation(project(":feature:create-routine:find-work-part"))
     implementation(project(":feature:create-routine:routine"))
-    implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:profile"))
 
     implementation(project(":feature:login:verification"))

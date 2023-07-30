@@ -5,7 +5,7 @@ import androidx.navigation.NavOptions
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME
+import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 
@@ -19,7 +19,7 @@ fun NavController.navigateToCreateRoutineFindWorkpart() {
 }
 
 fun NavController.navigateToCreateRoutineRoutineDetail() {
-    this.navigate(CREATE_ROUTINE_ROUTINE_DETAIL_ROUTER_NAME)
+    this.navigate(CREATE_ROUTINE_PROFILE_ROUTER_NAME)
 }
 
 fun NavController.navigateToCreateRoutineRoutineSet() {
