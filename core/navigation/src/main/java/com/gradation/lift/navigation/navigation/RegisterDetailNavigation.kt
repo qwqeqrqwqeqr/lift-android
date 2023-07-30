@@ -12,11 +12,11 @@ fun NavController.navigateRegisterDetailNameToGender() {
 }
 
 fun NavController.navigateRegisterDetailGenderToName() {
-    this.popBackStack(
-        route = Router.REGISTER_DETAIL_NAME_ROUTER_NAME,
-        inclusive = false,
-        saveState = true
-    )
+    this.navigate(Router.REGISTER_DETAIL_NAME_ROUTER_NAME) {
+        this.popUpTo(Router.REGISTER_DETAIL_NAME_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 
@@ -27,11 +27,11 @@ fun NavController.navigateRegisterDetailGenderToHeightWeight() {
 }
 
 fun NavController.navigateRegisterDetailHeightWeightToGender() {
-    this.popBackStack(
-        route = Router.REGISTER_DETAIL_GENDER_ROUTER_NAME,
-        inclusive = false,
-        saveState = true
-    )
+    this.navigate(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
+        this.popUpTo(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 
@@ -42,11 +42,11 @@ fun NavController.navigateRegisterDetailHeightWeightToUnitOfWeight() {
 }
 
 fun NavController.navigateRegisterDetailUnitOfWeightToHeightWeight() {
-    this.popBackStack(
-        route = Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME,
-        inclusive = false,
-        saveState = true
-    )
+    this.navigate(Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
+        this.popUpTo(Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavController.navigateRegisterDetailUnitOfWeightToProfilePicture() {
@@ -56,17 +56,17 @@ fun NavController.navigateRegisterDetailUnitOfWeightToProfilePicture() {
 }
 
 fun NavController.navigateRegisterDetailProfilePictureToUnitOfWeight() {
-    this.popBackStack(
-        route = Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME,
-        inclusive = false,
-        saveState = true
-    )
+    this.navigate(Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME) {
+        this.popUpTo(Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 
 fun NavController.navigateLoginToRegisterDetail() {
-    this.navigate(Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME) {
-        popUpTo(Router.LOGIN_GRAPH_ROUTER_NAME) {
+    this.navigate(Router.REGISTER_DETAIL_GRAPH_NAME) {
+        popUpTo(Router.LOGIN_GRAPH_NAME) {
             inclusive = true
         }
     }

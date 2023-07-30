@@ -6,7 +6,7 @@ import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 
 
 fun NavController.navigateHomeToReadyWorkGraph() {
-    this.navigate(Router.READY_WORK_GRAPH_ROUTER_NAME) {
+    this.navigate(Router.READY_WORK_GRAPH_NAME) {
     }
 }
 
@@ -19,10 +19,10 @@ fun NavController.navigateToReadyWorkSelectionToChangeOrder() {
 
 
 fun NavController.navigateToReadyWorkChangeOrderToSelection() {
-    this.popBackStack(
-        route = Router.READY_WORK_SELECTION_ROUTER_NAME,
-        inclusive = false,
-        saveState = true
-    )
+    this.navigate(Router.READY_WORK_SELECTION_ROUTER_NAME) {
+        this.popUpTo(Router.READY_WORK_SELECTION_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 

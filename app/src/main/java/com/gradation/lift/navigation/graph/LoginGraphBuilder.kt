@@ -10,7 +10,7 @@ import com.gradation.lift.feature.login.sign_in.loginSignInScreen
 import com.gradation.lift.feature.login.sign_up.loginSignUpScreen
 import com.gradation.lift.feature.login.terms_of_use.loginTermsOfUseScreen
 import com.gradation.lift.feature.login.verification.loginVerificationScreen
-import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
 
 fun loginGraphBuilder(
@@ -18,7 +18,7 @@ fun loginGraphBuilder(
     navGraphBuilder: NavGraphBuilder,
 ) {
     navGraphBuilder.navigation(
-        route = LOGIN_GRAPH_ROUTER_NAME,
+        route = LOGIN_GRAPH_NAME,
         startDestination = LOGIN_SIGN_IN_ROUTER_NAME,
     ) {
         loginSignInScreen(navController, this)

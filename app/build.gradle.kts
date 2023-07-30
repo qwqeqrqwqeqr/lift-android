@@ -33,7 +33,6 @@ dependencies{
 
     implementation(project(":feature:create-routine"))
     implementation(project(":feature:create-routine:find-work-category"))
-    implementation(project(":feature:create-routine:find-work-part"))
     implementation(project(":feature:create-routine:routine"))
     implementation(project(":feature:create-routine:profile"))
 

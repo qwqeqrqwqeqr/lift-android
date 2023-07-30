@@ -9,7 +9,7 @@ import com.gradation.lift.feature.history.historyScreen
 import com.gradation.lift.feature.home.homeScreen
 import com.gradation.lift.feature.my_info.myInfoScreen
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
-import com.gradation.lift.navigation.Router.MAIN_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.MAIN_GRAPH_NAME
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun mainGraphBuilder(
@@ -17,7 +17,7 @@ fun mainGraphBuilder(
     navGraphBuilder: NavGraphBuilder,
 ) {
     navGraphBuilder.navigation(
-        route = MAIN_GRAPH_ROUTER_NAME,
+        route = MAIN_GRAPH_NAME,
         startDestination = HOME_ROUTER_NAME,
     ) {
         homeScreen(navController, this)

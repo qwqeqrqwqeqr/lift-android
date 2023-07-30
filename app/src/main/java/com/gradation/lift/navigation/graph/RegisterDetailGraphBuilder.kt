@@ -8,7 +8,7 @@ import com.gradation.lift.feature.register_detail.height_weight.registerDetailHe
 import com.gradation.lift.feature.register_detail.name.registerDetailNameScreen
 import com.gradation.lift.feature.register_detail.profile_picture.registerDetailProfilePictureScreen
 import com.gradation.lift.feature.register_detail.unit_of_weight.registerDetailUnitOfWeightScreen
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_NAME_ROUTER_NAME
 
 fun registerDetailGraphBuilder(
@@ -16,7 +16,7 @@ fun registerDetailGraphBuilder(
     navGraphBuilder: NavGraphBuilder,
 ) {
     navGraphBuilder.navigation(
-        route = REGISTER_DETAIL_GRAPH_ROUTER_NAME,
+        route = REGISTER_DETAIL_GRAPH_NAME,
         startDestination = REGISTER_DETAIL_NAME_ROUTER_NAME,
     ) {
         registerDetailGenderScreen(navController, this)

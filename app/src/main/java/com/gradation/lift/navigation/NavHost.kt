@@ -18,7 +18,7 @@ fun LiftNavHost(
     modifier: Modifier = Modifier,
     startDestination: String,
 ) {
-    val crateRoutineBackStackEntry = remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME) }
+    val crateRoutineBackStackEntry = remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val createRoutineViewModel: CreateRoutineViewModel = viewModel(crateRoutineBackStackEntry)
 
     NavHost(

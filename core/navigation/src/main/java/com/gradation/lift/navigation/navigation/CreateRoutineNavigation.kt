@@ -1,29 +1,66 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_ROUTER_NAME
+import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 
 
-fun NavController.navigateToCreateRoutineFindWorkCategory() {
+fun NavController.navigateCreateRoutineRootToFindWorkCategory() {
     this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME)
 }
 
-fun NavController.navigateToCreateRoutineFindWorkpart() {
-    this.navigate(CREATE_ROUTINE_FIND_WORKPART_ROUTER_NAME)
+fun NavController.navigateCreateRoutineFindWorkCategoryToRoot() {
+    this.navigate(CREATE_ROUTINE_ROUTER_NAME) {
+        this.popUpTo(CREATE_ROUTINE_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
-fun NavController.navigateToCreateRoutineRoutineDetail() {
+fun NavController.navigateCreateRoutineFindWorkCategoryToRoutine() {
+    this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
+}
+
+fun NavController.navigateCreateRoutineRoutineToFindWorkCategory() {
+    this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
+        this.popUpTo(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
+
+fun NavController.navigateCreateRoutineRoutineToRoot() {
+    this.navigate(CREATE_ROUTINE_ROUTER_NAME) {
+        this.popUpTo(CREATE_ROUTINE_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
+
+
+fun NavController.navigateCreateRoutineRootToProfile() {
     this.navigate(CREATE_ROUTINE_PROFILE_ROUTER_NAME)
 }
 
+fun NavController.navigateCreateRoutineProfileToRoot() {
+    this.navigate(CREATE_ROUTINE_ROUTER_NAME) {
+        this.popUpTo(CREATE_ROUTINE_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
 
-fun NavController.navigateToCreateRoutineRoutine() {
-    this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
+
+fun NavController.navigateHomeToCreateRoutine() {
+    this.navigate(CREATE_ROUTINE_GRAPH_NAME)
 }
-fun NavController.navigateHomeToCreateRoutineGraph() {
-    this.navigate(CREATE_ROUTINE_GRAPH_ROUTER_NAME)
-}
+
+
+
+
+
+
+

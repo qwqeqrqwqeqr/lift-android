@@ -31,10 +31,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.*
 import com.gradation.lift.navigation.Router.HISTORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
-import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
-import com.gradation.lift.navigation.Router.MAIN_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
+import com.gradation.lift.navigation.Router.MAIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_ROUTER_NAME
+import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_NAME
 
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
@@ -78,15 +78,15 @@ fun LiftApp(
                     SplashUiState.Loading ->{}
                     SplashUiState.Login ->  LiftNavHost(
                         navController = appState.navController,
-                        startDestination = LOGIN_GRAPH_ROUTER_NAME
+                        startDestination = LOGIN_GRAPH_NAME
                     )
                     SplashUiState.Main ->  LiftNavHost(
                         navController = appState.navController,
-                        startDestination = MAIN_GRAPH_ROUTER_NAME
+                        startDestination = MAIN_GRAPH_NAME
                     )
                     SplashUiState.RegisterDetail -> LiftNavHost(
                         navController = appState.navController,
-                        startDestination = REGISTER_DETAIL_GRAPH_ROUTER_NAME
+                        startDestination = REGISTER_DETAIL_GRAPH_NAME
                     )
                 }
             }

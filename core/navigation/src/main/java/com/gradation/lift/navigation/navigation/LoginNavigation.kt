@@ -32,7 +32,7 @@ fun NavController.navigateToLoginFindPassword() {
 }
 
 fun NavController.navigateToLoginGraph() {
-    this.navigate(Router.LOGIN_GRAPH_ROUTER_NAME) {
+    this.navigate(Router.LOGIN_GRAPH_NAME) {
 
     }
 }
