@@ -14,29 +14,24 @@ import javax.inject.Inject
 fun createRoutineGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
-    sharedViewModel : CreateRoutineViewModel
+    sharedViewModel: CreateRoutineViewModel,
 ) {
-    CreateRoutineGraph { route, graphStartDestination ->
-        navGraphBuilder.navigation(
-            route = route,
-            startDestination = graphStartDestination,
-        ) {
-            createRoutineScreen(navController, this,sharedViewModel)
-            createRoutineRoutineScreen(navController, this,sharedViewModel)
-            createRoutineProfileScreen(navController, this,sharedViewModel)
-            createRoutineFindWorkCategoryScreen(navController, this,sharedViewModel)
-            createRoutineFindWorkPartScreen(navController, this,sharedViewModel)
-        }
-    }.createRoutineGraph(
+    navGraphBuilder.navigation(
         route = CREATE_ROUTINE_GRAPH_ROUTER_NAME,
         startDestination = CREATE_ROUTINE_ROUTER_NAME,
-    )
+    ) {
+        createRoutineScreen(navController, this, sharedViewModel)
+        createRoutineRoutineScreen(navController, this, sharedViewModel)
+        createRoutineProfileScreen(navController, this, sharedViewModel)
+        createRoutineFindWorkCategoryScreen(navController, this, sharedViewModel)
+        createRoutineFindWorkPartScreen(navController, this, sharedViewModel)
+    }
 }
 
 
 @HiltViewModel
-class CreateRoutineViewModel  @Inject constructor(
-): ViewModel() {
+class CreateRoutineViewModel @Inject constructor(
+) : ViewModel() {
 }
 
 

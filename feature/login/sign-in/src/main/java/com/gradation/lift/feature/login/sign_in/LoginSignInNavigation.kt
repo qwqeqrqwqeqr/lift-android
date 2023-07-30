@@ -5,14 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.*
-import com.gradation.lift.navigation.route.login.LoginSignInRoute
 
 fun loginSignInScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    LoginSignInRoute { route ->
-        navGraphBuilder.composable(route) {
+
+        navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
             LoginSignInRoute(
                 navigateToLoginFindEmail = { navController.navigateToLoginFindEmail() },
                 navigateToLoginFindPassword =  { navController.navigateToLoginFindPassword() },
@@ -22,5 +21,5 @@ fun loginSignInScreen(
             )
 
     }
-    }.loginSignInScreen(route = Router.LOGIN_SIGN_IN_ROUTER_NAME)
+
 }

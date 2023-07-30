@@ -7,27 +7,26 @@ import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailProfilePictureToUnitOfWeight
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
 
-import com.gradation.lift.navigation.route.register_detail.RegisterDetailProfilePictureRoute
 
 fun registerDetailProfilePictureScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    RegisterDetailProfilePictureRoute { route ->
 
-        val navigateRegisterDetailProfilePictureToUnitOfWeight =
-            { navController.navigateRegisterDetailProfilePictureToUnitOfWeight() }
 
-        val navigateRegisterDetailToHome = { navController.navigateRegisterDetailToHome() }
+    val navigateRegisterDetailProfilePictureToUnitOfWeight =
+        { navController.navigateRegisterDetailProfilePictureToUnitOfWeight() }
 
-        navGraphBuilder.composable(route) {
-            RegisterDetailProfilePictureRoute(
-                navController = navController,
-                navigateRegisterDetailProfilePictureToUnitOfWeight=navigateRegisterDetailProfilePictureToUnitOfWeight,
-                navigateRegisterDetailToHome=navigateRegisterDetailToHome
-            )
-        }
-    }.registerDetailProfilePictureScreen(route = Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME)
+    val navigateRegisterDetailToHome = { navController.navigateRegisterDetailToHome() }
+
+    navGraphBuilder.composable(Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME) {
+        RegisterDetailProfilePictureRoute(
+            navController = navController,
+            navigateRegisterDetailProfilePictureToUnitOfWeight = navigateRegisterDetailProfilePictureToUnitOfWeight,
+            navigateRegisterDetailToHome = navigateRegisterDetailToHome
+        )
+    }
+
 }
 
 

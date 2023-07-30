@@ -31,10 +31,10 @@ fun CreateRoutineRoute(
 ) {
 
 
-    val routineSetUiState=  viewModel.routineSetListUiState.collectAsStateWithLifecycle()
+    val routineSetUiState=  sharedViewModel.routineSetListUiState.collectAsStateWithLifecycle()
 
-    val routineSetName = viewModel.routineSetName
-    val updateRoutineSetName = viewModel::updateRoutineSetName
+    val routineSetName = sharedViewModel.routineSetName
+    val updateRoutineSetName = sharedViewModel::updateRoutineSetName
     val haveRoutineSet = routineSetUiState.value.isNotEmpty()
     val onClickPlusCircle = {navController.navigateToCreateRoutineFindWorkpart()}
     val onClickCreateRoutine ={navController.navigateToCreateRoutineRoutineDetail() }

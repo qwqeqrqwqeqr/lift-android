@@ -8,21 +8,20 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateHomeToCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateHomeToReadyWorkGraph
-import com.gradation.lift.navigation.route.main.HomeRoute
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun homeScreen(navController: NavController, navGraphBuilder: NavGraphBuilder) {
-    HomeRoute { route, navigationGraphBuilder ->
-        val navigateHomeToCreateRoutineGraph = { navController.navigateHomeToCreateRoutineGraph() }
-        val navigateHomeToReadyWorkGraph = {navController.navigateHomeToReadyWorkGraph()}
+    val navigateHomeToCreateRoutineGraph = { navController.navigateHomeToCreateRoutineGraph() }
+    val navigateHomeToReadyWorkGraph = { navController.navigateHomeToReadyWorkGraph() }
 
-        navigationGraphBuilder.composable(route) {
-            HomeRoute(navController = navController,
-                navigateHomeToCreateRoutineGraph=navigateHomeToCreateRoutineGraph,
-                navigateHomeToReadyWorkGraph=navigateHomeToReadyWorkGraph
-            )
-        }
-    }.homeScreen(route = HOME_ROUTER_NAME, navGraphBuilder)
+    navGraphBuilder.composable(HOME_ROUTER_NAME) {
+        HomeRoute(
+            navController = navController,
+            navigateHomeToCreateRoutineGraph = navigateHomeToCreateRoutineGraph,
+            navigateHomeToReadyWorkGraph = navigateHomeToReadyWorkGraph
+        )
+    }
+
 }
 
 

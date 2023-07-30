@@ -5,7 +5,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailNameToGender
-import com.gradation.lift.navigation.route.register_detail.RegisterDetailNameRoute
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -14,20 +13,18 @@ fun registerDetailNameScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    RegisterDetailNameRoute { route ->
-
-        val navigateRegisterDetailNameToGender: () -> Unit =
-            { navController.navigateRegisterDetailNameToGender() }
+    val navigateRegisterDetailNameToGender: () -> Unit =
+        { navController.navigateRegisterDetailNameToGender() }
 
 
-        navGraphBuilder.composable(route) {
-            RegisterDetailNameRoute(
-                navController = navController,
-                navigateRegisterDetailNameToGender = navigateRegisterDetailNameToGender
-            )
+    navGraphBuilder.composable(Router.REGISTER_DETAIL_NAME_ROUTER_NAME) {
+        RegisterDetailNameRoute(
+            navController = navController,
+            navigateRegisterDetailNameToGender = navigateRegisterDetailNameToGender
+        )
 
-        }
-    }.registerDetailNameScreen(route = Router.REGISTER_DETAIL_NAME_ROUTER_NAME)
+    }
+
 }
 
 

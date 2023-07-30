@@ -1,15 +1,17 @@
-package com.gradation.lift.feature.my_info
+package com.gradation.lift.create_routine.routine
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 
-fun myInfoScreen(
+
+fun createRoutineRoutineScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.composable(Router.MY_INFO_ROUTER_NAME) {
-        MyInfoRoute(navController = navController)
+
+    navGraphBuilder.composable(Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
+        CreateRoutineRoutineRoute(navController = navController)
     }
 }

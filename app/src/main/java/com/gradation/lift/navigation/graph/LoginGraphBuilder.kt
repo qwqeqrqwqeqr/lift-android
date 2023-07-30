@@ -12,27 +12,22 @@ import com.gradation.lift.feature.login.terms_of_use.loginTermsOfUseScreen
 import com.gradation.lift.feature.login.verification.loginVerificationScreen
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
-import com.gradation.lift.navigation.route.login.LoginGraph
 
 fun loginGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    LoginGraph { route, graphStartDestination ->
-        navGraphBuilder.navigation(
-            route = route,
-            startDestination = graphStartDestination,
-        ) {
-            loginSignInScreen(navController, this)
-            loginSignUpScreen(navController, this)
-            loginVerificationScreen(navController, this)
-            loginCompleteScreen(navController, this)
-            loginTermsOfUseScreen(navController, this)
-            loginFindEmailScreen(navController, this)
-            loginFindPasswordScreen(navController, this)
-        }
-    }.loginGraph(
+    navGraphBuilder.navigation(
         route = LOGIN_GRAPH_ROUTER_NAME,
         startDestination = LOGIN_SIGN_IN_ROUTER_NAME,
-    )
+    ) {
+        loginSignInScreen(navController, this)
+        loginSignUpScreen(navController, this)
+        loginVerificationScreen(navController, this)
+        loginCompleteScreen(navController, this)
+        loginTermsOfUseScreen(navController, this)
+        loginFindEmailScreen(navController, this)
+        loginFindPasswordScreen(navController, this)
+    }
+
 }

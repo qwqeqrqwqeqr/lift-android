@@ -4,17 +4,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.route.login.LoginFindEmailRoute
 
 fun loginFindEmailScreen(
-    navController : NavController,
+    navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    LoginFindEmailRoute {route ->
-        navGraphBuilder.composable(route) {
-            LoginFindEmailRoute(navController)
-        }
-    }.loginFindEmailScreen(route = Router.LOGIN_FIND_EMAIL_ROUTER_NAME)
+    navGraphBuilder.composable(Router.LOGIN_FIND_EMAIL_ROUTER_NAME) {
+        LoginFindEmailRoute(navController)
+    }
 }
 
 
