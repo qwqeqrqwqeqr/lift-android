@@ -100,8 +100,8 @@ internal fun HomeScreen(
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(
-                            start = 20.dp,
-                            end = 20.dp,
+                            start = 16.dp,
+                            end = 16.dp,
                         )
                 ) {
                     Text(
