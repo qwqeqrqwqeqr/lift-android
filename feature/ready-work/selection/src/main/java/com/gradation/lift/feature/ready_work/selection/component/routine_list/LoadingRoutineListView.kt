@@ -20,7 +20,7 @@ fun LoadingRoutineSetRoutineListView(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.padding(20.dp),
+        modifier = modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(
             12.dp,
             Alignment.CenterVertically

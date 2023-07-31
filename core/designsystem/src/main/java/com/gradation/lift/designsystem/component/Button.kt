@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -25,6 +26,7 @@ fun LiftButton(
         onClick = onClick,
         modifier = modifier.height(52.dp),
         enabled = enabled,
+        shape = RoundedCornerShape(size = 12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no4,
             contentColor = LiftTheme.colorScheme.no5,
@@ -49,6 +51,7 @@ fun LiftErrorButton(
         onClick = onClick,
         modifier = modifier.height(52.dp),
         enabled = enabled,
+        shape = RoundedCornerShape(size = 12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no12,
             contentColor = LiftTheme.colorScheme.no21,
@@ -73,6 +76,7 @@ fun LiftCancelButton(
         onClick = onClick,
         modifier = modifier.height(52.dp),
         enabled = enabled,
+        shape = RoundedCornerShape(size = 12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no13,
             contentColor = LiftTheme.colorScheme.no5,
@@ -96,6 +100,7 @@ fun LiftOutlineButton(
         onClick = onClick,
         modifier = modifier.height(52.dp),
         enabled = enabled,
+        shape = RoundedCornerShape(size = 12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no5,
             contentColor = LiftTheme.colorScheme.no4,

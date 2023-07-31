@@ -32,7 +32,7 @@ internal fun CompleteDialog(
                 )
                 .width(280.dp)
                 .height(300.dp)
-                .padding(20.dp),
+                .padding(16.dp),
 
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,

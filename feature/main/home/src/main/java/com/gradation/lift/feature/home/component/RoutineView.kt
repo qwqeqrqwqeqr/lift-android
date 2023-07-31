@@ -41,7 +41,7 @@ internal fun RoutineView(
             )
             .fillMaxSize()
             .fillMaxHeight()
-            .padding(20.dp),
+            .padding(16.dp),
     ) {
         Text(
             text = "내 루틴 리스트",

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.create_routine
+package com.gradation.lift.feature.create_routine.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,9 +10,6 @@ import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.todayIn
 import javax.inject.Inject
 
 
@@ -22,20 +19,11 @@ class CreateRoutineSharedViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _name = MutableStateFlow("")
-    var name = _name.asStateFlow()
-
-    private val _description = MutableStateFlow("")
-    var description = _description.asStateFlow()
-
-    private val _picture = MutableStateFlow("")
-    var picture = _picture.asStateFlow()
-
-    private val _weekday = MutableStateFlow(emptyList<Weekday>())
-    var weekday = _weekday.asStateFlow()
-
-    private val _routine = MutableStateFlow(emptyList<CreateRoutine>())
-    var routine = _routine.asStateFlow()
+    val name = MutableStateFlow("")
+    val description = MutableStateFlow("")
+    val picture = MutableStateFlow("")
+    val weekday = MutableStateFlow(emptyList<Weekday>())
+    val routine = MutableStateFlow(emptyList<CreateRoutine>())
 
 
     val nameCondition = name.map { it.isNotEmpty() }.stateIn(
@@ -49,11 +37,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
         initialValue = false
     )
 
-    private val _onVisibleCancelDialog = MutableStateFlow(false)
-    var onVisibleCancelDialog = _onVisibleCancelDialog.asStateFlow()
 
-
-    val navigationCondition = combine(
+    val createRoutineCondition = combine(
         nameCondition,
         descriptionCondition,
         picture,
@@ -77,34 +62,36 @@ class CreateRoutineSharedViewModel @Inject constructor(
         initialValue = false
     )
 
+    val navigationCondition = MutableStateFlow(false)
+
 
     fun updateName(): (String) -> Unit = {
-        _name.update { it }
+        name.value = it
     }
 
     fun updateDescription(): (String) -> Unit = {
-        _description.update { it }
+        description.value = it
     }
 
     fun updatePicture(): (String) -> Unit = {
-        _picture.update { it }
+        picture.value = it
     }
 
-    fun updateWeekday(): (Weekday) -> Unit = { weekday ->
-        if (weekday in _weekday.value) {
-            _weekday.update { it.minusElement(weekday) }
+    fun updateWeekday(): (Weekday) -> Unit = { value ->
+        if (value in weekday.value) {
+            weekday.update { it.minusElement(value) }
         } else {
-            _weekday.update { it.plusElement(weekday) }
+            weekday.update { it.plusElement(value) }
         }
     }
 
 
-    fun addRoutineSet(): (CreateRoutine) -> Unit = { routine ->
-        _routine.update { it.plusElement(routine) }
+    fun addRoutineSet(): (CreateRoutine) -> Unit = { value ->
+        routine.update { it.plusElement(value) }
     }
 
-    fun removeRoutineSet(): (CreateRoutine) -> Unit = { routine ->
-        _routine.update { it.minusElement(routine) }
+    fun removeRoutineSet(): (CreateRoutine) -> Unit = { value ->
+        routine.update { it.minusElement(value) }
     }
 
 
@@ -120,8 +107,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
                 )
             ).collect {
                 when (it) {
-                    is DataState.Success -> _onVisibleCancelDialog.value = it.data
-                    is DataState.Fail -> _onVisibleCancelDialog.value = false
+                    is DataState.Success -> navigationCondition.value = it.data
+                    is DataState.Fail -> navigationCondition.value = false
                 }
             }
         }

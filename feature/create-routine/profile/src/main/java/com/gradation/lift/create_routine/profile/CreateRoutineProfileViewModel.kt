@@ -7,4 +7,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateRoutineProfileViewModel  @Inject constructor(
 ):ViewModel() {
+
+    val name = "1"
 }

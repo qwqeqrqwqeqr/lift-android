@@ -36,7 +36,7 @@ internal fun CreateRoutineView(
                 shape = RoundedCornerShape(24.dp)
             )
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(16.dp)
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),

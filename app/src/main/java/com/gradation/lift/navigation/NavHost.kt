@@ -2,13 +2,9 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.gradation.lift.feature.create_routine.CreateRoutineSharedViewModel
-import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.graph.*
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -19,8 +15,7 @@ fun LiftNavHost(
     modifier: Modifier = Modifier,
     startDestination: String,
 ) {
-    val crateRoutineBackStackEntry = remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
-    val createRoutineViewModel: CreateRoutineSharedViewModel = viewModel(crateRoutineBackStackEntry)
+
 
     NavHost(
         navController = navController,
@@ -29,12 +24,11 @@ fun LiftNavHost(
     ) {
         mainGraphBuilder(
             navController = navController,
-            navGraphBuilder = this
+            navGraphBuilder = this,
         )
         createRoutineGraphBuilder(
             navController = navController,
             navGraphBuilder = this,
-            sharedViewModel = createRoutineViewModel
         )
         loginGraphBuilder(
             navController = navController,
