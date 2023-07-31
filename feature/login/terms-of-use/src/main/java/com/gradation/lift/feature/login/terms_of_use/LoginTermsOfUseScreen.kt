@@ -107,7 +107,7 @@ internal fun LoginTermsOfUseScreen(
 ) {
     if (onVisibleDialog.value) {
         Surface(
-            color = LiftTheme.colorScheme.no8,
+            color = LiftTheme.colorScheme.no13,
             modifier = modifier.fillMaxSize()
         ) {
             CancelDialog(
@@ -269,7 +269,7 @@ fun LoginTermsOfUseScreenPreview() {
             onChangeMarketingChecked = {},
             onNextButtonClick = {},
             navigateCondition = mutableStateOf(false),
-            onVisibleDialog = mutableStateOf(false),
+            onVisibleDialog = mutableStateOf(true),
             onClickDialogSuspendButton = {},
             onClickDialogDismissButton = {}
         )

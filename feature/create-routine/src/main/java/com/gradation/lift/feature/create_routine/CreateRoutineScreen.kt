@@ -24,6 +24,7 @@ import com.gradation.lift.feature.create_routine.data.CreateRoutineViewModel
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.ui.utils.DevicePreview
 
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -119,7 +120,7 @@ internal fun CreateRoutineScreen(
 ) {
     if (onVisibleCancelDialog.value) {
         Surface(
-            color = LiftTheme.colorScheme.no8,
+            color = LiftTheme.colorScheme.no23,
             modifier = modifier.fillMaxSize()
         ) {
             CancelDialog(
@@ -136,13 +137,13 @@ internal fun CreateRoutineScreen(
                         onBackClickTopBar = onBackClickTopBar,
                     )
                 },
-            ) { it ->
+            ) { padding ->
                 Column(
                     modifier = modifier
-                        .fillMaxWidth()
-                        .padding(it)
+                        .padding(padding)
                         .padding(16.dp)
-                ) {
+                        .fillMaxSize()
+                ){
 
                     Text(
                         text = "루틴리스트 프로필",
@@ -212,7 +213,7 @@ internal fun CreateRoutineScreen(
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-@Preview
+@DevicePreview
 fun CreateRoutineRoutineSetScreen() {
     LiftMaterialTheme {
         CreateRoutineScreen(

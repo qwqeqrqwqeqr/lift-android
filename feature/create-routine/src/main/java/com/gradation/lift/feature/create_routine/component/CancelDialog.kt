@@ -44,11 +44,11 @@ internal fun CancelDialog(
             ) {
             Text(
                 text = buildAnnotatedString {
-                    append("회원가입을 ")
+                    append("루틴 제작을")
                     withStyle(
                         style = SpanStyle(color = LiftTheme.colorScheme.no12),
                     ) {
-                        append("중단")
+                        append(" 중단")
                     }
                     append("하실건가요?")
                 },
@@ -60,8 +60,8 @@ internal fun CancelDialog(
                 modifier = modifier.padding(10.dp)
             )
             Text(
-                "회원가입을 중단할 경우\n" +
-                        "현재 작성 중인 정보가 삭제됩니다",
+                "이전 화면으로 돌아갈 시 \n" +
+                        "열심히 제작한 루틴이 삭제됩니다",
                 textAlign = TextAlign.Center,
                 style = LiftTheme.typography.no4,
                 color = LiftTheme.colorScheme.no9
@@ -91,7 +91,7 @@ internal fun CancelDialog(
                     onClick = onClickDialogSuspendButton,
                 ) {
                     Text(
-                        text = "중단",
+                        text = "중단하기",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no5,
                     )

@@ -90,7 +90,7 @@ internal fun RegisterDetailProfilePictureScreen(
 ) {
     if (onVisibleDialog.value) {
         Surface(
-            color = LiftTheme.colorScheme.no8,
+            color = LiftTheme.colorScheme.no23,
             modifier = modifier.fillMaxSize()
         ) {
             CompleteDialog(onClickCompleteDialogButton = onClickCompleteDialogButton)
