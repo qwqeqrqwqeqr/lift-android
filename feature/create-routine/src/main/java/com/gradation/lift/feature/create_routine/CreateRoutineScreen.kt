@@ -31,7 +31,7 @@ import com.gradation.lift.ui.utils.DevicePreview
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-@SuppressLint("UnrememberedGetBackStackEntry")
+@SuppressLint("UnrememberedGetBackStackEntry", "StateFlowValueCalledInComposition")
 @Composable
 internal fun CreateRoutineRoute(
     navController: NavController,
@@ -59,6 +59,8 @@ internal fun CreateRoutineRoute(
     val onVisibleCancelDialog = viewModel.onVisibleCancelDialog.collectAsStateWithLifecycle()
     val visibleCancelDialog = viewModel.visibleCancelDialog()
     val inVisibleCancelDialog = viewModel.invisibleCancelDialog()
+
+    val navigationCondition = sharedViewModel.navigationCondition
 
     CreateRoutineScreen(
         modifier = modifier,
@@ -91,6 +93,10 @@ internal fun CreateRoutineRoute(
 
         scrollState = scrollState
     )
+
+    LaunchedEffect(navigationCondition.value){
+        navigateCreateRoutineToMain()
+    }
 
 }
 
