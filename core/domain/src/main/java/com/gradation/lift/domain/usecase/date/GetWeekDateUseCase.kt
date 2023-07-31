@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GetWeekDateUseCase @Inject constructor(){
     @RequiresApi(Build.VERSION_CODES.O)
-    operator fun invoke(date: LocalDate): List<LocalDate> {
+    operator fun invoke(date: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())): List<LocalDate> {
         return when (date.dayOfWeek) {
             DayOfWeek.MONDAY -> (0..6).map { date.plus(DatePeriod(days = it)) }
             DayOfWeek.TUESDAY -> (-1..5).map { date.plus(DatePeriod(days = it)) }

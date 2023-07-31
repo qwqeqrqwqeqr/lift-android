@@ -57,7 +57,7 @@ fun LiftTextField(
             errorLabelColor = LiftTheme.colorScheme.no12,
             errorSupportingTextColor = LiftTheme.colorScheme.no12
         ),
-        shape = RoundedCornerShape(32.dp),
+        shape = RoundedCornerShape(12.dp),
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
         supportingText = supportingText,

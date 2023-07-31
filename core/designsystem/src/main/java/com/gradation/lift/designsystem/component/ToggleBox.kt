@@ -30,11 +30,11 @@ fun LiftToggleTextBox(
                 .border(
                     width = 2.dp,
                     color = LiftTheme.colorScheme.no4,
-                    shape = RoundedCornerShape(size = 30.dp)
+                    shape = RoundedCornerShape(size = 12.dp)
                 )
                 .height(48.dp)
                 .padding(start = 14.dp, top = 10.dp, end = 14.dp, bottom = 14.dp)
-                .background(LiftTheme.colorScheme.no5, shape = RoundedCornerShape(size = 30.dp))
+                .background(LiftTheme.colorScheme.no5, shape = RoundedCornerShape(size = 12.dp))
                 .toggleable(
                     value = checked,
                     onValueChange = onCheckedChange,
@@ -54,7 +54,7 @@ fun LiftToggleTextBox(
         Box(
             modifier = modifier
                 .height(48.dp)
-                .background(LiftTheme.colorScheme.no1, shape = RoundedCornerShape(size = 30.dp))
+                .background(LiftTheme.colorScheme.no1, shape = RoundedCornerShape(size = 12.dp))
                 .padding(start = 14.dp, top = 10.dp, end = 14.dp, bottom = 14.dp)
                 .toggleable(
                     value = checked,

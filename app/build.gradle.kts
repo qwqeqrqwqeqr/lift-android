@@ -5,6 +5,7 @@ plugins {
     id("lift.android.hilt")
     id("lift.android.kotlin")
     id("lift.android.splash")
+    id("lift.android.image")
 }
 
 

@@ -1,13 +1,18 @@
 package com.gradation.lift.feature.create_routine.data
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.CreateRoutineSetUseCase
 import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,13 +21,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateRoutineSharedViewModel @Inject constructor(
     private val createRoutineSetUseCase: CreateRoutineSetUseCase,
+    private val getWeekDateUseCase: GetWeekDateUseCase,
 ) : ViewModel() {
 
 
+    private val weekday = MutableStateFlow(emptyList<Weekday>())
     val name = MutableStateFlow("")
     val description = MutableStateFlow("")
     val picture = MutableStateFlow("")
-    val weekday = MutableStateFlow(emptyList<Weekday>())
     val routine = MutableStateFlow(emptyList<CreateRoutine>())
 
 
@@ -35,6 +41,20 @@ class CreateRoutineSharedViewModel @Inject constructor(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = false
+    )
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    internal val weekdayCardList = weekday.map { weekdayList ->
+        getWeekDateUseCase().map { localDate ->
+            WeekdayCard(
+                weekday = localDate.toWeekday(),
+                selected = localDate.toWeekday() in weekdayList
+            )
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = emptyList()
     )
 
 
@@ -113,8 +133,12 @@ class CreateRoutineSharedViewModel @Inject constructor(
             }
         }
     }
-
 }
+
+internal data class WeekdayCard(
+    val weekday: Weekday = Weekday.None(),
+    var selected: Boolean = false,
+)
 
 
 
