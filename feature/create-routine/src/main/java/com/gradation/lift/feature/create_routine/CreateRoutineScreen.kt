@@ -5,29 +5,19 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.gradation.lift.designsystem.canvas.PlusCircle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftTextField
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.create_routine.component.*
 import com.gradation.lift.feature.create_routine.component.CancelDialog
 import com.gradation.lift.feature.create_routine.component.WeekdayCardListView
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
@@ -105,7 +95,7 @@ internal fun CreateRoutineRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CreateRoutineScreen(
     modifier: Modifier = Modifier,
@@ -161,94 +151,31 @@ internal fun CreateRoutineScreen(
                     .fillMaxWidth()
                     .verticalScroll(scrollState)
             ) {
-                Text(
-                    text = "루틴리스트 프로필",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no3
+
+                ProfileView(
+                    modifier.align(Alignment.CenterHorizontally),
+                    onClickProfile,
+                    picture
                 )
-                Spacer(modifier = modifier.padding(8.dp))
 
-                Box(
-                    modifier = modifier
-                        .align(Alignment.CenterHorizontally)
-                        .background(
-                            color = LiftTheme.colorScheme.no1,
-                            shape = RoundedCornerShape(size = 12.dp)
-                        )
-                        .size(96.dp)
-                        .clickable(
-                            onClick = onClickProfile
-                        ), contentAlignment = Alignment.Center
-
-                ) {
-                    if (picture.value.isBlank()) {
-                        Image(
-                            modifier = modifier.size(32.dp),
-                            painter = painterResource(id = LiftIcon.Plus),
-                            contentDescription = "",
-                            colorFilter = ColorFilter.tint(LiftTheme.colorScheme.no6)
-                        )
-                    } else {
-                        GlideImage(
-                            model = picture.value,
-                            contentDescription = "",
-                            modifier = modifier.fillMaxSize()
-                        )
-                    }
-                }
                 Spacer(modifier = modifier.padding(16.dp))
 
-                Text(
-                    text = "루틴리스트 이름",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no3
+                NameView(
+                    modifier = modifier,
+                    nameText = nameText,
+                    updateNameText = updateNameText
                 )
-                Spacer(modifier = modifier.padding(4.dp))
-                LiftTextField(
-                    value = nameText.value,
-                    onValueChange = updateNameText,
-                    modifier = modifier.fillMaxWidth(),
-                    placeholder = {
-                        Text(
-                            text = "이름을 입력해주세요 (1-8 자)",
-                            style = LiftTheme.typography.no6,
-                        )
-                    },
-                    singleLine = true,
+
+                Spacer(modifier = modifier.padding(9.dp))
+
+                DescriptionView(
+                    modifier = modifier,
+                    descriptionText = descriptionText,
+                    updateDescriptionText = updateDescriptionText
                 )
                 Spacer(modifier = modifier.padding(9.dp))
 
-                Text(
-                    text = "루틴리스트 설명",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no3
-                )
-                Spacer(modifier = modifier.padding(4.dp))
-                LiftTextField(
-                    value = descriptionText.value,
-                    onValueChange = updateDescriptionText,
-                    modifier = modifier.fillMaxWidth(),
-                    placeholder = {
-                        Text(
-                            text = "간단한 설명을 입력해주세요 (0-15 자)",
-                            style = LiftTheme.typography.no6,
-                        )
-                    },
-                    singleLine = true,
-                )
-                Spacer(modifier = modifier.padding(9.dp))
 
-                Text(
-                    text = "요일 선택",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no3
-                )
-                Text(
-                    text = "무슨요일에 운동을 하실건가요?",
-                    style = LiftTheme.typography.no6,
-                    color = LiftTheme.colorScheme.no2
-                )
-                Spacer(modifier = modifier.padding(7.dp))
                 WeekdayCardListView(
                     weekdayCardList = weekdayCardList,
                     modifier = modifier,
@@ -263,187 +190,12 @@ internal fun CreateRoutineScreen(
                 )
                 Spacer(modifier = modifier.padding(8.dp))
 
-
-                if (routine.value.isEmpty()) {
-                    Box(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .background(
-                                color = LiftTheme.colorScheme.no1,
-                                shape = RoundedCornerShape(size = 12.dp)
-                            )
-                            .padding(vertical = 32.dp),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Box(
-                                modifier = modifier
-                                    .background(
-                                        LiftTheme.colorScheme.no4,
-                                        shape = RoundedCornerShape(size = 64.dp)
-                                    )
-                                    .size(42.dp), contentAlignment = Alignment.Center
-                            ) {
-                                IconButton(onClick = onAddRoutine) {
-                                    Icon(
-                                        modifier = modifier.size(16.dp),
-                                        painter = painterResource(id = LiftIcon.Plus),
-                                        contentDescription = "",
-                                        tint = LiftTheme.colorScheme.no5
-                                    )
-                                }
-                            }
-                            Spacer(modifier = modifier.padding(5.dp))
-                            Text(
-                                text = "+ 버튼을 눌러 루틴을 추가해요",
-                                style = LiftTheme.typography.no6,
-                                color = LiftTheme.colorScheme.no2
-                            )
-
-                        }
-                    }
-                } else {
-                    routine.value.forEachIndexed { index, createRoutine ->
-
-                        Column(
-                            modifier = modifier
-                                .background(LiftTheme.colorScheme.no5)
-                                .border(
-                                    width = 1.dp,
-                                    color = LiftTheme.colorScheme.no8,
-                                    shape = RoundedCornerShape(size = 12.dp)
-                                )
-                                .padding(14.dp)
-                                .fillMaxWidth()
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = createRoutine.workCategory,
-                                    style = LiftTheme.typography.no3,
-                                    color = LiftTheme.colorScheme.no9,
-                                    modifier = modifier.weight(1f)
-                                )
-                                Row(
-                                    modifier = modifier.weight(1f),
-                                    horizontalArrangement = Arrangement.End,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        painter = painterResource(LiftIcon.Trash),
-                                        contentDescription = "",
-                                        tint = Color.Unspecified,
-                                        modifier = modifier.clickable(
-                                            onClick = { onRemoveRoutineSet(createRoutine) }
-                                        )
-                                    )
-                                    Spacer(modifier = modifier.padding(12.dp))
-                                    Icon(
-                                        painter = painterResource(LiftIcon.Order),
-                                        contentDescription = "",
-                                        tint = Color.Unspecified,
-                                        modifier = modifier
-                                    )
-                                }
-                            }
-                            Spacer(
-                                modifier = modifier.padding(8.dp)
-                            )
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(24.dp),
-                                modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp)
-                            ) {
-                                Text(
-                                    text = "Set",
-                                    style = LiftTheme.typography.no3,
-                                    color = LiftTheme.colorScheme.no9,
-                                    textAlign = TextAlign.Center,
-                                    modifier = modifier.weight(1f)
-                                )
-                                Text(
-                                    text = "Kg",
-                                    style = LiftTheme.typography.no3,
-                                    color = LiftTheme.colorScheme.no9,
-                                    textAlign = TextAlign.Center,
-                                    modifier = modifier.weight(1f)
-                                )
-                                Text(
-                                    text = "Reps",
-                                    style = LiftTheme.typography.no3,
-                                    color = LiftTheme.colorScheme.no9,
-                                    textAlign = TextAlign.Center,
-                                    modifier = modifier.weight(1f)
-                                )
-                            }
-                            Spacer(modifier = modifier.padding(4.dp))
-                            createRoutine.workSetList.forEachIndexed { index, workSet ->
-                                Row(
-                                    modifier = modifier
-                                        .background(LiftTheme.colorScheme.no5)
-                                        .border(
-                                            width = 1.dp,
-                                            color = LiftTheme.colorScheme.no8,
-                                            shape = RoundedCornerShape(size = 8.dp)
-                                        )
-                                        .padding(horizontal = 12.dp, vertical = 8.dp)
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(24.dp)
-                                ) {
-                                    Text(
-                                        text = "${index + 1}",
-                                        style = LiftTheme.typography.no3,
-                                        color = LiftTheme.colorScheme.no2,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier
-                                            .weight(1f)
-                                            .padding(3.dp)
-                                    )
-
-                                    Text(
-                                        style = LiftTheme.typography.no3,
-                                        color = LiftTheme.colorScheme.no9,
-                                        text = workSet.weight.toString(),
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier
-                                            .weight(1f)
-                                            .background(
-                                                color = LiftTheme.colorScheme.no1,
-                                                shape = RoundedCornerShape(size = 6.dp)
-                                            )
-                                            .padding(3.dp)
-
-                                    )
-
-                                    Text(
-                                        style = LiftTheme.typography.no3,
-                                        color = LiftTheme.colorScheme.no9,
-                                        text = workSet.repetition.toString(),
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier
-                                            .weight(1f)
-                                            .background(
-                                                color = LiftTheme.colorScheme.no1,
-                                                shape = RoundedCornerShape(size = 6.dp)
-                                            )
-                                            .padding(3.dp)
-
-                                    )
-                                }
-                                Spacer(modifier = modifier.padding(2.dp))
-
-                            }
-                        }
-
-                    }
-
-                }
-
-
-
+                RoutineListView(
+                    modifier = modifier,
+                    routine = routine,
+                    onAddRoutine = onAddRoutine,
+                    onRemoveRoutineSet = onRemoveRoutineSet
+                )
 
                 Spacer(modifier = modifier.padding(27.dp))
 

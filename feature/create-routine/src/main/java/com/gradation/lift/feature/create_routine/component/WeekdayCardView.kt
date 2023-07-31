@@ -23,6 +23,17 @@ internal fun WeekdayCardListView(
     modifier: Modifier = Modifier,
     onClickWeekDayCard: (Weekday) -> Unit,
 ) {
+    Text(
+        text = "요일 선택",
+        style = LiftTheme.typography.no3,
+        color = LiftTheme.colorScheme.no3
+    )
+    Text(
+        text = "무슨요일에 운동을 하실건가요?",
+        style = LiftTheme.typography.no6,
+        color = LiftTheme.colorScheme.no2
+    )
+    Spacer(modifier = modifier.padding(7.dp))
 
     Row(
         modifier = modifier.fillMaxWidth().background(LiftTheme.colorScheme.no5),
