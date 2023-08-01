@@ -26,7 +26,6 @@ import com.gradation.lift.create_routine.profile.CreateRoutineProfileScreen
 import com.gradation.lift.create_routine.profile.RoutineSetCategoryPicture
 import com.gradation.lift.create_routine.profile.RoutineSetPictureUiState
 import com.gradation.lift.create_routine.profile.SelectedPicture
-import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme

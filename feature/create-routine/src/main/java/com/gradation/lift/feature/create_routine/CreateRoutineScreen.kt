@@ -2,6 +2,7 @@ package com.gradation.lift.feature.create_routine
 
 import android.annotation.SuppressLint
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -98,6 +99,7 @@ internal fun CreateRoutineRoute(
             navigateCreateRoutineToMain()
         }
     }
+    BackHandler(onBack = navigateCreateRoutineToMain)
 
 }
 

@@ -14,10 +14,7 @@ class CreateRoutineProfileViewModel @Inject constructor(
     private val getRoutineSetPictureUseCase: GetRoutineSetPictureUseCase
 ) : ViewModel() {
 
-
     val selectedPicture = MutableStateFlow("")
-
-
     fun updateSelectedPicture(): (String) -> Unit = {
         selectedPicture.value = it
     }

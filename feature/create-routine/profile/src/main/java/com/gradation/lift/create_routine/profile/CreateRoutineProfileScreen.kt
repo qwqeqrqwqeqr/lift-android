@@ -3,6 +3,7 @@
 package com.gradation.lift.create_routine.profile
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -54,6 +55,8 @@ fun CreateRoutineProfileRoute(
         routineSetPictureUiState = routineSetPictureUiState,
         selectedPicture = selectedPicture,
     )
+
+    BackHandler(onBack = navigateCreateRoutineProfileToRoot)
 }
 
 @OptIn(
