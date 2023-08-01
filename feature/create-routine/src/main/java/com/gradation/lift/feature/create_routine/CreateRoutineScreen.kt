@@ -99,7 +99,7 @@ internal fun CreateRoutineRoute(
             navigateCreateRoutineToMain()
         }
     }
-    BackHandler(onBack = navigateCreateRoutineToMain)
+    BackHandler(onBack = visibleCancelDialog)
 
 }
 

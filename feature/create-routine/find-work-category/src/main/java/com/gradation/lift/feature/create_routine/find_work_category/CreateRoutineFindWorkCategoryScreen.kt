@@ -42,7 +42,7 @@ fun CreateRoutineFindWorkCategoryScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "프로필 등록하기",
+                title = "운동부위 선택",
                 onBackClickTopBar = onBackClickTopBar,
             )
         }, modifier = modifier.fillMaxSize()
@@ -58,3 +58,5 @@ fun CreateRoutineFindWorkCategoryScreen(
     }
 
 }
+
+
