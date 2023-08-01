@@ -6,10 +6,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.picture.GetRoutineSetPictureUseCase
 import com.gradation.lift.model.picture.RoutineSetPicture
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,25 +15,40 @@ class CreateRoutineProfileViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val routineSetPictureUiState = getRoutineSetPictureUseCase().map { result ->
-        when (result) {
-            is DataState.Fail -> RoutineSetPictureUiState.Fail
-            is DataState.Success -> RoutineSetPictureUiState.Success(
-                result.data.groupBy { it.category }.map { routineSetPictureGroup ->
-                    RoutineSetCategoryPicture(
-                        category = routineSetPictureGroup.key,
-                        picture = routineSetPictureGroup.value.map { routineSetPicture ->
-                            SelectedPicture(routineSetPicture.url)
+    val selectedPicture = MutableStateFlow("")
+
+
+    fun updateSelectedPicture(): (String) -> Unit = {
+        selectedPicture.value = it
+    }
+
+    val routineSetPictureUiState =
+        combine(
+            getRoutineSetPictureUseCase(),
+            selectedPicture
+        ) { routineSetPictureList, selectedPictureUrl ->
+            when (routineSetPictureList) {
+                is DataState.Fail -> RoutineSetPictureUiState.Fail
+                is DataState.Success -> RoutineSetPictureUiState.Success(
+                    routineSetPictureList.data.groupBy { it.category }
+                        .map { routineSetPictureGroup ->
+                            RoutineSetCategoryPicture(
+                                category = routineSetPictureGroup.key,
+                                picture = routineSetPictureGroup.value.map { routineSetPicture ->
+                                    SelectedPicture(
+                                        url = routineSetPicture.url,
+                                        selected = (selectedPictureUrl == routineSetPicture.url)
+                                    )
+                                }
+                            )
                         }
-                    )
-                }
-            )
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = RoutineSetPictureUiState.Loading
-    )
+                )
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = RoutineSetPictureUiState.Loading
+        )
 
 
 }
@@ -48,8 +60,8 @@ data class RoutineSetCategoryPicture(
 )
 
 data class SelectedPicture(
-    val url :String,
-    val selected : Boolean = false
+    val url: String,
+    val selected: Boolean = false
 )
 
 

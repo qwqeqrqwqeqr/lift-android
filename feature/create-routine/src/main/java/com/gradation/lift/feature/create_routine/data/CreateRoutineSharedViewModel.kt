@@ -93,8 +93,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
         description.value = it
     }
 
-    fun updatePicture(): (String) -> Unit = {
-        picture.value = it
+    fun updatePicture(value:String) {
+        picture.value = value
     }
 
     fun updateWeekday(): (Weekday) -> Unit = { value ->

@@ -42,7 +42,6 @@ internal fun CreateRoutineRoute(
     viewModel: CreateRoutineViewModel = hiltViewModel(),
 ) {
     val scrollState: ScrollState = rememberScrollState()
-
     val crateRoutineBackStackEntry =
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
