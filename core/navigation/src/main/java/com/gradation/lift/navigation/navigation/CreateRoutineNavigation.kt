@@ -1,6 +1,7 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_ROUTER_NAME
@@ -54,7 +55,7 @@ fun NavController.navigateCreateRoutineProfileToRoot() {
 }
 
 
-fun NavController.navigateHomeToCreateRoutine() {
+fun NavController.navigateHomeToCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_GRAPH_NAME)
 }
 

@@ -6,9 +6,10 @@ import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 
 
 fun NavController.navigateHomeToReadyWorkGraph() {
-    this.navigate(Router.READY_WORK_GRAPH_NAME) {
-    }
+    this.navigate(Router.READY_WORK_GRAPH_NAME)
 }
+
+
 
 
 fun NavController.navigateToReadyWorkSelectionToChangeOrder() {

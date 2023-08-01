@@ -17,14 +17,10 @@ fun createRoutineGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-
-
-
     navGraphBuilder.navigation(
         route = CREATE_ROUTINE_GRAPH_NAME,
         startDestination = CREATE_ROUTINE_ROUTER_NAME,
     ) {
-
         createRoutineScreen(navController, this)
         createRoutineRoutineScreen(navController, this)
         createRoutineProfileScreen(navController, this)

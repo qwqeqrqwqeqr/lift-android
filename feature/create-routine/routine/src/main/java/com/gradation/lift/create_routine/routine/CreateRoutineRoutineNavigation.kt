@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 
 
 fun createRoutineRoutineScreen(
@@ -11,7 +12,7 @@ fun createRoutineRoutineScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
 
-    navGraphBuilder.composable(Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
+    navGraphBuilder.composable(CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
         CreateRoutineRoutineRoute(navController = navController)
     }
 }

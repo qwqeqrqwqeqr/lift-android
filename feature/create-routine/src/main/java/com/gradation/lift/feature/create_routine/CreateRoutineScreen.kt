@@ -94,8 +94,10 @@ internal fun CreateRoutineRoute(
         scrollState = scrollState
     )
 
-    LaunchedEffect(navigationCondition.value){
-        navigateCreateRoutineToMain()
+    LaunchedEffect(true) {
+        if (navigationCondition.value) {
+            navigateCreateRoutineToMain()
+        }
     }
 
 }
@@ -142,84 +144,87 @@ internal fun CreateRoutineScreen(
             )
         }
     } else {
-        Scaffold(
-            topBar = {
-                LiftBackTopBar(
-                    title = "루틴리스트 만들기",
-                    onBackClickTopBar = onBackClickTopBar,
-                )
-            }, modifier = modifier.fillMaxSize()
-        ) { padding ->
-            Column(
-                modifier = modifier
-                    .padding(padding)
-                    .padding(16.dp)
-                    .fillMaxWidth()
-                    .verticalScroll(scrollState)
-            ) {
-
-                ProfileView(
-                    modifier.align(Alignment.CenterHorizontally),
-                    onClickProfile,
-                    picture
-                )
-
-                Spacer(modifier = modifier.padding(16.dp))
-
-                NameView(
-                    modifier = modifier,
-                    nameText = nameText,
-                    updateNameText = updateNameText
-                )
-
-                Spacer(modifier = modifier.padding(9.dp))
-
-                DescriptionView(
-                    modifier = modifier,
-                    descriptionText = descriptionText,
-                    updateDescriptionText = updateDescriptionText
-                )
-                Spacer(modifier = modifier.padding(9.dp))
-
-
-                WeekdayCardListView(
-                    weekdayCardList = weekdayCardList,
-                    modifier = modifier,
-                    onClickWeekDayCard = updateWeekday
-                )
-                Spacer(modifier = modifier.padding(14.dp))
-
-                Text(
-                    text = "루틴리스트",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no3
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-
-                RoutineListView(
-                    modifier = modifier,
-                    routine = routine,
-                    onAddRoutine = onAddRoutine,
-                    onRemoveRoutineSet = onRemoveRoutineSet
-                )
-
-                Spacer(modifier = modifier.padding(27.dp))
-
-                LiftButton(
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = onClickCreateRoutine,
-                    enabled = enabledCreateRoutine.value
-                ) {
-                    Text(
-                        text = "생성하기",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
+        Surface(color = LiftTheme.colorScheme.no5) {
+            Scaffold(
+                topBar = {
+                    LiftBackTopBar(
+                        title = "루틴리스트 만들기",
+                        onBackClickTopBar = onBackClickTopBar,
                     )
+                }, modifier = modifier.fillMaxSize()
+            ) { padding ->
+                Column(
+                    modifier = modifier
+                        .padding(padding)
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .verticalScroll(scrollState)
+                ) {
+
+                    ProfileView(
+                        modifier.align(Alignment.CenterHorizontally),
+                        onClickProfile,
+                        picture
+                    )
+
+                    Spacer(modifier = modifier.padding(16.dp))
+
+                    NameView(
+                        modifier = modifier,
+                        nameText = nameText,
+                        updateNameText = updateNameText
+                    )
+
+                    Spacer(modifier = modifier.padding(9.dp))
+
+                    DescriptionView(
+                        modifier = modifier,
+                        descriptionText = descriptionText,
+                        updateDescriptionText = updateDescriptionText
+                    )
+                    Spacer(modifier = modifier.padding(9.dp))
+
+
+                    WeekdayCardListView(
+                        weekdayCardList = weekdayCardList,
+                        modifier = modifier,
+                        onClickWeekDayCard = updateWeekday
+                    )
+                    Spacer(modifier = modifier.padding(14.dp))
+
+                    Text(
+                        text = "루틴리스트",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no3
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+
+                    RoutineListView(
+                        modifier = modifier,
+                        routine = routine,
+                        onAddRoutine = onAddRoutine,
+                        onRemoveRoutineSet = onRemoveRoutineSet
+                    )
+
+                    Spacer(modifier = modifier.padding(27.dp))
+
+                    LiftButton(
+                        modifier = modifier.fillMaxWidth(),
+                        onClick = onClickCreateRoutine,
+                        enabled = enabledCreateRoutine.value
+                    ) {
+                        Text(
+                            text = "생성하기",
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no5,
+                        )
+                    }
+
+
                 }
-
-
             }
         }
+
     }
 }
 
