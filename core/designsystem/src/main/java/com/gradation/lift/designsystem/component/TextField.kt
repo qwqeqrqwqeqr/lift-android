@@ -83,7 +83,7 @@ fun LiftSearchTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    trailingIcon: @Composable (() -> Unit)? = null,
+    onClickSearch: () -> Unit,
     isError: Boolean = false,
 ) {
     TextField(
@@ -112,11 +112,11 @@ fun LiftSearchTextField(
         shape = RoundedCornerShape(12.dp),
         visualTransformation = visualTransformation,
         trailingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onClickSearch) {
                 Icon(
                     painter = painterResource(LiftIcon.Search),
                     contentDescription = "",
-                    tint = Color.Unspecified,
+                    tint = LiftTheme.colorScheme.no6,
                 )
             }
         },
@@ -141,8 +141,8 @@ fun LiftTextFieldPreview() {
                 placeholder = {
                     Text(
                         text = "힌트",
-                        style= LiftTheme.typography.no6
-                        )
+                        style = LiftTheme.typography.no6
+                    )
                 },
             )
             LiftSearchTextField(
@@ -151,9 +151,10 @@ fun LiftTextFieldPreview() {
                 placeholder = {
                     Text(
                         text = "검색",
-                        style= LiftTheme.typography.no6
+                        style = LiftTheme.typography.no6
                     )
                 },
+                onClickSearch = {}
             )
         }
 

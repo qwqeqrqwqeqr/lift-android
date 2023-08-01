@@ -34,9 +34,9 @@ object LiftIcon{
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
 
-    val search = R.drawable.search
-    val bang = R.drawable.bang
-    val filter = R.drawable.filter
+    val Search = R.drawable.search
+    val Bang = R.drawable.bang
+    val Filter = R.drawable.filter
 
 
     val LoginKakao = R.drawable.login_kakao
