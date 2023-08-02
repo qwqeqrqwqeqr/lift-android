@@ -145,15 +145,18 @@ internal fun CreateRoutineScreen(
             )
         }
     } else {
-        Surface(color = LiftTheme.colorScheme.no5) {
-            Scaffold(
-                topBar = {
-                    LiftBackTopBar(
-                        title = "루틴리스트 만들기",
-                        onBackClickTopBar = onBackClickTopBar,
-                    )
-                }, modifier = modifier.fillMaxSize()
-            ) { padding ->
+        Scaffold(
+            topBar = {
+                LiftBackTopBar(
+                    title = "루틴리스트 만들기",
+                    onBackClickTopBar = onBackClickTopBar,
+                )
+            }, modifier = modifier.fillMaxSize()
+        ) { padding ->
+            Surface(
+                color = LiftTheme.colorScheme.no5,
+                modifier = modifier.fillMaxSize()
+            ) {
                 Column(
                     modifier = modifier
                         .padding(padding)
