@@ -6,7 +6,6 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
 import com.gradation.lift.model.work.WorkCategory
-import com.gradation.lift.model.work.WorkPart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
@@ -20,7 +19,7 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
 
 
     val searchText = MutableStateFlow("")
-    val selectedWorkPartFilter = MutableStateFlow("")
+    val selectedWorkPartFilter = MutableStateFlow(FILTER_ALL)
 
     val workPartFilterList =
         combine(getWorkPartUseCase(), selectedWorkPartFilter) { workPartList, workPartFilter ->
@@ -29,8 +28,8 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
                 is DataState.Success -> {
                     listOf<SelectedWorkPartFilter>(
                         SelectedWorkPartFilter(
-                            workPart = "",
-                            selected = workPartFilter.isBlank()
+                            workPart = FILTER_ALL,
+                            selected = workPartFilter == FILTER_ALL
                         )
                     ).plus(
                         workPartList.data.map { workPart ->
@@ -60,7 +59,7 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
                 is DataState.Success -> workCategoryList.data.also {
                     it
                         .filter { workCategory -> workCategory.name.contains(searchText) }
-                        .filter { workCategory -> workPartFilter.isBlank() || workCategory.name == workPartFilter }
+                        .filter { workCategory -> workPartFilter == FILTER_ALL || workCategory.name == workPartFilter }
                 }
             }
         }.stateIn(
@@ -92,3 +91,5 @@ data class SelectedWorkPartFilter(
     val selected: Boolean = false
 )
 
+
+const val FILTER_ALL ="전체"

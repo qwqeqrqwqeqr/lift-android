@@ -3,15 +3,21 @@ package com.gradation.lift.feature.create_routine.find_work_category
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,6 +26,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftFilterChip
 import com.gradation.lift.designsystem.component.LiftSearchTextField
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
@@ -88,44 +95,81 @@ fun CreateRoutineFindWorkCategoryScreen(
             )
         }, modifier = modifier.fillMaxSize()
     ) { padding ->
-        Surface(
-            color = LiftTheme.colorScheme.no5,
-            modifier = modifier.fillMaxSize()
-        ) {
-            Column(
-                modifier = modifier
-                    .padding(padding)
-                    .padding(16.dp)
-                    .fillMaxWidth()
+        Column() {
+            Surface(
+                color = LiftTheme.colorScheme.no5,
             ) {
-                LiftSearchTextField(
-                    modifier = modifier.fillMaxWidth(),
-                    value = searchText.value,
-                    onValueChange = updateSearchText,
-                    placeholder = {
-                        Text(
-                            text = "찾으시는 운동을 검색해주세요",
-                            color = LiftTheme.colorScheme.no2,
-                            style = LiftTheme.typography.no6,
-                        )
-                    },
-                )
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                Column(
+                    modifier = modifier
+                        .padding(padding)
+                        .padding(16.dp,16.dp,16.dp,0.dp)
                 ) {
-                    workPartFilterList.value.forEach {
-                        LiftFilterChip(
-                            text = it.workPart, selected = it.selected,
-                            onClick = { updateSelectedWorkPartFilter(it.workPart) }
+                    LiftSearchTextField(
+                        modifier = modifier.fillMaxWidth(),
+                        value = searchText.value,
+                        onValueChange = updateSearchText,
+                        placeholder = {
+                            Text(
+                                text = "찾으시는 운동을 검색해주세요",
+                                color = LiftTheme.colorScheme.no2,
+                                style = LiftTheme.typography.no6,
+                            )
+                        }
+                    )
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    ) {
+                        items(workPartFilterList.value) {
+                            LiftFilterChip(
+                                modifier= modifier.padding(vertical =  8.dp),
+                                text = it.workPart, selected = it.selected,
+                                onClick = { updateSelectedWorkPartFilter(it.workPart) }
+                            )
+                        }
+                    }
+                }
+            }
+
+            Surface(
+                color = LiftTheme.colorScheme.no17,
+                modifier = modifier.fillMaxWidth()
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = modifier.padding(horizontal = 16.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = buildAnnotatedString {
+                            append("총 ")
+                            withStyle(
+                                style = SpanStyle(
+                                    fontWeight = FontWeight(700)
+                                ),
+                            ) {
+                                append("${filteredWorkCategoryCount.value}개")
+                            }
+                            append("의 운동")
+                        },
+                        style = LiftTheme.typography.no6,
+                        color = LiftTheme.colorScheme.no9,
+                    )
+                    IconButton(
+                        modifier = modifier
+                            .size(24.dp),
+
+                        onClick = {}) {
+                        Icon(
+                            modifier = modifier.fillMaxSize(),
+                            painter = painterResource(LiftIcon.Filter),
+                            contentDescription = "",
+                            tint = Color.Unspecified,
                         )
                     }
                 }
-
             }
         }
-
     }
-
 }
 
 
