@@ -44,7 +44,6 @@ fun LiftFilterChip(
         onClick = onClick,
         label = {
             Text(
-                modifier=modifier.padding(10.dp),
                 text = text,
                 style = if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4
             )

@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.create_routine.find_work_category
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -19,7 +20,26 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
 
 
     val searchText = MutableStateFlow("")
-    val selectedWorkPartFilter = MutableStateFlow(FILTER_ALL)
+    private val selectedWorkPartFilter = MutableStateFlow(FILTER_ALL)
+
+    val workCategoryList =
+        combine(
+            selectedWorkPartFilter,
+            searchText,
+            getWorkCategoryUseCase()
+        ) { selectedWorkPartFilter, searchText, workCategoryList ->
+            when (workCategoryList) {
+                is DataState.Fail -> emptyList<WorkCategory>()
+                is DataState.Success -> workCategoryList.data
+                    .filter { workCategory -> searchText.isBlank()  || workCategory.name.contains(searchText) }
+                    .filter { workCategory -> selectedWorkPartFilter == FILTER_ALL || workCategory.workPart.name == selectedWorkPartFilter }
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList<WorkCategory>()
+        )
+
 
     val workPartFilterList =
         combine(getWorkPartUseCase(), selectedWorkPartFilter) { workPartList, workPartFilter ->
@@ -47,27 +67,6 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
             initialValue = emptyList<SelectedWorkPartFilter>()
         )
 
-    @OptIn(FlowPreview::class)
-    val workCategoryList =
-        combine(
-            selectedWorkPartFilter,
-            searchText.debounce(1000).distinctUntilChanged(),
-            getWorkCategoryUseCase()
-        ) { workPartFilter, searchText, workCategoryList ->
-            when (workCategoryList) {
-                is DataState.Fail -> emptyList<WorkCategory>()
-                is DataState.Success -> workCategoryList.data.also {
-                    it
-                        .filter { workCategory -> workCategory.name.contains(searchText) }
-                        .filter { workCategory -> workPartFilter == FILTER_ALL || workCategory.name == workPartFilter }
-                }
-            }
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = emptyList<WorkCategory>()
-        )
-
 
     val filteredWorkCategoryCount = workCategoryList.map { it.count() }.stateIn(
         scope = viewModelScope,
@@ -82,6 +81,7 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
 
     fun updateSelectedWorkPartFilter(): (String) -> Unit = {
         selectedWorkPartFilter.value = it
+        Log.d("selected", selectedWorkPartFilter.value)
     }
 
 }
@@ -92,4 +92,4 @@ data class SelectedWorkPartFilter(
 )
 
 
-const val FILTER_ALL ="전체"
+const val FILTER_ALL = "전체"

@@ -48,7 +48,6 @@ fun CreateRoutineFindWorkCategoryRoute(
 
 
     val searchText = viewModel.searchText.collectAsStateWithLifecycle()
-    val selectedWorkPartFilter = viewModel.selectedWorkPartFilter.collectAsStateWithLifecycle()
     val workPartFilterList = viewModel.workPartFilterList.collectAsStateWithLifecycle()
     val workCategoryList = viewModel.workCategoryList.collectAsStateWithLifecycle()
     val filteredWorkCategoryCount =
@@ -62,7 +61,6 @@ fun CreateRoutineFindWorkCategoryRoute(
             navigateCreateRoutineFindWorkCategoryToRoutine()
         },
         searchText = searchText,
-        selectedWorkPartFilter = selectedWorkPartFilter,
         workPartFilterList = workPartFilterList,
         workCategoryList = workCategoryList,
         filteredWorkCategoryCount = filteredWorkCategoryCount,
@@ -80,7 +78,6 @@ fun CreateRoutineFindWorkCategoryScreen(
     onBackClickTopBar: () -> Unit,
     onClickWorkCategory: (String) -> Unit,
     searchText: State<String>,
-    selectedWorkPartFilter: State<String>,
     workPartFilterList: State<List<SelectedWorkPartFilter>>,
     workCategoryList: State<List<WorkCategory>>,
     filteredWorkCategoryCount: State<Int>,
@@ -121,7 +118,7 @@ fun CreateRoutineFindWorkCategoryScreen(
                     ) {
                         items(workPartFilterList.value) {
                             LiftFilterChip(
-                                modifier= modifier.padding(vertical =  8.dp),
+                                modifier= modifier.padding(vertical =  16.dp),
                                 text = it.workPart, selected = it.selected,
                                 onClick = { updateSelectedWorkPartFilter(it.workPart) }
                             )
@@ -137,7 +134,7 @@ fun CreateRoutineFindWorkCategoryScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = modifier.padding(horizontal = 16.dp, vertical = 2.dp)
+                    modifier = modifier.padding(horizontal = 12.dp, vertical = 2.dp)
                 ) {
                     Text(
                         text = buildAnnotatedString {
@@ -168,6 +165,18 @@ fun CreateRoutineFindWorkCategoryScreen(
                     }
                 }
             }
+
+            Surface(
+                color = LiftTheme.colorScheme.no5,
+            ) {
+                Column(
+                    modifier = modifier
+                        .padding(padding)
+                        .padding(16.dp,16.dp,16.dp,0.dp)
+                ) {
+                    Text(workCategoryList.value.toString())
+                }
+            }
         }
     }
 }
@@ -183,7 +192,6 @@ fun CreateRoutineFindWorkCategoryScreenPreview() {
             onBackClickTopBar = {},
             onClickWorkCategory = {},
             searchText = mutableStateOf(""),
-            selectedWorkPartFilter = mutableStateOf(""),
             workPartFilterList = mutableStateOf(
                 listOf(
                     SelectedWorkPartFilter("전체", true),
