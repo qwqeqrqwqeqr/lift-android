@@ -84,6 +84,11 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-google-services.json
+./google-services.json
 
+#ds store
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
 .idea
