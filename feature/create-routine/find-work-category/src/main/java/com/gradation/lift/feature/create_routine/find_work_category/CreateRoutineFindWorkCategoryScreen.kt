@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftFilterChip
 import com.gradation.lift.designsystem.component.LiftSearchTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -109,8 +110,15 @@ fun CreateRoutineFindWorkCategoryScreen(
                         )
                     },
                 )
-                Row {
-
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    workPartFilterList.value.forEach {
+                        LiftFilterChip(
+                            text = it.workPart, selected = it.selected,
+                            onClick = { updateSelectedWorkPartFilter(it.workPart) }
+                        )
+                    }
                 }
 
             }
@@ -129,10 +137,16 @@ fun CreateRoutineFindWorkCategoryScreenPreview() {
         CreateRoutineFindWorkCategoryScreen(
             modifier = Modifier,
             onBackClickTopBar = {},
-            onClickWorkCategory={},
+            onClickWorkCategory = {},
             searchText = mutableStateOf(""),
             selectedWorkPartFilter = mutableStateOf(""),
-            workPartFilterList = mutableStateOf(emptyList()),
+            workPartFilterList = mutableStateOf(
+                listOf(
+                    SelectedWorkPartFilter("전체", true),
+                    SelectedWorkPartFilter("어깨", false),
+                    SelectedWorkPartFilter("가슴", false),
+                )
+            ),
             workCategoryList = mutableStateOf(emptyList()),
             filteredWorkCategoryCount = mutableStateOf(20),
             updateSearchText = {},

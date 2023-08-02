@@ -24,7 +24,7 @@ fun LiftFilterChip(
     onClick: () -> Unit
 ) {
     FilterChip(
-        modifier = modifier.padding(10.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(6.dp),
         border = FilterChipDefaults.filterChipBorder(
             borderColor = Color.Transparent,
