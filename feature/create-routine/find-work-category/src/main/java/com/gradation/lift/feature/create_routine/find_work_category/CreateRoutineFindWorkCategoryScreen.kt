@@ -2,9 +2,16 @@ package com.gradation.lift.feature.create_routine.find_work_category
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -17,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +38,8 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.navigation.Router
 
@@ -99,7 +109,7 @@ fun CreateRoutineFindWorkCategoryScreen(
                 Column(
                     modifier = modifier
                         .padding(padding)
-                        .padding(16.dp,16.dp,16.dp,0.dp)
+                        .padding(16.dp, 16.dp, 16.dp, 0.dp)
                 ) {
                     LiftSearchTextField(
                         modifier = modifier.fillMaxWidth(),
@@ -118,7 +128,7 @@ fun CreateRoutineFindWorkCategoryScreen(
                     ) {
                         items(workPartFilterList.value) {
                             LiftFilterChip(
-                                modifier= modifier.padding(vertical =  16.dp),
+                                modifier = modifier.padding(vertical = 16.dp),
                                 text = it.workPart, selected = it.selected,
                                 onClick = { updateSelectedWorkPartFilter(it.workPart) }
                             )
@@ -151,30 +161,52 @@ fun CreateRoutineFindWorkCategoryScreen(
                         style = LiftTheme.typography.no6,
                         color = LiftTheme.colorScheme.no9,
                     )
-                    IconButton(
-                        modifier = modifier
-                            .size(24.dp),
-
-                        onClick = {}) {
-                        Icon(
-                            modifier = modifier.fillMaxSize(),
-                            painter = painterResource(LiftIcon.Filter),
-                            contentDescription = "",
-                            tint = Color.Unspecified,
-                        )
-                    }
+                    //TODO ADD Filter
                 }
             }
 
             Surface(
                 color = LiftTheme.colorScheme.no5,
+                modifier = modifier.fillMaxWidth()
             ) {
                 Column(
                     modifier = modifier
-                        .padding(padding)
-                        .padding(16.dp,16.dp,16.dp,0.dp)
+                        .fillMaxSize()
+                        .padding(16.dp)
                 ) {
-                    Text(workCategoryList.value.toString())
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                    ) {
+                        items(workCategoryList.value) { workCategory ->
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Box(
+                                    modifier = modifier
+                                        .background(
+                                            color = LiftTheme.colorScheme.no1,
+                                            shape = RoundedCornerShape(size = 12.dp)
+                                        )
+                                        .align(alignment = Alignment.CenterHorizontally)
+                                        .size(156.dp)
+                                        .clickable(
+                                            onClick = { onClickWorkCategory(workCategory.name) }
+                                        )
+                                )
+                                Spacer(modifier = modifier.padding(2.dp))
+                                Text(
+                                    text = workCategory.name,
+                                    style = LiftTheme.typography.no3,
+                                    color = LiftTheme.colorScheme.no3,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+
+                        }
+                    }
+
                 }
             }
         }
@@ -199,7 +231,15 @@ fun CreateRoutineFindWorkCategoryScreenPreview() {
                     SelectedWorkPartFilter("가슴", false),
                 )
             ),
-            workCategoryList = mutableStateOf(emptyList()),
+            workCategoryList = mutableStateOf(
+                listOf(
+                    workCategoryModel1,
+                    workCategoryModel1,
+                    workCategoryModel1,
+                    workCategoryModel1,
+                    workCategoryModel1,
+                )
+            ),
             filteredWorkCategoryCount = mutableStateOf(20),
             updateSearchText = {},
             updateSelectedWorkPartFilter = { },
