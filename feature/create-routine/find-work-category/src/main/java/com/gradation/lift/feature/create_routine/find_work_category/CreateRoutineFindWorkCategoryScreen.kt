@@ -99,8 +99,8 @@ fun CreateRoutineFindWorkCategoryScreen(
             ) {
                 LiftSearchTextField(
                     modifier = modifier.fillMaxWidth(),
-                    value = "",
-                    onValueChange = {},
+                    value = searchText.value,
+                    onValueChange = updateSearchText,
                     placeholder = {
                         Text(
                             text = "찾으시는 운동을 검색해주세요",
@@ -108,7 +108,6 @@ fun CreateRoutineFindWorkCategoryScreen(
                             style = LiftTheme.typography.no6,
                         )
                     },
-                    onClickSearch = {}
                 )
                 Row {
 

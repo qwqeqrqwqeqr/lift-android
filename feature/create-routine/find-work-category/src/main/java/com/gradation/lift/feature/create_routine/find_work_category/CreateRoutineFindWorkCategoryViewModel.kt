@@ -8,6 +8,7 @@ import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -47,10 +48,11 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
             initialValue = emptyList<SelectedWorkPartFilter>()
         )
 
+    @OptIn(FlowPreview::class)
     val workCategoryList =
         combine(
             selectedWorkPartFilter,
-            searchText,
+            searchText.debounce(1000).distinctUntilChanged(),
             getWorkCategoryUseCase()
         ) { workPartFilter, searchText, workCategoryList ->
             when (workCategoryList) {

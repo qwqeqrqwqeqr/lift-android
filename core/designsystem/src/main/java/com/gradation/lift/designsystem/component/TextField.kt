@@ -83,7 +83,6 @@ fun LiftSearchTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    onClickSearch: () -> Unit,
     isError: Boolean = false,
 ) {
     TextField(
@@ -112,13 +111,11 @@ fun LiftSearchTextField(
         shape = RoundedCornerShape(12.dp),
         visualTransformation = visualTransformation,
         trailingIcon = {
-            IconButton(onClick = onClickSearch) {
-                Icon(
-                    painter = painterResource(LiftIcon.Search),
-                    contentDescription = "",
-                    tint = LiftTheme.colorScheme.no6,
-                )
-            }
+            Icon(
+                painter = painterResource(LiftIcon.Search),
+                contentDescription = "",
+                tint = LiftTheme.colorScheme.no6,
+            )
         },
         supportingText = supportingText,
         isError = isError
@@ -154,7 +151,6 @@ fun LiftTextFieldPreview() {
                         style = LiftTheme.typography.no6
                     )
                 },
-                onClickSearch = {}
             )
         }
 
