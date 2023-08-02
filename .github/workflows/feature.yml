@@ -16,8 +16,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Create local properties
         run: echo -e LIFT_API_URL=`${{ secrets.LIFT_API_URL}}`"\n"LIFT_S3_URL=`${{ secrets.LIFT_S3_URL}}` > ./local.properties
-      - run : echo `${{ secrets.LIFT_API_URL}}`
-      - run : echo `${{ secrets.LIFT_S3_URL}}`
+      - run : echo `${{ secrets.LIFT_API_URL }}`
+      - run : echo `${{ secrets.LIFT_S3_URL }}`
+      - run : echo `${{ secrets.SEND_SLACK }}`
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
