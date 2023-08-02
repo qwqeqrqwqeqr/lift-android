@@ -24,17 +24,14 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
-
-
   send-slack:
     runs-on: ubuntu-latest
-    needs : build
+    needs: build
     steps:
-      - name: action-slack
+      - name: send slack
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: www-be
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           if_mention: failure,cancelled
         env:
