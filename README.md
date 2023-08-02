@@ -1,2 +1,0 @@
-# lift-android
-# lift
