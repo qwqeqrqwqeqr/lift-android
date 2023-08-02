@@ -1,0 +1,32 @@
+name: Feature Build
+
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+  pull_request:
+    branches:
+      - 'feature/**'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+          uses: actions/checkout@v3
+      - run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop' }}
+
+
+  send-slack:
+    runs-on: ubuntu-latest
+    needs: build
+
+  test:
+    needs: build
