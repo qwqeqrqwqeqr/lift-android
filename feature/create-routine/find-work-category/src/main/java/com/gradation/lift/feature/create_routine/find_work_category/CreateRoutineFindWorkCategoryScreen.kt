@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftSearchTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
@@ -51,14 +52,29 @@ fun CreateRoutineFindWorkCategoryScreen(
             )
         }, modifier = modifier.fillMaxSize()
     ) { padding ->
-        Surface(color = LiftTheme.colorScheme.no5,
-        modifier = modifier.fillMaxSize()) {
+        Surface(
+            color = LiftTheme.colorScheme.no5,
+            modifier = modifier.fillMaxSize()
+        ) {
             Column(
                 modifier = modifier
                     .padding(padding)
                     .padding(16.dp)
                     .fillMaxWidth()
             ) {
+                LiftSearchTextField(
+                    modifier = modifier.fillMaxWidth(),
+                    value = "",
+                    onValueChange = {},
+                    placeholder = {
+                        Text(
+                            text = "찾으시는 운동을 검색해주세요",
+                            color = LiftTheme.colorScheme.no2,
+                            style = LiftTheme.typography.no6,
+                        )
+                    },
+                    onClickSearch = {}
+                )
             }
         }
 
@@ -67,10 +83,9 @@ fun CreateRoutineFindWorkCategoryScreen(
 }
 
 
-
 @Composable
 @Preview
-fun CreateRoutineFindWorkCategoryScreenPreview(){
+fun CreateRoutineFindWorkCategoryScreenPreview() {
     LiftMaterialTheme {
         CreateRoutineFindWorkCategoryScreen(
             modifier = Modifier,
