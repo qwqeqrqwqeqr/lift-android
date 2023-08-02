@@ -28,7 +28,7 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
-      - name: debug test
+      - name: Test
         run: ./gradlew testDebugUnitTest
   send-slack:
     runs-on: ubuntu-latest
