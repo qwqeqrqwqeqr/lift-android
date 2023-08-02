@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.create_routine.find_work_category
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +28,8 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun CreateRoutineFindWorkCategoryRoute(
     navController: NavController,
+    navigateCreateRoutineFindWorkCategoryToRoot: () -> Unit,
+    navigateCreateRoutineFindWorkCategoryToRoutine: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
 ) {
@@ -35,8 +38,10 @@ fun CreateRoutineFindWorkCategoryRoute(
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
     CreateRoutineFindWorkCategoryScreen(
         modifier = modifier,
-        onBackClickTopBar = {}
+        onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoot
     )
+
+    BackHandler(onBack = navigateCreateRoutineFindWorkCategoryToRoot)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,9 +82,9 @@ fun CreateRoutineFindWorkCategoryScreen(
                     onClickSearch = {}
                 )
                 Row {
-                    
+
                 }
-               
+
             }
         }
 
