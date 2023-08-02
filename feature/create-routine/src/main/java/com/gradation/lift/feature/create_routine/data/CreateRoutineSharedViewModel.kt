@@ -2,7 +2,6 @@ package com.gradation.lift.feature.create_routine.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.gestures.ModifierLocalScrollableContainerProvider.value
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -113,12 +112,13 @@ class CreateRoutineSharedViewModel @Inject constructor(
         }
     }
 
-    fun updateTempRoutineWorkCategory(): (String) -> Unit = { workCategory ->
+    fun updateTempRoutineWorkCategory(workCategory: String) {
         tempRoutine.value = tempRoutine.value.copy(
             workCategory = workCategory
         )
     }
-    fun updateTempRoutineWorkSetList(): (List<WorkSet>) -> Unit = { workSetList ->
+
+    fun updateTempRoutineWorkSetList(workSetList: List<WorkSet>) {
         tempRoutine.value = tempRoutine.value.copy(
             workSetList = workSetList
         )

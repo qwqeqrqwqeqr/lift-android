@@ -24,16 +24,16 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
     val workPartFilterList =
         combine(getWorkPartUseCase(), selectedWorkPartFilter) { workPartList, workPartFilter ->
             when (workPartList) {
-                is DataState.Fail -> emptyList<SelectedWorkPart>()
+                is DataState.Fail -> emptyList<SelectedWorkPartFilter>()
                 is DataState.Success -> {
-                    listOf<SelectedWorkPart>(
-                        SelectedWorkPart(
+                    listOf<SelectedWorkPartFilter>(
+                        SelectedWorkPartFilter(
                             workPart = "",
                             selected = workPartFilter.isBlank()
                         )
                     ).plus(
                         workPartList.data.map { workPart ->
-                            SelectedWorkPart(
+                            SelectedWorkPartFilter(
                                 workPart = workPart.name,
                                 selected = workPart.name == workPartFilter
                             )
@@ -44,7 +44,7 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = emptyList<SelectedWorkPart>()
+            initialValue = emptyList<SelectedWorkPartFilter>()
         )
 
     val workCategoryList =
@@ -79,9 +79,14 @@ class CreateRoutineFindWorkCategoryViewModel @Inject constructor(
         searchText.value = it
     }
 
+    fun updateSelectedWorkPartFilter(): (String) -> Unit = {
+        selectedWorkPartFilter.value = it
+    }
+
 }
 
-data class SelectedWorkPart(
+data class SelectedWorkPartFilter(
     val workPart: String,
     val selected: Boolean = false
 )
+

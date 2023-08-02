@@ -3,25 +3,26 @@ package com.gradation.lift.feature.create_routine.find_work_category
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftFilterChip
 import com.gradation.lift.designsystem.component.LiftSearchTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
+import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -36,9 +37,29 @@ fun CreateRoutineFindWorkCategoryRoute(
     val crateRoutineBackStackEntry =
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
+
+
+    val searchText = viewModel.searchText.collectAsStateWithLifecycle()
+    val selectedWorkPartFilter = viewModel.selectedWorkPartFilter.collectAsStateWithLifecycle()
+    val workPartFilterList = viewModel.workPartFilterList.collectAsStateWithLifecycle()
+    val workCategoryList = viewModel.workCategoryList.collectAsStateWithLifecycle()
+    val filteredWorkCategoryCount =
+        viewModel.filteredWorkCategoryCount.collectAsStateWithLifecycle()
+
     CreateRoutineFindWorkCategoryScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoot
+        onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoot,
+        onClickWorkCategory = { workCategory ->
+            sharedViewModel.updateTempRoutineWorkCategory(workCategory)
+            navigateCreateRoutineFindWorkCategoryToRoutine()
+        },
+        searchText = searchText,
+        selectedWorkPartFilter = selectedWorkPartFilter,
+        workPartFilterList = workPartFilterList,
+        workCategoryList = workCategoryList,
+        filteredWorkCategoryCount = filteredWorkCategoryCount,
+        updateSearchText = viewModel.updateSearchText(),
+        updateSelectedWorkPartFilter = viewModel.updateSelectedWorkPartFilter()
     )
 
     BackHandler(onBack = navigateCreateRoutineFindWorkCategoryToRoot)
@@ -48,7 +69,15 @@ fun CreateRoutineFindWorkCategoryRoute(
 @Composable
 fun CreateRoutineFindWorkCategoryScreen(
     modifier: Modifier = Modifier,
-    onBackClickTopBar: () -> Unit
+    onBackClickTopBar: () -> Unit,
+    onClickWorkCategory: (String) -> Unit,
+    searchText: State<String>,
+    selectedWorkPartFilter: State<String>,
+    workPartFilterList: State<List<SelectedWorkPartFilter>>,
+    workCategoryList: State<List<WorkCategory>>,
+    filteredWorkCategoryCount: State<Int>,
+    updateSearchText: (String) -> Unit,
+    updateSelectedWorkPartFilter: (String) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -93,13 +122,22 @@ fun CreateRoutineFindWorkCategoryScreen(
 }
 
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview
 fun CreateRoutineFindWorkCategoryScreenPreview() {
     LiftMaterialTheme {
         CreateRoutineFindWorkCategoryScreen(
             modifier = Modifier,
-            onBackClickTopBar = {}
+            onBackClickTopBar = {},
+            onClickWorkCategory={},
+            searchText = mutableStateOf(""),
+            selectedWorkPartFilter = mutableStateOf(""),
+            workPartFilterList = mutableStateOf(emptyList()),
+            workCategoryList = mutableStateOf(emptyList()),
+            filteredWorkCategoryCount = mutableStateOf(20),
+            updateSearchText = {},
+            updateSelectedWorkPartFilter = { },
         )
     }
 }
