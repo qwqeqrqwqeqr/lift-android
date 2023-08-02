@@ -1,6 +1,7 @@
 package com.gradation.lift.create_routine.routine
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,8 +16,10 @@ import com.gradation.lift.navigation.Router
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun CreateRoutineRoutineRoute(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    navController: NavController,
+    navigateCreateRoutineRoutineToFindWorkCategory: () -> Unit,
+    navigateCreateRoutineRoutineToRoot: () -> Unit,
     viewModel: CreateRoutineRoutineViewModel = hiltViewModel(),
 ) {
     val crateRoutineBackStackEntry =
@@ -25,17 +28,16 @@ fun CreateRoutineRoutineRoute(
 
 
 
-    CreateRoutineRoutineScreen()
+    CreateRoutineRoutineScreen(
+        modifier = modifier,
+    )
+
+    BackHandler(onBack = navigateCreateRoutineRoutineToFindWorkCategory)
 }
 
 @Composable
-fun CreateRoutineRoutineScreen(){
-    Box(
+fun CreateRoutineRoutineScreen(
+    modifier: Modifier = Modifier
+) {
 
-    ){
-        Text(
-            text="CreateRoutineRoutine",
-            color = Color.Black
-        )
-    }
 }
