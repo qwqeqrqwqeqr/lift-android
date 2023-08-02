@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftFilterChip
 import com.gradation.lift.designsystem.component.LiftSearchTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -75,6 +76,10 @@ fun CreateRoutineFindWorkCategoryScreen(
                     },
                     onClickSearch = {}
                 )
+                Row {
+                    
+                }
+               
             }
         }
 
