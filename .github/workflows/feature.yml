@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create local properties
-        run: echo -e "LIFT_API_URL=$LIFT_API_URL\nLIFT_S3_URL=$LIFT_S3_URL > ./local.properties
+        run: echo -e "LIFT_API_URL=$LIFT_API_URL\nLIFT_S3_URL=$LIFT_S3_URL" >> ./local.properties
         env:
           LIFT_API_URL: ${{secrets.LIFT_API_URL}}
           LIFT_S3_URL: ${{secrets.LIFT_S3_URL}}
