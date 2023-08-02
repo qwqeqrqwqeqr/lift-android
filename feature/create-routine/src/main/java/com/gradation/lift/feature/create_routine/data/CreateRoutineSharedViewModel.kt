@@ -2,6 +2,7 @@ package com.gradation.lift.feature.create_routine.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.gestures.ModifierLocalScrollableContainerProvider.value
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -11,6 +12,7 @@ import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -31,6 +33,12 @@ class CreateRoutineSharedViewModel @Inject constructor(
     val picture = MutableStateFlow("")
     val routine = MutableStateFlow(emptyList<CreateRoutine>())
 
+    val tempRoutine = MutableStateFlow(
+        CreateRoutine(
+            workCategory = "",
+            workSetList = emptyList()
+        )
+    )
 
     val nameCondition = name.map { it.isNotEmpty() }.stateIn(
         scope = viewModelScope,
@@ -93,7 +101,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
         description.value = it
     }
 
-    fun updatePicture(value:String) {
+    fun updatePicture(value: String) {
         picture.value = value
     }
 
@@ -105,13 +113,23 @@ class CreateRoutineSharedViewModel @Inject constructor(
         }
     }
 
-
-    fun addRoutineSet(): (CreateRoutine) -> Unit = { value ->
-        routine.update { it.plusElement(value) }
+    fun updateTempRoutineWorkCategory(): (String) -> Unit = { workCategory ->
+        tempRoutine.value = tempRoutine.value.copy(
+            workCategory = workCategory
+        )
+    }
+    fun updateTempRoutineWorkSetList(): (List<WorkSet>) -> Unit = { workSetList ->
+        tempRoutine.value = tempRoutine.value.copy(
+            workSetList = workSetList
+        )
     }
 
-    fun removeRoutineSet(): (CreateRoutine) -> Unit = { value ->
-        routine.update { it.minusElement(value) }
+    fun addRoutineSet(): (CreateRoutine) -> Unit = { createRoutine ->
+        routine.update { it.plusElement(createRoutine) }
+    }
+
+    fun removeRoutineSet(): (CreateRoutine) -> Unit = { createRoutine ->
+        routine.update { it.minusElement(createRoutine) }
     }
 
 
