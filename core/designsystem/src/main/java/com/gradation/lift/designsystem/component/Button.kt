@@ -93,6 +93,7 @@ fun LiftOutlineButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    shape: RoundedCornerShape = RoundedCornerShape(size = 6.dp),
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -100,20 +101,19 @@ fun LiftOutlineButton(
         onClick = onClick,
         modifier = modifier.height(52.dp),
         enabled = enabled,
-        shape = RoundedCornerShape(size = 12.dp),
+        shape = shape,
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no5,
             contentColor = LiftTheme.colorScheme.no4,
         ),
-        border= BorderStroke(
-            width= 1.dp,
-            color= LiftTheme.colorScheme.no4
+        border = BorderStroke(
+            width = 1.dp,
+            color = LiftTheme.colorScheme.no4
         ),
         contentPadding = contentPadding,
         content = content,
     )
 }
-
 
 
 @Composable
@@ -125,10 +125,10 @@ fun LiftIconButton(
 ) {
     IconButton(
         onClick = onClick,
-        modifier =  modifier.height(48.dp),
+        modifier = modifier.height(48.dp),
         enabled = enabled,
         colors = IconButtonDefaults.iconButtonColors(
-            contentColor =LiftTheme.colorScheme.no9,
+            contentColor = LiftTheme.colorScheme.no9,
         ),
         content = content
 

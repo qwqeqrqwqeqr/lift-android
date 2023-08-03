@@ -34,6 +34,7 @@ fun LiftTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: @Composable (() -> Unit)? = null,
+    shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     isError: Boolean = false,
 ) {
     TextField(
@@ -59,7 +60,7 @@ fun LiftTextField(
             errorLabelColor = LiftTheme.colorScheme.no12,
             errorSupportingTextColor = LiftTheme.colorScheme.no12
         ),
-        shape = RoundedCornerShape(12.dp),
+        shape = shape,
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
         supportingText = supportingText,
