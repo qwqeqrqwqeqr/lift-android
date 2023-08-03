@@ -50,8 +50,7 @@ fun CreateRoutineRoutineRoute(
     val removeWorkSet = viewModel.removeWorkSet
 
 
-
-
+    val focusManager = LocalFocusManager.current
     CreateRoutineRoutineScreen(
         modifier = modifier,
         onBackClickTopBar = navigateCreateRoutineRoutineToFindWorkCategory,
@@ -60,6 +59,7 @@ fun CreateRoutineRoutineRoute(
         updateWorkSet = updateWorkSet,
         addWorkSet = addWorkSet,
         removeWorkSet = removeWorkSet,
+        focusManager = focusManager
     )
 
     BackHandler(onBack = navigateCreateRoutineRoutineToFindWorkCategory)
@@ -75,8 +75,8 @@ fun CreateRoutineRoutineScreen(
     updateWorkSet: (IndexWorkSet) -> Unit,
     addWorkSet: () -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
-
-    ) {
+    focusManager: FocusManager
+) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -114,9 +114,10 @@ fun CreateRoutineRoutineScreen(
                 RoutineListView(
                     modifier = modifier,
                     workSetList = workSetList,
-                    updateWorkSet=updateWorkSet,
-                    addWorkSet=addWorkSet,
+                    updateWorkSet = updateWorkSet,
+                    addWorkSet = addWorkSet,
                     removeWorkSet = removeWorkSet,
+                    focusManager = focusManager
                 )
             }
         }
@@ -140,14 +141,15 @@ fun CreateRoutineRoutineScreenPreview() {
                     .mapIndexed { index, workSet ->
                         IndexWorkSet(
                             index + 1,
-                            workSet.weight,
-                            workSet.repetition
+                            workSet.weight.toString(),
+                            workSet.repetition.toString()
                         )
 
                     }),
             updateWorkSet = {},
             addWorkSet = {},
             removeWorkSet = {},
+            focusManager = LocalFocusManager.current
         )
     }
 }

@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -34,14 +36,28 @@ fun LiftTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: @Composable (() -> Unit)? = null,
+    label: @Composable (() -> Unit)? = null,
     shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     isError: Boolean = false,
+    textStyle: TextStyle = LiftTheme.typography.no6,
+
+    colors: TextFieldColors = TextFieldDefaults.textFieldColors(
+        textColor = LiftTheme.colorScheme.no9,
+        containerColor = LiftTheme.colorScheme.no1,
+        placeholderColor = LiftTheme.colorScheme.no9,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent,
+        disabledTextColor = Color.Transparent,
+        errorLabelColor = LiftTheme.colorScheme.no12,
+        errorSupportingTextColor = LiftTheme.colorScheme.no12
+    ),
 ) {
     TextField(
         value = value,
         onValueChange = onValueChange,
-        textStyle = LiftTheme.typography.no6,
-        modifier = modifier.height(52.dp),
+        textStyle = textStyle,
+        modifier = modifier,
         enabled = enabled,
         singleLine = singleLine,
         maxLines = maxLines,
@@ -49,18 +65,9 @@ fun LiftTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         placeholder = placeholder,
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = LiftTheme.colorScheme.no9,
-            containerColor = LiftTheme.colorScheme.no1,
-            placeholderColor = LiftTheme.colorScheme.no9,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            disabledTextColor = Color.Transparent,
-            errorLabelColor = LiftTheme.colorScheme.no12,
-            errorSupportingTextColor = LiftTheme.colorScheme.no12
-        ),
+        colors = colors,
         shape = shape,
+        label = label,
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
         supportingText = supportingText,
@@ -153,6 +160,8 @@ fun LiftTextFieldPreview() {
                     )
                 },
             )
+
+
         }
 
     }

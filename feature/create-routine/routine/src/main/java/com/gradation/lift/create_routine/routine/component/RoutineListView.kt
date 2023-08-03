@@ -13,10 +13,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
@@ -45,6 +47,7 @@ fun RoutineListView(
     updateWorkSet: (IndexWorkSet) -> Unit,
     addWorkSet: () -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
+    focusManager: FocusManager
 ) {
     Column(
         modifier = modifier
@@ -102,42 +105,77 @@ fun RoutineListView(
                         color = LiftTheme.colorScheme.no2,
                         textAlign = TextAlign.Center,
                         modifier = modifier
-                            .weight(2f)
-                            .padding(3.dp)
+                            .weight(2f).align(CenterVertically)
                     )
-                    Text(
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no9,
-                        text = workSet.weight.toString(),
-                        textAlign = TextAlign.Center,
-                        modifier = modifier
-                            .weight(2f)
-                            .background(
-                                color = LiftTheme.colorScheme.no1,
-                                shape = RoundedCornerShape(size = 6.dp)
+                    LiftTextField(
+                        value = workSet.weight,
+                        onValueChange = {
+                            updateWorkSet(workSet.copy(weight = it))
+                        },
+                        modifier = modifier.weight(2f),
+                        placeholder = {
+                            Text(
+                                text = "",
+                                style = LiftTheme.typography.no6,
                             )
-                            .padding(3.dp)
+                        },
+
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
+                        ),
+                        textStyle = LiftTheme.typography.no3.copy(
+                            textAlign = TextAlign.Center
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                updateWorkSet(
+                                    workSet.copy(
+                                        weight = workSet.weight.toFloatOrNull()?.toString() ?: "10"
+                                    )
+                                )
+                                focusManager.clearFocus()
+                            },
+                        ),
                     )
 
-                    Text(
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no9,
-                        text = workSet.repetition.toString(),
-                        textAlign = TextAlign.Center,
-                        modifier = modifier
-                            .weight(2f)
-                            .background(
-                                color = LiftTheme.colorScheme.no1,
-                                shape = RoundedCornerShape(size = 6.dp)
+                    LiftTextField(
+                        value = workSet.repetition,
+                        onValueChange = {
+                            updateWorkSet(workSet.copy(repetition = it))
+                        },
+                        modifier = modifier.weight(2f),
+                        placeholder = {
+                            Text(
+                                text = "",
+                                style = LiftTheme.typography.no6,
                             )
-                            .padding(3.dp)
+                        },
+
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
+                        ),
+                        textStyle = LiftTheme.typography.no3.copy(
+                            textAlign = TextAlign.Center
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                updateWorkSet(
+                                    workSet.copy(
+                                        weight = workSet.repetition.toIntOrNull()?.toString() ?: "10"
+                                    )
+                                )
+                                focusManager.clearFocus()
+                            },
+                        ),
                     )
                     IconButton(
                         onClick = { removeWorkSet(workSet) },
                         modifier = modifier
                             .size(18.dp)
                             .weight(1f)
-                            .align(Alignment.CenterVertically)
+                            .align(CenterVertically)
                     ) {
                         Icon(
                             painter = painterResource(LiftIcon.Trash),
@@ -148,6 +186,7 @@ fun RoutineListView(
                 }
             }
         }
+        Spacer(modifier = modifier.padding(4.dp))
         LiftOutlineButton(
             modifier = modifier
                 .height(32.dp)
@@ -188,14 +227,15 @@ fun CreateRoutineRoutineScreenPreviewA() {
                     .mapIndexed { index, workSet ->
                         IndexWorkSet(
                             index + 1,
-                            workSet.weight,
-                            workSet.repetition
+                            workSet.weight.toString(),
+                            workSet.repetition.toString()
                         )
 
                     }),
             updateWorkSet = {},
             addWorkSet = {},
             removeWorkSet = {},
+            focusManager = LocalFocusManager.current
         )
     }
 }
