@@ -84,11 +84,12 @@ internal fun BadgeView(
             contentPadding = PaddingValues(
                 start = 15.dp, top = 0.dp, end = 15.dp, bottom = 0.dp
             ),
+            shape = RoundedCornerShape(6.dp),
             onClick = {},
         ) {
             Text(
                 text = "전체보기",
-                style = LiftTheme.typography.no6,
+                style = LiftTheme.typography.no5,
                 color = LiftTheme.colorScheme.no4,
             )
             Spacer(modifier = modifier.padding(2.dp))
@@ -136,7 +137,7 @@ internal fun HomeScreenPreview() {
             onClickModifyRoutine = {},
             onClickAlarm = {},
             onClickType = {},
-            scrollState = rememberScrollState()
+            scrollState= rememberScrollState()
         )
     }
 }

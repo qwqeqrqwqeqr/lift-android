@@ -26,11 +26,10 @@ internal fun LoadingProfileDetailView(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         modifier = modifier
             .padding(vertical = 10.dp)
-            .fillMaxHeight()
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier.fillMaxWidth()
         ) {
             Spacer(
                 modifier

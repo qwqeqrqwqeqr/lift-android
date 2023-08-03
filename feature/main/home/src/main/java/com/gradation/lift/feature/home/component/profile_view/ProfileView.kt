@@ -23,7 +23,6 @@ internal fun ProfileView(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
             .background(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
@@ -33,6 +32,7 @@ internal fun ProfileView(
         Row(
             verticalAlignment = Alignment.Bottom,
             modifier = modifier
+                .fillMaxWidth()
                 .shadow(
                     elevation = 8.dp,
                     spotColor = Color(0x40000000),
@@ -43,7 +43,6 @@ internal fun ProfileView(
                     shape = RoundedCornerShape(size = 16.dp)
                 )
                 .padding(12.dp, 10.dp)
-                .fillMaxWidth()
         ) {
             when (userDetailUiState) {
                 is UserDetailUiState.Fail -> {

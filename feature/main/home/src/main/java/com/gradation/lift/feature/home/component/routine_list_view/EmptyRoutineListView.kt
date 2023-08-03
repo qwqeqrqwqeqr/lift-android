@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,7 +60,8 @@ fun EmptyRoutineListView(
         Spacer(modifier = modifier.padding(8.dp))
         LiftOutlineButton(
             modifier = modifier.fillMaxWidth(),
-            onClick = onClickCreateRoutine
+            onClick = onClickCreateRoutine,
+            shape = RoundedCornerShape(12.dp)
         ) {
             Text(
                 text = "루틴 리스트 만들기",

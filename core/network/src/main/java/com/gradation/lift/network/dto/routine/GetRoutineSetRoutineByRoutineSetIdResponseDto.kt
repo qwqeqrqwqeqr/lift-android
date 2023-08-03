@@ -5,6 +5,8 @@ import com.gradation.lift.model.routine.*
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.network.common.Constants
+import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -20,7 +22,7 @@ data class GetRoutineSetRoutineByRoutineSetIdResponseDto(
             name = it.value.first().routineSetDto.name,
             description = it.value.first().routineSetDto.description,
             weekday = it.value.first().routineSetDto.weekday.toWeekDay(),
-            picture = it.value.first().routineSetDto.picture,
+            picture = DEFAULT_S3_URL +it.value.first().routineSetDto.picture,
             routine = it.value.map { routine ->
                 Routine(
                     id = routine.routineDto.routineId,

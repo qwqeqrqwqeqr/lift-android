@@ -257,7 +257,7 @@ object ModelDataGenerator {
             name = "행복한 월요일 루틴",
             description = "가볍게 하는 운동",
             weekday = Weekday.Monday(),
-            picture = null,
+            picture = "http://",
             routine = listOf(routineModel1)
         )
 
@@ -266,7 +266,7 @@ object ModelDataGenerator {
             name = "등 단련 루틴",
             description = "집중 등 운동",
             weekday = Weekday.Monday(),
-            picture = null,
+            picture = "http://",
             routine = listOf(routineModel2)
         )
         val routineSetRoutineModelList = listOf(routineSetRoutineModel1, routineSetRoutineModel2)

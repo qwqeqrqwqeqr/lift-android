@@ -41,12 +41,11 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val scrollState: ScrollState = rememberScrollState()
     val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetail.collectAsStateWithLifecycle()
     val weekDate: List<WeekDate> by viewModel.weekDate.collectAsStateWithLifecycle()
     val today = viewModel.today.collectAsStateWithLifecycle()
-
+    val scrollState = rememberScrollState()
     HomeScreen(
         modifier = modifier,
         today = today,
@@ -64,7 +63,7 @@ internal fun HomeRoute(
         onClickModifyRoutine = {},
         onClickAlarm = {},
         onClickType = {},
-        scrollState = scrollState
+        scrollState=scrollState
     )
 }
 
@@ -85,7 +84,7 @@ internal fun HomeScreen(
     onClickModifyRoutine: () -> Unit,
     onClickAlarm: () -> Unit,
     onClickType: () -> Unit,
-    scrollState: ScrollState,
+    scrollState : ScrollState
 ) {
         Scaffold(
             topBar = {
@@ -100,8 +99,7 @@ internal fun HomeScreen(
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(
-                            start = 16.dp,
-                            end = 16.dp,
+                            horizontal = 16.dp
                         )
                 ) {
                     Text(
@@ -123,9 +121,7 @@ internal fun HomeScreen(
             floatingActionButtonPosition = FabPosition.Center,
         ) { padding ->
             Column(
-                modifier = modifier
-                    .verticalScroll(scrollState)
-                    .padding(padding)
+                modifier = modifier.padding(padding).verticalScroll(scrollState)
             ) {
                 ProfileView(
                     modifier = modifier,
@@ -147,7 +143,6 @@ internal fun HomeScreen(
                     onClickAddRoutine = onClickAddRoutine,
                     onClickUpdateRoutine = onClickModifyRoutine
                 )
-                Spacer(modifier = modifier.padding(72.dp))
             }
         }
 
@@ -189,7 +184,7 @@ internal fun HomeScreenPreview() {
             onClickModifyRoutine = {},
             onClickAlarm = {},
             onClickType = {},
-            scrollState = rememberScrollState()
+            scrollState= rememberScrollState()
         )
     }
 }

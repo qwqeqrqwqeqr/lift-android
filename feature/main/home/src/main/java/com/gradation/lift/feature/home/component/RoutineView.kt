@@ -37,10 +37,8 @@ internal fun RoutineView(
         modifier = modifier
             .background(
                 color = LiftTheme.colorScheme.no5,
-                shape = RoundedCornerShape(24.dp)
+                shape = RoundedCornerShape(24.dp,24.dp,0.dp,0.dp)
             )
-            .fillMaxSize()
-            .fillMaxHeight()
             .padding(16.dp),
     ) {
         Text(

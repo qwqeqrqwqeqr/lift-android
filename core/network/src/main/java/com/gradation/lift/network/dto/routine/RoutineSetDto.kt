@@ -15,7 +15,7 @@ data class RoutineSetDto(
     @Json(name = "weekday")
     val weekday: String,
     @Json(name = "picture")
-    val picture: String? = null,
+    val picture: String,
 )
 
 

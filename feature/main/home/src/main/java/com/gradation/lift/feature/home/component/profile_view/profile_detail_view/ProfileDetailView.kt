@@ -26,8 +26,6 @@ internal fun ProfileDetailView(
     onClickAlarm: () -> Unit,
     onClickType: () -> Unit,
 ) {
-
-
     GlideImage(
         model = userDetail.profilePicture,
         contentDescription = "profile",
@@ -39,13 +37,11 @@ internal fun ProfileDetailView(
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .padding(vertical = 10.dp)
-            .fillMaxHeight()
+        modifier = modifier.padding(vertical = 10.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier.fillMaxWidth()
         ) {
             Text(
                 text = userDetail.name,
@@ -91,7 +87,6 @@ internal fun ProfileDetailView(
                 )
             }
         }
-
     }
 }
 
