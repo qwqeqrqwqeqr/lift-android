@@ -2,10 +2,10 @@ package com.gradation.lift.create_routine.routine
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.gradation.lift.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,8 +17,6 @@ class CreateRoutineRoutineViewModel @Inject constructor(
 
 
     val updateWorkSet: (IndexWorkSet) -> Unit = { indexWorkSet ->
-        Log.d("value", indexWorkSet.toString())
-        Log.d("리스트 전", workSetList.value.toString())
         workSetList.value = workSetList.value.map {
             it.copy(
                 index = if (it.index == indexWorkSet.index) indexWorkSet.index else it.index,
@@ -26,7 +24,6 @@ class CreateRoutineRoutineViewModel @Inject constructor(
                 repetition = if (it.index == indexWorkSet.index) indexWorkSet.repetition else it.repetition
             )
         }
-        Log.d("리스트 후", workSetList.value.toString())
     }
 
     val addWorkSet: () -> Unit = {
@@ -42,6 +39,12 @@ class CreateRoutineRoutineViewModel @Inject constructor(
         workSetList.value = workSetList.value.minus(indexWorkSet)
     }
 
+
+    val createRoutineCondition = workSetList.map { it.isNotEmpty() }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    )
 
 }
 

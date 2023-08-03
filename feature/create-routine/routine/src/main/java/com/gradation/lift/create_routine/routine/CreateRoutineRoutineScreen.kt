@@ -44,6 +44,7 @@ fun CreateRoutineRoutineRoute(
     val tempWorkCategory = sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
     val onCreateRoutine = sharedViewModel.addRoutineSet()
     val workSetList = viewModel.workSetList.collectAsStateWithLifecycle()
+    val createRoutineCondition = viewModel.createRoutineCondition.collectAsStateWithLifecycle()
 
     val updateWorkSet = viewModel.updateWorkSet
     val addWorkSet = viewModel.addWorkSet
@@ -60,6 +61,7 @@ fun CreateRoutineRoutineRoute(
         },
         tempWorkCategory = tempWorkCategory,
         workSetList = workSetList,
+        createRoutineCondition = createRoutineCondition,
         updateWorkSet = updateWorkSet,
         addWorkSet = addWorkSet,
         removeWorkSet = removeWorkSet,
@@ -77,6 +79,7 @@ fun CreateRoutineRoutineScreen(
     onCreateRoutine: (CreateRoutine) -> Unit,
     tempWorkCategory: State<String>,
     workSetList: State<List<IndexWorkSet>>,
+    createRoutineCondition: State<Boolean>,
     updateWorkSet: (IndexWorkSet) -> Unit,
     addWorkSet: () -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
@@ -107,6 +110,7 @@ fun CreateRoutineRoutineScreen(
                         )
                     )
                 },
+                enabled = createRoutineCondition.value
             ) {
                 Text(
                     text = "등록하기",
@@ -180,6 +184,7 @@ fun CreateRoutineRoutineScreenPreview() {
                         )
 
                     }),
+            createRoutineCondition = mutableStateOf(false),
             updateWorkSet = {},
             addWorkSet = {},
             removeWorkSet = {},

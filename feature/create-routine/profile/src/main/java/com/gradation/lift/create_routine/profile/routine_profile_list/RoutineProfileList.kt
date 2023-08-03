@@ -35,7 +35,6 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun RoutineProfileList(
     modifier: Modifier = Modifier,
-    onClickRegisterButton: () -> Unit,
     updateSelectedPicture: (String) -> Unit,
     routineSetPictureList: List<RoutineSetCategoryPicture>,
     selectedPicture: State<String>,
@@ -100,23 +99,6 @@ fun RoutineProfileList(
                                 updateSelectedPicture(picture.url)
                             }
                         )
-                )
-            }
-        }
-        item(span = { GridItemSpan(4) }) {
-            Spacer(modifier = modifier.padding(18.dp))
-        }
-        item(
-            span = { GridItemSpan(4) }
-        ) {
-            LiftButton(
-                modifier = modifier.fillMaxWidth(),
-                onClick = onClickRegisterButton,
-            ) {
-                Text(
-                    text = "등록하기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no5,
                 )
             }
         }

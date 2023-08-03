@@ -7,9 +7,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +19,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.create_routine.profile.routine_profile_list.EmptyRoutineProfileList
 import com.gradation.lift.create_routine.profile.routine_profile_list.RoutineProfileList
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
@@ -79,6 +78,22 @@ fun CreateRoutineProfileScreen(
                 onBackClickTopBar = onBackClickTopBar,
             )
         },
+        floatingActionButtonPosition = FabPosition.Center,
+        floatingActionButton = {
+            LiftButton(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                onClick = onClickRegisterButton,
+            ) {
+                Text(
+                    text = "등록하기",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no5,
+                )
+            }
+
+        }
     ) { padding ->
         Surface(
             color = LiftTheme.colorScheme.no5,
@@ -97,7 +112,6 @@ fun CreateRoutineProfileScreen(
                     }
                     is RoutineSetPictureUiState.Success -> {
                         RoutineProfileList(
-                            onClickRegisterButton = onClickRegisterButton,
                             updateSelectedPicture = updateSelectedPicture,
                             routineSetPictureList = routineSetPictureUiState.routineSetPictureList,
                             selectedPicture = selectedPicture
