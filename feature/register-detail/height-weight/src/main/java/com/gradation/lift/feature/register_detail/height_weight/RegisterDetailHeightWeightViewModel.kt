@@ -51,15 +51,11 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
         )
 
     internal fun updateWeight(): (String) -> Unit = { it ->
-        weight.value = it.toFloatOrNull().let { value ->
-            value?.toString() ?: ""
-        }
+        weight.value = it
     }
 
     internal fun updateHeight(): (String) -> Unit = { it ->
-        height.value = it.toFloatOrNull().let { value ->
-            value?.toString() ?: ""
-        }
+        height.value = it
     }
 
     var navigateCondition: StateFlow<Boolean> =

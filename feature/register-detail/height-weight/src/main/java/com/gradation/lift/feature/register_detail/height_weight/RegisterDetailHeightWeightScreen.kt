@@ -133,6 +133,7 @@ internal fun RegisterDetailHeightWeightScreen(
                     modifier = modifier,
                     weightText = weightText,
                     updateWeightText = updateWeightText,
+                    focusManager = focusManager,
                     weightValidationSupportText = weightValidationSupportText.value
                 )
                 Spacer(modifier = modifier.padding(18.dp))
@@ -185,6 +186,11 @@ internal fun HeightTextField(
         ),
         keyboardActions = KeyboardActions(
             onNext = {
+                updateHeightText(
+                    heightText.value.toFloatOrNull().let { value ->
+                        value?.toString() ?: ""
+                    }
+                )
                 focusManager.moveFocus(FocusDirection.Down)
             },
         ),
@@ -210,6 +216,7 @@ internal fun WeightTextField(
     modifier: Modifier = Modifier,
     weightText: State<String>,
     updateWeightText: (String) -> Unit,
+    focusManager: FocusManager,
     weightValidationSupportText: Validator,
 ) {
     Text(
@@ -233,7 +240,12 @@ internal fun WeightTextField(
             keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(
-
+            onDone = {
+                updateWeightText(weightText.value.toFloatOrNull().let { value ->
+                    value?.toString() ?: ""
+                })
+                focusManager.clearFocus()
+            }
         ),
         trailingIcon = {
             Text(
