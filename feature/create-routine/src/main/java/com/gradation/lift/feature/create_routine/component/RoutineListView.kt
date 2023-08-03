@@ -78,7 +78,7 @@ fun RoutineListView(
                         shape = RoundedCornerShape(size = 12.dp)
                     )
                     .padding(14.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,

@@ -86,7 +86,9 @@ class CreateRoutineSharedViewModel @Inject constructor(
         initialValue = false
     )
 
-    val navigationCondition = MutableStateFlow(false)
+    val createRoutineUiState = MutableStateFlow(CreateRoutineUiState.Loading)
+
+
 
 
     fun updateName(): (String) -> Unit = {
@@ -135,8 +137,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
                 )
             ).collect {
                 when (it) {
-                    is DataState.Success -> navigationCondition.value = it.data
-                    is DataState.Fail -> navigationCondition.value = false
+                    is DataState.Success ->  if(it.data) CreateRoutineUiState.Success else CreateRoutineUiState.Fail
+                    is DataState.Fail -> { CreateRoutineUiState.Fail }
                 }
             }
         }
@@ -148,5 +150,10 @@ internal data class WeekdayCard(
     var selected: Boolean = false,
 )
 
+sealed interface CreateRoutineUiState{
+    object Success : CreateRoutineUiState
+    object Loading : CreateRoutineUiState
+    object Fail : CreateRoutineUiState
+}
 
 

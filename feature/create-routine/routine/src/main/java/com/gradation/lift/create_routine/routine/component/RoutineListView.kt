@@ -41,8 +41,8 @@ fun RoutineListView(
     focusManager: FocusManager
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(24.dp),
