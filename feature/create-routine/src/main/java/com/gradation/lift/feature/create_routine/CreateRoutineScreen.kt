@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -17,6 +18,8 @@ import androidx.navigation.NavController
 import com.gradation.lift.feature.create_routine.component.RoutineListView
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.component.*
@@ -197,11 +200,39 @@ internal fun CreateRoutineScreen(
                     )
                     Spacer(modifier = modifier.padding(14.dp))
 
-                    Text(
-                        text = "루틴리스트",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no3
-                    )
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            modifier = modifier.align(Alignment.CenterVertically),
+                            text = "루틴리스트",
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no3
+                        )
+                        if (routine.value.isNotEmpty()) {
+                            LiftOutlineButton(
+                                modifier = modifier
+                                    .height(32.dp),
+                                contentPadding = PaddingValues(
+                                    start = 15.dp, top = 0.dp, end = 15.dp, bottom = 0.dp
+                                ),
+                                onClick = onClickCreateRoutine,
+                            ) {
+                                Text(
+                                    text = "추가",
+                                    style = LiftTheme.typography.no5,
+                                    color = LiftTheme.colorScheme.no4,
+                                )
+                                Spacer(modifier = modifier.padding(2.dp))
+                                Icon(
+                                    painterResource(id = LiftIcon.Plus),
+                                    contentDescription = null,
+                                )
+                            }
+                        }
+                    }
+
                     Spacer(modifier = modifier.padding(8.dp))
 
                     RoutineListView(

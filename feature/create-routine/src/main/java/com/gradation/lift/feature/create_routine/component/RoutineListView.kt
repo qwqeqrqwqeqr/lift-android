@@ -69,7 +69,6 @@ fun RoutineListView(
         }
     } else {
         routine.value.forEachIndexed { _, createRoutine ->
-
             Column(
                 modifier = modifier
                     .background(LiftTheme.colorScheme.no5)
