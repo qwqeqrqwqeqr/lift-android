@@ -47,7 +47,7 @@ fun CreateRoutineFindWorkCategoryRoute(
         modifier = modifier,
         onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoot,
         onClickWorkCategory = { workCategory ->
-            sharedViewModel.updateTempRoutineWorkCategory(workCategory)
+            sharedViewModel.updateTempWorkCategory(workCategory)
             navigateCreateRoutineFindWorkCategoryToRoutine()
         },
         searchText = searchText,

@@ -5,10 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,11 +18,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.create_routine.routine.component.RoutineListView
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
+import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -41,8 +41,8 @@ fun CreateRoutineRoutineRoute(
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
-    val tempCreateRoutine = sharedViewModel.tempRoutine.collectAsStateWithLifecycle()
-
+    val tempWorkCategory = sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
+    val onCreateRoutine = sharedViewModel.addRoutineSet()
     val workSetList = viewModel.workSetList.collectAsStateWithLifecycle()
 
     val updateWorkSet = viewModel.updateWorkSet
@@ -54,7 +54,11 @@ fun CreateRoutineRoutineRoute(
     CreateRoutineRoutineScreen(
         modifier = modifier,
         onBackClickTopBar = navigateCreateRoutineRoutineToFindWorkCategory,
-        tempCreateRoutine = tempCreateRoutine,
+        onCreateRoutine = {
+            onCreateRoutine(it)
+            navigateCreateRoutineRoutineToRoot()
+        },
+        tempWorkCategory = tempWorkCategory,
         workSetList = workSetList,
         updateWorkSet = updateWorkSet,
         addWorkSet = addWorkSet,
@@ -70,7 +74,8 @@ fun CreateRoutineRoutineRoute(
 fun CreateRoutineRoutineScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
-    tempCreateRoutine: State<CreateRoutine>,
+    onCreateRoutine: (CreateRoutine) -> Unit,
+    tempWorkCategory: State<String>,
     workSetList: State<List<IndexWorkSet>>,
     updateWorkSet: (IndexWorkSet) -> Unit,
     addWorkSet: () -> Unit,
@@ -80,10 +85,37 @@ fun CreateRoutineRoutineScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = tempCreateRoutine.value.workCategory,
+                title = tempWorkCategory.value,
                 onBackClickTopBar = onBackClickTopBar,
             )
-        }, modifier = modifier.fillMaxSize()
+        }, modifier = modifier.fillMaxSize(), floatingActionButton =
+        {
+            LiftButton(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                    ),
+                onClick = {
+                    onCreateRoutine(
+                        CreateRoutine(
+                            tempWorkCategory.value,
+                            workSetList.value.map {
+                                WorkSet(it.weight.toFloat(), it.repetition.toInt())
+                            }
+                        )
+                    )
+                },
+            ) {
+                Text(
+                    text = "등록하기",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no5,
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center
     ) { PaddingValues ->
         Surface(
             color = LiftTheme.colorScheme.no5,
@@ -119,6 +151,7 @@ fun CreateRoutineRoutineScreen(
                     removeWorkSet = removeWorkSet,
                     focusManager = focusManager
                 )
+
             }
         }
     }
@@ -132,9 +165,10 @@ fun CreateRoutineRoutineScreenPreview() {
         CreateRoutineRoutineScreen(
             modifier = Modifier,
             onBackClickTopBar = {},
-            tempCreateRoutine = mutableStateOf(
-                createRoutineModel
+            tempWorkCategory = mutableStateOf(
+                "숄더프레스"
             ),
+            onCreateRoutine = {},
             workSetList = mutableStateOf(
                 createRoutineModel
                     .workSetList

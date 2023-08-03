@@ -32,11 +32,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
     val picture = MutableStateFlow("")
     val routine = MutableStateFlow(emptyList<CreateRoutine>())
 
-    val tempRoutine = MutableStateFlow(
-        CreateRoutine(
-            workCategory = "",
-            workSetList = emptyList()
-        )
+    val tempWorkCategory = MutableStateFlow(
+        ""
     )
 
     val nameCondition = name.map { it.isNotEmpty() }.stateIn(
@@ -112,17 +109,10 @@ class CreateRoutineSharedViewModel @Inject constructor(
         }
     }
 
-    fun updateTempRoutineWorkCategory(workCategory: String) {
-        tempRoutine.value = tempRoutine.value.copy(
-            workCategory = workCategory
-        )
+    fun updateTempWorkCategory(workCategory: String) {
+        tempWorkCategory.value = workCategory
     }
 
-    fun updateTempRoutineWorkSetList(workSetList: List<WorkSet>) {
-        tempRoutine.value = tempRoutine.value.copy(
-            workSetList = workSetList
-        )
-    }
 
     fun addRoutineSet(): (CreateRoutine) -> Unit = { createRoutine ->
         routine.update { it.plusElement(createRoutine) }

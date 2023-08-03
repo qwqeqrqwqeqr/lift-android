@@ -13,33 +13,24 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.create_routine.routine.CreateRoutineRoutineScreen
 import com.gradation.lift.create_routine.routine.IndexWorkSet
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.model.utils.ModelDataGenerator
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RoutineListView(
     modifier: Modifier = Modifier,
@@ -163,7 +154,7 @@ fun RoutineListView(
                             onDone = {
                                 updateWorkSet(
                                     workSet.copy(
-                                        weight = workSet.repetition.toIntOrNull()?.toString() ?: "10"
+                                        repetition = workSet.repetition.toIntOrNull()?.toString() ?: "12"
                                     )
                                 )
                                 focusManager.clearFocus()
@@ -208,34 +199,6 @@ fun RoutineListView(
             )
         }
     }
+
 }
 
-@SuppressLint("UnrememberedMutableState")
-@Preview
-@Composable
-fun CreateRoutineRoutineScreenPreviewA() {
-    LiftMaterialTheme {
-        CreateRoutineRoutineScreen(
-            modifier = Modifier,
-            onBackClickTopBar = {},
-            tempCreateRoutine = mutableStateOf(
-                ModelDataGenerator.RoutineSetRoutine.createRoutineModel
-            ),
-            workSetList = mutableStateOf(
-                ModelDataGenerator.RoutineSetRoutine.createRoutineModel
-                    .workSetList
-                    .mapIndexed { index, workSet ->
-                        IndexWorkSet(
-                            index + 1,
-                            workSet.weight.toString(),
-                            workSet.repetition.toString()
-                        )
-
-                    }),
-            updateWorkSet = {},
-            addWorkSet = {},
-            removeWorkSet = {},
-            focusManager = LocalFocusManager.current
-        )
-    }
-}
