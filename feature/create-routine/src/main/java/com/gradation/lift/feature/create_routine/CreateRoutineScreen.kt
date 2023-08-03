@@ -72,7 +72,7 @@ internal fun CreateRoutineRoute(
         onBackClickTopBar = visibleCancelDialog,
         onClickProfile = navigateCreateRoutineRootToProfile,
         onAddRoutine = navigateCreateRoutineRootToFindWorkCategory,
-        onClickCreateRoutine = { sharedViewModel.createRoutine() },
+        onClickCreateRoutineSet = { sharedViewModel.createRoutine() },
 
         onVisibleCancelDialog = onVisibleCancelDialog,
         onClickCancelDialogSuspend = navigateCreateRoutineToMain,
@@ -116,7 +116,7 @@ internal fun CreateRoutineScreen(
     onBackClickTopBar: () -> Unit,
     onClickProfile: () -> Unit,
     onAddRoutine: () -> Unit,
-    onClickCreateRoutine: () -> Unit,
+    onClickCreateRoutineSet: () -> Unit,
 
     onVisibleCancelDialog: State<Boolean>,
     onClickCancelDialogSuspend: () -> Unit,
@@ -217,7 +217,7 @@ internal fun CreateRoutineScreen(
                                 contentPadding = PaddingValues(
                                     start = 15.dp, top = 0.dp, end = 15.dp, bottom = 0.dp
                                 ),
-                                onClick = onClickCreateRoutine,
+                                onClick = onAddRoutine,
                             ) {
                                 Text(
                                     text = "추가",
@@ -246,7 +246,7 @@ internal fun CreateRoutineScreen(
 
                     LiftButton(
                         modifier = modifier.fillMaxWidth(),
-                        onClick = onClickCreateRoutine,
+                        onClick = onClickCreateRoutineSet,
                         enabled = enabledCreateRoutine.value
                     ) {
                         Text(
@@ -276,7 +276,7 @@ fun CreateRoutineRoutineSetScreen() {
             onBackClickTopBar = { },
             onClickProfile = {},
             onAddRoutine = {},
-            onClickCreateRoutine = { },
+            onClickCreateRoutineSet = { },
 
             onVisibleCancelDialog = mutableStateOf(false),
             onClickCancelDialogSuspend = { },

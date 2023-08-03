@@ -287,7 +287,7 @@ object ModelDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
-            picture = null,
+            picture = "http://",
             routine = listOf(createRoutineModel),
         )
     }

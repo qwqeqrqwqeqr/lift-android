@@ -30,7 +30,7 @@ fun DescriptionView(
         modifier = modifier.fillMaxWidth(),
         placeholder = {
             Text(
-                text = "간단한 설명을 입력해주세요 (0-15 자)",
+                text = "간단한 설명을 입력해주세요 (1-15 자)",
                 style = LiftTheme.typography.no6,
             )
         },
