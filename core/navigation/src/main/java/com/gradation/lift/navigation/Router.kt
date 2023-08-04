@@ -37,5 +37,6 @@ object Router {
 
     const val WORK_GRAPH_NAME = "work_graph"
     const val WORK_WORK_ROUTER_NAME = "work"
+    const val WORK_COMPLETE_ROUTER_NAME = "complete"
 
 }

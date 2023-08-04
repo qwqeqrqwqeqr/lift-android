@@ -32,7 +32,15 @@ fun NavController.navigateReadyWorkToMain() {
         launchSingleTop=true
         popUpTo(this@navigateReadyWorkToMain.graph.id){
             inclusive=true
-            saveState=true
+        }
+    }
+}
+
+fun NavController.navigateWorkToMain() {
+    this.navigate(Router.MAIN_GRAPH_NAME){
+        launchSingleTop=true
+        popUpTo(this@navigateWorkToMain.graph.id){
+            inclusive=true
         }
     }
 }
