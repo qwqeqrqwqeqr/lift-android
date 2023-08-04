@@ -24,7 +24,6 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
-import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
 

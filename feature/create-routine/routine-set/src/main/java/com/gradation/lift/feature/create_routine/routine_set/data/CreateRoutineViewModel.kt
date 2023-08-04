@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.create_routine.data
+package com.gradation.lift.feature.create_routine.routine_set.data
 
 import androidx.lifecycle.ViewModel
 import com.gradation.lift.domain.usecase.routine.CreateRoutineSetUseCase

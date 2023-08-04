@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.create_routine"
+    namespace = "com.gradation.lift.feature.create_routine.routine_set"
 
 }
 dependencies {

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.create_routine.component
+package com.gradation.lift.feature.create_routine.routine_set.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,9 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.create_routine.data.WeekdayCard
+import com.gradation.lift.feature.create_routine.routine_set.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
-import kotlinx.datetime.LocalDate
 
 
 @Composable

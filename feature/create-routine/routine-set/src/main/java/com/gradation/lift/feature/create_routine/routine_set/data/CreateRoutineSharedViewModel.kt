@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.create_routine.data
+package com.gradation.lift.feature.create_routine.routine_set.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -11,9 +11,7 @@ import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -138,7 +136,9 @@ class CreateRoutineSharedViewModel @Inject constructor(
             ).collect {
                 when (it) {
                     is DataState.Success ->  if(it.data) CreateRoutineUiState.Success else CreateRoutineUiState.Fail
-                    is DataState.Fail -> { CreateRoutineUiState.Fail }
+                    is DataState.Fail -> {
+                        CreateRoutineUiState.Fail
+                    }
                 }
             }
         }

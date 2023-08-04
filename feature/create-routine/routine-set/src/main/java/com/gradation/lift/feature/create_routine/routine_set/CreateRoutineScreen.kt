@@ -2,7 +2,6 @@ package com.gradation.lift.feature.create_routine
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
@@ -11,13 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.feature.create_routine.component.RoutineListView
+import com.gradation.lift.feature.create_routine.routine_set.component.RoutineListView
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftOutlineButton
@@ -25,17 +23,19 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.component.*
-import com.gradation.lift.feature.create_routine.component.CancelDialog
-import com.gradation.lift.feature.create_routine.component.WeekdayCardListView
-import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
-import com.gradation.lift.feature.create_routine.data.CreateRoutineUiState
-import com.gradation.lift.feature.create_routine.data.CreateRoutineViewModel
-import com.gradation.lift.feature.create_routine.data.WeekdayCard
+import com.gradation.lift.feature.create_routine.routine_set.component.CancelDialog
+import com.gradation.lift.feature.create_routine.routine_set.component.WeekdayCardListView
+import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineUiState
+import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.WeekdayCard
+import com.gradation.lift.feature.create_routine.routine_set.component.DescriptionView
+import com.gradation.lift.feature.create_routine.routine_set.component.NameView
+import com.gradation.lift.feature.create_routine.routine_set.component.ProfileView
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.DevicePreview
 

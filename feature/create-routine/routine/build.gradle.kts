@@ -22,7 +22,7 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
-    implementation(project(":feature:create-routine"))
+    implementation(project(":feature:create-routine:routine-set"))
 
 
 

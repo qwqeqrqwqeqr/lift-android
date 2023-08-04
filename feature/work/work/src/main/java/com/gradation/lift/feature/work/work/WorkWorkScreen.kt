@@ -20,6 +20,8 @@ fun WorkWorkRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: WorkWorkViewModel = hiltViewModel(),
+    navigateWorkWorkToComplete: () -> Unit,
+    navigateWorkToMain: () -> Unit,
 ) {
 
     WorkWorkScreen(

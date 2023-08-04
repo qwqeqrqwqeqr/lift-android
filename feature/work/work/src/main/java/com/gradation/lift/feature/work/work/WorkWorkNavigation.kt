@@ -3,11 +3,9 @@ package com.gradation.lift.feature.work.work
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router.READY_WORK_CHANGE_ORDER_ROUTER_NAME
 import com.gradation.lift.navigation.Router.WORK_WORK_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateReadyWorkToWorkGraph
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
+import com.gradation.lift.navigation.navigation.navigateWorkToMain
+import com.gradation.lift.navigation.navigation.navigateWorkWorkToComplete
 
 
 fun workWorkScreen(
@@ -16,11 +14,13 @@ fun workWorkScreen(
 ) {
     navGraphBuilder.composable(WORK_WORK_ROUTER_NAME) {
 
-        val navigateToReadyWorkSelection = { navController.navigateUp() }
-        val navigateReadyWorkToWorkGraph = { navController.navigateReadyWorkToWorkGraph() }
+        val navigateWorkWorkToComplete = { navController.navigateWorkWorkToComplete() }
+        val navigateWorkToMain = { navController.navigateWorkToMain() }
 
         WorkWorkRoute(
             navController = navController,
+            navigateWorkWorkToComplete=navigateWorkWorkToComplete,
+            navigateWorkToMain=navigateWorkToMain
         )
     }
 
