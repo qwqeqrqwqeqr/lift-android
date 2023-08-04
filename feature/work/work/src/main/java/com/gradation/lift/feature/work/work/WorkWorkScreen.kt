@@ -40,7 +40,7 @@ fun WorkWorkScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "루틴리스트 선택",
+                title = "운동",
                 onBackClickTopBar = onBackClickTopBar
             )
         },
@@ -60,7 +60,7 @@ fun WorkWorkScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun ReadyWorkChangeOrderScreenPreview() {
+fun WorkWorkScreenPreview() {
     LiftMaterialTheme {
         WorkWorkScreen(
             modifier = Modifier,

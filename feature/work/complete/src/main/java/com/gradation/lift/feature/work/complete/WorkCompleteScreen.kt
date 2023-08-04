@@ -16,13 +16,13 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkWorkRoute(
+fun WorkCompleteRoute(
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: WorkCompleteViewModel = hiltViewModel(),
 ) {
 
-    WorkWorkScreen(
+    WorkCompleteScreen(
         modifier = modifier,
         onBackClickTopBar={}
     )
@@ -33,14 +33,14 @@ fun WorkWorkRoute(
 
 @ExperimentalMaterial3Api
 @Composable
-fun WorkWorkScreen(
+fun WorkCompleteScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "루틴리스트 선택",
+                title = "운동완료",
                 onBackClickTopBar = onBackClickTopBar
             )
         },
@@ -60,9 +60,9 @@ fun WorkWorkScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun ReadyWorkChangeOrderScreenPreview() {
+fun WorkCompleteScreenPreview() {
     LiftMaterialTheme {
-        WorkWorkScreen(
+        WorkCompleteScreen(
             modifier = Modifier,
             onBackClickTopBar = {  },
         )
