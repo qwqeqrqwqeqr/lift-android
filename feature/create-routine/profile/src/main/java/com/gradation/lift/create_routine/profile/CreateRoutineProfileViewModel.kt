@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.picture.GetRoutineSetPictureUseCase
-import com.gradation.lift.model.picture.RoutineSetPicture
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

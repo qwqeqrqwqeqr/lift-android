@@ -21,11 +21,12 @@ import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.navigation.navigateCreateRoutineRoutineToRoutineSet
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -33,7 +34,7 @@ fun CreateRoutineRoutineRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     navigateCreateRoutineRoutineToFindWorkCategory: () -> Unit,
-    navigateCreateRoutineRoutineToRoot: () -> Unit,
+    navigateCreateRoutineRoutineToRoutineSet: () -> Unit,
     viewModel: CreateRoutineRoutineViewModel = hiltViewModel(),
 ) {
     val crateRoutineBackStackEntry =
@@ -56,7 +57,7 @@ fun CreateRoutineRoutineRoute(
         onBackClickTopBar = navigateCreateRoutineRoutineToFindWorkCategory,
         onCreateRoutine = {
             onCreateRoutine(it)
-            navigateCreateRoutineRoutineToRoot()
+            navigateCreateRoutineRoutineToRoutineSet()
         },
         tempWorkCategory = tempWorkCategory,
         workSetList = workSetList,

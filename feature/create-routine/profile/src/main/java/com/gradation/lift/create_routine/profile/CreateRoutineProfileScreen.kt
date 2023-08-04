@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalGlideComposeApi::class)
 
 package com.gradation.lift.create_routine.profile
 
@@ -22,14 +21,14 @@ import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun CreateRoutineProfileRoute(
     navController: NavController,
-    navigateCreateRoutineProfileToRoot: () -> Unit,
+    navigateCreateRoutineProfileToRoutineSet: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineProfileViewModel = hiltViewModel()
 ) {
@@ -46,17 +45,17 @@ fun CreateRoutineProfileRoute(
 
     CreateRoutineProfileScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateCreateRoutineProfileToRoot,
+        onBackClickTopBar = navigateCreateRoutineProfileToRoutineSet,
         onClickRegisterButton = {
             sharedViewModel.updatePicture(selectedPicture.value)
-            navigateCreateRoutineProfileToRoot()
+            navigateCreateRoutineProfileToRoutineSet()
         },
         updateSelectedPicture = updateSelectedPicture,
         routineSetPictureUiState = routineSetPictureUiState,
         selectedPicture = selectedPicture,
     )
 
-    BackHandler(onBack = navigateCreateRoutineProfileToRoot)
+    BackHandler(onBack = navigateCreateRoutineProfileToRoutineSet)
 }
 
 @OptIn(

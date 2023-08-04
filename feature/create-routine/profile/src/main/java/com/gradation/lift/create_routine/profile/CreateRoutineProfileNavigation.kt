@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateCreateRoutineProfileToRoot
+import com.gradation.lift.navigation.navigation.navigateCreateRoutineProfileToRoutineSet
 
 fun createRoutineProfileScreen(
     navController: NavController,
@@ -12,12 +12,12 @@ fun createRoutineProfileScreen(
 ) {
     navGraphBuilder.composable(CREATE_ROUTINE_PROFILE_ROUTER_NAME) {
 
-        val navigateCreateRoutineProfileToRoot =
-            { navController.navigateCreateRoutineProfileToRoot() }
+        val navigateCreateRoutineProfileToRoutineSet =
+            { navController.navigateCreateRoutineProfileToRoutineSet() }
 
         CreateRoutineProfileRoute(
             navController = navController,
-            navigateCreateRoutineProfileToRoot = navigateCreateRoutineProfileToRoot
+            navigateCreateRoutineProfileToRoutineSet = navigateCreateRoutineProfileToRoutineSet
         )
     }
 }

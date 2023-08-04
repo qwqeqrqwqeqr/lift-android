@@ -15,10 +15,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
-import com.gradation.lift.feature.create_routine.data.CreateRoutineSharedViewModel
 import com.gradation.lift.feature.create_routine.find_work_category.component.FilterView
 import com.gradation.lift.feature.create_routine.find_work_category.component.SearchView
 import com.gradation.lift.feature.create_routine.find_work_category.component.WorkCategoryView
+import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
  import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.navigation.Router
@@ -27,7 +27,7 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun CreateRoutineFindWorkCategoryRoute(
     navController: NavController,
-    navigateCreateRoutineFindWorkCategoryToRoot: () -> Unit,
+    navigateCreateRoutineFindWorkCategoryToRoutineSet: () -> Unit,
     navigateCreateRoutineFindWorkCategoryToRoutine: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
@@ -45,7 +45,7 @@ fun CreateRoutineFindWorkCategoryRoute(
 
     CreateRoutineFindWorkCategoryScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoot,
+        onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoutineSet,
         onClickWorkCategory = { workCategory ->
             sharedViewModel.updateTempWorkCategory(workCategory)
             navigateCreateRoutineFindWorkCategoryToRoutine()
@@ -58,7 +58,7 @@ fun CreateRoutineFindWorkCategoryRoute(
         updateSelectedWorkPartFilter = viewModel.updateSelectedWorkPartFilter()
     )
 
-    BackHandler(onBack = navigateCreateRoutineFindWorkCategoryToRoot)
+    BackHandler(onBack = navigateCreateRoutineFindWorkCategoryToRoutineSet)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

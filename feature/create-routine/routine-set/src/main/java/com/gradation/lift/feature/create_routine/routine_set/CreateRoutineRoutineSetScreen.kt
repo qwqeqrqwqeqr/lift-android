@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.create_routine
+package com.gradation.lift.feature.create_routine.routine_set
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -22,20 +22,18 @@ import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.create_routine.component.*
 import com.gradation.lift.feature.create_routine.routine_set.component.CancelDialog
 import com.gradation.lift.feature.create_routine.routine_set.component.WeekdayCardListView
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineUiState
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineViewModel
-import com.gradation.lift.feature.create_routine.routine_set.data.WeekdayCard
 import com.gradation.lift.feature.create_routine.routine_set.component.DescriptionView
 import com.gradation.lift.feature.create_routine.routine_set.component.NameView
 import com.gradation.lift.feature.create_routine.routine_set.component.ProfileView
+import com.gradation.lift.feature.create_routine.routine_set.data.*
+import com.gradation.lift.feature.create_routine.routine_set.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.navigation.navigateCreateRoutineRoutineSetToProfile
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.DevicePreview
 
@@ -43,13 +41,13 @@ import com.gradation.lift.ui.utils.DevicePreview
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnrememberedGetBackStackEntry", "StateFlowValueCalledInComposition")
 @Composable
-internal fun CreateRoutineRoute(
+internal fun CreateRoutineRoutineSetRoute(
     navController: NavController,
-    navigateCreateRoutineRootToFindWorkCategory: () -> Unit,
-    navigateCreateRoutineRootToProfile: () -> Unit,
+    navigateCreateRoutineRoutineSetToFindWorkCategory: () -> Unit,
+    navigateCreateRoutineRoutineSetToProfile: () -> Unit,
     navigateCreateRoutineToMain: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CreateRoutineViewModel = hiltViewModel(),
+    viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
     val scrollState: ScrollState = rememberScrollState()
     val crateRoutineBackStackEntry =
@@ -73,12 +71,12 @@ internal fun CreateRoutineRoute(
 
     val createRoutineUiState: CreateRoutineUiState by sharedViewModel.createRoutineUiState.collectAsStateWithLifecycle()
 
-    CreateRoutineScreen(
+    CreateRoutineRoutineSetScreen(
         modifier = modifier,
 
         onBackClickTopBar = visibleCancelDialog,
-        onClickProfile = navigateCreateRoutineRootToProfile,
-        onAddRoutine = navigateCreateRoutineRootToFindWorkCategory,
+        onClickProfile = navigateCreateRoutineRoutineSetToProfile,
+        onAddRoutine = navigateCreateRoutineRoutineSetToFindWorkCategory,
         onClickCreateRoutineSet = { sharedViewModel.createRoutine() },
 
         onVisibleCancelDialog = onVisibleCancelDialog,
@@ -123,7 +121,7 @@ internal fun CreateRoutineRoute(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun CreateRoutineScreen(
+internal fun CreateRoutineRoutineSetScreen(
     modifier: Modifier = Modifier,
 
     onBackClickTopBar: () -> Unit,
@@ -281,9 +279,9 @@ internal fun CreateRoutineScreen(
 @SuppressLint("UnrememberedMutableState")
 @Composable
 @DevicePreview
-fun CreateRoutineRoutineSetScreen() {
+fun CreateRoutineRoutineSetScreenPreview() {
     LiftMaterialTheme {
-        CreateRoutineScreen(
+        CreateRoutineRoutineSetScreen(
             modifier = Modifier,
 
             onBackClickTopBar = { },

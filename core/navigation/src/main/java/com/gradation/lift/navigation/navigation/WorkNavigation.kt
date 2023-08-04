@@ -15,7 +15,7 @@ fun NavController.navigateReadyWorkToWorkGraph() {
 }
 fun NavController.navigateWorkWorkToComplete() {
     this.navigate(WORK_COMPLETE_ROUTER_NAME){
-        popUpTo(WORK_WORK_ROUTER_NAME){
+        popUpTo(WORK_COMPLETE_ROUTER_NAME){
             inclusive=true
         }
     }
