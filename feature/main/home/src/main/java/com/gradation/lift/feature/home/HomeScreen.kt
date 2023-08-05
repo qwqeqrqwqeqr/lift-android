@@ -23,6 +23,7 @@ import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.component.profile_view.ProfileView
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.model.common.UnitOfWeight
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
@@ -55,8 +56,8 @@ internal fun HomeRoute(
         weekDate = weekDate,
         onClickCreateRoutine = navigateHomeToCreateRoutineGraph,
         onClickStartWork = navigateHomeToWorkGraph,
-        onClickStartWorkWithRoutineSetId = { routineSetId ->
-            viewModel.updateKey(navController = navController, routineSetId = routineSetId)
+        onClickStartWorkWithRoutineSet = { routineSetRoutine ->
+            viewModel.updateKey(navController = navController, routineSetRoutine = routineSetRoutine)
             navigateHomeToWorkGraph()
         },
         onClickWeekDateCard = viewModel.updateCurrentDate(),
@@ -79,7 +80,7 @@ internal fun HomeScreen(
     weekDate: List<WeekDate>,
     onClickCreateRoutine: () -> Unit,
     onClickStartWork: () -> Unit,
-    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
+    onClickStartWorkWithRoutineSet: (RoutineSetRoutine) -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickAddRoutine: () -> Unit,
     onClickModifyRoutine: () -> Unit,
@@ -140,7 +141,7 @@ internal fun HomeScreen(
                     weekDate = weekDate,
                     onClickCreateRoutine = onClickCreateRoutine,
                     onClickWeekDateCard = onClickWeekDateCard,
-                    onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
+                    onClickStartWorkWithRoutineSet = onClickStartWorkWithRoutineSet,
                     onClickAddRoutine = onClickAddRoutine,
                     onClickUpdateRoutine = onClickModifyRoutine
                 )
@@ -179,7 +180,7 @@ internal fun HomeScreenPreview() {
             ),
             onClickCreateRoutine = { },
             onClickStartWork = {},
-            onClickStartWorkWithRoutineSetId = {},
+            onClickStartWorkWithRoutineSet = {},
             onClickWeekDateCard = {},
             onClickAddRoutine = {},
             onClickModifyRoutine = {},

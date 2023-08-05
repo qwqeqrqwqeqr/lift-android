@@ -28,6 +28,8 @@ import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineS
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.routine.Routine
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 
 
@@ -35,7 +37,7 @@ import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routi
 fun RoutineSetRoutineListView(
     modifier: Modifier = Modifier,
     routineSetRoutineSelection: List<RoutineSetRoutineSelection>,
-    onUpdateRoutineSetRoutineList: (Int, Boolean) -> Unit,
+    onUpdateRoutineSetRoutineList: (RoutineSetRoutine, Boolean) -> Unit,
     onUpdateRoutineList: (Int, Boolean) -> Unit,
 ) {
     LazyColumn(
@@ -62,7 +64,13 @@ fun RoutineSetRoutineListView(
                         .clickable(
                             onClick = {
                                 onUpdateRoutineSetRoutineList(
-                                    routineSetRoutine.id,
+                                    RoutineSetRoutine(
+                                        id = routineSetRoutine.id,
+                                        name = routineSetRoutine.name,
+                                        description = routineSetRoutine.description,
+                                        weekday = routineSetRoutine.weekday,
+                                        picture = "",
+                                        routine = routineSetRoutine.routine.map { it.routine }),
                                     !routineSetRoutine.selected
                                 )
                             })
@@ -79,7 +87,13 @@ fun RoutineSetRoutineListView(
                         checked = routineSetRoutine.selected,
                         onCheckedChange = {
                             onUpdateRoutineSetRoutineList(
-                                routineSetRoutine.id,
+                                RoutineSetRoutine(
+                                    id = routineSetRoutine.id,
+                                    name = routineSetRoutine.name,
+                                    description = routineSetRoutine.description,
+                                    weekday = routineSetRoutine.weekday,
+                                    picture = "",
+                                    routine = routineSetRoutine.routine.map { it.routine }),
                                 it
                             )
                         },
@@ -315,7 +329,7 @@ fun ReadyWorkSelectionPreview() {
             onClickStartWork = {},
             onUpdateRoutineSetRoutineList = { _, _ -> },
             onUpdateRoutineList = { _, _ -> },
-            selectedRoutine = 2
+            selectedRoutineCount = 2
         )
 
     }

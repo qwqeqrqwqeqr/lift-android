@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.work.routine_selection
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
@@ -8,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -27,23 +29,33 @@ import com.gradation.lift.feature.work.routine_selection.component.routine_list.
 import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
 import com.gradation.lift.feature.work.routine_selection.data.*
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.work.data.WorkSharedViewModel
 import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.navigation.Router
 import kotlinx.datetime.LocalDate
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,
     navigateWorkRoutineSelectionToChangeOrder: () -> Unit,
     navigateWorkToMain: () -> Unit,
-    previousRoutineSetId: Int?,
+    selectedRoutineSet: RoutineSetRoutine?,
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
 ) {
 
+    val workBackStackEntry =
+        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+    val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
+
+
     val weekDate: List<WeekdayCard> by viewModel.weekDate.collectAsStateWithLifecycle()
     val routineSetRoutineSelection: RoutineSetRoutineSelectionUiState by viewModel.routineSetRoutineSelection.collectAsStateWithLifecycle()
-    val selectedRoutine by viewModel.selectedRoutine.collectAsStateWithLifecycle()
+    val selectedRoutineCount by viewModel.selectedRoutineCount.collectAsStateWithLifecycle()
+    val selectedRoutineSetList by viewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
 
 
     WorkRoutineSelectionScreen(
@@ -53,16 +65,16 @@ internal fun WorkRoutineSelectionRoute(
         onBackClickTopBar = navigateWorkToMain,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
-            viewModel.updateKey(navController)
+            sharedViewModel.updateSelectedRoutineSetList(selectedRoutineSetList)
             navigateWorkRoutineSelectionToChangeOrder()
         },
-        selectedRoutine = selectedRoutine,
+        selectedRoutineCount = selectedRoutineCount,
         onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
         onUpdateRoutineList = viewModel.updateOpenedRoutineIdList(),
     )
 
     LaunchedEffect(key1 = true) {
-        viewModel.updatePreviousRoutineSetId(previousRoutineSetId)
+        viewModel.updateSelectedRoutineSet(selectedRoutineSet)
     }
     BackHandler(enabled = true, onBack = navigateWorkToMain)
 
@@ -77,9 +89,9 @@ internal fun WorkRoutineSelectionScreen(
     onBackClickTopBar: () -> Unit,
     onClickWeekDayCard: (LocalDate) -> Unit,
     onClickStartWork: () -> Unit,
-    onUpdateRoutineSetRoutineList: (Int, Boolean) -> Unit,
+    onUpdateRoutineSetRoutineList: (RoutineSetRoutine, Boolean) -> Unit,
     onUpdateRoutineList: (Int, Boolean) -> Unit,
-    selectedRoutine: Int,
+    selectedRoutineCount: Int,
 ) {
 
     Scaffold(
@@ -101,10 +113,10 @@ internal fun WorkRoutineSelectionScreen(
                         start = 20.dp,
                         end = 20.dp,
                     ),
-                enabled = selectedRoutine != 0
+                enabled = selectedRoutineCount != 0
             ) {
                 Text(
-                    text = "운동시작하기 (${selectedRoutine}개)",
+                    text = "운동시작하기 (${selectedRoutineCount}개)",
                     style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no5,
                 )
@@ -178,7 +190,7 @@ fun WorkRoutineSelectionPreview() {
             onClickStartWork = {},
             onUpdateRoutineSetRoutineList = { _, _ -> },
             onUpdateRoutineList = { _, _ -> },
-            selectedRoutine = 2
+            selectedRoutineCount = 2
         )
     }
 }

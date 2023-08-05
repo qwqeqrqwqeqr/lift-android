@@ -9,6 +9,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.model.common.toWeekday
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,10 +34,10 @@ class WorkRoutineSelectionViewModel @Inject constructor(
         MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
 
 
-    private val selectedRoutineSetIdList = MutableStateFlow(emptySet<Int>())
+    val selectedRoutineSetList = MutableStateFlow(emptyList<RoutineSetRoutine>())
     private val openedRoutineIdList = MutableStateFlow(emptySet<Int>())
 
-    internal val selectedRoutine = selectedRoutineSetIdList.map { it -> it.size }.stateIn(
+    internal val selectedRoutineCount = selectedRoutineSetList.map { it -> it.size }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = 0
@@ -61,9 +62,9 @@ class WorkRoutineSelectionViewModel @Inject constructor(
     val routineSetRoutineSelection =
         combine(
             openedRoutineIdList,
-            selectedRoutineSetIdList,
+            selectedRoutineSetList,
             currentDate
-        ) { openedRoutineIdList, routineSetIdList, currentDate ->
+        ) { openedRoutineIdList, selectedRoutineSetList, currentDate ->
             getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
                 when (it) {
                     is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = it.message)
@@ -78,7 +79,7 @@ class WorkRoutineSelectionViewModel @Inject constructor(
                                         name = routineSetRoutine.name,
                                         description = routineSetRoutine.description,
                                         weekday = routineSetRoutine.weekday,
-                                        selected = (routineSetIdList.contains(routineSetRoutine.id)),
+                                        selected = (selectedRoutineSetList.map { it -> it.id }.contains(routineSetRoutine.id)),
                                         routine = routineSetRoutine.routine.map { routine ->
                                             RoutineSelection(
                                                 routine = routine,
@@ -102,11 +103,11 @@ class WorkRoutineSelectionViewModel @Inject constructor(
         currentDate.value = it
     }
 
-    fun updateSelectedRoutineSetIdList(): (Int, Boolean) -> Unit = { id, checked ->
+    fun updateSelectedRoutineSetIdList(): (RoutineSetRoutine, Boolean) -> Unit = { routineSetRoutine, checked ->
         if (checked) {
-            selectedRoutineSetIdList.update { it.plusElement(id) }
+            selectedRoutineSetList.update { it.plusElement(routineSetRoutine) }
         } else {
-            selectedRoutineSetIdList.update { it.minusElement(id) }
+            selectedRoutineSetList.update { it.minusElement(routineSetRoutine) }
         }
     }
 
@@ -119,16 +120,14 @@ class WorkRoutineSelectionViewModel @Inject constructor(
     }
 
 
-    fun updatePreviousRoutineSetId(previousRoutineSetId: Int?) {
-        previousRoutineSetId?.let { id ->
-            selectedRoutineSetIdList.update { list ->
+    fun updateSelectedRoutineSet(routineSetRoutine: RoutineSetRoutine?) {
+        routineSetRoutine?.let { id ->
+            selectedRoutineSetList.update { list ->
                 list.plusElement(id)
             }
         }
     }
 
-    internal fun updateKey(navController: NavController) {
-        navController.setValueSavedStateHandle(SavedStateHandleKey.WorkKey.SELECTED_ROUTINE_SET_KEY, selectedRoutineSetIdList.value)
-    }
+
 
 }

@@ -11,6 +11,7 @@ import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.model.common.toWeekday
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
@@ -96,10 +97,10 @@ class HomeViewModel @Inject constructor(
         currentDate.value = localDate
     }
 
-    internal fun updateKey(navController: NavController, routineSetId: Int) {
+    internal fun updateKey(navController: NavController, routineSetRoutine: RoutineSetRoutine) {
         navController.setValueSavedStateHandle(
-            SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY,
-            routineSetId
+            SavedStateHandleKey.WorkKey.ROUTINE_SET_ROUTINE_KEY,
+            routineSetRoutine
         )
     }
 }

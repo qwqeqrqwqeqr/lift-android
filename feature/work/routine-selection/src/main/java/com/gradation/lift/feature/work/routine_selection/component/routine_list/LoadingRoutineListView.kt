@@ -92,7 +92,7 @@ fun LoadingRoutineListViewPreview() {
             onClickStartWork = {},
             onUpdateRoutineSetRoutineList = { _, _ -> },
             onUpdateRoutineList = { _, _ -> },
-            selectedRoutine = 2
+            selectedRoutineCount = 2
         )
 
     }

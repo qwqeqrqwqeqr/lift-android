@@ -18,6 +18,7 @@ import com.gradation.lift.feature.home.component.routine_list_view.LoadingRoutin
 import com.gradation.lift.feature.home.component.routine_list_view.RoutineListView
 import com.gradation.lift.feature.home.data.WeekDate
 import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
+import com.gradation.lift.model.routine.RoutineSetRoutine
 import kotlinx.datetime.LocalDate
 
 
@@ -29,7 +30,7 @@ internal fun RoutineView(
     weekDate: List<WeekDate>,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickCreateRoutine: () -> Unit,
-    onClickStartWorkWithRoutineSetId: (Int)->Unit,
+    onClickStartWorkWithRoutineSet: (RoutineSetRoutine)->Unit,
     onClickAddRoutine: () -> Unit,
     onClickUpdateRoutine: () -> Unit,
 ) {
@@ -80,7 +81,7 @@ internal fun RoutineView(
                     modifier = modifier,
                     onClickUpdateRoutine = onClickUpdateRoutine,
                     onClickAddRoutine = onClickAddRoutine,
-                    onClickStartWorkWithRoutineSetId=onClickStartWorkWithRoutineSetId,
+                    onClickStartWorkWithRoutineSet=onClickStartWorkWithRoutineSet,
                     routineSetRoutineList = weekDateRoutineUiState.weekDateRoutine
                 )
             }
