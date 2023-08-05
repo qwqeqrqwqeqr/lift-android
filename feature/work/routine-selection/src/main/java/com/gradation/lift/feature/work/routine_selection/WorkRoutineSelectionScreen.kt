@@ -40,9 +40,9 @@ import kotlinx.datetime.LocalDate
 @Composable
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,
-    navigateWorkRoutineSelectionToChangeOrder: () -> Unit,
+    navigateSelectionRoutineToWork: () -> Unit,
     navigateWorkToMain: () -> Unit,
-    selectedRoutineSet: RoutineSetRoutine?,
+    selectedRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
 ) {
@@ -66,7 +66,7 @@ internal fun WorkRoutineSelectionRoute(
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
             sharedViewModel.updateSelectedRoutineSetList(selectedRoutineSetList)
-            navigateWorkRoutineSelectionToChangeOrder()
+            navigateSelectionRoutineToWork()
         },
         selectedRoutineCount = selectedRoutineCount,
         onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
@@ -74,7 +74,7 @@ internal fun WorkRoutineSelectionRoute(
     )
 
     LaunchedEffect(key1 = true) {
-        viewModel.updateSelectedRoutineSet(selectedRoutineSet)
+        viewModel.updateSelectedRoutineSetId(selectedRoutineSetId)
     }
     BackHandler(enabled = true, onBack = navigateWorkToMain)
 

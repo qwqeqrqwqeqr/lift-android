@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Router.WORK_ROUTINE_SELECTION_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateWorkRoutineSelectionToChangeOrder
+import com.gradation.lift.navigation.navigation.navigateSelectionRoutineToWork
 import com.gradation.lift.navigation.navigation.navigateWorkToMain
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
@@ -19,16 +19,16 @@ fun workRoutineSelectionScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
         navGraphBuilder.composable(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
-            val selectedRoutineSet =
-                navController.getValueSavedStateHandle<RoutineSetRoutine>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ROUTINE_KEY)
+            val selectedRoutineSetId =
+                navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ROUTINE_KEY)
 
-            val navigateWorkRoutineSelectionToChangeOrder = {navController.navigateWorkRoutineSelectionToChangeOrder() }
+            val navigateSelectionRoutineToWork = {navController.navigateSelectionRoutineToWork() }
             val navigateWorkToMain = {navController.navigateWorkToMain()}
             WorkRoutineSelectionRoute(
                 navController = navController,
-                navigateWorkRoutineSelectionToChangeOrder=navigateWorkRoutineSelectionToChangeOrder,
+                navigateSelectionRoutineToWork=navigateSelectionRoutineToWork,
                 navigateWorkToMain=navigateWorkToMain,
-                selectedRoutineSet = selectedRoutineSet
+                selectedRoutineSetId = selectedRoutineSetId
             )
         }
 

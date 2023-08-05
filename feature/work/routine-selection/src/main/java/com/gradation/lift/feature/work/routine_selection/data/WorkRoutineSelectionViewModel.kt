@@ -1,12 +1,14 @@
 package com.gradation.lift.feature.work.routine_selection.data
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
+import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSetIdUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.model.common.toWeekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
@@ -15,6 +17,7 @@ import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -27,6 +30,7 @@ import javax.inject.Inject
 class WorkRoutineSelectionViewModel @Inject constructor(
     private val getWeekDateUseCase: GetWeekDateUseCase,
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
+    private val getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
 ) : ViewModel() {
 
 
@@ -79,7 +83,8 @@ class WorkRoutineSelectionViewModel @Inject constructor(
                                         name = routineSetRoutine.name,
                                         description = routineSetRoutine.description,
                                         weekday = routineSetRoutine.weekday,
-                                        selected = (selectedRoutineSetList.map { it -> it.id }.contains(routineSetRoutine.id)),
+                                        selected = (selectedRoutineSetList.map { it -> it.id }
+                                            .contains(routineSetRoutine.id)),
                                         routine = routineSetRoutine.routine.map { routine ->
                                             RoutineSelection(
                                                 routine = routine,
@@ -103,13 +108,14 @@ class WorkRoutineSelectionViewModel @Inject constructor(
         currentDate.value = it
     }
 
-    fun updateSelectedRoutineSetIdList(): (RoutineSetRoutine, Boolean) -> Unit = { routineSetRoutine, checked ->
-        if (checked) {
-            selectedRoutineSetList.update { it.plusElement(routineSetRoutine) }
-        } else {
-            selectedRoutineSetList.update { it.minusElement(routineSetRoutine) }
+    fun updateSelectedRoutineSetIdList(): (RoutineSetRoutine, Boolean) -> Unit =
+        { routineSetRoutine, checked ->
+            if (checked) {
+                selectedRoutineSetList.update { it.plusElement(routineSetRoutine) }
+            } else {
+                selectedRoutineSetList.update { it.minusElement(routineSetRoutine) }
+            }
         }
-    }
 
     fun updateOpenedRoutineIdList(): (Int, Boolean) -> Unit = { id, checked ->
         if (checked) {
@@ -120,14 +126,22 @@ class WorkRoutineSelectionViewModel @Inject constructor(
     }
 
 
-    fun updateSelectedRoutineSet(routineSetRoutine: RoutineSetRoutine?) {
-        routineSetRoutine?.let { id ->
-            selectedRoutineSetList.update { list ->
-                list.plusElement(id)
+    fun updateSelectedRoutineSetId(selectedRoutineSetRoutineId: Int?) {
+        selectedRoutineSetRoutineId?.let { id ->
+            viewModelScope.launch {
+                getRoutineSetRoutineByRoutineSetIdUseCase(setOf(id)).collect {
+                    when (it) {
+                        is DataState.Fail -> {}
+                        is DataState.Success -> {
+                            selectedRoutineSetList.update { list ->
+                                list.plus(it.data)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
-
 
 
 }

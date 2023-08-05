@@ -43,7 +43,7 @@ internal fun RoutineListView(
     modifier: Modifier = Modifier,
     onClickUpdateRoutine: () -> Unit,
     onClickAddRoutine: () -> Unit,
-    onClickStartWorkWithRoutineSet: (RoutineSetRoutine) -> Unit,
+    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
     routineSetRoutineList: List<RoutineSetRoutine>,
 ) {
     Column {
@@ -113,7 +113,7 @@ internal fun RoutineListView(
                             shape = RoundedCornerShape(size = 12.dp)
                         )
                         .padding(horizontal = 8.dp, vertical = 8.dp)
-                        .clickable { onClickStartWorkWithRoutineSet(routineSetRoutine) }
+                        .clickable { onClickStartWorkWithRoutineSetId(routineSetRoutine.id) }
                 ) {
                     GlideImage(
                         model = routineSetRoutine.picture,
@@ -176,7 +176,7 @@ internal fun RoutineListPreview() {
             ),
             onClickCreateRoutine = { },
             onClickStartWork = {},
-            onClickStartWorkWithRoutineSet = {},
+            onClickStartWorkWithRoutineSetId = {},
             onClickWeekDateCard = {},
             onClickAddRoutine = {},
             onClickModifyRoutine = {},

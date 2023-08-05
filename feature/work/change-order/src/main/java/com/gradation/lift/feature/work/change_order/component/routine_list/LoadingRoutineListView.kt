@@ -42,10 +42,6 @@ fun LoadingRoutineListViewPreview() {
             modifier = Modifier,
             onBackClickTopBar = {},
             onClickStartWork = {},
-            onDeleteRoutineSetRoutineList = {},
-            routineSetRoutine =
-
-            RoutineSetRoutineUiState.Loading
         )
     }
 }

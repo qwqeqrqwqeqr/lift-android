@@ -29,22 +29,20 @@ import com.gradation.lift.feature.work.change_order.data.RoutineSetRoutineUiStat
 @Composable
 fun WorkChangeOrderRoute(
     navController: NavController,
-    navigateWorkChangeOrderToRoutineSelection: () -> Unit,
-    navigateChangeOrderToWork: () -> Unit,
+
     modifier: Modifier = Modifier,
     viewModel: WorkChangeOrderViewModel = hiltViewModel(),
 ) {
 
     WorkChangeOrderScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateWorkChangeOrderToRoutineSelection,
+        onBackClickTopBar = {},
         onClickStartWork = {
-            navigateChangeOrderToWork()
         },
     )
 
     BackHandler(
-        onBack = navigateWorkChangeOrderToRoutineSelection
+        onBack = {}
     )
 
 
@@ -122,7 +120,7 @@ fun WorkChangeOrderScreenPreview() {
     LiftMaterialTheme {
         WorkChangeOrderScreen(
             modifier = Modifier,
-            onBackClickTopBar = { true },
+            onBackClickTopBar = { },
             onClickStartWork = {},
         )
     }

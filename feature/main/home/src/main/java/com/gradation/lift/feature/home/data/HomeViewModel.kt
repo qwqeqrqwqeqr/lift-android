@@ -97,10 +97,10 @@ class HomeViewModel @Inject constructor(
         currentDate.value = localDate
     }
 
-    internal fun updateKey(navController: NavController, routineSetRoutine: RoutineSetRoutine) {
+    internal fun updateKey(navController: NavController, selectedRoutineSetRoutineId: Int) {
         navController.setValueSavedStateHandle(
             SavedStateHandleKey.WorkKey.ROUTINE_SET_ROUTINE_KEY,
-            routineSetRoutine
+            selectedRoutineSetRoutineId
         )
     }
 }

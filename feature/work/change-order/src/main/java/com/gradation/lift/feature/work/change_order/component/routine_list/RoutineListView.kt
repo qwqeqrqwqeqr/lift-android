@@ -136,10 +136,6 @@ fun RoutineListViewPreview() {
             modifier = Modifier,
             onBackClickTopBar = {},
             onClickStartWork = {},
-            onDeleteRoutineSetRoutineList = {},
-            RoutineSetRoutineUiState.Success(
-                routineSetRoutine = routineSetRoutineModelList
-            ),
         )
     }
 }

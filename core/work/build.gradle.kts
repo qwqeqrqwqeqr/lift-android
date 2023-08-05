@@ -8,11 +8,6 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.work"
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
 }
 dependencies {
     testImplementation(project(":core:test"))

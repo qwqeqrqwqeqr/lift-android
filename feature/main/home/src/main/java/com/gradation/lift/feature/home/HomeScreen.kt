@@ -56,8 +56,8 @@ internal fun HomeRoute(
         weekDate = weekDate,
         onClickCreateRoutine = navigateHomeToCreateRoutineGraph,
         onClickStartWork = navigateHomeToWorkGraph,
-        onClickStartWorkWithRoutineSet = { routineSetRoutine ->
-            viewModel.updateKey(navController = navController, routineSetRoutine = routineSetRoutine)
+        onClickStartWorkWithRoutineSetId = { selectedRoutineSetRoutineId ->
+            viewModel.updateKey(navController = navController, selectedRoutineSetRoutineId = selectedRoutineSetRoutineId)
             navigateHomeToWorkGraph()
         },
         onClickWeekDateCard = viewModel.updateCurrentDate(),
@@ -80,7 +80,7 @@ internal fun HomeScreen(
     weekDate: List<WeekDate>,
     onClickCreateRoutine: () -> Unit,
     onClickStartWork: () -> Unit,
-    onClickStartWorkWithRoutineSet: (RoutineSetRoutine) -> Unit,
+    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
     onClickWeekDateCard: (LocalDate) -> Unit,
     onClickAddRoutine: () -> Unit,
     onClickModifyRoutine: () -> Unit,
@@ -141,7 +141,7 @@ internal fun HomeScreen(
                     weekDate = weekDate,
                     onClickCreateRoutine = onClickCreateRoutine,
                     onClickWeekDateCard = onClickWeekDateCard,
-                    onClickStartWorkWithRoutineSet = onClickStartWorkWithRoutineSet,
+                    onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
                     onClickAddRoutine = onClickAddRoutine,
                     onClickUpdateRoutine = onClickModifyRoutine
                 )
@@ -180,7 +180,7 @@ internal fun HomeScreenPreview() {
             ),
             onClickCreateRoutine = { },
             onClickStartWork = {},
-            onClickStartWorkWithRoutineSet = {},
+            onClickStartWorkWithRoutineSetId = {},
             onClickWeekDateCard = {},
             onClickAddRoutine = {},
             onClickModifyRoutine = {},

@@ -17,25 +17,9 @@ fun NavController.navigateHomeToWorkGraph() {
 
 
 /**
- * Routine Selection  <-> Change Order
+ * Routine Selection -> Work
  */
-fun NavController.navigateWorkRoutineSelectionToChangeOrder() {
-    this.navigate(WORK_CHANGE_ORDER_ROUTER_NAME)
-}
-
-fun NavController.navigateWorkChangeOrderToRoutineSelection() {
-    this.navigate(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
-        this.popUpTo(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
-}
-
-
-/**
- * Change Order -> Work
- */
-fun NavController.navigateChangeOrderToWork() {
+fun NavController.navigateSelectionRoutineToWork() {
     this.navigate(WORK_WORK_ROUTER_NAME) {
         this.popUpTo(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
             inclusive = true
@@ -46,7 +30,7 @@ fun NavController.navigateChangeOrderToWork() {
 
 
 /**
- * Work -> Complete¬
+ * Work -> Complete
  */
 fun NavController.navigateWorkWorkToComplete() {
     this.navigate(WORK_COMPLETE_ROUTER_NAME) {
