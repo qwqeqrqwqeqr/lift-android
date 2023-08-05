@@ -31,30 +31,18 @@ fun WorkChangeOrderRoute(
     navController: NavController,
     navigateWorkChangeOrderToRoutineSelection: () -> Unit,
     navigateChangeOrderToWork: () -> Unit,
-    selectedRoutineSetIdList: Set<Int>?,
     modifier: Modifier = Modifier,
     viewModel: WorkChangeOrderViewModel = hiltViewModel(),
 ) {
-    val routineSetRoutine by viewModel.routineSetRoutine.collectAsStateWithLifecycle()
 
-    //TODO Implement DraggableState
-//    val dragAndDropState= remember { mutableStateOf(DraggableState()) }
     WorkChangeOrderScreen(
         modifier = modifier,
         onBackClickTopBar = navigateWorkChangeOrderToRoutineSelection,
         onClickStartWork = {
-            viewModel.createWork()
             navigateChangeOrderToWork()
         },
-        routineSetRoutine = routineSetRoutine,
-        onDeleteRoutineSetRoutineList = viewModel.deleteRoutineSetIdList()
     )
 
-    LaunchedEffect(key1 = true) {
-        viewModel.updateSelectedRoutineSetIdList(
-            selectedRoutineSetIdList ?: emptySet<Int>()
-        )
-    }
     BackHandler(
         onBack = navigateWorkChangeOrderToRoutineSelection
     )
@@ -68,8 +56,6 @@ fun WorkChangeOrderScreen(
     modifier: Modifier = Modifier,
     onBackClickTopBar: () -> Unit,
     onClickStartWork: () -> Unit,
-    onDeleteRoutineSetRoutineList: (Int) -> Unit,
-    routineSetRoutine: RoutineSetRoutineUiState,
 ) {
     Scaffold(
         topBar = {
@@ -124,25 +110,6 @@ fun WorkChangeOrderScreen(
                 textAlign = TextAlign.Start
             )
             Spacer(modifier = modifier.padding(8.dp))
-            when (routineSetRoutine) {
-                RoutineSetRoutineUiState.Empty -> {
-
-                }
-                is RoutineSetRoutineUiState.Fail -> {
-
-                }
-                RoutineSetRoutineUiState.Loading -> {
-                    LoadingRoutineListView()
-                }
-                is RoutineSetRoutineUiState.Success -> {
-                    RoutineListView(
-                        modifier = modifier,
-                        routineSetRoutine = routineSetRoutine.routineSetRoutine,
-                        onDeleteRoutineSetRoutineList = onDeleteRoutineSetRoutineList
-                    )
-
-                }
-            }
         }
     }
 }
@@ -157,12 +124,6 @@ fun WorkChangeOrderScreenPreview() {
             modifier = Modifier,
             onBackClickTopBar = { true },
             onClickStartWork = {},
-            onDeleteRoutineSetRoutineList = {},
-            routineSetRoutine =
-//            RoutineSetRoutineUiState.Success(
-//                routineSetRoutine = routineSetRoutineModelList
-//            ),
-            RoutineSetRoutineUiState.Loading
         )
     }
 }

@@ -14,57 +14,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class WorkChangeOrderViewModel @Inject constructor(
-    getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
-    private val createWorkUseCase: CreateWorkUseCase,
 ) : ViewModel() {
 
 
-    private val routineSetIdList = MutableStateFlow(emptySet<Int>())
-
-
-    val routineSetRoutine = routineSetIdList.flatMapLatest {
-        getRoutineSetRoutineByRoutineSetIdUseCase(it).map { result ->
-            when (result) {
-                is DataState.Fail -> RoutineSetRoutineUiState.Fail(message = result.message)
-                is DataState.Success -> {
-                    if (result.data.isEmpty()) {
-                        RoutineSetRoutineUiState.Empty
-                    } else {
-                        RoutineSetRoutineUiState.Success(result.data)
-                    }
-                }
-            }
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = RoutineSetRoutineUiState.Loading
-    )
-
-    fun updateSelectedRoutineSetIdList(SelectedRoutineSetIdList: Set<Int>?) {
-        SelectedRoutineSetIdList?.let { selectedRoutineSetIdList ->
-            routineSetIdList.update { list ->
-                list.plus(selectedRoutineSetIdList)
-            }
-        }
-    }
-
-    fun deleteRoutineSetIdList(): (Int) -> Unit = { id ->
-        if (routineSetIdList.value.size > 1) {
-            routineSetIdList.update { it.minusElement(id) }
-        }
-    }
-
-    fun createWork() {
-        viewModelScope.launch {
-            when (val result = routineSetRoutine.value) {
-                RoutineSetRoutineUiState.Empty -> TODO()
-                is RoutineSetRoutineUiState.Fail -> TODO()
-                RoutineSetRoutineUiState.Loading -> TODO()
-                is RoutineSetRoutineUiState.Success -> {
-                 //TODO create routine 추가
-                }
-            }
-        }
-    }
 }
