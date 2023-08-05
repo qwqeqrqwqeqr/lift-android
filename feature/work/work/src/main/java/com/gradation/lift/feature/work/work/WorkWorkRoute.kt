@@ -1,22 +1,21 @@
 package com.gradation.lift.feature.work.work
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.work.component.WorkListScreen
+import com.gradation.lift.feature.work.work.component.WorkRestScreen
+import com.gradation.lift.feature.work.work.component.WorkWorkScreen
+import com.gradation.lift.feature.work.work.data.WorkScreenState
 import com.gradation.lift.feature.work.work.data.WorkSharedViewModel
 import com.gradation.lift.feature.work.work.data.WorkWorkViewModel
-import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import com.gradation.lift.navigation.Router
 
@@ -37,54 +36,35 @@ fun WorkWorkRoute(
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
     val routineSetRoutine by sharedViewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
 
+    val workScreenState : WorkScreenState by viewModel.workScreenState.collectAsStateWithLifecycle()
 
-    WorkWorkScreen(
-        modifier = modifier,
-        onBackClickTopBar = {}, routineSetRoutine = routineSetRoutine
-
-    )
-
-
-}
-
-@ExperimentalMaterial3Api
-@Composable
-fun WorkWorkScreen(
-    modifier: Modifier = Modifier,
-    onBackClickTopBar: () -> Unit,
-    routineSetRoutine: List<RoutineSetRoutine>
-) {
-    Scaffold(
-        topBar = {
-            LiftBackTopBar(
-                title = "운동",
-                onBackClickTopBar = onBackClickTopBar
+    when(val state = workScreenState){
+        is WorkScreenState.ListScreen -> {
+            WorkListScreen(
+                modifier = modifier,
+                onCloseClickTopBar = {},
+                previousScreen = state.previousState
             )
-        },
-    ) {
-        Column(
-            modifier = modifier
-                .background(LiftTheme.colorScheme.no5)
-                .padding(it)
-                .padding(16.dp)
-                .fillMaxSize()
-        ) {
-            Text(text = routineSetRoutine.toString())
+        }
+        WorkScreenState.RestScreen -> {
+            WorkRestScreen(
+                modifier = modifier,
+                onCloseClickTopBar = {},
+                routineSetRoutine = routineSetRoutine
+            )
+        }
+        WorkScreenState.WorkScreen -> {
+            WorkWorkScreen(
+                modifier = modifier,
+                onCloseClickTopBar = {},
+                routineSetRoutine = routineSetRoutine
+            )
 
         }
     }
+
+
+
 }
 
-@SuppressLint("UnrememberedMutableState")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-@Preview
-fun WorkWorkScreenPreview() {
-    LiftMaterialTheme {
-        WorkWorkScreen(
-            modifier = Modifier,
-            onBackClickTopBar = { },
-            routineSetRoutine = routineSetRoutineModelList
-        )
-    }
-}
+

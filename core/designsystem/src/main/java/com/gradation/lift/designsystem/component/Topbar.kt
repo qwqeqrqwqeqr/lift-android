@@ -17,18 +17,20 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiftBackTopBar(
-    title: String,
+    title: String?,
     onBackClickTopBar: () -> Unit,
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
         title = {
-            Text(
-                text = title,
-                color = LiftTheme.colorScheme.no9,
-                style = LiftTheme.typography.no1
-            )
+            title?.let{ title->
+                Text(
+                    text = title,
+                    color = LiftTheme.colorScheme.no9,
+                    style = LiftTheme.typography.no1
+                )
+            }
         },
         modifier = modifier.statusBarsPadding(),
         navigationIcon = {
@@ -38,6 +40,49 @@ fun LiftBackTopBar(
             ) {
                 Icon(
                     painter = painterResource(LiftIcon.ArrowBack),
+                    contentDescription = "",
+                    tint = Color.Unspecified,
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = LiftTheme.colorScheme.no5,
+            scrolledContainerColor = LiftTheme.colorScheme.no5,
+            navigationIconContentColor = LiftTheme.colorScheme.no9,
+            titleContentColor = LiftTheme.colorScheme.no9,
+            actionIconContentColor = LiftTheme.colorScheme.no9,
+        ),
+        actions = actions
+    )
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LiftCloseTopBar(
+    title: String?,
+    onCloseClickTopBar: () -> Unit,
+    modifier: Modifier = Modifier,
+    actions: @Composable RowScope.() -> Unit = {},
+) {
+    TopAppBar(
+        title = {
+            title?.let{ title->
+                Text(
+                    text = title,
+                    color = LiftTheme.colorScheme.no9,
+                    style = LiftTheme.typography.no1
+                )
+            }
+        },
+        modifier = modifier.statusBarsPadding(),
+        navigationIcon = {
+            LiftIconButton(
+                onClick = onCloseClickTopBar,
+                modifier = modifier
+            ) {
+                Icon(
+                    painter = painterResource(LiftIcon.Close),
                     contentDescription = "",
                     tint = Color.Unspecified,
                 )
@@ -125,9 +170,15 @@ fun LiftBackTopBarPreview() {
                 onBackClickTopBar = {}
             )
             Spacer(modifier = Modifier.padding(48.dp))
+            LiftCloseTopBar(
+                title = "리프트",
+                onCloseClickTopBar = {}
+            )
+            Spacer(modifier = Modifier.padding(48.dp))
             LiftTitleTopBar(
                 title = "리프트",
             )
+
             Spacer(modifier = Modifier.padding(48.dp))
             LiftHomeTopBar()
 
