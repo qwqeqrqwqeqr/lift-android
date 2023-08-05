@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work
+package com.gradation.lift.feature.work.work.data
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

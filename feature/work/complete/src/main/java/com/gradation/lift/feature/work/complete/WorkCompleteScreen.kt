@@ -13,7 +13,8 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.WorkWorkViewModel
+import com.gradation.lift.feature.work.work.data.WorkSharedViewModel
+import com.gradation.lift.feature.work.work.data.WorkWorkViewModel
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -21,14 +22,14 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun WorkCompleteRoute(
     navController: NavController,
+    navigateWorkToMain: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: WorkCompleteViewModel = hiltViewModel(),
-    navigateWorkToMain: () -> Unit,
 ) {
 
-    val crateRoutineBackStackEntry =
-        remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
-    val sharedViewModel: WorkWorkViewModel = hiltViewModel(crateRoutineBackStackEntry)
+    val workBackStackEntry =
+        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+    val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
     WorkCompleteScreen(
         modifier = modifier,

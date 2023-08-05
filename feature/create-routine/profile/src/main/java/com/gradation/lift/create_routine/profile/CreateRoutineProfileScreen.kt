@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.create_routine.profile.routine_profile_list.EmptyRoutineProfileList
 import com.gradation.lift.create_routine.profile.routine_profile_list.RoutineProfileList
 import com.gradation.lift.designsystem.component.LiftBackTopBar

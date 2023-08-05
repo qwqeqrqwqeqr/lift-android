@@ -57,5 +57,6 @@ dependencies{
     implementation(project(":feature:ready-work:change-order"))
 
     implementation(project(":feature:work:work"))
+    implementation(project(":feature:work:complete"))
 
 }

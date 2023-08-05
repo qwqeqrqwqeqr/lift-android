@@ -26,7 +26,6 @@ import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateCreateRoutineRoutineToRoutineSet
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable

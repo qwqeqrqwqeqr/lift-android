@@ -148,7 +148,6 @@ private fun BottomBar(
     destinations: List<TopLevelNavDestination>,
     onNavigateToDestination: (TopLevelNavDestination) -> Unit,
     currentDestination: NavDestination?,
-    modifier: Modifier = Modifier,
 ) {
     LiftNavigationBar(
 

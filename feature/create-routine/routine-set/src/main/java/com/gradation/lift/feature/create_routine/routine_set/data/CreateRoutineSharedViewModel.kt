@@ -30,9 +30,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
     val picture = MutableStateFlow("")
     val routine = MutableStateFlow(emptyList<CreateRoutine>())
 
-    val tempWorkCategory = MutableStateFlow(
-        ""
-    )
+    val tempWorkCategory = MutableStateFlow("")
 
     val nameCondition = name.map { it.isNotEmpty() }.stateIn(
         scope = viewModelScope,
@@ -87,8 +85,6 @@ class CreateRoutineSharedViewModel @Inject constructor(
     val createRoutineUiState = MutableStateFlow(CreateRoutineUiState.Loading)
 
 
-
-
     fun updateName(): (String) -> Unit = {
         name.value = it
     }
@@ -135,7 +131,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
                 )
             ).collect {
                 when (it) {
-                    is DataState.Success ->  if(it.data) CreateRoutineUiState.Success else CreateRoutineUiState.Fail
+                    is DataState.Success -> if (it.data) CreateRoutineUiState.Success else CreateRoutineUiState.Fail
                     is DataState.Fail -> {
                         CreateRoutineUiState.Fail
                     }
@@ -150,7 +146,7 @@ internal data class WeekdayCard(
     var selected: Boolean = false,
 )
 
-sealed interface CreateRoutineUiState{
+sealed interface CreateRoutineUiState {
     object Success : CreateRoutineUiState
     object Loading : CreateRoutineUiState
     object Fail : CreateRoutineUiState
