@@ -8,12 +8,12 @@ import com.gradation.lift.designsystem.R
 import java.util.concurrent.locks.Lock
 
 
-object LiftIcon{
+object LiftIcon {
     val HomeSelected = R.drawable.home_selected
     val HomeUnSelected = R.drawable.home_unselected
     val RoutineSelected = R.drawable.routine_selected
     val RoutineUnSelected = R.drawable.routine_unselected
-    val HistorySelected =R.drawable.history_selected
+    val HistorySelected = R.drawable.history_selected
     val HistoryUnSelected = R.drawable.history_unselected
     val MyInfoSelected = R.drawable.my_info_selected
     val MyInfoUnSelected = R.drawable.my_info_unselected
@@ -30,13 +30,18 @@ object LiftIcon{
     val Lock = R.drawable.lock
     val Mail = R.drawable.mail
     val Trash = R.drawable.trash
+    val Filter = R.drawable.filter
+    val Timer = R.drawable.timer
+    val List = R.drawable.list
+    val Close = R.drawable.close
+
     val Order = R.drawable.order
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
 
+
     val Search = R.drawable.search
     val Bang = R.drawable.bang
-    val Filter = R.drawable.filter
 
 
     val LoginKakao = R.drawable.login_kakao
@@ -50,6 +55,10 @@ object LiftIcon{
     val ChevronUp = R.drawable.chevorn_up
     val ChevronDown = R.drawable.chevorn_down
     val Plus = R.drawable.plus
+
+    val LeftArrowCircle = R.drawable.left_arrow_circle
+    val RightArrowCircle = R.drawable.right_arrow_circle
+
 }
 
 
