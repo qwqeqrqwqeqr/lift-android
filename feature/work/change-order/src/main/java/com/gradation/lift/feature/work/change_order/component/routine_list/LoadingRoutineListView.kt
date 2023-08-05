@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
-import com.gradation.lift.feature.work.change_order.ReadyWorkChangeOrderScreen
+import com.gradation.lift.feature.work.change_order.WorkChangeOrderScreen
 import com.gradation.lift.feature.work.change_order.data.RoutineSetRoutineUiState
 
 @Composable
@@ -38,7 +38,7 @@ fun LoadingRoutineListView(
 @Preview
 fun LoadingRoutineListViewPreview() {
     LiftMaterialTheme {
-        ReadyWorkChangeOrderScreen(
+        WorkChangeOrderScreen(
             modifier = Modifier,
             onBackClickTopBar = {},
             onClickStartWork = {},

@@ -22,7 +22,7 @@ import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.routine_selection.ReadyWorkSelectionScreen
+import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScreen
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSelection
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelection
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelectionUiState
@@ -282,7 +282,7 @@ fun RoutineListView(
 @Preview
 fun ReadyWorkSelectionPreview() {
     LiftMaterialTheme {
-        ReadyWorkSelectionScreen(
+        WorkRoutineSelectionScreen(
             modifier = Modifier,
             weekday = listOf(
                 WeekdayCard(weekday = Weekday.Monday()),

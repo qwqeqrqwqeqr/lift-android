@@ -26,6 +26,7 @@ import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.navigation.navigation.navigateHomeToWorkGraph
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -37,7 +38,7 @@ import kotlinx.datetime.todayIn
 internal fun HomeRoute(
     navController: NavController,
     navigateHomeToCreateRoutineGraph : () -> Unit,
-    navigateHomeToReadyWorkGraph: () -> Unit,
+    navigateHomeToWorkGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -53,10 +54,10 @@ internal fun HomeRoute(
         weekDateRoutineUiState = weekDateRoutineUiState,
         weekDate = weekDate,
         onClickCreateRoutine = navigateHomeToCreateRoutineGraph,
-        onClickStartWork = navigateHomeToReadyWorkGraph,
+        onClickStartWork = navigateHomeToWorkGraph,
         onClickStartWorkWithRoutineSetId = { routineSetId ->
             viewModel.updateKey(navController = navController, routineSetId = routineSetId)
-            navigateHomeToReadyWorkGraph()
+            navigateHomeToWorkGraph()
         },
         onClickWeekDateCard = viewModel.updateCurrentDate(),
         onClickAddRoutine = navigateHomeToCreateRoutineGraph,

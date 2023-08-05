@@ -34,8 +34,8 @@ import kotlinx.datetime.LocalDate
 @Composable
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,
-    navigateToReadyWorkChangeOrder : () -> Unit,
-    navigateReadyWorkToMain  : () -> Unit,
+    navigateWorkRoutineSelectionToChangeOrder: () -> Unit,
+    navigateWorkToMain: () -> Unit,
     previousRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
@@ -50,11 +50,11 @@ internal fun WorkRoutineSelectionRoute(
         modifier = modifier,
         weekday = weekDate,
         routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = navigateReadyWorkToMain,
+        onBackClickTopBar = navigateWorkToMain,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
             viewModel.updateKey(navController)
-            navigateToReadyWorkChangeOrder()
+            navigateWorkRoutineSelectionToChangeOrder()
         },
         selectedRoutine = selectedRoutine,
         onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
@@ -64,7 +64,7 @@ internal fun WorkRoutineSelectionRoute(
     LaunchedEffect(key1 = true) {
         viewModel.updatePreviousRoutineSetId(previousRoutineSetId)
     }
-    BackHandler(enabled = true, onBack = navigateReadyWorkToMain)
+    BackHandler(enabled = true, onBack = navigateWorkToMain)
 
 }
 
@@ -133,7 +133,7 @@ internal fun WorkRoutineSelectionScreen(
 
             when (routineSetRoutineSelection) {
                 RoutineSetRoutineSelectionUiState.Empty -> {
-                    EmptyRoutineListView(modifier=modifier)
+                    EmptyRoutineListView(modifier = modifier)
                 }
                 is RoutineSetRoutineSelectionUiState.Fail -> {
 

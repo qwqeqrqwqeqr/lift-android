@@ -27,7 +27,7 @@ import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.change_order.ReadyWorkChangeOrderScreen
+import com.gradation.lift.feature.work.change_order.WorkChangeOrderScreen
 import com.gradation.lift.feature.work.change_order.data.RoutineSetRoutineUiState
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
@@ -132,7 +132,7 @@ fun RoutineListView(
 @Preview
 fun RoutineListViewPreview() {
     LiftMaterialTheme {
-        ReadyWorkChangeOrderScreen(
+        WorkChangeOrderScreen(
             modifier = Modifier,
             onBackClickTopBar = {},
             onClickStartWork = {},

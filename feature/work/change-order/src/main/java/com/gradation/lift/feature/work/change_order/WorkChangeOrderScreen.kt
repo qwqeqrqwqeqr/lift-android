@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.work.change_order
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -28,8 +29,8 @@ import com.gradation.lift.feature.work.change_order.data.RoutineSetRoutineUiStat
 @Composable
 fun WorkChangeOrderRoute(
     navController: NavController,
-    navigateToReadyWorkSelection: () -> Unit,
-    navigateReadyWorkToWorkGraph: () -> Unit,
+    navigateWorkChangeOrderToRoutineSelection: () -> Unit,
+    navigateChangeOrderToWork: () -> Unit,
     selectedRoutineSetIdList: Set<Int>?,
     modifier: Modifier = Modifier,
     viewModel: WorkChangeOrderViewModel = hiltViewModel(),
@@ -40,10 +41,10 @@ fun WorkChangeOrderRoute(
 //    val dragAndDropState= remember { mutableStateOf(DraggableState()) }
     WorkChangeOrderScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateToReadyWorkSelection,
+        onBackClickTopBar = navigateWorkChangeOrderToRoutineSelection,
         onClickStartWork = {
             viewModel.createWork()
-            navigateReadyWorkToWorkGraph()
+            navigateChangeOrderToWork()
         },
         routineSetRoutine = routineSetRoutine,
         onDeleteRoutineSetRoutineList = viewModel.deleteRoutineSetIdList()
@@ -54,6 +55,10 @@ fun WorkChangeOrderRoute(
             selectedRoutineSetIdList ?: emptySet<Int>()
         )
     }
+    BackHandler(
+        onBack = navigateWorkChangeOrderToRoutineSelection
+    )
+
 
 }
 

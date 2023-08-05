@@ -1,5 +1,7 @@
 package com.gradation.lift.feature.work.routine_selection.component.routine_list
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
-import com.gradation.lift.feature.work.routine_selection.ReadyWorkSelectionScreen
+import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScreen
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
 import com.gradation.lift.model.common.Weekday
@@ -68,11 +70,12 @@ fun LoadingRoutineSetRoutineListView(
         }
     }
 }
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 @Preview
 fun LoadingRoutineListViewPreview() {
     LiftMaterialTheme {
-        ReadyWorkSelectionScreen(
+        WorkRoutineSelectionScreen(
             modifier = Modifier,
             weekday = listOf(
                 WeekdayCard(weekday = Weekday.Monday()),
