@@ -26,6 +26,8 @@ import androidx.compose.ui.graphics.Color
  * [COLOR_NO19] :일러스트 컬러
  * [COLOR_NO20] :일러스트 컬러
  * [COLOR_NO21] :오류
+ * [COLOR_NO22] :
+ * [COLOR_NO23] :
  *
  */
 internal val COLOR_NO1: Color = Color(0xFFF2F2F5)
