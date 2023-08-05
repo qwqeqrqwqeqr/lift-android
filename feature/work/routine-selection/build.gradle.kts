@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.work.work"
+    namespace = "com.gradation.lift.feature.work.routine_selection"
 
 }
 

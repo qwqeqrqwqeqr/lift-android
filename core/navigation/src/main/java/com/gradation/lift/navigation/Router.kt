@@ -31,11 +31,11 @@ object Router {
     const val HISTORY_ROUTER_NAME = "history"
     const val MY_INFO_ROUTER_NAME = "myinfo"
 
-    const val READY_WORK_GRAPH_NAME = "ready_work_graph"
-    const val READY_WORK_SELECTION_ROUTER_NAME = "selection"
-    const val READY_WORK_CHANGE_ORDER_ROUTER_NAME = "change_order"
+
 
     const val WORK_GRAPH_NAME = "work_graph"
+    const val WORK_ROUTINE_SELECTION_ROUTER_NAME = "routine_selection"
+    const val WORK_CHANGE_ORDER_ROUTER_NAME = "change_order"
     const val WORK_WORK_ROUTER_NAME = "work"
     const val WORK_COMPLETE_ROUTER_NAME = "complete"
 

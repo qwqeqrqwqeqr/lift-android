@@ -53,9 +53,8 @@ dependencies{
     implementation(project(":feature:register-detail:profile-picture"))
 
 
-    implementation(project(":feature:ready-work:selection"))
-    implementation(project(":feature:ready-work:change-order"))
-
+    implementation(project(":feature:work:routine-selection"))
+    implementation(project(":feature:work:change-order"))
     implementation(project(":feature:work:work"))
     implementation(project(":feature:work:complete"))
 

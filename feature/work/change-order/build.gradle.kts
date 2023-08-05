@@ -6,8 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.work.work"
-
+    namespace = "com.gradation.lift.feature.work.change_order"
 }
 
 
@@ -22,6 +21,8 @@ dependencies {
     implementation(project(":core:ui"))
 
 
+
     implementation(project(":feature:work:work"))
+
 
 }

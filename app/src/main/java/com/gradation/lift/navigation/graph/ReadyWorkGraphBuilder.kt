@@ -5,8 +5,8 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
-import com.gradation.lift.feature.ready_work.change_order.readyWorkChangeOrderScreen
-import com.gradation.lift.feature.ready_work.selection.readyWorkSelectionScreen
+import com.gradation.lift.feature.work.change_order.readyWorkChangeOrderScreen
+import com.gradation.lift.feature.work.routine_selection.readyWorkSelectionScreen
 import com.gradation.lift.navigation.Router.READY_WORK_GRAPH_NAME
 import com.gradation.lift.navigation.Router.READY_WORK_SELECTION_ROUTER_NAME
 
