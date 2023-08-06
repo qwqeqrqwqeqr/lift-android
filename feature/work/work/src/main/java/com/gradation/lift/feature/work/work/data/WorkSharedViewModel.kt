@@ -56,7 +56,7 @@ class WorkSharedViewModel @Inject constructor(
         { value -> checkedWorkSetList.update { it.minus(value) } }
 
 
-     
+
     fun createWorkList(routineSetRoutineList: List<RoutineSetRoutine>) {
         workList.update {
             it.plus(routineSetRoutineList.flatMap { it.routine }

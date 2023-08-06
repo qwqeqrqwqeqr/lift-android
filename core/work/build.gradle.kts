@@ -10,6 +10,6 @@ android {
     namespace = "com.gradation.lift.work"
 }
 dependencies {
-    testImplementation(project(":core:test"))
+    implementation(project(":core:test"))
 
 }
