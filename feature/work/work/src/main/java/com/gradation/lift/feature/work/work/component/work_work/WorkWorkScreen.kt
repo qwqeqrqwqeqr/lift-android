@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work.component
+package com.gradation.lift.feature.work.work.component.work_work
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,7 @@ import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.feature.work.work.data.WorkScreenState
 import com.gradation.lift.model.utils.ModelDataGenerator
 
 @ExperimentalMaterial3Api
@@ -23,7 +23,7 @@ import com.gradation.lift.model.utils.ModelDataGenerator
 fun WorkWorkScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
-    routineSetRoutine: List<RoutineSetRoutine>
+    onListClickTopBar: (WorkScreenState) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -31,7 +31,7 @@ fun WorkWorkScreen(
                 title = null,
                 onCloseClickTopBar = onCloseClickTopBar
             ) {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {onListClickTopBar(WorkScreenState.ListScreen(true))}) {
                     Icon(
                         painter = painterResource(LiftIcon.List),
                         contentDescription = "",
@@ -45,9 +45,11 @@ fun WorkWorkScreen(
             color = LiftTheme.colorScheme.no5,
             modifier = modifier.fillMaxSize()
         ) {
-            Column(modifier = modifier
-                .padding(16.dp)
-                .padding(it)) {
+            Column(
+                modifier = modifier
+                    .padding(16.dp)
+                    .padding(it)
+            ) {
 
             }
         }
@@ -64,7 +66,7 @@ fun WorkWorkScreenPreview() {
         WorkWorkScreen(
             modifier = Modifier,
             onCloseClickTopBar = { },
-            routineSetRoutine = ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+            onListClickTopBar = {},
         )
     }
 }

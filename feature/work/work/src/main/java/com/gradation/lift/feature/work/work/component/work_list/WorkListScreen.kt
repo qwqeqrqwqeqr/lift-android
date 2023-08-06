@@ -2,6 +2,7 @@ package com.gradation.lift.feature.work.work.component
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
@@ -15,29 +16,35 @@ import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.work.data.WorkScreenState
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator
 
 @ExperimentalMaterial3Api
 @Composable
-fun WorkRestScreen(
+fun WorkListScreen(
     modifier: Modifier = Modifier,
-    onCloseClickTopBar: () -> Unit,
-    routineSetRoutine: List<RoutineSetRoutine>
+    onCloseClickTopBar: (WorkScreenState) -> Unit,
 ) {
     Scaffold(
         topBar = {
             LiftCloseTopBar(
-                title = null,
-                onCloseClickTopBar = onCloseClickTopBar
+                title = "운동 조회",
+                onCloseClickTopBar = { onCloseClickTopBar(WorkScreenState.WorkScreen) }
             ) {
-                IconButton(onClick = {}) {
-                    Icon(
-                        painter = painterResource(LiftIcon.List),
-                        contentDescription = "",
-                        tint = Color.Unspecified,
-                    )
-                }
+                Icon(
+                    painter = painterResource(LiftIcon.Timer),
+                    contentDescription = "",
+                    tint = Color.Unspecified,
+                )
+                Spacer(modifier = modifier.padding(5.dp))
+                Text(
+                    text = "00:00",
+                    style = LiftTheme.typography.no2,
+                    color = LiftTheme.colorScheme.no9
+                )
+                Spacer(modifier = modifier.padding(8.dp))
+
             }
         },
     ) {
@@ -45,9 +52,11 @@ fun WorkRestScreen(
             color = LiftTheme.colorScheme.no5,
             modifier = modifier.fillMaxSize()
         ) {
-            Column(modifier = modifier
-                .padding(16.dp)
-                .padding(it)) {
+            Column(
+                modifier = modifier
+                    .padding(16.dp)
+                    .padding(it)
+            ) {
 
             }
         }
@@ -59,12 +68,11 @@ fun WorkRestScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun WorkRestScreenPreview() {
+fun WorkListScreenPreview() {
     LiftMaterialTheme {
-        WorkWorkScreen(
+        WorkListScreen(
             modifier = Modifier,
             onCloseClickTopBar = { },
-            routineSetRoutine = ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
         )
     }
 }
