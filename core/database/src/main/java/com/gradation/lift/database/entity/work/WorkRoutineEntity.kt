@@ -23,7 +23,7 @@ import com.gradation.lift.model.work.WorkSet
 data class WorkRoutineEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Int = 0,
 
     @ColumnInfo(name = "work_id")
     val workId: Int,

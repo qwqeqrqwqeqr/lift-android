@@ -10,5 +10,5 @@ fun Work.toEntity() = WorkEntity(
 )
 
 fun WorkRoutine.toEntity() = WorkRoutineEntity(
-    id, workId, workCategory.toEntity(), workSetList
+    workId = workId, workCategory = workCategory.toEntity(), workSetList = workSetList
 )
