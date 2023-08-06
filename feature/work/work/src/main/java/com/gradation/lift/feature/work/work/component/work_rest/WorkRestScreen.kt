@@ -23,7 +23,8 @@ import com.gradation.lift.model.utils.ModelDataGenerator
 fun WorkRestScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
-    onListClickTopBar : (WorkScreenState) -> Unit,
+    onListClickTopBar: (WorkScreenState) -> Unit,
+    onClickWorkCompleteButton: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -31,7 +32,7 @@ fun WorkRestScreen(
                 title = null,
                 onCloseClickTopBar = onCloseClickTopBar
             ) {
-                IconButton(onClick =  {onListClickTopBar(WorkScreenState.ListScreen(false))}) {
+                IconButton(onClick = { onListClickTopBar(WorkScreenState.ListScreen(false)) }) {
                     Icon(
                         painter = painterResource(LiftIcon.List),
                         contentDescription = "",
@@ -45,9 +46,11 @@ fun WorkRestScreen(
             color = LiftTheme.colorScheme.no5,
             modifier = modifier.fillMaxSize()
         ) {
-            Column(modifier = modifier
-                .padding(16.dp)
-                .padding(it)) {
+            Column(
+                modifier = modifier
+                    .padding(16.dp)
+                    .padding(it)
+            ) {
 
             }
         }
@@ -63,8 +66,9 @@ fun WorkRestScreenPreview() {
     LiftMaterialTheme {
         WorkRestScreen(
             modifier = Modifier,
-            onCloseClickTopBar = { },
-            onListClickTopBar= {},
+            onCloseClickTopBar = {},
+            onListClickTopBar = {},
+            onClickWorkCompleteButton = {}
         )
     }
 }

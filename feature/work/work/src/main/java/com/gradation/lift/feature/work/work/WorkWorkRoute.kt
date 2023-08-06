@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.work.work
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -49,6 +50,8 @@ fun WorkWorkRoute(
     val invisibleCompleteDialog = viewModel.invisibleCompleteDialog()
 
 
+    BackHandler(enabled = true, onBack = visibleSuspendDialog)
+
     if (onVisibleSuspendDialog) {
         Surface(
             color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
@@ -71,6 +74,7 @@ fun WorkWorkRoute(
                     modifier = modifier,
                     onCloseClickTopBar = visibleSuspendDialog,
                     onListClickTopBar = updateScreenState,
+                    onClickWorkCompleteButton = visibleCompleteDialog
                 )
             }
             WorkScreenState.WorkScreen -> {
@@ -78,6 +82,7 @@ fun WorkWorkRoute(
                     modifier = modifier,
                     onCloseClickTopBar = visibleSuspendDialog,
                     onListClickTopBar = updateScreenState,
+                    onClickWorkCompleteButton = visibleCompleteDialog
                 )
             }
         }

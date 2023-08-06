@@ -21,7 +21,7 @@ import com.gradation.lift.model.work.WorkSet
     ]
 )
 data class WorkRoutineEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
 
@@ -36,7 +36,6 @@ data class WorkRoutineEntity(
     val workSetList: List<WorkSet>,
 ) {
     fun toDomain(): WorkRoutine = WorkRoutine(
-        id = this.id,
         workId = this.workId,
         workCategory = this.workCategory.toDomain(),
         workSetList = this.workSetList

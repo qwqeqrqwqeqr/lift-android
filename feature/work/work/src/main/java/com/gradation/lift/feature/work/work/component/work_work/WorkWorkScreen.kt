@@ -24,6 +24,7 @@ fun WorkWorkScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
     onListClickTopBar: (WorkScreenState) -> Unit,
+    onClickWorkCompleteButton: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -31,7 +32,7 @@ fun WorkWorkScreen(
                 title = null,
                 onCloseClickTopBar = onCloseClickTopBar
             ) {
-                IconButton(onClick = {onListClickTopBar(WorkScreenState.ListScreen(true))}) {
+                IconButton(onClick = { onListClickTopBar(WorkScreenState.ListScreen(true)) }) {
                     Icon(
                         painter = painterResource(LiftIcon.List),
                         contentDescription = "",
@@ -65,8 +66,9 @@ fun WorkWorkScreenPreview() {
     LiftMaterialTheme {
         WorkWorkScreen(
             modifier = Modifier,
-            onCloseClickTopBar = { },
+            onCloseClickTopBar = {},
             onListClickTopBar = {},
+            onClickWorkCompleteButton = {}
         )
     }
 }

@@ -65,7 +65,7 @@ internal fun WorkRoutineSelectionRoute(
         onBackClickTopBar = navigateWorkToMain,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
-            sharedViewModel.updateSelectedRoutineSetList(selectedRoutineSetList)
+            sharedViewModel.createWorkList(selectedRoutineSetList)
             navigateSelectionRoutineToWork()
         },
         selectedRoutineCount = selectedRoutineCount,
