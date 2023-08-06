@@ -27,14 +27,15 @@ class WorkSharedViewModel @Inject constructor(
         checkedWorkSetList
     ) { selectedWorkList, openedWorkRoutineIdList, checkedWorkSetList ->
         selectedWorkList.map { workRoutineItem ->
-            workRoutineItem.opened = openedWorkRoutineIdList.contains(workRoutineItem.index)
-            workRoutineItem.workSetList.map { workSetItem ->
-                workSetItem.selected = checkedWorkSetList.contains(workSetItem.set)
-            }
+            workRoutineItem.copy(
+                opened = openedWorkRoutineIdList.contains(workRoutineItem.index),
+                workSetList = workRoutineItem.workSetList.map { workSetItem ->
+                    workSetItem.copy(
+                        selected = checkedWorkSetList.contains(workSetItem.set)
+                    )
+                }
+            )
         }
-
-
-        emptyList<WorkRoutineSelection>()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -42,8 +43,20 @@ class WorkSharedViewModel @Inject constructor(
     )
 
 
+    fun addOpenedWorkRoutineId(): (Int) -> Unit =
+        { value -> openedWorkRoutineIdList.update { it.plus(value) } }
+
+    fun removeOpenedWorkRoutineId(): (Int) -> Unit =
+        { value -> openedWorkRoutineIdList.update { it.minus(value) } }
+
+    fun checkWorkSet(): (Pair<Int, Int>) -> Unit =
+        { value -> checkedWorkSetList.update { it.plus(value) } }
+
+    fun uncheckWorkSet(): (Pair<Int, Int>) -> Unit =
+        { value -> checkedWorkSetList.update { it.minus(value) } }
 
 
+     
     fun createWorkList(routineSetRoutineList: List<RoutineSetRoutine>) {
         workList.update {
             it.plus(routineSetRoutineList.flatMap { it.routine }
