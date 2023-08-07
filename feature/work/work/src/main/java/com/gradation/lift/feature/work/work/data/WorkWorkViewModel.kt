@@ -1,35 +1,31 @@
 package com.gradation.lift.feature.work.work.data
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 import javax.inject.Inject
 
 @HiltViewModel
 class WorkWorkViewModel @Inject constructor(
+    private val initTimerUseCase: InitTimerUseCase
 ) : ViewModel() {
 
 
-    internal var onVisibleSuspendDialog = MutableStateFlow(false)
-    internal var onVisibleCompleteDialog = MutableStateFlow(false)
+    private val workState = MutableStateFlow(true)
+    val workRestTime = MutableStateFlow(WorkRestTime())
 
 
 
-
-    val time = MutableStateFlow(System.currentTimeMillis())
-    val restTime = MutableStateFlow(0L)
 
 
     val workScreenState: MutableStateFlow<WorkScreenState> =
         MutableStateFlow(WorkScreenState.WorkScreen)
-
-
-    private var oldTimeMills: Long = 0
+    internal var onVisibleSuspendDialog = MutableStateFlow(false)
+    internal var onVisibleCompleteDialog = MutableStateFlow(false)
 
 
     fun updateWorkScreenState(): (WorkScreenState) -> Unit = { state ->
@@ -47,34 +43,57 @@ class WorkWorkViewModel @Inject constructor(
     }
 
 
-    fun visibleSuspendDialog() : () -> Unit = {
-        onVisibleSuspendDialog.value=true
+    fun updateWorkState(): (Boolean) -> Unit = {
+        workState.update { it }
     }
 
-    fun invisibleSuspendDialog() : () -> Unit = {
-        onVisibleSuspendDialog.value=false
+    fun visibleSuspendDialog(): () -> Unit = {
+        onVisibleSuspendDialog.value = true
     }
 
-    fun visibleCompleteDialog() : () -> Unit = {
-        onVisibleCompleteDialog.value=true
+    fun invisibleSuspendDialog(): () -> Unit = {
+        onVisibleSuspendDialog.value = false
     }
 
-    fun invisibleCompleteDialog() : () -> Unit = {
-        onVisibleCompleteDialog.value=false
+    fun visibleCompleteDialog(): () -> Unit = {
+        onVisibleCompleteDialog.value = true
     }
 
-
-    fun startRestTime() {
-
+    fun invisibleCompleteDialog(): () -> Unit = {
+        onVisibleCompleteDialog.value = false
     }
 
-    fun pauseRestTime() {
-
-
+    fun startTimer() {
+        viewModelScope.launch {
+            combine(
+                initTimerUseCase(),
+                workState,
+            ) { currentTime, workState ->
+                if (workState) {
+                    workRestTime.update {
+                        it.copy(
+                            totalTime = fromSecondOfDay(currentTime),
+                            workTime = fromSecondOfDay((it.workTime.toSecondOfDay() + 1))
+                        )
+                    }
+                } else {
+                    workRestTime.update {
+                        it.copy(
+                            totalTime = fromSecondOfDay(currentTime),
+                            restTime = fromSecondOfDay((it.restTime.toSecondOfDay() + 1))
+                        )
+                    }
+                }
+            }.collect()
+        }
     }
-
-
 }
 
+
+data class WorkRestTime(
+    val workTime: LocalTime = LocalTime(0, 0, 0),
+    val restTime: LocalTime = LocalTime(0, 0, 0),
+    val totalTime: LocalTime = LocalTime(0, 0, 0),
+)
 
 

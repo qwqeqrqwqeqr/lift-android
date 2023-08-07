@@ -16,7 +16,6 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.WorkScreenState
-import com.gradation.lift.model.utils.ModelDataGenerator
 
 @ExperimentalMaterial3Api
 @Composable
@@ -24,7 +23,7 @@ fun WorkRestScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
     onListClickTopBar: (WorkScreenState) -> Unit,
-    onClickWorkCompleteButton: () -> Unit
+    onClickWorkCompleteButton: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -68,7 +67,7 @@ fun WorkRestScreenPreview() {
             modifier = Modifier,
             onCloseClickTopBar = {},
             onListClickTopBar = {},
-            onClickWorkCompleteButton = {}
+            onClickWorkCompleteButton = {},
         )
     }
 }

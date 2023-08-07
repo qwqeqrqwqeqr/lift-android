@@ -10,7 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.component.WorkListScreen
+import com.gradation.lift.feature.work.work.component.work_list.WorkListScreen
 import com.gradation.lift.feature.work.work.component.work_rest.WorkRestScreen
 import com.gradation.lift.feature.work.work.component.work_work.WorkWorkScreen
 import com.gradation.lift.feature.work.work.component.dialog.SuspendDialog
@@ -42,6 +42,7 @@ fun WorkWorkRoute(
 
 
     val updateScreenState = viewModel.updateWorkScreenState()
+    val updateWorkState = viewModel.updateWorkState()
 
     val visibleSuspendDialog = viewModel.visibleSuspendDialog()
     val invisibleSuspendDialog = viewModel.invisibleSuspendDialog()
@@ -50,7 +51,12 @@ fun WorkWorkRoute(
     val invisibleCompleteDialog = viewModel.invisibleCompleteDialog()
 
 
+    val workTime by viewModel.workRestTime.collectAsStateWithLifecycle()
+
     BackHandler(enabled = true, onBack = visibleSuspendDialog)
+    LaunchedEffect(true){
+        viewModel.startTimer()
+    }
 
     if (onVisibleSuspendDialog) {
         Surface(
@@ -74,7 +80,7 @@ fun WorkWorkRoute(
                     modifier = modifier,
                     onCloseClickTopBar = visibleSuspendDialog,
                     onListClickTopBar = updateScreenState,
-                    onClickWorkCompleteButton = visibleCompleteDialog
+                    onClickWorkCompleteButton = visibleCompleteDialog,
                 )
             }
             WorkScreenState.WorkScreen -> {
@@ -82,8 +88,10 @@ fun WorkWorkRoute(
                     modifier = modifier,
                     onCloseClickTopBar = visibleSuspendDialog,
                     onListClickTopBar = updateScreenState,
-                    onClickWorkCompleteButton = visibleCompleteDialog
-                )
+                    onClickWorkCompleteButton = visibleCompleteDialog,
+                    workTime = workTime,
+
+                    )
             }
         }
     }

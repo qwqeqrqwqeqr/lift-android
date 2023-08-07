@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work.component
+package com.gradation.lift.feature.work.work.component.work_list
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -17,8 +17,6 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.WorkScreenState
-import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator
 
 @ExperimentalMaterial3Api
 @Composable
