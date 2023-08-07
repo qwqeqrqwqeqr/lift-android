@@ -58,6 +58,8 @@ internal fun WorkRoutineSelectionRoute(
     val selectedRoutineSetList by viewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
 
 
+
+
     WorkRoutineSelectionScreen(
         modifier = modifier,
         weekday = weekDate,
@@ -65,7 +67,7 @@ internal fun WorkRoutineSelectionRoute(
         onBackClickTopBar = navigateWorkToMain,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
-            sharedViewModel.createWorkList(selectedRoutineSetList)
+            sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetList)
             navigateSelectionRoutineToWork()
         },
         selectedRoutineCount = selectedRoutineCount,

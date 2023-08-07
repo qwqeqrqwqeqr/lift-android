@@ -16,7 +16,11 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
+import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
+import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
 
 @ExperimentalMaterial3Api
 @Composable
@@ -25,8 +29,16 @@ fun WorkWorkScreen(
     onCloseClickTopBar: () -> Unit,
     onListClickTopBar: (WorkScreenState) -> Unit,
     onClickWorkCompleteButton: () -> Unit,
+    updateWorkState: () -> Unit,
     workTime: WorkRestTime,
-    updateWorkState: (Boolean) -> Unit
+    checkWorkSet: (Pair<Int, Int>) -> Unit,
+    uncheckWorkSet: (Pair<Int, Int>) -> Unit,
+    updateWorkIndexToPreviousIndex: () -> Unit,
+    updateWorkIndexToNextIndex: () -> Unit,
+    workProgress: Int,
+    currentWork: WorkRoutineSelection,
+    previousWork: WorkRoutineSelection?,
+    nextWork: WorkRoutineSelection?,
 ) {
     Scaffold(
         topBar = {
@@ -74,8 +86,47 @@ fun WorkWorkScreenPreview() {
             onCloseClickTopBar = {},
             onListClickTopBar = {},
             onClickWorkCompleteButton = {},
+            updateWorkState = { },
             workTime = WorkRestTime(),
-            updateWorkState = {  }
+            checkWorkSet = {},
+            uncheckWorkSet = {},
+            updateWorkIndexToPreviousIndex = {},
+            updateWorkIndexToNextIndex = {},
+            workProgress = 50,
+            currentWork = WorkRoutineSelection(
+                index = 2,
+                workCategory = workCategoryModel1,
+                workSetList = listOf(
+                    WorkSetSelection(
+                        set = Pair(2, 1),
+                        weight = 40f,
+                        repetition = 12,
+                        selected = true
+                    ),
+                    WorkSetSelection(
+                        set = Pair(2, 2),
+                        weight = 40f,
+                        repetition = 12,
+                        selected = false
+                    ),
+                    WorkSetSelection(
+                        set = Pair(2, 3),
+                        weight = 40f,
+                        repetition = 12,
+                        selected = false
+                    )
+                )
+            ),
+            previousWork = WorkRoutineSelection(
+                index = 1,
+                workCategory = workCategoryModel2,
+                workSetList = listOf()
+            ),
+            nextWork = WorkRoutineSelection(
+                index = 3,
+                workCategory = workCategoryModel2,
+                workSetList = listOf()
+            )
         )
     }
 }

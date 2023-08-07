@@ -24,8 +24,9 @@ fun WorkRestScreen(
     onCloseClickTopBar: () -> Unit,
     onListClickTopBar: () -> Unit,
     onClickWorkCompleteButton: () -> Unit,
+    updateWorkState: () -> Unit,
+
     workTime: WorkRestTime,
-    updateWorkState: (Boolean) -> Unit,
 ) {
     Scaffold(
         topBar = {

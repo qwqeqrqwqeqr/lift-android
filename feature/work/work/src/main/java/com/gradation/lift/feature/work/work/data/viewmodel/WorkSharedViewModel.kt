@@ -15,31 +15,77 @@ import javax.inject.Inject
 class WorkSharedViewModel @Inject constructor(
 ) : ViewModel() {
 
-
+    private val routineSetRoutineList = MutableStateFlow(emptyList<RoutineSetRoutine>())
     private val openedWorkRoutineIdList = MutableStateFlow(emptySet<Int>())
     private val checkedWorkSetList = MutableStateFlow(emptySet<Pair<Int, Int>>())
-    private val workList = MutableStateFlow(emptyList<WorkRoutineSelection>())
+    private val currentWorkIndex = MutableStateFlow(0)
 
 
-    val selectedWorkList = combine(
-        workList,
+    val workList = combine(
+        routineSetRoutineList,
         openedWorkRoutineIdList,
         checkedWorkSetList
-    ) { selectedWorkList, openedWorkRoutineIdList, checkedWorkSetList ->
-        selectedWorkList.map { workRoutineItem ->
-            workRoutineItem.copy(
-                opened = openedWorkRoutineIdList.contains(workRoutineItem.index),
-                workSetList = workRoutineItem.workSetList.map { workSetItem ->
-                    workSetItem.copy(
-                        selected = checkedWorkSetList.contains(workSetItem.set)
-                    )
-                }
-            )
-        }
+    ) { routineSetRoutineList, openedWorkRoutineIdList, checkedWorkSetList ->
+
+        (routineSetRoutineList.flatMap { it.routine }
+            .mapIndexed { routineIndex, routine ->
+                WorkRoutineSelection(
+                    index = routineIndex,
+                    workCategory = routine.workCategory,
+                    opened = openedWorkRoutineIdList.contains(routineIndex),
+                    workSetList = routine.workSetList.mapIndexed { workSetIndex, workSet ->
+                        WorkSetSelection(
+                            set = Pair(routineIndex, workSetIndex + 1),
+                            weight = workSet.weight,
+                            repetition = workSet.repetition,
+                            selected = checkedWorkSetList.contains(
+                                Pair(
+                                    routineIndex,
+                                    workSetIndex + 1
+                                )
+                            )
+                        )
+                    }
+                )
+            })
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList<WorkRoutineSelection>()
+    )
+
+
+    val workProgress = workList
+        .map { it.flatMap { it.workSetList }.size }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Lazily,
+            initialValue = 0
+        )
+
+
+
+
+    val currentWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
+        workList.find { it.index == currentWorkIndex } ?: workList.first()
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = workList.value.first()
+    )
+    val previousWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
+        workList.find { it.index == currentWorkIndex - 1 }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = workList.value.first()
+    )
+    val nextWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
+        workList.find { it.index == currentWorkIndex + 1 }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = workList.value.first()
     )
 
 
@@ -56,30 +102,20 @@ class WorkSharedViewModel @Inject constructor(
         { value -> checkedWorkSetList.update { it.minus(value) } }
 
 
-
-    fun createWorkList(routineSetRoutineList: List<RoutineSetRoutine>) {
-        workList.update {
-            it.plus(routineSetRoutineList.flatMap { it.routine }
-                .mapIndexed { routineIndex, routine ->
-                    WorkRoutineSelection(
-                        index = routineIndex,
-                        workCategory = routine.workCategory,
-                        opened = false,
-                        workSetList = routine.workSetList.mapIndexed { workSetIndex, workSet ->
-                            WorkSetSelection(
-                                set = Pair(routineIndex, workSetIndex + 1),
-                                weight = workSet.weight,
-                                repetition = workSet.repetition,
-                                selected = false
-                            )
-                        }
-                    )
-                })
-        }
+    fun updateRoutineSetRoutineList(value: List<RoutineSetRoutine>) {
+        routineSetRoutineList.update { it.plus(value) }
     }
 
+    fun updateWorkIndexToPreviousIndex(): () -> Unit = {
+        currentWorkIndex.update { it - 1 }
+    }
+    fun updateWorkIndexToNextIndex(): () -> Unit = {
+        currentWorkIndex.update { it + 1 }
+    }
 
 }
+
+
 
 
 
