@@ -1,9 +1,11 @@
 package com.gradation.lift.feature.work.work.data.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
+import com.gradation.lift.feature.work.work.data.model.initModel
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.work.WorkCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,8 +58,8 @@ class WorkSharedViewModel @Inject constructor(
 
 
     val workProgress = workList.map {
-        it.flatMap { it.workSetList.filter { it.selected } }.count() / it.flatMap { it.workSetList }
-            .count()
+        ((it.flatMap { it.workSetList.filter { it.selected } }.count()
+            .toFloat() / it.flatMap { it.workSetList }.count().toFloat()) * 100).toInt()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
@@ -70,7 +72,7 @@ class WorkSharedViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
-        initialValue = workList.value.first()
+        initialValue = initModel
     )
     val previousWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
         workList.find { it.index == currentWorkIndex - 1 }

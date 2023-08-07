@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.gradation.lift.designsystem.canvas.LiftProgressCircle
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCloseTopBar
@@ -25,10 +26,8 @@ import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
-import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
-import com.gradation.lift.model.work.WorkSet
 
 @ExperimentalMaterial3Api
 @Composable
@@ -72,6 +71,7 @@ fun WorkWorkScreen(
                         .padding(
                             start = 16.dp,
                             end = 16.dp,
+                            bottom = 16.dp
                         ),
                     shape = RoundedCornerShape(size = 12.dp),
                     onClick = onClickWorkCompleteButton,
@@ -198,7 +198,7 @@ fun WorkWorkScreen(
                     Column() {
                         if (previousWork != null) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                IconButton(onClick = {}) {
+                                IconButton(onClick = updateWorkIndexToPreviousIndex) {
                                     Icon(
                                         painter = painterResource(LiftIcon.LeftArrowCircle),
                                         contentDescription = "",
@@ -232,7 +232,7 @@ fun WorkWorkScreen(
                                     style = LiftTheme.typography.no2,
                                 )
                                 Spacer(modifier = modifier.padding(2.dp))
-                                IconButton(onClick = {}) {
+                                IconButton(onClick = updateWorkIndexToNextIndex) {
                                     Icon(
                                         painter = painterResource(LiftIcon.RightArrowCircle),
                                         contentDescription = "",

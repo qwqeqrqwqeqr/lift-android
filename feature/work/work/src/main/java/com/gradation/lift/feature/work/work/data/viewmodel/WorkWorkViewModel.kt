@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.work.work.data.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
@@ -43,12 +44,12 @@ class WorkWorkViewModel @Inject constructor(
     }
 
     fun updateWorkDialogState(): (WorkDialogState) -> Unit = {
-        workDialogState.update { it }
+        workDialogState.value =  it
     }
 
 
     fun updateWorkState(): (Boolean) -> Unit = {
-        workState.update { it }
+        workState.value =it
     }
 
 
@@ -59,6 +60,7 @@ class WorkWorkViewModel @Inject constructor(
                 initTimerUseCase(),
                 workState,
             ) { currentTime, workState ->
+
                 if (workState) {
                     workRestTime.update {
                         it.copy(

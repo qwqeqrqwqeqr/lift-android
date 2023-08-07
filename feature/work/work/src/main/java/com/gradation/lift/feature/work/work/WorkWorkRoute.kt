@@ -103,8 +103,11 @@ fun WorkWorkRoute(
                         onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
                         onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(false)) },
                         onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
+                        onClickWorkButton = {updateScreenState(WorkScreenState.WorkScreen)},
                         updateWorkState = { updateWorkState(true) },
                         workTime = workTime,
+                        workProgress=workProgress,
+                        currentWork = currentWork
                     )
                 }
                 WorkScreenState.WorkScreen -> {
