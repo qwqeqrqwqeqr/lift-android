@@ -11,10 +11,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.LiftProgressCircle
+import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCloseTopBar
+import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -22,8 +25,10 @@ import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
+import com.gradation.lift.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.model.work.WorkSet
 
 @ExperimentalMaterial3Api
 @Composable
@@ -32,10 +37,11 @@ fun WorkWorkScreen(
     onCloseClickTopBar: () -> Unit,
     onListClickTopBar: (WorkScreenState) -> Unit,
     onClickWorkCompleteButton: () -> Unit,
+    onClickRestButton: () -> Unit,
     updateWorkState: () -> Unit,
     workTime: WorkRestTime,
-    checkWorkSet: (Pair<Int, Int>) -> Unit,
-    uncheckWorkSet: (Pair<Int, Int>) -> Unit,
+    updateCheckedWorkSet: ((Pair<Int, Int>), Boolean) -> Unit,
+
     updateWorkIndexToPreviousIndex: () -> Unit,
     updateWorkIndexToNextIndex: () -> Unit,
     workProgress: Int,
@@ -58,6 +64,48 @@ fun WorkWorkScreen(
                 }
             }
         },
+        floatingActionButton = {
+            Row(horizontalArrangement = Arrangement.spacedBy(1.dp)) {
+                LiftOutlineButton(
+                    modifier = modifier
+                        .weight(1f)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                        ),
+                    shape = RoundedCornerShape(size = 12.dp),
+                    onClick = onClickWorkCompleteButton,
+                ) {
+                    Text(
+                        text = "운동완료",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no4,
+                    )
+                }
+                LiftButton(
+
+                    modifier = modifier
+                        .weight(1f)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                        ),
+                    onClick = {
+                        updateWorkState()
+                        onClickRestButton()
+                    },
+                ) {
+                    Text(
+                        text = "휴식",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no5,
+                    )
+                }
+            }
+
+        },
+
+        floatingActionButtonPosition = FabPosition.Center
     ) {
         Surface(
             color = LiftTheme.colorScheme.no5,
@@ -133,6 +181,77 @@ fun WorkWorkScreen(
                     }
                 }
 
+
+
+                WorkSetListView(
+                    modifier = modifier,
+                    updateCheckedWorkSet = updateCheckedWorkSet,
+                    workSetList = currentWork.workSetList
+                )
+
+                Spacer(modifier = modifier.padding(16.dp))
+                Row(
+                    modifier = modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Column() {
+                        if (previousWork != null) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                IconButton(onClick = {}) {
+                                    Icon(
+                                        painter = painterResource(LiftIcon.LeftArrowCircle),
+                                        contentDescription = "",
+                                        tint = Color.Unspecified,
+                                    )
+                                }
+                                Spacer(modifier = modifier.padding(2.dp))
+                                Text(
+                                    text = "이전운동",
+                                    color = LiftTheme.colorScheme.no9,
+                                    style = LiftTheme.typography.no2,
+                                )
+                            }
+                            Text(
+                                text = previousWork.workCategory.name,
+                                color = LiftTheme.colorScheme.no9,
+                                style = LiftTheme.typography.no6,
+                                textAlign = TextAlign.Right,
+                                modifier = modifier.align(Alignment.End),
+                                overflow = Ellipsis
+                            )
+                        }
+                    }
+
+                    Column {
+                        if (nextWork != null) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "다음운동",
+                                    color = LiftTheme.colorScheme.no9,
+                                    style = LiftTheme.typography.no2,
+                                )
+                                Spacer(modifier = modifier.padding(2.dp))
+                                IconButton(onClick = {}) {
+                                    Icon(
+                                        painter = painterResource(LiftIcon.RightArrowCircle),
+                                        contentDescription = "",
+                                        tint = Color.Unspecified,
+                                    )
+                                }
+                            }
+                            Text(
+                                modifier = modifier.align(Alignment.Start),
+                                text = nextWork.workCategory.name,
+                                color = LiftTheme.colorScheme.no9,
+                                style = LiftTheme.typography.no6,
+                                textAlign = TextAlign.Left,
+                                overflow = Ellipsis
+                            )
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -150,10 +269,10 @@ fun WorkWorkScreenPreview() {
             onCloseClickTopBar = {},
             onListClickTopBar = {},
             onClickWorkCompleteButton = {},
+            onClickRestButton = {},
             updateWorkState = { },
             workTime = WorkRestTime(),
-            checkWorkSet = {},
-            uncheckWorkSet = {},
+            updateCheckedWorkSet = { _, _ -> },
             updateWorkIndexToPreviousIndex = {},
             updateWorkIndexToNextIndex = {},
             workProgress = 50,

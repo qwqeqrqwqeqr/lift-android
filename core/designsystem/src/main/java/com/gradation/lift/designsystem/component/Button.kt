@@ -19,6 +19,7 @@ fun LiftButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    shape : RoundedCornerShape = RoundedCornerShape(size = 12.dp),
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -26,7 +27,7 @@ fun LiftButton(
         onClick = onClick,
         modifier = modifier.height(52.dp),
         enabled = enabled,
-        shape = RoundedCornerShape(size = 12.dp),
+        shape = shape,
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no4,
             contentColor = LiftTheme.colorScheme.no5,

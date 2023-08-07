@@ -55,22 +55,21 @@ class WorkSharedViewModel @Inject constructor(
     )
 
 
-    val workProgress = workList
-        .map { it.flatMap { it.workSetList }.size }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = 0
-        )
-
-
+    val workProgress = workList.map {
+        it.flatMap { it.workSetList.filter { it.selected } }.count() / it.flatMap { it.workSetList }
+            .count()
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Lazily,
+        initialValue = 0
+    )
 
 
     val currentWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
         workList.find { it.index == currentWorkIndex } ?: workList.first()
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = workList.value.first()
     )
     val previousWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
@@ -78,14 +77,14 @@ class WorkSharedViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = workList.value.first()
+        initialValue = null
     )
     val nextWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
         workList.find { it.index == currentWorkIndex + 1 }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = workList.value.first()
+        initialValue = null
     )
 
 
@@ -95,11 +94,17 @@ class WorkSharedViewModel @Inject constructor(
     fun removeOpenedWorkRoutineId(): (Int) -> Unit =
         { value -> openedWorkRoutineIdList.update { it.minus(value) } }
 
-    fun checkWorkSet(): (Pair<Int, Int>) -> Unit =
-        { value -> checkedWorkSetList.update { it.plus(value) } }
+    fun updateCheckedWorkSet(): ((Pair<Int, Int>), Boolean) -> Unit =
+        { value, checked ->
+            if (checked) {
+                checkedWorkSetList.update { it.plus(value) }
+            } else {
+                checkedWorkSetList.update {
+                    it.minus(value)
+                }
 
-    fun uncheckWorkSet(): (Pair<Int, Int>) -> Unit =
-        { value -> checkedWorkSetList.update { it.minus(value) } }
+            }
+        }
 
 
     fun updateRoutineSetRoutineList(value: List<RoutineSetRoutine>) {
@@ -109,6 +114,7 @@ class WorkSharedViewModel @Inject constructor(
     fun updateWorkIndexToPreviousIndex(): () -> Unit = {
         currentWorkIndex.update { it - 1 }
     }
+
     fun updateWorkIndexToNextIndex(): () -> Unit = {
         currentWorkIndex.update { it + 1 }
     }

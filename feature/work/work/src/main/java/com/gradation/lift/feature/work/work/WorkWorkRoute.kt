@@ -57,8 +57,7 @@ fun WorkWorkRoute(
 
     val addOpenedWorkRoutineId = sharedViewModel.addOpenedWorkRoutineId()
     val removeOpenedWorkRoutineId = sharedViewModel.removeOpenedWorkRoutineId()
-    val checkWorkSet = sharedViewModel.checkWorkSet()
-    val uncheckWorkSet = sharedViewModel.uncheckWorkSet()
+    val updateCheckedWorkSet = sharedViewModel.updateCheckedWorkSet()
     val updateWorkIndexToPreviousIndex = sharedViewModel.updateWorkIndexToPreviousIndex()
     val updateWorkIndexToNextIndex = sharedViewModel.updateWorkIndexToNextIndex()
 
@@ -114,9 +113,9 @@ fun WorkWorkRoute(
                         onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
                         onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(true)) },
                         onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
+                        onClickRestButton = { updateScreenState(WorkScreenState.RestScreen) },
                         updateWorkState = { updateWorkState(false) },
-                        checkWorkSet=checkWorkSet,
-                        uncheckWorkSet=uncheckWorkSet,
+                        updateCheckedWorkSet=updateCheckedWorkSet,
                         updateWorkIndexToPreviousIndex=updateWorkIndexToPreviousIndex,
                         updateWorkIndexToNextIndex=updateWorkIndexToNextIndex,
 
