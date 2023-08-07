@@ -23,7 +23,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun CompleteDialog(
     modifier: Modifier = Modifier,
-    onClickDialogSuspendButton: () -> Unit,
+    onClickDialogCompleteButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,
 ) {
     LiftDialog(onDismissRequest = {}) {
@@ -88,7 +88,7 @@ internal fun CompleteDialog(
 
                 LiftButton(
                     modifier = modifier.weight(1f),
-                    onClick = onClickDialogSuspendButton,
+                    onClick = onClickDialogCompleteButton,
                 ) {
                     Text(
                         text = "완료",
@@ -108,7 +108,7 @@ internal fun CompleteDialog(
 fun CompleteDialogPreview() {
     LiftMaterialTheme {
         CompleteDialog(
-            onClickDialogSuspendButton = {},
+            onClickDialogCompleteButton = {},
             onClickDialogDismissButton = {}
         )
     }

@@ -1,4 +1,5 @@
 package com.gradation.lift.feature.work.work.data
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
@@ -19,13 +20,11 @@ class WorkWorkViewModel @Inject constructor(
     val workRestTime = MutableStateFlow(WorkRestTime())
 
 
-
+    val workDialogState: MutableStateFlow<WorkDialogState> = MutableStateFlow(WorkDialogState.None)
 
 
     val workScreenState: MutableStateFlow<WorkScreenState> =
         MutableStateFlow(WorkScreenState.WorkScreen)
-    internal var onVisibleSuspendDialog = MutableStateFlow(false)
-    internal var onVisibleCompleteDialog = MutableStateFlow(false)
 
 
     fun updateWorkScreenState(): (WorkScreenState) -> Unit = { state ->
@@ -42,26 +41,16 @@ class WorkWorkViewModel @Inject constructor(
         }
     }
 
+    fun updateWorkDialogState(): (WorkDialogState) -> Unit = {
+        workDialogState.update { it }
+    }
+
 
     fun updateWorkState(): (Boolean) -> Unit = {
         workState.update { it }
     }
 
-    fun visibleSuspendDialog(): () -> Unit = {
-        onVisibleSuspendDialog.value = true
-    }
 
-    fun invisibleSuspendDialog(): () -> Unit = {
-        onVisibleSuspendDialog.value = false
-    }
-
-    fun visibleCompleteDialog(): () -> Unit = {
-        onVisibleCompleteDialog.value = true
-    }
-
-    fun invisibleCompleteDialog(): () -> Unit = {
-        onVisibleCompleteDialog.value = false
-    }
 
     fun startTimer() {
         viewModelScope.launch {

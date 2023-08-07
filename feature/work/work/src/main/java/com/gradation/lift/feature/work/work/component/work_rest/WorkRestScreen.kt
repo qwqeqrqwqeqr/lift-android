@@ -22,7 +22,7 @@ import com.gradation.lift.feature.work.work.data.WorkScreenState
 fun WorkRestScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
-    onListClickTopBar: (WorkScreenState) -> Unit,
+    onListClickTopBar: () -> Unit,
     onClickWorkCompleteButton: () -> Unit,
 ) {
     Scaffold(
@@ -31,7 +31,7 @@ fun WorkRestScreen(
                 title = null,
                 onCloseClickTopBar = onCloseClickTopBar
             ) {
-                IconButton(onClick = { onListClickTopBar(WorkScreenState.ListScreen(false)) }) {
+                IconButton(onClick = onListClickTopBar) {
                     Icon(
                         painter = painterResource(LiftIcon.List),
                         contentDescription = "",

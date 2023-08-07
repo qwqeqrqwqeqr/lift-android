@@ -22,13 +22,13 @@ import com.gradation.lift.feature.work.work.data.WorkScreenState
 @Composable
 fun WorkListScreen(
     modifier: Modifier = Modifier,
-    onCloseClickTopBar: (WorkScreenState) -> Unit,
+    onCloseClickTopBar: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             LiftCloseTopBar(
                 title = "운동 조회",
-                onCloseClickTopBar = { onCloseClickTopBar(WorkScreenState.WorkScreen) }
+                onCloseClickTopBar =  onCloseClickTopBar
             ) {
                 Icon(
                     painter = painterResource(LiftIcon.Timer),

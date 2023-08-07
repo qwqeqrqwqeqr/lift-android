@@ -10,10 +10,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.work.component.dialog.CompleteDialog
 import com.gradation.lift.feature.work.work.component.work_list.WorkListScreen
 import com.gradation.lift.feature.work.work.component.work_rest.WorkRestScreen
 import com.gradation.lift.feature.work.work.component.work_work.WorkWorkScreen
 import com.gradation.lift.feature.work.work.component.dialog.SuspendDialog
+import com.gradation.lift.feature.work.work.data.WorkDialogState
 import com.gradation.lift.feature.work.work.data.WorkScreenState
 import com.gradation.lift.feature.work.work.data.WorkSharedViewModel
 import com.gradation.lift.feature.work.work.data.WorkWorkViewModel
@@ -36,62 +38,67 @@ fun WorkWorkRoute(
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
 
-    val onVisibleSuspendDialog by viewModel.onVisibleSuspendDialog.collectAsStateWithLifecycle()
-    val onVisibleCompleteDialog by viewModel.onVisibleCompleteDialog.collectAsStateWithLifecycle()
     val workScreenState: WorkScreenState by viewModel.workScreenState.collectAsStateWithLifecycle()
-
+    val workDialogState: WorkDialogState by viewModel.workDialogState.collectAsStateWithLifecycle()
 
     val updateScreenState = viewModel.updateWorkScreenState()
+    val updateDialogState = viewModel.updateWorkDialogState()
     val updateWorkState = viewModel.updateWorkState()
-
-    val visibleSuspendDialog = viewModel.visibleSuspendDialog()
-    val invisibleSuspendDialog = viewModel.invisibleSuspendDialog()
-
-    val visibleCompleteDialog = viewModel.visibleCompleteDialog()
-    val invisibleCompleteDialog = viewModel.invisibleCompleteDialog()
 
 
     val workTime by viewModel.workRestTime.collectAsStateWithLifecycle()
 
-    BackHandler(enabled = true, onBack = visibleSuspendDialog)
-    LaunchedEffect(true){
+    BackHandler(enabled = true, onBack = { updateDialogState(WorkDialogState.SuspendDialog) })
+    LaunchedEffect(true) {
         viewModel.startTimer()
     }
 
-    if (onVisibleSuspendDialog) {
-        Surface(
-            color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
-        ) {
-            SuspendDialog(
-                onClickDialogSuspendButton = navigateWorkToMain,
-                onClickDialogDismissButton = invisibleSuspendDialog,
-            )
+    when (workDialogState) {
+        WorkDialogState.SuspendDialog -> {
+            Surface(
+                color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
+            ) {
+                SuspendDialog(
+                    onClickDialogSuspendButton = navigateWorkToMain,
+                    onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
+                )
+            }
         }
-    } else {
-        when (workScreenState) {
-            is WorkScreenState.ListScreen -> {
-                WorkListScreen(
-                    modifier = modifier,
-                    onCloseClickTopBar = updateScreenState,
+        WorkDialogState.CompleteDialog -> {
+            Surface(
+                color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
+            ) {
+                CompleteDialog(
+                    onClickDialogCompleteButton = navigateWorkToMain,
+                    onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
             }
-            WorkScreenState.RestScreen -> {
-                WorkRestScreen(
-                    modifier = modifier,
-                    onCloseClickTopBar = visibleSuspendDialog,
-                    onListClickTopBar = updateScreenState,
-                    onClickWorkCompleteButton = visibleCompleteDialog,
-                )
-            }
-            WorkScreenState.WorkScreen -> {
-                WorkWorkScreen(
-                    modifier = modifier,
-                    onCloseClickTopBar = visibleSuspendDialog,
-                    onListClickTopBar = updateScreenState,
-                    onClickWorkCompleteButton = visibleCompleteDialog,
-                    workTime = workTime,
-
+        }
+        WorkDialogState.None -> {
+            when (workScreenState) {
+                is WorkScreenState.ListScreen -> {
+                    WorkListScreen(
+                        modifier = modifier,
+                        onCloseClickTopBar = { updateScreenState(WorkScreenState.WorkScreen) },
                     )
+                }
+                WorkScreenState.RestScreen -> {
+                    WorkRestScreen(
+                        modifier = modifier,
+                        onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
+                        onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(false)) },
+                        onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
+                    )
+                }
+                WorkScreenState.WorkScreen -> {
+                    WorkWorkScreen(
+                        modifier = modifier,
+                        onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
+                        onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(true)) },
+                        onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
+                        workTime = workTime,
+                        )
+                }
             }
         }
     }
