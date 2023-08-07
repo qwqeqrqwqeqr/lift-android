@@ -1,16 +1,19 @@
 package com.gradation.lift.feature.work.work.component.work_work
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.canvas.LiftProgressCircle
 import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -65,9 +68,70 @@ fun WorkWorkScreen(
                     .padding(16.dp)
                     .padding(it)
             ) {
-                Text(text = workTime.workTime.toString())
-                Text(text = workTime.restTime.toString())
-                Text(text = workTime.totalTime.toString())
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = modifier.fillMaxWidth()
+                ) {
+                    LiftProgressCircle(
+                        modifier = modifier.align(Alignment.Center),
+                        progress = workProgress,
+                    )
+                    Column(
+                        modifier = modifier.width(128.dp),
+                        verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = currentWork.workCategory.name,
+                            style = LiftTheme.typography.no1,
+                            color = LiftTheme.colorScheme.no11,
+                            textAlign = TextAlign.Center
+                        )
+                        Row(
+                            modifier = modifier.align(Alignment.CenterHorizontally)
+                        ) {
+                            Icon(
+                                painter = painterResource(LiftIcon.Timer),
+                                contentDescription = "",
+                                modifier = modifier.align(Alignment.CenterVertically)
+                            )
+                            Spacer(modifier = modifier.padding(8.dp))
+                            Text(
+                                modifier = modifier.align(Alignment.CenterVertically),
+                                text = workTime.workTime.toString(),
+                                style = LiftTheme.typography.no2,
+                                color = LiftTheme.colorScheme.no9,
+                                textAlign = TextAlign.Right
+                            )
+                        }
+                        Row(
+                            modifier = modifier.align(Alignment.CenterHorizontally)
+                        ) {
+                            Text(
+                                text = "달성도",
+                                style = LiftTheme.typography.no2,
+                                color = LiftTheme.colorScheme.no9,
+                            )
+                            Spacer(modifier = modifier.padding(8.dp))
+                            Surface(
+                                color = LiftTheme.colorScheme.no9,
+                                modifier = modifier
+                                    .clip(RoundedCornerShape(4.dp))
+                                    .align(
+                                        Alignment.CenterVertically
+                                    )
+                            ) {
+                                Text(
+                                    modifier = modifier.padding(horizontal = 4.dp, vertical = 2.dp),
+                                    text = "$workProgress%",
+                                    style = LiftTheme.typography.no5,
+                                    color = LiftTheme.colorScheme.no5,
+                                )
+                            }
+
+                        }
+                    }
+                }
 
             }
         }
