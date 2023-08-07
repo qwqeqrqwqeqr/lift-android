@@ -15,10 +15,10 @@ import com.gradation.lift.feature.work.work.component.work_list.WorkListScreen
 import com.gradation.lift.feature.work.work.component.work_rest.WorkRestScreen
 import com.gradation.lift.feature.work.work.component.work_work.WorkWorkScreen
 import com.gradation.lift.feature.work.work.component.dialog.SuspendDialog
-import com.gradation.lift.feature.work.work.data.WorkDialogState
-import com.gradation.lift.feature.work.work.data.WorkScreenState
-import com.gradation.lift.feature.work.work.data.WorkSharedViewModel
-import com.gradation.lift.feature.work.work.data.WorkWorkViewModel
+import com.gradation.lift.feature.work.work.data.state.WorkDialogState
+import com.gradation.lift.feature.work.work.data.state.WorkScreenState
+import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
+import com.gradation.lift.feature.work.work.data.viewmodel.WorkWorkViewModel
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -45,6 +45,7 @@ fun WorkWorkRoute(
     val updateDialogState = viewModel.updateWorkDialogState()
     val updateWorkState = viewModel.updateWorkState()
 
+    val selectedWorkList by sharedViewModel.selectedWorkList.collectAsStateWithLifecycle()
 
     val workTime by viewModel.workRestTime.collectAsStateWithLifecycle()
 
@@ -80,6 +81,7 @@ fun WorkWorkRoute(
                     WorkListScreen(
                         modifier = modifier,
                         onCloseClickTopBar = { updateScreenState(WorkScreenState.WorkScreen) },
+                        workTime = workTime,
                     )
                 }
                 WorkScreenState.RestScreen -> {
@@ -88,6 +90,8 @@ fun WorkWorkRoute(
                         onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
                         onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(false)) },
                         onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
+                        workTime = workTime,
+                        updateWorkState = updateWorkState
                     )
                 }
                 WorkScreenState.WorkScreen -> {
@@ -97,7 +101,8 @@ fun WorkWorkRoute(
                         onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(true)) },
                         onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
                         workTime = workTime,
-                        )
+                        updateWorkState = updateWorkState
+                    )
                 }
             }
         }

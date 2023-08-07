@@ -15,7 +15,7 @@ import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.WorkScreenState
+import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 
 @ExperimentalMaterial3Api
 @Composable
@@ -24,6 +24,8 @@ fun WorkRestScreen(
     onCloseClickTopBar: () -> Unit,
     onListClickTopBar: () -> Unit,
     onClickWorkCompleteButton: () -> Unit,
+    workTime: WorkRestTime,
+    updateWorkState: (Boolean) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -68,6 +70,8 @@ fun WorkRestScreenPreview() {
             onCloseClickTopBar = {},
             onListClickTopBar = {},
             onClickWorkCompleteButton = {},
+            workTime = WorkRestTime(),
+            updateWorkState = {},
         )
     }
 }

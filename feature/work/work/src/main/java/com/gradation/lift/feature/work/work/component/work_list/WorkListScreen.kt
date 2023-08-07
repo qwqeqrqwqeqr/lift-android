@@ -16,13 +16,14 @@ import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.WorkScreenState
+import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 
 @ExperimentalMaterial3Api
 @Composable
 fun WorkListScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
+    workTime: WorkRestTime,
 ) {
     Scaffold(
         topBar = {
@@ -71,6 +72,7 @@ fun WorkListScreenPreview() {
         WorkListScreen(
             modifier = Modifier,
             onCloseClickTopBar = { },
+            workTime = WorkRestTime(),
         )
     }
 }

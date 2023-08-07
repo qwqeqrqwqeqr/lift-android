@@ -29,7 +29,7 @@ import com.gradation.lift.feature.work.routine_selection.component.routine_list.
 import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
 import com.gradation.lift.feature.work.routine_selection.data.*
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
-import com.gradation.lift.feature.work.work.data.WorkSharedViewModel
+import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Router

@@ -1,8 +1,11 @@
-package com.gradation.lift.feature.work.work.data
+package com.gradation.lift.feature.work.work.data.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
+import com.gradation.lift.feature.work.work.data.model.WorkRestTime
+import com.gradation.lift.feature.work.work.data.state.WorkDialogState
+import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -21,8 +24,6 @@ class WorkWorkViewModel @Inject constructor(
 
 
     val workDialogState: MutableStateFlow<WorkDialogState> = MutableStateFlow(WorkDialogState.None)
-
-
     val workScreenState: MutableStateFlow<WorkScreenState> =
         MutableStateFlow(WorkScreenState.WorkScreen)
 
@@ -79,10 +80,6 @@ class WorkWorkViewModel @Inject constructor(
 }
 
 
-data class WorkRestTime(
-    val workTime: LocalTime = LocalTime(0, 0, 0),
-    val restTime: LocalTime = LocalTime(0, 0, 0),
-    val totalTime: LocalTime = LocalTime(0, 0, 0),
-)
+
 
 

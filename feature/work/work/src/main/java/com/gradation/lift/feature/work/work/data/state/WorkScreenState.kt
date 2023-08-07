@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work.data
+package com.gradation.lift.feature.work.work.data.state
 
 
 /**
