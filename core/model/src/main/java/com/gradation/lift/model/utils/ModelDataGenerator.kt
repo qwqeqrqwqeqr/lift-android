@@ -1,5 +1,6 @@
 package com.gradation.lift.model.utils
 
+import android.provider.SyncStateContract.Constants
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
@@ -61,7 +62,7 @@ object ModelDataGenerator {
             gender = Gender.Male(),
             height = 180.0f,
             weight = 83.3f,
-            profilePicture = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA,
+            profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             unitOfWeight = UnitOfWeight.Kg()
         )
 
@@ -70,7 +71,7 @@ object ModelDataGenerator {
             gender = Gender.Male(),
             height = 180.0f,
             weight = 83.3f,
-            profilePicture = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA,
+            profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             unitOfWeight = UnitOfWeight.Kg()
         )
     }
@@ -152,22 +153,22 @@ object ModelDataGenerator {
     object Picture {
         val userProfilePictureModel1 = UserProfilePicture(
             id = 1,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
         val userProfilePictureModel2 = UserProfilePicture(
             id = 2,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
 
         val routineSetPictureModel1 = RoutineSetPicture(
             id = 1,
             category = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
         val routineSetPictureModel2 = RoutineSetPicture(
             id = 2,
             category = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
 
 
@@ -257,7 +258,7 @@ object ModelDataGenerator {
             name = "행복한 월요일 루틴",
             description = "가볍게 하는 운동",
             weekday = Weekday.Monday(),
-            picture = "http://",
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(routineModel1)
         )
 
@@ -266,7 +267,7 @@ object ModelDataGenerator {
             name = "등 단련 루틴",
             description = "집중 등 운동",
             weekday = Weekday.Monday(),
-            picture = "http://",
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(routineModel2)
         )
         val routineSetRoutineModelList = listOf(routineSetRoutineModel1, routineSetRoutineModel2)
@@ -287,7 +288,7 @@ object ModelDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
-            picture = "http://",
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(createRoutineModel),
         )
     }
