@@ -23,12 +23,11 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScreen
-import com.gradation.lift.feature.work.routine_selection.data.RoutineSelection
-import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelection
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.work.data.model.RoutineSelection
+import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.model.routine.Routine
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 
@@ -140,6 +139,7 @@ fun RoutineSetRoutineListView(
             }
             Spacer(modifier = modifier.padding(2.dp))
         }
+
     }
 }
 

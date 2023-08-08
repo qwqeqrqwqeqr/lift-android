@@ -29,6 +29,7 @@ import com.gradation.lift.feature.work.routine_selection.component.routine_list.
 import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
 import com.gradation.lift.feature.work.routine_selection.data.*
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
@@ -53,9 +54,9 @@ internal fun WorkRoutineSelectionRoute(
 
 
     val weekDate: List<WeekdayCard> by viewModel.weekDate.collectAsStateWithLifecycle()
+    val selectedRoutineSetRoutine by viewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
     val routineSetRoutineSelection: RoutineSetRoutineSelectionUiState by viewModel.routineSetRoutineSelection.collectAsStateWithLifecycle()
     val selectedRoutineCount by viewModel.selectedRoutineCount.collectAsStateWithLifecycle()
-    val selectedRoutineSetList by viewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
 
 
 
@@ -67,7 +68,7 @@ internal fun WorkRoutineSelectionRoute(
         onBackClickTopBar = navigateWorkToMain,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
-            sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetList)
+            sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetRoutine)
             navigateSelectionRoutineToWork()
         },
         selectedRoutineCount = selectedRoutineCount,
@@ -131,7 +132,6 @@ internal fun WorkRoutineSelectionScreen(
                         .fillMaxHeight()
                         .width(8.dp)
                 )
-
             }
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -161,7 +161,7 @@ internal fun WorkRoutineSelectionScreen(
                         modifier = modifier,
                         routineSetRoutineSelection = routineSetRoutineSelection.routineSetRoutineSelection,
                         onUpdateRoutineSetRoutineList = onUpdateRoutineSetRoutineList,
-                        onUpdateRoutineList = onUpdateRoutineList
+                        onUpdateRoutineList = onUpdateRoutineList,
                     )
 
                 }
