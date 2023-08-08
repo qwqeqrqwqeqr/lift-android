@@ -11,10 +11,16 @@ class WorkCompleteViewModel @Inject constructor(
 
 
     val score = MutableStateFlow(5)
+    val comment = MutableStateFlow("")
 
 
     fun updateScore(): (Int) -> Unit = {
         score.value = it
     }
 
+
+
+    fun updateComment(): (String) -> Unit = {
+        comment.value = it
+    }
 }

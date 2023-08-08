@@ -2,11 +2,10 @@ package com.gradation.lift.feature.work.complete
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -23,12 +22,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.history.History
+import com.gradation.lift.model.routine.CreateRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryModel
+import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryRoutineModel
+import com.gradation.lift.model.utils.ModelDataGenerator.History.historyRoutineModel1
+import com.gradation.lift.model.utils.ModelDataGenerator.History.historyRoutineModel2
+import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.LocalTime
@@ -49,20 +57,27 @@ fun WorkCompleteRoute(
 
     val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
     val score by viewModel.score.collectAsStateWithLifecycle()
+    val commentText by viewModel.comment.collectAsStateWithLifecycle()
 
     val updateScore = viewModel.updateScore()
+    val updateCommentText = viewModel.updateComment()
     val historyRoutineList by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
+
+    val scrollState: ScrollState = rememberScrollState()
 
     WorkCompleteScreen(
         modifier = modifier,
+        onClickCompleteButton = {},
 
         workTime = workTime,
         score = score,
+        commentText = commentText,
         historyRoutineList = historyRoutineList,
 
         onClickStar = updateScore,
-
-        )
+        updateCommentText = updateCommentText,
+        scrollState = scrollState
+    )
 
     LaunchedEffect(true) {
         sharedViewModel.stopTime()
@@ -76,18 +91,24 @@ fun WorkCompleteRoute(
 @Composable
 fun WorkCompleteScreen(
     modifier: Modifier = Modifier,
+    onClickCompleteButton: () -> Unit,
     workTime: WorkRestTime,
     score: Int,
+    commentText: String,
     onClickStar: (Int) -> Unit,
+    updateCommentText: (String) -> Unit,
     historyRoutineList: List<CreateHistoryRoutine>,
+    scrollState: ScrollState
 ) {
 
     Surface(
         color = LiftTheme.colorScheme.no5,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+
+            .fillMaxSize()
     ) {
         Column(
-            modifier = modifier
+            modifier = modifier.verticalScroll(scrollState)
         ) {
             Box(
                 modifier = modifier.fillMaxWidth()
@@ -234,7 +255,6 @@ fun WorkCompleteScreen(
                     }
                 }
 
-
                 Spacer(modifier = modifier.padding(16.dp))
                 Text(
                     text = "한 줄 메모",
@@ -243,6 +263,19 @@ fun WorkCompleteScreen(
                     modifier = modifier.align(Alignment.Start)
                 )
 
+                Spacer(modifier = modifier.padding(4.dp))
+                LiftTextField(
+                    value = commentText,
+                    onValueChange = updateCommentText,
+                    modifier = modifier.fillMaxWidth(),
+                    placeholder = {
+                        Text(
+                            text = "간단한 메모를 남겨주세요.",
+                            style = LiftTheme.typography.no6,
+                        )
+                    },
+                    singleLine = true,
+                )
 
                 Spacer(modifier = modifier.padding(16.dp))
                 Text(
@@ -251,10 +284,98 @@ fun WorkCompleteScreen(
                     color = LiftTheme.colorScheme.no9,
                     modifier = modifier.align(Alignment.Start)
                 )
+                Spacer(modifier = modifier.padding(4.dp))
+
+                historyRoutineList.forEach { historyRoutine ->
+                    Column(
+                        modifier = modifier
+                            .background(LiftTheme.colorScheme.no5)
+                            .border(
+                                width = 1.dp,
+                                color = LiftTheme.colorScheme.no8,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp, horizontal = 16.dp),
+                    ) {
+                        Text(
+                            text = historyRoutine.workCategory,
+                            color = LiftTheme.colorScheme.no9,
+                            style = LiftTheme.typography.no3
+                        )
+                        with(historyRoutine.workSetList) {
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "세트/평균횟수",
+                                    style = LiftTheme.typography.no6,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+                                Text(
+                                    text = buildAnnotatedString {
+                                        withStyle(
+                                            style = SpanStyle(fontWeight = FontWeight.Bold),
+                                        ) {
+                                            append("$size")
+                                        }
+                                        append(" Set  ")
+                                        withStyle(
+                                            style = SpanStyle(fontWeight = FontWeight.Bold),
+                                        ) {
+                                            append("${(sumOf { it.repetition } / size)}")
+                                        }
+                                        append(" Reps")
+
+                                    },
+                                    style = LiftTheme.typography.no6,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+
+                            }
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "최대 무게",
+                                    style = LiftTheme.typography.no6,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+                                Text(
+                                    text = buildAnnotatedString {
+                                        withStyle(
+                                            style = SpanStyle(fontWeight = FontWeight.Bold),
+                                        ) {
+                                            append((maxBy { it.weight }.weight).toText())
+                                        }
+                                        append("kg")
+                                    },
+                                    style = LiftTheme.typography.no6,
+                                    color = LiftTheme.colorScheme.no11
+                                )
+
+                            }
+                        }
+                    }
+                    Spacer(modifier = modifier.padding(4.dp))
+                }
+                Spacer(modifier = modifier.padding(16.dp))
+                LiftButton(
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    onClick = onClickCompleteButton,
+                ) {
+                    Text(
+                        text = "완료",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no5,
+                    )
+                }
             }
         }
     }
-
 }
 
 @SuppressLint("UnrememberedMutableState")
@@ -265,13 +386,21 @@ fun WorkCompleteScreenPreview() {
     LiftMaterialTheme {
         WorkCompleteScreen(
             modifier = Modifier,
+            onClickCompleteButton = {},
             workTime = WorkRestTime().copy(
                 totalTime = LocalTime(2, 30),
                 restTime = LocalTime(0, 10, 30),
             ),
             score = 4,
+            commentText = "열심히 운동했어",
+            updateCommentText = {},
             onClickStar = {},
-            historyRoutineList = emptyList(),
+            historyRoutineList = listOf(
+                createHistoryRoutineModel,
+                createHistoryRoutineModel,
+                createHistoryRoutineModel
+            ),
+            scrollState = rememberScrollState()
         )
     }
 }
