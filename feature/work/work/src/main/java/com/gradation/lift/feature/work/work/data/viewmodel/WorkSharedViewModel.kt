@@ -9,6 +9,7 @@ import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalTime
@@ -29,7 +30,7 @@ class WorkSharedViewModel @Inject constructor(
     private val workState = MutableStateFlow(true)
     val workRestTime = MutableStateFlow(WorkRestTime())
 
-
+    lateinit var  timerJob : Job
 
 
     val workList = combine(
@@ -142,7 +143,7 @@ class WorkSharedViewModel @Inject constructor(
 
 
     fun startTimer() {
-        viewModelScope.launch {
+        timerJob =  viewModelScope.launch {
             combine(
                 initTimerUseCase(),
                 workState,
@@ -165,6 +166,9 @@ class WorkSharedViewModel @Inject constructor(
                 }
             }.collect()
         }
+    }
+    fun stopTime(){
+        timerJob.cancel()
     }
 
     companion object{

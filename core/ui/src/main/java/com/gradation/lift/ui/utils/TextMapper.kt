@@ -5,7 +5,7 @@ import kotlinx.datetime.LocalTime
 
 fun LocalTime.toText(): String {
     val second =
-        if (second != 0 && hour == 0) "${second}초" else if (second == 0 && hour == 0) "00초" else ""
+        if (second != 0 && hour == 0) "${second}초" else ""
     val minute = if (minute != 0) "${minute}분 " else ""
     val hour = if (hour != 0) "${hour}시간 " else ""
 

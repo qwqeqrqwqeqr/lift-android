@@ -1,9 +1,11 @@
 package com.gradation.lift.feature.work.complete
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -45,12 +47,22 @@ fun WorkCompleteRoute(
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
     val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
+    val score by viewModel.score.collectAsStateWithLifecycle()
+
+    val updateScore = viewModel.updateScore()
 
     WorkCompleteScreen(
         modifier = modifier,
         workTime = workTime,
+        score = score,
+        onClickStar = updateScore
     )
 
+    LaunchedEffect(true) {
+        sharedViewModel.stopTime()
+    }
+
+    BackHandler(onBack = navigateWorkToMain)
 
 }
 
@@ -59,6 +71,8 @@ fun WorkCompleteRoute(
 fun WorkCompleteScreen(
     modifier: Modifier = Modifier,
     workTime: WorkRestTime,
+    score: Int,
+    onClickStar: (Int) -> Unit,
 ) {
 
     Surface(
@@ -108,30 +122,128 @@ fun WorkCompleteScreen(
                     color = LiftTheme.colorScheme.no9,
                     modifier = modifier.align(Alignment.CenterHorizontally)
                 )
-                Row {
+                Spacer(modifier = modifier.padding(8.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     Column(
                         modifier = modifier
                             .background(LiftTheme.colorScheme.no5)
                             .border(
-                                width = 1.dp,
+                                width = 2.dp,
                                 color = LiftTheme.colorScheme.no8,
                                 shape = RoundedCornerShape(16.dp)
                             )
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .fillMaxWidth(),
-                        verticalArrangement = Arrangement.Top,
-                        horizontalAlignment = Alignment.Start,
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp, horizontal = 16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        Row() {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
                             Icon(
                                 painter = painterResource(LiftIcon.Muscle),
                                 contentDescription = "",
+                                tint = LiftTheme.colorScheme.no20
                             )
-                            Text(text = "총 소요시간")
+                            Spacer(modifier = modifier.padding(1.dp))
+                            Text(
+                                text = "총 소요시간",
+                                style = LiftTheme.typography.no6,
+                                color = LiftTheme.colorScheme.no11
+                            )
                         }
-                        Text(text = workTime.totalTime.toText())
+                        Text(
+                            text = workTime.totalTime.toText(),
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no9
+                        )
+                    }
+                    Column(
+                        modifier = modifier
+                            .background(LiftTheme.colorScheme.no5)
+                            .border(
+                                width = 2.dp,
+                                color = LiftTheme.colorScheme.no8,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp, horizontal = 16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+
+                        ) {
+                            Icon(
+                                painter = painterResource(LiftIcon.Timer),
+                                contentDescription = "",
+                                tint = LiftTheme.colorScheme.no4
+                            )
+                            Spacer(modifier = modifier.padding(1.dp))
+                            Text(
+                                text = "총 휴식시간",
+                                style = LiftTheme.typography.no6,
+                                color = LiftTheme.colorScheme.no11
+                            )
+                        }
+                        Text(
+                            text = workTime.restTime.toText(),
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no9
+                        )
                     }
                 }
+                Spacer(modifier = modifier.padding(16.dp))
+                Text(
+                    text = "평가하기",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no9,
+                    modifier = modifier.align(Alignment.Start)
+                )
+                Spacer(modifier = modifier.padding(8.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(
+                        8.dp,
+                        Alignment.CenterHorizontally
+                    ),
+                    modifier = modifier.fillMaxWidth(),
+                ) {
+                    repeat(5) {
+
+                        Image(
+                            painter = if (it < score) painterResource(R.drawable.star_on) else painterResource(
+                                R.drawable.star_off
+                            ),
+                            contentDescription = "",
+                            modifier = modifier
+                                .size(36.dp)
+                                .clickable(
+                                    onClick = { onClickStar(it + 1) }
+                                )
+                        )
+                    }
+                }
+
+
+                Spacer(modifier = modifier.padding(16.dp))
+                Text(
+                    text = "한 줄 메모",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no9,
+                    modifier = modifier.align(Alignment.Start)
+                )
+
+                Spacer(modifier = modifier.padding(16.dp))
+                Text(
+                    text = "운동 기록",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no9,
+                    modifier = modifier.align(Alignment.Start)
+                )
             }
         }
     }
@@ -150,6 +262,8 @@ fun WorkCompleteScreenPreview() {
                 totalTime = LocalTime(2, 30),
                 restTime = LocalTime(0, 10, 30),
             ),
+            score = 4,
+            onClickStar = {},
         )
     }
 }

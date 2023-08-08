@@ -11,6 +11,6 @@ import retrofit2.http.POST
 interface RefreshService {
     @POST("auth/refresh/")
     suspend fun refresh(
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") Authorization: String,
     ): Response<APIResultWrapper<RefreshResponseDto>>
 }

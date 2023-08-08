@@ -59,14 +59,15 @@ class AuthAuthenticator @Inject constructor(
         moshi: Moshi,
     ): retrofit2.Response<APIResultWrapper<RefreshResponseDto>> {
         val retrofit = Retrofit.Builder().baseUrl(DEFAULT_API_URL)
-            .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
-                this.level = HttpLoggingInterceptor.Level.BASIC
-            }).build())
+            .client(OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().apply {
+                    this.level = HttpLoggingInterceptor.Level.BASIC
+                }).build()
+            )
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
         val service = retrofit.create(RefreshService::class.java)
         return service.refresh(
-            authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
-
+            Authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
         )
     }
 }
