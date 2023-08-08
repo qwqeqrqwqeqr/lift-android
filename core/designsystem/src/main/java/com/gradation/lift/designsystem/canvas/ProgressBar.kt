@@ -17,30 +17,23 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 @Composable
 fun LiftProgressBar(
     modifier: Modifier = Modifier,
-    progress : Float,
+    progress: Int,
 ) {
-    Box(
-        modifier = modifier
-            .size(196.dp)
-            .padding(16.dp),
-    ) {
-        Canvas(modifier = modifier) {
-            drawLine(
-                color = Color(0xFFF2F2F5),
-                start = Offset(x = 0f, y = center.y),
-                end = Offset(x = size.width, y = center.y),
-                strokeWidth = 32f,
-                cap = StrokeCap.Round
-            )
-            drawLine(
-                color = Color(0xFF0080FF),
-                start = Offset(x = 0f, y = center.y),
-                end = Offset(x = progress /100 * size.width, y = center.y),
-                strokeWidth = 32f,
-                cap = StrokeCap.Round
-            )
-        }
-
+    Canvas(modifier = modifier.padding(16.dp)) {
+        drawLine(
+            color = Color(0xFFF2F2F5),
+            start = Offset(x = 0f, y = center.y),
+            end = Offset(x = size.width, y = center.y),
+            strokeWidth = 64f,
+            cap = StrokeCap.Round
+        )
+        drawLine(
+            color = Color(0xFF0080FF),
+            start = Offset(x = 0f, y = center.y),
+            end = Offset(x = progress.toFloat() / 100 * size.width, y = center.y),
+            strokeWidth = 64f,
+            cap = StrokeCap.Round
+        )
     }
 }
 
@@ -51,7 +44,7 @@ fun LiftProgressBarPreview() {
     LiftMaterialTheme {
         LiftProgressBar(
             modifier = Modifier.size(196.dp),
-            progress = 10f
+            progress = 10
         )
     }
 }

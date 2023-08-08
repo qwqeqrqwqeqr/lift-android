@@ -8,6 +8,7 @@ import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.model.initModel
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.work.WorkRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -90,11 +91,14 @@ class WorkSharedViewModel @Inject constructor(
     )
 
 
-    fun addOpenedWorkRoutineId(): (Int) -> Unit =
-        { value -> openedWorkRoutineIdList.update { it.plus(value) } }
-
-    fun removeOpenedWorkRoutineId(): (Int) -> Unit =
-        { value -> openedWorkRoutineIdList.update { it.minus(value) } }
+    fun updateOpenedWorkRoutine(): (WorkRoutineSelection) -> Unit =
+        { value ->
+            if (value.opened) {
+                openedWorkRoutineIdList.update { it.minus(value.index) }
+            } else {
+                openedWorkRoutineIdList.update { it.plus(value.index) }
+            }
+        }
 
     fun updateCheckedWorkSet(): ((Pair<Int, Int>), Boolean) -> Unit =
         { value, checked ->
@@ -108,6 +112,9 @@ class WorkSharedViewModel @Inject constructor(
             }
         }
 
+    fun checkAllSelectedWorkSet(): (List<WorkSetSelection>) -> Boolean = { workSetList ->
+        workSetList.count() == workSetList.count { it.selected }
+    }
 
     fun updateRoutineSetRoutineList(value: List<RoutineSetRoutine>) {
         routineSetRoutineList.update { it.plus(value) }

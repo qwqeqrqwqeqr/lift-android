@@ -55,11 +55,12 @@ fun WorkWorkRoute(
     val workTime by viewModel.workRestTime.collectAsStateWithLifecycle()
     val workProgress by sharedViewModel.workProgress.collectAsStateWithLifecycle()
 
-    val addOpenedWorkRoutineId = sharedViewModel.addOpenedWorkRoutineId()
-    val removeOpenedWorkRoutineId = sharedViewModel.removeOpenedWorkRoutineId()
+    val updateOpenedWorkRoutine = sharedViewModel.updateOpenedWorkRoutine()
     val updateCheckedWorkSet = sharedViewModel.updateCheckedWorkSet()
     val updateWorkIndexToPreviousIndex = sharedViewModel.updateWorkIndexToPreviousIndex()
     val updateWorkIndexToNextIndex = sharedViewModel.updateWorkIndexToNextIndex()
+
+    val checkAllSelectedWorkSet = sharedViewModel.checkAllSelectedWorkSet()
 
 
     BackHandler(enabled = true, onBack = { updateDialogState(WorkDialogState.SuspendDialog) })
@@ -95,6 +96,11 @@ fun WorkWorkRoute(
                         modifier = modifier,
                         onCloseClickTopBar = { updateScreenState(WorkScreenState.WorkScreen) },
                         workTime = workTime,
+                        workProgress = workProgress,
+                        workList = workList,
+                        updateOpenedWorkRoutine = updateOpenedWorkRoutine,
+                        updateCheckedWorkSet = updateCheckedWorkSet,
+                        checkAllSelectedWorkSet=checkAllSelectedWorkSet
                     )
                 }
                 WorkScreenState.RestScreen -> {
@@ -103,10 +109,10 @@ fun WorkWorkRoute(
                         onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
                         onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(false)) },
                         onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
-                        onClickWorkButton = {updateScreenState(WorkScreenState.WorkScreen)},
+                        onClickWorkButton = { updateScreenState(WorkScreenState.WorkScreen) },
                         updateWorkState = { updateWorkState(true) },
                         workTime = workTime,
-                        workProgress=workProgress,
+                        workProgress = workProgress,
                         currentWork = currentWork
                     )
                 }
@@ -118,15 +124,15 @@ fun WorkWorkRoute(
                         onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
                         onClickRestButton = { updateScreenState(WorkScreenState.RestScreen) },
                         updateWorkState = { updateWorkState(false) },
-                        updateCheckedWorkSet=updateCheckedWorkSet,
-                        updateWorkIndexToPreviousIndex=updateWorkIndexToPreviousIndex,
-                        updateWorkIndexToNextIndex=updateWorkIndexToNextIndex,
+                        updateCheckedWorkSet = updateCheckedWorkSet,
+                        updateWorkIndexToPreviousIndex = updateWorkIndexToPreviousIndex,
+                        updateWorkIndexToNextIndex = updateWorkIndexToNextIndex,
 
                         workTime = workTime,
-                        workProgress=workProgress,
-                        currentWork=currentWork,
-                        previousWork=previousWork,
-                        nextWork=nextWork,
+                        workProgress = workProgress,
+                        currentWork = currentWork,
+                        previousWork = previousWork,
+                        nextWork = nextWork,
                     )
                 }
             }
