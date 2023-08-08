@@ -16,18 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorkWorkViewModel @Inject constructor(
-    private val initTimerUseCase: InitTimerUseCase
 ) : ViewModel() {
 
-
-    private val workState = MutableStateFlow(true)
-    val workRestTime = MutableStateFlow(WorkRestTime())
 
 
     val workDialogState: MutableStateFlow<WorkDialogState> = MutableStateFlow(WorkDialogState.None)
     val workScreenState: MutableStateFlow<WorkScreenState> =
         MutableStateFlow(WorkScreenState.WorkScreen)
-
     val autoCompleteState: MutableStateFlow<Boolean> = MutableStateFlow(true)
 
 
@@ -49,40 +44,8 @@ class WorkWorkViewModel @Inject constructor(
         workDialogState.value = it
     }
 
-
-    fun updateWorkState(): (Boolean) -> Unit = {
-        workState.value = it
-    }
-
     fun offAutoCompleteState(): () -> Unit = {
         autoCompleteState.value = false
-    }
-
-
-    fun startTimer() {
-        viewModelScope.launch {
-            combine(
-                initTimerUseCase(),
-                workState,
-            ) { currentTime, workState ->
-
-                if (workState) {
-                    workRestTime.update {
-                        it.copy(
-                            totalTime = fromSecondOfDay(currentTime),
-                            workTime = fromSecondOfDay((it.workTime.toSecondOfDay() + 1))
-                        )
-                    }
-                } else {
-                    workRestTime.update {
-                        it.copy(
-                            totalTime = fromSecondOfDay(currentTime),
-                            restTime = fromSecondOfDay((it.restTime.toSecondOfDay() + 1))
-                        )
-                    }
-                }
-            }.collect()
-        }
     }
 }
 

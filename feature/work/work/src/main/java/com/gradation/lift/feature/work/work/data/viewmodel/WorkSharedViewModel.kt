@@ -3,26 +3,33 @@ package com.gradation.lift.feature.work.work.data.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
-import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
-import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
-import com.gradation.lift.feature.work.work.data.model.initModel
+import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
+import com.gradation.lift.feature.work.work.data.model.*
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalTime
 import javax.inject.Inject
 
 
 @HiltViewModel
 class WorkSharedViewModel @Inject constructor(
+    private val initTimerUseCase: InitTimerUseCase
+
 ) : ViewModel() {
 
     private val routineSetRoutineList = MutableStateFlow(emptyList<RoutineSetRoutine>())
     private val openedWorkRoutineIdList = MutableStateFlow(emptySet<Int>())
     private val checkedWorkSetList = MutableStateFlow(emptySet<Pair<Int, Int>>())
     private val currentWorkIndex = MutableStateFlow(0)
+
+    private val workState = MutableStateFlow(true)
+    val workRestTime = MutableStateFlow(WorkRestTime())
+
+
 
 
     val workList = combine(
@@ -127,6 +134,37 @@ class WorkSharedViewModel @Inject constructor(
 
     fun updateWorkIndexToNextIndex(): () -> Unit = {
         currentWorkIndex.update { it + 1 }
+    }
+
+    fun updateWorkState(): (Boolean) -> Unit = {
+        workState.value = it
+    }
+
+
+    fun startTimer() {
+        viewModelScope.launch {
+            combine(
+                initTimerUseCase(),
+                workState,
+            ) { currentTime, workState ->
+
+                if (workState) {
+                    workRestTime.update {
+                        it.copy(
+                            totalTime = LocalTime.fromSecondOfDay(currentTime),
+                            workTime = LocalTime.fromSecondOfDay((it.workTime.toSecondOfDay() + 1))
+                        )
+                    }
+                } else {
+                    workRestTime.update {
+                        it.copy(
+                            totalTime = LocalTime.fromSecondOfDay(currentTime),
+                            restTime = LocalTime.fromSecondOfDay((it.restTime.toSecondOfDay() + 1))
+                        )
+                    }
+                }
+            }.collect()
+        }
     }
 
     companion object{

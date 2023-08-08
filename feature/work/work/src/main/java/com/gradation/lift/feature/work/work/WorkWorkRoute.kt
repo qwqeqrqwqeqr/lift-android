@@ -47,7 +47,7 @@ fun WorkWorkRoute(
 
     val updateScreenState = viewModel.updateWorkScreenState()
     val updateDialogState = viewModel.updateWorkDialogState()
-    val updateWorkState = viewModel.updateWorkState()
+    val updateWorkState = sharedViewModel.updateWorkState()
     val offAutoCompleteState = viewModel.offAutoCompleteState()
 
 
@@ -57,7 +57,7 @@ fun WorkWorkRoute(
     val previousWork by sharedViewModel.previousWork.collectAsStateWithLifecycle()
     val nextWork by sharedViewModel.nextWork.collectAsStateWithLifecycle()
 
-    val workTime by viewModel.workRestTime.collectAsStateWithLifecycle()
+    val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
     val workProgress by sharedViewModel.workProgress.collectAsStateWithLifecycle()
 
     val updateOpenedWorkRoutine = sharedViewModel.updateOpenedWorkRoutine()
@@ -70,7 +70,7 @@ fun WorkWorkRoute(
 
     BackHandler(enabled = true, onBack = { updateDialogState(WorkDialogState.SuspendDialog) })
     LaunchedEffect(true) {
-        viewModel.startTimer()
+        sharedViewModel.startTimer()
     }
 
     if (workProgress == MAX_PROGRESS && autoCompleteState) {

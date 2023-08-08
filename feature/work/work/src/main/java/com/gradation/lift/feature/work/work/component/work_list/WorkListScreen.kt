@@ -31,6 +31,7 @@ import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.model.initModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.ui.utils.toText
 
 @ExperimentalMaterial3Api
 @Composable
@@ -238,7 +239,7 @@ fun WorkListScreen(
                                                 .align(Alignment.CenterVertically)
                                         )
                                         Text(
-                                            text = "${workSet.weight}",
+                                            text = workSet.weight.toText(),
                                             style = LiftTheme.typography.no2,
                                             color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
                                             textAlign = TextAlign.Center,
@@ -324,19 +325,19 @@ fun WorkListScreenPreview() {
                     workSetList = listOf(
                         WorkSetSelection(
                             set = Pair(2, 1),
-                            weight = 40f,
+                            weight = 45.5f,
                             repetition = 12,
                             selected = true
                         ),
                         WorkSetSelection(
                             set = Pair(2, 2),
-                            weight = 40f,
+                            weight = 52f,
                             repetition = 12,
                             selected = false
                         ),
                         WorkSetSelection(
                             set = Pair(2, 3),
-                            weight = 40f,
+                            weight = 48.3f,
                             repetition = 12,
                             selected = false
                         )

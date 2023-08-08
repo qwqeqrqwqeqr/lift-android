@@ -38,6 +38,7 @@ object LiftIcon {
     val Order = R.drawable.order
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
+    val Muscle = R.drawable.muscle
 
 
     val Search = R.drawable.search

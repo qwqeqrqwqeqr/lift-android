@@ -30,6 +30,7 @@ import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelectio
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+import com.gradation.lift.ui.utils.toText
 
 
 @Composable
@@ -260,7 +261,7 @@ fun RoutineListView(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "${workSet.weight}",
+                            text = workSet.weight.toText(),
                             style = LiftTheme.typography.no3,
                             color = LiftTheme.colorScheme.no9,
                             textAlign = TextAlign.Center,
