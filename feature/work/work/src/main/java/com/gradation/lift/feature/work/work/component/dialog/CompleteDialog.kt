@@ -23,6 +23,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun CompleteDialog(
     modifier: Modifier = Modifier,
+    completeState : Boolean,
     onClickDialogCompleteButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,
 ) {
@@ -43,6 +44,7 @@ internal fun CompleteDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
+            if(completeState){
             Text(
                 text = buildAnnotatedString {
                     append("운동을 ")
@@ -56,16 +58,42 @@ internal fun CompleteDialog(
                 textAlign = TextAlign.Center,
                 style = LiftTheme.typography.no2,
                 color = LiftTheme.colorScheme.no3
-            )
+            )}
+            else{
+                Text(
+                    text = buildAnnotatedString {
+                        append("아직")
+                        withStyle(
+                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
+                        ) {
+                            append(" 완료")
+                        }
+                        append("하지 않은 운동이 존재합니다.")
+                    },
+                    textAlign = TextAlign.Center,
+                    style = LiftTheme.typography.no2,
+                    color = LiftTheme.colorScheme.no3
+                )
+            }
             Spacer(
                 modifier = modifier.padding(10.dp)
             )
-            Text(
-                "완료한 운동 기록을 저장하고 \n 운동 결과 화면으로 이동합니다",
-                textAlign = TextAlign.Center,
-                style = LiftTheme.typography.no4,
-                color = LiftTheme.colorScheme.no9
-            )
+            if(completeState) {
+                Text(
+                    "완료한 운동 기록을 저장하고 \n 운동 결과 화면으로 이동합니다",
+                    textAlign = TextAlign.Center,
+                    style = LiftTheme.typography.no4,
+                    color = LiftTheme.colorScheme.no9
+                )
+            }
+            else{
+                Text(
+                    "그래도 완료할 경우, 세트를 \n마무리 하지 않은 운동은 삭제됩니다.",
+                    textAlign = TextAlign.Center,
+                    style = LiftTheme.typography.no4,
+                    color = LiftTheme.colorScheme.no9
+                )
+            }
             Spacer(
                 modifier = modifier.padding(10.dp)
             )
@@ -108,6 +136,7 @@ internal fun CompleteDialog(
 fun CompleteDialogPreview() {
     LiftMaterialTheme {
         CompleteDialog(
+            completeState=false,
             onClickDialogCompleteButton = {},
             onClickDialogDismissButton = {}
         )

@@ -28,6 +28,7 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
+import com.gradation.lift.model.history.CreateHistoryRoutine
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.LocalTime
@@ -50,13 +51,18 @@ fun WorkCompleteRoute(
     val score by viewModel.score.collectAsStateWithLifecycle()
 
     val updateScore = viewModel.updateScore()
+    val historyRoutineList by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
 
     WorkCompleteScreen(
         modifier = modifier,
+
         workTime = workTime,
         score = score,
-        onClickStar = updateScore
-    )
+        historyRoutineList = historyRoutineList,
+
+        onClickStar = updateScore,
+
+        )
 
     LaunchedEffect(true) {
         sharedViewModel.stopTime()
@@ -73,6 +79,7 @@ fun WorkCompleteScreen(
     workTime: WorkRestTime,
     score: Int,
     onClickStar: (Int) -> Unit,
+    historyRoutineList: List<CreateHistoryRoutine>,
 ) {
 
     Surface(
@@ -213,7 +220,6 @@ fun WorkCompleteScreen(
                     modifier = modifier.fillMaxWidth(),
                 ) {
                     repeat(5) {
-
                         Image(
                             painter = if (it < score) painterResource(R.drawable.star_on) else painterResource(
                                 R.drawable.star_off
@@ -236,6 +242,7 @@ fun WorkCompleteScreen(
                     color = LiftTheme.colorScheme.no9,
                     modifier = modifier.align(Alignment.Start)
                 )
+
 
                 Spacer(modifier = modifier.padding(16.dp))
                 Text(
@@ -264,6 +271,7 @@ fun WorkCompleteScreenPreview() {
             ),
             score = 4,
             onClickStar = {},
+            historyRoutineList = emptyList(),
         )
     }
 }

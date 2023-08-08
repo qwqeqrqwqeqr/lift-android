@@ -5,9 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import com.gradation.lift.feature.work.work.data.model.*
+import com.gradation.lift.model.history.CreateHistory
+import com.gradation.lift.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.history.History
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkRoutine
+import com.gradation.lift.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
@@ -30,7 +34,7 @@ class WorkSharedViewModel @Inject constructor(
     private val workState = MutableStateFlow(true)
     val workRestTime = MutableStateFlow(WorkRestTime())
 
-    lateinit var  timerJob : Job
+    private lateinit var timerJob: Job
 
 
     val workList = combine(
@@ -100,6 +104,26 @@ class WorkSharedViewModel @Inject constructor(
     )
 
 
+    val historyRoutine = workList.map { workList ->
+        workList
+            .filter { it.workSetList.count { it.selected } == it.workSetList.count() }
+            .map {
+                CreateHistoryRoutine(
+                    workCategory = it.workCategory.name,
+                    workSetList = it.workSetList.map {
+                        WorkSet(
+                            weight = it.weight,
+                            repetition = it.repetition
+                        )
+                    }
+                )
+            }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = emptyList()
+    )
+
     fun updateOpenedWorkRoutine(): (WorkRoutineSelection) -> Unit =
         { value ->
             if (value.opened) {
@@ -121,9 +145,10 @@ class WorkSharedViewModel @Inject constructor(
             }
         }
 
-    fun checkAllSelectedWorkSet(): (List<WorkSetSelection>) -> Boolean = { workSetList ->
+    fun isAllCheckedWorkSet(): (List<WorkSetSelection>) -> Boolean = { workSetList ->
         workSetList.count() == workSetList.count { it.selected }
     }
+
 
     fun updateRoutineSetRoutineList(value: List<RoutineSetRoutine>) {
         routineSetRoutineList.update { it.plus(value) }
@@ -143,7 +168,7 @@ class WorkSharedViewModel @Inject constructor(
 
 
     fun startTimer() {
-        timerJob =  viewModelScope.launch {
+        timerJob = viewModelScope.launch {
             combine(
                 initTimerUseCase(),
                 workState,
@@ -167,13 +192,14 @@ class WorkSharedViewModel @Inject constructor(
             }.collect()
         }
     }
-    fun stopTime(){
+
+    fun stopTime() {
         timerJob.cancel()
     }
 
-    companion object{
-        const val MIN_PROGRESS =0
-        const val MAX_PROGRESS =100
+    companion object {
+        const val MIN_PROGRESS = 0
+        const val MAX_PROGRESS = 100
     }
 }
 

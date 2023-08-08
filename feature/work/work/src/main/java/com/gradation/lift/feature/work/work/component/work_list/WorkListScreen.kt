@@ -43,7 +43,7 @@ fun WorkListScreen(
     workList: List<WorkRoutineSelection>,
     updateOpenedWorkRoutine: (WorkRoutineSelection) -> Unit,
     updateCheckedWorkSet: (Pair<Int, Int>, Boolean) -> Unit,
-    checkAllSelectedWorkSet: (List<WorkSetSelection>) -> Boolean
+    isAllCheckedWorkSet: (List<WorkSetSelection>) -> Boolean
 
 ) {
     Scaffold(
@@ -145,7 +145,7 @@ fun WorkListScreen(
                                     color = LiftTheme.colorScheme.no9
                                 )
 
-                                if (checkAllSelectedWorkSet(workRoutine.workSetList)) {
+                                if (isAllCheckedWorkSet(workRoutine.workSetList)) {
                                     Spacer(modifier = modifier.padding(4.dp))
                                     Surface(
                                         color = LiftTheme.colorScheme.no25,
@@ -394,7 +394,7 @@ fun WorkListScreenPreview() {
             ),
             updateOpenedWorkRoutine = { },
             updateCheckedWorkSet = { _, _ -> },
-            checkAllSelectedWorkSet = { false },
+            isAllCheckedWorkSet = { false },
         )
     }
 }

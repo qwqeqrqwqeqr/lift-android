@@ -65,7 +65,7 @@ fun WorkWorkRoute(
     val updateWorkIndexToPreviousIndex = sharedViewModel.updateWorkIndexToPreviousIndex()
     val updateWorkIndexToNextIndex = sharedViewModel.updateWorkIndexToNextIndex()
 
-    val checkAllSelectedWorkSet = sharedViewModel.checkAllSelectedWorkSet()
+    val isAllCheckedWorkSet = sharedViewModel.isAllCheckedWorkSet()
 
 
     BackHandler(enabled = true, onBack = { updateDialogState(WorkDialogState.SuspendDialog) })
@@ -85,7 +85,7 @@ fun WorkWorkRoute(
             ) {
                 AutoCompleteDialog(
                     onClickDialogCompleteButton = navigateWorkWorkToComplete,
-                    onClickDialogDismissButton = {updateDialogState(WorkDialogState.None)},
+                    onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
             }
         }
@@ -105,6 +105,7 @@ fun WorkWorkRoute(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 CompleteDialog(
+                    completeState = workProgress == MAX_PROGRESS,
                     onClickDialogCompleteButton = navigateWorkWorkToComplete,
                     onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
@@ -121,7 +122,7 @@ fun WorkWorkRoute(
                         workList = workList,
                         updateOpenedWorkRoutine = updateOpenedWorkRoutine,
                         updateCheckedWorkSet = updateCheckedWorkSet,
-                        checkAllSelectedWorkSet = checkAllSelectedWorkSet
+                        isAllCheckedWorkSet = isAllCheckedWorkSet
                     )
                 }
                 WorkScreenState.RestScreen -> {
