@@ -1,5 +1,6 @@
 package com.gradation.lift.network.dto.routine
 
+import android.util.Log
 import com.gradation.lift.model.common.toWeekDay
 import com.gradation.lift.model.routine.*
 import com.gradation.lift.model.work.WorkCategory
@@ -16,7 +17,7 @@ data class GetRoutineSetRoutineByRoutineSetIdResponseDto(
     @Json(name = "routine_set_routine")
     val routineSetRoutine: List<RoutineSetRoutineDto>
 ){
-    fun toDomain(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.routineSetDto.routineSetId }.map {
+    fun toDomain(): List<RoutineSetRoutine> = this.routineSetRoutine.groupBy{ it.routineDto.routineSetId }.map {
         RoutineSetRoutine(
             id = it.value.first().routineSetDto.routineSetId,
             name = it.value.first().routineSetDto.name,

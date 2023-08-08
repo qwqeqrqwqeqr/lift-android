@@ -23,6 +23,9 @@ data class HistoryEntity(
     @ColumnInfo(name = "score")
     val score: Int,
 
+    @TypeConverters(LocalTimeTypeConverter::class)
+    @ColumnInfo(name = "work_time")
+    val workTime: LocalTime,
 
     @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "rest_time")
@@ -40,6 +43,7 @@ data class HistoryEntity(
         historyId = id,
         comment = comment,
         score = score,
+        workTime = workTime,
         restTime = restTime,
         totalTime = totalTime,
         historyTimeStamp = historyTimeStamp,

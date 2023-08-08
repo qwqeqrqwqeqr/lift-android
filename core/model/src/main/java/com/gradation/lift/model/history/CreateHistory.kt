@@ -6,6 +6,7 @@ import kotlinx.datetime.LocalTime
 data class CreateHistory(
     val comment : String?,
     val score :Int,
+    val workTime : LocalTime,
     val restTime : LocalTime,
     val totalTime : LocalTime,
     val historyTimeStamp : LocalDateTime,

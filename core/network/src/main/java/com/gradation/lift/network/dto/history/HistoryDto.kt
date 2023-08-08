@@ -20,6 +20,9 @@ data class HistoryDto(
     @Json(name = "score")
     val score :Int,
 
+    @Json(name = "work_time")
+    val workTime : Int,
+
     @Json(name = "rest_time")
     val restTime : Int,
 

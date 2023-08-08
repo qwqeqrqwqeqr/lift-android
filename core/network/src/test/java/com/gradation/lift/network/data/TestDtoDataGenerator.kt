@@ -86,6 +86,7 @@ object TestDtoDataGenerator {
             historyId = 1,
             comment = "보람찬 하루",
             score = 5,
+            workTime = 1200,
             restTime = 600,
             totalTime = 1800,
             historyTimeStamp = "2023-08-31T00:00:00",
@@ -95,6 +96,7 @@ object TestDtoDataGenerator {
             historyId = 2,
             comment = "행복한 하루",
             score = 2,
+            workTime = 1200,
             restTime = 600,
             totalTime = 1800,
             historyTimeStamp = "2023-08-31T00:00:00",
@@ -121,6 +123,7 @@ object TestDtoDataGenerator {
         val createHistoryRequestDto = CreateHistoryRequestDto(
             comment = "보람찬 하루",
             score = 5,
+            workTime = 1200,
             restTime = 600,
             totalTime = 1800,
             historyTimeStamp = "2023-08-31T00:00:00",

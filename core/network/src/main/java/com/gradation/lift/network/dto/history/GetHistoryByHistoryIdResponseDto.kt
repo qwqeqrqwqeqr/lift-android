@@ -21,6 +21,7 @@ data class GetHistoryByHistoryIdResponseDto(
             comment = it.value.first().comment,
             score = it.value.first().score,
             restTime = fromSecondOfDay(it.value.first().restTime),
+            workTime = fromSecondOfDay(it.value.first().workTime),
             totalTime = fromSecondOfDay(it.value.first().totalTime),
             historyTimeStamp = parse(it.value.first().historyTimeStamp),
             historyRoutine = it.value.map { history ->

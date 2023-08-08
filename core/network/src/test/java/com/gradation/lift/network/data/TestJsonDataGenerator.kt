@@ -326,7 +326,7 @@ object TestJsonDataGenerator {
     """.trimIndent()
 
 
-    object History{
+    object History {
         val historyResponseJson = """
             {
               "status": true,
@@ -337,6 +337,7 @@ object TestJsonDataGenerator {
                     "history_id": 1,
                     "comment": "보람찬 하루",
                     "score": 5,
+                    "work_time": 1200,
                     "rest_time": 600,
                     "total_time": 1800,
                     "history_time_stamp": "2023-08-31T00:00:00",
@@ -373,6 +374,7 @@ object TestJsonDataGenerator {
                     "history_id": 2,
                     "comment": "행복한 하루",
                     "score": 2,
+                    "work_time": 1200,
                     "rest_time": 600,
                     "total_time": 1800,
                     "history_time_stamp": "2023-08-31T00:00:00",

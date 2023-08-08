@@ -9,6 +9,7 @@ fun CreateHistory.toDto() : CreateHistoryRequestDto =
     CreateHistoryRequestDto(
         comment = this.comment,
         score = this.score,
+        workTime = this.workTime.toSecondOfDay(),
         restTime = this.restTime.toSecondOfDay(),
         totalTime = this.totalTime.toSecondOfDay(),
         historyTimeStamp  = this.historyTimeStamp.toString(),

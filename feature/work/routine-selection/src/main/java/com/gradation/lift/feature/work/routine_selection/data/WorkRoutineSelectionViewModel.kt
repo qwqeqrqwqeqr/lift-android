@@ -136,6 +136,7 @@ class WorkRoutineSelectionViewModel @Inject constructor(
                         is DataState.Fail -> {}
                         is DataState.Success -> {
                             selectedRoutineSetList.update { list ->
+                                Log.d("lift", it.data.toString())
                                 list.plus(it.data)
                             }
                         }
