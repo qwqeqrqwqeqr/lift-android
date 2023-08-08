@@ -28,6 +28,8 @@ class WorkWorkViewModel @Inject constructor(
     val workScreenState: MutableStateFlow<WorkScreenState> =
         MutableStateFlow(WorkScreenState.WorkScreen)
 
+    val autoCompleteState: MutableStateFlow<Boolean> = MutableStateFlow(true)
+
 
     fun updateWorkScreenState(): (WorkScreenState) -> Unit = { state ->
         when (workScreenState.value) {
@@ -44,14 +46,17 @@ class WorkWorkViewModel @Inject constructor(
     }
 
     fun updateWorkDialogState(): (WorkDialogState) -> Unit = {
-        workDialogState.value =  it
+        workDialogState.value = it
     }
 
 
     fun updateWorkState(): (Boolean) -> Unit = {
-        workState.value =it
+        workState.value = it
     }
 
+    fun offAutoCompleteState(): () -> Unit = {
+        autoCompleteState.value = false
+    }
 
 
     fun startTimer() {

@@ -4,5 +4,6 @@ interface WorkDialogState {
 
     object SuspendDialog : WorkDialogState
     object CompleteDialog : WorkDialogState
+    object AutoCompleteDialog : WorkDialogState
     object None : WorkDialogState
 }

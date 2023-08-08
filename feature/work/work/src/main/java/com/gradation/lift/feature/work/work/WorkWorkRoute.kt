@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.work.work
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -10,6 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.work.component.dialog.AutoCompleteDialog
 import com.gradation.lift.feature.work.work.component.dialog.CompleteDialog
 import com.gradation.lift.feature.work.work.component.work_list.WorkListScreen
 import com.gradation.lift.feature.work.work.component.work_rest.WorkRestScreen
@@ -18,6 +20,7 @@ import com.gradation.lift.feature.work.work.component.dialog.SuspendDialog
 import com.gradation.lift.feature.work.work.data.state.WorkDialogState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
+import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel.Companion.MAX_PROGRESS
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkWorkViewModel
 import com.gradation.lift.navigation.Router
 
@@ -40,10 +43,12 @@ fun WorkWorkRoute(
 
     val workScreenState: WorkScreenState by viewModel.workScreenState.collectAsStateWithLifecycle()
     val workDialogState: WorkDialogState by viewModel.workDialogState.collectAsStateWithLifecycle()
+    val autoCompleteState: Boolean by viewModel.autoCompleteState.collectAsStateWithLifecycle()
 
     val updateScreenState = viewModel.updateWorkScreenState()
     val updateDialogState = viewModel.updateWorkDialogState()
     val updateWorkState = viewModel.updateWorkState()
+    val offAutoCompleteState = viewModel.offAutoCompleteState()
 
 
     val workList by sharedViewModel.workList.collectAsStateWithLifecycle()
@@ -68,7 +73,23 @@ fun WorkWorkRoute(
         viewModel.startTimer()
     }
 
+    if (workProgress == MAX_PROGRESS && autoCompleteState) {
+        offAutoCompleteState()
+        updateDialogState(WorkDialogState.CompleteDialog)
+    }
+
     when (workDialogState) {
+        WorkDialogState.AutoCompleteDialog -> {
+            Surface(
+                color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
+            ) {
+                AutoCompleteDialog(
+                    onClickDialogCompleteButton = navigateWorkWorkToComplete,
+                    onClickDialogDismissButton = {updateDialogState(WorkDialogState.None)},
+                )
+            }
+        }
+
         WorkDialogState.SuspendDialog -> {
             Surface(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
@@ -100,7 +121,7 @@ fun WorkWorkRoute(
                         workList = workList,
                         updateOpenedWorkRoutine = updateOpenedWorkRoutine,
                         updateCheckedWorkSet = updateCheckedWorkSet,
-                        checkAllSelectedWorkSet=checkAllSelectedWorkSet
+                        checkAllSelectedWorkSet = checkAllSelectedWorkSet
                     )
                 }
                 WorkScreenState.RestScreen -> {

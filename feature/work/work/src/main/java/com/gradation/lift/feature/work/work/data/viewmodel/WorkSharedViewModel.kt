@@ -65,7 +65,7 @@ class WorkSharedViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
-        initialValue = 0
+        initialValue = MIN_PROGRESS
     )
 
 
@@ -129,6 +129,10 @@ class WorkSharedViewModel @Inject constructor(
         currentWorkIndex.update { it + 1 }
     }
 
+    companion object{
+        const val MIN_PROGRESS =0
+        const val MAX_PROGRESS =100
+    }
 }
 
 
