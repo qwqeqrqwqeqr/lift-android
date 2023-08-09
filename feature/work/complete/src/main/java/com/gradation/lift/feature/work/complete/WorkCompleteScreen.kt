@@ -1,7 +1,9 @@
 package com.gradation.lift.feature.work.complete
 
 import android.annotation.SuppressLint
+import android.os.Build
 import androidx.activity.compose.BackHandler
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -38,9 +40,11 @@ import com.gradation.lift.model.utils.ModelDataGenerator.History.historyRoutineM
 import com.gradation.lift.model.utils.ModelDataGenerator.History.historyRoutineModel2
 import com.gradation.lift.model.work.WorkSet
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.LocalTime
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnrememberedGetBackStackEntry")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,18 +60,26 @@ fun WorkCompleteRoute(
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
     val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
+    val historyRoutineList by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
     val score by viewModel.score.collectAsStateWithLifecycle()
     val commentText by viewModel.comment.collectAsStateWithLifecycle()
+    val navigateCondition by viewModel.navigateCondition.collectAsStateWithLifecycle()
 
     val updateScore = viewModel.updateScore()
     val updateCommentText = viewModel.updateComment()
-    val historyRoutineList by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
-
+    val createWorkHistory = viewModel.createWorkHistory(
+        comment = commentText,
+        score = score,
+        workTime = workTime.workTime,
+        restTime = workTime.restTime,
+        totalTime = workTime.totalTime,
+        historyRoutine = historyRoutineList
+    )
     val scrollState: ScrollState = rememberScrollState()
 
     WorkCompleteScreen(
         modifier = modifier,
-        onClickCompleteButton = {},
+        onClickCompleteButton = createWorkHistory,
 
         workTime = workTime,
         score = score,
@@ -83,7 +95,18 @@ fun WorkCompleteRoute(
         sharedViewModel.stopTime()
     }
 
-    BackHandler(onBack = navigateWorkToMain)
+    when (navigateCondition) {
+        false -> {}
+        true -> {
+            LaunchedEffect(true) {
+                navigateWorkToMain()
+            }
+        }
+    }
+
+
+
+    BackHandler(onBack = createWorkHistory)
 
 }
 
@@ -103,9 +126,7 @@ fun WorkCompleteScreen(
 
     Surface(
         color = LiftTheme.colorScheme.no5,
-        modifier = modifier
-
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         Column(
             modifier = modifier.verticalScroll(scrollState)
@@ -363,8 +384,7 @@ fun WorkCompleteScreen(
                 }
                 Spacer(modifier = modifier.padding(16.dp))
                 LiftButton(
-                    modifier = modifier
-                        .fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     onClick = onClickCompleteButton,
                 ) {
                     Text(
