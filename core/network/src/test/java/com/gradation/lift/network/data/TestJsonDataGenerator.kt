@@ -233,7 +233,7 @@ object TestJsonDataGenerator {
                 "routine_set": {
                   "routine_set_id": 1,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
-                  "description": $FAKE_ROUTINE_DESCRIPTION_DATA,
+                  "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "Mon",
                   "picture": "$FAKE_URL_DATA"
                 }

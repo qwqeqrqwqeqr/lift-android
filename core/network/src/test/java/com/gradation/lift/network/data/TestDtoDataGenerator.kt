@@ -24,7 +24,10 @@ import com.gradation.lift.network.dto.user.*
 import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
@@ -40,13 +43,13 @@ object TestDtoDataGenerator {
         )
 
         internal val signInDefaultRequestDto = SignInDefaultRequestDto(
-            id = FAKE_STRING_DATA,
-            password = FAKE_STRING_DATA
+            id = FAKE_EMAIL_DATA,
+            password = FAKE_PASSWORD_DATA
         )
 
         internal val signUpDefaultRequestDto = SignUpDefaultRequestDto(
-            email = FAKE_STRING_DATA,
-            password = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA,
+            password = FAKE_PASSWORD_DATA,
             name = FAKE_STRING_DATA,
             phoneNumber = FAKE_STRING_DATA
         )
@@ -128,7 +131,7 @@ object TestDtoDataGenerator {
             workTime = 1200,
             restTime = 600,
             totalTime = 1800,
-            historyTimeStamp = "2023-08-31T00:00:00",
+            historyTimeStamp = "2023-08-31T00:00",
             historyRoutine = listOf(createHistoryRoutineDto)
         )
     }
@@ -239,15 +242,15 @@ object TestDtoDataGenerator {
     object RoutineSet {
         internal val routineSetDto1 = RoutineSetDto(
             routineSetId = 1,
-            name = "행복한 월요일 루틴",
-            description = "가볍게 하는 운동",
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.MONDAY_VALUE,
             picture = FAKE_URL_DATA
         )
         internal val routineSetDto2 = RoutineSetDto(
             routineSetId = 2,
             name = FAKE_ROUTINE_NAME_DATA,
-            description = DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.MONDAY_VALUE,
             picture = FAKE_URL_DATA
         )

@@ -17,6 +17,7 @@
 package com.gradation.lift.network
 
 import com.gradation.lift.network.test.datasource.*
+import com.gradation.lift.network.test.mapper.*
 import com.gradation.lift.network.test.network.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
@@ -42,6 +43,13 @@ import org.junit.runners.Suite
     RefreshServiceTest::class,
     PictureServiceTest::class,
     HistoryServiceTest::class,
+
+
+    CreateHistoryMapperTest::class,
+    CreateRoutineSetRoutineMapperTest::class,
+    CreateUserDetailMapperTest::class,
+    SignInMapperTest::class,
+    SignUpMapperTest::class,
 
 )
 class NetworkTestSuit
