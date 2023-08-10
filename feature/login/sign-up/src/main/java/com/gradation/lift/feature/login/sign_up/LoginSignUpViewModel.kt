@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.*
 import com.gradation.lift.domain.usecase.checker.CheckDuplicateEmailUseCase
-import com.gradation.lift.model.user.Email
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.EMAIL_KEY
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.PASSWORD_KEY
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
@@ -108,7 +107,7 @@ class LoginSignUpViewModel @Inject constructor(
 
 
     private fun validateEmail(email: String): Flow<Validator> {
-        return checkDuplicateEmailUseCase(Email(email)).map {
+        return checkDuplicateEmailUseCase(email).map {
             when (it) {
                 is DataState.Fail -> Validator(false, "")
                 is DataState.Success -> if (it.data) {

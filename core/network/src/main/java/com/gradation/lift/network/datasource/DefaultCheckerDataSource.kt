@@ -1,7 +1,5 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.user.Email
-import com.gradation.lift.model.user.Name
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.CheckerService
@@ -15,11 +13,11 @@ class DefaultCheckerDataSource @Inject constructor(
     private val checkerService: CheckerService,
     private val networkResultHandler: NetworkResultHandler,
 ) : CheckerDataSource {
-    override suspend fun checkDuplicateEmail(email: Email): Flow<APIResult<Boolean>> =
+    override suspend fun checkDuplicateEmail(email: String): Flow<APIResult<Boolean>> =
         flow {
 
             networkResultHandler {
-                checkerService.checkDuplicateEmail(email.email)
+                checkerService.checkDuplicateEmail(email)
             }.collect { result ->
                 when (result) {
                     is APIResult.Fail -> emit(APIResult.Fail(result.message))
@@ -30,11 +28,11 @@ class DefaultCheckerDataSource @Inject constructor(
 
     @ExperimentalCoroutinesApi
     @FlowPreview
-    override suspend fun checkDuplicateName(name: Name): Flow<APIResult<Boolean>> =
+    override suspend fun checkDuplicateName(name: String): Flow<APIResult<Boolean>> =
         flow {
 
             networkResultHandler {
-                checkerService.checkDuplicateName(name.name)
+                checkerService.checkDuplicateName(name)
             }.collect { result ->
 
                 when (result) {

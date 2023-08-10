@@ -13,9 +13,7 @@ import com.gradation.lift.model.history.HistoryRoutine
 import com.gradation.lift.model.picture.RoutineSetPicture
 import com.gradation.lift.model.picture.UserProfilePicture
 import com.gradation.lift.model.routine.*
-import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.user.Name
 import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
@@ -53,8 +51,6 @@ object ModelDataGenerator {
     }
 
     object User {
-        val emailModel = Email(FAKE_EMAIL_DATA)
-        val nameModel = Name(FAKE_STRING_DATA)
 
         val userDetailModel = UserDetail(
             name = FAKE_STRING_DATA,

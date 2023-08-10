@@ -7,7 +7,6 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.common.utils.nameValidator
 import com.gradation.lift.domain.usecase.checker.CheckerDuplicateNameUseCase
-import com.gradation.lift.model.user.Name
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,7 +53,7 @@ class RegisterDetailNameViewModel @Inject constructor(
 
 
     private fun checkDuplicateName(name: String): Flow<Validator> {
-        return checkerDuplicateNameUseCase(Name(name)).map {
+        return checkerDuplicateNameUseCase(name).map {
             when (it) {
                 is DataState.Fail -> Validator(false, "")
                 is DataState.Success -> if(it.data){

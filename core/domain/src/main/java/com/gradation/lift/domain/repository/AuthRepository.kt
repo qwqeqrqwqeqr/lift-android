@@ -1,7 +1,6 @@
 package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.model.user.Email
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
 import kotlinx.coroutines.flow.Flow

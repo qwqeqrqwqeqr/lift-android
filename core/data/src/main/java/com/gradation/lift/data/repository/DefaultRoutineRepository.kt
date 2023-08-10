@@ -1,18 +1,13 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
-import com.gradation.lift.model.auth.Token
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.*
-import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.datetime.LocalDateTime
 import javax.inject.Inject
 
 
