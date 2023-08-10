@@ -233,23 +233,6 @@ object ModelDataGenerator {
         val routineModelList = listOf(routineModel1, routineModel2)
     }
 
-    object RoutineSet {
-        val routineSetModel1 = RoutineSet(
-            id = 1,
-            name = "행복한 월요일 루틴",
-            description = "가볍게 하는 운동",
-            weekday = Weekday.Monday()
-        )
-        val routineSetModel2 = RoutineSet(
-            id = 2,
-            name = "등 단련 루틴",
-            description = "집중 등 운동",
-            weekday = Weekday.Monday()
-        )
-        val routineSetModelList = listOf(routineSetModel1, routineSetModel2)
-
-    }
-
     object RoutineSetRoutine {
         val routineSetRoutineModel1 = RoutineSetRoutine(
             id = 1,
