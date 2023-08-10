@@ -1,6 +1,5 @@
 package com.gradation.lift.feature.login.sign_in
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,7 +12,7 @@ import com.gradation.lift.domain.usecase.auth.SignInDefaultUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.setting.SetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
-import com.gradation.lift.model.auth.SignInInfo
+import com.gradation.lift.model.auth.DefaultSignInInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -77,7 +76,7 @@ class LoginSignInViewModel @Inject constructor(
                 )
             } else {
                 signInDefaultUseCase(
-                    SignInInfo(
+                    DefaultSignInInfo(
                         id = email,
                         password = password
                     )

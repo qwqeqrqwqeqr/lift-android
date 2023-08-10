@@ -1,9 +1,7 @@
 package com.gradation.lift.model.data_generator
 
 import com.gradation.lift.model.BuildConfig
-import com.gradation.lift.model.auth.SignInInfo
-import com.gradation.lift.model.auth.SignUpInfo
-import com.gradation.lift.model.auth.Token
+import com.gradation.lift.model.auth.*
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.history.CreateHistory
@@ -36,11 +34,11 @@ import kotlinx.datetime.LocalTime
 object ModelDataGenerator {
 
     object Auth {
-        val signInInfoModel = SignInInfo(
+        val signInInfoModel = DefaultSignInInfo(
             id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
-        val signUpInfoModel = SignUpInfo(
+        val signUpInfoModel = DefaultSignUpInfo(
             id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
