@@ -1,8 +1,8 @@
 package com.gradation.lift.network.test.datasource
 
 import com.google.common.truth.Truth
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.CheckerDataSource
 import com.gradation.lift.network.fake.FakeCheckerDataSource

@@ -2,8 +2,8 @@ package com.gradation.lift.database.entity.work_category
 
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.WORK_CATEGORY_TABLE_NAME
-import com.gradation.lift.model.work.WorkCategory
-import com.gradation.lift.model.work.WorkPart
+import com.gradation.lift.model.model.work.WorkCategory
+import com.gradation.lift.model.model.work.WorkPart
 
 @Entity(tableName = WORK_CATEGORY_TABLE_NAME)
 data class WorkCategoryEntity(

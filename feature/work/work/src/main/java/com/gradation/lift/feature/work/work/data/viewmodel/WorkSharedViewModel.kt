@@ -1,17 +1,12 @@
 package com.gradation.lift.feature.work.work.data.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import com.gradation.lift.feature.work.work.data.model.*
-import com.gradation.lift.model.history.CreateHistory
-import com.gradation.lift.model.history.CreateHistoryRoutine
-import com.gradation.lift.model.history.History
-import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.work.WorkCategory
-import com.gradation.lift.model.work.WorkRoutine
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.model.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*

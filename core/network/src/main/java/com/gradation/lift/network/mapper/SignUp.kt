@@ -1,6 +1,6 @@
 package com.gradation.lift.network.mapper
 
-import com.gradation.lift.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.network.dto.auth.SignUpDefaultRequestDto
 
 

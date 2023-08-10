@@ -29,8 +29,8 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
-import com.gradation.lift.model.history.CreateHistoryRoutine
-import com.gradation.lift.model.data_generator.ModelDataGenerator.History.createHistoryRoutineModel
+import com.gradation.lift.model.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryRoutineModel
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.LocalTime

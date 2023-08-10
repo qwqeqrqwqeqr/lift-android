@@ -1,19 +1,14 @@
 package com.gradation.lift.feature.register_detail.profile_picture
 
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.picture.GetUserProfilePictureUseCase
 import com.gradation.lift.domain.usecase.user.CreateUserDetailUseCase
-import com.gradation.lift.model.common.UnitOfWeight
-import com.gradation.lift.model.common.toUnitOfWeight
-import com.gradation.lift.model.picture.UserProfilePicture
-import com.gradation.lift.model.user.*
+import com.gradation.lift.model.model.common.toUnitOfWeight
+import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.model.user.toGender
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel

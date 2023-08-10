@@ -24,7 +24,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
-import com.gradation.lift.model.data_generator.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator
 
 @ExperimentalMaterial3Api
 @Composable

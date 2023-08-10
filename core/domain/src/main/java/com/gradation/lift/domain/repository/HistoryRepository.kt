@@ -1,8 +1,8 @@
 package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.model.history.CreateHistory
-import com.gradation.lift.model.history.History
+import com.gradation.lift.model.model.history.CreateHistory
+import com.gradation.lift.model.model.history.History
 import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {

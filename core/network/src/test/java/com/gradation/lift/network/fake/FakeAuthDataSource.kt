@@ -1,8 +1,8 @@
 package com.gradation.lift.network.fake
 
-import com.gradation.lift.model.auth.DefaultSignInInfo
-import com.gradation.lift.model.auth.DefaultSignUpInfo
-import com.gradation.lift.model.auth.Token
+import com.gradation.lift.model.model.auth.DefaultSignInInfo
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.Token
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signUpDefaultResponseDto

@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.CreateRoutineSetUseCase
-import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.model.routine.CreateRoutine
-import com.gradation.lift.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.common.toWeekday
+import com.gradation.lift.model.model.routine.CreateRoutine
+import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

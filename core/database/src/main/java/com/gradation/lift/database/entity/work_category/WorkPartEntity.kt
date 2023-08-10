@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gradation.lift.database.util.Constants.Entity.WORK_PART_TABLE_NAME
-import com.gradation.lift.model.work.WorkPart
+import com.gradation.lift.model.model.work.WorkPart
 
 
 @Entity(tableName = WORK_PART_TABLE_NAME)

@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_PICTURE_TABLE_NAME
-import com.gradation.lift.model.picture.RoutineSetPicture
+import com.gradation.lift.model.model.picture.RoutineSetPicture
 
 
 @Entity(tableName = ROUTINE_SET_PICTURE_TABLE_NAME)

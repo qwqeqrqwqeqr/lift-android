@@ -1,10 +1,8 @@
 package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.UserRepository
-import com.gradation.lift.model.auth.Token
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.UserDataSource
 import kotlinx.coroutines.flow.*

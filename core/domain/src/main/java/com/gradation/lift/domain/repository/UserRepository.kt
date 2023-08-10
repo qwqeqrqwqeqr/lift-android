@@ -1,7 +1,7 @@
 package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetail
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

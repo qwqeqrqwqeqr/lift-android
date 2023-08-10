@@ -1,6 +1,6 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.createRoutineDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto2
@@ -21,11 +21,11 @@ import com.gradation.lift.network.dto.picture.UserProfilePictureDto
 import com.gradation.lift.network.dto.routine.*
 import com.gradation.lift.network.dto.user.*
 import com.gradation.lift.network.dto.work.*
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_ACCESS_TOKEN
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_REFRESH_TOKEN
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 
 object TestDtoDataGenerator {
 

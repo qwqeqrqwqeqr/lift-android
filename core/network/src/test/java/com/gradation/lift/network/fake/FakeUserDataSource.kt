@@ -1,6 +1,6 @@
 package com.gradation.lift.network.fake
 
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.createUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.existUserDetailResponseDto

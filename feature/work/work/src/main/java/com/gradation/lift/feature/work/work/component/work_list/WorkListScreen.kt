@@ -27,8 +27,8 @@ import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.model.initModel
-import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkCategory.workCategoryModel1
-import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
 import com.gradation.lift.ui.utils.toText
 
 @ExperimentalMaterial3Api

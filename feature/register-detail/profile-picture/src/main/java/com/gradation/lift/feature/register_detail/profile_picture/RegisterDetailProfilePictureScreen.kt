@@ -36,7 +36,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.register_detail.profile_picture.component.CompleteDialog
-import com.gradation.lift.model.picture.UserProfilePicture
+import com.gradation.lift.model.model.picture.UserProfilePicture
 
 
 @Composable

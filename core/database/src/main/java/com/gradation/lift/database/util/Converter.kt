@@ -2,13 +2,13 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.gradation.lift.model.common.UnitOfWeight
-import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.model.common.toUnitOfWeight
-import com.gradation.lift.model.common.toWeekDay
-import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.user.toGender
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.model.model.common.UnitOfWeight
+import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.common.toUnitOfWeight
+import com.gradation.lift.model.model.common.toWeekDay
+import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.toGender
+import com.gradation.lift.model.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @ProvidedTypeConverter
 class WeekdayTypeConverter @Inject constructor() {
     @TypeConverter
-    fun jsonTypeToWeekdayType(value: String): Weekday{
+    fun jsonTypeToWeekdayType(value: String): Weekday {
         return value.toWeekDay()
     }
 

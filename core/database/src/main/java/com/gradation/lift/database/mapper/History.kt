@@ -2,8 +2,8 @@ package com.gradation.lift.database.mapper
 
 import com.gradation.lift.database.entity.history.HistoryEntity
 import com.gradation.lift.database.entity.history.HistoryRoutineEntity
-import com.gradation.lift.model.history.History
-import com.gradation.lift.model.history.HistoryRoutine
+import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.HistoryRoutine
 
 
 fun History.toEntity() = HistoryEntity(

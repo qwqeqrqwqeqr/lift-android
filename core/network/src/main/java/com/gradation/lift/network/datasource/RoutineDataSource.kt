@@ -1,10 +1,11 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.model.routine.*
+import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.Routine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import kotlinx.coroutines.flow.Flow
-import kotlinx.datetime.LocalDate
 
 interface RoutineDataSource {
 

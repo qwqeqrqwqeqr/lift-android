@@ -1,6 +1,6 @@
 package com.gradation.lift.network.mapper
 
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UserDetailDto

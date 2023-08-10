@@ -4,9 +4,9 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.database.dao.WorkDao
 import com.gradation.lift.database.mapper.toEntity
 import com.gradation.lift.domain.repository.WorkRepository
-import com.gradation.lift.model.work.Work
-import com.gradation.lift.model.work.WorkCategory
-import com.gradation.lift.model.work.WorkPart
+import com.gradation.lift.model.model.work.Work
+import com.gradation.lift.model.model.work.WorkCategory
+import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.WorkDataSource
 import kotlinx.coroutines.flow.*

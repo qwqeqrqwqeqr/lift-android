@@ -15,7 +15,7 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScreen
 import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
-import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.model.common.Weekday
 
 @Composable
 fun LoadingRoutineSetRoutineListView(

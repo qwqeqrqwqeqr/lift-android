@@ -12,7 +12,7 @@ import com.gradation.lift.domain.usecase.auth.SignInDefaultUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.setting.SetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
-import com.gradation.lift.model.auth.DefaultSignInInfo
+import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

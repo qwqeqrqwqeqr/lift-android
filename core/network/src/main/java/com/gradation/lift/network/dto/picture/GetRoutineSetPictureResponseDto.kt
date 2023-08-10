@@ -1,6 +1,6 @@
 package com.gradation.lift.network.dto.picture
 
-import com.gradation.lift.model.picture.RoutineSetPicture
+import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.network.common.Constants
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

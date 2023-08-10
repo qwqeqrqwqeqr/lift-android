@@ -31,9 +31,9 @@ import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineR
 import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
 import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineUiState
 import com.gradation.lift.feature.create_routine.routine_set.data.WeekdayCard
-import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.model.routine.CreateRoutine
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.routine.CreateRoutine
+import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.DevicePreview

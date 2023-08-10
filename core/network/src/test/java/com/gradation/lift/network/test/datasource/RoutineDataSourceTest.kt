@@ -1,13 +1,13 @@
 package com.gradation.lift.network.test.datasource
 
-import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.data_generator.ModelDataGenerator.Routine.routineModelList
-import com.gradation.lift.model.data_generator.ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel
-import com.gradation.lift.model.data_generator.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModelList
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.history.CreateHistoryUseCase
-import com.gradation.lift.model.history.CreateHistory
-import com.gradation.lift.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.model.history.CreateHistory
+import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

@@ -1,6 +1,8 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.auth.*
+import com.gradation.lift.model.model.auth.DefaultSignInInfo
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.Token
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.mapper.toDto

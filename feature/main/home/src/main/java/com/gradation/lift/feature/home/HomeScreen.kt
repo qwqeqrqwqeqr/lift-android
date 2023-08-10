@@ -22,10 +22,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.component.profile_view.ProfileView
 import com.gradation.lift.feature.home.data.*
-import com.gradation.lift.model.common.UnitOfWeight
-import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.model.common.UnitOfWeight
+import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone

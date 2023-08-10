@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.SignUpDefaultUseCase
-import com.gradation.lift.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel

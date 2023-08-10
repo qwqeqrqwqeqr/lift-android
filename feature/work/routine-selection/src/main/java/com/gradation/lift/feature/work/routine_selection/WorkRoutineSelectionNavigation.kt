@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Router.WORK_ROUTINE_SELECTION_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateSelectionRoutineToWork
 import com.gradation.lift.navigation.navigation.navigateWorkToMain

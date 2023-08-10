@@ -4,9 +4,9 @@ import androidx.room.*
 import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
 import com.gradation.lift.database.util.Constants.Entity.WORK_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
-import com.gradation.lift.model.work.Work
-import com.gradation.lift.model.work.WorkRoutine
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.model.model.work.Work
+import com.gradation.lift.model.model.work.WorkRoutine
+import com.gradation.lift.model.model.work.WorkSet
 
 @Entity(
     tableName = WORK_ROUTINE_TABLE_NAME,

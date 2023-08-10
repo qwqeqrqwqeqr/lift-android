@@ -22,9 +22,9 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
-import com.gradation.lift.model.routine.CreateRoutine
-import com.gradation.lift.model.data_generator.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.model.model.routine.CreateRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
+import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")

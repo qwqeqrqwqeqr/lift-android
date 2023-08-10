@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.work.change_order.data
 
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
 
 sealed interface RoutineSetRoutineUiState {

@@ -1,7 +1,7 @@
 package com.gradation.lift.network.fake
 
-import com.gradation.lift.model.history.CreateHistory
-import com.gradation.lift.model.history.History
+import com.gradation.lift.model.model.history.CreateHistory
+import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.createHistoryResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.deleteHistoryResponseDto

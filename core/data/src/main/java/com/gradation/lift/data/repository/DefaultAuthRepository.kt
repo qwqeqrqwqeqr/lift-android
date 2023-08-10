@@ -5,8 +5,8 @@ import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.network.common.toMessage
 import com.gradation.lift.domain.repository.AuthRepository
-import com.gradation.lift.model.auth.DefaultSignInInfo
-import com.gradation.lift.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.DefaultSignInInfo
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import kotlinx.coroutines.flow.*

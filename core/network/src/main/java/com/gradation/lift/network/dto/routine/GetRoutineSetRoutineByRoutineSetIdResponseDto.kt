@@ -1,12 +1,11 @@
 package com.gradation.lift.network.dto.routine
 
-import android.util.Log
-import com.gradation.lift.model.common.toWeekDay
-import com.gradation.lift.model.routine.*
-import com.gradation.lift.model.work.WorkCategory
-import com.gradation.lift.model.work.WorkPart
-import com.gradation.lift.model.work.WorkSet
-import com.gradation.lift.network.common.Constants
+import com.gradation.lift.model.model.common.toWeekDay
+import com.gradation.lift.model.model.routine.Routine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.work.WorkCategory
+import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

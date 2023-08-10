@@ -2,8 +2,10 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.RoutineRepository
-import com.gradation.lift.model.common.Weekday
-import com.gradation.lift.model.routine.*
+import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.Routine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import kotlinx.coroutines.flow.Flow

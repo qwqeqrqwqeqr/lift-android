@@ -16,7 +16,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.component.LiftIconButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetail
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable

@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.user.CreateUserDetailUseCase
-import com.gradation.lift.model.common.UnitOfWeight
-import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.common.UnitOfWeight
+import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle

@@ -1,7 +1,7 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.history.CreateHistory
-import com.gradation.lift.model.history.History
+import com.gradation.lift.model.model.history.CreateHistory
+import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
 import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto

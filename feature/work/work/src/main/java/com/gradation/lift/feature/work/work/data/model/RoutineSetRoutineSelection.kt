@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.work.work.data.model
 
-import com.gradation.lift.model.common.Weekday
+import com.gradation.lift.model.model.common.Weekday
 
 data class RoutineSetRoutineSelection(
     val id: Int,

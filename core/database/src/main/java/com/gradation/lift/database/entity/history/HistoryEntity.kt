@@ -4,7 +4,7 @@ import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.HISTORY_TABLE_NAME
 import com.gradation.lift.database.util.LocalDateTimeTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
-import com.gradation.lift.model.history.History
+import com.gradation.lift.model.model.history.History
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 

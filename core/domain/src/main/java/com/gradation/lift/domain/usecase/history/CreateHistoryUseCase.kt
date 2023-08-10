@@ -2,7 +2,7 @@ package com.gradation.lift.domain.usecase.history
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.HistoryRepository
-import com.gradation.lift.model.history.CreateHistory
+import com.gradation.lift.model.model.history.CreateHistory
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

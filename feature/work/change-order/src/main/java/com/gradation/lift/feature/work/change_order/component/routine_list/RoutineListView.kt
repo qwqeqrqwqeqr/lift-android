@@ -28,7 +28,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.change_order.WorkChangeOrderScreen
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
 
 @Composable

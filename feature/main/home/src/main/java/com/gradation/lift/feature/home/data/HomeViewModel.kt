@@ -10,8 +10,8 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
-import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.common.toWeekday
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle

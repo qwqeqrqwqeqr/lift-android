@@ -12,8 +12,8 @@ import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSe
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
-import com.gradation.lift.model.common.toWeekday
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.common.toWeekday
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel

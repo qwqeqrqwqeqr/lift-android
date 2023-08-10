@@ -18,7 +18,7 @@ import com.gradation.lift.feature.home.component.routine_list_view.LoadingRoutin
 import com.gradation.lift.feature.home.component.routine_list_view.RoutineListView
 import com.gradation.lift.feature.home.data.WeekDate
 import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
-import com.gradation.lift.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import kotlinx.datetime.LocalDate
 
 

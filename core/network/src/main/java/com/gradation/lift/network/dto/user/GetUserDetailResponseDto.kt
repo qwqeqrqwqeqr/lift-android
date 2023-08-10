@@ -1,8 +1,8 @@
 package com.gradation.lift.network.dto.user
 
-import com.gradation.lift.model.common.toUnitOfWeight
-import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.model.user.toGender
+import com.gradation.lift.model.model.common.toUnitOfWeight
+import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.model.user.toGender
 import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

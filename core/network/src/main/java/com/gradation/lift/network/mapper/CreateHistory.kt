@@ -1,6 +1,6 @@
 package com.gradation.lift.network.mapper
 
-import com.gradation.lift.model.history.CreateHistory
+import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
 import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto
 

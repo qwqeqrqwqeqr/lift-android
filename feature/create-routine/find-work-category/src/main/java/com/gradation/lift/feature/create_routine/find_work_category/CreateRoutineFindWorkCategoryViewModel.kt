@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
-import com.gradation.lift.model.work.WorkCategory
+import com.gradation.lift.model.model.work.WorkCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*

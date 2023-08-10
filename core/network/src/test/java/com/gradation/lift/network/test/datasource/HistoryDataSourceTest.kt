@@ -5,9 +5,9 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.HistoryDataSource
 import com.gradation.lift.network.fake.FakeHistoryDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.data_generator.ModelDataGenerator.History.createHistoryModel
-import com.gradation.lift.model.data_generator.ModelDataGenerator.History.historyModelList
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryModel
+import com.gradation.lift.model.utils.ModelDataGenerator.History.historyModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

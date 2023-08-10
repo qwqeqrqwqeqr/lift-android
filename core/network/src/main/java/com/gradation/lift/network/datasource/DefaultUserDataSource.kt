@@ -1,15 +1,10 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.model.auth.Token
-import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.common.UnitOfWeight
-import com.gradation.lift.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.APIResult
-import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
-import com.gradation.lift.network.dto.user.UserDetailDto
 import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.flow.Flow
