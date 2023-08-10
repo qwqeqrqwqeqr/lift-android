@@ -24,4 +24,5 @@ fun getApiURL(propertyKey: String): String {
 
 dependencies {
     implementation(project(":core:test"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }

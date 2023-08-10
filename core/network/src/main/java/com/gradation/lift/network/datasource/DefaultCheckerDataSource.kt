@@ -1,6 +1,6 @@
 package com.gradation.lift.network.datasource
 
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.CheckerService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,22 +13,22 @@ class DefaultCheckerDataSource @Inject constructor(
     private val checkerService: CheckerService,
     private val networkResultHandler: NetworkResultHandler,
 ) : CheckerDataSource {
-    override suspend fun checkDuplicateEmail(email: String): Flow<APIResult<Boolean>> =
+    override suspend fun checkDuplicateEmail(email: String): Flow<NetworkResult<Boolean>> =
         flow {
 
             networkResultHandler {
                 checkerService.checkDuplicateEmail(email)
             }.collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                    is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
         }
 
     @ExperimentalCoroutinesApi
     @FlowPreview
-    override suspend fun checkDuplicateName(name: String): Flow<APIResult<Boolean>> =
+    override suspend fun checkDuplicateName(name: String): Flow<NetworkResult<Boolean>> =
         flow {
 
             networkResultHandler {
@@ -36,8 +36,8 @@ class DefaultCheckerDataSource @Inject constructor(
             }.collect { result ->
 
                 when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                    is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
         }

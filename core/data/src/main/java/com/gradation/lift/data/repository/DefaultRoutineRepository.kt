@@ -6,7 +6,7 @@ import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -21,8 +21,8 @@ class DefaultRoutineRepository @Inject constructor(
     override  fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine) : Flow<DataState<Boolean>> = flow{
         routineDataSource.createRoutineSet(createRoutineSetRoutine).collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -30,8 +30,8 @@ class DefaultRoutineRepository @Inject constructor(
     override  fun getRoutine(): Flow<DataState<List<Routine>>> = flow{
         routineDataSource.getRoutine().collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -39,8 +39,8 @@ class DefaultRoutineRepository @Inject constructor(
     override  fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>> = flow{
         routineDataSource.getRoutineSetRoutine().collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -48,8 +48,8 @@ class DefaultRoutineRepository @Inject constructor(
     override  fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<DataState<List<RoutineSetRoutine>>> = flow{
         routineDataSource.getRoutineSetRoutineByWeekday(weekday).collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -57,8 +57,8 @@ class DefaultRoutineRepository @Inject constructor(
     override  fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> = flow{
         routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList).collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }

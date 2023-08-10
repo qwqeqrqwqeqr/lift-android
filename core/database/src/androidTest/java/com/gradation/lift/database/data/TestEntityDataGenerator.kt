@@ -20,6 +20,8 @@ import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
@@ -213,18 +215,18 @@ object TestEntityDataGenerator {
     object RoutineSetRoutine {
          val routineSetRoutineEntity1 = RoutineSetRoutineEntity(
             id = 1,
-            name = "행복한 월요일 루틴",
-            description = "가볍게 하는 운동",
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.Monday(),
-            picture = "http://",
+            picture = FAKE_URL_DATA,
         )
 
          val routineSetRoutineEntity2 = RoutineSetRoutineEntity(
             id = 2,
-            name = "등 단련 루틴",
-            description = "집중 등 운동",
+            name = "FAKE_ROUTINE_NAME",
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.Monday(),
-            picture = "http://",
+            picture = FAKE_URL_DATA,
         )
 
         val routineSetRoutineEntityList = listOf(

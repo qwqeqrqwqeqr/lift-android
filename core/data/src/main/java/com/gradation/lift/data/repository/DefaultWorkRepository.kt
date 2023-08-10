@@ -7,7 +7,7 @@ import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.model.model.work.Work
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.WorkDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -21,8 +21,8 @@ class DefaultWorkRepository @Inject constructor(
     override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
         workDataSource.getWorkPart().collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -31,8 +31,8 @@ class DefaultWorkRepository @Inject constructor(
     override fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
         workDataSource.getWorkCategory().collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -41,8 +41,8 @@ class DefaultWorkRepository @Inject constructor(
         flow {
             workDataSource.getWorkCategoryByWorkPart(workPart).collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(DataState.Fail(result.message))
-                    is APIResult.Success -> emit(DataState.Success(result.data))
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
         }

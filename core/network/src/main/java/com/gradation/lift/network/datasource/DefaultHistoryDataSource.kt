@@ -2,7 +2,7 @@ package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
 import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto
 import com.gradation.lift.network.handler.NetworkResultHandler
@@ -19,32 +19,32 @@ class DefaultHistoryDataSource @Inject constructor(
     private val historyService: HistoryService,
     private val networkResultHandler: NetworkResultHandler,
 ) : HistoryDataSource {
-    override suspend fun getHistory(): Flow<APIResult<List<History>>> = flow {
+    override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
         networkResultHandler {
             historyService.getHistory()
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
     }
 
-    override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<APIResult<List<History>>> =
+    override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<NetworkResult<List<History>>> =
         flow {
             networkResultHandler {
                 historyService.getHistoryByHistoryId(historyIdList.joinToString(","))
             }.collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                    is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
         }
 
-    override suspend fun createHistory(createHistory: CreateHistory): Flow<APIResult<Boolean>> =
+    override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Boolean>> =
         flow {
             networkResultHandler {
                 historyService.createHistory(
@@ -52,21 +52,21 @@ class DefaultHistoryDataSource @Inject constructor(
                 )
             }.collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                    is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
         }
 
-    override suspend fun deleteHistory(historyId: Int): Flow<APIResult<Boolean>> = flow {
+    override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
         networkResultHandler {
             historyService.deleteHistory(historyId)
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
             }
         }
     }

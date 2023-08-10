@@ -4,7 +4,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.HistoryDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,8 +16,8 @@ class DefaultHistoryRepository@Inject constructor(
     override fun getHistory(): Flow<DataState<List<History>>> = flow{
        historyDataSource.getHistory().collect{ result ->
            when(result){
-               is APIResult.Fail -> emit(DataState.Fail(result.message))
-               is APIResult.Success -> emit(DataState.Success(result.data))
+               is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+               is NetworkResult.Success -> emit(DataState.Success(result.data))
            }
        }
     }
@@ -25,8 +25,8 @@ class DefaultHistoryRepository@Inject constructor(
     override fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<DataState<List<History>>>  = flow{
         historyDataSource.getHistoryByHistoryId(historyIdList).collect{ result ->
             when(result){
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -34,8 +34,8 @@ class DefaultHistoryRepository@Inject constructor(
     override fun createHistory(createHistory: CreateHistory): Flow<DataState<Boolean>>  = flow{
         historyDataSource.createHistory(createHistory).collect{ result ->
             when(result){
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -44,8 +44,8 @@ class DefaultHistoryRepository@Inject constructor(
         historyDataSource.deleteHistory(historyId
         ).collect{ result ->
             when(result){
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }

@@ -7,7 +7,7 @@ import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.PictureDataSource
 import com.gradation.lift.network.datasource.WorkDataSource
 import kotlinx.coroutines.flow.*
@@ -21,8 +21,8 @@ class DefaultPictureRepository @Inject constructor(
     override fun getUserProfilePicture(): Flow<DataState<List<UserProfilePicture>>> = flow {
         pictureDataSource.getUserProfilePicture().collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }
@@ -30,8 +30,8 @@ class DefaultPictureRepository @Inject constructor(
     override fun getRoutineSetPicture(): Flow<DataState<List<RoutineSetPicture>>> = flow {
         pictureDataSource.getRoutineSetPicture().collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }

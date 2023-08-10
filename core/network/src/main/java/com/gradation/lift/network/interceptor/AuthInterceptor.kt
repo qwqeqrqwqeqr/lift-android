@@ -1,4 +1,4 @@
-package com.gradation.lift.network.handler
+package com.gradation.lift.network.interceptor
 
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.Constants.BEARER

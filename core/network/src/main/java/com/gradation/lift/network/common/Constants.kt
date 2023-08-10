@@ -21,10 +21,10 @@ object Constants {
     const val INTERNAL_SERVER_ERROR = 500
 
 
-    const val GET="GET"
-    const val POST="POST"
-    const val PUT="PUT"
-    const val DELETE="DELETE"
+    const val GET = "GET"
+    const val POST = "POST"
+    const val PUT = "PUT"
+    const val DELETE = "DELETE"
 
 }
 

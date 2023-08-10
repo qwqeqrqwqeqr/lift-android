@@ -6,9 +6,9 @@ import com.gradation.lift.network.di.annotation.AuthHttpClient
 import com.gradation.lift.network.di.annotation.AuthRetrofit
 import com.gradation.lift.network.di.annotation.DefaultHttpClient
 import com.gradation.lift.network.di.annotation.DefaultRetrofit
-import com.gradation.lift.network.handler.AuthAuthenticator
-import com.gradation.lift.network.handler.AuthInterceptor
-import com.gradation.lift.network.handler.RetryInterceptor
+import com.gradation.lift.network.interceptor.AuthAuthenticator
+import com.gradation.lift.network.interceptor.AuthInterceptor
+import com.gradation.lift.network.interceptor.RetryInterceptor
 import com.gradation.lift.network.service.*
 import com.squareup.moshi.Moshi
 import dagger.Module

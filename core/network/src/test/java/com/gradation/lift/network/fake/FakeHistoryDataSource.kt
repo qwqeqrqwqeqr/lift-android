@@ -2,7 +2,7 @@ package com.gradation.lift.network.fake
 
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.createHistoryResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.deleteHistoryResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryByHistoryIdResponseDto
@@ -14,34 +14,34 @@ import kotlinx.coroutines.flow.flow
 
 class FakeHistoryDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
     HistoryDataSource {
-    override suspend fun getHistory(): Flow<APIResult<List<History>>> = flow {
+    override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
         when (testReturnState) {
-            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getHistoryResponseDto.toDomain()))
+            TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = getHistoryResponseDto.toDomain()))
         }
     }
 
 
-    override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<APIResult<List<History>>> =
+    override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<NetworkResult<List<History>>> =
         flow {
             when (testReturnState) {
-                TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-                TestReturnState.Success -> emit(APIResult.Success(data = getHistoryByHistoryIdResponseDto.toDomain()))
+                TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = getHistoryByHistoryIdResponseDto.toDomain()))
             }
         }
 
-    override suspend fun createHistory(createHistory: CreateHistory): Flow<APIResult<Boolean>> =
+    override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Boolean>> =
         flow {
             when (testReturnState) {
-                TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-                TestReturnState.Success -> emit(APIResult.Success(data = createHistoryResponseDto.result))
+                TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = createHistoryResponseDto.result))
             }
         }
 
-    override suspend fun deleteHistory(historyId: Int): Flow<APIResult<Boolean>> = flow {
+    override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
         when (testReturnState) {
-            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = deleteHistoryResponseDto.result))
+            TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = deleteHistoryResponseDto.result))
         }
     }
 }

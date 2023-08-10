@@ -1,7 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
 import com.google.common.truth.Truth
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import com.gradation.lift.network.fake.FakeAuthDataSource
 import com.gradation.lift.network.utils.TestReturnState
@@ -31,7 +31,7 @@ class AuthDataSourceTest {
     fun testSignInDefaultDataSource() = runTest {
         dataSource = FakeAuthDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            APIResult.Success(tokenModel)
+            NetworkResult.Success(tokenModel)
         ).isEqualTo(
             dataSource.signInDefault(signInInfo = signInInfoModel).first()
         )
@@ -41,7 +41,7 @@ class AuthDataSourceTest {
     fun testSignUpDefaultDataSource() = runTest {
         dataSource = FakeAuthDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            APIResult.Success(FAKE_BOOLEAN_DATA)
+            NetworkResult.Success(FAKE_BOOLEAN_DATA)
         ).isEqualTo(
             dataSource.signUpDefault(signUpInfo = signUpInfoModel).first()
         )

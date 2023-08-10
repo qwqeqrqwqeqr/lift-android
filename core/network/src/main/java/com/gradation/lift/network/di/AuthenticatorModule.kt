@@ -1,7 +1,7 @@
 package com.gradation.lift.network.di
 
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
-import com.gradation.lift.network.handler.AuthAuthenticator
+import com.gradation.lift.network.interceptor.AuthAuthenticator
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

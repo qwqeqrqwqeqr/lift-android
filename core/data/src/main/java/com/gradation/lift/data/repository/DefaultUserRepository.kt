@@ -3,7 +3,7 @@ package com.gradation.lift.data.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.UserDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -17,8 +17,8 @@ class DefaultUserRepository @Inject constructor(
         userDataSource.getUserDetail()
             .collect { result ->
                 when (result) {
-                    is APIResult.Fail -> emit(DataState.Fail(result.message))
-                    is APIResult.Success -> emit(DataState.Success(result.data))
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
     }
@@ -28,8 +28,8 @@ class DefaultUserRepository @Inject constructor(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
 
@@ -41,8 +41,8 @@ class DefaultUserRepository @Inject constructor(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
 
@@ -52,8 +52,8 @@ class DefaultUserRepository @Inject constructor(
         userDataSource.existUserDetail(
         ).collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(DataState.Fail(result.message))
-                is APIResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }

@@ -2,6 +2,8 @@ package com.gradation.lift.network.data
 
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 
@@ -230,8 +232,8 @@ object TestJsonDataGenerator {
                 },
                 "routine_set": {
                   "routine_set_id": 1,
-                  "name": "행복한 월요일 루틴",
-                  "description": "가볍게 하는 운동",
+                  "name": "$FAKE_ROUTINE_NAME_DATA",
+                  "description": $FAKE_ROUTINE_DESCRIPTION_DATA,
                   "weekday": "Mon",
                   "picture": "$FAKE_URL_DATA"
                 }
@@ -267,8 +269,8 @@ object TestJsonDataGenerator {
                 },
                 "routine_set": {
                   "routine_set_id": 2,
-                  "name": "등 단련 루틴",
-                  "description": "집중 등 운동",
+                  "name": "$FAKE_ROUTINE_NAME_DATA",
+                  "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "Mon",
                   "picture": "$FAKE_URL_DATA"
                 }

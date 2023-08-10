@@ -1,7 +1,7 @@
 package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
@@ -16,20 +16,20 @@ class DefaultUserDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : UserDataSource {
 
-    override suspend fun getUserDetail(): Flow<APIResult<UserDetail>> = flow {
+    override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
         networkResultHandler {
             userService.getUserDetail()
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
     }
 
     override suspend fun createUserDetail(
         userDetail: UserDetail,
-    ): Flow<APIResult<Boolean>> = flow {
+    ): Flow<NetworkResult<Boolean>> = flow {
         networkResultHandler {
             userService.createUserDetail(
                 createUserDetailRequestDto = CreateUserDetailRequestDto(
@@ -38,15 +38,15 @@ class DefaultUserDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
             }
         }
     }
 
     override suspend fun updateUserDetail(
         userDetail: UserDetail,
-    ): Flow<APIResult<Boolean>> = flow {
+    ): Flow<NetworkResult<Boolean>> = flow {
         networkResultHandler {
             userService.updateUserDetail(
                 updateUserDetailRequestDto = UpdateUserDetailRequestDto(
@@ -55,19 +55,19 @@ class DefaultUserDataSource @Inject constructor(
             )
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
             }
         }
     }
 
-    override suspend fun existUserDetail(): Flow<APIResult<Boolean>> = flow {
+    override suspend fun existUserDetail(): Flow<NetworkResult<Boolean>> = flow {
         networkResultHandler {
             userService.existUserDetail()
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.result))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
             }
         }
     }

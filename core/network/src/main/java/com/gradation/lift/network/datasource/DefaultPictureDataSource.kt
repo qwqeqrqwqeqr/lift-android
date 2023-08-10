@@ -2,7 +2,7 @@ package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.model.model.picture.UserProfilePicture
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.PictureService
 import kotlinx.coroutines.flow.Flow
@@ -13,26 +13,26 @@ class DefaultPictureDataSource @Inject constructor(
     private val pictureService: PictureService,
     private val networkResultHandler: NetworkResultHandler,
 ) : PictureDataSource {
-    override suspend fun getUserProfilePicture(): Flow<APIResult<List<UserProfilePicture>>> =flow {
+    override suspend fun getUserProfilePicture(): Flow<NetworkResult<List<UserProfilePicture>>> =flow {
         networkResultHandler {
             pictureService.getUserProfilePicture()
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
     }
 
-    override suspend fun getRoutineSetPicture(): Flow<APIResult<List<RoutineSetPicture>>> =flow{
+    override suspend fun getRoutineSetPicture(): Flow<NetworkResult<List<RoutineSetPicture>>> =flow{
         networkResultHandler {
             pictureService.getRoutineSetPicture()
         }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
     }

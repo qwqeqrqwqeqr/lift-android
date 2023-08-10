@@ -1,6 +1,6 @@
 package com.gradation.lift.network.test.datasource
 
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.UserDataSource
 import com.gradation.lift.network.fake.FakeUserDataSource
 import com.gradation.lift.network.utils.TestReturnState
@@ -29,7 +29,7 @@ class UserDataSourceTest {
     fun testGetUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            APIResult.Success(userDetailModel),
+            NetworkResult.Success(userDetailModel),
             dataSource.getUserDetail().first()
         )
     }
@@ -37,7 +37,7 @@ class UserDataSourceTest {
     fun testCreateUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            APIResult.Success(FAKE_BOOLEAN_DATA),
+            NetworkResult.Success(FAKE_BOOLEAN_DATA),
             dataSource.createUserDetail(createUserDetailModel).first()
         )
     }
@@ -45,7 +45,7 @@ class UserDataSourceTest {
     fun testUpdateUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            APIResult.Success(FAKE_BOOLEAN_DATA),
+            NetworkResult.Success(FAKE_BOOLEAN_DATA),
             dataSource.updateUserDetail(userDetailModel).first()
         )
     }
@@ -53,7 +53,7 @@ class UserDataSourceTest {
     fun testExistUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            APIResult.Success(FAKE_BOOLEAN_DATA),
+            NetworkResult.Success(FAKE_BOOLEAN_DATA),
             dataSource.existUserDetail().first()
         )
     }

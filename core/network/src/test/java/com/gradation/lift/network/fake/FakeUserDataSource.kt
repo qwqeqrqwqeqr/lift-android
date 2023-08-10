@@ -1,7 +1,7 @@
 package com.gradation.lift.network.fake
 
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.createUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.existUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.getUserDetailResponseDto
@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.flow
 
 class FakeUserDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) : UserDataSource {
 
-    override suspend fun getUserDetail(): Flow<APIResult<UserDetail>> = flow {
+    override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
         when (testReturnState) {
-            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = getUserDetailResponseDto.toDomain()))
+            TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = getUserDetailResponseDto.toDomain()))
         }
     }
 
@@ -24,26 +24,26 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
 
     override suspend fun createUserDetail(
         userDetail: UserDetail,
-    ): Flow<APIResult<Boolean>> = flow {
+    ): Flow<NetworkResult<Boolean>> = flow {
         when (testReturnState) {
-            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = createUserDetailResponseDto.result))
+            TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = createUserDetailResponseDto.result))
         }
     }
 
     override suspend fun updateUserDetail(
         userDetail: UserDetail,
-    ): Flow<APIResult<Boolean>> = flow {
+    ): Flow<NetworkResult<Boolean>> = flow {
         when (testReturnState) {
-            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data =updateUserDetailResponseDto.result))
+            TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+            TestReturnState.Success -> emit(NetworkResult.Success(data =updateUserDetailResponseDto.result))
         }
     }
 
-    override suspend fun existUserDetail(): Flow<APIResult<Boolean>> = flow {
+    override suspend fun existUserDetail(): Flow<NetworkResult<Boolean>> = flow {
         when (testReturnState) {
-            TestReturnState.Fail -> emit(APIResult.Fail("오류"))
-            TestReturnState.Success -> emit(APIResult.Success(data = existUserDetailResponseDto.result))
+            TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = existUserDetailResponseDto.result))
         }
     }
 

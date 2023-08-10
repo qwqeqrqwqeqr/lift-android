@@ -1,7 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
 import com.gradation.lift.model.model.common.Weekday
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
@@ -31,7 +31,7 @@ class RoutineDataSourceTest {
     fun testCreateRoutineSetDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            APIResult.Success(true),
+            NetworkResult.Success(true),
             dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
         )
     }
@@ -41,7 +41,7 @@ class RoutineDataSourceTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
-            APIResult.Success(routineModelList),
+            NetworkResult.Success(routineModelList),
             dataSource.getRoutine().first()
         )
     }
@@ -51,7 +51,7 @@ class RoutineDataSourceTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
-            APIResult.Success(routineSetRoutineModelList),
+            NetworkResult.Success(routineSetRoutineModelList),
             dataSource.getRoutineSetRoutine().first()
         )
     }
@@ -61,7 +61,7 @@ class RoutineDataSourceTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
-            APIResult.Success(routineSetRoutineModelList),
+            NetworkResult.Success(routineSetRoutineModelList),
             dataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
         )
     }
@@ -71,7 +71,7 @@ class RoutineDataSourceTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
-            APIResult.Success(routineSetRoutineModelList),
+            NetworkResult.Success(routineSetRoutineModelList),
             dataSource.getRoutineSetRoutineByRoutineSetId(setOf(12,13,14)).first()
         )
     }

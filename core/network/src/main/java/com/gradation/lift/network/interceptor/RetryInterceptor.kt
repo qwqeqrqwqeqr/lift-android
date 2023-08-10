@@ -1,4 +1,4 @@
-package com.gradation.lift.network.handler
+package com.gradation.lift.network.interceptor
 
 import android.os.SystemClock.sleep
 import android.util.Log

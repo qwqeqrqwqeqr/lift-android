@@ -1,6 +1,7 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.createRoutineDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto2
@@ -24,6 +25,7 @@ import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 
@@ -244,8 +246,8 @@ object TestDtoDataGenerator {
         )
         internal val routineSetDto2 = RoutineSetDto(
             routineSetId = 2,
-            name = "등 단련 루틴",
-            description = "집중 등 운동",
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.MONDAY_VALUE,
             picture = FAKE_URL_DATA
         )

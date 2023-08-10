@@ -1,7 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
 import com.google.common.truth.Truth
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.PictureDataSource
 import com.gradation.lift.network.fake.FakePictureDataSource
 import com.gradation.lift.network.utils.TestReturnState
@@ -30,7 +30,7 @@ class PictureDataSourceTest {
     fun testRoutineSetPictureDataSource() = runTest {
         dataSource = FakePictureDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            APIResult.Success(routineSetPictureModelList)
+            NetworkResult.Success(routineSetPictureModelList)
         ).isEqualTo(
             dataSource.getRoutineSetPicture().first()
         )
@@ -40,7 +40,7 @@ class PictureDataSourceTest {
     fun testUserProfilePictureDataSource() = runTest {
         dataSource = FakePictureDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            APIResult.Success(userProfilePictureModelList)
+            NetworkResult.Success(userProfilePictureModelList)
         ).isEqualTo(
             dataSource.getUserProfilePicture().first()
         )

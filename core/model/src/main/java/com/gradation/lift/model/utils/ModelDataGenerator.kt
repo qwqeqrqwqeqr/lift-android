@@ -33,6 +33,8 @@ import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
@@ -239,8 +241,8 @@ object ModelDataGenerator {
     object RoutineSetRoutine {
         val routineSetRoutineModel1 = RoutineSetRoutine(
             id = 1,
-            name = "행복한 월요일 루틴",
-            description = "가볍게 하는 운동",
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.Monday(),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(routineModel1)
@@ -248,8 +250,8 @@ object ModelDataGenerator {
 
         val routineSetRoutineModel2 = RoutineSetRoutine(
             id = 2,
-            name = "등 단련 루틴",
-            description = "집중 등 운동",
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
             weekday = Weekday.Monday(),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(routineModel2)

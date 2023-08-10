@@ -1,10 +1,9 @@
-package com.gradation.lift.network.handler
+package com.gradation.lift.network.interceptor
 
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.Constants.DEFAULT_API_URL
-import com.gradation.lift.network.common.Constants.FORBIDDEN
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import com.gradation.lift.network.dto.auth.RefreshResponseDto
 import com.gradation.lift.network.service.RefreshService

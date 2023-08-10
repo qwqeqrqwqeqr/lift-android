@@ -2,7 +2,7 @@ package com.gradation.lift.network.datasource
 
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
-import com.gradation.lift.network.common.APIResult
+import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.WorkService
 import kotlinx.coroutines.flow.Flow
@@ -13,32 +13,32 @@ class DefaultWorkDataSource @Inject constructor(
     private val workService: WorkService,
     private val networkResultHandler: NetworkResultHandler,
 ) : WorkDataSource {
-    override suspend fun getWorkPart(): Flow<APIResult<List<WorkPart>>> = flow {
+    override suspend fun getWorkPart(): Flow<NetworkResult<List<WorkPart>>> = flow {
         networkResultHandler { workService.getWorkPart() }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
 
     }
 
-    override suspend fun getWorkCategory(): Flow<APIResult<List<WorkCategory>>> = flow {
+    override suspend fun getWorkCategory(): Flow<NetworkResult<List<WorkCategory>>> = flow {
         networkResultHandler { workService.getWorkCategory() }.collect { result ->
             when (result) {
-                is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
     }
 
-    override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<APIResult<List<WorkCategory>>> =
+    override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<NetworkResult<List<WorkCategory>>> =
         flow {
             networkResultHandler { workService.getWorkCategoryByWorkPart(workPart) }
                 .collect { result ->
                     when (result) {
-                        is APIResult.Fail -> emit(APIResult.Fail(result.message))
-                        is APIResult.Success -> emit(APIResult.Success(result.data.toDomain()))
+                        is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                        is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                     }
                 }
         }
