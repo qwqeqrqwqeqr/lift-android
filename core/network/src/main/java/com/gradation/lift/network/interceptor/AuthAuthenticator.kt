@@ -2,7 +2,8 @@ package com.gradation.lift.network.interceptor
 
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.APIResultWrapper
-import com.gradation.lift.network.common.Constants
+import com.gradation.lift.network.common.Constants.AUTHORIZATION_HEADER
+import com.gradation.lift.network.common.Constants.BEARER
 import com.gradation.lift.network.common.Constants.DEFAULT_API_URL
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import com.gradation.lift.network.dto.auth.RefreshResponseDto
@@ -16,6 +17,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
+/**
+ * [AuthAuthenticator]
+ * 401 에러를 처리하기 위한 Authenticator
+ * refresh 를 실패할 경우 저장소에 저장되어 있는 토큰 데이터를 전부 초기화 함
+ */
 class AuthAuthenticator @Inject constructor(
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
     private val moshi: Moshi,
@@ -34,10 +40,10 @@ class AuthAuthenticator @Inject constructor(
             if (isRefreshed) {
                 return response.request
                     .newBuilder()
-                    .removeHeader("Authorization")
+                    .removeHeader(AUTHORIZATION_HEADER)
                     .addHeader(
-                        "Authorization",
-                        "${Constants.BEARER}${
+                        AUTHORIZATION_HEADER,
+                        "$BEARER${
                             runBlocking {
                                 tokenDataStoreDataSource.accessToken.first()
                             }
@@ -53,6 +59,10 @@ class AuthAuthenticator @Inject constructor(
     }
 
 
+    /**
+     * [refresh]
+     * Refresh Token 을 불러와 Access Token을 갱신합니다.
+     */
     private suspend fun refresh(
         tokenDataStoreDataSource: TokenDataStoreDataSource,
         moshi: Moshi,
@@ -66,7 +76,7 @@ class AuthAuthenticator @Inject constructor(
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
         val service = retrofit.create(RefreshService::class.java)
         return service.refresh(
-            Authorization = "${Constants.BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
+            Authorization = "${BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
         )
     }
 }

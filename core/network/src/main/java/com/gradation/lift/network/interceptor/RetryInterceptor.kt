@@ -7,6 +7,10 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
+/**
+ * [RetryInterceptor]
+ * 통신 실패 시 재시도를 위한 Interceptor
+ */
 class RetryInterceptor @Inject constructor(
 ) : Interceptor {
      override fun intercept(chain: Interceptor.Chain): Response {
@@ -19,7 +23,7 @@ class RetryInterceptor @Inject constructor(
                 sleep(NETWORK_RETRY_DELAY)
                 tryCount++
                 response.close()
-                response = chain.proceed(request());
+                response = chain.proceed(request())
             }
             response
         }

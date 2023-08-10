@@ -10,6 +10,7 @@ object Constants {
     const val DEFAULT_S3_URL = BuildConfig.LIFT_S3_URL
 
     const val BEARER = "Bearer "
+    const val AUTHORIZATION_HEADER = "Authorization"
 
     const val OK = 200
     const val CREATED = 201
