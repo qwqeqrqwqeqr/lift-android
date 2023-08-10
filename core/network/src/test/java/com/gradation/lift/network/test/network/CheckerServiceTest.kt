@@ -11,7 +11,7 @@ import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultRespon
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.CheckerService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse

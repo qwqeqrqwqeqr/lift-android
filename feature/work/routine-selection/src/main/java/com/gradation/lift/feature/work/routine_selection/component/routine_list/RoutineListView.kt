@@ -29,7 +29,7 @@ import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+import com.gradation.lift.model.data_generator.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import com.gradation.lift.ui.utils.toText
 
 

@@ -5,8 +5,8 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.PictureDataSource
 import com.gradation.lift.network.fake.FakePictureDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.utils.ModelDataGenerator.Picture.routineSetPictureModelList
-import com.gradation.lift.model.utils.ModelDataGenerator.Picture.userProfilePictureModelList
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Picture.routineSetPictureModelList
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Picture.userProfilePictureModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

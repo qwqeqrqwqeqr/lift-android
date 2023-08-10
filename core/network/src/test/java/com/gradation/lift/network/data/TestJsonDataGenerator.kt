@@ -1,9 +1,9 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_URL_DATA
 
 object TestJsonDataGenerator {
 
@@ -19,10 +19,6 @@ object TestJsonDataGenerator {
           }
         }
     """.trimIndent()
-    }
-
-    object Checker {
-
     }
 
     object Refresh {

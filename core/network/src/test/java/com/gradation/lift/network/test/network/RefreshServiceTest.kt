@@ -10,7 +10,7 @@ import com.gradation.lift.network.data.TestJsonDataGenerator.Refresh.refreshResp
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.RefreshService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse

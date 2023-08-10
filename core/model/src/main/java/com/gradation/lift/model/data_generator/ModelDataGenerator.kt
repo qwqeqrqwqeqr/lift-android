@@ -1,6 +1,5 @@
-package com.gradation.lift.model.utils
+package com.gradation.lift.model.data_generator
 
-import android.provider.SyncStateContract.Constants
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.auth.SignInInfo
 import com.gradation.lift.model.auth.SignUpInfo
@@ -21,18 +20,18 @@ import com.gradation.lift.model.user.UserDetail
 import com.gradation.lift.model.work.WorkCategory
 import com.gradation.lift.model.work.WorkPart
 import com.gradation.lift.model.work.WorkSet
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel2
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel2
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_EMAIL_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_PASSWORD_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_REFRESH_TOKEN
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Routine.routineModel1
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Routine.routineModel2
+import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkPart.workPartModel1
+import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkPart.workPartModel2
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 

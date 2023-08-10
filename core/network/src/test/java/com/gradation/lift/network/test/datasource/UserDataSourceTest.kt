@@ -4,9 +4,9 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.UserDataSource
 import com.gradation.lift.network.fake.FakeUserDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.User.createUserDetailModel
-import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.data_generator.ModelDataGenerator.User.createUserDetailModel
+import com.gradation.lift.model.data_generator.ModelDataGenerator.User.userDetailModel
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

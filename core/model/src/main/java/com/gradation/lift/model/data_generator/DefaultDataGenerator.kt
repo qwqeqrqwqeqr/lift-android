@@ -1,4 +1,4 @@
-package com.gradation.lift.model.utils
+package com.gradation.lift.model.data_generator
 
 import kotlinx.datetime.LocalDate
 

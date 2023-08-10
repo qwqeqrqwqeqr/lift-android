@@ -19,7 +19,7 @@ import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn

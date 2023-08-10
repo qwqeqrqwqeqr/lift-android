@@ -3,10 +3,8 @@ package com.gradation.lift.feature.work.work.component.work_list
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -29,8 +27,8 @@ import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.feature.work.work.data.model.initModel
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.model.data_generator.ModelDataGenerator.WorkCategory.workCategoryModel2
 import com.gradation.lift.ui.utils.toText
 
 @ExperimentalMaterial3Api

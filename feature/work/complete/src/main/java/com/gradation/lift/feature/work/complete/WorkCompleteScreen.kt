@@ -6,8 +6,6 @@ import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -32,15 +30,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.history.CreateHistoryRoutine
-import com.gradation.lift.model.history.History
-import com.gradation.lift.model.routine.CreateRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryModel
-import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryRoutineModel
-import com.gradation.lift.model.utils.ModelDataGenerator.History.historyRoutineModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.History.historyRoutineModel2
-import com.gradation.lift.model.work.WorkSet
+import com.gradation.lift.model.data_generator.ModelDataGenerator.History.createHistoryRoutineModel
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.LocalTime
 

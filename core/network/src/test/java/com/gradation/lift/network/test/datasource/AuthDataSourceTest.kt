@@ -5,10 +5,10 @@ import com.gradation.lift.network.common.APIResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import com.gradation.lift.network.fake.FakeAuthDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.Auth.signInInfoModel
-import com.gradation.lift.model.utils.ModelDataGenerator.Auth.signUpInfoModel
-import com.gradation.lift.model.utils.ModelDataGenerator.Auth.tokenModel
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Auth.signInInfoModel
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Auth.signUpInfoModel
+import com.gradation.lift.model.data_generator.ModelDataGenerator.Auth.tokenModel
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

@@ -3,8 +3,6 @@ package com.gradation.lift.feature.home.component.routine_list_view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -31,8 +29,8 @@ import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.user.Gender
 import com.gradation.lift.model.user.UserDetail
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.data_generator.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn

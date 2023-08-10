@@ -17,8 +17,8 @@ import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.common.UnitOfWeight
 import com.gradation.lift.model.common.Weekday
 import com.gradation.lift.model.user.Gender
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.data_generator.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.work.WorkSet
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -123,6 +123,7 @@ object TestEntityDataGenerator {
     object Work{
         internal val workEntity = WorkEntity(
             id = 1,
+            workTime = LocalTime(0,20,0),
             restTime = LocalTime(0, 10, 0),
             totalTime = LocalTime(0, 30, 0),
         )
