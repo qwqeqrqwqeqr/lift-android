@@ -239,21 +239,21 @@ object TestDtoDataGenerator {
             routineSetId = 1,
             name = "행복한 월요일 루틴",
             description = "가볍게 하는 운동",
-            weekday = Weekday.MONDAY,
+            weekday = Weekday.MONDAY_VALUE,
             picture = FAKE_URL_DATA
         )
         internal val routineSetDto2 = RoutineSetDto(
             routineSetId = 2,
             name = "등 단련 루틴",
             description = "집중 등 운동",
-            weekday = Weekday.MONDAY,
+            weekday = Weekday.MONDAY_VALUE,
             picture = FAKE_URL_DATA
         )
 
         val createRoutineSetRequestDto = CreateRoutineSetRequestDto(
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = listOf(Weekday.MONDAY, Weekday.TUESDAY),
+            weekday = listOf(Weekday.MONDAY_VALUE, Weekday.TUESDAY_VALUE),
             picture = FAKE_URL_DATA,
             routine = listOf(createRoutineDto)
         )

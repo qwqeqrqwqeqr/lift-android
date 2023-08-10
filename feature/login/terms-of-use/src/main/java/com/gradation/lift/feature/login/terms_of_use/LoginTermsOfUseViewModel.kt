@@ -1,15 +1,11 @@
 package com.gradation.lift.feature.login.terms_of_use
 
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.SignUpDefaultUseCase
-import com.gradation.lift.model.auth.SignUpInfo
+import com.gradation.lift.model.auth.DefaultSignUpInfo
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -98,7 +94,7 @@ class LoginTermsOfUseViewModel @Inject constructor(
             ).apply {
                 signUpUiState.value = SignUpUiState.Loading
                 signUpDefaultUseCase(
-                    SignUpInfo(
+                    DefaultSignUpInfo(
                         id = this[SavedStateHandleKey.SignUpKey.EMAIL_KEY] ?: "",
                         password = this[SavedStateHandleKey.SignUpKey.PASSWORD_KEY] ?: ""
                     )

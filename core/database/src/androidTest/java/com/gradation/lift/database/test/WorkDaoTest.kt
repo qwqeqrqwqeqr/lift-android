@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.database.dao.WorkDao
-import com.gradation.lift.database.data.TestEntityDataGenerator
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.data.TestEntityDataGenerator.Work.workEntity
 import com.gradation.lift.database.data.TestEntityDataGenerator.Work.workRoutineEntity

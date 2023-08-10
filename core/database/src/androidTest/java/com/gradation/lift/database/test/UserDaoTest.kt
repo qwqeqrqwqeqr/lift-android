@@ -18,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
-import kotlin.Int.Companion.MAX_VALUE
 
 @ExperimentalCoroutinesApi
 @SmallTest
