@@ -15,6 +15,10 @@ data class WorkEntity(
     val id: Int,
 
     @TypeConverters(LocalTimeTypeConverter::class)
+    @ColumnInfo(name = "work_time")
+    val workTime: LocalTime,
+
+    @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "rest_time")
     val restTime: LocalTime,
 
@@ -24,6 +28,7 @@ data class WorkEntity(
 ) {
     fun toDomain(): Work = Work(
         id = this.id,
+        workTime = this.workTime,
         restTime = this.restTime,
         totalTime = this.totalTime,
         routine = emptyList()
