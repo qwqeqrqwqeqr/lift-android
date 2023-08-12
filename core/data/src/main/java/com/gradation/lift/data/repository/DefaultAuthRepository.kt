@@ -3,7 +3,7 @@ package com.gradation.lift.data.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
-import com.gradation.lift.network.utils.toMessage
+import com.gradation.lift.network.mapper.toMessage
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo

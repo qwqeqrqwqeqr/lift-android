@@ -3,7 +3,7 @@ package com.gradation.lift.network.handler
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.utils.toMessage
+import com.gradation.lift.network.mapper.toMessage
 import kotlinx.coroutines.flow.*
 import org.json.JSONObject
 import retrofit2.HttpException
