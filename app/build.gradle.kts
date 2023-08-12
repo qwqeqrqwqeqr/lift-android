@@ -1,4 +1,5 @@
 plugins {
+
     id("lift.android.application")
     id("lift.android.common")
     id("lift.android.compose.application")
@@ -6,6 +7,9 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.splash")
     id("lift.android.image")
+    id("lift.android.jacoco")
+    id("jacoco")
+
 }
 
 
@@ -13,8 +17,10 @@ plugins {
 
 android {
     namespace = "com.gradation.lift"
-
 }
+
+
+
 dependencies{
     implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
