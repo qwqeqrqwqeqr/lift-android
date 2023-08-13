@@ -1,8 +1,5 @@
-package com.gradation.lift.feature.login.sign_in
+package com.gradation.lift.feature.login.sign_in.data
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
@@ -27,11 +24,11 @@ class LoginSignInViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var email by mutableStateOf("")
-    var password by mutableStateOf("")
+    var email = MutableStateFlow("")
+    var password = MutableStateFlow("")
 
-    var passwordVisible by mutableStateOf(false)
-    var passwordVisualTransformation: VisualTransformation by mutableStateOf(
+    var passwordVisible = MutableStateFlow(false)
+    var passwordVisualTransformation: MutableStateFlow<VisualTransformation> = MutableStateFlow(
         PasswordVisualTransformation()
     )
 
@@ -44,9 +41,9 @@ class LoginSignInViewModel @Inject constructor(
         )
 
 
-    fun onChangePasswordVisible(): (Boolean) -> Unit = {
-        passwordVisible = it
-        passwordVisualTransformation =
+    fun changePasswordVisible(): (Boolean) -> Unit = {
+        passwordVisible.value = it
+        passwordVisualTransformation.value =
             if (passwordVisualTransformation == VisualTransformation.None) {
                 PasswordVisualTransformation()
             } else {
@@ -54,7 +51,7 @@ class LoginSignInViewModel @Inject constructor(
             }
     }
 
-    fun onChangeAutoLoginChecked(): (Boolean) -> Unit = {
+    fun changeAutoLoginChecked(): (Boolean) -> Unit = {
         viewModelScope.launch {
             setAutoLoginSettingUseCase(value = it)
         }
@@ -62,37 +59,38 @@ class LoginSignInViewModel @Inject constructor(
     }
 
 
-    fun clearPassword(): () -> Unit = { password = "" }
-    fun updateEmail(): (String) -> Unit = { email = it }
-    fun updatePassword(): (String) -> Unit = { password = it }
+    fun clearPassword(): () -> Unit = { password.update { "" } }
+    fun updateEmail(): (String) -> Unit = { email.update { it } }
+    fun updatePassword(): (String) -> Unit = { password.update { it } }
 
-    var signInUiState = MutableStateFlow<SignInUiState>(SignInUiState.None)
+    var signInUiState = MutableStateFlow<SignInState>(SignInState.None)
     fun signIn(): () -> Unit = {
         viewModelScope.launch {
-            signInUiState.value = SignInUiState.None
-            if (email.isBlank() || password.isBlank()) {
-                signInUiState.value = SignInUiState.Fail(
+            signInUiState.value = SignInState.None
+            if (email.value.isBlank() || password.value.isBlank()) {
+                signInUiState.value = SignInState.Fail(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
             } else {
                 signInDefaultUseCase(
                     DefaultSignInInfo(
-                        id = email,
-                        password = password
+                        id = email.value,
+                        password = password.value
                     )
                 ).collect { signInResult ->
                     when (signInResult) {
                         is DataState.Fail -> {
-                            signInUiState.value = SignInUiState.Fail(signInResult.message)
+                            signInUiState.value = SignInState.Fail(signInResult.message)
                         }
                         is DataState.Success -> {
                             existUserDetail().collect { existUserDetailResult ->
                                 when (existUserDetailResult) {
                                     is DataState.Fail -> {
-                                        signInUiState.value = SignInUiState.Fail("로그인을 실패하였습니다.")
+                                        signInUiState.value =
+                                            SignInState.Fail("로그인을 실패하였습니다.")
                                     }
                                     is DataState.Success -> signInUiState.value =
-                                        SignInUiState.Success(
+                                        SignInState.Success(
                                             existUserDetailResult.data
                                         )
                                 }
@@ -106,9 +104,3 @@ class LoginSignInViewModel @Inject constructor(
 }
 
 
-sealed interface SignInUiState {
-
-    data class Success(val existUserDetail: Boolean) : SignInUiState
-    data class Fail(val message: String) : SignInUiState
-    object None : SignInUiState
-}

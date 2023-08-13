@@ -13,8 +13,7 @@ fun loginSignInScreen(
 
         navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
             LoginSignInRoute(
-                navigateToLoginFindEmail = { navController.navigateToLoginFindEmail() },
-                navigateToLoginFindPassword =  { navController.navigateToLoginFindPassword() },
+                navigateToLoginFindEmailPassword = { navController.navigateToLoginFindEmailPassword() },
                 navigateToLoginSignUp = { navController.navigateToLoginSignUp() },
                 navigateLoginToHome= { navController.navigateLoginToHome() },
                 navigateLoginToRegisterDetail= { navController.navigateLoginToRegisterDetail() }

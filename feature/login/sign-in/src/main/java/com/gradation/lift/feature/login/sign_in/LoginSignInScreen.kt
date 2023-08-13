@@ -21,57 +21,71 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
+import com.gradation.lift.feature.login.sign_in.data.LoginSignInViewModel
+import com.gradation.lift.feature.login.sign_in.data.SignInState
 import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 internal fun LoginSignInRoute(
-    navigateToLoginFindEmail: () -> Unit,
-    navigateToLoginFindPassword: () -> Unit,
+    navigateToLoginFindEmailPassword: () -> Unit,
     navigateToLoginSignUp: () -> Unit,
     navigateLoginToHome: () -> Unit,
     navigateLoginToRegisterDetail: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
-    val signInUiState: SignInUiState by viewModel.signInUiState.collectAsStateWithLifecycle()
-    val autoLoginChecked = viewModel.autoLoginChecked.collectAsStateWithLifecycle()
 
-    val snackbarHostState = remember { mutableStateOf(SnackbarHostState()) }
+    val signInState: SignInState by viewModel.signInUiState.collectAsStateWithLifecycle()
+    val autoLoginChecked by viewModel.autoLoginChecked.collectAsStateWithLifecycle()
+
+    val email by viewModel.email.collectAsStateWithLifecycle()
+    val password by viewModel.password.collectAsStateWithLifecycle()
+    val passwordVisible by viewModel.passwordVisible.collectAsStateWithLifecycle()
+    val passwordVisualTransformation by viewModel.passwordVisualTransformation.collectAsStateWithLifecycle()
+
+    val updateEmail = viewModel.updateEmail()
+    val updatePassword = viewModel.updatePassword()
+    val changeAutoLoginChecked = viewModel.changeAutoLoginChecked()
+    val changePasswordVisible = viewModel.changePasswordVisible()
+    val clearPassword = viewModel.clearPassword()
+    val signIn = viewModel.signIn()
+
+
+    val snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
     LoginSignInScreen(
         modifier = modifier,
-        emailText = viewModel.email,
-        passwordText = viewModel.password,
-        updateEmailText = viewModel.updateEmail(),
-        updatePasswordText = viewModel.updatePassword(),
-        onClickFindEmail = navigateToLoginFindEmail,
-        onClickFindPassword = navigateToLoginFindPassword,
+        emailText = email,
+        passwordText = password,
+        updateEmailText = updateEmail,
+        updatePasswordText = updatePassword,
+        onClickFindEmailPassword = navigateToLoginFindEmailPassword,
         onClickSignUp = navigateToLoginSignUp,
-        onClickSignIn = viewModel.signIn(),
-        autoLoginChecked = autoLoginChecked.value,
-        onChangeAutoLoginChecked = viewModel.onChangeAutoLoginChecked(),
-        passwordVisible = viewModel.passwordVisible,
-        onChangePasswordVisible = viewModel.onChangePasswordVisible(),
-        passwordVisualTransformation = viewModel.passwordVisualTransformation,
-        clearPassword = viewModel.clearPassword(),
-        snackbarHostState = snackbarHostState.value
+        onClickSignIn = signIn,
+        autoLoginChecked = autoLoginChecked,
+        onChangeAutoLoginChecked = changeAutoLoginChecked,
+        passwordVisible = passwordVisible,
+        onChangePasswordVisible = changePasswordVisible,
+        passwordVisualTransformation = passwordVisualTransformation,
+        clearPassword = clearPassword,
+        snackbarHostState = snackbarHostState
     )
 
-    when (val result = signInUiState) {
-        is SignInUiState.Fail -> {
-            //TODO 클릭시 마다 실행 되도록 구현할 것
+
+    when (val result = signInState) {
+        is SignInState.Fail -> {
             LaunchedEffect(result.message) {
-                snackbarHostState.value.showSnackbar(
+                snackbarHostState.showSnackbar(
                     message = result.message,
                     duration = SnackbarDuration.Short
                 )
             }
         }
-        SignInUiState.None -> {}
-        is SignInUiState.Success -> {
+        SignInState.None -> {}
+        is SignInState.Success -> {
             LaunchedEffect(result) {
                 if (result.existUserDetail) {
-                     navigateLoginToHome()
+                    navigateLoginToHome()
                 } else {
                     navigateLoginToRegisterDetail()
                 }
@@ -82,23 +96,23 @@ internal fun LoginSignInRoute(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginSignInScreen(
     modifier: Modifier = Modifier,
     emailText: String,
-    updateEmailText: (String) -> Unit,
     passwordText: String,
+    autoLoginChecked: Boolean,
+    passwordVisible: Boolean,
+    updateEmailText: (String) -> Unit,
     updatePasswordText: (String) -> Unit,
-    onClickFindEmail: () -> Unit,
-    onClickFindPassword: () -> Unit,
+    onClickFindEmailPassword: () -> Unit,
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
-    autoLoginChecked: Boolean,
     onChangeAutoLoginChecked: (Boolean) -> Unit,
-    passwordVisible: Boolean,
     onChangePasswordVisible: (Boolean) -> Unit,
-    passwordVisualTransformation: VisualTransformation,
     clearPassword: () -> Unit,
+    passwordVisualTransformation: VisualTransformation,
     snackbarHostState: SnackbarHostState,
 ) {
     Scaffold(
@@ -133,8 +147,7 @@ internal fun LoginSignInScreen(
                 updateEmailText = updateEmailText,
                 passwordText = passwordText,
                 updatePasswordText = updatePasswordText,
-                onClickFindEmail = onClickFindEmail,
-                onClickFindPassword = onClickFindPassword,
+                onClickFindEmailPassword = onClickFindEmailPassword,
                 onClickSignUp = onClickSignUp,
                 onClickSignIn = onClickSignIn,
                 autoLoginChecked = autoLoginChecked,
@@ -152,7 +165,6 @@ internal fun LoginSignInScreen(
 }
 
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 @DevicePreview
 internal fun LoginSignInPreview() {
@@ -162,8 +174,7 @@ internal fun LoginSignInPreview() {
             updateEmailText = {},
             passwordText = "",
             updatePasswordText = {},
-            onClickFindEmail = {},
-            onClickFindPassword = {},
+            onClickFindEmailPassword = {},
             onClickSignUp = {},
             onClickSignIn = {},
             autoLoginChecked = true,

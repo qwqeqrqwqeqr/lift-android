@@ -23,12 +23,9 @@ fun NavController.navigateToLoginComplete() {
     this.navigate(Router.LOGIN_COMPLETE_ROUTER_NAME)
 }
 
-fun NavController.navigateToLoginFindEmail() {
-    this.navigate(Router.LOGIN_FIND_EMAIL_ROUTER_NAME)
-}
 
-fun NavController.navigateToLoginFindPassword() {
-    this.navigate(Router.LOGIN_FIND_PASSWORD_ROUTER_NAME)
+fun NavController.navigateToLoginFindEmailPassword() {
+    this.navigate(Router.LOGIN_FIND_EMAIL_PASSWORD_ROUTER_NAME)
 }
 
 fun NavController.navigateToLoginGraph() {

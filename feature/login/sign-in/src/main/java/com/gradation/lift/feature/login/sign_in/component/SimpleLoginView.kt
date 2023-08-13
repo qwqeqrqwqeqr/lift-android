@@ -64,7 +64,6 @@ internal fun SimpleLoginView(modifier: Modifier = Modifier) {
     }
 }
 
-//TODO 간편로그인 로직 연동
 @Composable
 internal fun SimpleLoginButton(
     painterResource: Painter,

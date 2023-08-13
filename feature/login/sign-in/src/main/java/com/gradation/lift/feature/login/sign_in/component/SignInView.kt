@@ -31,8 +31,7 @@ internal fun SignInView(
     updateEmailText: (String) -> Unit,
     passwordText: String,
     updatePasswordText: (String) -> Unit,
-    onClickFindEmail: () -> Unit,
-    onClickFindPassword: () -> Unit,
+    onClickFindEmailPassword: () -> Unit,
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
     autoLoginChecked: Boolean,
@@ -123,8 +122,7 @@ internal fun SignInView(
 
     SignInHelperView(
         modifier = modifier,
-        onClickFindEmail = onClickFindEmail,
-        onClickFindPassword = onClickFindPassword,
+        onClickFindEmailPassword =  onClickFindEmailPassword,
         autoLoginChecked = autoLoginChecked,
         onChangeAutoLoginChecked = onChangeAutoLoginChecked
     )

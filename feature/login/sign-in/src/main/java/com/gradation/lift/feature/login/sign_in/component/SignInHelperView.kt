@@ -16,8 +16,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun SignInHelperView(
     modifier: Modifier = Modifier,
-    onClickFindEmail: () -> Unit,
-    onClickFindPassword: () -> Unit,
+    onClickFindEmailPassword: () -> Unit,
     autoLoginChecked: Boolean,
     onChangeAutoLoginChecked: (Boolean) -> Unit,
 ) {
@@ -40,8 +39,7 @@ internal fun SignInHelperView(
         }
 
         FindIdPasswordView(
-            onClickFindEmail = onClickFindEmail,
-            onClickFindPassword = onClickFindPassword
+            onClickFindEmailPassword = onClickFindEmailPassword,
         )
     }
 }
@@ -50,8 +48,7 @@ internal fun SignInHelperView(
 @Composable
 fun FindIdPasswordView(
     modifier: Modifier = Modifier,
-    onClickFindEmail: () -> Unit,
-    onClickFindPassword: () -> Unit,
+    onClickFindEmailPassword: () -> Unit,
 ) {
     Row(
         modifier = modifier,
@@ -63,7 +60,7 @@ fun FindIdPasswordView(
             style = LiftTheme.typography.no7 +
                     TextStyle(color =  LiftTheme.colorScheme.no7),
             onClick = {
-                onClickFindEmail()
+                onClickFindEmailPassword()
             },
         )
 
@@ -80,7 +77,7 @@ fun FindIdPasswordView(
             style = LiftTheme.typography.no7 +
                     TextStyle(color =  LiftTheme.colorScheme.no7),
             onClick = { offset ->
-                onClickFindPassword()
+                onClickFindEmailPassword()
             },
         )
     }
