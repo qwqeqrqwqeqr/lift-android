@@ -6,7 +6,8 @@ plugins {
     id("lift.android.network")
     id("lift.android.hilt")
     id("lift.android.test")
-    id("lift.android.jacoco")
+    id("lift.android.oauth")
+
 
 }
 

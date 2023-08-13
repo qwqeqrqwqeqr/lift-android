@@ -7,6 +7,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultCheckerDataSource @Inject constructor(
@@ -18,7 +19,7 @@ class DefaultCheckerDataSource @Inject constructor(
 
             networkResultHandler {
                 checkerService.checkDuplicateEmail(email)
-            }.collect { result ->
+            }.transform { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
@@ -33,7 +34,7 @@ class DefaultCheckerDataSource @Inject constructor(
 
             networkResultHandler {
                 checkerService.checkDuplicateName(name)
-            }.collect { result ->
+            }.transform { result ->
 
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))

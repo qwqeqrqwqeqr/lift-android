@@ -7,6 +7,7 @@ import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.PictureService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultPictureDataSource @Inject constructor(
@@ -16,7 +17,7 @@ class DefaultPictureDataSource @Inject constructor(
     override suspend fun getUserProfilePicture(): Flow<NetworkResult<List<UserProfilePicture>>> =flow {
         networkResultHandler {
             pictureService.getUserProfilePicture()
-        }.collect { result ->
+        }.transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -28,7 +29,7 @@ class DefaultPictureDataSource @Inject constructor(
     override suspend fun getRoutineSetPicture(): Flow<NetworkResult<List<RoutineSetPicture>>> =flow{
         networkResultHandler {
             pictureService.getRoutineSetPicture()
-        }.collect { result ->
+        }.transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 

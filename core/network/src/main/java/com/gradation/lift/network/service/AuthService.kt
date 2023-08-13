@@ -34,6 +34,16 @@ interface AuthService {
         @Body signInDefaultRequestDto: SignInDefaultRequestDto,
     ): Response<APIResultWrapper<SignInDefaultResponseDto>>
 
+    /**
+     * [signInKakao]
+     * 카카오 로그인
+     * 카카오 로그인을 진행하고, 반환된 토큰은 서버에 저장한다.
+     */
+    @POST("auth/sign-in/kakao/")
+    suspend fun signInKakao(
+        @Body signInKakaoRequestDto: SignInKakaoRequestDto,
+    ): Response<APIResultWrapper<SignInKakaoResponseDto>>
+
 
 }
 

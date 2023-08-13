@@ -3,16 +3,12 @@ package com.gradation.lift.network.datasource
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
-import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.HistoryService
-import com.gradation.lift.network.service.RoutineService
-import com.squareup.moshi.Json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.datetime.LocalTime
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultHistoryDataSource @Inject constructor(
@@ -22,7 +18,7 @@ class DefaultHistoryDataSource @Inject constructor(
     override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
         networkResultHandler {
             historyService.getHistory()
-        }.collect { result ->
+        }.transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -35,7 +31,7 @@ class DefaultHistoryDataSource @Inject constructor(
         flow {
             networkResultHandler {
                 historyService.getHistoryByHistoryId(historyIdList.joinToString(","))
-            }.collect { result ->
+            }.transform { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -50,7 +46,7 @@ class DefaultHistoryDataSource @Inject constructor(
                 historyService.createHistory(
                     createHistory.toDto()
                 )
-            }.collect { result ->
+            }.transform { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -62,7 +58,7 @@ class DefaultHistoryDataSource @Inject constructor(
     override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
         networkResultHandler {
             historyService.deleteHistory(historyId)
-        }.collect { result ->
+        }.transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 

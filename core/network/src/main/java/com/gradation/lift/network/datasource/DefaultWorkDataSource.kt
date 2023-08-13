@@ -7,6 +7,7 @@ import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.WorkService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultWorkDataSource @Inject constructor(
@@ -14,7 +15,7 @@ class DefaultWorkDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
 ) : WorkDataSource {
     override suspend fun getWorkPart(): Flow<NetworkResult<List<WorkPart>>> = flow {
-        networkResultHandler { workService.getWorkPart() }.collect { result ->
+        networkResultHandler { workService.getWorkPart() }.transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
@@ -24,7 +25,7 @@ class DefaultWorkDataSource @Inject constructor(
     }
 
     override suspend fun getWorkCategory(): Flow<NetworkResult<List<WorkCategory>>> = flow {
-        networkResultHandler { workService.getWorkCategory() }.collect { result ->
+        networkResultHandler { workService.getWorkCategory() }.transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
@@ -35,7 +36,7 @@ class DefaultWorkDataSource @Inject constructor(
     override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<NetworkResult<List<WorkCategory>>> =
         flow {
             networkResultHandler { workService.getWorkCategoryByWorkPart(workPart) }
-                .collect { result ->
+                .transform { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                         is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
