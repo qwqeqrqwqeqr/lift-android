@@ -8,6 +8,7 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
+import com.gradation.lift.model.model.auth.LoginMethod
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import kotlinx.coroutines.flow.*
@@ -52,9 +53,15 @@ class DefaultAuthRepository @Inject constructor(
                                 emit(DataState.Fail(it.message))
                             }
                             is NetworkResult.Success -> {
-                                tokenDataStoreDataSource.setAccessToken(it.data.accessToken)
-                                tokenDataStoreDataSource.setRefreshToken(it.data.refreshToken)
-                                emit(DataState.Success(true))
+                                try {
+                                    tokenDataStoreDataSource.setAccessToken(it.data.accessToken)
+                                    tokenDataStoreDataSource.setRefreshToken(it.data.refreshToken)
+                                    tokenDataStoreDataSource.setLoginMethod(LoginMethod.Kakao())
+                                } catch (t: Throwable) {
+                                    emit(DataState.Fail(t.message ?: "로그인을 실패하였습니다."))
+                                } finally {
+                                    emit(DataState.Success(true))
+                                }
                             }
                         }
                     }
