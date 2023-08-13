@@ -62,6 +62,10 @@ gradlePlugin {
             id =property("NETWORK_PLUGIN_ID").toString()
             implementationClass = property("NETWORK_PLUGIN_IMPL_CLASS").toString()
         }
+        register(property("OAUTH_PLUGIN_ID").toString()) {
+            id =property("OAUTH_PLUGIN_ID").toString()
+            implementationClass = property("OAUTH_PLUGIN_IMPL_CLASS").toString()
+        }
         register(property("ROOM_PLUGIN_ID").toString()) {
             id =property("ROOM_PLUGIN_ID").toString()
             implementationClass = property("ROOM_PLUGIN_IMPL_CLASS").toString()
