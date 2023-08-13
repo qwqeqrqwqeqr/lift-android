@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
 
     id("lift.android.application")
@@ -8,20 +10,29 @@ plugins {
     id("lift.android.splash")
     id("lift.android.image")
     id("lift.android.jacoco")
+    id("lift.android.oauth")
     id("jacoco")
 
 }
 
 
-
+val KAKAO_APP_KEY = getKey("KAKAO_APP_KEY")
 
 android {
     namespace = "com.gradation.lift"
+    defaultConfig {
+        testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+        buildConfigField("String", "KAKAO_APP_KEY", KAKAO_APP_KEY)
+        manifestPlaceholders["KAKAO_APP_KEY"] = KAKAO_APP_KEY
+    }
+}
+fun getKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 
 
-dependencies{
+dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
     implementation(project(":core:domain"))

@@ -24,7 +24,6 @@ android {
     }
 }
 
-
 fun getApiURL(propertyKey: String): String {
     return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }

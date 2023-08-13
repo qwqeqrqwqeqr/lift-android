@@ -10,7 +10,7 @@ fun loginFindPasswordScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
 
-        navGraphBuilder.composable(Router.LOGIN_FIND_PASSWORD_ROUTER_NAME) {
+        navGraphBuilder.composable(Router.LOGIN_FIND_EMAIL_PASSWORD_ROUTER_NAME) {
             LoginFindPasswordRoute(navController)
         }
 }

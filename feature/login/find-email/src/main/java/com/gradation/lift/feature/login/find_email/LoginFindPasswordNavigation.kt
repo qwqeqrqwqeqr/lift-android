@@ -9,7 +9,7 @@ fun loginFindEmailScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.composable(Router.LOGIN_FIND_EMAIL_ROUTER_NAME) {
+    navGraphBuilder.composable(Router.LOGIN_FIND_EMAIL_PASSWORD_ROUTER_NAME) {
         LoginFindEmailRoute(navController)
     }
 }
