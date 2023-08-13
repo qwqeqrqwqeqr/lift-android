@@ -1,9 +1,7 @@
 package com.gradation.lift.datastore
 
-import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 
 
 internal object Constants {
@@ -20,6 +18,7 @@ internal object Constants {
 
     const val SETTING_PREFERENCES = "setting_preferences"
     val AUTO_LOGIN = booleanPreferencesKey("auto_login")
+    val LOGIN_METHOD = stringPreferencesKey("login_method")
 
 
 }
