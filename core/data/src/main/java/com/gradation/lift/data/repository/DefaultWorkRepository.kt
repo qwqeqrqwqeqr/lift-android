@@ -19,7 +19,7 @@ class DefaultWorkRepository @Inject constructor(
 
     ) : WorkRepository {
     override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
-        workDataSource.getWorkPart().collect { result ->
+        workDataSource.getWorkPart().transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -29,7 +29,7 @@ class DefaultWorkRepository @Inject constructor(
 
 
     override fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
-        workDataSource.getWorkCategory().collect { result ->
+        workDataSource.getWorkCategory().transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -39,7 +39,7 @@ class DefaultWorkRepository @Inject constructor(
 
     override fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>> =
         flow {
-            workDataSource.getWorkCategoryByWorkPart(workPart).collect { result ->
+            workDataSource.getWorkCategoryByWorkPart(workPart).transform { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))

@@ -15,7 +15,7 @@ class DefaultUserRepository @Inject constructor(
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
         userDataSource.getUserDetail()
-            .collect { result ->
+            .transform { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -26,7 +26,7 @@ class DefaultUserRepository @Inject constructor(
     override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.createUserDetail(
             userDetail = userDetail
-        ).collect { result ->
+        ).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -39,7 +39,7 @@ class DefaultUserRepository @Inject constructor(
     override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.updateUserDetail(
             userDetail = userDetail
-        ).collect { result ->
+        ).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -50,7 +50,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
         userDataSource.existUserDetail(
-        ).collect { result ->
+        ).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

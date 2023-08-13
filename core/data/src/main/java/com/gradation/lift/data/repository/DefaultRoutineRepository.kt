@@ -10,6 +10,7 @@ import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 
@@ -19,7 +20,7 @@ class DefaultRoutineRepository @Inject constructor(
 
 
     override  fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine) : Flow<DataState<Boolean>> = flow{
-        routineDataSource.createRoutineSet(createRoutineSetRoutine).collect { result ->
+        routineDataSource.createRoutineSet(createRoutineSetRoutine).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -28,7 +29,7 @@ class DefaultRoutineRepository @Inject constructor(
     }
 
     override  fun getRoutine(): Flow<DataState<List<Routine>>> = flow{
-        routineDataSource.getRoutine().collect { result ->
+        routineDataSource.getRoutine().transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -37,7 +38,7 @@ class DefaultRoutineRepository @Inject constructor(
     }
 
     override  fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>> = flow{
-        routineDataSource.getRoutineSetRoutine().collect { result ->
+        routineDataSource.getRoutineSetRoutine().transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -46,7 +47,7 @@ class DefaultRoutineRepository @Inject constructor(
     }
 
     override  fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<DataState<List<RoutineSetRoutine>>> = flow{
-        routineDataSource.getRoutineSetRoutineByWeekday(weekday).collect { result ->
+        routineDataSource.getRoutineSetRoutineByWeekday(weekday).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -55,7 +56,7 @@ class DefaultRoutineRepository @Inject constructor(
     }
 
     override  fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> = flow{
-        routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList).collect { result ->
+        routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

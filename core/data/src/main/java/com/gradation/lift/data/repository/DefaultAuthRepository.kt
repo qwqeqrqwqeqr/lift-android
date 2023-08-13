@@ -7,6 +7,7 @@ import com.gradation.lift.network.mapper.toMessage
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.KakaoSignInInfo
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.AuthDataSource
 import kotlinx.coroutines.flow.*
@@ -41,12 +42,24 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override fun signInKakao(): Flow<DataState<Boolean>> = flow {
-
-
-        authDataSource.signInFromKakao()
-
-
-
+        authDataSource.signInFromKakao().transform { result ->
+            when (result) {
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> authDataSource.signInKakao(KakaoSignInInfo(result.data))
+                    .collect {
+                        when (it) {
+                            is NetworkResult.Fail -> {
+                                emit(DataState.Fail(it.message))
+                            }
+                            is NetworkResult.Success -> {
+                                tokenDataStoreDataSource.setAccessToken(it.data.accessToken)
+                                tokenDataStoreDataSource.setRefreshToken(it.data.refreshToken)
+                                emit(DataState.Success(true))
+                            }
+                        }
+                    }
+            }
+        }
     }
 
 

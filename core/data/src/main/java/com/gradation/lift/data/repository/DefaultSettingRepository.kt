@@ -12,7 +12,7 @@ class DefaultSettingRepository @Inject  constructor(
 
 
     override fun getAutoLoginSetting(): Flow<Boolean> = flow {
-        settingDataStoreDataSource.autoLoginSetting.collect {
+        settingDataStoreDataSource.autoLoginSetting.transform {
             emit(it)
         }
     }
