@@ -1,8 +1,8 @@
 package com.gradation.lift.network.di
 
 import android.content.Context
-import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.datasource.*
+import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.*
 import dagger.Module
 import dagger.Provides

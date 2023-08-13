@@ -12,12 +12,12 @@ import javax.inject.Inject
 
 class DefaultCheckerDataSource @Inject constructor(
     private val checkerService: CheckerService,
-    private val networkResultHandler: NetworkResultHandler,
+    private val NetworkResultHandler: NetworkResultHandler,
 ) : CheckerDataSource {
     override suspend fun checkDuplicateEmail(email: String): Flow<NetworkResult<Boolean>> =
         flow {
 
-            networkResultHandler {
+            NetworkResultHandler {
                 checkerService.checkDuplicateEmail(email)
             }.transform { result ->
                 when (result) {
@@ -32,7 +32,7 @@ class DefaultCheckerDataSource @Inject constructor(
     override suspend fun checkDuplicateName(name: String): Flow<NetworkResult<Boolean>> =
         flow {
 
-            networkResultHandler {
+            NetworkResultHandler {
                 checkerService.checkDuplicateName(name)
             }.transform { result ->
 

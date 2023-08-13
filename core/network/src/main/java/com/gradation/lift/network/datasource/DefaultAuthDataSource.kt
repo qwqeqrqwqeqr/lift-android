@@ -11,22 +11,22 @@ import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.AuthService
 import com.kakao.sdk.user.UserApiClient
-import com.kakao.sdk.user.rx
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
 import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 
 class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
-    private val networkResultHandler: NetworkResultHandler,
+    private val NetworkResultHandler: NetworkResultHandler,
     @ApplicationContext private val context: Context,
 ) : AuthDataSource {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<NetworkResult<Token>> = flow {
-        networkResultHandler {
+        NetworkResultHandler {
             authService.signInDefault(
                 signInInfo.toDto()
             )
@@ -39,7 +39,7 @@ class DefaultAuthDataSource @Inject constructor(
     }
 
     override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<NetworkResult<Boolean>> = flow {
-        networkResultHandler {
+        NetworkResultHandler {
             authService.signUpDefault(
                 signUpInfo.toDto()
             )
@@ -52,27 +52,56 @@ class DefaultAuthDataSource @Inject constructor(
     }
 
 
-    override fun signInKakao(signInInfo: KakaoSignInInfo): Flow<NetworkResult<Token>> = flow {
-        networkResultHandler {
-            authService.signInKakao(
-                signInInfo.toDto()
-            )
-        }.transform { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
-                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+    override suspend fun signInKakao(signInInfo: KakaoSignInInfo): Flow<NetworkResult<Token>> =
+        flow {
+            NetworkResultHandler {
+                authService.signInKakao(
+                    signInInfo.toDto()
+                )
+            }.transform { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+                }
             }
         }
-    }
 
     @SuppressLint("CheckResult")
-    override fun signInFromKakao(): Single<NetworkResult<String>> {
-        return (if (UserApiClient.instance.isKakaoTalkLoginAvailable(context))
-            UserApiClient.rx.loginWithKakaoTalk(context)
-        else UserApiClient.rx.loginWithKakaoAccount(context)).zipWith(
-            UserApiClient.rx.me()
-        ) { _, user ->
-            NetworkResult.Success(user.id.toString())
+    override fun signInFromKakao(): Flow<NetworkResult<String>> = flow {
+        val result = suspendCancellableCoroutine { continuation ->
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+                UserApiClient.instance.loginWithKakaoTalk(
+                    context,
+                    callback = { token, error ->
+                        token?.let { continuation.resume(true) }
+                        error?.let { continuation.resume(false) }
+                    })
+            } else {
+                UserApiClient.instance.loginWithKakaoAccount(
+                    context,
+                    callback = { token, error ->
+                        token?.let { continuation.resume(true) }
+                        error?.let { continuation.resume(false) }
+                    })
+            }
+        }
+        if (result) {
+            emit(suspendCancellableCoroutine { continuation ->
+                UserApiClient.instance.me() { user, error ->
+                    user?.let {
+                        continuation.resume(NetworkResult.Success(it.id.toString()))
+                    }
+                    error?.let {
+                        continuation.resume(
+                            NetworkResult.Fail(
+                                it.message ?: "사용자 아이디를 불러올 수 없습니다."
+                            )
+                        )
+                    }
+                }
+            })
+        } else {
+            emit(NetworkResult.Fail("로그인을 실패하였습니다."))
         }
     }
 }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
     fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Boolean>>
     fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>>
+    fun signInKakao(): Flow<DataState<Boolean>>
     fun isSigned(): Flow<DataState<Boolean>>
     fun signOut(): Flow<DataState<Unit>>
 }

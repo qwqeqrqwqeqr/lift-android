@@ -13,10 +13,10 @@ import javax.inject.Inject
 
 class DefaultHistoryDataSource @Inject constructor(
     private val historyService: HistoryService,
-    private val networkResultHandler: NetworkResultHandler,
+    private val NetworkResultHandler: NetworkResultHandler,
 ) : HistoryDataSource {
     override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
-        networkResultHandler {
+        NetworkResultHandler {
             historyService.getHistory()
         }.transform { result ->
             when (result) {
@@ -29,7 +29,7 @@ class DefaultHistoryDataSource @Inject constructor(
 
     override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<NetworkResult<List<History>>> =
         flow {
-            networkResultHandler {
+            NetworkResultHandler {
                 historyService.getHistoryByHistoryId(historyIdList.joinToString(","))
             }.transform { result ->
                 when (result) {
@@ -42,7 +42,7 @@ class DefaultHistoryDataSource @Inject constructor(
 
     override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Boolean>> =
         flow {
-            networkResultHandler {
+            NetworkResultHandler {
                 historyService.createHistory(
                     createHistory.toDto()
                 )
@@ -56,7 +56,7 @@ class DefaultHistoryDataSource @Inject constructor(
         }
 
     override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
-        networkResultHandler {
+        NetworkResultHandler {
             historyService.deleteHistory(historyId)
         }.transform { result ->
             when (result) {

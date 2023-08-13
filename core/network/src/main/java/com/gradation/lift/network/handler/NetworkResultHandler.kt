@@ -11,9 +11,11 @@ import retrofit2.Response
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
+
 /**
  * [NetworkResultHandler]
  * API 응답 결과를 핸들링하는 클래스
+ * Flow 형태로 반환할 때 사용
  */
 class NetworkResultHandler @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,

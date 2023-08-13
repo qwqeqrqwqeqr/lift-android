@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class DefaultPictureDataSource @Inject constructor(
     private val pictureService: PictureService,
-    private val networkResultHandler: NetworkResultHandler,
+    private val NetworkResultHandler: NetworkResultHandler,
 ) : PictureDataSource {
     override suspend fun getUserProfilePicture(): Flow<NetworkResult<List<UserProfilePicture>>> =flow {
-        networkResultHandler {
+        NetworkResultHandler {
             pictureService.getUserProfilePicture()
         }.transform { result ->
             when (result) {
@@ -27,7 +27,7 @@ class DefaultPictureDataSource @Inject constructor(
     }
 
     override suspend fun getRoutineSetPicture(): Flow<NetworkResult<List<RoutineSetPicture>>> =flow{
-        networkResultHandler {
+        NetworkResultHandler {
             pictureService.getRoutineSetPicture()
         }.transform { result ->
             when (result) {

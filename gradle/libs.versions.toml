@@ -33,7 +33,6 @@ hiltWork = "1.0.0"
 jacoco = "0.8.7"
 junit4 = "4.12"
 kakao = "2.15.0"
-kakao-rx = "2.9.0"
 kapt = "1.8.20"
 kotlin = "1.8.10"
 kotlinxCoroutines = "1.6.4"
@@ -207,4 +206,3 @@ work-multiprocess = { group = "androidx.work", name = "work-multiprocess", versi
 
 #SOCIAL
 kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
-kakao-login-rx = { group = "com.kakao.sdk", name = "v2-user-rx", version.ref = "kakao-rx" }

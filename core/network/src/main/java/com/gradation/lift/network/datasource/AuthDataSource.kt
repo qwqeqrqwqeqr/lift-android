@@ -5,12 +5,13 @@ import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
 import com.gradation.lift.model.model.auth.Token
 import com.gradation.lift.network.common.NetworkResult
-import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {
     fun signInDefault(signInInfo: DefaultSignInInfo) : Flow<NetworkResult<Token>>
     fun signUpDefault(signUpInfo: DefaultSignUpInfo) : Flow<NetworkResult<Boolean>>
-    fun signInKakao(signInInfo: KakaoSignInInfo) : Flow<NetworkResult<Token>>
-    fun signInFromKakao() : Single<NetworkResult<String>>
+    fun signInFromKakao() : Flow<NetworkResult<String>>
+
+    suspend fun signInKakao(signInInfo: KakaoSignInInfo) : Flow<NetworkResult<Token>>
+
 }

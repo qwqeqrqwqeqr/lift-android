@@ -17,7 +17,7 @@ class DefaultAuthRepository @Inject constructor(
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signInDefault(signInInfo).collect { result ->
+        authDataSource.signInDefault(signInInfo).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
@@ -30,7 +30,7 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signUpDefault(signUpInfo).collect { result ->
+        authDataSource.signUpDefault(signUpInfo).transform { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
@@ -38,6 +38,15 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun signInKakao(): Flow<DataState<Boolean>> = flow {
+
+
+        authDataSource.signInFromKakao()
+
+
+
     }
 
 

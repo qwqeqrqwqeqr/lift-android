@@ -1,10 +1,10 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.datasource.RoutineDataSource
 import com.gradation.lift.network.datasource.WorkDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
+import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.network.service.WorkService
 import dagger.Module
