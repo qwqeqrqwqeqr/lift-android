@@ -10,6 +10,8 @@ import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.datasource.kakao.DefaultKakaoDataSource
 import com.gradation.lift.network.datasource.kakao.KakaoDataSource
+import com.gradation.lift.network.datasource.naver.DefaultNaverDataSource
+import com.gradation.lift.network.datasource.naver.NaverDataSource
 import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
@@ -80,6 +82,12 @@ object DataSourceModule {
     fun provideKakaoDataSource(
         @ApplicationContext context: Context,
     ): KakaoDataSource = DefaultKakaoDataSource(context)
+
+
+    @Provides
+    fun provideNaverDataSource(
+        @ApplicationContext context: Context,
+    ): NaverDataSource = DefaultNaverDataSource(context)
 
 
 }
