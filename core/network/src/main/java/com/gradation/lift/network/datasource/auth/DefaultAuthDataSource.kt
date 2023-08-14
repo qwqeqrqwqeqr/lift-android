@@ -1,9 +1,6 @@
 package com.gradation.lift.network.datasource.auth
 
-import com.gradation.lift.model.model.auth.DefaultSignInInfo
-import com.gradation.lift.model.model.auth.DefaultSignUpInfo
-import com.gradation.lift.model.model.auth.KakaoSignInInfo
-import com.gradation.lift.model.model.auth.Token
+import com.gradation.lift.model.model.auth.*
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.mapper.toDto
@@ -58,6 +55,18 @@ class DefaultAuthDataSource @Inject constructor(
             }
         }
 
-
+    override fun signInNaver(signInInfo: NaverSignInInfo): Flow<NetworkResult<Token>> =
+        flow {
+            NetworkResultHandler {
+                authService.signInNaver(
+                    signInInfo.toDto()
+                )
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+                }
+            }
+        }
 }
 

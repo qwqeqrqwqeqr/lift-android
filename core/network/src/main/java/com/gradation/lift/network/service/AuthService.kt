@@ -4,7 +4,6 @@ import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.auth.*
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -43,6 +42,17 @@ interface AuthService {
     suspend fun signInKakao(
         @Body signInKakaoRequestDto: SignInKakaoRequestDto,
     ): Response<APIResultWrapper<SignInKakaoResponseDto>>
+
+
+    /**
+     * [signInNaver]
+     * 네이버 로그인
+     * 네이버 로그인을 진행하고, 반환된 토큰은 서버에 저장한다.
+     */
+    @POST("auth/sign-in/naver/")
+    suspend fun signInNaver(
+        @Body signInNaverRequestDto: SignInNaverRequestDto,
+    ): Response<APIResultWrapper<SignInNaverResponseDto>>
 
 
 }
