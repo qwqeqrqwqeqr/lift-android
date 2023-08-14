@@ -11,6 +11,7 @@ plugins {
     id("lift.android.image")
     id("lift.android.jacoco")
     id("lift.android.oauth")
+    id("lift.android.firebase")
     id("jacoco")
 
 }

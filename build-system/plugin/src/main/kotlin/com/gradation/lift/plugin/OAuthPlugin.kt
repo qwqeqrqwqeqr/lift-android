@@ -6,6 +6,10 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
+/**
+ * [OAuthPlugin]
+ * [FirebasePlugin] 과 같이 사용할 것
+ */
 class OAuthPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
@@ -13,11 +17,13 @@ class OAuthPlugin : Plugin<Project> {
 
 
             dependencies {
-                add("implementation", libs.findLibrary("kakao-login").get())
-                add("implementation", libs.findLibrary("google-login").get())
+                add("implementation", libs.findLibrary("kakao-auth").get())
+                add("implementation", libs.findLibrary("google-auth").get())
+                add("implementation", libs.findLibrary("firebase-auth").get())
             }
 
 
         }
     }
 }
+

@@ -9,14 +9,12 @@ class FirebasePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target){
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-            with(pluginManager){
-                apply(libs.findPlugin("gms").get().get().pluginId)
-            }
+
             with(dependencies){
                 val bom = libs.findLibrary("firebase-bom").get()
                 add("implementation", platform(bom))
                 add("implementation", libs.findLibrary("firebase-analytics").get())
-
+                add("implementation", libs.findLibrary("firebase-crashlytics").get())
             }
         }
     }

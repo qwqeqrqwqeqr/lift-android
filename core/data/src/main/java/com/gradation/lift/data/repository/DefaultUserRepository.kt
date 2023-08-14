@@ -53,15 +53,8 @@ class DefaultUserRepository @Inject constructor(
         userDataSource.existUserDetail(
         ).collect { result ->
             when (result) {
-                is NetworkResult.Fail -> {
-                    Log.d("실패",result.message)
-
-                    emit(DataState.Fail(result.message))
-                }
-                is NetworkResult.Success ->{
-                    Log.d("성공",result.data.toString())
-                    emit(DataState.Success(result.data))
-                }
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
     }

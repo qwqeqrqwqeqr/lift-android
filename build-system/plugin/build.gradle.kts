@@ -42,6 +42,10 @@ gradlePlugin {
             id = property("DATASTORE_PLUGIN_ID").toString()
             implementationClass = property("DATASTORE_PLUGIN_IMPL_CLASS").toString()
         }
+        register(property("FIREBASE_PLUGIN_ID").toString()) {
+            id = property("FIREBASE_PLUGIN_ID").toString()
+            implementationClass = property("FIREBASE_PLUGIN_IMPL_CLASS").toString()
+        }
         register(property("HILT_PLUGIN_ID").toString()) {
             id = property("HILT_PLUGIN_ID").toString()
             implementationClass = property("HILT_PLUGIN_IMPL_CLASS").toString()

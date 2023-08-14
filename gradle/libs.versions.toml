@@ -22,8 +22,9 @@ androidxTestCore = "1.5.0"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.1"
 detekt = "1.22.0"
+firebaseAuth = "21.0.0"
 firebaseBom = "31.2.0"
-firebaseCrashlyticsPlugin = "2.9.2"
+firebaseCrashlyticsPlugin = "2.9.8"
 firebasePerfPlugin = "1.4.2"
 gmsPlugin = "4.3.14"
 gmsAuth = "20.6.0"
@@ -59,7 +60,7 @@ android-application = { id = "com.android.application", version.ref = "android" 
 android-library = { id = "com.android.library", version.ref = "android" }
 android-test = { id = "com.android.test", version.ref = "android" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
@@ -131,6 +132,7 @@ androidx-datastore = { group = "androidx.datastore", name = "datastore", version
 #FIREBASE
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 
 #GLIDE
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
@@ -206,5 +208,6 @@ work-test = { group = "androidx.work", name = "work-testing", version.ref = "wor
 work-multiprocess = { group = "androidx.work", name = "work-multiprocess", version.ref = "work" }
 
 #OAUTH
-kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
-google-login = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
+kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
