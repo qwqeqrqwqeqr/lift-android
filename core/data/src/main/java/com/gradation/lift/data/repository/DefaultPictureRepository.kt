@@ -5,7 +5,7 @@ import com.gradation.lift.domain.repository.PictureRepository
 import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.PictureDataSource
+import com.gradation.lift.network.datasource.picture.PictureDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

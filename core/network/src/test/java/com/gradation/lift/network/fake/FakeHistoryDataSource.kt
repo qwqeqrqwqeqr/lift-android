@@ -7,7 +7,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.History.createHistor
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.deleteHistoryResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryByHistoryIdResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryResponseDto
-import com.gradation.lift.network.datasource.HistoryDataSource
+import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -2,7 +2,7 @@ package com.gradation.lift.network.test.datasource
 
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.PictureDataSource
+import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.fake.FakePictureDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.ModelDataGenerator.Picture.routineSetPictureModelList

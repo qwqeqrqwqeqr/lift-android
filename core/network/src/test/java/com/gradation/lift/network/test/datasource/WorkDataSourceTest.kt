@@ -1,7 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.WorkDataSource
+import com.gradation.lift.network.datasource.work.WorkDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA

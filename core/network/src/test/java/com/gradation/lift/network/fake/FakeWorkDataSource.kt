@@ -6,12 +6,13 @@ import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.getWorkPartResponseDto
-import com.gradation.lift.network.datasource.WorkDataSource
+import com.gradation.lift.network.datasource.work.WorkDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeWorkDataSource(private val testReturnState: TestReturnState= TestReturnState.Success)  : WorkDataSource {
+class FakeWorkDataSource(private val testReturnState: TestReturnState= TestReturnState.Success)  :
+    WorkDataSource {
     override suspend fun getWorkPart(): Flow<NetworkResult<List<WorkPart>>> =flow{
         when(testReturnState){
             TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))

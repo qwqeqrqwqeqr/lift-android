@@ -9,7 +9,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.getRoutineRe
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
-import com.gradation.lift.network.datasource.RoutineDataSource
+import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import kotlinx.coroutines.flow.Flow

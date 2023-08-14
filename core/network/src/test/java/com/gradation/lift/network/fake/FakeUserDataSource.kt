@@ -6,12 +6,13 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.User.createUserDetai
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.existUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.getUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.updateUserDetailResponseDto
-import com.gradation.lift.network.datasource.UserDataSource
+import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeUserDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) : UserDataSource {
+class FakeUserDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
+    UserDataSource {
 
     override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
         when (testReturnState) {

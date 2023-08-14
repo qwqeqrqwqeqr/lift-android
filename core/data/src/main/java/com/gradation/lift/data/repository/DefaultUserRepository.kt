@@ -1,11 +1,10 @@
 package com.gradation.lift.data.repository
 
-import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.UserDataSource
+import com.gradation.lift.network.datasource.user.UserDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

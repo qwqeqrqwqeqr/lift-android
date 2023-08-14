@@ -1,4 +1,4 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.checker
 
 import com.gradation.lift.network.common.NetworkResult
 import kotlinx.coroutines.flow.Flow

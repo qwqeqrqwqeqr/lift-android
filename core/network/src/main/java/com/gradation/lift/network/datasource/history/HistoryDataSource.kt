@@ -1,10 +1,7 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.history
 
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.model.model.work.WorkCategory
-import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.network.common.NetworkResult
 import kotlinx.coroutines.flow.Flow
 

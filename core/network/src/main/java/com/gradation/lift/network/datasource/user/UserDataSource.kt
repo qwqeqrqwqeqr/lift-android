@@ -1,4 +1,4 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.user
 
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.NetworkResult

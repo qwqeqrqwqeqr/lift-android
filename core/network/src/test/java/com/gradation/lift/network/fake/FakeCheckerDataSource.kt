@@ -3,7 +3,7 @@ package com.gradation.lift.network.fake
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.Checker.checkDuplicateEmailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Checker.checkDuplicateNameResponseDto
-import com.gradation.lift.network.datasource.CheckerDataSource
+import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

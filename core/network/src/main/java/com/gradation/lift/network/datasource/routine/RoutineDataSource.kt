@@ -1,4 +1,4 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.routine
 
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine

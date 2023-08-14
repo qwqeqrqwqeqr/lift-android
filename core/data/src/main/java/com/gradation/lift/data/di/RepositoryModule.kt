@@ -6,6 +6,14 @@ import com.gradation.lift.datastore.datasource.SettingDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
 import com.gradation.lift.network.datasource.*
+import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.network.datasource.checker.CheckerDataSource
+import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.kakao.KakaoDataSource
+import com.gradation.lift.network.datasource.picture.PictureDataSource
+import com.gradation.lift.network.datasource.routine.RoutineDataSource
+import com.gradation.lift.network.datasource.user.UserDataSource
+import com.gradation.lift.network.datasource.work.WorkDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,9 +45,11 @@ object RepositoryModule {
     @Provides
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
+        kakaoDataSource: KakaoDataSource,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): AuthRepository = DefaultAuthRepository(
         authDataSource = authDataSource,
+        kakaoDataSource = kakaoDataSource,
         tokenDataStoreDataSource = tokenDataStoreDataSource
     )
 

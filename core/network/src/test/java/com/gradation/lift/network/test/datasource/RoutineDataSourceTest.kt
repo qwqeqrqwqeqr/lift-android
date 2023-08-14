@@ -2,7 +2,7 @@ package com.gradation.lift.network.test.datasource
 
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.RoutineDataSource
+import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModelList

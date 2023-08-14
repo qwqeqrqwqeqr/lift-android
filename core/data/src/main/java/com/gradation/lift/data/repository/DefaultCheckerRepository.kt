@@ -3,7 +3,7 @@ package com.gradation.lift.data.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.CheckerRepository
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.CheckerDataSource
+import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

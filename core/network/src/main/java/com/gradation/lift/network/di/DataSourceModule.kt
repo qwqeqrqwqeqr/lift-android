@@ -2,6 +2,24 @@ package com.gradation.lift.network.di
 
 import android.content.Context
 import com.gradation.lift.network.datasource.*
+import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
+import com.gradation.lift.network.datasource.checker.CheckerDataSource
+import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
+import com.gradation.lift.network.datasource.firebase.DefaultFirebaseDataSource
+import com.gradation.lift.network.datasource.firebase.FirebaseDataSource
+import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
+import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.kakao.DefaultKakaoDataSource
+import com.gradation.lift.network.datasource.kakao.KakaoDataSource
+import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
+import com.gradation.lift.network.datasource.picture.PictureDataSource
+import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
+import com.gradation.lift.network.datasource.routine.RoutineDataSource
+import com.gradation.lift.network.datasource.user.DefaultUserDataSource
+import com.gradation.lift.network.datasource.user.UserDataSource
+import com.gradation.lift.network.datasource.work.DefaultWorkDataSource
+import com.gradation.lift.network.datasource.work.WorkDataSource
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.*
 import dagger.Module
@@ -32,8 +50,7 @@ object DataSourceModule {
     fun provideAuthDataSource(
         authService: AuthService,
         networkResultHandler: NetworkResultHandler,
-        @ApplicationContext context: Context,
-    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler, context)
+    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler)
 
 
     @Provides
@@ -60,4 +77,15 @@ object DataSourceModule {
         historyService: HistoryService,
         networkResultHandler: NetworkResultHandler,
     ): HistoryDataSource = DefaultHistoryDataSource(historyService, networkResultHandler)
+
+    @Provides
+    fun provideKakaoDataSource(
+        networkResultHandler: NetworkResultHandler,
+        @ApplicationContext context: Context,
+    ): KakaoDataSource = DefaultKakaoDataSource(context)
+
+    @Provides
+    fun provideHistoryDataSource(
+        networkResultHandler: NetworkResultHandler,
+    ): FirebaseDataSource = DefaultFirebaseDataSource()
 }

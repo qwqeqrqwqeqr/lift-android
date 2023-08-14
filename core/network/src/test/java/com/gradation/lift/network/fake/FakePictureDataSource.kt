@@ -5,7 +5,7 @@ import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.getRoutineSetPictureResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.getUserProfilePictureResponseDto
-import com.gradation.lift.network.datasource.PictureDataSource
+import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

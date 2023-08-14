@@ -8,7 +8,7 @@ import com.gradation.lift.model.model.work.Work
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.WorkDataSource
+import com.gradation.lift.network.datasource.work.WorkDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

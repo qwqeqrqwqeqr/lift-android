@@ -7,6 +7,7 @@ plugins {
     id("lift.android.hilt")
     id("lift.android.test")
     id("lift.android.oauth")
+    id("lift.android.firebase")
 
 
 }

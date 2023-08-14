@@ -1,4 +1,4 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.history
 
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History

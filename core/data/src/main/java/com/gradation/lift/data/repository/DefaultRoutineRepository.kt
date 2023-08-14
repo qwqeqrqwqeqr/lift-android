@@ -7,7 +7,7 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.RoutineDataSource
+import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

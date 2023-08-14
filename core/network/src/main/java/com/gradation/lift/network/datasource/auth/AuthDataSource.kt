@@ -1,4 +1,4 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.auth
 
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
@@ -10,8 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface AuthDataSource {
     fun signInDefault(signInInfo: DefaultSignInInfo) : Flow<NetworkResult<Token>>
     fun signUpDefault(signUpInfo: DefaultSignUpInfo) : Flow<NetworkResult<Boolean>>
-    fun signInFromKakao() : Flow<NetworkResult<String>>
-
-    suspend fun signInKakao(signInInfo: KakaoSignInInfo) : Flow<NetworkResult<Token>>
+    fun signInKakao(signInInfo: KakaoSignInInfo) : Flow<NetworkResult<Token>>
 
 }

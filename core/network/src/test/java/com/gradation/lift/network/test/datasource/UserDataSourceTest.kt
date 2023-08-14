@@ -1,7 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.UserDataSource
+import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.fake.FakeUserDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA

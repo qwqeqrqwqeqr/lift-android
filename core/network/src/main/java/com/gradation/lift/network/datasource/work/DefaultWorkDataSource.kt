@@ -1,4 +1,4 @@
-package com.gradation.lift.network.datasource
+package com.gradation.lift.network.datasource.work
 
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart

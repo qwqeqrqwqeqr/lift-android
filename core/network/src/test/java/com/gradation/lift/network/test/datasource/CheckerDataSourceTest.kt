@@ -4,7 +4,7 @@ import com.google.common.truth.Truth
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.CheckerDataSource
+import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.fake.FakeCheckerDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.test.rule.CoroutineRule

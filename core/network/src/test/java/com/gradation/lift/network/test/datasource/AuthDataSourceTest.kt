@@ -2,7 +2,7 @@ package com.gradation.lift.network.test.datasource
 
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.AuthDataSource
+import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.fake.FakeAuthDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA

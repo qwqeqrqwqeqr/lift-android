@@ -5,7 +5,7 @@ import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.HistoryDataSource
+import com.gradation.lift.network.datasource.history.HistoryDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
