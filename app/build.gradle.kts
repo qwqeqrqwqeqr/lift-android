@@ -10,6 +10,7 @@ plugins {
     id("lift.android.splash")
     id("lift.android.image")
     id("lift.android.jacoco")
+    id("lift.android.oauth")
     id("jacoco")
 
 }
@@ -19,7 +20,11 @@ val KAKAO_APP_KEY = getKey("KAKAO_APP_KEY")
 
 android {
     namespace = "com.gradation.lift"
+
+
     defaultConfig {
+        versionCode = 1
+        versionName = "0.0.1"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
         buildConfigField("String", "KAKAO_APP_KEY", KAKAO_APP_KEY)
         manifestPlaceholders["KAKAO_APP_KEY"] = KAKAO_APP_KEY
