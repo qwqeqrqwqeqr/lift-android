@@ -44,6 +44,7 @@ ksp = "1.8.10-1.0.9"
 ktlintGradle = "11.3.1"
 mockitoCore = "4.5.1"
 moshi = "1.14.0"
+naver = "5.7.0"
 okhttp = "4.10.0"
 parcelize = "1.9.0"
 retrofit = "2.9.0"
@@ -214,4 +215,4 @@ work-multiprocess = { group = "androidx.work", name = "work-multiprocess", versi
 #OAUTH
 kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+naver-auth = { group = "com.navercorp.nid", name = "oauth", version.ref = "naver" }

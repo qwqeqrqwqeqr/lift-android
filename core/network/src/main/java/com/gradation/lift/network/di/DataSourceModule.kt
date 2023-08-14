@@ -1,14 +1,11 @@
 package com.gradation.lift.network.di
 
 import android.content.Context
-import com.google.firebase.auth.FirebaseAuth
 import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
-import com.gradation.lift.network.datasource.firebase.DefaultFirebaseDataSource
-import com.gradation.lift.network.datasource.firebase.FirebaseDataSource
 import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.datasource.kakao.DefaultKakaoDataSource
@@ -84,8 +81,5 @@ object DataSourceModule {
         @ApplicationContext context: Context,
     ): KakaoDataSource = DefaultKakaoDataSource(context)
 
-    @Provides
-    fun provideFirebaseDataSource(
-        firebaseAuth: FirebaseAuth
-    ): FirebaseDataSource = DefaultFirebaseDataSource(firebaseAuth)
+
 }
