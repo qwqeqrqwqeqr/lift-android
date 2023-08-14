@@ -18,6 +18,9 @@ plugins {
 
 
 val KAKAO_APP_KEY = getKey("KAKAO_APP_KEY")
+val NAVER_OAUTH_CLIENT_ID = getKey("NAVER_OAUTH_CLIENT_ID")
+val NAVER_OAUTH_CLIENT_SECRET = getKey("NAVER_OAUTH_CLIENT_SECRET")
+val NAVER_OAUTH_CLIENT_NAME = getKey("NAVER_OAUTH_CLIENT_NAME")
 
 android {
     namespace = "com.gradation.lift"
@@ -27,8 +30,13 @@ android {
         versionCode = 1
         versionName = "0.0.1"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
-        buildConfigField("String", "KAKAO_APP_KEY", KAKAO_APP_KEY)
         manifestPlaceholders["KAKAO_APP_KEY"] = KAKAO_APP_KEY
+
+        buildConfigField("String", "KAKAO_APP_KEY", KAKAO_APP_KEY)
+        buildConfigField("String", "NAVER_OAUTH_CLIENT_ID", NAVER_OAUTH_CLIENT_ID)
+        buildConfigField("String", "NAVER_OAUTH_CLIENT_SECRET", NAVER_OAUTH_CLIENT_SECRET)
+        buildConfigField("String", "NAVER_OAUTH_CLIENT_NAME", NAVER_OAUTH_CLIENT_NAME)
+
     }
 }
 fun getKey(propertyKey: String): String {
