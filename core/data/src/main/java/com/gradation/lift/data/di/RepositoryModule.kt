@@ -10,6 +10,7 @@ import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.datasource.kakao.KakaoDataSource
+import com.gradation.lift.network.datasource.naver.NaverDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
@@ -46,10 +47,12 @@ object RepositoryModule {
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
         kakaoDataSource: KakaoDataSource,
+        naverDataSource: NaverDataSource,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): AuthRepository = DefaultAuthRepository(
         authDataSource = authDataSource,
         kakaoDataSource = kakaoDataSource,
+        naverDataSource= naverDataSource,
         tokenDataStoreDataSource = tokenDataStoreDataSource
     )
 
