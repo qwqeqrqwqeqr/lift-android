@@ -10,7 +10,6 @@ plugins {
     id("lift.android.splash")
     id("lift.android.image")
     id("lift.android.jacoco")
-    id("lift.android.oauth")
     id("jacoco")
 
 }

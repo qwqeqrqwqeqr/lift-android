@@ -2,7 +2,6 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
-import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource.Companion.EMPTY_VALUE
 import com.gradation.lift.network.mapper.toMessage
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
@@ -19,7 +18,7 @@ class DefaultAuthRepository @Inject constructor(
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signInDefault(signInInfo).transform { result ->
+        authDataSource.signInDefault(signInInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
@@ -32,7 +31,7 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signUpDefault(signUpInfo).transform { result ->
+        authDataSource.signUpDefault(signUpInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
@@ -43,7 +42,7 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override fun signInKakao(): Flow<DataState<Boolean>> = flow {
-        authDataSource.signInFromKakao().transform { result ->
+        authDataSource.signInFromKakao().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> authDataSource.signInKakao(KakaoSignInInfo(result.data))
@@ -71,9 +70,9 @@ class DefaultAuthRepository @Inject constructor(
 
 
     override fun isSigned(): Flow<DataState<Boolean>> = flow {
-        val condition = tokenDataStoreDataSource.accessToken.first() == EMPTY_VALUE ||
-                tokenDataStoreDataSource.refreshToken.first() == EMPTY_VALUE
-        if (condition) emit(DataState.Success(false)) else emit(DataState.Success(true))
+        val condition = tokenDataStoreDataSource.accessToken.first().isNotBlank() &&
+                tokenDataStoreDataSource.refreshToken.first().isNotBlank()
+        if (condition) emit(DataState.Success(true)) else emit(DataState.Success(false))
     }
 
     override fun signOut(): Flow<DataState<Unit>> = flow {

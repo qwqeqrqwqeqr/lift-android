@@ -3,12 +3,10 @@ package com.gradation.lift
 import LiftNavHost
 import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -16,11 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.*
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -75,7 +71,7 @@ fun LiftApp(
                 modifier = modifier.padding(it)
             ) {
                 when(splashUiState){
-                    SplashUiState.Loading ->{}
+                    SplashUiState.Loading ->{ }
                     SplashUiState.Login ->  LiftNavHost(
                         navController = appState.navController,
                         startDestination = LOGIN_GRAPH_NAME

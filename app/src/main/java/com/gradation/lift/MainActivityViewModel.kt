@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    isSignedUseCase: IsSignedUseCase,
-    existUserDetailUseCase: ExistUserDetailUseCase,
+    private val isSignedUseCase: IsSignedUseCase,
+    private val existUserDetailUseCase: ExistUserDetailUseCase,
     private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
 ) : ViewModel() {
 

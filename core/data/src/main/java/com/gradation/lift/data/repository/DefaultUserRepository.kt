@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.model.user.UserDetail
@@ -15,7 +16,7 @@ class DefaultUserRepository @Inject constructor(
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
         userDataSource.getUserDetail()
-            .transform { result ->
+            .collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -26,7 +27,7 @@ class DefaultUserRepository @Inject constructor(
     override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.createUserDetail(
             userDetail = userDetail
-        ).transform { result ->
+        ).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -39,7 +40,7 @@ class DefaultUserRepository @Inject constructor(
     override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
         userDataSource.updateUserDetail(
             userDetail = userDetail
-        ).transform { result ->
+        ).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -50,10 +51,17 @@ class DefaultUserRepository @Inject constructor(
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
         userDataSource.existUserDetail(
-        ).transform { result ->
+        ).collect { result ->
             when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> {
+                    Log.d("실패",result.message)
+
+                    emit(DataState.Fail(result.message))
+                }
+                is NetworkResult.Success ->{
+                    Log.d("성공",result.data.toString())
+                    emit(DataState.Success(result.data))
+                }
             }
         }
     }

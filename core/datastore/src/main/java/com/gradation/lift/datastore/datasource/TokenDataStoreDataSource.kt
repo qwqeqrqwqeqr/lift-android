@@ -2,7 +2,6 @@ package com.gradation.lift.datastore.datasource
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
-import com.gradation.lift.datastore.Constants
 import com.gradation.lift.datastore.Constants.ACCESS_TOKEN
 import com.gradation.lift.datastore.Constants.LOGIN_METHOD
 import com.gradation.lift.datastore.Constants.REFRESH_TOKEN
@@ -32,37 +31,33 @@ class TokenDataStoreDataSource @Inject constructor(
     }
 
 
-    val accessToken: Flow<String> =
-        dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    emptyPreferences()
-                } else {
-                    throw exception
-                }
-            }
-            .map { it[ACCESS_TOKEN] ?: EMPTY_VALUE }
-
-    val refreshToken =
-        dataStore.data.map { it[REFRESH_TOKEN] ?: EMPTY_VALUE }.catch { exception ->
+    val accessToken: Flow<String> = dataStore.data
+        .catch { exception ->
             if (exception is IOException) {
                 emptyPreferences()
             } else {
                 throw exception
             }
         }
+        .map { it[ACCESS_TOKEN] ?: EMPTY_VALUE }
 
-    val loginMethod: Flow<LoginMethod> =
-        dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    emptyPreferences()
-                } else {
-                    throw exception
-                }
+    val refreshToken = dataStore.data.map { it[REFRESH_TOKEN] ?: EMPTY_VALUE }.catch { exception ->
+        if (exception is IOException) {
+            emptyPreferences()
+        } else {
+            throw exception
+        }
+    }
+
+    val loginMethod: Flow<LoginMethod> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emptyPreferences()
+            } else {
+                throw exception
             }
-            .map { it[LOGIN_METHOD].toLoginMethod() }
-
+        }
+        .map { it[LOGIN_METHOD].toLoginMethod() }
 
 
     suspend fun clearAll() {

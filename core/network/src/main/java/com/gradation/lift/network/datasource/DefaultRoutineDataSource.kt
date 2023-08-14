@@ -10,7 +10,6 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.RoutineService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultRoutineDataSource @Inject constructor(
@@ -24,7 +23,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 routineService.createRoutineSet(
                     createRoutineSetRequestDto = createRoutineSetRoutine.toDto()
                 )
-            }.transform { result ->
+            }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -36,7 +35,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>> = flow {
         NetworkResultHandler { routineService.getRoutine() }
-            .transform { result ->
+            .collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -47,7 +46,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutineSetRoutine(): Flow<NetworkResult<List<RoutineSetRoutine>>> = flow {
         NetworkResultHandler { routineService.getRoutineSetRoutine() }
-            .transform { result ->
+            .collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -59,7 +58,7 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
             NetworkResultHandler { routineService.getRoutineSetRoutineByWeekday(weekday.getWeekdayValue()) }
-                .transform { result ->
+                .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -75,7 +74,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     routineSetIdList = routineSetIdList.joinToString(",")
                 )
             }
-                .transform { result ->
+                .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 

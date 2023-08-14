@@ -9,7 +9,6 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultUserDataSource @Inject constructor(
@@ -20,7 +19,7 @@ class DefaultUserDataSource @Inject constructor(
     override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
         NetworkResultHandler {
             userService.getUserDetail()
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
@@ -37,7 +36,7 @@ class DefaultUserDataSource @Inject constructor(
                     userDetailDto = userDetail.toDto()
                 )
             )
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
@@ -54,7 +53,7 @@ class DefaultUserDataSource @Inject constructor(
                     userDetailDto = userDetail.toDto()
                 )
             )
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
@@ -65,7 +64,7 @@ class DefaultUserDataSource @Inject constructor(
     override suspend fun existUserDetail(): Flow<NetworkResult<Boolean>> = flow {
         NetworkResultHandler {
             userService.existUserDetail()
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))

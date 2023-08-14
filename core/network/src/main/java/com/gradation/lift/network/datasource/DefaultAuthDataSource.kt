@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -30,7 +29,7 @@ class DefaultAuthDataSource @Inject constructor(
             authService.signInDefault(
                 signInInfo.toDto()
             )
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(message = result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
@@ -43,7 +42,7 @@ class DefaultAuthDataSource @Inject constructor(
             authService.signUpDefault(
                 signUpInfo.toDto()
             )
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
@@ -58,7 +57,7 @@ class DefaultAuthDataSource @Inject constructor(
                 authService.signInKakao(
                     signInInfo.toDto()
                 )
-            }.transform { result ->
+            }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))

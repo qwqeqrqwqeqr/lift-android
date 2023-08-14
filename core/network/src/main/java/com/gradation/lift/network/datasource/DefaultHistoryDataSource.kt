@@ -8,7 +8,6 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.HistoryService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 class DefaultHistoryDataSource @Inject constructor(
@@ -18,7 +17,7 @@ class DefaultHistoryDataSource @Inject constructor(
     override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
         NetworkResultHandler {
             historyService.getHistory()
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -31,7 +30,7 @@ class DefaultHistoryDataSource @Inject constructor(
         flow {
             NetworkResultHandler {
                 historyService.getHistoryByHistoryId(historyIdList.joinToString(","))
-            }.transform { result ->
+            }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -46,7 +45,7 @@ class DefaultHistoryDataSource @Inject constructor(
                 historyService.createHistory(
                     createHistory.toDto()
                 )
-            }.transform { result ->
+            }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
@@ -58,7 +57,7 @@ class DefaultHistoryDataSource @Inject constructor(
     override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
         NetworkResultHandler {
             historyService.deleteHistory(historyId)
-        }.transform { result ->
+        }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
