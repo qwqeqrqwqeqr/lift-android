@@ -14,6 +14,7 @@ class OAuthPlugin : Plugin<Project> {
 
             dependencies {
                 add("implementation", libs.findLibrary("kakao-login").get())
+                add("implementation", libs.findLibrary("google-login").get())
             }
 
 

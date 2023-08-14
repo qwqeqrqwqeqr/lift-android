@@ -28,7 +28,7 @@ class TokenDataStoreDataSource @Inject constructor(
     }
 
     suspend fun setLoginMethod(loginMethod: LoginMethod) {
-        dataStore.edit { preferences -> preferences[LOGIN_METHOD] = loginMethod.getValue() }
+        dataStore.edit { preferences -> preferences[LOGIN_METHOD] = loginMethod.toValue() }
     }
 
 

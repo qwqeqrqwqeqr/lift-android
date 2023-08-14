@@ -8,7 +8,7 @@ sealed class LoginMethod {
     data class Common(val value: String = "COMMON") : LoginMethod()
     data class None(val value: String = "") : LoginMethod()
 
-    fun getValue(): String =
+    fun toValue(): String =
         when (this) {
             is Common -> this.value
             is Google -> this.value

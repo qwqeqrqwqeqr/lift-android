@@ -26,6 +26,7 @@ firebaseBom = "31.2.0"
 firebaseCrashlyticsPlugin = "2.9.2"
 firebasePerfPlugin = "1.4.2"
 gmsPlugin = "4.3.14"
+gmsAuth = "20.6.0"
 glide = "4.15.1"
 glideCompose = "1.0.0-alpha.1"
 hilt = "2.44.2"
@@ -204,5 +205,6 @@ work = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work
 work-test = { group = "androidx.work", name = "work-testing", version.ref = "work" }
 work-multiprocess = { group = "androidx.work", name = "work-multiprocess", version.ref = "work" }
 
-#SOCIAL
+#OAUTH
 kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+google-login = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }

@@ -7,6 +7,6 @@ import dagger.hilt.android.HiltAndroidApp
 class LiftApplication: Application(){
     override fun onCreate() {
         super.onCreate()
-        KakaoSdk.init(this, BuildConfig.KAKAO_APP_KEY)
+//        KakaoSdk.init(this, BuildConfig.KAKAO_APP_KEY)
     }
 }

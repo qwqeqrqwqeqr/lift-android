@@ -49,8 +49,7 @@ include(":feature:login:sign-in")
 include(":feature:login:sign-up")
 include(":feature:login:verification")
 include(":feature:login:terms-of-use")
-include(":feature:login:find-email")
-include(":feature:login:find-password")
+include(":feature:login:find-email-password")
 include(":feature:login:complete")
 
 
