@@ -15,6 +15,7 @@ import dagger.hilt.components.SingletonComponent
  * [OAuthManagerModule]
  * Sign In 을 제외한
  * 나머지 기능 정의한 모듈
+ * @since 2023-08-16 11:01:50
  */
 @Module
 @InstallIn(SingletonComponent::class)

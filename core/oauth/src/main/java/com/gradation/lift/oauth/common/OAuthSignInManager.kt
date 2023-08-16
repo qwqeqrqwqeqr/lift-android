@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.*
  * Sign In 기능 접근을 위해
  * 필요한 Activity Context 사용하기 위해
  * 개별적으로 기능 정의
- *
+ * @since 2023-08-16 11:01:58
  */
 interface OAuthSignInManager  {
 

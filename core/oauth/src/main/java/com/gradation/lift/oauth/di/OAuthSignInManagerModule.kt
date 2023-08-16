@@ -14,6 +14,8 @@ import dagger.hilt.android.scopes.ActivityScoped
  * Activity context 접근하기 위해
  * 개별적으로 모듈 구성
  * Activity Scope 사용
+ * Repository 레이어에서 사용 불가능
+ * @since 2023-08-16 11:00:55
  */
 @Module
 @InstallIn(ActivityComponent::class)
@@ -24,11 +26,7 @@ object OAuthSignInManagerModule {
     @Provides
     fun provideOAuthSignInManager(
         @ActivityContext context: Context,
-    ): OAuthSignInManager= DefaultOauthSignInManager(context)
-
-
-
-
+    ): OAuthSignInManager = DefaultOauthSignInManager(context)
 
 
 }
