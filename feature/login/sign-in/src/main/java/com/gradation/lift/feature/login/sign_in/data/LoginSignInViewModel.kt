@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.SignInDefaultUseCase
+import com.gradation.lift.domain.usecase.auth.SignInKakaoUseCase
+import com.gradation.lift.domain.usecase.auth.SignInNaverUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.setting.SetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
@@ -15,11 +17,20 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @property email
+ * @property password
+ * @property passwordVisible
+ * @property passwordVisualTransformation
+ * @property autoLoginChecked
+ */
 @HiltViewModel
 class LoginSignInViewModel @Inject constructor(
     private val signInDefaultUseCase: SignInDefaultUseCase,
     private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
     private val setAutoLoginSettingUseCase: SetAutoLoginSettingUseCase,
+    private val signInNaverUseCase: SignInNaverUseCase,
+    private val signInKakaoUseCase: SignInKakaoUseCase,
     private val existUserDetail: ExistUserDetailUseCase,
 ) : ViewModel() {
 
@@ -32,6 +43,8 @@ class LoginSignInViewModel @Inject constructor(
         PasswordVisualTransformation()
     )
 
+    var signInState = MutableStateFlow<SignInState>(SignInState.None)
+
 
     var autoLoginChecked =
         getAutoLoginSettingUseCase().stateIn(
@@ -39,6 +52,8 @@ class LoginSignInViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = true
         )
+
+
 
 
     fun changePasswordVisible(): (Boolean) -> Unit = {
@@ -55,7 +70,6 @@ class LoginSignInViewModel @Inject constructor(
         viewModelScope.launch {
             setAutoLoginSettingUseCase(value = it)
         }
-
     }
 
 
@@ -63,63 +77,62 @@ class LoginSignInViewModel @Inject constructor(
     fun updateEmail(): (String) -> Unit = { email.update { it } }
     fun updatePassword(): (String) -> Unit = { password.update { it } }
 
-    var signInUiState = MutableStateFlow<SignInState>(SignInState.None)
 
 
     fun signInNaver(): () -> Unit= {
         viewModelScope.launch {
-//            signInNaverUseCase().collect { signInResult ->
-//                when (signInResult) {
-//                    is DataState.Fail -> {
-//                        signInUiState.value = SignInState.Fail(signInResult.message)
-//                    }
-//                    is DataState.Success -> {
-//                        existUserDetail().collect { existUserDetailResult ->
-//                            when (existUserDetailResult) {
-//                                is DataState.Fail -> {
-//                                    signInUiState.value = SignInState.Fail("로그인을 실패하였습니다.")
-//                                }
-//                                is DataState.Success -> signInUiState.value =
-//                                    SignInState.Success(
-//                                        existUserDetailResult.data
-//                                    )
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            signInNaverUseCase().collect { signInResult ->
+                when (signInResult) {
+                    is DataState.Fail -> {
+                        signInState.value = SignInState.Fail(signInResult.message)
+                    }
+                    is DataState.Success -> {
+                        existUserDetail().collect { existUserDetailResult ->
+                            when (existUserDetailResult) {
+                                is DataState.Fail -> {
+                                    signInState.value = SignInState.Fail("로그인을 실패하였습니다.")
+                                }
+                                is DataState.Success -> signInState.value =
+                                    SignInState.Success(
+                                        existUserDetailResult.data
+                                    )
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     fun signInKakao(): () -> Unit= {
         viewModelScope.launch {
-//            signInKakaoUseCase().collect { signInResult ->
-//                when (signInResult) {
-//                    is DataState.Fail -> {
-//                        signInUiState.value = SignInState.Fail(signInResult.message)
-//                    }
-//                    is DataState.Success -> {
-//                        existUserDetail().collect { existUserDetailResult ->
-//                            when (existUserDetailResult) {
-//                                is DataState.Fail -> {
-//                                    signInUiState.value = SignInState.Fail("로그인을 실패하였습니다.")
-//                                }
-//                                is DataState.Success -> signInUiState.value =
-//                                    SignInState.Success(
-//                                        existUserDetailResult.data
-//                                    )
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            signInKakaoUseCase().collect { signInResult ->
+                when (signInResult) {
+                    is DataState.Fail -> {
+                        signInState.value = SignInState.Fail(signInResult.message)
+                    }
+                    is DataState.Success -> {
+                        existUserDetail().collect { existUserDetailResult ->
+                            when (existUserDetailResult) {
+                                is DataState.Fail -> {
+                                    signInState.value = SignInState.Fail("로그인을 실패하였습니다.")
+                                }
+                                is DataState.Success -> signInState.value =
+                                    SignInState.Success(
+                                        existUserDetailResult.data
+                                    )
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     fun signIn(): () -> Unit = {
         viewModelScope.launch {
             if (email.value.isBlank() || password.value.isBlank()) {
-                signInUiState.value = SignInState.Fail(
+                signInState.value = SignInState.Fail(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
             } else {
@@ -131,16 +144,16 @@ class LoginSignInViewModel @Inject constructor(
                 ).collect { signInResult ->
                     when (signInResult) {
                         is DataState.Fail -> {
-                            signInUiState.value = SignInState.Fail(signInResult.message)
+                            signInState.value = SignInState.Fail(signInResult.message)
                         }
                         is DataState.Success -> {
                             existUserDetail().collect { existUserDetailResult ->
                                 when (existUserDetailResult) {
                                     is DataState.Fail -> {
-                                        signInUiState.value =
+                                        signInState.value =
                                             SignInState.Fail("로그인을 실패하였습니다.")
                                     }
-                                    is DataState.Success -> signInUiState.value =
+                                    is DataState.Success -> signInState.value =
                                         SignInState.Success(
                                             existUserDetailResult.data
                                         )

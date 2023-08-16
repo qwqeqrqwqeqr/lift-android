@@ -41,8 +41,8 @@ internal fun LoginSignInRoute(
 ) {
 
 
-    val signInState: SignInState by viewModel.signInUiState.collectAsStateWithLifecycle()
-    val autoLoginChecked by viewModel.autoLoginChecked.collectAsStateWithLifecycle()
+    val signInState: SignInState by viewModel.signInState.collectAsStateWithLifecycle()
+    val autoLoginChecked : Boolean by viewModel.autoLoginChecked.collectAsStateWithLifecycle()
 
     val email by viewModel.email.collectAsStateWithLifecycle()
     val password by viewModel.password.collectAsStateWithLifecycle()
