@@ -20,8 +20,8 @@ class DefaultRoutineDataSource @Inject constructor(
     override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Boolean>> =
         flow {
             NetworkResultHandler {
-                routineService.createRoutineSet(
-                    createRoutineSetRequestDto = createRoutineSetRoutine.toDto()
+                routineService.createRoutineSetRoutine(
+                    createRoutineSetRoutineRequestDto = createRoutineSetRoutine.toDto()
                 )
             }.collect { result ->
                 when (result) {
