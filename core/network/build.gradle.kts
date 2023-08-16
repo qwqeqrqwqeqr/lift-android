@@ -6,26 +6,21 @@ plugins {
     id("lift.android.network")
     id("lift.android.hilt")
     id("lift.android.test")
-    id("lift.android.oauth")
-
-
 }
+
+
 
 android {
     namespace = "com.gradation.lift.network"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
-
-
-        buildConfigField("String", "LIFT_API_URL", getApiURL("LIFT_API_URL"))
-        buildConfigField("String", "LIFT_S3_URL", getApiURL("LIFT_S3_URL"))
-
-
+        buildConfigField("String", "LIFT_API_URL", getKey("LIFT_API_URL"))
+        buildConfigField("String", "LIFT_S3_URL", getKey("LIFT_S3_URL"))
 
     }
 }
 
-fun getApiURL(propertyKey: String): String {
+fun getKey(propertyKey: String): String {
     return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 

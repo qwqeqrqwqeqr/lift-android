@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.gradation.lift.navigation.graph.*
+import com.gradation.lift.oauth.state.OAuthSignInState
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -14,6 +15,10 @@ fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String,
+    naverOAuthSignInState: OAuthSignInState,
+    kakaoOauthSignInState: OAuthSignInState,
+    signInNaver: ()->Unit,
+    signInKakao: ()->Unit,
 ) {
 
 
@@ -32,7 +37,11 @@ fun LiftNavHost(
         )
         loginGraphBuilder(
             navController = navController,
-            navGraphBuilder = this
+            navGraphBuilder = this,
+            naverOAuthSignInState =naverOAuthSignInState,
+            kakaoOauthSignInState =kakaoOauthSignInState,
+            signInNaver = { signInNaver() },
+            signInKakao = { signInKakao() }
         )
         registerDetailGraphBuilder(
             navController = navController,

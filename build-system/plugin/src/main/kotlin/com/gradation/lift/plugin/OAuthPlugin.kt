@@ -17,6 +17,7 @@ class OAuthPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("kakao-auth").get())
                 add("implementation", libs.findLibrary("google-auth").get())
                 add("implementation", libs.findLibrary("naver-auth").get())
+
             }
 
 

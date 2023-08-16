@@ -9,8 +9,6 @@ import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.datasource.kakao.KakaoDataSource
-import com.gradation.lift.network.datasource.naver.NaverDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
@@ -30,8 +28,8 @@ object RepositoryModule {
     @Provides
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
-        workDao: WorkDao
-    ): WorkRepository = DefaultWorkRepository(workDataSource = workDataSource,workDao=workDao)
+        workDao: WorkDao,
+    ): WorkRepository = DefaultWorkRepository(workDataSource = workDataSource, workDao = workDao)
 
 
     @ViewModelScoped
@@ -40,21 +38,6 @@ object RepositoryModule {
         routineDataSource: RoutineDataSource,
     ): RoutineRepository =
         DefaultRoutineRepository(routineDataSource = routineDataSource)
-
-
-    @ViewModelScoped
-    @Provides
-    fun provideAuthRepository(
-        authDataSource: AuthDataSource,
-        kakaoDataSource: KakaoDataSource,
-        naverDataSource: NaverDataSource,
-        tokenDataStoreDataSource: TokenDataStoreDataSource,
-    ): AuthRepository = DefaultAuthRepository(
-        authDataSource = authDataSource,
-        kakaoDataSource = kakaoDataSource,
-        naverDataSource= naverDataSource,
-        tokenDataStoreDataSource = tokenDataStoreDataSource
-    )
 
 
     @ViewModelScoped
@@ -92,5 +75,16 @@ object RepositoryModule {
     ): UserRepository = DefaultUserRepository(
         userDataSource = userDataSource,
     )
+
+    @ViewModelScoped
+    @Provides
+    fun provideAuthRepository(
+        authDataSource: AuthDataSource,
+        tokenDataStoreDataSource: TokenDataStoreDataSource,
+    ): AuthRepository = DefaultAuthRepository(
+        authDataSource = authDataSource,
+        tokenDataStoreDataSource = tokenDataStoreDataSource
+    )
+
 
 }

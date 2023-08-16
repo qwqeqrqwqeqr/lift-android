@@ -1,6 +1,5 @@
 package com.gradation.lift.network.di
 
-import android.content.Context
 import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
@@ -8,10 +7,6 @@ import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
 import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.datasource.kakao.DefaultKakaoDataSource
-import com.gradation.lift.network.datasource.kakao.KakaoDataSource
-import com.gradation.lift.network.datasource.naver.DefaultNaverDataSource
-import com.gradation.lift.network.datasource.naver.NaverDataSource
 import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
@@ -25,7 +20,6 @@ import com.gradation.lift.network.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 
@@ -44,13 +38,6 @@ object DataSourceModule {
         routineService: RoutineService,
         networkResultHandler: NetworkResultHandler,
     ): RoutineDataSource = DefaultRoutineDataSource(routineService, networkResultHandler)
-
-
-    @Provides
-    fun provideAuthDataSource(
-        authService: AuthService,
-        networkResultHandler: NetworkResultHandler,
-    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler)
 
 
     @Provides
@@ -78,16 +65,13 @@ object DataSourceModule {
         networkResultHandler: NetworkResultHandler,
     ): HistoryDataSource = DefaultHistoryDataSource(historyService, networkResultHandler)
 
-    @Provides
-    fun provideKakaoDataSource(
-        @ApplicationContext context: Context,
-    ): KakaoDataSource = DefaultKakaoDataSource(context)
-
 
     @Provides
-    fun provideNaverDataSource(
-        @ApplicationContext context: Context,
-    ): NaverDataSource = DefaultNaverDataSource(context)
+    fun provideAuthDataSource(
+        authService: AuthService,
+        networkResultHandler: NetworkResultHandler,
+    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler)
+
 
 
 }

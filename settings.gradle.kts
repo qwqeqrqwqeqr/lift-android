@@ -67,3 +67,4 @@ include(":feature:work:change-order")
 include(":feature:work:work")
 include(":feature:work:complete")
 
+include(":core:oauth")

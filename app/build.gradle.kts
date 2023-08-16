@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:database"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:oauth"))
     implementation(project(":core:work"))
     implementation(project(":core:ui"))
 

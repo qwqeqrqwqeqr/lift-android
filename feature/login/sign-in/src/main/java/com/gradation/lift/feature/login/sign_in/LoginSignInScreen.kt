@@ -19,12 +19,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftErrorSnackbar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.domain.usecase.auth.SignInKakaoUseCase
+import com.gradation.lift.domain.usecase.auth.SignInNaverUseCase
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
 import com.gradation.lift.feature.login.sign_in.data.LoginSignInViewModel
 import com.gradation.lift.feature.login.sign_in.data.SignInState
 import com.gradation.lift.navigation.navigation.*
+import com.gradation.lift.oauth.state.OAuthSignInState
 import com.gradation.lift.ui.utils.DevicePreview
+import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 
 @Composable
 internal fun LoginSignInRoute(
@@ -32,9 +37,15 @@ internal fun LoginSignInRoute(
     navigateToLoginSignUp: () -> Unit,
     navigateLoginToHome: () -> Unit,
     navigateLoginToRegisterDetail: () -> Unit,
+    naverOAuthSignInState: OAuthSignInState,
+    kakaoOauthSignInState: OAuthSignInState,
+    signInNaver: ()->Unit,
+    signInKakao: ()->Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
+
+
 
     val signInState: SignInState by viewModel.signInUiState.collectAsStateWithLifecycle()
     val autoLoginChecked by viewModel.autoLoginChecked.collectAsStateWithLifecycle()
@@ -50,6 +61,8 @@ internal fun LoginSignInRoute(
     val changePasswordVisible = viewModel.changePasswordVisible()
     val clearPassword = viewModel.clearPassword()
     val signIn = viewModel.signIn()
+//    val signInNaver = viewModel.signInNaver()
+//    val signInKakao = viewModel.signInKakao()
 
 
     val snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
@@ -62,6 +75,8 @@ internal fun LoginSignInRoute(
         onClickFindEmailPassword = navigateToLoginFindEmailPassword,
         onClickSignUp = navigateToLoginSignUp,
         onClickSignIn = signIn,
+        onClickSignInNaver = signInNaver,
+        onClickSignInKakao = signInKakao,
         autoLoginChecked = autoLoginChecked,
         onChangeAutoLoginChecked = changeAutoLoginChecked,
         passwordVisible = passwordVisible,
@@ -109,6 +124,8 @@ internal fun LoginSignInScreen(
     onClickFindEmailPassword: () -> Unit,
     onClickSignUp: () -> Unit,
     onClickSignIn: () -> Unit,
+    onClickSignInNaver: () -> Unit,
+    onClickSignInKakao: () -> Unit,
     onChangeAutoLoginChecked: (Boolean) -> Unit,
     onChangePasswordVisible: (Boolean) -> Unit,
     clearPassword: () -> Unit,
@@ -155,10 +172,14 @@ internal fun LoginSignInScreen(
                 passwordVisible = passwordVisible,
                 onChangePasswordVisible = onChangePasswordVisible,
                 passwordVisualTransformation = passwordVisualTransformation,
-                clearPassword = clearPassword
-            )
+                clearPassword = clearPassword,
+
+                )
             Spacer(modifier = modifier.padding(18.dp))
-            SimpleLoginView()
+            SimpleLoginView(
+                onClickSignInNaver = onClickSignInNaver,
+                onClickSignInKakao = onClickSignInKakao
+            )
         }
     }
 
@@ -177,14 +198,17 @@ internal fun LoginSignInPreview() {
             onClickFindEmailPassword = {},
             onClickSignUp = {},
             onClickSignIn = {},
+            onClickSignInNaver = { },
+            onClickSignInKakao = { },
             autoLoginChecked = true,
             onChangeAutoLoginChecked = {},
             passwordVisible = true,
             onChangePasswordVisible = {},
             passwordVisualTransformation = VisualTransformation.None,
             clearPassword = {},
-            snackbarHostState = SnackbarHostState()
-        )
+            snackbarHostState = SnackbarHostState(),
+
+            )
     }
 }
 

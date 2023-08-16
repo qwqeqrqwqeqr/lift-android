@@ -7,15 +7,11 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.*
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.auth.AuthDataSource
-import com.gradation.lift.network.datasource.kakao.KakaoDataSource
-import com.gradation.lift.network.datasource.naver.NaverDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val kakaoDataSource: KakaoDataSource,
-    private val naverDataSource: NaverDataSource,
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Boolean>> = flow {
@@ -43,59 +39,6 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun signInKakao(): Flow<DataState<Boolean>> = flow {
-        kakaoDataSource.signIn().collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> authDataSource.signInKakao(KakaoSignInInfo(result.data))
-                    .collect {
-                        when (it) {
-                            is NetworkResult.Fail -> {
-                                emit(DataState.Fail(it.message))
-                            }
-                            is NetworkResult.Success -> {
-                                try {
-                                    tokenDataStoreDataSource.setAccessToken(it.data.accessToken)
-                                    tokenDataStoreDataSource.setRefreshToken(it.data.refreshToken)
-                                    tokenDataStoreDataSource.setLoginMethod(LoginMethod.Kakao())
-                                } catch (t: Throwable) {
-                                    emit(DataState.Fail(t.message ?: "로그인을 실패하였습니다."))
-                                } finally {
-                                    emit(DataState.Success(true))
-                                }
-                            }
-                        }
-                    }
-            }
-        }
-    }
-
-    override fun signInNaver(): Flow<DataState<Boolean>> = flow {
-        naverDataSource.signIn().collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> authDataSource.signInNaver(NaverSignInInfo(result.data))
-                    .collect {
-                        when (it) {
-                            is NetworkResult.Fail -> {
-                                emit(DataState.Fail(it.message))
-                            }
-                            is NetworkResult.Success -> {
-                                try {
-                                    tokenDataStoreDataSource.setAccessToken(it.data.accessToken)
-                                    tokenDataStoreDataSource.setRefreshToken(it.data.refreshToken)
-                                    tokenDataStoreDataSource.setLoginMethod(LoginMethod.Naver())
-                                } catch (t: Throwable) {
-                                    emit(DataState.Fail(t.message ?: "로그인을 실패하였습니다."))
-                                } finally {
-                                    emit(DataState.Success(true))
-                                }
-                            }
-                        }
-                    }
-            }
-        }
-    }
 
 
     override fun isSigned(): Flow<DataState<Boolean>> = flow {

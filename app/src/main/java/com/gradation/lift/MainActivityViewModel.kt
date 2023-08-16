@@ -8,6 +8,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
+import com.gradation.lift.state.SplashUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -18,6 +19,7 @@ class MainActivityViewModel @Inject constructor(
     private val isSignedUseCase: IsSignedUseCase,
     private val existUserDetailUseCase: ExistUserDetailUseCase,
     private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
+
 ) : ViewModel() {
 
     val splashUiState = isSignedUseCase().combine(
@@ -57,9 +59,3 @@ class MainActivityViewModel @Inject constructor(
 }
 
 
-sealed interface SplashUiState {
-    object Loading : SplashUiState
-    object Main : SplashUiState
-    object Login : SplashUiState
-    object RegisterDetail : SplashUiState
-}
