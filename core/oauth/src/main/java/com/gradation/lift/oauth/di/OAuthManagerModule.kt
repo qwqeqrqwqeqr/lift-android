@@ -1,24 +1,34 @@
 package com.gradation.lift.oauth.di
 
-import android.content.Context
 import com.gradation.lift.oauth.common.*
+import com.gradation.lift.oauth.kakao.DefaultKakaoOauthManager
+import com.gradation.lift.oauth.kakao.DefaultNaverOauthManager
+import com.gradation.lift.oauth.kakao.KakaoOauthManager
+import com.gradation.lift.oauth.kakao.NaverOauthManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.components.SingletonComponent
 
+
+/**
+ * [OAuthManagerModule]
+ * Sign In 을 제외한
+ * 나머지 기능 정의한 모듈
+ */
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 object OAuthManagerModule {
 
 
-    @ActivityScoped
     @Provides
-    fun provideOAuthSignInManager(
-        @ActivityContext context: Context,
-    ): OAuthSignInManager= OAuthSignInManager(context)
+    fun provideKakaoOauthManager(
+    ): KakaoOauthManager = DefaultKakaoOauthManager()
+
+
+    @Provides
+    fun provideNaverOauthManager(
+    ): NaverOauthManager = DefaultNaverOauthManager()
 
 
 }

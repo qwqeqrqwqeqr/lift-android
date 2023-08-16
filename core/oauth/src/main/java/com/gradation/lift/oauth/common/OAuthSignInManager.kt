@@ -1,62 +1,34 @@
 package com.gradation.lift.oauth.common
 
-import android.content.Context
 import com.gradation.lift.oauth.state.OAuthSignInState
-import com.kakao.sdk.user.UserApiClient
-import com.navercorp.nid.NaverIdLoginSDK
-import com.navercorp.nid.oauth.OAuthLoginCallback
-import dagger.hilt.android.qualifiers.ActivityContext
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import javax.inject.Inject
-import kotlin.coroutines.resume
 
-class OAuthSignInManager @Inject constructor(
-    @ActivityContext private val context: Context,
-) {
+/**
+ *  [OAuthSignInManager]
+ * Sign In 기능 접근을 위해
+ * 필요한 Activity Context 사용하기 위해
+ * 개별적으로 기능 정의
+ *
+ */
+interface OAuthSignInManager  {
 
 
-    fun signInKakao(): Flow<OAuthSignInState> = flow {
+    /**
+     *  [signInKakao]
+     *  카카오 로그인
+     *  [OAuthSignInState] 로 반환 값 생성
+     *  실패시 실패 관련 메시지 전달
+     */
+    fun signInKakao(): Flow<OAuthSignInState>
 
-        emit(suspendCancellableCoroutine { continuation ->
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
-                UserApiClient.instance.loginWithKakaoTalk(
-                    context,
-                    callback = { token, error ->
-                        token?.let { continuation.resume(OAuthSignInState.Success) }
-                        error?.let { continuation.resume(OAuthSignInState.Fail("로그인을 실패하였습니다.")) }
-                    })
-            } else {
-                UserApiClient.instance.loginWithKakaoAccount(
-                    context,
-                    callback = { token, error ->
-                        token?.let { continuation.resume(OAuthSignInState.Success) }
-                        error?.let { continuation.resume(OAuthSignInState.Fail("로그인을 실패하였습니다.")) }
-                    })
-            }
-        })
-    }
 
-    fun signInNaver(): Flow<OAuthSignInState> = flow {
-
-        emit(
-            suspendCancellableCoroutine { continuation ->
-                NaverIdLoginSDK.authenticate(context, callback = object : OAuthLoginCallback {
-                    override fun onError(errorCode: Int, message: String) {
-                        onFailure(errorCode, message)
-                    }
-
-                    override fun onFailure(httpStatus: Int, message: String) {
-                        continuation.resume(OAuthSignInState.Fail(message))
-                    }
-
-                    override fun onSuccess() {
-                        continuation.resume(OAuthSignInState.Success)
-                    }
-                }
-                )
-            })
-    }
+    /**
+     *  [signInNaver]
+     *  네이버 로그인
+     *  [OAuthSignInState] 로 반환 값 생성
+     *  실패시 실패 관련 메시지 전달
+     */
+    fun signInNaver(): Flow<OAuthSignInState>
 
 }
 
