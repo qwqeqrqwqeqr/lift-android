@@ -1,7 +1,7 @@
 package com.gradation.lift.oauth.common
 
 import android.content.Context
-import com.gradation.lift.oauth.state.OAuthSignInState
+import com.gradation.lift.oauth.state.OAuthConnectState
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
@@ -12,33 +12,33 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class DefaultOauthSignInManager @Inject constructor(
+class DefaultOAuthConnectManager @Inject constructor(
     @ActivityContext private val context: Context,
-) :OAuthSignInManager{
+) :OAuthConnectManager{
 
 
-    override fun signInKakao(): Flow<OAuthSignInState> = flow {
+    override fun connectKakao(): Flow<OAuthConnectState> = flow {
 
         emit(suspendCancellableCoroutine { continuation ->
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
                 UserApiClient.instance.loginWithKakaoTalk(
                     context,
                     callback = { token, error ->
-                        token?.let { continuation.resume(OAuthSignInState.Success) }
-                        error?.let { continuation.resume(OAuthSignInState.Fail("로그인을 실패하였습니다.")) }
+                        token?.let { continuation.resume(OAuthConnectState.Success) }
+                        error?.let { continuation.resume(OAuthConnectState.Fail("로그인을 실패하였습니다.")) }
                     })
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(
                     context,
                     callback = { token, error ->
-                        token?.let { continuation.resume(OAuthSignInState.Success) }
-                        error?.let { continuation.resume(OAuthSignInState.Fail("로그인을 실패하였습니다.")) }
+                        token?.let { continuation.resume(OAuthConnectState.Success) }
+                        error?.let { continuation.resume(OAuthConnectState.Fail("로그인을 실패하였습니다.")) }
                     })
             }
         })
     }
 
-    override fun signInNaver(): Flow<OAuthSignInState> = flow {
+    override fun connectNaver(): Flow<OAuthConnectState> = flow {
 
         emit(
             suspendCancellableCoroutine { continuation ->
@@ -48,11 +48,11 @@ class DefaultOauthSignInManager @Inject constructor(
                     }
 
                     override fun onFailure(httpStatus: Int, message: String) {
-                        continuation.resume(OAuthSignInState.Fail(message))
+                        continuation.resume(OAuthConnectState.Fail(message))
                     }
 
                     override fun onSuccess() {
-                        continuation.resume(OAuthSignInState.Success)
+                        continuation.resume(OAuthConnectState.Success)
                     }
                 }
                 )

@@ -9,6 +9,6 @@ import javax.inject.Inject
 class SignUpDefaultUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    operator fun invoke(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> =
+    operator fun invoke(signUpInfo: DefaultSignUpInfo): Flow<DataState<Unit>> =
         authRepository.signUpDefault(signUpInfo =signUpInfo)
 }

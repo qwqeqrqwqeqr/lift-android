@@ -11,13 +11,13 @@ import com.gradation.lift.feature.login.terms_of_use.loginTermsOfUseScreen
 import com.gradation.lift.feature.login.verification.loginVerificationScreen
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
-import com.gradation.lift.oauth.state.OAuthSignInState
+import com.gradation.lift.oauth.state.OAuthConnectState
 
 fun loginGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
-    naverOAuthSignInState: OAuthSignInState,
-    kakaoOauthSignInState: OAuthSignInState,
+    naverOAuthConnectState: OAuthConnectState,
+    kakaoOauthConnectState: OAuthConnectState,
     signInNaver: () -> Unit,
     signInKakao: () -> Unit,
 
@@ -29,8 +29,8 @@ fun loginGraphBuilder(
         loginSignInScreen(
             navController = navController,
             navGraphBuilder = this,
-            naverOAuthSignInState =naverOAuthSignInState,
-            kakaoOauthSignInState =kakaoOauthSignInState,
+            naverOAuthConnectState =naverOAuthConnectState,
+            kakaoOauthConnectState =kakaoOauthConnectState,
             signInNaver = { signInNaver() },
             signInKakao = { signInKakao() }
         )

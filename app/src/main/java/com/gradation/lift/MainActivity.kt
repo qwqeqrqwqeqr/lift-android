@@ -20,10 +20,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
-import com.gradation.lift.domain.usecase.auth.SignInKakaoUseCase
-import com.gradation.lift.domain.usecase.auth.SignInNaverUseCase
+import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
+import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.oauth.common.naverInitializer
-import com.gradation.lift.oauth.state.OAuthSignInState
+import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.state.SplashUiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -38,10 +38,10 @@ class MainActivity : ComponentActivity() {
 
 
     @Inject
-    lateinit var signInNaverUseCase: SignInNaverUseCase
+    lateinit var connectOAuthFromNaverUseCase: ConnectOAuthFromNaverUseCase
 
     @Inject
-    lateinit var signInKakaoUseCase: SignInKakaoUseCase
+    lateinit var connectOAuthFromKakaoUseCase: ConnectOAuthFromKakaoUseCase
 
     @Inject
     lateinit var dispatcherProvider: DispatcherProvider
@@ -62,8 +62,8 @@ class MainActivity : ComponentActivity() {
 
 
         var splashUiState: SplashUiState by mutableStateOf(SplashUiState.Loading)
-        var naverOAuthSignInState: OAuthSignInState by mutableStateOf(OAuthSignInState.None)
-        var kakaoOauthSignInState: OAuthSignInState by mutableStateOf(OAuthSignInState.None)
+        var naverOAuthConnectState: OAuthConnectState by mutableStateOf(OAuthConnectState.None)
+        var kakaoOauthConnectState: OAuthConnectState by mutableStateOf(OAuthConnectState.None)
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -73,13 +73,13 @@ class MainActivity : ComponentActivity() {
 
         fun signInNaver() {
             CoroutineScope(dispatcherProvider.default).launch {
-                signInNaverUseCase().collect { naverOAuthSignInState = it }
+                connectOAuthFromNaverUseCase().collect { naverOAuthConnectState = it }
             }
         }
 
         fun signInKakao() {
             CoroutineScope(dispatcherProvider.default).launch {
-                signInKakaoUseCase().collect { kakaoOauthSignInState = it }
+                connectOAuthFromKakaoUseCase().collect { kakaoOauthConnectState = it }
             }
         }
 
@@ -110,8 +110,8 @@ class MainActivity : ComponentActivity() {
                 LiftApp(
                     splashUiState = splashUiState,
                     windowSizeClass = calculateWindowSizeClass(this),
-                    naverOAuthSignInState = naverOAuthSignInState,
-                    kakaoOauthSignInState = kakaoOauthSignInState,
+                    naverOAuthConnectState = naverOAuthConnectState,
+                    kakaoOauthConnectState = kakaoOauthConnectState,
                     signInNaver = { signInNaver() },
                     signInKakao = { signInKakao() }
                 )

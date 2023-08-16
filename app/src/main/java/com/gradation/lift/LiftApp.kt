@@ -37,7 +37,7 @@ import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
 import com.gradation.lift.navigation.navigation.navigateToHistory
 import com.gradation.lift.navigation.navigation.navigateToHome
 import com.gradation.lift.navigation.navigation.navigateToMyInfo
-import com.gradation.lift.oauth.state.OAuthSignInState
+import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.state.SplashUiState
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -53,8 +53,8 @@ fun LiftApp(
         windowSizeClass = windowSizeClass
     ),
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
-    naverOAuthSignInState: OAuthSignInState,
-    kakaoOauthSignInState: OAuthSignInState,
+    naverOAuthConnectState: OAuthConnectState,
+    kakaoOauthConnectState: OAuthConnectState,
     signInNaver: ()->Unit,
     signInKakao: ()->Unit,
 ) {
@@ -83,24 +83,24 @@ fun LiftApp(
                     SplashUiState.Login -> LiftNavHost(
                         navController = appState.navController,
                         startDestination = LOGIN_GRAPH_NAME,
-                        naverOAuthSignInState =naverOAuthSignInState,
-                        kakaoOauthSignInState =kakaoOauthSignInState,
+                        naverOAuthConnectState =naverOAuthConnectState,
+                        kakaoOauthConnectState =kakaoOauthConnectState,
                         signInNaver = { signInNaver() },
                         signInKakao = { signInKakao() }
                     )
                     SplashUiState.Main -> LiftNavHost(
                         navController = appState.navController,
                         startDestination = MAIN_GRAPH_NAME,
-                        naverOAuthSignInState =naverOAuthSignInState,
-                        kakaoOauthSignInState =kakaoOauthSignInState,
+                        naverOAuthConnectState =naverOAuthConnectState,
+                        kakaoOauthConnectState =kakaoOauthConnectState,
                         signInNaver = { signInNaver() },
                         signInKakao = { signInKakao() }
                     )
                     SplashUiState.RegisterDetail -> LiftNavHost(
                         navController = appState.navController,
                         startDestination = REGISTER_DETAIL_GRAPH_NAME,
-                        naverOAuthSignInState =naverOAuthSignInState,
-                        kakaoOauthSignInState =kakaoOauthSignInState,
+                        naverOAuthConnectState =naverOAuthConnectState,
+                        kakaoOauthConnectState =kakaoOauthConnectState,
                         signInNaver = { signInNaver() },
                         signInKakao = { signInKakao() }
                     )

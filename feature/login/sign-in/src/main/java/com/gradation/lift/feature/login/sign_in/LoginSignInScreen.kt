@@ -2,7 +2,6 @@
 
 package com.gradation.lift.feature.login.sign_in
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -19,17 +18,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftErrorSnackbar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.domain.usecase.auth.SignInKakaoUseCase
-import com.gradation.lift.domain.usecase.auth.SignInNaverUseCase
 import com.gradation.lift.feature.login.sign_in.component.SignInView
 import com.gradation.lift.feature.login.sign_in.component.SimpleLoginView
 import com.gradation.lift.feature.login.sign_in.data.LoginSignInViewModel
 import com.gradation.lift.feature.login.sign_in.data.SignInState
 import com.gradation.lift.navigation.navigation.*
-import com.gradation.lift.oauth.state.OAuthSignInState
+import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.ui.utils.DevicePreview
-import kotlinx.coroutines.coroutineScope
-import javax.inject.Inject
 
 @Composable
 internal fun LoginSignInRoute(
@@ -37,8 +32,8 @@ internal fun LoginSignInRoute(
     navigateToLoginSignUp: () -> Unit,
     navigateLoginToHome: () -> Unit,
     navigateLoginToRegisterDetail: () -> Unit,
-    naverOAuthSignInState: OAuthSignInState,
-    kakaoOauthSignInState: OAuthSignInState,
+    naverOAuthConnectState: OAuthConnectState,
+    kakaoOauthConnectState: OAuthConnectState,
     signInNaver: ()->Unit,
     signInKakao: ()->Unit,
     modifier: Modifier = Modifier,

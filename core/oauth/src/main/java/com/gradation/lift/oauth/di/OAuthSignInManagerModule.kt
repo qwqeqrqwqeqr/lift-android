@@ -26,7 +26,7 @@ object OAuthSignInManagerModule {
     @Provides
     fun provideOAuthSignInManager(
         @ActivityContext context: Context,
-    ): OAuthSignInManager = DefaultOauthSignInManager(context)
+    ): OAuthConnectManager = DefaultOAuthConnectManager(context)
 
 
 }

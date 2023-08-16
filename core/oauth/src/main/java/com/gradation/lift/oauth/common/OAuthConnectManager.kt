@@ -1,34 +1,34 @@
 package com.gradation.lift.oauth.common
 
-import com.gradation.lift.oauth.state.OAuthSignInState
+import com.gradation.lift.oauth.state.OAuthConnectState
 import kotlinx.coroutines.flow.*
 
 /**
- *  [OAuthSignInManager]
+ *  [OAuthConnectManager]
  * Sign In 기능 접근을 위해
  * 필요한 Activity Context 사용하기 위해
  * 개별적으로 기능 정의
  * @since 2023-08-16 11:01:58
  */
-interface OAuthSignInManager  {
+interface OAuthConnectManager  {
 
 
     /**
-     *  [signInKakao]
+     *  [connectKakao]
      *  카카오 로그인
-     *  [OAuthSignInState] 로 반환 값 생성
+     *  [OAuthConnectState] 로 반환 값 생성
      *  실패시 실패 관련 메시지 전달
      */
-    fun signInKakao(): Flow<OAuthSignInState>
+    fun connectKakao(): Flow<OAuthConnectState>
 
 
     /**
-     *  [signInNaver]
+     *  [connectNaver]
      *  네이버 로그인
-     *  [OAuthSignInState] 로 반환 값 생성
+     *  [OAuthConnectState] 로 반환 값 생성
      *  실패시 실패 관련 메시지 전달
      */
-    fun signInNaver(): Flow<OAuthSignInState>
+    fun connectNaver(): Flow<OAuthConnectState>
 
 }
 
