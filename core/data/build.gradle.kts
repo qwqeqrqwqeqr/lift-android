@@ -29,4 +29,5 @@ dependencies{
     implementation(project(":core:datastore"))
     implementation(project(":core:database"))
     implementation(project(":core:model"))
+    implementation(project(":core:oauth"))
 }
