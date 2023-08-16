@@ -12,8 +12,26 @@ class DefaultKakaoOauthManager @Inject constructor() : KakaoOauthManager {
     override fun getUserId(): Flow<DataState<String>> = flow {
         emit(suspendCancellableCoroutine { continuation ->
             UserApiClient.instance.me() { user, error ->
+
                 user?.let {
                     continuation.resume(DataState.Success(it.id.toString()))
+                }
+                error?.let {
+                    continuation.resume(
+                        DataState.Fail(
+                            it.message ?: "사용자 아이디를 불러올 수 없습니다."
+                        )
+                    )
+                }
+            }
+        })
+    }
+
+    override fun getUserEmail(): Flow<DataState<String>> = flow {
+        emit(suspendCancellableCoroutine { continuation ->
+            UserApiClient.instance.me() { user, error ->
+                user?.kakaoAccount?.email?.let {
+                    continuation.resume(DataState.Success(it))
                 }
                 error?.let {
                     continuation.resume(

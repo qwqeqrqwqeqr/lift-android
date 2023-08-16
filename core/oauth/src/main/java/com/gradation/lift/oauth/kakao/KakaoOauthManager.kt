@@ -14,10 +14,19 @@ interface KakaoOauthManager {
     /**
      * [getUserId]
      * 카카오 사용자 아이디를 불러옵니다.
-     * 실패 시, [DataState.Fail]에 오류메시지를 담아 반환합니다.
+     * 실패 시, [DataState.Fail]에 오류 메시지를 담아 반환합니다.
      * @since 2023-08-16 11:15:48
      */
     fun getUserId(): Flow<DataState<String>>
+
+
+    /**
+     * [getUserEmail]
+     * 카카오 사용자의 계정 이메일을 불러옵니다.
+     * 실패 시, [DataState.Fail]에 오류 메시지를 담아 반환합니다.
+     * @since 2023-08-16 15:57:58
+     */
+    fun getUserEmail(): Flow<DataState<String>>
 
     /**
      * [signOut]

@@ -20,6 +20,13 @@ interface NaverOauthManager {
     fun getUserId() : Flow<DataState<String>>
 
     /**
+     * [getUserId]
+     * 네이버 사용자의 계정 이메일을 불러옵니다.
+     * 실패시 [DataState.Fail] 을 반환합니다.
+     * @since 2023-08-16 15:58:46
+     */
+    fun getUserEmail(): Flow<DataState<String>>
+    /**
      * [signOut]
      * 클라이언트 내에 토큰을 삭제하여 로그아웃을 진행합니다.
      * 약전계에서 로그아웃 호출 시

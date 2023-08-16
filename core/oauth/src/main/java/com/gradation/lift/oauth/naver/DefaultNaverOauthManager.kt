@@ -36,6 +36,32 @@ class DefaultNaverOauthManager @Inject constructor() : NaverOauthManager {
         })
     }
 
+    override fun getUserEmail(): Flow<DataState<String>> = flow {
+        emit(suspendCancellableCoroutine { continuation ->
+            NidOAuthLogin().callProfileApi(callback = object :
+                NidProfileCallback<NidProfileResponse> {
+                override fun onError(errorCode: Int, message: String) {
+                    onFailure(errorCode, message)
+                }
+
+                override fun onFailure(httpStatus: Int, message: String) {
+                    continuation.resume(
+                        DataState.Fail(message)
+                    )
+                }
+
+                override fun onSuccess(result: NidProfileResponse) {
+                    continuation.resume(
+                        result.profile?.email?.let { DataState.Success(it) }
+                            ?: DataState.Fail("사용자 이메일을 불러올 수 없습니다.")
+                    )
+                }
+            })
+        })
+    }
+
+
+
 
     override fun signOut() {
         NaverIdLoginSDK.logout()
