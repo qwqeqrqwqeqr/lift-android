@@ -44,11 +44,24 @@ class DefaultAuthRepository @Inject constructor(
     }
 
     override fun signInNaver(): Flow<DataState<Unit>> = flow {
-        naverOauthManager.getUserId().collect { getUserIdResult ->
-            when (getUserIdResult) {
-                is DataState.Fail -> emit(DataState.Fail(getUserIdResult.message))
+        combine(naverOauthManager.getUserId(), naverOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        NaverSignInInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { naverSignInInfo ->
+            when (naverSignInInfo) {
+                is DataState.Fail -> emit(DataState.Fail(naverSignInInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signInNaver(NaverSignInInfo(getUserIdResult.data))
+                    authDataSource.signInNaver(naverSignInInfo.data)
                         .collect { signInNaverResult ->
                             when (signInNaverResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signInNaverResult.message))
@@ -62,16 +75,28 @@ class DefaultAuthRepository @Inject constructor(
                         }
                 }
             }
-
         }
     }
 
     override fun signInKakao(): Flow<DataState<Unit>> = flow {
-        kakaoOauthManager.getUserId().collect { getUserIdResult ->
-            when (getUserIdResult) {
-                is DataState.Fail -> emit(DataState.Fail(getUserIdResult.message))
+        combine(kakaoOauthManager.getUserId(), kakaoOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        KakaoSignInInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { kakaoSignInInfo ->
+            when (kakaoSignInInfo) {
+                is DataState.Fail -> emit(DataState.Fail(kakaoSignInInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signInKakao(KakaoSignInInfo(getUserIdResult.data))
+                    authDataSource.signInKakao(kakaoSignInInfo.data)
                         .collect { signInKakaoResult ->
                             when (signInKakaoResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signInKakaoResult.message))
@@ -85,7 +110,6 @@ class DefaultAuthRepository @Inject constructor(
                         }
                 }
             }
-
         }
     }
 
