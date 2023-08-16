@@ -12,11 +12,12 @@ fun loginSignInScreen(
     navGraphBuilder: NavGraphBuilder,
     naverOAuthConnectState: OAuthConnectState,
     kakaoOauthConnectState: OAuthConnectState,
-    signInNaver: ()->Unit,
-    signInKakao: ()->Unit,
+    connectOAuthFromNaver: ()->Unit,
+    connectOAuthFromKakao: ()->Unit,
 ) {
-
         navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+
+
             LoginSignInRoute(
                 navigateToLoginFindEmailPassword = { navController.navigateToLoginFindEmailPassword() },
                 navigateToLoginSignUp = { navController.navigateToLoginSignUp() },
@@ -24,8 +25,8 @@ fun loginSignInScreen(
                 navigateLoginToRegisterDetail= { navController.navigateLoginToRegisterDetail() },
                 naverOAuthConnectState =naverOAuthConnectState,
                 kakaoOauthConnectState =kakaoOauthConnectState,
-                signInNaver = { signInNaver() },
-                signInKakao = { signInKakao() }
+                connectOAuthFromNaver = { connectOAuthFromNaver() },
+                connectOAuthFromKakao = { connectOAuthFromKakao() }
             )
 
     }

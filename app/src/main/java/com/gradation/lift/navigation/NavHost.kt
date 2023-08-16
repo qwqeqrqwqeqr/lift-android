@@ -17,8 +17,8 @@ fun LiftNavHost(
     startDestination: String,
     naverOAuthConnectState: OAuthConnectState,
     kakaoOauthConnectState: OAuthConnectState,
-    signInNaver: ()->Unit,
-    signInKakao: ()->Unit,
+    connectOAuthFromNaver: ()->Unit,
+    connectOAuthFromKakao: ()->Unit,
 ) {
 
 
@@ -40,8 +40,8 @@ fun LiftNavHost(
             navGraphBuilder = this,
             naverOAuthConnectState =naverOAuthConnectState,
             kakaoOauthConnectState =kakaoOauthConnectState,
-            signInNaver = { signInNaver() },
-            signInKakao = { signInKakao() }
+            connectOAuthFromNaver = { connectOAuthFromNaver() },
+            connectOAuthFromKakao = { connectOAuthFromKakao() }
         )
         registerDetailGraphBuilder(
             navController = navController,

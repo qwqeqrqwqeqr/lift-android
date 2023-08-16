@@ -13,15 +13,15 @@ import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
 import com.gradation.lift.oauth.state.OAuthConnectState
 
+
 fun loginGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
     naverOAuthConnectState: OAuthConnectState,
     kakaoOauthConnectState: OAuthConnectState,
-    signInNaver: () -> Unit,
-    signInKakao: () -> Unit,
-
-    ) {
+    connectOAuthFromNaver: () -> Unit,
+    connectOAuthFromKakao: () -> Unit,
+) {
     navGraphBuilder.navigation(
         route = LOGIN_GRAPH_NAME,
         startDestination = LOGIN_SIGN_IN_ROUTER_NAME,
@@ -31,8 +31,8 @@ fun loginGraphBuilder(
             navGraphBuilder = this,
             naverOAuthConnectState =naverOAuthConnectState,
             kakaoOauthConnectState =kakaoOauthConnectState,
-            signInNaver = { signInNaver() },
-            signInKakao = { signInKakao() }
+            connectOAuthFromNaver = { connectOAuthFromNaver() },
+            connectOAuthFromKakao = { connectOAuthFromKakao() }
         )
         loginSignUpScreen(navController, this)
         loginVerificationScreen(navController, this)

@@ -34,12 +34,11 @@ internal fun LoginSignInRoute(
     navigateLoginToRegisterDetail: () -> Unit,
     naverOAuthConnectState: OAuthConnectState,
     kakaoOauthConnectState: OAuthConnectState,
-    signInNaver: ()->Unit,
-    signInKakao: ()->Unit,
+    connectOAuthFromNaver: () -> Unit,
+    connectOAuthFromKakao: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginSignInViewModel = hiltViewModel(),
 ) {
-
 
 
     val signInState: SignInState by viewModel.signInUiState.collectAsStateWithLifecycle()
@@ -56,8 +55,6 @@ internal fun LoginSignInRoute(
     val changePasswordVisible = viewModel.changePasswordVisible()
     val clearPassword = viewModel.clearPassword()
     val signIn = viewModel.signIn()
-//    val signInNaver = viewModel.signInNaver()
-//    val signInKakao = viewModel.signInKakao()
 
 
     val snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
@@ -70,8 +67,10 @@ internal fun LoginSignInRoute(
         onClickFindEmailPassword = navigateToLoginFindEmailPassword,
         onClickSignUp = navigateToLoginSignUp,
         onClickSignIn = signIn,
-        onClickSignInNaver = signInNaver,
-        onClickSignInKakao = signInKakao,
+        onClickSignInNaver = {
+            connectOAuthFromNaver()
+        },
+        onClickSignInKakao = connectOAuthFromKakao,
         autoLoginChecked = autoLoginChecked,
         onChangeAutoLoginChecked = changeAutoLoginChecked,
         passwordVisible = passwordVisible,
@@ -82,19 +81,19 @@ internal fun LoginSignInRoute(
     )
 
 
-    when (val result = signInState) {
+    when (val signInStateResult: SignInState = signInState) {
         is SignInState.Fail -> {
-            LaunchedEffect(result.message) {
+            LaunchedEffect(signInStateResult.message) {
                 snackbarHostState.showSnackbar(
-                    message = result.message,
+                    message = signInStateResult.message,
                     duration = SnackbarDuration.Short
                 )
             }
         }
         SignInState.None -> {}
         is SignInState.Success -> {
-            LaunchedEffect(result) {
-                if (result.existUserDetail) {
+            LaunchedEffect(signInStateResult) {
+                if (signInStateResult.existUserDetail) {
                     navigateLoginToHome()
                 } else {
                     navigateLoginToRegisterDetail()

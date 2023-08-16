@@ -8,7 +8,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
-import com.gradation.lift.state.SplashUiState
+import com.gradation.lift.state.SplashState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -26,18 +26,18 @@ class MainActivityViewModel @Inject constructor(
         existUserDetailUseCase()
     ) { isSigned, existUserDetail ->
         when (isSigned) {
-            is DataState.Fail -> SplashUiState.Login
+            is DataState.Fail -> SplashState.Login
             is DataState.Success -> {
                 if (!getAutoLoginSettingUseCase().first()) {
-                    SplashUiState.Login
+                    SplashState.Login
                 } else {
                     when (existUserDetail) {
-                        is DataState.Fail -> SplashUiState.Login
+                        is DataState.Fail -> SplashState.Login
                         is DataState.Success -> {
                             if (!isSigned.data) {
-                                SplashUiState.Login
+                                SplashState.Login
                             } else {
-                                if (existUserDetail.data) SplashUiState.Main else SplashUiState.RegisterDetail
+                                if (existUserDetail.data) SplashState.Main else SplashState.RegisterDetail
                             }
                         }
                     }
@@ -47,7 +47,7 @@ class MainActivityViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = SplashUiState.Loading
+        initialValue = SplashState.Loading
     )
 
     fun setDefaultSystemUiController(systemUiController: SystemUiController) {

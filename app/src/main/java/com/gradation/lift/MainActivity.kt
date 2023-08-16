@@ -24,7 +24,7 @@ import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.oauth.common.naverInitializer
 import com.gradation.lift.oauth.state.OAuthConnectState
-import com.gradation.lift.state.SplashUiState
+import com.gradation.lift.state.SplashState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.onEach
@@ -61,23 +61,23 @@ class MainActivity : ComponentActivity() {
         )
 
 
-        var splashUiState: SplashUiState by mutableStateOf(SplashUiState.Loading)
+        var splashState: SplashState by mutableStateOf(SplashState.Loading)
         var naverOAuthConnectState: OAuthConnectState by mutableStateOf(OAuthConnectState.None)
         var kakaoOauthConnectState: OAuthConnectState by mutableStateOf(OAuthConnectState.None)
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.splashUiState.onEach { splashUiState = it }.collect()
+                viewModel.splashUiState.onEach { splashState = it }.collect()
             }
         }
 
-        fun signInNaver() {
+        fun connectOAuthFromNaver() {
             CoroutineScope(dispatcherProvider.default).launch {
                 connectOAuthFromNaverUseCase().collect { naverOAuthConnectState = it }
             }
         }
 
-        fun signInKakao() {
+        fun connectOAuthFromKakao() {
             CoroutineScope(dispatcherProvider.default).launch {
                 connectOAuthFromKakaoUseCase().collect { kakaoOauthConnectState = it }
             }
@@ -85,16 +85,13 @@ class MainActivity : ComponentActivity() {
 
 
 
-
-
-
         installSplashScreen().apply {
             setKeepOnScreenCondition {
-                when (splashUiState) {
-                    SplashUiState.Loading -> false
-                    SplashUiState.Login -> true
-                    SplashUiState.Main -> true
-                    SplashUiState.RegisterDetail -> true
+                when (splashState) {
+                    SplashState.Loading -> false
+                    SplashState.Login -> true
+                    SplashState.Main -> true
+                    SplashState.RegisterDetail -> true
                 }
             }
         }
@@ -108,12 +105,12 @@ class MainActivity : ComponentActivity() {
             LiftMaterialTheme()
             {
                 LiftApp(
-                    splashUiState = splashUiState,
+                    splashState = splashState,
                     windowSizeClass = calculateWindowSizeClass(this),
                     naverOAuthConnectState = naverOAuthConnectState,
                     kakaoOauthConnectState = kakaoOauthConnectState,
-                    signInNaver = { signInNaver() },
-                    signInKakao = { signInKakao() }
+                    connectOAuthFromNaver = { connectOAuthFromNaver() },
+                    connectOAuthFromKakao = { connectOAuthFromKakao() }
                 )
             }
         }

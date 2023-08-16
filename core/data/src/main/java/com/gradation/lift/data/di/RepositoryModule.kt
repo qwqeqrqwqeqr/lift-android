@@ -13,6 +13,8 @@ import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.datasource.work.WorkDataSource
+import com.gradation.lift.oauth.kakao.KakaoOauthManager
+import com.gradation.lift.oauth.naver.NaverOauthManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -81,9 +83,13 @@ object RepositoryModule {
     fun provideAuthRepository(
         authDataSource: AuthDataSource,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
+        kakaoOauthManager: KakaoOauthManager,
+        naverOauthManager: NaverOauthManager,
     ): AuthRepository = DefaultAuthRepository(
         authDataSource = authDataSource,
-        tokenDataStoreDataSource = tokenDataStoreDataSource
+        tokenDataStoreDataSource = tokenDataStoreDataSource,
+        kakaoOauthManager = kakaoOauthManager,
+        naverOauthManager = naverOauthManager
     )
 
 
