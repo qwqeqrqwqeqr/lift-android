@@ -6,8 +6,6 @@ import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRequestDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
@@ -18,6 +16,8 @@ import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineResponseDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -63,7 +63,7 @@ class RoutineServiceTest {
                 .setResponseCode(Constants.CREATED)
         )
 
-        val response = routineService.createRoutineSet(createRoutineSetRequestDto = createRoutineSetRequestDto)
+        val response = routineService.createRoutineSetRoutine(createRoutineSetRoutineRequestDto = createRoutineSetRoutineRequestDto)
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path).isEqualTo("/routine/routine-set/")
@@ -72,7 +72,7 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(createRoutineSetResponseDto)
+            .isEqualTo(createRoutineSetRoutineResponseDto)
     }
 
 

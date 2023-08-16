@@ -1,14 +1,13 @@
 package com.gradation.lift.network.mapper
 
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.network.BuildConfig.LIFT_S3_URL
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.dto.routine.CreateRoutineDto
-import com.gradation.lift.network.dto.routine.CreateRoutineSetRequestDto
+import com.gradation.lift.network.dto.routine.CreateRoutineSetRoutineRequestDto
 
 
-fun CreateRoutineSetRoutine.toDto() : CreateRoutineSetRequestDto =
-    CreateRoutineSetRequestDto(
+fun CreateRoutineSetRoutine.toDto() : CreateRoutineSetRoutineRequestDto =
+    CreateRoutineSetRoutineRequestDto(
         name = this.name,
         description = this.description,
         weekday = this.weekday.map { it.getWeekdayValue() },

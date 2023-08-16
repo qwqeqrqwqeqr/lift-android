@@ -20,11 +20,11 @@ interface RoutineService {
 
 
     /**
-     * [createRoutineSet]
+     * [createRoutineSetRoutine]
      * 루틴세트 만들기
      */
-    @POST("routine/routine-set/")
-    suspend fun createRoutineSet(@Body createRoutineSetRequestDto: CreateRoutineSetRequestDto): Response<APIResultWrapper<CreateRoutineSetResponseDto>>
+    @POST("routine/routine-set-routine/")
+    suspend fun createRoutineSetRoutine(@Body createRoutineSetRoutineRequestDto: CreateRoutineSetRoutineRequestDto): Response<APIResultWrapper<CreateRoutineSetRoutineResponseDto>>
 
 
     /**
@@ -52,7 +52,7 @@ interface RoutineService {
     /**
      * [getRoutineSetRoutineByRoutineSetId]
      * 루틴세트 고유 아이디들과 일치하는 모든 루틴 세트 불러오기
-     * @param 루틴세트 고유 아이디 번호 리스트,  ','로 구분 하여 [String]으로 전달함
+     * @param routineSetIdList 루틴세트 고유 아이디 번호 리스트,  ','로 구분 하여 [String]으로 전달함
      */
     @GET("routine/routine-set-routine-by-routine-set-id/")
     suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id_list") routineSetIdList: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>

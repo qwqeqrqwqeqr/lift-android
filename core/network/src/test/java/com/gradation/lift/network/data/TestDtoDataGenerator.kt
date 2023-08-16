@@ -1,7 +1,6 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.model.model.common.Weekday
-import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.createRoutineDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto2
@@ -255,7 +254,7 @@ object TestDtoDataGenerator {
             picture = FAKE_URL_DATA
         )
 
-        val createRoutineSetRequestDto = CreateRoutineSetRequestDto(
+        val createRoutineSetRoutineRequestDto = CreateRoutineSetRoutineRequestDto(
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             weekday = listOf(Weekday.MONDAY_VALUE, Weekday.TUESDAY_VALUE),
@@ -263,8 +262,8 @@ object TestDtoDataGenerator {
             routine = listOf(createRoutineDto)
         )
 
-        val createRoutineSetResponseDto =
-            CreateRoutineSetResponseDto(result = FAKE_BOOLEAN_DATA)
+        val createRoutineSetRoutineResponseDto =
+            CreateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
 
     }
 
