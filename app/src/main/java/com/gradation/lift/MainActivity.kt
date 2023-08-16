@@ -27,6 +27,7 @@ import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.state.SplashState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -62,8 +63,8 @@ class MainActivity : ComponentActivity() {
 
 
         var splashState: SplashState by mutableStateOf(SplashState.Loading)
-        var naverOAuthConnectState: OAuthConnectState by mutableStateOf(OAuthConnectState.None)
-        var kakaoOauthConnectState: OAuthConnectState by mutableStateOf(OAuthConnectState.None)
+        val naverOAuthConnectState: MutableStateFlow<OAuthConnectState> = MutableStateFlow(OAuthConnectState.None)
+        val kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState> = MutableStateFlow(OAuthConnectState.None)
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -73,15 +74,16 @@ class MainActivity : ComponentActivity() {
 
         fun connectOAuthFromNaver() {
             CoroutineScope(dispatcherProvider.default).launch {
-                connectOAuthFromNaverUseCase().collect { naverOAuthConnectState = it }
+                connectOAuthFromNaverUseCase().collect { naverOAuthConnectState.value = it }
             }
         }
 
         fun connectOAuthFromKakao() {
             CoroutineScope(dispatcherProvider.default).launch {
-                connectOAuthFromKakaoUseCase().collect { kakaoOauthConnectState = it }
+                connectOAuthFromKakaoUseCase().collect { kakaoOAuthConnectState.value = it }
             }
         }
+
 
 
 
@@ -108,9 +110,9 @@ class MainActivity : ComponentActivity() {
                     splashState = splashState,
                     windowSizeClass = calculateWindowSizeClass(this),
                     naverOAuthConnectState = naverOAuthConnectState,
-                    kakaoOauthConnectState = kakaoOauthConnectState,
+                    kakaoOAuthConnectState = kakaoOAuthConnectState,
                     connectOAuthFromNaver = { connectOAuthFromNaver() },
-                    connectOAuthFromKakao = { connectOAuthFromKakao() }
+                    connectOAuthFromKakao = {connectOAuthFromKakao()}
                 )
             }
         }

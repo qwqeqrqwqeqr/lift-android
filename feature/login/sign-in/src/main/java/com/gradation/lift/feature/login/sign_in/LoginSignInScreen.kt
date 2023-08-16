@@ -25,6 +25,7 @@ import com.gradation.lift.feature.login.sign_in.data.SignInState
 import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.ui.utils.DevicePreview
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 internal fun LoginSignInRoute(
@@ -32,8 +33,8 @@ internal fun LoginSignInRoute(
     navigateToLoginSignUp: () -> Unit,
     navigateLoginToHome: () -> Unit,
     navigateLoginToRegisterDetail: () -> Unit,
-    naverOAuthConnectState: OAuthConnectState,
-    kakaoOauthConnectState: OAuthConnectState,
+    naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
+    kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     connectOAuthFromNaver: () -> Unit,
     connectOAuthFromKakao: () -> Unit,
     modifier: Modifier = Modifier,
@@ -41,8 +42,7 @@ internal fun LoginSignInRoute(
 ) {
 
 
-    val signInState: SignInState by viewModel.signInState.collectAsStateWithLifecycle()
-    val autoLoginChecked : Boolean by viewModel.autoLoginChecked.collectAsStateWithLifecycle()
+    val autoLoginChecked: Boolean by viewModel.autoLoginChecked.collectAsStateWithLifecycle()
 
     val email by viewModel.email.collectAsStateWithLifecycle()
     val password by viewModel.password.collectAsStateWithLifecycle()
@@ -55,7 +55,13 @@ internal fun LoginSignInRoute(
     val changePasswordVisible = viewModel.changePasswordVisible()
     val clearPassword = viewModel.clearPassword()
     val signIn = viewModel.signIn()
+    val signInKakao = viewModel.signInKakao()
+    val signInNaver = viewModel.signInNaver()
 
+
+    val signInState: SignInState by viewModel.signInState.collectAsStateWithLifecycle()
+    val naverConnectState by naverOAuthConnectState.collectAsStateWithLifecycle()
+    val kakaoConnectState by kakaoOAuthConnectState.collectAsStateWithLifecycle()
 
     val snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
     LoginSignInScreen(
@@ -81,6 +87,34 @@ internal fun LoginSignInRoute(
     )
 
 
+    when (val naverConnectStateResult = naverConnectState) {
+        is OAuthConnectState.Fail -> {
+            LaunchedEffect(naverConnectStateResult.message) {
+                snackbarHostState.showSnackbar(
+                    message = naverConnectStateResult.message,
+                    duration = SnackbarDuration.Short
+                )
+            }
+        }
+        OAuthConnectState.None -> {}
+        OAuthConnectState.Success -> {
+            signInNaver()
+        }
+    }
+    when (val kakaoConnectStateResult = kakaoConnectState) {
+        is OAuthConnectState.Fail -> {
+            LaunchedEffect(kakaoConnectStateResult.message) {
+                snackbarHostState.showSnackbar(
+                    message = kakaoConnectStateResult.message,
+                    duration = SnackbarDuration.Short
+                )
+            }
+        }
+        OAuthConnectState.None -> {}
+        OAuthConnectState.Success -> {
+            signInKakao()
+        }
+    }
     when (val signInStateResult: SignInState = signInState) {
         is SignInState.Fail -> {
             LaunchedEffect(signInStateResult.message) {

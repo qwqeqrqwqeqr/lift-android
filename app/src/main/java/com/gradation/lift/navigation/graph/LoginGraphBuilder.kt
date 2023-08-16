@@ -12,13 +12,14 @@ import com.gradation.lift.feature.login.verification.loginVerificationScreen
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
 import com.gradation.lift.oauth.state.OAuthConnectState
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 fun loginGraphBuilder(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
-    naverOAuthConnectState: OAuthConnectState,
-    kakaoOauthConnectState: OAuthConnectState,
+    naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
+    kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     connectOAuthFromNaver: () -> Unit,
     connectOAuthFromKakao: () -> Unit,
 ) {
@@ -30,7 +31,7 @@ fun loginGraphBuilder(
             navController = navController,
             navGraphBuilder = this,
             naverOAuthConnectState =naverOAuthConnectState,
-            kakaoOauthConnectState =kakaoOauthConnectState,
+            kakaoOAuthConnectState =kakaoOAuthConnectState,
             connectOAuthFromNaver = { connectOAuthFromNaver() },
             connectOAuthFromKakao = { connectOAuthFromKakao() }
         )

@@ -6,12 +6,13 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.oauth.state.OAuthConnectState
+import kotlinx.coroutines.flow.MutableStateFlow
 
 fun loginSignInScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
-    naverOAuthConnectState: OAuthConnectState,
-    kakaoOauthConnectState: OAuthConnectState,
+    naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
+    kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     connectOAuthFromNaver: ()->Unit,
     connectOAuthFromKakao: ()->Unit,
 ) {
@@ -24,7 +25,7 @@ fun loginSignInScreen(
                 navigateLoginToHome= { navController.navigateLoginToHome() },
                 navigateLoginToRegisterDetail= { navController.navigateLoginToRegisterDetail() },
                 naverOAuthConnectState =naverOAuthConnectState,
-                kakaoOauthConnectState =kakaoOauthConnectState,
+                kakaoOAuthConnectState =kakaoOAuthConnectState,
                 connectOAuthFromNaver = { connectOAuthFromNaver() },
                 connectOAuthFromKakao = { connectOAuthFromKakao() }
             )

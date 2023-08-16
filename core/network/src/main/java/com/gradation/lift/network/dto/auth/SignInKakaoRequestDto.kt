@@ -8,4 +8,6 @@ import com.squareup.moshi.JsonClass
 data class SignInKakaoRequestDto(
     @Json(name = "id")
     val id : String,
+    @Json(name = "email")
+    val email : String,
 )

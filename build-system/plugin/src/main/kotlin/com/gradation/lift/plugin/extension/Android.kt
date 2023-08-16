@@ -17,10 +17,13 @@
 package com.gradation.lift.plugin.extension
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.gradation.lift.plugin.extension.Constants.KAKAO_SCHEME
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import java.io.File
 
 /**
  * Configure base Kotlin with Android options
@@ -37,6 +40,14 @@ internal fun Project.extensionAndroid(
             vectorDrawables{
                 useSupportLibrary = true
             }
+
+            buildConfigField("String", "KAKAO_APP_KEY", getKey("KAKAO_APP_KEY",rootDir))
+            buildConfigField("String", "NAVER_OAUTH_CLIENT_ID", getKey("NAVER_OAUTH_CLIENT_ID",rootDir))
+            buildConfigField("String", "NAVER_OAUTH_CLIENT_SECRET", getKey("NAVER_OAUTH_CLIENT_SECRET",rootDir))
+            buildConfigField("String", "NAVER_OAUTH_CLIENT_NAME", getKey("NAVER_OAUTH_CLIENT_NAME",rootDir))
+
+            manifestPlaceholders["KAKAO_SCHEME"] = KAKAO_SCHEME
+
 
         }
         buildTypes{
@@ -77,4 +88,7 @@ internal fun Project.extensionAndroid(
 
 fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
+}
+fun getKey(propertyKey: String,rootDir: File): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }

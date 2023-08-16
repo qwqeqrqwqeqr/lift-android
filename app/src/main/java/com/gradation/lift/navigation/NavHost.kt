@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.gradation.lift.navigation.graph.*
 import com.gradation.lift.oauth.state.OAuthConnectState
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -15,8 +16,8 @@ fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String,
-    naverOAuthConnectState: OAuthConnectState,
-    kakaoOauthConnectState: OAuthConnectState,
+    naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
+    kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     connectOAuthFromNaver: ()->Unit,
     connectOAuthFromKakao: ()->Unit,
 ) {
@@ -39,7 +40,7 @@ fun LiftNavHost(
             navController = navController,
             navGraphBuilder = this,
             naverOAuthConnectState =naverOAuthConnectState,
-            kakaoOauthConnectState =kakaoOauthConnectState,
+            kakaoOAuthConnectState =kakaoOAuthConnectState,
             connectOAuthFromNaver = { connectOAuthFromNaver() },
             connectOAuthFromKakao = { connectOAuthFromKakao() }
         )

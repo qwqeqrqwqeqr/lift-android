@@ -39,6 +39,7 @@ import com.gradation.lift.navigation.navigation.navigateToHome
 import com.gradation.lift.navigation.navigation.navigateToMyInfo
 import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.state.SplashState
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
@@ -53,8 +54,8 @@ fun LiftApp(
         windowSizeClass = windowSizeClass
     ),
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
-    naverOAuthConnectState: OAuthConnectState,
-    kakaoOauthConnectState: OAuthConnectState,
+    naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
+    kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     connectOAuthFromNaver: () -> Unit,
     connectOAuthFromKakao: () -> Unit,
 ) {
@@ -87,7 +88,7 @@ fun LiftApp(
                         navController = appState.navController,
                         startDestination = LOGIN_GRAPH_NAME,
                         naverOAuthConnectState =naverOAuthConnectState,
-                        kakaoOauthConnectState =kakaoOauthConnectState,
+                        kakaoOAuthConnectState =kakaoOAuthConnectState,
                         connectOAuthFromNaver = { connectOAuthFromNaver() },
                         connectOAuthFromKakao = { connectOAuthFromKakao() }
                     )
@@ -95,7 +96,7 @@ fun LiftApp(
                         navController = appState.navController,
                         startDestination = MAIN_GRAPH_NAME,
                         naverOAuthConnectState =naverOAuthConnectState,
-                        kakaoOauthConnectState =kakaoOauthConnectState,
+                        kakaoOAuthConnectState =kakaoOAuthConnectState,
                         connectOAuthFromNaver = { connectOAuthFromNaver() },
                         connectOAuthFromKakao = { connectOAuthFromKakao() }
                     )
@@ -103,7 +104,7 @@ fun LiftApp(
                         navController = appState.navController,
                         startDestination = REGISTER_DETAIL_GRAPH_NAME,
                         naverOAuthConnectState =naverOAuthConnectState,
-                        kakaoOauthConnectState =kakaoOauthConnectState,
+                        kakaoOAuthConnectState =kakaoOAuthConnectState,
                         connectOAuthFromNaver = { connectOAuthFromNaver() },
                         connectOAuthFromKakao = { connectOAuthFromKakao() }
                     )

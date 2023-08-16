@@ -92,3 +92,6 @@ lint/tmp/
 **/.DS_Store
 **/._.DS_Store
 .idea
+
+#key
+build-system/plugin/src/main/kotlin/com/gradation/lift/plugin/extension/Constants.kt
