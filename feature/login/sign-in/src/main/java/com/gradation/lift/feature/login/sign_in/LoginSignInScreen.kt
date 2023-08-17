@@ -217,9 +217,6 @@ internal fun LoginSignInScreen(
                     AutoLoginView(
                         modifier, autoLoginCheckToggle, updateAutoLoginCheckToggle
                     )
-                    FindEmailPasswordView(
-                        modifier, findEmailPassword
-                    )
                 }
                 Spacer(modifier = modifier.padding(24.dp))
 
