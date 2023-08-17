@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.register_detail.gender
+package com.gradation.lift.feature.register_detail.gender.data
 
 import androidx.lifecycle.ViewModel
 import com.gradation.lift.model.model.user.Gender

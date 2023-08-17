@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -20,7 +19,11 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.gender.component.GenderSelectionView
+import com.gradation.lift.feature.register_detail.gender.component.HeaderView
+import com.gradation.lift.feature.register_detail.gender.component.NavigationView
 import com.gradation.lift.feature.register_detail.gender.component.ProgressNumberView
+import com.gradation.lift.feature.register_detail.gender.data.RegisterDetailGenderViewModel
 import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.navigation.Router
@@ -67,8 +70,10 @@ fun RegisterDetailGenderRoute(
         navigateGenderToName
     )
 
-
-    BackHandler(onBack = { navigateGenderToName() })
+    BackHandler(onBack = {
+        updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
+        navigateGenderToName()
+    })
 }
 
 
@@ -92,7 +97,10 @@ internal fun RegisterDetailGenderScreen(
         topBar = {
             LiftBackTopBar(
                 title = "추가정보 입력",
-                onBackClickTopBar = navigateGenderToName
+                onBackClickTopBar = {
+                    updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
+                    navigateGenderToName()
+                }
             )
         },
     ) { padding ->
@@ -112,62 +120,24 @@ internal fun RegisterDetailGenderScreen(
                     totalRegisterProgressNumber
                 )
                 Spacer(modifier = modifier.padding(14.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        append("${name}님의 ")
-                        withStyle(
-                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                        ) {
-                            append("성별")
-                        }
-                        append("은 무엇인가요?")
-                    },
-                    style = LiftTheme.typography.no1,
-                    color = LiftTheme.colorScheme.no11,
-                )
+                HeaderView(modifier, name)
                 Spacer(modifier = modifier.padding(15.dp))
-                Row {
-                    LiftToggleTextBox(
-                        text = "남자", checked = gender.getGenderValue() == Gender.MALE_VALUE,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        onCheckedChange = { updateMale() }
-                    )
-                    Spacer(modifier = modifier.padding(4.dp))
-                    LiftToggleTextBox(
-                        text = "여자",
-                        checked = gender.getGenderValue() == Gender.FEMALE_VALUE,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        onCheckedChange = { updateFemale() }
-                    )
-                }
+                GenderSelectionView(modifier, gender, updateFemale, updateMale)
                 Spacer(modifier = modifier.padding(18.dp))
-                LiftButton(
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = {
-                        updateCreateUserDetailGender(gender)
-                        updateCurrentRegisterProgressNumber(currentRegisterProgressNumber+1)
-                        navigateGenderToHeightWeight()
-                    },
-                ) {
-                    Text(
-                        text = "다음",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
+                NavigationView(
+                    modifier,
+                    gender,
+                    currentRegisterProgressNumber,
+                    updateCreateUserDetailGender,
+                    updateCurrentRegisterProgressNumber,
+                    navigateGenderToHeightWeight
+                )
             }
-
         }
-
     }
 }
 
 
-@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 fun RegisterDetailGenderScreenPreview(
