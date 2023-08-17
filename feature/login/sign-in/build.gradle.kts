@@ -4,6 +4,7 @@ plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
     id("lift.android.hilt")
+    id("lift.android.test")
 }
 
 android {
@@ -27,5 +28,5 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
-    implementation(project(mapOf("path" to ":core:oauth")))
+    implementation(project(":core:oauth"))
 }
