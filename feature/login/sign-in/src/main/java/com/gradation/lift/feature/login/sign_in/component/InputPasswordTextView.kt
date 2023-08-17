@@ -24,7 +24,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 internal fun InputPasswordTextView(
-    modifier : Modifier = Modifier,
+    modifier: Modifier = Modifier,
     passwordText: String,
     passwordVisibleToggle: Boolean,
     passwordVisualTransformation: VisualTransformation,
@@ -33,7 +33,7 @@ internal fun InputPasswordTextView(
     updatePasswordVisibleToggle: (Boolean) -> Unit,
     signInDefault: () -> Unit,
     focusManager: FocusManager,
-){
+) {
     Text(
         text = "비밀번호",
         style = LiftTheme.typography.no3,
@@ -47,6 +47,7 @@ internal fun InputPasswordTextView(
             Text(
                 style = LiftTheme.typography.no6,
                 text = "비밀번호를 입력해주세요",
+                color = LiftTheme.colorScheme.no9.copy(alpha = 0.7f),
             )
         },
         singleLine = true,
@@ -62,7 +63,7 @@ internal fun InputPasswordTextView(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if(passwordText.isNotBlank()){
+                if (passwordText.isNotBlank()) {
                     ToggleVisible(
                         checked = passwordVisibleToggle,
                         onCheckedChange = updatePasswordVisibleToggle,

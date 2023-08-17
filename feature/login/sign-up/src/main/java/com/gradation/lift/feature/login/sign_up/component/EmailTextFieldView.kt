@@ -37,6 +37,7 @@ internal fun EmailTextField(
             Text(
                 text = "사용할 이메일을 입력해주세요.",
                 style = LiftTheme.typography.no6,
+                color = LiftTheme.colorScheme.no9.copy(alpha = 0.7f),
             )
         },
         singleLine = true,

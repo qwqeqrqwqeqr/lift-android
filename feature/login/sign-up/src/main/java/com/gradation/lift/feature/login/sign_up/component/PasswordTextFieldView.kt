@@ -50,6 +50,7 @@ internal fun PasswordTextField(
             Text(
                 text = "영문, 숫자 조합 8~16자 이내",
                 style = LiftTheme.typography.no6,
+                color = LiftTheme.colorScheme.no9.copy(alpha = 0.7f)
             )
         },
         singleLine = true,

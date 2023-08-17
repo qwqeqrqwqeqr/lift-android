@@ -48,6 +48,7 @@ internal fun PasswordVerificationTextField(
             Text(
                 text = "비밀번호를 한번 더 입력해주세요",
                 style = LiftTheme.typography.no6,
+                color = LiftTheme.colorScheme.no9.copy(alpha = 0.7f)
             )
         },
         singleLine = true,
