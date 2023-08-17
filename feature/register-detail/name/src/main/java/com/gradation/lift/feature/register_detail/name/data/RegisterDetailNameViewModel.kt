@@ -42,7 +42,7 @@ class RegisterDetailNameViewModel @Inject constructor(
         initialValue = false
     )
 
-    internal fun updateName(): (String) -> Unit = { it ->
+    internal fun updateNameText(): (String) -> Unit = { it ->
         nameText.value = it
     }
 

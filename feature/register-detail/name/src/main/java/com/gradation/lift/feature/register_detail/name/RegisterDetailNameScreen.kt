@@ -49,10 +49,16 @@ fun RegisterDetailNameRoute(
     val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
     val name: String by viewModel.nameText.collectAsStateWithLifecycle()
+    val nameValidator: Validator by viewModel.nameValidator.collectAsStateWithLifecycle()
+    val navigateCondition: Boolean by viewModel.navigateCondition.collectAsStateWithLifecycle()
+
+    val currentRegisterProgressNumber: Int by sharedViewModel.currentRegisterProgressNumber.collectAsStateWithLifecycle()
+    val totalRegisterProgressNumber: Int by sharedViewModel.totalRegisterProgressNumber.collectAsStateWithLifecycle()
 
 
-
-
+    val updateNameText: (String) -> Unit = viewModel.updateNameText()
+    val updateCurrentRegisterProgressNumber: (Int) -> Unit =
+        sharedViewModel.updateCurrentRegisterProgressNumber()
 }
 
 
