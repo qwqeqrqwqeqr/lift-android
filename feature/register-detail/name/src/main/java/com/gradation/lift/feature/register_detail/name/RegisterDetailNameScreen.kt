@@ -2,38 +2,35 @@ package com.gradation.lift.feature.register_detail.name
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.*
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.canvas.NumberCircle
-import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTitleTopBar
-import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.name.component.HeaderView
+import com.gradation.lift.feature.register_detail.name.component.NameTextFieldView
+import com.gradation.lift.feature.register_detail.name.component.NavigationView
+import com.gradation.lift.feature.register_detail.name.component.ProgressNumberView
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailNameViewModel
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @Composable
 fun RegisterDetailNameRoute(
@@ -42,22 +39,38 @@ fun RegisterDetailNameRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
-    val name = viewModel.name.collectAsStateWithLifecycle()
-    val navigationCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
+    val crateRoutineBackStackEntry: NavBackStackEntry =
+        remember { navController.getBackStackEntry(Router.REGISTER_DETAIL_GRAPH_NAME) }
+    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
+
+    val nameText: String by viewModel.nameText.collectAsStateWithLifecycle()
+    val nameValidator: Validator by viewModel.nameValidator.collectAsStateWithLifecycle()
+    val navigateCondition: Boolean by viewModel.navigateCondition.collectAsStateWithLifecycle()
+
+    val currentRegisterProgressNumber: Int by sharedViewModel.currentRegisterProgressNumber.collectAsStateWithLifecycle()
+    val totalRegisterProgressNumber: Int by sharedViewModel.totalRegisterProgressNumber.collectAsStateWithLifecycle()
+
+    val updateNameText: (String) -> Unit = viewModel.updateNameText()
+    val updateCreateUserDetailName: (String) -> Unit = sharedViewModel.updateCreateUserDetailName()
+    val updateCurrentRegisterProgressNumber: (Int) -> Unit =
+        sharedViewModel.updateCurrentRegisterProgressNumber()
+
+    val focusManager = LocalFocusManager.current
+
 
     RegisterDetailNameScreen(
-        modifier = modifier,
-        nameText = name,
-        updateNameText = viewModel.updateName(),
-        nameValidationSupportText = viewModel.nameValidationSupportText.collectAsStateWithLifecycle(),
-        onNextButtonClick = {
-            viewModel.updateKey(navController)
-            navigateNameToGender()
-        },
-        navigateCondition = navigationCondition
+        modifier,
+        nameText,
+        nameValidator,
+        navigateCondition,
+        currentRegisterProgressNumber,
+        totalRegisterProgressNumber,
+        updateNameText,
+        updateCreateUserDetailName,
+        updateCurrentRegisterProgressNumber,
+        navigateNameToGender,
+        focusManager
     )
-    
-
 }
 
 
@@ -65,119 +78,68 @@ fun RegisterDetailNameRoute(
 @Composable
 private fun RegisterDetailNameScreen(
     modifier: Modifier = Modifier,
-    nameText: State<String>,
+    nameText: String,
+    nameValidator: Validator,
+    navigateCondition: Boolean,
+    currentRegisterProgressNumber: Int,
+    totalRegisterProgressNumber: Int,
     updateNameText: (String) -> Unit,
-    nameValidationSupportText: State<Validator>,
-    onNextButtonClick: () -> Unit,
-    navigateCondition: State<Boolean>,
+    updateCreateUserDetailName: (String) -> Unit,
+    updateCurrentRegisterProgressNumber: (Int) -> Unit,
+    navigateNameToGender: () -> Unit,
+    focusManager: FocusManager,
 ) {
-    Surface(
-        color = LiftTheme.colorScheme.no5
-    ) {
-        Scaffold(
-            topBar = {
-                LiftTitleTopBar(
-                    title = "추가정보 입력"
-                )
 
-            },
-        ) { padding ->
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            LiftTitleTopBar(title = "추가정보 입력")
+        },
+    ) { padding ->
+        Surface(
+            modifier = modifier
+                .padding(padding)
+                .fillMaxSize(),
+            color = LiftTheme.colorScheme.no5,
+        ) {
             Column(
                 modifier = modifier
                     .padding(16.dp)
-                    .padding(padding)
-                    .fillMaxSize()
             ) {
-                val focusManager = LocalFocusManager.current
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(5) {
-                        NumberCircle(number = it + 1, checked = it + 1 == 1)
-                    }
-                }
-                Spacer(modifier = modifier.padding(28.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        append("원활한 리프트 사용을 위해 \n")
-                        withStyle(
-                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                        ) {
-                            append("추가정보")
-                        }
-                        append("를 등록할게요")
-                    },
-                    style = LiftTheme.typography.no1,
-                    color = LiftTheme.colorScheme.no11,
+                ProgressNumberView(
+                    modifier,
+                    currentRegisterProgressNumber,
+                    totalRegisterProgressNumber
                 )
+                Spacer(modifier = modifier.padding(14.dp))
+
+                HeaderView(modifier)
                 Spacer(modifier = modifier.padding(15.dp))
-                NameTextField(
-                    modifier = modifier,
-                    nameText = nameText.value,
-                    updateNameText = updateNameText,
-                    focusManager = focusManager,
-                    nameValidationSupportText = nameValidationSupportText.value
+
+                NameTextFieldView(
+                    modifier,
+                    nameText,
+                    nameValidator,
+                    updateNameText,
+                    focusManager
                 )
-                Spacer(modifier = modifier.padding(18.dp))
-                LiftButton(
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = onNextButtonClick,
-                    enabled = navigateCondition.value,
-                ) {
-                    Text(
-                        text = "다음",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
+                Spacer(modifier = modifier.padding(28.dp))
+                NavigationView(
+                    modifier,
+                    navigateCondition,
+                    nameText,
+                    currentRegisterProgressNumber,
+                    updateCreateUserDetailName,
+                    updateCurrentRegisterProgressNumber,
+                    navigateNameToGender,
+                    focusManager
+                )
             }
         }
     }
 }
 
-@Composable
-private fun NameTextField(
-    modifier: Modifier = Modifier,
-    nameText: String,
-    updateNameText: (String) -> Unit,
-    focusManager: FocusManager,
-    nameValidationSupportText: Validator,
-) {
-    Text(
-        text = "닉네임",
-        style = LiftTheme.typography.no3,
-        color = LiftTheme.colorScheme.no3,
-    )
-    Spacer(modifier = modifier.padding(4.dp))
-    LiftTextField(
-        value = nameText,
-        onValueChange = updateNameText,
-        modifier = modifier.fillMaxWidth(),
-        placeholder = {
-            Text(
-                text = "닉네임을 입력해주세요",
-                style = LiftTheme.typography.no6,
-            )
-        },
-        singleLine = true,
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                focusManager.moveFocus(FocusDirection.Down)
-            },
-        )
-    )
-    if (!nameValidationSupportText.status) {
-        Text(
-            text = nameValidationSupportText.message,
-            style = LiftTheme.typography.no7,
-            color = LiftTheme.colorScheme.no12
-        )
-    }
-}
 
-
-@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 internal fun RegisterDetailNameScreenPreview(
@@ -186,11 +148,16 @@ internal fun RegisterDetailNameScreenPreview(
     LiftMaterialTheme {
         RegisterDetailNameScreen(
             modifier = modifier,
-            nameText = mutableStateOf(""),
-            updateNameText = { },
-            nameValidationSupportText = mutableStateOf(Validator()),
-            onNextButtonClick = { },
-            navigateCondition = mutableStateOf(true)
+            nameText = "",
+            nameValidator = Validator(false, ""),
+            navigateCondition = true,
+            currentRegisterProgressNumber = 1,
+            totalRegisterProgressNumber = 4,
+            updateNameText = {},
+            updateCreateUserDetailName = {},
+            updateCurrentRegisterProgressNumber = {},
+            navigateNameToGender = {},
+            focusManager = LocalFocusManager.current
         )
     }
 }
