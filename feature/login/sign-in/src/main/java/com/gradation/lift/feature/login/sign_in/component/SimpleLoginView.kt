@@ -16,8 +16,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun SimpleLoginView(
     modifier: Modifier = Modifier,
-    onClickSignInNaver: () -> Unit,
-    onClickSignInKakao: () -> Unit,
+    signInNaver: () -> Unit,
+    signInKakao: () -> Unit,
     ) {
 
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -27,7 +27,7 @@ internal fun SimpleLoginView(
         )
         Text(
             text = "간편하게 로그인",
-            style = LiftTheme.typography.no5,
+            style = LiftTheme.typography.no6,
             color = LiftTheme.colorScheme.no11,
             modifier = modifier.weight(1f),
             textAlign = TextAlign.Center
@@ -50,7 +50,7 @@ internal fun SimpleLoginView(
             painterResource = painterResource(LiftIcon.LoginKakao),
             label = "카카오톡",
             modifier = modifier,
-            onclick = onClickSignInKakao
+            onclick = signInNaver
         )
         //TODO 구글 로그인 승인 시 연동 예정 (2023.08.14)
 //        SimpleLoginButton(
@@ -62,7 +62,7 @@ internal fun SimpleLoginView(
             painterResource = painterResource(LiftIcon.LoginNaver),
             label = "네이버",
             modifier = modifier,
-            onclick = onClickSignInNaver
+            onclick = signInKakao
         )
     }
 }

@@ -1,25 +1,22 @@
-package com.gradation.lift.feature.login.sign_in.component.detail
+package com.gradation.lift.feature.login.sign_in.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.login.sign_in.LoginSignInScreen
 
 @Composable
 internal fun SignUpView(
     modifier: Modifier = Modifier,
-    onClickSignUp: () -> Unit,
+    signUp: () -> Unit,
+    focusManager: FocusManager,
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -36,9 +33,11 @@ internal fun SignUpView(
             style = LiftTheme.typography.no7 +
                     TextStyle(
                         color = LiftTheme.colorScheme.no11,
-                        textDecoration = TextDecoration.Underline),
-            onClick = { _ ->
-                onClickSignUp()
+                        textDecoration = TextDecoration.Underline
+                    ),
+            onClick = {
+                focusManager.clearFocus()
+                signUp()
             },
         )
 

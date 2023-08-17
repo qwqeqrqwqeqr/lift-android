@@ -18,68 +18,69 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * @property email
- * @property password
- * @property passwordVisible
- * @property passwordVisualTransformation
- * @property autoLoginChecked
+ * @property emailText  이메일 텍스트 [signInDefault] 에 사용
+ * @property passwordText 비밀번호 텍스트 [signInDefault] 에 사용
+ * @property passwordVisibleToggle 비밀번호 가시 여부
+ * @property autoLoginCheckToggle 자동 로그인 여부, 자동 설징 시 다음 로그인 부터는 자동으로 진행
+ * @property passwordVisualTransformation 비밀번호 가시성 변수 기본 값은 비 가시로 설정
+ * @property signInState [SignInState] 을 기반으로 하는 로그인 상태
+ * @since 2023-08-16 22:29:18
  */
 @HiltViewModel
 class LoginSignInViewModel @Inject constructor(
     private val signInDefaultUseCase: SignInDefaultUseCase,
-    private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
     private val setAutoLoginSettingUseCase: SetAutoLoginSettingUseCase,
     private val signInNaverUseCase: SignInNaverUseCase,
     private val signInKakaoUseCase: SignInKakaoUseCase,
     private val existUserDetail: ExistUserDetailUseCase,
+    getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
 ) : ViewModel() {
 
 
-    var email = MutableStateFlow("")
-    var password = MutableStateFlow("")
-
-    var passwordVisible = MutableStateFlow(false)
-    var passwordVisualTransformation: MutableStateFlow<VisualTransformation> = MutableStateFlow(
-        PasswordVisualTransformation()
-    )
-
-    var signInState = MutableStateFlow<SignInState>(SignInState.None)
+    var emailText: MutableStateFlow<String> = MutableStateFlow("")
+    var passwordText: MutableStateFlow<String> = MutableStateFlow("")
 
 
-    var autoLoginChecked =
+    var passwordVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+
+    var autoLoginCheckToggle: StateFlow<Boolean> =
         getAutoLoginSettingUseCase().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = true
         )
 
+    var passwordVisualTransformation =
+        passwordVisibleToggle.map {
+            if (it) VisualTransformation.None else PasswordVisualTransformation()
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = PasswordVisualTransformation()
+        )
+
+    var signInState: MutableStateFlow<SignInState> = MutableStateFlow<SignInState>(SignInState.None)
 
 
+    fun updateEmailText(): (String) -> Unit = { emailText.value = it }
+    fun updatePasswordText(): (String) -> Unit = { passwordText.value = it }
+    fun clearPasswordText(): () -> Unit = { passwordText.value = "" }
 
-    fun changePasswordVisible(): (Boolean) -> Unit = {
-        passwordVisible.value = it
-        passwordVisualTransformation.value =
-            if (passwordVisualTransformation == VisualTransformation.None) {
-                PasswordVisualTransformation()
-            } else {
-                VisualTransformation.None
-            }
-    }
+    fun updatePasswordVisibleToggle(): (Boolean) -> Unit = { passwordVisibleToggle.value = it  }
 
-    fun changeAutoLoginChecked(): (Boolean) -> Unit = {
+    fun updateAutoLoginCheckToggle(): (Boolean) -> Unit = {
         viewModelScope.launch {
             setAutoLoginSettingUseCase(value = it)
         }
     }
 
 
-    fun clearPassword(): () -> Unit = { password.update { "" } }
-    fun updateEmail(): (String) -> Unit = { email.update { it } }
-    fun updatePassword(): (String) -> Unit = { password.update { it } }
-
-
-
-    fun signInNaver(): () -> Unit= {
+    /**
+     * [signInNaver]
+     * 네이버 로그인, [signInState]를 업데이트 함
+     */
+    fun signInNaver(): () -> Unit = {
         viewModelScope.launch {
             signInNaverUseCase().collect { signInResult ->
                 when (signInResult) {
@@ -90,7 +91,7 @@ class LoginSignInViewModel @Inject constructor(
                         existUserDetail().collect { existUserDetailResult ->
                             when (existUserDetailResult) {
                                 is DataState.Fail -> {
-                                    signInState.value = SignInState.Fail("로그인을 실패하였습니다.")
+                                    signInState.value = SignInState.Fail("로그인에 실패하였습니다.")
                                 }
                                 is DataState.Success -> signInState.value =
                                     SignInState.Success(
@@ -104,7 +105,11 @@ class LoginSignInViewModel @Inject constructor(
         }
     }
 
-    fun signInKakao(): () -> Unit= {
+    /**
+     * [signInKakao]
+     * 카카오 로그인, [signInState]를 업데이트 함
+     */
+    fun signInKakao(): () -> Unit = {
         viewModelScope.launch {
             signInKakaoUseCase().collect { signInResult ->
                 when (signInResult) {
@@ -115,7 +120,7 @@ class LoginSignInViewModel @Inject constructor(
                         existUserDetail().collect { existUserDetailResult ->
                             when (existUserDetailResult) {
                                 is DataState.Fail -> {
-                                    signInState.value = SignInState.Fail("로그인을 실패하였습니다.")
+                                    signInState.value = SignInState.Fail("로그인에 실패하였습니다.")
                                 }
                                 is DataState.Success -> signInState.value =
                                     SignInState.Success(
@@ -129,17 +134,21 @@ class LoginSignInViewModel @Inject constructor(
         }
     }
 
-    fun signIn(): () -> Unit = {
+    /**
+     * [signInDefault]
+     * 일반 로그인, [signInState]를 업데이트 함
+     */
+    fun signInDefault(): () -> Unit = {
         viewModelScope.launch {
-            if (email.value.isBlank() || password.value.isBlank()) {
+            if (emailText.value.isBlank() || passwordText.value.isBlank()) {
                 signInState.value = SignInState.Fail(
                     message = "아이디 또는 비밀번호를 입력해주세요."
                 )
             } else {
                 signInDefaultUseCase(
                     DefaultSignInInfo(
-                        id = email.value,
-                        password = password.value
+                        id = emailText.value,
+                        password = passwordText.value
                     )
                 ).collect { signInResult ->
                     when (signInResult) {
@@ -151,7 +160,7 @@ class LoginSignInViewModel @Inject constructor(
                                 when (existUserDetailResult) {
                                     is DataState.Fail -> {
                                         signInState.value =
-                                            SignInState.Fail("로그인을 실패하였습니다.")
+                                            SignInState.Fail("로그인에 실패하였습니다.")
                                     }
                                     is DataState.Success -> signInState.value =
                                         SignInState.Success(
