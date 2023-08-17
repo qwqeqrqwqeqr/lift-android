@@ -5,7 +5,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
@@ -19,10 +18,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun EmailTextField(
     modifier: Modifier = Modifier,
-    emailText: State<String>,
+    emailText: String,
+    emailValidator: Validator,
     updateEmailText: (String) -> Unit,
     focusManager: FocusManager,
-    emailValidationSupportText: State<Validator>,
 ) {
     Text(
         text = "이메일",
@@ -31,7 +30,7 @@ internal fun EmailTextField(
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
-        value = emailText.value,
+        value = emailText,
         onValueChange = updateEmailText,
         modifier = modifier.fillMaxWidth(),
         placeholder = {
@@ -50,9 +49,9 @@ internal fun EmailTextField(
             },
         )
     )
-    if (!emailValidationSupportText.value.status) {
+    if (!emailValidator.status) {
         Text(
-            text = emailValidationSupportText.value.message,
+            text = emailValidator.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )

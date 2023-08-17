@@ -22,8 +22,8 @@ import javax.inject.Inject
  * @property passwordText 비밀번호 텍스트
  * @property passwordVerificationText 비밀번호 확인 텍스트
  *
- * @property passwordTextVisibleToggle 비밀번호 가시 여부
- * @property passwordVerificationTextVisibleToggle 비밀번호 확인 가시 여부
+ * @property passwordVisibleToggle 비밀번호 가시 여부
+ * @property passwordVerificationVisibleToggle 비밀번호 확인 가시 여부
  *
  * @property emailValidator 이메일 유효성 확인
  * @property passwordValidator 비밀번호 유효성 확인
@@ -48,8 +48,8 @@ class LoginSignUpViewModel @Inject constructor(
     val passwordText: MutableStateFlow<String> = MutableStateFlow("")
     val passwordVerificationText: MutableStateFlow<String> = MutableStateFlow("")
 
-    val passwordTextVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val passwordVerificationTextVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val passwordVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val passwordVerificationVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     val emailValidator: StateFlow<Validator> =
         emailText.debounce(1000).distinctUntilChanged().flatMapLatest { email ->
@@ -78,7 +78,7 @@ class LoginSignUpViewModel @Inject constructor(
         )
 
 
-    val passwordVisualTransformation = passwordTextVisibleToggle.map {
+    val passwordVisualTransformation = passwordVisibleToggle.map {
         if (it) VisualTransformation.None else PasswordVisualTransformation()
     }.stateIn(
         scope = viewModelScope,
@@ -86,7 +86,7 @@ class LoginSignUpViewModel @Inject constructor(
         initialValue = PasswordVisualTransformation()
     )
 
-    val passwordVerificationVisualTransformation = passwordVerificationTextVisibleToggle.map {
+    val passwordVerificationVisualTransformation = passwordVerificationVisibleToggle.map {
         if (it) VisualTransformation.None else PasswordVisualTransformation()
     }.stateIn(
         scope = viewModelScope,
@@ -110,7 +110,6 @@ class LoginSignUpViewModel @Inject constructor(
     var signUpState: MutableStateFlow<SignUpState> = MutableStateFlow(SignUpState.None)
 
 
-
     internal fun clearPasswordText(): () -> Unit = { passwordText.value = "" }
     internal fun clearPasswordVerificationText(): () -> Unit =
         { passwordVerificationText.value = "" }
@@ -118,16 +117,16 @@ class LoginSignUpViewModel @Inject constructor(
 
     internal fun updateEmailText(): (String) -> Unit = { emailText.value = it }
     internal fun updatePasswordText(): (String) -> Unit = { passwordText.value = it }
-    internal fun updatePasswordVerification(): (String) -> Unit =
+    internal fun updatePasswordVerificationText(): (String) -> Unit =
         { passwordVerificationText.value = it }
 
     internal fun updatePasswordVisibleToggle(): (Boolean) -> Unit =
-        { passwordTextVisibleToggle.value = it }
+        { passwordVisibleToggle.value = it }
 
     internal fun updatePasswordVerificationVisibleToggle(): (Boolean) -> Unit =
-        { passwordVerificationTextVisibleToggle.value = it }
+        { passwordVerificationVisibleToggle.value = it }
 
-    internal fun updateSignInState(none: SignUpState.None): (SignUpState) -> Unit =
+    internal fun updateSignUpState(): (SignUpState) -> Unit =
         { signUpState.value = it }
 
 
@@ -183,7 +182,7 @@ class LoginSignUpViewModel @Inject constructor(
         }
 
 
-    fun signUp() {
+    fun signUp(): () -> Unit = {
         viewModelScope.launch {
             signUpDefaultUseCase(
                 DefaultSignUpInfo(
@@ -203,6 +202,8 @@ class LoginSignUpViewModel @Inject constructor(
         }
     }
 }
+
+
 
 
 
