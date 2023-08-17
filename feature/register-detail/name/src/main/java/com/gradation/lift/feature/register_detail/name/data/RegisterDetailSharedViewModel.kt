@@ -34,7 +34,7 @@ class RegisterDetailSharedViewModel @Inject constructor(
     val currentRegisterProgressNumber: MutableStateFlow<Int> = MutableStateFlow(1)
     val totalRegisterProgressNumber: MutableStateFlow<Int> = MutableStateFlow(4)
 
-    private val createUserDetailName: MutableStateFlow<String> = MutableStateFlow("")
+    val createUserDetailName: MutableStateFlow<String> = MutableStateFlow("")
     private val createUserDetailGender: MutableStateFlow<Gender> = MutableStateFlow(Gender.Male())
     private val createUserDetailHeight: MutableStateFlow<Float> = MutableStateFlow(0f)
     private val createUserDetailWeight: MutableStateFlow<Float> = MutableStateFlow(0f)

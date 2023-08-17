@@ -11,16 +11,15 @@ fun registerDetailGenderScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-        val navigateGenderToHeightWeight =
+        val navigateGenderToHeightWeight: ()->Unit =
             { navController.navigateGenderToHeightWeight() }
 
-        val navigateGenderToName =
+        val navigateGenderToName: ()->Unit =
             { navController.navigateGenderToName() }
 
         navGraphBuilder.composable(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
             RegisterDetailGenderRoute(
                 navController = navController,
-
                 navigateGenderToHeightWeight = navigateGenderToHeightWeight,
                 navigateGenderToName = navigateGenderToName
             )
