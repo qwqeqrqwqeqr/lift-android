@@ -1,41 +1,29 @@
 package com.gradation.lift.feature.register_detail.gender
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
+/**
+ * [RegisterDetailGenderViewModel]
+ * @property gender 사용자의 성별
+ * @since 2023-08-17 23:02:47
+ */
 @HiltViewModel
-class RegisterDetailGenderViewModel @Inject constructor(
-
-) : ViewModel() {
+class RegisterDetailGenderViewModel @Inject constructor() : ViewModel() {
 
 
-    var gender by mutableStateOf(true)
+    var gender: MutableStateFlow<Gender> = MutableStateFlow(Gender.Male())
 
-    internal fun updateMale(): (Boolean) -> Unit = {
-        if(!gender){
-            gender = true
-        }
+    internal fun updateMale(): () -> Unit = {
+        gender.value = Gender.Male()
     }
 
-    internal fun updateFemale(): (Boolean) -> Unit = {
-        if(gender) {
-            gender = false
-        }
+    internal fun updateFemale(): () -> Unit = {
+        gender.value = Gender.Female()
     }
 
-    fun updateKey(navController: NavController) {
-        navController.setValueSavedStateHandle(
-            SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
-            if (gender) Gender.MALE_VALUE else Gender.FEMALE_VALUE
-        )
-    }
 
 }

@@ -8,20 +8,26 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.canvas.NumberCircle
 import com.gradation.lift.designsystem.component.*
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
+import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun RegisterDetailGenderRoute(
     navController: NavController,
@@ -30,26 +36,25 @@ fun RegisterDetailGenderRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
+    val registerBackStackEntry: NavBackStackEntry =
+        remember { navController.getBackStackEntry(Router.REGISTER_DETAIL_GRAPH_NAME) }
+    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(registerBackStackEntry)
 
-    val name =
-        navController.getValueSavedStateHandle<String>(SavedStateHandleKey.RegisterDetailKey.NAME_KEY) ?: ""
 
-    RegisterDetailGenderScreen(
-        modifier = modifier,
-        onBackClickTopBar = navigateGenderToName,
-        nameText = name,
-        genderValue = viewModel.gender,
-        onUpdateMale = viewModel.updateMale(),
-        onUpdateFemale = viewModel.updateFemale(),
-        onNextButtonClick = {
-            viewModel.updateKey(navController)
-            navigateGenderToHeightWeight()
-        },
-    )
+    val gender: Gender by viewModel.gender.collectAsStateWithLifecycle()
 
-    BackHandler(onBack = {
-        navigateGenderToName()
-    })
+    val currentRegisterProgressNumber: Int by sharedViewModel.currentRegisterProgressNumber.collectAsStateWithLifecycle()
+    val totalRegisterProgressNumber: Int by sharedViewModel.totalRegisterProgressNumber.collectAsStateWithLifecycle()
+
+    val updateMale: () -> Unit = viewModel.updateMale()
+    val updateFemale: () -> Unit = viewModel.updateFemale()
+    val updateCreateUserDetailGender: (Gender) -> Unit =
+        sharedViewModel.updateCreateUserDetailGender()
+    val updateCurrentRegisterProgressNumber: (Int) -> Unit =
+        sharedViewModel.updateCurrentRegisterProgressNumber()
+
+
+    BackHandler(onBack = { navigateGenderToName() })
 }
 
 
