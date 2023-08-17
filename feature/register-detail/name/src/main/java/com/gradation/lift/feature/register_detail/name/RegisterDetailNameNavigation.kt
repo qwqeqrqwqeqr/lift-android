@@ -22,7 +22,6 @@ fun registerDetailNameScreen(
             navController = navController,
             navigateNameToGender = navigateNameToGender
         )
-
     }
 
 }
