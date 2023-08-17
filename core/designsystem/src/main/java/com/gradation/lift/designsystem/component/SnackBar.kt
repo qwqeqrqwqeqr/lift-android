@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -21,7 +22,7 @@ fun LiftErrorSnackBar(
     modifier: Modifier = Modifier,
 ) {
     SnackbarHost(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 16.dp),
         hostState = snackbarHostState,
         snackbar = { data ->
             Card(
@@ -52,7 +53,8 @@ fun LiftErrorSnackBar(
                         text = data.visuals.message,
                         style = LiftTheme.typography.no5,
                         color = LiftTheme.colorScheme.no21,
-                        modifier = modifier.align(Alignment.CenterVertically)
+                        modifier = modifier.align(Alignment.CenterVertically),
+                        textAlign = TextAlign.Start
                     )
                 }
             }
@@ -93,10 +95,11 @@ fun LiftSnackBarPreview(
                 )
                 Spacer(modifier = modifier.padding(6.dp))
                 Text(
-                    text = "Upset users maintaining derby april whats router,",
+                    text = "Routers Street 3126, Wurdong Heights,",
                     style = LiftTheme.typography.no5,
                     color = LiftTheme.colorScheme.no21,
-                    modifier = modifier.align(Alignment.CenterVertically)
+                    modifier = modifier.align(Alignment.CenterVertically),
+                    textAlign = TextAlign.Start
                 )
             }
         }
