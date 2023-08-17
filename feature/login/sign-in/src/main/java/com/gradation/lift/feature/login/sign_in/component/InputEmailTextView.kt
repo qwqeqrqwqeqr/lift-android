@@ -18,7 +18,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun InputEmailTextView(
+internal fun InputEmailTextView(
     modifier: Modifier = Modifier,
     emailText: String,
     updateEmailText: (String) -> Unit,

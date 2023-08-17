@@ -9,7 +9,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun SignInView(
+internal fun SignInView(
     modifier: Modifier = Modifier,
     signInDefault: () -> Unit,
     focusManager: FocusManager,

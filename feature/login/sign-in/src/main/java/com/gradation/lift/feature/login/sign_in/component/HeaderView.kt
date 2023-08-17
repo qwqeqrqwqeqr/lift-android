@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.sp
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun HeaderView(
+internal fun HeaderView(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {

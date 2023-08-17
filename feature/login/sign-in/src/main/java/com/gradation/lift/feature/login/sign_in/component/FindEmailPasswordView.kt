@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun FindEmailPasswordView(
+internal fun FindEmailPasswordView(
     modifier: Modifier = Modifier,
     findEmailPassword: () -> Unit,
 ) {

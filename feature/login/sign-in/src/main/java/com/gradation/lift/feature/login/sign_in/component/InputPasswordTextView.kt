@@ -23,7 +23,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun InputPasswordTextView(
+internal fun InputPasswordTextView(
     modifier : Modifier = Modifier,
     passwordText: String,
     passwordVisibleToggle: Boolean,
