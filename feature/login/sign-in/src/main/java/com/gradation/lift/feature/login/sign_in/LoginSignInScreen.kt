@@ -106,7 +106,9 @@ internal fun LoginSignInRoute(
         }
         OAuthConnectState.None -> {}
         OAuthConnectState.Success -> {
-            signInNaver()
+            LaunchedEffect(true) {
+                signInNaver()
+            }
         }
     }
     when (val kakaoConnectStateResult = kakaoConnectState) {
@@ -120,7 +122,9 @@ internal fun LoginSignInRoute(
         }
         OAuthConnectState.None -> {}
         OAuthConnectState.Success -> {
-            signInKakao()
+            LaunchedEffect(true){
+                signInKakao()
+            }
         }
     }
     when (val signInStateResult: SignInState = signInState) {
