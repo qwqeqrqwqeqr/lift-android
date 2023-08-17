@@ -14,24 +14,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.navigation.navigateSignUpToSignIn
 import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
 fun LoginCompleteRoute(
-    navController: NavController,
+    navigateSignUpToSignIn: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoginCompleteViewModel = hiltViewModel(),
 ) {
 
 
     LoginCompleteScreen(
-        modifier = modifier,
-        onClickComplete = { navController.navigateSignUpToSignIn() }
+        modifier, navigateSignUpToSignIn
     )
 }
 
@@ -39,31 +36,30 @@ fun LoginCompleteRoute(
 @Composable
 internal fun LoginCompleteScreen(
     modifier: Modifier = Modifier,
-    onClickComplete : () -> Unit
+    navigateSignUpToSignIn: () -> Unit,
 ) {
     Surface(
-        color = LiftTheme.colorScheme.no5
+        color = LiftTheme.colorScheme.no5,
+        modifier = modifier.fillMaxSize()
     ) {
         Column(
-            modifier = modifier
-                .padding(16.dp)
-                .fillMaxSize(),
+            modifier = modifier.padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = com.gradation.lift.designsystem.R.drawable.lift_congrats),
-                contentDescription = "",
+                contentDescription = "congrats",
             )
             Text(
                 textAlign = TextAlign.Center,
-                modifier= modifier.fillMaxWidth(),
+                modifier = modifier.fillMaxWidth(),
                 text = buildAnnotatedString {
                     append("리프트 회원가입을 \n")
                     withStyle(
                         style = SpanStyle(color = LiftTheme.colorScheme.no4),
 
-                    ) {
+                        ) {
                         append("축하드려요!")
                     }
                 },
@@ -73,7 +69,7 @@ internal fun LoginCompleteScreen(
             Spacer(modifier = modifier.padding(16.dp))
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
-                onClick = onClickComplete,
+                onClick = navigateSignUpToSignIn,
             ) {
                 Text(
                     text = "시작하기",
@@ -90,8 +86,7 @@ internal fun LoginCompleteScreen(
 @Composable
 internal fun LoginCompleteScreenPreview() {
     LiftMaterialTheme(isDarkTheme = false) {
-        LoginCompleteScreen(
-            onClickComplete= {}
+        LoginCompleteScreen(navigateSignUpToSignIn = {}
         )
     }
 }
