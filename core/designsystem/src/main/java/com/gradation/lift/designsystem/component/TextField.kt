@@ -1,11 +1,11 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -50,7 +49,12 @@ fun LiftTextField(
         disabledIndicatorColor = Color.Transparent,
         disabledTextColor = Color.Transparent,
         errorLabelColor = LiftTheme.colorScheme.no12,
-        errorSupportingTextColor = LiftTheme.colorScheme.no12
+        errorSupportingTextColor = LiftTheme.colorScheme.no12,
+        cursorColor = LiftTheme.colorScheme.no9,
+        selectionColors = TextSelectionColors(
+            handleColor = Color.Transparent,
+            backgroundColor = LiftTheme.colorScheme.no9.copy(alpha = 0.3f),
+        )
     ),
 ) {
     TextField(
@@ -114,7 +118,13 @@ fun LiftSearchTextField(
             disabledIndicatorColor = Color.Transparent,
             disabledTextColor = Color.Transparent,
             errorLabelColor = LiftTheme.colorScheme.no12,
-            errorSupportingTextColor = LiftTheme.colorScheme.no12
+            errorSupportingTextColor = LiftTheme.colorScheme.no12,
+            cursorColor = LiftTheme.colorScheme.no9,
+            selectionColors = TextSelectionColors(
+                handleColor = Color.Transparent,
+                backgroundColor = LiftTheme.colorScheme.no9.copy(alpha = 0.3f),
+            )
+
         ),
         shape = RoundedCornerShape(12.dp),
         visualTransformation = visualTransformation,
