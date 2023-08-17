@@ -5,13 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginCompleteViewModel  @Inject constructor(
+class LoginCompleteViewModel @Inject constructor() : ViewModel() {
 
-): ViewModel() {
-
-
-    init {
-
-    }
 
 }
