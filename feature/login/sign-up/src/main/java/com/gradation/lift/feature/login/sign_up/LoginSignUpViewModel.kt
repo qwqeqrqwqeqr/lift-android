@@ -4,35 +4,55 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.*
+import com.gradation.lift.domain.usecase.auth.SignUpDefaultUseCase
 import com.gradation.lift.domain.usecase.checker.CheckDuplicateEmailUseCase
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.EMAIL_KEY
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.SignUpKey.PASSWORD_KEY
-import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
+import com.gradation.lift.feature.login.sign_up.data.SignUpState
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+/**
+ * @property emailText 이메일 텍스트
+ * @property passwordText 비밀번호 텍스트
+ * @property passwordVerificationText 비밀번호 확인 텍스트
+ *
+ * @property passwordTextVisibleToggle 비밀번호 가시 여부
+ * @property passwordVerificationTextVisibleToggle 비밀번호 확인 가시 여부
+ *
+ * @property emailValidator 이메일 유효성 확인
+ * @property passwordValidator 비밀번호 유효성 확인
+ * @property passwordVerificationValidator 비밀번호 확인 유효성 확인
+ *
+ * @property passwordVisualTransformation  비밀번호 가시성 변수 기본 값은 비 가시로 설정
+ * @property passwordVerificationVisualTransformation 비밀번호 확인 가시성 변수 기본 값은 비 가시로 설정
+ *
+ * @property signUpCondition 회원가입 조건, 조건에 충족하지 않을경우 false로 설정
+ * @property signUpState 회원가입 상태
+ */
 @ExperimentalCoroutinesApi
 @FlowPreview
 @HiltViewModel
 class LoginSignUpViewModel @Inject constructor(
     private val checkDuplicateEmailUseCase: CheckDuplicateEmailUseCase,
+    private val signUpDefaultUseCase: SignUpDefaultUseCase,
 ) : ViewModel() {
 
 
-    val email = MutableStateFlow("")
-    val password = MutableStateFlow("")
-    val passwordVerification = MutableStateFlow("")
+    val emailText: MutableStateFlow<String> = MutableStateFlow("")
+    val passwordText: MutableStateFlow<String> = MutableStateFlow("")
+    val passwordVerificationText: MutableStateFlow<String> = MutableStateFlow("")
 
+    val passwordTextVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val passwordVerificationTextVisibleToggle: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     val emailValidator: StateFlow<Validator> =
-        email.debounce(1000).distinctUntilChanged().flatMapLatest { email ->
+        emailText.debounce(1000).distinctUntilChanged().flatMapLatest { email ->
             validateEmail(email)
         }.stateIn(
             scope = viewModelScope,
@@ -41,7 +61,7 @@ class LoginSignUpViewModel @Inject constructor(
         )
 
     val passwordValidator: StateFlow<Validator> =
-        password.map { validatePassWord(it) }.stateIn(
+        passwordText.map { validatePassWord(it) }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = Validator()
@@ -49,7 +69,7 @@ class LoginSignUpViewModel @Inject constructor(
 
 
     val passwordVerificationValidator: StateFlow<Validator> =
-        passwordVerification.combine(password) { passwordVerification, password ->
+        combine(passwordText, passwordVerificationText) { password, passwordVerification ->
             validatePasswordVerification(password, passwordVerification)
         }.stateIn(
             scope = viewModelScope,
@@ -58,7 +78,24 @@ class LoginSignUpViewModel @Inject constructor(
         )
 
 
-    val navigateCondition: StateFlow<Boolean> = combine(
+    val passwordVisualTransformation = passwordTextVisibleToggle.map {
+        if (it) VisualTransformation.None else PasswordVisualTransformation()
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = PasswordVisualTransformation()
+    )
+
+    val passwordVerificationVisualTransformation = passwordVerificationTextVisibleToggle.map {
+        if (it) VisualTransformation.None else PasswordVisualTransformation()
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = PasswordVisualTransformation()
+    )
+
+
+    val signUpCondition: StateFlow<Boolean> = combine(
         emailValidator,
         passwordValidator,
         passwordVerificationValidator
@@ -70,40 +107,28 @@ class LoginSignUpViewModel @Inject constructor(
         initialValue = false
     )
 
-
-    val passwordVisible = MutableStateFlow(false)
-    val passwordVerificationVisible = MutableStateFlow(false)
-
-    val passwordVisualTransformation = passwordVisible.map {
-        if (it) VisualTransformation.None else PasswordVisualTransformation()
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = PasswordVisualTransformation()
-    )
-
-    val passwordVerificationVisualTransformation = passwordVerificationVisible.map {
-        if (it) VisualTransformation.None else PasswordVisualTransformation()
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = PasswordVisualTransformation()
-    )
+    var signUpState: MutableStateFlow<SignUpState> = MutableStateFlow(SignUpState.None)
 
 
-    internal fun clearPassword(): () -> Unit = { password.value = "" }
-    internal fun clearPasswordVerification(): () -> Unit = { passwordVerification.value = "" }
+
+    internal fun clearPasswordText(): () -> Unit = { passwordText.value = "" }
+    internal fun clearPasswordVerificationText(): () -> Unit =
+        { passwordVerificationText.value = "" }
 
 
-    internal fun updateEmail(): (String) -> Unit = { email.value = it }
-    internal fun updatePassword(): (String) -> Unit = { password.value = it }
+    internal fun updateEmailText(): (String) -> Unit = { emailText.value = it }
+    internal fun updatePasswordText(): (String) -> Unit = { passwordText.value = it }
     internal fun updatePasswordVerification(): (String) -> Unit =
-        { passwordVerification.value = it }
+        { passwordVerificationText.value = it }
 
+    internal fun updatePasswordVisibleToggle(): (Boolean) -> Unit =
+        { passwordTextVisibleToggle.value = it }
 
-    internal fun updatePasswordVisible(): (Boolean) -> Unit = { passwordVisible.value = it }
-    internal fun updatePasswordVerificationVisible(): (Boolean) -> Unit =
-        { passwordVerificationVisible.value = it }
+    internal fun updatePasswordVerificationVisibleToggle(): (Boolean) -> Unit =
+        { passwordVerificationTextVisibleToggle.value = it }
+
+    internal fun updateSignInState(none: SignUpState.None): (SignUpState) -> Unit =
+        { signUpState.value = it }
 
 
     private fun validateEmail(email: String): Flow<Validator> {
@@ -158,11 +183,27 @@ class LoginSignUpViewModel @Inject constructor(
         }
 
 
-    internal fun updateKey(navController: NavController) {
-        navController.setValueSavedStateHandle(EMAIL_KEY, email.value)
-        navController.setValueSavedStateHandle(PASSWORD_KEY, password.value)
+    fun signUp() {
+        viewModelScope.launch {
+            signUpDefaultUseCase(
+                DefaultSignUpInfo(
+                    id = emailText.value,
+                    password = passwordText.value
+                )
+            ).collect { signUpResult ->
+                when (signUpResult) {
+                    is DataState.Fail -> {
+                        signUpState.value = SignUpState.Fail(signUpResult.message)
+                    }
+                    is DataState.Success -> {
+                        signUpState.value = SignUpState.Success
+                    }
+                }
+            }
+        }
     }
-
 }
+
+
 
 

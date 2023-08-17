@@ -112,9 +112,3 @@ class LoginTermsOfUseViewModel @Inject constructor(
     }
 }
 
-sealed interface SignUpUiState {
-    object Success : SignUpUiState
-    data class Fail(val message: String) : SignUpUiState
-    object Loading : SignUpUiState
-    object None : SignUpUiState
-}
