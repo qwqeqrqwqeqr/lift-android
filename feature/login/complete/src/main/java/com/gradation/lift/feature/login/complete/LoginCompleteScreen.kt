@@ -36,21 +36,20 @@ fun LoginCompleteRoute(
 @Composable
 internal fun LoginCompleteScreen(
     modifier: Modifier = Modifier,
-    onClickComplete: () -> Unit,
+    navigateSignUpToSignIn: () -> Unit,
 ) {
     Surface(
-        color = LiftTheme.colorScheme.no5
+        color = LiftTheme.colorScheme.no5,
+        modifier = modifier.fillMaxSize()
     ) {
         Column(
-            modifier = modifier
-                .padding(16.dp)
-                .fillMaxSize(),
+            modifier = modifier.padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = com.gradation.lift.designsystem.R.drawable.lift_congrats),
-                contentDescription = "",
+                contentDescription = "congrats",
             )
             Text(
                 textAlign = TextAlign.Center,
@@ -70,7 +69,7 @@ internal fun LoginCompleteScreen(
             Spacer(modifier = modifier.padding(16.dp))
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
-                onClick = onClickComplete,
+                onClick = navigateSignUpToSignIn,
             ) {
                 Text(
                     text = "시작하기",
@@ -87,8 +86,7 @@ internal fun LoginCompleteScreen(
 @Composable
 internal fun LoginCompleteScreenPreview() {
     LiftMaterialTheme(isDarkTheme = false) {
-        LoginCompleteScreen(
-            onClickComplete = {}
+        LoginCompleteScreen(navigateSignUpToSignIn = {}
         )
     }
 }
