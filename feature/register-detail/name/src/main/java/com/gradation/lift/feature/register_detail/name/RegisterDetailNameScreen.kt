@@ -8,9 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -30,10 +28,14 @@ import com.gradation.lift.designsystem.component.LiftTitleTopBar
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailNameViewModel
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @Composable
 fun RegisterDetailNameRoute(
@@ -42,21 +44,14 @@ fun RegisterDetailNameRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
-    val name = viewModel.name.collectAsStateWithLifecycle()
-    val navigationCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
+    val crateRoutineBackStackEntry =
+        remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
+    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
-    RegisterDetailNameScreen(
-        modifier = modifier,
-        nameText = name,
-        updateNameText = viewModel.updateName(),
-        nameValidationSupportText = viewModel.nameValidationSupportText.collectAsStateWithLifecycle(),
-        onNextButtonClick = {
-            viewModel.updateKey(navController)
-            navigateNameToGender()
-        },
-        navigateCondition = navigationCondition
-    )
-    
+    val name: String by viewModel.nameText.collectAsStateWithLifecycle()
+
+
+
 
 }
 
