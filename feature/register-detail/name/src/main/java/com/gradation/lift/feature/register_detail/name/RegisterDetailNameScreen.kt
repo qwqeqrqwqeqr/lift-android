@@ -39,9 +39,9 @@ fun RegisterDetailNameRoute(
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
-    val crateRoutineBackStackEntry: NavBackStackEntry =
+    val registerDetailBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.REGISTER_DETAIL_GRAPH_NAME) }
-    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
+    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(registerDetailBackStackEntry)
 
     val nameText: String by viewModel.nameText.collectAsStateWithLifecycle()
     val nameValidator: Validator by viewModel.nameValidator.collectAsStateWithLifecycle()
