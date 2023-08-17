@@ -27,8 +27,8 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun CreateRoutineFindWorkCategoryRoute(
     navController: NavController,
-    navigateCreateRoutineFindWorkCategoryToRoutineSet: () -> Unit,
-    navigateCreateRoutineFindWorkCategoryToRoutine: () -> Unit,
+    navigateFindWorkCategoryToRoutineSet: () -> Unit,
+    navigateFindWorkCategoryToRoutine: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
 ) {
@@ -45,10 +45,10 @@ fun CreateRoutineFindWorkCategoryRoute(
 
     CreateRoutineFindWorkCategoryScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateCreateRoutineFindWorkCategoryToRoutineSet,
+        onBackClickTopBar = navigateFindWorkCategoryToRoutineSet,
         onClickWorkCategory = { workCategory ->
             sharedViewModel.updateTempWorkCategory(workCategory)
-            navigateCreateRoutineFindWorkCategoryToRoutine()
+            navigateFindWorkCategoryToRoutine()
         },
         searchText = searchText,
         workPartFilterList = workPartFilterList,
@@ -58,7 +58,7 @@ fun CreateRoutineFindWorkCategoryRoute(
         updateSelectedWorkPartFilter = viewModel.updateSelectedWorkPartFilter()
     )
 
-    BackHandler(onBack = navigateCreateRoutineFindWorkCategoryToRoutineSet)
+    BackHandler(onBack = navigateFindWorkCategoryToRoutineSet)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

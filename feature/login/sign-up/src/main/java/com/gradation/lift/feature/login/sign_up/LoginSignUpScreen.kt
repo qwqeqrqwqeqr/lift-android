@@ -21,8 +21,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_up.component.EmailTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordTextField
 import com.gradation.lift.feature.login.sign_up.component.PasswordVerificationTextField
-import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
-import com.gradation.lift.navigation.navigation.navigateToLoginTermsOfUse
+import com.gradation.lift.navigation.navigation.navigateSignUpToSignIn
 import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -53,7 +52,7 @@ fun LoginSignUpRoute(
 
     LoginSignUpScreen(
         modifier = modifier,
-        onBackClickTopBar = { navController.navigateSignUpProcessToSignIn() },
+        onBackClickTopBar = { navController.navigateSignUpToSignIn() },
 
         emailText = email,
         passwordText = password,
@@ -81,7 +80,6 @@ fun LoginSignUpRoute(
 
         onNextButtonClick = {
             viewModel.updateKey(navController)
-            navController.navigateToLoginTermsOfUse()
         },
         navigateCondition = navigateCondition
     )

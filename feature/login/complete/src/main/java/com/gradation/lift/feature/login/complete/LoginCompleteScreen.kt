@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
+import com.gradation.lift.navigation.navigation.navigateSignUpToSignIn
 import com.gradation.lift.ui.utils.DevicePreview
 
 @Composable
@@ -31,7 +31,7 @@ fun LoginCompleteRoute(
 
     LoginCompleteScreen(
         modifier = modifier,
-        onClickComplete = { navController.navigateSignUpProcessToSignIn() }
+        onClickComplete = { navController.navigateSignUpToSignIn() }
     )
 }
 

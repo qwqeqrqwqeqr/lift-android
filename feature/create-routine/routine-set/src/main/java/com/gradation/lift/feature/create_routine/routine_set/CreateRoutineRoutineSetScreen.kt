@@ -35,7 +35,6 @@ import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.DevicePreview
 
 
@@ -44,9 +43,9 @@ import com.gradation.lift.ui.utils.DevicePreview
 @Composable
 internal fun CreateRoutineRoutineSetRoute(
     navController: NavController,
-    navigateCreateRoutineRoutineSetToFindWorkCategory: () -> Unit,
-    navigateCreateRoutineRoutineSetToProfile: () -> Unit,
-    navigateCreateRoutineToMain: () -> Unit,
+    navigateRoutineSetToFindWorkCategory: () -> Unit,
+    navigateRoutineSetToProfile: () -> Unit,
+    navigateCreateRoutineGraphToMainGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
@@ -76,12 +75,12 @@ internal fun CreateRoutineRoutineSetRoute(
         modifier = modifier,
 
         onBackClickTopBar = visibleCancelDialog,
-        onClickProfile = navigateCreateRoutineRoutineSetToProfile,
-        onAddRoutine = navigateCreateRoutineRoutineSetToFindWorkCategory,
+        onClickProfile = navigateRoutineSetToProfile,
+        onAddRoutine = navigateRoutineSetToFindWorkCategory,
         onClickCreateRoutineSet = { sharedViewModel.createRoutine() },
 
         onVisibleCancelDialog = onVisibleCancelDialog,
-        onClickCancelDialogSuspend = navigateCreateRoutineToMain,
+        onClickCancelDialogSuspend = navigateCreateRoutineGraphToMainGraph,
         onClickCancelDialogDismiss = inVisibleCancelDialog,
 
 
@@ -110,7 +109,7 @@ internal fun CreateRoutineRoutineSetRoute(
         CreateRoutineUiState.Loading -> {}
         CreateRoutineUiState.Success -> {
             LaunchedEffect(true) {
-                navController.navigateToLoginComplete()
+
             }
         }
     }

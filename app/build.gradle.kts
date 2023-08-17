@@ -57,8 +57,6 @@ dependencies {
     implementation(project(":feature:create-routine:routine"))
     implementation(project(":feature:create-routine:profile"))
 
-    implementation(project(":feature:login:verification"))
-    implementation(project(":feature:login:terms-of-use"))
     implementation(project(":feature:login:complete"))
     implementation(project(":feature:login:sign-in"))
     implementation(project(":feature:login:sign-up"))
@@ -68,7 +66,6 @@ dependencies {
     implementation(project(":feature:register-detail:gender"))
     implementation(project(":feature:register-detail:height-weight"))
     implementation(project(":feature:register-detail:name"))
-    implementation(project(":feature:register-detail:unit-of-weight"))
     implementation(project(":feature:register-detail:profile-picture"))
 
 

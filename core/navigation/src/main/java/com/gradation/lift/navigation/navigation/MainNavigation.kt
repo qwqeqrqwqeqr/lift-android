@@ -8,43 +8,14 @@ import com.gradation.lift.navigation.Router.HOME_ROUTER_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_ROUTER_NAME
 
 
-fun NavController.navigateLoginToHome() {
-    this.navigate(Router.MAIN_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateLoginToHome.graph.id) {
-            inclusive = true
-        }
-    }
+fun NavController.navigateMainGraphToWorkGraph() {
+    this.navigate(Router.WORK_GRAPH_NAME)
 }
 
-fun NavController.navigateRegisterDetailToHome() {
-    this.navigate(Router.MAIN_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateRegisterDetailToHome.graph.id) {
-            inclusive = true
-        }
-    }
+fun NavController.navigateMainGraphToCreateRoutineGraph() {
+    this.navigate(Router.CREATE_ROUTINE_GRAPH_NAME)
 }
 
-
-fun NavController.navigateWorkToMain() {
-    this.navigate(Router.MAIN_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateWorkToMain.graph.id) {
-            inclusive = true
-        }
-    }
-}
-
-
-fun NavController.navigateCreateRoutineToMain() {
-    this.navigate(Router.MAIN_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateCreateRoutineToMain.graph.id) {
-            inclusive = true
-        }
-    }
-}
 
 
 fun NavHostController.navigateToHome() {
@@ -56,7 +27,6 @@ fun NavHostController.navigateToHome() {
         }
     }
 }
-
 
 fun NavHostController.navigateToHistory() {
     this.navigate(HISTORY_ROUTER_NAME) {

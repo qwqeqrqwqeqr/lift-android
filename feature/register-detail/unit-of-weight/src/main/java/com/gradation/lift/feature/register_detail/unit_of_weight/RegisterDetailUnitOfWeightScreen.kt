@@ -25,14 +25,14 @@ import com.gradation.lift.ui.utils.DevicePreview
 @Composable
 fun RegisterDetailUnitOfWeightRoute(
     navController: NavController,
-    navigateRegisterDetailUnitOfWeightToHeightWeight: () -> Unit,
+    navigateHeightWeightToProfilePicture: () -> Unit,
     navigateRegisterDetailUnitOfWeightToProfilePicture: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailUnitOfWeightViewModel = hiltViewModel(),
 ) {
     RegisterDetailUnitOfWeightScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateRegisterDetailUnitOfWeightToHeightWeight,
+        onBackClickTopBar = navigateHeightWeightToProfilePicture,
         unitOfWeightValue = viewModel.unitOfWeight,
         onUpdateKg = viewModel.updateKg(),
         onUpdateLb = viewModel.updateLb(),
@@ -43,7 +43,7 @@ fun RegisterDetailUnitOfWeightRoute(
     )
 
     BackHandler(onBack = {
-        navigateRegisterDetailUnitOfWeightToHeightWeight()
+        navigateHeightWeightToProfilePicture()
     })
 
 }

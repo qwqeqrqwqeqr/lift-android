@@ -27,7 +27,7 @@ import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
 @Composable
 fun CreateRoutineProfileRoute(
     navController: NavController,
-    navigateCreateRoutineProfileToRoutineSet: () -> Unit,
+    navigateProfileToRoutineSet: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineProfileViewModel = hiltViewModel()
 ) {
@@ -44,17 +44,17 @@ fun CreateRoutineProfileRoute(
 
     CreateRoutineProfileScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateCreateRoutineProfileToRoutineSet,
+        onBackClickTopBar = navigateProfileToRoutineSet,
         onClickRegisterButton = {
             sharedViewModel.updatePicture(selectedPicture.value)
-            navigateCreateRoutineProfileToRoutineSet()
+            navigateProfileToRoutineSet()
         },
         updateSelectedPicture = updateSelectedPicture,
         routineSetPictureUiState = routineSetPictureUiState,
         selectedPicture = selectedPicture,
     )
 
-    BackHandler(onBack = navigateCreateRoutineProfileToRoutineSet)
+    BackHandler(onBack = navigateProfileToRoutineSet)
 }
 
 @OptIn(

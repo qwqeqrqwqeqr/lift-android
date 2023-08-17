@@ -25,8 +25,8 @@ import com.gradation.lift.ui.utils.DevicePreview
 @Composable
 fun RegisterDetailGenderRoute(
     navController: NavController,
-    navigateRegisterDetailGenderToHeightWeight: () -> Unit,
-    navigateRegisterDetailGenderToName: () -> Unit,
+    navigateGenderToHeightWeight: () -> Unit,
+    navigateGenderToName: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
@@ -36,19 +36,19 @@ fun RegisterDetailGenderRoute(
 
     RegisterDetailGenderScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateRegisterDetailGenderToName,
+        onBackClickTopBar = navigateGenderToName,
         nameText = name,
         genderValue = viewModel.gender,
         onUpdateMale = viewModel.updateMale(),
         onUpdateFemale = viewModel.updateFemale(),
         onNextButtonClick = {
             viewModel.updateKey(navController)
-            navigateRegisterDetailGenderToHeightWeight()
+            navigateGenderToHeightWeight()
         },
     )
 
     BackHandler(onBack = {
-        navigateRegisterDetailGenderToName()
+        navigateGenderToName()
     })
 }
 

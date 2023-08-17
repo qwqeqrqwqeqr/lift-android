@@ -37,13 +37,13 @@ import com.gradation.lift.ui.utils.DevicePreview
 internal fun RegisterHeightWeightRoute(
     navController: NavController,
     navigateRegisterDetailHeightWeightToUnitOfWeight: () -> Unit,
-    navigateRegisterDetailHeightWeightToGender: () -> Unit,
+    navigateHeightWeightToGender: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailHeightWeightViewModel = hiltViewModel(),
 ) {
     RegisterDetailHeightWeightScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateRegisterDetailHeightWeightToGender,
+        onBackClickTopBar = navigateHeightWeightToGender,
         onNextButtonClick = {
             viewModel.updateKey(navController)
             navigateRegisterDetailHeightWeightToUnitOfWeight()
@@ -58,7 +58,7 @@ internal fun RegisterHeightWeightRoute(
     )
 
     BackHandler(onBack = {
-        navigateRegisterDetailHeightWeightToGender()
+        navigateHeightWeightToGender()
     })
 
 }

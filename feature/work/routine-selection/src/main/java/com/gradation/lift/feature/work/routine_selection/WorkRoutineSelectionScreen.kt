@@ -29,7 +29,6 @@ import com.gradation.lift.feature.work.routine_selection.component.routine_list.
 import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
 import com.gradation.lift.feature.work.routine_selection.data.*
 import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
-import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -42,7 +41,7 @@ import kotlinx.datetime.LocalDate
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,
     navigateSelectionRoutineToWork: () -> Unit,
-    navigateWorkToMain: () -> Unit,
+    navigateWorkGraphToMainGraph: () -> Unit,
     selectedRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
@@ -65,7 +64,7 @@ internal fun WorkRoutineSelectionRoute(
         modifier = modifier,
         weekday = weekDate,
         routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = navigateWorkToMain,
+        onBackClickTopBar = navigateWorkGraphToMainGraph,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
             sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetRoutine)
@@ -79,7 +78,7 @@ internal fun WorkRoutineSelectionRoute(
     LaunchedEffect(key1 = true) {
         viewModel.updateSelectedRoutineSetId(selectedRoutineSetId)
     }
-    BackHandler(enabled = true, onBack = navigateWorkToMain)
+    BackHandler(enabled = true, onBack = navigateWorkGraphToMainGraph)
 
 }
 

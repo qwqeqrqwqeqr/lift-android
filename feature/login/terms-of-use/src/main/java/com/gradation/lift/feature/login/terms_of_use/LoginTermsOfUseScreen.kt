@@ -18,7 +18,7 @@ import com.gradation.lift.designsystem.component.ToggleCheckbox
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.terms_of_use.component.CancelDialog
-import com.gradation.lift.navigation.navigation.navigateSignUpProcessToSignIn
+import com.gradation.lift.navigation.navigation.navigateSignUpToSignIn
 import com.gradation.lift.navigation.navigation.navigateToLoginComplete
 import com.gradation.lift.ui.utils.DevicePreview
 
@@ -57,7 +57,7 @@ fun LoginTermsOfUseRoute(
         onNextButtonClick = { viewModel.signUp(navController) },
         navigateCondition = navigateCondition,
         onVisibleDialog = onVisibleDialog,
-        onClickDialogSuspendButton = { navController.navigateSignUpProcessToSignIn() },
+        onClickDialogSuspendButton = { navController.navigateSignUpToSignIn() },
         onClickDialogDismissButton = viewModel.updateOnVisibleDialog(false)
     )
 
@@ -71,7 +71,7 @@ fun LoginTermsOfUseRoute(
                 "알 수 없는 오류로 회원가입을 진행할 수 없습니다. \n 다시 시도해주십시오.",
                 Toast.LENGTH_SHORT
             ).show()
-            navController.navigateSignUpProcessToSignIn()
+            navController.navigateSignUpToSignIn()
         }
         SignUpUiState.Loading -> {}
         SignUpUiState.None -> {}

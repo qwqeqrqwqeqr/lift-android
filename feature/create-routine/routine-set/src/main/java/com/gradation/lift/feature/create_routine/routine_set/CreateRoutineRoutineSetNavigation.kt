@@ -6,9 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateCreateRoutineRoutineSetToFindWorkCategory
-import com.gradation.lift.navigation.navigation.navigateCreateRoutineRoutineSetToProfile
-import com.gradation.lift.navigation.navigation.navigateCreateRoutineToMain
+import com.gradation.lift.navigation.navigation.navigateRoutineSetToFindWorkCategory
+import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfile
+import com.gradation.lift.navigation.navigation.navigateCreateRoutineGraphToMainGraph
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -16,17 +16,17 @@ fun createRoutineScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    val navigateCreateRoutineRoutineSetToFindWorkCategory =
-        { navController.navigateCreateRoutineRoutineSetToFindWorkCategory() }
-    val navigateCreateRoutineRoutineSetToProfile = { navController.navigateCreateRoutineRoutineSetToProfile() }
-    val navigateCreateRoutineToMain = { navController.navigateCreateRoutineToMain() }
+    val navigateRoutineSetToFindWorkCategory =
+        { navController.navigateRoutineSetToFindWorkCategory() }
+    val navigateRoutineSetToProfile = { navController.navigateRoutineSetToProfile() }
+    val navigateCreateRoutineGraphToMainGraph = { navController.navigateCreateRoutineGraphToMainGraph() }
 
     navGraphBuilder.composable(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         CreateRoutineRoutineSetRoute(
             navController = navController,
-            navigateCreateRoutineRoutineSetToFindWorkCategory=navigateCreateRoutineRoutineSetToFindWorkCategory,
-            navigateCreateRoutineRoutineSetToProfile=navigateCreateRoutineRoutineSetToProfile,
-            navigateCreateRoutineToMain=navigateCreateRoutineToMain
+            navigateRoutineSetToFindWorkCategory=navigateRoutineSetToFindWorkCategory,
+            navigateRoutineSetToProfile=navigateRoutineSetToProfile,
+            navigateCreateRoutineGraphToMainGraph=navigateCreateRoutineGraphToMainGraph
         )
     }
 }

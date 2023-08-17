@@ -28,9 +28,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 internal fun LoginSignInRoute(
-    navigateLoginToHome: () -> Unit,
-    navigateToLoginSignUp: () -> Unit,
-    navigateLoginToRegisterDetail: () -> Unit,
+    navigateLoginGraphToMainGraph: () -> Unit,
+    navigateSignInToSignUp: () -> Unit,
+    navigateLoginGraphToRegisterDetailGraph: () -> Unit,
     navigateToLoginFindEmailPassword: () -> Unit,
     naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
@@ -84,7 +84,7 @@ internal fun LoginSignInRoute(
         signInKakao = connectOAuthFromKakao,
 
 
-        signUp = navigateToLoginSignUp,
+        signUp = navigateSignInToSignUp,
         findEmailPassword = navigateToLoginFindEmailPassword,
 
         snackbarHostState = snackbarHostState,
@@ -136,9 +136,9 @@ internal fun LoginSignInRoute(
         is SignInState.Success -> {
             LaunchedEffect(signInStateResult) {
                 if (signInStateResult.existUserDetail) {
-                    navigateLoginToHome()
+                    navigateLoginGraphToMainGraph()
                 } else {
-                    navigateLoginToRegisterDetail()
+                    navigateLoginGraphToRegisterDetailGraph()
                 }
 
             }

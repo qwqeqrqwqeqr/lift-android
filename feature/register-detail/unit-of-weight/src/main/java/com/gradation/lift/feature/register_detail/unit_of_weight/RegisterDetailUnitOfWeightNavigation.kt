@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailUnitOfWeightToHeightWeight
+import com.gradation.lift.navigation.navigation.navigateHeightWeightToProfilePicture
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailUnitOfWeightToProfilePicture
 
 fun registerDetailUnitOfWeightScreen(
@@ -12,14 +12,14 @@ fun registerDetailUnitOfWeightScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
 
-    val navigateRegisterDetailUnitOfWeightToHeightWeight =
-        { navController.navigateRegisterDetailUnitOfWeightToHeightWeight() }
+    val navigateHeightWeightToProfilePicture =
+        { navController.navigateHeightWeightToProfilePicture() }
     val navigateRegisterDetailUnitOfWeightToProfilePicture =
         { navController.navigateRegisterDetailUnitOfWeightToProfilePicture() }
     navGraphBuilder.composable(Router.REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME) {
         RegisterDetailUnitOfWeightRoute(
             navController = navController,
-            navigateRegisterDetailUnitOfWeightToHeightWeight = navigateRegisterDetailUnitOfWeightToHeightWeight,
+            navigateHeightWeightToProfilePicture = navigateHeightWeightToProfilePicture,
             navigateRegisterDetailUnitOfWeightToProfilePicture = navigateRegisterDetailUnitOfWeightToProfilePicture
         )
     }

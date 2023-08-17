@@ -25,11 +25,8 @@ object Router {
     const val LOGIN_GRAPH_NAME = "login_graph"
     const val LOGIN_SIGN_IN_ROUTER_NAME = "sign_in"
     const val LOGIN_SIGN_UP_ROUTER_NAME = "sign_up"
-    const val LOGIN_TERMS_OF_USE_ROUTER_NAME = "terms_of_use"
-    const val LOGIN_VERIFICATION_ROUTER_NAME = "verification"
     const val LOGIN_COMPLETE_ROUTER_NAME = "complete"
     const val LOGIN_FIND_EMAIL_PASSWORD_ROUTER_NAME = "find_email_password"
-
     /**
      * REGISTER_DETAIL
      * 사용자 상세정보
@@ -38,7 +35,6 @@ object Router {
     const val REGISTER_DETAIL_GENDER_ROUTER_NAME = "gender"
     const val REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME = "height_weight"
     const val REGISTER_DETAIL_NAME_ROUTER_NAME = "name"
-    const val REGISTER_DETAIL_UNIT_OF_WEIGHT_ROUTER_NAME = "unit_of_weight"
     const val REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME = "profile_picture"
 
     /**

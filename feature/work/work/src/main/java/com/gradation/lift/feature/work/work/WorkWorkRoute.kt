@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.work.work
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -29,8 +28,8 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun WorkWorkRoute(
     navController: NavController,
-    navigateWorkWorkToComplete: () -> Unit,
-    navigateWorkToMain: () -> Unit,
+    navigateWorkToComplete: () -> Unit,
+    navigateWorkGraphToMainGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: WorkWorkViewModel = hiltViewModel(),
 
@@ -84,7 +83,7 @@ fun WorkWorkRoute(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 AutoCompleteDialog(
-                    onClickDialogCompleteButton = navigateWorkWorkToComplete,
+                    onClickDialogCompleteButton = navigateWorkToComplete,
                     onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
             }
@@ -95,7 +94,7 @@ fun WorkWorkRoute(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 SuspendDialog(
-                    onClickDialogSuspendButton = navigateWorkToMain,
+                    onClickDialogSuspendButton = navigateWorkGraphToMainGraph,
                     onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
             }
@@ -106,7 +105,7 @@ fun WorkWorkRoute(
             ) {
                 CompleteDialog(
                     completeState = workProgress == MAX_PROGRESS,
-                    onClickDialogCompleteButton = navigateWorkWorkToComplete,
+                    onClickDialogCompleteButton = navigateWorkToComplete,
                     onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
             }

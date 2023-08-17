@@ -47,15 +47,12 @@ include(":feature:create-routine:routine")
 
 include(":feature:login:sign-in")
 include(":feature:login:sign-up")
-include(":feature:login:verification")
-include(":feature:login:terms-of-use")
 include(":feature:login:find-email-password")
 include(":feature:login:complete")
 
 
 include(":feature:register-detail:name")
 include(":feature:register-detail:gender")
-include(":feature:register-detail:unit-of-weight")
 include(":feature:register-detail:height-weight")
 include(":feature:register-detail:profile-picture")
 

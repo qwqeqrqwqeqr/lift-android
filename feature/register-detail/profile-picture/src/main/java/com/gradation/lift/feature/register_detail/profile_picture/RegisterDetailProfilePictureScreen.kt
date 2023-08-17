@@ -43,7 +43,7 @@ import com.gradation.lift.model.model.picture.UserProfilePicture
 internal fun RegisterDetailProfilePictureRoute(
     navController: NavController,
     navigateRegisterDetailProfilePictureToUnitOfWeight: () -> Unit,
-    navigateRegisterDetailToHome: () -> Unit,
+    navigateRegisterDetailGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailProfilePictureViewModel = hiltViewModel(),
 ) {
@@ -62,7 +62,7 @@ internal fun RegisterDetailProfilePictureRoute(
         selectedProfile = selectedProfile,
         navigationCondition = navigationCondition,
         onUpdateSelectedProfile = viewModel.updateSelectedProfile(),
-        onClickCompleteDialogButton = navigateRegisterDetailToHome,
+        onClickCompleteDialogButton = navigateRegisterDetailGraphToHomeGraph,
         onBackClickTopBar = navigateRegisterDetailProfilePictureToUnitOfWeight,
         onCompleteButtonClick = { viewModel.createUserDetail(navController) }
     )

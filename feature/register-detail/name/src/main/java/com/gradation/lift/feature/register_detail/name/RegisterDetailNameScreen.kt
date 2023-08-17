@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.register_detail.name
 
 import android.annotation.SuppressLint
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -39,7 +38,7 @@ import kotlinx.coroutines.FlowPreview
 @Composable
 fun RegisterDetailNameRoute(
     navController: NavController,
-    navigateRegisterDetailNameToGender: () -> Unit,
+    navigateNameToGender: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
@@ -53,7 +52,7 @@ fun RegisterDetailNameRoute(
         nameValidationSupportText = viewModel.nameValidationSupportText.collectAsStateWithLifecycle(),
         onNextButtonClick = {
             viewModel.updateKey(navController)
-            navigateRegisterDetailNameToGender()
+            navigateNameToGender()
         },
         navigateCondition = navigationCondition
     )

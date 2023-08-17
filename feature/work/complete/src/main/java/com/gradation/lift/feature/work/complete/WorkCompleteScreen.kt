@@ -41,7 +41,7 @@ import kotlinx.datetime.LocalTime
 @Composable
 fun WorkCompleteRoute(
     navController: NavController,
-    navigateWorkToMain: () -> Unit,
+    navigateWorkGraphToMainGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: WorkCompleteViewModel = hiltViewModel(),
 ) {
@@ -90,7 +90,7 @@ fun WorkCompleteRoute(
         false -> {}
         true -> {
             LaunchedEffect(true) {
-                navigateWorkToMain()
+                navigateWorkGraphToMainGraph()
             }
         }
     }

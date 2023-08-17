@@ -4,25 +4,25 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailGenderToHeightWeight
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailGenderToName
+import com.gradation.lift.navigation.navigation.navigateGenderToHeightWeight
+import com.gradation.lift.navigation.navigation.navigateGenderToName
 
 fun registerDetailGenderScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-        val navigateRegisterDetailGenderToHeightWeight =
-            { navController.navigateRegisterDetailGenderToHeightWeight() }
+        val navigateGenderToHeightWeight =
+            { navController.navigateGenderToHeightWeight() }
 
-        val navigateRegisterDetailGenderToName =
-            { navController.navigateRegisterDetailGenderToName() }
+        val navigateGenderToName =
+            { navController.navigateGenderToName() }
 
         navGraphBuilder.composable(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
             RegisterDetailGenderRoute(
                 navController = navController,
 
-                navigateRegisterDetailGenderToHeightWeight = navigateRegisterDetailGenderToHeightWeight,
-                navigateRegisterDetailGenderToName = navigateRegisterDetailGenderToName
+                navigateGenderToHeightWeight = navigateGenderToHeightWeight,
+                navigateGenderToName = navigateGenderToName
             )
         }
 

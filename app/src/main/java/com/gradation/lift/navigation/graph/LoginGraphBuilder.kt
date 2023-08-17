@@ -7,8 +7,6 @@ import com.gradation.lift.feature.login.complete.loginCompleteScreen
 import com.gradation.lift.feature.login.find_email_password.loginFindEmailPasswordScreen
 import com.gradation.lift.feature.login.sign_in.loginSignInScreen
 import com.gradation.lift.feature.login.sign_up.loginSignUpScreen
-import com.gradation.lift.feature.login.terms_of_use.loginTermsOfUseScreen
-import com.gradation.lift.feature.login.verification.loginVerificationScreen
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
 import com.gradation.lift.oauth.state.OAuthConnectState
@@ -36,9 +34,7 @@ fun loginGraphBuilder(
             connectOAuthFromKakao = { connectOAuthFromKakao() }
         )
         loginSignUpScreen(navController, this)
-        loginVerificationScreen(navController, this)
         loginCompleteScreen(navController, this)
-        loginTermsOfUseScreen(navController, this)
         loginFindEmailPasswordScreen(navController, this)
     }
 

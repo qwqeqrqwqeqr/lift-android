@@ -32,8 +32,8 @@ import com.gradation.lift.navigation.Router
 fun CreateRoutineRoutineRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navigateCreateRoutineRoutineToFindWorkCategory: () -> Unit,
-    navigateCreateRoutineRoutineToRoutineSet: () -> Unit,
+    navigateRoutineToFindWorkCategory: () -> Unit,
+    navigateRoutineToRoutineSet: () -> Unit,
     viewModel: CreateRoutineRoutineViewModel = hiltViewModel(),
 ) {
     val crateRoutineBackStackEntry =
@@ -53,10 +53,10 @@ fun CreateRoutineRoutineRoute(
     val focusManager = LocalFocusManager.current
     CreateRoutineRoutineScreen(
         modifier = modifier,
-        onBackClickTopBar = navigateCreateRoutineRoutineToFindWorkCategory,
+        onBackClickTopBar = navigateRoutineToFindWorkCategory,
         onCreateRoutine = {
             onCreateRoutine(it)
-            navigateCreateRoutineRoutineToRoutineSet()
+            navigateRoutineToRoutineSet()
         },
         tempWorkCategory = tempWorkCategory,
         workSetList = workSetList,
@@ -67,7 +67,7 @@ fun CreateRoutineRoutineRoute(
         focusManager = focusManager
     )
 
-    BackHandler(onBack = navigateCreateRoutineRoutineToFindWorkCategory)
+    BackHandler(onBack = navigateRoutineToFindWorkCategory)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

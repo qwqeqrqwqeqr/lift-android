@@ -4,8 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailProfilePictureToUnitOfWeight
-import com.gradation.lift.navigation.navigation.navigateRegisterDetailToHome
+import com.gradation.lift.navigation.navigation.navigateRegisterDetailGraphToHomeGraph
 
 
 fun registerDetailProfilePictureScreen(
@@ -15,15 +14,15 @@ fun registerDetailProfilePictureScreen(
 
 
     val navigateRegisterDetailProfilePictureToUnitOfWeight =
-        { navController.navigateRegisterDetailProfilePictureToUnitOfWeight() }
+        {  }
 
-    val navigateRegisterDetailToHome = { navController.navigateRegisterDetailToHome() }
+    val navigateRegisterDetailGraphToHomeGraph = { navController.navigateRegisterDetailGraphToHomeGraph() }
 
     navGraphBuilder.composable(Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME) {
         RegisterDetailProfilePictureRoute(
             navController = navController,
             navigateRegisterDetailProfilePictureToUnitOfWeight = navigateRegisterDetailProfilePictureToUnitOfWeight,
-            navigateRegisterDetailToHome = navigateRegisterDetailToHome
+            navigateRegisterDetailGraphToHomeGraph = navigateRegisterDetailGraphToHomeGraph
         )
     }
 

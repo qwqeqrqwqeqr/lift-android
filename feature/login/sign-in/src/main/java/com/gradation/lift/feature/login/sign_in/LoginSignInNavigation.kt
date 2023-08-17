@@ -13,20 +13,22 @@ fun loginSignInScreen(
     navGraphBuilder: NavGraphBuilder,
     naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
-    connectOAuthFromNaver: ()->Unit,
-    connectOAuthFromKakao: ()->Unit,
+    connectOAuthFromNaver: () -> Unit,
+    connectOAuthFromKakao: () -> Unit,
 ) {
-        navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
-            LoginSignInRoute(
-                navigateToLoginFindEmailPassword = { navController.navigateToLoginFindEmailPassword() },
-                navigateToLoginSignUp = { navController.navigateToLoginSignUp() },
-                navigateLoginToHome= { navController.navigateLoginToHome() },
-                navigateLoginToRegisterDetail= { navController.navigateLoginToRegisterDetail() },
-                naverOAuthConnectState =naverOAuthConnectState,
-                kakaoOAuthConnectState =kakaoOAuthConnectState,
-                connectOAuthFromNaver = { connectOAuthFromNaver() },
-                connectOAuthFromKakao = { connectOAuthFromKakao() }
-            )
+    navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+        LoginSignInRoute(
+            navigateToLoginFindEmailPassword = {
+                //TODO implement find email password
+            },
+            navigateSignInToSignUp = { navController.navigateSignInToSignUp() },
+            navigateLoginGraphToMainGraph = { navController.navigateLoginGraphToMainGraph() },
+            navigateLoginGraphToRegisterDetailGraph = { navController.navigateLoginGraphToRegisterDetailGraph() },
+            naverOAuthConnectState = naverOAuthConnectState,
+            kakaoOAuthConnectState = kakaoOAuthConnectState,
+            connectOAuthFromNaver = { connectOAuthFromNaver() },
+            connectOAuthFromKakao = { connectOAuthFromKakao() }
+        )
     }
 
 }
