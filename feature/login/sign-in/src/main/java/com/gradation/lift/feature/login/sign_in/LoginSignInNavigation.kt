@@ -17,8 +17,6 @@ fun loginSignInScreen(
     connectOAuthFromKakao: ()->Unit,
 ) {
         navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
-
-
             LoginSignInRoute(
                 navigateToLoginFindEmailPassword = { navController.navigateToLoginFindEmailPassword() },
                 navigateToLoginSignUp = { navController.navigateToLoginSignUp() },
@@ -29,7 +27,6 @@ fun loginSignInScreen(
                 connectOAuthFromNaver = { connectOAuthFromNaver() },
                 connectOAuthFromKakao = { connectOAuthFromKakao() }
             )
-
     }
 
 }

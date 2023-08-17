@@ -67,7 +67,9 @@ class LoginSignInViewModel @Inject constructor(
     fun updatePasswordText(): (String) -> Unit = { passwordText.value = it }
     fun clearPasswordText(): () -> Unit = { passwordText.value = "" }
 
-    fun updatePasswordVisibleToggle(): (Boolean) -> Unit = { passwordVisibleToggle.value = it  }
+    fun updatePasswordVisibleToggle(): (Boolean) -> Unit = { passwordVisibleToggle.value = it }
+
+    fun updateSignInState(): (SignInState) -> Unit = { signInState.value = it }
 
     fun updateAutoLoginCheckToggle(): (Boolean) -> Unit = {
         viewModelScope.launch {
@@ -153,7 +155,7 @@ class LoginSignInViewModel @Inject constructor(
                 ).collect { signInResult ->
                     when (signInResult) {
                         is DataState.Fail -> {
-                            signInState.value = SignInState.Fail(signInResult.message)
+                            signInState.value = SignInState.Fail("아이디 또는 비밀번호가 올바르지 않습니다.")
                         }
                         is DataState.Success -> {
                             existUserDetail().collect { existUserDetailResult ->

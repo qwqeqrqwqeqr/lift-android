@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gradation.lift.designsystem.component.LiftErrorSnackbar
+import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.sign_in.component.*
@@ -56,6 +56,7 @@ internal fun LoginSignInRoute(
 
     val updatePasswordVisibleToggle: (Boolean) -> Unit = viewModel.updatePasswordVisibleToggle()
     val updateAutoLoginCheckToggle: (Boolean) -> Unit = viewModel.updateAutoLoginCheckToggle()
+    val updateSignInState: (SignInState) -> Unit = viewModel.updateSignInState()
 
     val signInDefault: () -> Unit = viewModel.signInDefault()
     val signInKakao: () -> Unit = viewModel.signInKakao()
@@ -96,10 +97,11 @@ internal fun LoginSignInRoute(
      */
     when (val naverConnectStateResult = naverConnectState) {
         is OAuthConnectState.Fail -> {
-            LaunchedEffect(naverConnectStateResult.message) {
+            LaunchedEffect(true) {
                 snackbarHostState.showSnackbar(
                     message = naverConnectStateResult.message, duration = SnackbarDuration.Short
                 )
+                updateSignInState(SignInState.None)
             }
         }
         OAuthConnectState.None -> {}
@@ -109,10 +111,11 @@ internal fun LoginSignInRoute(
     }
     when (val kakaoConnectStateResult = kakaoConnectState) {
         is OAuthConnectState.Fail -> {
-            LaunchedEffect(kakaoConnectStateResult.message) {
+            LaunchedEffect(true) {
                 snackbarHostState.showSnackbar(
                     message = kakaoConnectStateResult.message, duration = SnackbarDuration.Short
                 )
+                updateSignInState(SignInState.None)
             }
         }
         OAuthConnectState.None -> {}
@@ -122,10 +125,11 @@ internal fun LoginSignInRoute(
     }
     when (val signInStateResult: SignInState = signInState) {
         is SignInState.Fail -> {
-            LaunchedEffect(signInStateResult.message) {
+            LaunchedEffect(true) {
                 snackbarHostState.showSnackbar(
                     message = signInStateResult.message, duration = SnackbarDuration.Short
                 )
+                updateSignInState(SignInState.None)
             }
         }
         SignInState.None -> {}
@@ -166,7 +170,10 @@ internal fun LoginSignInScreen(
     focusManager: FocusManager = LocalFocusManager.current,
 ) {
     Scaffold(modifier = modifier, snackbarHost = {
-        LiftErrorSnackbar(snackbarHostState = snackbarHostState)
+        LiftErrorSnackBar(
+            modifier=modifier,
+            snackbarHostState = snackbarHostState
+        )
     }) { it ->
         Surface(
             color = LiftTheme.colorScheme.no5,
