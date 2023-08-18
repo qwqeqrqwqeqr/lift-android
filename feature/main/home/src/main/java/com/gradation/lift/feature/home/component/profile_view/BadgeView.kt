@@ -16,6 +16,10 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
+/**
+ * 현재 Badge 기능을 구현하지 않아 해당 컴포넌트를  보류합니다.
+ * @since 2023-08-18 20:45:21
+ */
 @Composable
 internal fun BadgeView(
     modifier: Modifier = Modifier,

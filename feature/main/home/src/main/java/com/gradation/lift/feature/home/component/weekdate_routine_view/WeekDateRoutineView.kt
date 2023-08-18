@@ -35,6 +35,7 @@ internal fun WeekDateRoutineView(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp)
             )
+            .padding(16.dp)
     ) {
 
         WeekDateView(modifier, today, weekDateSelectionList, updateSelectedDate)
@@ -65,4 +66,6 @@ internal fun WeekDateRoutineView(
         }
     }
 }
+
+
 

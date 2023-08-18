@@ -6,6 +6,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,9 +24,11 @@ import com.gradation.lift.feature.home.data.model.WeekDateSelection
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
 import com.gradation.lift.model.model.common.UnitOfWeight
+import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -84,18 +87,21 @@ internal fun HomeScreen(
     navigateMainGraphToWorkGraph: () -> Unit,
     scrollState: ScrollState,
 ) {
-    Scaffold {
+    Scaffold(
+        modifier = modifier
+    ) {
         Surface(
             modifier = modifier.padding(it),
             color = LiftTheme.colorScheme.no17
         ) {
             Column(
-                modifier = modifier
+                modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = modifier
-                        .verticalScroll(scrollState)
-                ) {
+
+                Column {
                     ProfileView(
                         modifier = modifier,
                         userDetailUiState = userDetailUiState,
@@ -112,14 +118,14 @@ internal fun HomeScreen(
                         navigateMainGraphToCreateRoutineGraph,
                         navigateMainGraphToWorkGraph
                     )
-                }
-                StartWorkView(modifier, navigateMainGraphToWorkGraph)
-            }
 
+                    StartWorkView(modifier, navigateMainGraphToWorkGraph)
+                }
+            }
         }
     }
-
 }
+
 
 @Preview
 @Composable
@@ -130,15 +136,32 @@ internal fun HomeScreenPreview() {
             navController = rememberNavController(),
             today = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             weekDateSelectionList = listOf(
+                WeekDateSelection(
+                    day = "7",
+                    weekday = Weekday.Monday(),
+                    selected = false
+                ),
                 WeekDateSelection(),
                 WeekDateSelection(),
                 WeekDateSelection(),
                 WeekDateSelection(),
                 WeekDateSelection(),
-                WeekDateSelection(),
-                WeekDateSelection(selected = true),
+                WeekDateSelection(
+                    day = "13",
+                    weekday = Weekday.Sunday(),
+                    selected = true
+                ),
             ),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            weekDateRoutineUiState = WeekDateRoutineUiState.Success(
+                weekDateRoutine = listOf(
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 1),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 2),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 3),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 4),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 5),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 6),
+                )
+            ),
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(
                     name = "리프트",

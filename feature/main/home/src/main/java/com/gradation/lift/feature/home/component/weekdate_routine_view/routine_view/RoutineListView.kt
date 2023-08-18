@@ -48,7 +48,7 @@ internal fun RoutineListView(
             ) {
                 Text(
                     text = "추가",
-                    style = LiftTheme.typography.no4,
+                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no4,
                 )
                 Spacer(modifier = modifier.padding(2.dp))
@@ -71,7 +71,7 @@ internal fun RoutineListView(
             ) {
                 Text(
                     text = "수정",
-                    style = LiftTheme.typography.no4,
+                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no4,
                 )
                 Spacer(modifier = modifier.padding(2.dp))
@@ -135,4 +135,6 @@ internal fun RoutineListView(
         }
     }
 }
+
+
 
