@@ -32,6 +32,7 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.height_weight.data.RegisterDetailHeightWeightViewModel
 import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
