@@ -15,27 +15,26 @@ import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.profile_view.profile_detail_view.LoadingProfileDetailView
 import com.gradation.lift.feature.home.component.profile_view.profile_detail_view.ProfileDetailView
-import com.gradation.lift.feature.home.data.UserDetailUiState
+import com.gradation.lift.feature.home.data.state.UserDetailUiState
 
 @Composable
 internal fun ProfileView(
     modifier: Modifier = Modifier,
     userDetailUiState: UserDetailUiState,
-    onClickAlarm: () -> Unit,
-    onClickType: () -> Unit,
 ) {
     Column(
-        modifier = modifier.padding(bottom = 16.dp)
+        modifier = modifier
+            .padding(bottom = 16.dp)
             .background(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
             )
     ) {
         Row(
-            modifier= modifier
+            modifier = modifier
                 .padding(16.dp)
                 .fillMaxWidth()
-        ){
+        ) {
             Icon(
                 painter = painterResource(R.drawable.logo_extension_kor),
                 contentDescription = "",
@@ -67,18 +66,12 @@ internal fun ProfileView(
                 is UserDetailUiState.Success -> ProfileDetailView(
                     modifier = modifier,
                     userDetail = userDetailUiState.userDetail,
-                    onClickAlarm = onClickAlarm,
-                    onClickType = onClickType,
                 )
             }
 
 
         }
-
-        Spacer(modifier = modifier.padding(10.dp))
-        BadgeView(modifier = modifier)
     }
-
 }
 
 

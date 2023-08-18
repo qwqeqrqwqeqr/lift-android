@@ -101,10 +101,16 @@ class HomeViewModel @Inject constructor(
         selectedDate.value = it
     }
 
-    internal fun updateKey(navController: NavController, selectedRoutineSetRoutineId: Int) {
+    /**
+     * [updateRoutineSetIdKey]
+     * 화면에 표시되어있는 루틴 세트를 클릭해 운동을 시작할 경우
+     * 해당 루틴세트 정보를 운동 페이지로 넘겨줘야함
+     * 해당 루틴세트의 아이디를 키에 보관한 후 운동페이지에서 호출함
+     */
+    internal fun updateRoutineSetIdKey(): (NavController, Int) -> Unit = { navController,routineSetId ->
         navController.setValueSavedStateHandle(
-            SavedStateHandleKey.WorkKey.ROUTINE_SET_ROUTINE_KEY,
-            selectedRoutineSetRoutineId
+            SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY,
+            routineSetId
         )
     }
 }

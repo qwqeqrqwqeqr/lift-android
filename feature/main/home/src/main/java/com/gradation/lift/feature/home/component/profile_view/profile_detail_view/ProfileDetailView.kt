@@ -23,8 +23,6 @@ import com.gradation.lift.model.model.user.UserDetail
 internal fun ProfileDetailView(
     modifier: Modifier = Modifier,
     userDetail: UserDetail,
-    onClickAlarm: () -> Unit,
-    onClickType: () -> Unit,
 ) {
     GlideImage(
         model = userDetail.profilePicture,
@@ -60,24 +58,11 @@ internal fun ProfileDetailView(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            //TODO implement click Type
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "운동 초심자",
-                    style = LiftTheme.typography.no4,
-                    color = LiftTheme.colorScheme.no5
-                )
-                Spacer(modifier = modifier.padding(1.dp))
-                Icon(
-                    painter = painterResource(LiftIcon.ChevronRightSharp),
-                    contentDescription = "",
-                    tint = LiftTheme.colorScheme.no5
-                )
-            }
-
 
             LiftIconButton(
-                onClick = onClickAlarm,
+                onClick = {
+                    //TODO 알림 기능 추가시 작성 예정 (2023-08-18 19:19:30)
+                },
                 modifier = modifier.size(24.dp)
             ) {
                 Icon(
