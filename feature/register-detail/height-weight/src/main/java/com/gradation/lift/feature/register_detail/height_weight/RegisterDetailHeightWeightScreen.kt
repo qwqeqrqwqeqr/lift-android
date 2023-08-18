@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -22,7 +23,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.canvas.NumberCircle
@@ -31,31 +32,23 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 internal fun RegisterHeightWeightRoute(
-    navController: NavController,
-    navigateRegisterDetailHeightWeightToUnitOfWeight: () -> Unit,
-    navigateHeightWeightToGender: () -> Unit,
     modifier: Modifier = Modifier,
+    navController: NavController,
+    navigateHeightWeightToProfilePicture: () -> Unit,
+    navigateHeightWeightToGender: () -> Unit,
     viewModel: RegisterDetailHeightWeightViewModel = hiltViewModel(),
 ) {
-    RegisterDetailHeightWeightScreen(
-        modifier = modifier,
-        onBackClickTopBar = navigateHeightWeightToGender,
-        onNextButtonClick = {
-            viewModel.updateKey(navController)
-            navigateRegisterDetailHeightWeightToUnitOfWeight()
-        },
-        weightText = viewModel.weight.collectAsStateWithLifecycle(),
-        updateWeightText = viewModel.updateWeight(),
-        heightText = viewModel.height.collectAsStateWithLifecycle(),
-        updateHeightText = viewModel.updateHeight(),
-        heightValidationSupportText = viewModel.heightValidationSupportText.collectAsStateWithLifecycle(),
-        weightValidationSupportText = viewModel.weightValidationSupportText.collectAsStateWithLifecycle(),
-        navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
-    )
+    val registerDetailBackStackEntry: NavBackStackEntry =
+        remember { navController.getBackStackEntry(Router.REGISTER_DETAIL_GRAPH_NAME) }
+    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(registerDetailBackStackEntry)
+
 
     BackHandler(onBack = {
         navigateHeightWeightToGender()
