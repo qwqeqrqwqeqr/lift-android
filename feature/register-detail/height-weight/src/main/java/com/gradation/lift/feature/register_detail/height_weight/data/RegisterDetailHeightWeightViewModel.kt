@@ -27,23 +27,8 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    var weightText: MutableStateFlow<String> = MutableStateFlow("")
     var heightText: MutableStateFlow<String> = MutableStateFlow("")
-
-    var weightValidator: StateFlow<Validator> =
-        weightText.mapLatest {
-            it.toFloatOrNull()?.let { weight ->
-                if (weightValidator(weight)) {
-                    Validator(true, "")
-                } else {
-                    Validator(false, "정확한 정보를 입력해주세요.")
-                }
-            } ?: Validator(false, "")
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Validator()
-        )
+    var weightText: MutableStateFlow<String> = MutableStateFlow("")
 
     var heightValidator: StateFlow<Validator> =
         heightText.mapLatest {
@@ -59,14 +44,30 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = Validator()
         )
+    var weightValidator: StateFlow<Validator> =
+        weightText.mapLatest {
+            it.toFloatOrNull()?.let { weight ->
+                if (weightValidator(weight)) {
+                    Validator(true, "")
+                } else {
+                    Validator(false, "정확한 정보를 입력해주세요.")
+                }
+            } ?: Validator(false, "")
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = Validator()
+        )
 
-    internal fun updateWeightText(): (String) -> Unit = { it ->
-        weightText.value = it
-    }
 
     internal fun updateHeightText(): (String) -> Unit = { it ->
         heightText.value = it
     }
+    internal fun updateWeightText(): (String) -> Unit = { it ->
+        weightText.value = it
+    }
+
+
 
     var navigateCondition: StateFlow<Boolean> =
         combine(weightValidator, heightValidator) { weight, height ->

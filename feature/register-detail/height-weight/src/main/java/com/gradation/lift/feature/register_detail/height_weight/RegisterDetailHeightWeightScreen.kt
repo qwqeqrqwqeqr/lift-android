@@ -41,8 +41,8 @@ internal fun RegisterHeightWeightRoute(
         remember { navController.getBackStackEntry(Router.REGISTER_DETAIL_GRAPH_NAME) }
     val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(registerDetailBackStackEntry)
 
+    val heightText: String by viewModel.heightText.collectAsStateWithLifecycle()
     val weightText: String by viewModel.weightText.collectAsStateWithLifecycle()
-    val heightText: String by viewModel.weightText.collectAsStateWithLifecycle()
     val weightValidator: Validator by viewModel.weightValidator.collectAsStateWithLifecycle()
     val heightValidator: Validator by viewModel.heightValidator.collectAsStateWithLifecycle()
     val navigateCondition: Boolean by viewModel.navigateCondition.collectAsStateWithLifecycle()
