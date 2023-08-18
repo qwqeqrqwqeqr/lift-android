@@ -40,7 +40,6 @@ internal fun RoutineView(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(24.dp,24.dp,0.dp,0.dp)
             )
-            .padding(16.dp),
     ) {
         Text(
             text = "내 루틴 리스트",
