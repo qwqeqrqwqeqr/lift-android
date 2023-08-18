@@ -109,24 +109,27 @@ internal fun RegisterDetailHeightWeightScreen(
     navigateHeightWeightToGender: () -> Unit,
     focusManager: FocusManager,
 ) {
-    Surface(
-        color = LiftTheme.colorScheme.no5
-    ) {
-        Scaffold(
-            topBar = {
-                LiftBackTopBar(
-                    title = "추가정보 입력",
-                    onBackClickTopBar = {
-                        updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-                        navigateHeightWeightToGender()
-                    },
-                )
-            },
-        ) { padding ->
+
+    Scaffold(
+        topBar = {
+            LiftBackTopBar(
+                title = "추가정보 입력",
+                onBackClickTopBar = {
+                    updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
+                    navigateHeightWeightToGender()
+                },
+            )
+        },
+    ) { padding ->
+        Surface(
+            modifier = modifier
+                .padding(padding)
+                .fillMaxSize(),
+            color = LiftTheme.colorScheme.no5,
+        ) {
             Column(
                 modifier = modifier
                     .padding(16.dp)
-                    .padding(padding)
                     .fillMaxSize()
             ) {
                 ProgressNumberView(

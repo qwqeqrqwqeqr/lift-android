@@ -59,7 +59,7 @@ class RegisterDetailSharedViewModel @Inject constructor(
     fun updateCreateUserDetailState(): (CreateUserDetailState) -> Unit =
         { createUserDetailState.value = it }
 
-    fun createUserDetail() {
+    fun createUserDetail(): () -> Unit = {
         viewModelScope.launch {
             createUserDetailUseCase(
                 UserDetail(

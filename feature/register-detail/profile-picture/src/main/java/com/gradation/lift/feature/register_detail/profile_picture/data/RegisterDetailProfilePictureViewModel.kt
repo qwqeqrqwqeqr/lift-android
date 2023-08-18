@@ -1,9 +1,10 @@
-package com.gradation.lift.feature.register_detail.profile_picture
+package com.gradation.lift.feature.register_detail.profile_picture.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.picture.GetUserProfilePictureUseCase
+import com.gradation.lift.model.model.picture.UserProfilePicture
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -22,33 +23,37 @@ class RegisterDetailProfilePictureViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    internal val profilePictureList = getUserProfilePictureUseCase().map {
-        when (it) {
-            is DataState.Fail -> emptyList()
-            is DataState.Success -> it.data
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList()
-    )
+    internal val selectedProfilePicture: MutableStateFlow<String> = MutableStateFlow("")
+    internal val profilePictureList: StateFlow<List<UserProfilePicture>> =
+        getUserProfilePictureUseCase().map {
+            when (it) {
+                is DataState.Fail -> emptyList()
+                is DataState.Success -> it.data
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
 
-    internal val selectedProfilePicture = MutableStateFlow("")
 
-
-    internal val navigationCondition =
+    internal val navigationCondition: StateFlow<Boolean> =
         selectedProfilePicture.map { selectedProfilePicture.value.isNotEmpty() }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = false
         )
-
-    internal var onVisibleCompleteDialog = MutableStateFlow(false)
+    internal var onVisibleCompleteDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
 
     internal fun updateSelectedProfile(): (String) -> Unit = {
         selectedProfilePicture.value = it
     }
+
+    internal fun updateOnVisibleCompleteDialog(): (Boolean) -> Unit = {
+        onVisibleCompleteDialog.value = it
+    }
+
 
 
 }
