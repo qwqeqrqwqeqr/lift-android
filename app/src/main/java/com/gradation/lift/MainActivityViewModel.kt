@@ -16,10 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val isSignedUseCase: IsSignedUseCase,
-    private val existUserDetailUseCase: ExistUserDetailUseCase,
+    isSignedUseCase: IsSignedUseCase,
+    existUserDetailUseCase: ExistUserDetailUseCase,
     private val getAutoLoginSettingUseCase: GetAutoLoginSettingUseCase,
-
 ) : ViewModel() {
 
     val splashUiState = isSignedUseCase().combine(

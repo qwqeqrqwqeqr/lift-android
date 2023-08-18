@@ -17,19 +17,19 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.oauth.common.naverInitializer
-import com.gradation.lift.oauth.state.OAuthConnectState
 import com.gradation.lift.state.SplashState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
+import rememberAppState
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,46 +47,13 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var dispatcherProvider: DispatcherProvider
 
-
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        naverInitializer(
-            this@MainActivity,
-            BuildConfig.NAVER_OAUTH_CLIENT_ID,
-            BuildConfig.NAVER_OAUTH_CLIENT_SECRET,
-            BuildConfig.NAVER_OAUTH_CLIENT_NAME
-        )
-
-
         var splashState: SplashState by mutableStateOf(SplashState.Loading)
-        val naverOAuthConnectState: MutableStateFlow<OAuthConnectState> = MutableStateFlow(OAuthConnectState.None)
-        val kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState> = MutableStateFlow(OAuthConnectState.None)
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.splashUiState.onEach { splashState = it }.collect()
-            }
-        }
-
-        fun connectOAuthFromNaver() {
-            CoroutineScope(dispatcherProvider.default).launch {
-                connectOAuthFromNaverUseCase().collect { naverOAuthConnectState.value = it }
-            }
-        }
-
-        fun connectOAuthFromKakao() {
-            CoroutineScope(dispatcherProvider.default).launch {
-                connectOAuthFromKakaoUseCase().collect { kakaoOAuthConnectState.value = it }
-            }
-        }
-
-
-
-
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 when (splashState) {
@@ -99,20 +66,35 @@ class MainActivity : ComponentActivity() {
         }
 
 
+        naverInitializer(
+            this@MainActivity,
+            BuildConfig.NAVER_OAUTH_CLIENT_ID,
+            BuildConfig.NAVER_OAUTH_CLIENT_SECRET,
+            BuildConfig.NAVER_OAUTH_CLIENT_NAME
+        )
+
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.splashUiState.onEach { splashState = it }.collect()
+            }
+
+        }
 
 
         setContent {
             val systemUiController = rememberSystemUiController()
             viewModel.setDefaultSystemUiController(systemUiController)
-            LiftMaterialTheme()
-            {
+            LiftMaterialTheme() {
                 LiftApp(
                     splashState = splashState,
                     windowSizeClass = calculateWindowSizeClass(this),
-                    naverOAuthConnectState = naverOAuthConnectState,
-                    kakaoOAuthConnectState = kakaoOAuthConnectState,
-                    connectOAuthFromNaver = { connectOAuthFromNaver() },
-                    connectOAuthFromKakao = {connectOAuthFromKakao()}
+                    appState = rememberAppState(
+                        rememberNavController(),
+                        connectOAuthFromNaverUseCase,
+                        connectOAuthFromKakaoUseCase,
+                        dispatcherProvider
+                    )
                 )
             }
         }
