@@ -45,13 +45,13 @@ class HomeViewModel @Inject constructor(
     private val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
 
-    internal val weekDateSelectionList: StateFlow<List<WeekDateSelection>> = today.map { today ->
-        getThisWeekUseCase(today).map { localDate ->
+    internal val weekDateSelectionList: StateFlow<List<WeekDateSelection>> = selectedDate.map { selectedDate ->
+        getThisWeekUseCase(selectedDate).map { localDate ->
             WeekDateSelection(
                 day = localDate.dayOfMonth.toString(),
                 weekday = localDate.toWeekday(),
                 localDate = localDate,
-                selected = localDate == selectedDate.value
+                selected = localDate == selectedDate
             )
         }
     }.stateIn(

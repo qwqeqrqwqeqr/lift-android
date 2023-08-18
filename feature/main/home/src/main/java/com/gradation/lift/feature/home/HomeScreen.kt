@@ -1,6 +1,5 @@
 package com.gradation.lift.feature.home
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
@@ -8,19 +7,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.component.profile_view.ProfileView
+import com.gradation.lift.feature.home.component.weekdate_routine_view.WeekDateRoutineView
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
@@ -28,7 +25,6 @@ import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
 import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -57,6 +53,19 @@ internal fun HomeRoute(
     val scrollState = rememberScrollState()
 
 
+    HomeScreen(
+        modifier,
+        navController,
+        today,
+        weekDateSelectionList,
+        weekDateRoutineUiState,
+        userDetailUiState,
+        updateSelectedDate,
+        updateRoutineSetIdKey,
+        navigateMainGraphToCreateRoutineGraph,
+        navigateMainGraphToWorkGraph,
+        scrollState
+    )
 }
 
 
@@ -70,7 +79,7 @@ internal fun HomeScreen(
     weekDateRoutineUiState: WeekDateRoutineUiState,
     userDetailUiState: UserDetailUiState,
     updateSelectedDate: (LocalDate) -> Unit,
-    updateKey: (NavController, Int) -> Unit,
+    updateRoutineSetIdKey: (NavController, Int) -> Unit,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     scrollState: ScrollState,
@@ -87,22 +96,21 @@ internal fun HomeScreen(
                 Column(
                     modifier = modifier.verticalScroll(scrollState)
                 ) {
-
                     ProfileView(
                         modifier = modifier,
                         userDetailUiState = userDetailUiState,
                     )
                     Spacer(modifier = modifier.padding(8.dp))
-                    RoutineView(
-                        modifier = modifier,
-                        today = today,
-                        weekDateRoutineUiState = weekDateRoutineUiState,
-                        weekDate = weekDate,
-                        onClickCreateRoutine = onClickCreateRoutine,
-                        onClickWeekDateCard = onClickWeekDateCard,
-                        onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
-                        onClickAddRoutine = onClickAddRoutine,
-                        onClickUpdateRoutine = onClickModifyRoutine
+                    WeekDateRoutineView(
+                        modifier,
+                        navController,
+                        today,
+                        weekDateSelectionList,
+                        weekDateRoutineUiState,
+                        updateSelectedDate,
+                        updateRoutineSetIdKey,
+                        navigateMainGraphToCreateRoutineGraph,
+                        navigateMainGraphToWorkGraph
                     )
                 }
                 StartWorkView(modifier, navigateMainGraphToWorkGraph)
@@ -142,7 +150,7 @@ internal fun HomeScreenPreview() {
                 )
             ),
             updateSelectedDate = {},
-            updateKey = { _, _ -> },
+            updateRoutineSetIdKey = { _, _ -> },
             navigateMainGraphToCreateRoutineGraph = { },
             navigateMainGraphToWorkGraph = { },
             scrollState = rememberScrollState(),

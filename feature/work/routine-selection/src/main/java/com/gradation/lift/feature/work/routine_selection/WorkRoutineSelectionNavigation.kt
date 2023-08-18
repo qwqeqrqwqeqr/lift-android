@@ -19,7 +19,7 @@ fun workRoutineSelectionScreen(
 ) {
         navGraphBuilder.composable(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
             val selectedRoutineSetId =
-                navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ROUTINE_KEY)
+                navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY)
 
             val navigateSelectionRoutineToWork = {navController.navigateSelectionRoutineToWork() }
             val navigateWorkGraphToMainGraph = {navController.navigateWorkGraphToMainGraph()}
