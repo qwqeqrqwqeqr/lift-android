@@ -26,7 +26,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -42,35 +41,14 @@ import com.gradation.lift.model.model.picture.UserProfilePicture
 @Composable
 internal fun RegisterDetailProfilePictureRoute(
     navController: NavController,
-    navigateRegisterDetailProfilePictureToUnitOfWeight: () -> Unit,
     navigateRegisterDetailGraphToHomeGraph: () -> Unit,
+    navigateProfilePictureToHeightWeight: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailProfilePictureViewModel = hiltViewModel(),
 ) {
 
-    val onVisibleDialog = viewModel.onVisibleDialog.collectAsStateWithLifecycle()
-    val profilePictureList = viewModel.profilePictureList.collectAsStateWithLifecycle()
-    val selectedProfile = viewModel.selectedProfile.collectAsStateWithLifecycle()
-    val navigationCondition = viewModel.navigationCondition.collectAsStateWithLifecycle()
 
-
-
-    RegisterDetailProfilePictureScreen(
-        modifier = modifier,
-        onVisibleDialog = onVisibleDialog,
-        profilePictureList = profilePictureList,
-        selectedProfile = selectedProfile,
-        navigationCondition = navigationCondition,
-        onUpdateSelectedProfile = viewModel.updateSelectedProfile(),
-        onClickCompleteDialogButton = navigateRegisterDetailGraphToHomeGraph,
-        onBackClickTopBar = navigateRegisterDetailProfilePictureToUnitOfWeight,
-        onCompleteButtonClick = { viewModel.createUserDetail(navController) }
-    )
-
-
-    BackHandler(onBack = {
-        navigateRegisterDetailProfilePictureToUnitOfWeight()
-    })
+    BackHandler(onBack = {})
 
 }
 

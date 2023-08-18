@@ -2,32 +2,28 @@ package com.gradation.lift.feature.register_detail.profile_picture
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.picture.GetUserProfilePictureUseCase
-import com.gradation.lift.domain.usecase.user.CreateUserDetailUseCase
-import com.gradation.lift.model.model.common.toUnitOfWeight
-import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.model.model.user.toGender
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.findValueInBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * [RegisterDetailProfilePictureViewModel]
+ * @property profilePictureList 사용자가 선택할 수 있는 프로필 사진 목록
+ * @property selectedProfilePicture  현재 선택된 프로필 사진
+ * @property navigationCondition 다음 화면으로 넘어갈 수 있는 조건
+ * @property onVisibleCompleteDialog 완료 팝업이 나오는 조건 (상세정보 등록 완료 시 해당 팝업 등장)
+ * @since  2023-08-18 13:44:39¬
+ */
 @HiltViewModel
 class RegisterDetailProfilePictureViewModel @Inject constructor(
-    private val createUserDetailUseCase: CreateUserDetailUseCase,
     getUserProfilePictureUseCase: GetUserProfilePictureUseCase,
 ) : ViewModel() {
 
 
-    internal var onVisibleDialog = MutableStateFlow(false)
-
     internal val profilePictureList = getUserProfilePictureUseCase().map {
         when (it) {
-            //TODO Handle Fail
             is DataState.Fail -> emptyList()
             is DataState.Success -> it.data
         }
@@ -37,48 +33,22 @@ class RegisterDetailProfilePictureViewModel @Inject constructor(
         initialValue = emptyList()
     )
 
-    internal val selectedProfile = MutableStateFlow("")
+    internal val selectedProfilePicture = MutableStateFlow("")
 
-    internal val navigationCondition = selectedProfile.map { selectedProfile.value.isNotEmpty() }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = false
-    )
+
+    internal val navigationCondition =
+        selectedProfilePicture.map { selectedProfilePicture.value.isNotEmpty() }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
+
+    internal var onVisibleCompleteDialog = MutableStateFlow(false)
+
 
     internal fun updateSelectedProfile(): (String) -> Unit = {
-        selectedProfile.value = it
+        selectedProfilePicture.value = it
     }
 
-    internal fun createUserDetail(navController: NavController) {
-        viewModelScope.launch {
-            createUserDetailUseCase(
-                navController.findValueInBackStackEntry(
-                    listOf(
-                        SavedStateHandleKey.RegisterDetailKey.NAME_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.GENDER_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY,
-                        SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY,
-                    )
-                ).let {
-                    UserDetail(
-                        name = it[SavedStateHandleKey.RegisterDetailKey.NAME_KEY]?: "",
-                        gender = it[SavedStateHandleKey.RegisterDetailKey.GENDER_KEY].toGender(),
-                        height = it[SavedStateHandleKey.RegisterDetailKey.HEIGHT_KEY]?.toFloat()
-                            ?: 0f,
-                        weight = it[SavedStateHandleKey.RegisterDetailKey.WEIGHT_KEY]?.toFloat()
-                            ?: 0f,
-                        profilePicture = selectedProfile.value,
-                        unitOfWeight = it[SavedStateHandleKey.RegisterDetailKey.UNIT_OF_WEIGHT_KEY].toUnitOfWeight(),
-                    )
-                }
-            ).collect {
-                when (it) {
-                    is DataState.Success -> onVisibleDialog.value = it.data
-                    is DataState.Fail -> onVisibleDialog.value = false
-                }
-            }
-        }
-    }
 
 }
