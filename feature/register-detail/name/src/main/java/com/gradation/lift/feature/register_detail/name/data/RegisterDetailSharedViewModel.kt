@@ -54,7 +54,7 @@ class RegisterDetailSharedViewModel @Inject constructor(
     fun updateCreateUserDetailHeight(): (Float) -> Unit = { createUserDetailHeight.value = it }
     fun updateCreateUserDetailWeight(): (Float) -> Unit = { createUserDetailWeight.value = it }
     fun updateCreateUserDetailProfilePicture(): (String) -> Unit =
-        { createUserDetailName.value = it }
+        { createUserDetailProfilePicture.value = it }
 
     fun updateCreateUserDetailState(): (CreateUserDetailState) -> Unit =
         { createUserDetailState.value = it }
