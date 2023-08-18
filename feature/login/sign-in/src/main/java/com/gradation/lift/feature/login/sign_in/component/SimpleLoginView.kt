@@ -50,7 +50,7 @@ internal fun SimpleLoginView(
             painterResource = painterResource(LiftIcon.LoginKakao),
             label = "카카오톡",
             modifier = modifier,
-            onclick = signInNaver
+            onclick = signInKakao
         )
         //TODO 구글 로그인 승인 시 연동 예정 (2023.08.14)
 //        SimpleLoginButton(
@@ -62,7 +62,7 @@ internal fun SimpleLoginView(
             painterResource = painterResource(LiftIcon.LoginNaver),
             label = "네이버",
             modifier = modifier,
-            onclick = signInKakao
+            onclick = signInNaver
         )
     }
 }
