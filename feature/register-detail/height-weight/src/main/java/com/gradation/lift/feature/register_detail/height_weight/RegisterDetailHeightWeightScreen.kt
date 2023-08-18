@@ -3,61 +3,86 @@ package com.gradation.lift.feature.register_detail.height_weight
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.*
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.canvas.NumberCircle
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.register_detail.height_weight.component.*
+import com.gradation.lift.feature.register_detail.height_weight.component.HeightTextFieldView
+import com.gradation.lift.feature.register_detail.height_weight.component.WeightTextFieldView
+import com.gradation.lift.feature.register_detail.height_weight.data.RegisterDetailHeightWeightViewModel
+import com.gradation.lift.feature.register_detail.name.data.RegisterDetailSharedViewModel
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 internal fun RegisterHeightWeightRoute(
-    navController: NavController,
-    navigateRegisterDetailHeightWeightToUnitOfWeight: () -> Unit,
-    navigateHeightWeightToGender: () -> Unit,
     modifier: Modifier = Modifier,
+    navController: NavController,
+    navigateHeightWeightToProfilePicture: () -> Unit,
+    navigateHeightWeightToGender: () -> Unit,
     viewModel: RegisterDetailHeightWeightViewModel = hiltViewModel(),
 ) {
+    val registerDetailBackStackEntry: NavBackStackEntry =
+        remember { navController.getBackStackEntry(Router.REGISTER_DETAIL_GRAPH_NAME) }
+    val sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(registerDetailBackStackEntry)
+
+    val heightText: String by viewModel.heightText.collectAsStateWithLifecycle()
+    val weightText: String by viewModel.weightText.collectAsStateWithLifecycle()
+    val weightValidator: Validator by viewModel.weightValidator.collectAsStateWithLifecycle()
+    val heightValidator: Validator by viewModel.heightValidator.collectAsStateWithLifecycle()
+    val navigateCondition: Boolean by viewModel.navigateCondition.collectAsStateWithLifecycle()
+
+    val currentRegisterProgressNumber: Int by sharedViewModel.currentRegisterProgressNumber.collectAsStateWithLifecycle()
+    val totalRegisterProgressNumber: Int by sharedViewModel.totalRegisterProgressNumber.collectAsStateWithLifecycle()
+
+    val updateWeightText: (String) -> Unit = viewModel.updateWeightText()
+    val updateHeightText: (String) -> Unit = viewModel.updateHeightText()
+    val updateCreateUserDetailHeight: (Float) -> Unit =
+        sharedViewModel.updateCreateUserDetailHeight()
+    val updateCreateUserDetailWeight: (Float) -> Unit =
+        sharedViewModel.updateCreateUserDetailWeight()
+
+    val updateCurrentRegisterProgressNumber: (Int) -> Unit =
+        sharedViewModel.updateCurrentRegisterProgressNumber()
+
+    val focusManager = LocalFocusManager.current
+
     RegisterDetailHeightWeightScreen(
-        modifier = modifier,
-        onBackClickTopBar = navigateHeightWeightToGender,
-        onNextButtonClick = {
-            viewModel.updateKey(navController)
-            navigateRegisterDetailHeightWeightToUnitOfWeight()
-        },
-        weightText = viewModel.weight.collectAsStateWithLifecycle(),
-        updateWeightText = viewModel.updateWeight(),
-        heightText = viewModel.height.collectAsStateWithLifecycle(),
-        updateHeightText = viewModel.updateHeight(),
-        heightValidationSupportText = viewModel.heightValidationSupportText.collectAsStateWithLifecycle(),
-        weightValidationSupportText = viewModel.weightValidationSupportText.collectAsStateWithLifecycle(),
-        navigateCondition = viewModel.navigateCondition.collectAsStateWithLifecycle()
+        modifier,
+        weightText,
+        heightText,
+        weightValidator,
+        heightValidator,
+        navigateCondition,
+        currentRegisterProgressNumber,
+        totalRegisterProgressNumber,
+        updateWeightText,
+        updateHeightText,
+        updateCreateUserDetailHeight,
+        updateCreateUserDetailWeight,
+        updateCurrentRegisterProgressNumber,
+        navigateHeightWeightToProfilePicture,
+        navigateHeightWeightToGender,
+        focusManager
     )
 
     BackHandler(onBack = {
+        updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
         navigateHeightWeightToGender()
     })
 
@@ -68,15 +93,21 @@ internal fun RegisterHeightWeightRoute(
 @Composable
 internal fun RegisterDetailHeightWeightScreen(
     modifier: Modifier = Modifier,
-    onBackClickTopBar: () -> Unit,
-    onNextButtonClick: () -> Unit,
-    weightText: State<String>,
+    weightText: String,
+    heightText: String,
+    weightValidator: Validator,
+    heightValidator: Validator,
+    navigateCondition: Boolean,
+    currentRegisterProgressNumber: Int,
+    totalRegisterProgressNumber: Int,
     updateWeightText: (String) -> Unit,
-    heightText: State<String>,
     updateHeightText: (String) -> Unit,
-    heightValidationSupportText: State<Validator>,
-    weightValidationSupportText: State<Validator>,
-    navigateCondition: State<Boolean>,
+    updateCreateUserDetailHeight: (Float) -> Unit,
+    updateCreateUserDetailWeight: (Float) -> Unit,
+    updateCurrentRegisterProgressNumber: (Int) -> Unit,
+    navigateHeightWeightToProfilePicture: () -> Unit,
+    navigateHeightWeightToGender: () -> Unit,
+    focusManager: FocusManager,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5
@@ -85,7 +116,10 @@ internal fun RegisterDetailHeightWeightScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "추가정보 입력",
-                    onBackClickTopBar = onBackClickTopBar,
+                    onBackClickTopBar = {
+                        updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
+                        navigateHeightWeightToGender()
+                    },
                 )
             },
         ) { padding ->
@@ -95,176 +129,36 @@ internal fun RegisterDetailHeightWeightScreen(
                     .padding(padding)
                     .fillMaxSize()
             ) {
-                val focusManager = LocalFocusManager.current
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)) {
-                    repeat(5) {
-                        NumberCircle(number = it + 1, checked = it + 1 == 3)
-                    }
-                }
-                Spacer(modifier = modifier.padding(28.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(
-                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                        ) {
-                            append("키")
-                        }
-                        append("와 ")
-                        withStyle(
-                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                        ) {
-                            append("몸무게")
-                        }
-                        append("를 입력해주세요")
-                    },
-                    style = LiftTheme.typography.no1,
-                    color = LiftTheme.colorScheme.no11,
+                ProgressNumberView(
+                    modifier, currentRegisterProgressNumber, totalRegisterProgressNumber
                 )
+                Spacer(modifier = modifier.padding(14.dp))
+                HeaderView(modifier)
                 Spacer(modifier = modifier.padding(15.dp))
-                HeightTextField(
-                    modifier = modifier,
-                    heightText = heightText,
-                    updateHeightText = updateHeightText,
-                    focusManager = focusManager,
-                    heightValidationSupportText = heightValidationSupportText.value
+                HeightTextFieldView(
+                    modifier, heightText, heightValidator, updateHeightText, focusManager
+                )
+                WeightTextFieldView(
+                    modifier, weightText, weightValidator, updateWeightText, focusManager
                 )
                 Spacer(modifier = modifier.padding(9.dp))
-                WeightTextField(
-                    modifier = modifier,
-                    weightText = weightText,
-                    updateWeightText = updateWeightText,
-                    focusManager = focusManager,
-                    weightValidationSupportText = weightValidationSupportText.value
+                NavigationView(
+                    modifier,
+                    navigateCondition,
+                    currentRegisterProgressNumber,
+                    weightText,
+                    heightText,
+                    updateCreateUserDetailHeight,
+                    updateCreateUserDetailWeight,
+                    updateCurrentRegisterProgressNumber,
+                    navigateHeightWeightToProfilePicture
                 )
-                Spacer(modifier = modifier.padding(18.dp))
-                LiftButton(
-                    enabled = navigateCondition.value,
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = onNextButtonClick,
-                ) {
-                    Text(
-                        text = "다음",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
             }
-
-
         }
-
     }
 }
 
-@Composable
-internal fun HeightTextField(
-    modifier: Modifier = Modifier,
-    heightText: State<String>,
-    updateHeightText: (String) -> Unit,
-    focusManager: FocusManager,
-    heightValidationSupportText: Validator,
-) {
-    Text(
-        text = "키",
-        style = LiftTheme.typography.no3,
-        color = LiftTheme.colorScheme.no3,
-    )
-    Spacer(modifier = modifier.padding(4.dp))
-    LiftTextField(
-        value = heightText.value,
-        onValueChange = updateHeightText,
-        modifier = modifier.fillMaxWidth(),
-        placeholder = {
-            Text(
-                text = "키를 입력해주세요.",
-                style = LiftTheme.typography.no6,
-            )
-        },
-        singleLine = true,
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Number, imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                updateHeightText(
-                    heightText.value.toFloatOrNull().let { value ->
-                        value?.toString() ?: ""
-                    }
-                )
-                focusManager.moveFocus(FocusDirection.Down)
-            },
-        ),
-        trailingIcon = {
-            Text(
-                text = "cm",
-                style = LiftTheme.typography.no5,
-                color = LiftTheme.colorScheme.no9
-            )
-        }
-    )
-    if (!heightValidationSupportText.status) {
-        Text(
-            text = heightValidationSupportText.message,
-            style = LiftTheme.typography.no7,
-            color = LiftTheme.colorScheme.no12
-        )
-    }
-}
 
-@Composable
-internal fun WeightTextField(
-    modifier: Modifier = Modifier,
-    weightText: State<String>,
-    updateWeightText: (String) -> Unit,
-    focusManager: FocusManager,
-    weightValidationSupportText: Validator,
-) {
-    Text(
-        text = "몸무게",
-        style = LiftTheme.typography.no3,
-        color = LiftTheme.colorScheme.no3,
-    )
-    Spacer(modifier = modifier.padding(4.dp))
-    LiftTextField(
-        value = weightText.value,
-        onValueChange = updateWeightText,
-        modifier = modifier.fillMaxWidth(),
-        placeholder = {
-            Text(
-                text = "몸무게를 입력해주세요.",
-                style = LiftTheme.typography.no6,
-            )
-        },
-        singleLine = true,
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                updateWeightText(weightText.value.toFloatOrNull().let { value ->
-                    value?.toString() ?: ""
-                })
-                focusManager.clearFocus()
-            }
-        ),
-        trailingIcon = {
-            Text(
-                text = "kg",
-                style = LiftTheme.typography.no5,
-                color = LiftTheme.colorScheme.no9
-            )
-        }
-    )
-    if (!weightValidationSupportText.status) {
-        Text(
-            text = weightValidationSupportText.message,
-            style = LiftTheme.typography.no7,
-            color = LiftTheme.colorScheme.no12
-        )
-    }
-}
-
-@SuppressLint("UnrememberedMutableState")
 @DevicePreview
 @Composable
 fun RegisterDetailHeightWeightScreenPreview(
@@ -272,16 +166,21 @@ fun RegisterDetailHeightWeightScreenPreview(
 ) {
     LiftMaterialTheme {
         RegisterDetailHeightWeightScreen(
-            modifier = modifier,
-            onBackClickTopBar = {},
-            onNextButtonClick = {},
-            weightText = mutableStateOf(""),
-            heightText = mutableStateOf(""),
-            updateHeightText = {},
+            weightText = "",
+            heightText = "",
+            weightValidator = Validator(true, ""),
+            heightValidator = Validator(false, "실패"),
+            navigateCondition = true,
+            currentRegisterProgressNumber = 3,
+            totalRegisterProgressNumber = 4,
             updateWeightText = {},
-            weightValidationSupportText = mutableStateOf(Validator()),
-            heightValidationSupportText = mutableStateOf(Validator()),
-            navigateCondition = mutableStateOf(true),
+            updateHeightText = {},
+            updateCreateUserDetailHeight = {},
+            updateCreateUserDetailWeight = {},
+            updateCurrentRegisterProgressNumber = {},
+            navigateHeightWeightToProfilePicture = {},
+            navigateHeightWeightToGender = {},
+            focusManager = LocalFocusManager.current
         )
     }
 }
