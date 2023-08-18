@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.register_detail.name.component
+package com.gradation.lift.feature.register_detail.height_weight.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,50 +18,57 @@ import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun NameTextFieldView(
+internal fun WeightTextFieldView(
     modifier: Modifier = Modifier,
-    nameText: String,
-    nameValidator: Validator,
-    updateNameText: (String) -> Unit,
+    weightText: String,
+    weightValidator: Validator,
+    updateWeightText: (String) -> Unit,
     focusManager: FocusManager,
 ) {
     Text(
-        text = "닉네임",
+        text = "몸무게",
         style = LiftTheme.typography.no3,
         color = LiftTheme.colorScheme.no3,
     )
     Spacer(modifier = modifier.padding(4.dp))
     LiftTextField(
-        value = nameText,
-        onValueChange = updateNameText,
+        value = weightText,
+        onValueChange = updateWeightText,
         modifier = modifier.fillMaxWidth(),
         placeholder = {
             Text(
-                text = "닉네임을 입력해주세요",
+                text = "몸무게를 입력해주세요.",
                 style = LiftTheme.typography.no6,
                 color = LiftTheme.colorScheme.no9.copy(alpha = 0.7f),
             )
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Done
+            keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
         ),
         keyboardActions = KeyboardActions(
-            onNext = {
+            onDone = {
+                updateWeightText(weightText.toFloatOrNull()?.toString() ?: "75.0")
                 focusManager.clearFocus()
             },
-        )
+        ),
+        trailingIcon = {
+            Text(
+                text = "kg",
+                style = LiftTheme.typography.no5,
+                color = LiftTheme.colorScheme.no9
+            )
+        }
     )
-    if (!nameValidator.status) {
+    if (!weightValidator.status) {
         Text(
-            text = nameValidator.message,
+            text = weightValidator.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )
     } else {
         Text(
-            text = nameValidator.message,
+            text = weightValidator.message,
             style = LiftTheme.typography.no7,
             color = Color.Transparent
         )

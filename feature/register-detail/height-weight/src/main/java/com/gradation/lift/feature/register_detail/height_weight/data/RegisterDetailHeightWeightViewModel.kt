@@ -60,11 +60,11 @@ class RegisterDetailHeightWeightViewModel @Inject constructor(
             initialValue = Validator()
         )
 
-    internal fun updateWeight(): (String) -> Unit = { it ->
+    internal fun updateWeightText(): (String) -> Unit = { it ->
         weightText.value = it
     }
 
-    internal fun updateHeight(): (String) -> Unit = { it ->
+    internal fun updateHeightText(): (String) -> Unit = { it ->
         heightText.value = it
     }
 
