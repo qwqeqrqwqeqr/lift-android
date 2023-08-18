@@ -1,31 +1,34 @@
 package com.gradation.lift.feature.home
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftHomeTopBar
-import com.gradation.lift.designsystem.resource.LiftIcon
+import androidx.navigation.compose.rememberNavController
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.component.profile_view.ProfileView
+import com.gradation.lift.feature.home.component.weekdate_routine_view.WeekDateRoutineView
 import com.gradation.lift.feature.home.data.*
+import com.gradation.lift.feature.home.data.model.WeekDateSelection
+import com.gradation.lift.feature.home.data.state.UserDetailUiState
+import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
 import com.gradation.lift.model.model.common.UnitOfWeight
+import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -36,34 +39,35 @@ import kotlinx.datetime.todayIn
 @Composable
 internal fun HomeRoute(
     navController: NavController,
-    navigateMainGraphToCreateRoutineGraph : () -> Unit,
+    navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutine.collectAsStateWithLifecycle()
-    val userDetailUiState: UserDetailUiState by viewModel.userDetail.collectAsStateWithLifecycle()
-    val weekDate: List<WeekDate> by viewModel.weekDate.collectAsStateWithLifecycle()
-    val today = viewModel.today.collectAsStateWithLifecycle()
+    val today: LocalDate by viewModel.today.collectAsStateWithLifecycle()
+    val weekDateSelectionList: List<WeekDateSelection> by viewModel.weekDateSelectionList.collectAsStateWithLifecycle()
+
+    val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutineUiState.collectAsStateWithLifecycle()
+    val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
+
+    val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate()
+    val updateRoutineSetIdKey: (NavController, Int) -> Unit = viewModel.updateRoutineSetIdKey()
+
     val scrollState = rememberScrollState()
+
+
     HomeScreen(
-        modifier = modifier,
-        today = today,
-        userDetailUiState = userDetailUiState,
-        weekDateRoutineUiState = weekDateRoutineUiState,
-        weekDate = weekDate,
-        onClickCreateRoutine = navigateMainGraphToCreateRoutineGraph,
-        onClickStartWork = navigateMainGraphToWorkGraph,
-        onClickStartWorkWithRoutineSetId = { selectedRoutineSetRoutineId ->
-            viewModel.updateKey(navController = navController, selectedRoutineSetRoutineId = selectedRoutineSetRoutineId)
-            navigateMainGraphToWorkGraph()
-        },
-        onClickWeekDateCard = viewModel.updateCurrentDate(),
-        onClickAddRoutine = navigateMainGraphToCreateRoutineGraph,
-        onClickModifyRoutine = {},
-        onClickAlarm = {},
-        onClickType = {},
-        scrollState=scrollState
+        modifier,
+        navController,
+        today,
+        weekDateSelectionList,
+        weekDateRoutineUiState,
+        userDetailUiState,
+        updateSelectedDate,
+        updateRoutineSetIdKey,
+        navigateMainGraphToCreateRoutineGraph,
+        navigateMainGraphToWorkGraph,
+        scrollState
     )
 }
 
@@ -72,119 +76,107 @@ internal fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    today: State<LocalDate>,
+    navController: NavController,
+    today: LocalDate,
+    weekDateSelectionList: List<WeekDateSelection>,
     weekDateRoutineUiState: WeekDateRoutineUiState,
     userDetailUiState: UserDetailUiState,
-    weekDate: List<WeekDate>,
-    onClickCreateRoutine: () -> Unit,
-    onClickStartWork: () -> Unit,
-    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
-    onClickWeekDateCard: (LocalDate) -> Unit,
-    onClickAddRoutine: () -> Unit,
-    onClickModifyRoutine: () -> Unit,
-    onClickAlarm: () -> Unit,
-    onClickType: () -> Unit,
-    scrollState : ScrollState
+    updateSelectedDate: (LocalDate) -> Unit,
+    updateRoutineSetIdKey: (NavController, Int) -> Unit,
+    navigateMainGraphToCreateRoutineGraph: () -> Unit,
+    navigateMainGraphToWorkGraph: () -> Unit,
+    scrollState: ScrollState,
 ) {
-        Scaffold(
-            topBar = {
-                LiftHomeTopBar()
-            },
-            floatingActionButton = {
-                LiftButton(
-                    contentPadding = PaddingValues(
-                        start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                    ),
-                    onClick = onClickStartWork,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = 16.dp
-                        )
-                ) {
-                    Text(
-                        text = "운동시작하기",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                    Spacer(modifier = modifier.padding(2.dp))
-                    Icon(
-                        painterResource(id = LiftIcon.ChevronRight),
-                        contentDescription = null,
-                        modifier = modifier
-                            .fillMaxHeight()
-                            .width(8.dp)
-                    )
-
-                }
-            },
-            floatingActionButtonPosition = FabPosition.Center,
-        ) { padding ->
+    Scaffold(
+        modifier = modifier
+    ) {
+        Surface(
+            modifier = modifier.padding(it),
+            color = LiftTheme.colorScheme.no17
+        ) {
             Column(
-                modifier = modifier.padding(padding).verticalScroll(scrollState)
+                modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                ProfileView(
-                    modifier = modifier,
-                    userDetailUiState = userDetailUiState,
-                    onClickAlarm = onClickAlarm,
-                    onClickType = onClickType,
-                )
-                Spacer(modifier = modifier.padding(8.dp))
 
+                Column {
+                    ProfileView(
+                        modifier = modifier,
+                        userDetailUiState = userDetailUiState,
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+                    WeekDateRoutineView(
+                        modifier,
+                        navController,
+                        today,
+                        weekDateSelectionList,
+                        weekDateRoutineUiState,
+                        updateSelectedDate,
+                        updateRoutineSetIdKey,
+                        navigateMainGraphToCreateRoutineGraph,
+                        navigateMainGraphToWorkGraph
+                    )
 
-                RoutineView(
-                    modifier = modifier,
-                    today = today,
-                    weekDateRoutineUiState = weekDateRoutineUiState,
-                    weekDate = weekDate,
-                    onClickCreateRoutine = onClickCreateRoutine,
-                    onClickWeekDateCard = onClickWeekDateCard,
-                    onClickStartWorkWithRoutineSetId = onClickStartWorkWithRoutineSetId,
-                    onClickAddRoutine = onClickAddRoutine,
-                    onClickUpdateRoutine = onClickModifyRoutine
-                )
+                    StartWorkView(modifier, navigateMainGraphToWorkGraph)
+                }
             }
         }
-
+    }
 }
 
 
 @Preview
 @Composable
-@SuppressLint("UnrememberedMutableState")
 internal fun HomeScreenPreview() {
     LiftMaterialTheme {
         HomeScreen(
-            today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            modifier = Modifier,
+            navController = rememberNavController(),
+            today = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+            weekDateSelectionList = listOf(
+                WeekDateSelection(
+                    day = "7",
+                    weekday = Weekday.Monday(),
+                    selected = false
+                ),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(
+                    day = "13",
+                    weekday = Weekday.Sunday(),
+                    selected = true
+                ),
+            ),
+            weekDateRoutineUiState = WeekDateRoutineUiState.Success(
+                weekDateRoutine = listOf(
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 1),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 2),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 3),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 4),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 5),
+                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 6),
+                )
+            ),
             userDetailUiState = UserDetailUiState.Success(
                 UserDetail(
                     name = "리프트",
                     weight = 90f,
                     height = 180f,
                     gender = Gender.Male(),
-                    profilePicture = FAKE_STRING_DATA,
+                    profilePicture = FAKE_URL_DATA,
                     unitOfWeight = UnitOfWeight.Kg()
                 )
             ),
-            weekDate = listOf(
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(selected = true),
-            ),
-            onClickCreateRoutine = { },
-            onClickStartWork = {},
-            onClickStartWorkWithRoutineSetId = {},
-            onClickWeekDateCard = {},
-            onClickAddRoutine = {},
-            onClickModifyRoutine = {},
-            onClickAlarm = {},
-            onClickType = {},
-            scrollState= rememberScrollState()
+            updateSelectedDate = {},
+            updateRoutineSetIdKey = { _, _ -> },
+            navigateMainGraphToCreateRoutineGraph = { },
+            navigateMainGraphToWorkGraph = { },
+            scrollState = rememberScrollState(),
         )
     }
 }

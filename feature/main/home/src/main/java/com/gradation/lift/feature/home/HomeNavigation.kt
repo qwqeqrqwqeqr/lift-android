@@ -11,8 +11,8 @@ import com.gradation.lift.navigation.navigation.navigateMainGraphToWorkGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun homeScreen(navController: NavController, navGraphBuilder: NavGraphBuilder) {
-    val navigateMainGraphToCreateRoutineGraph = { navController.navigateMainGraphToCreateRoutineGraph() }
-    val navigateMainGraphToWorkGraph = { navController.navigateMainGraphToWorkGraph() }
+    val navigateMainGraphToCreateRoutineGraph: () -> Unit = { navController.navigateMainGraphToCreateRoutineGraph() }
+    val navigateMainGraphToWorkGraph: () -> Unit = { navController.navigateMainGraphToWorkGraph() }
 
     navGraphBuilder.composable(HOME_ROUTER_NAME) {
         HomeRoute(

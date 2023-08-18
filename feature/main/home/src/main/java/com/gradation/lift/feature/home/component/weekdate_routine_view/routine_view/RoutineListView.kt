@@ -1,48 +1,34 @@
-package com.gradation.lift.feature.home.component.routine_list_view
+package com.gradation.lift.feature.home.component.weekdate_routine_view.routine_view
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.home.HomeScreen
-import com.gradation.lift.feature.home.data.UserDetailUiState
-import com.gradation.lift.feature.home.data.WeekDate
-import com.gradation.lift.feature.home.data.WeekDateRoutineUiState
-import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.todayIn
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 internal fun RoutineListView(
     modifier: Modifier = Modifier,
-    onClickUpdateRoutine: () -> Unit,
-    onClickAddRoutine: () -> Unit,
-    onClickStartWorkWithRoutineSetId: (Int) -> Unit,
+    navController: NavController,
     routineSetRoutineList: List<RoutineSetRoutine>,
+    updateRoutineSetIdKey: (NavController, Int) -> Unit,
+    navigateMainGraphToCreateRoutineGraph: () -> Unit,
+    navigateMainGraphToWorkGraph: () -> Unit,
 ) {
     Column {
         Spacer(modifier = modifier.padding(7.dp))
@@ -58,11 +44,11 @@ internal fun RoutineListView(
                 contentPadding = PaddingValues(
                     start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
                 ),
-                onClick = onClickAddRoutine,
+                onClick = navigateMainGraphToCreateRoutineGraph,
             ) {
                 Text(
                     text = "추가",
-                    style = LiftTheme.typography.no4,
+                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no4,
                 )
                 Spacer(modifier = modifier.padding(2.dp))
@@ -79,11 +65,13 @@ internal fun RoutineListView(
                 contentPadding = PaddingValues(
                     start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
                 ),
-                onClick = onClickUpdateRoutine,
+                onClick = {
+                    //TODO 수정 기능 추가 시 연동 예정 2023-08-18 19:40:35
+                },
             ) {
                 Text(
                     text = "수정",
-                    style = LiftTheme.typography.no4,
+                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no4,
                 )
                 Spacer(modifier = modifier.padding(2.dp))
@@ -111,7 +99,10 @@ internal fun RoutineListView(
                             shape = RoundedCornerShape(size = 12.dp)
                         )
                         .padding(horizontal = 8.dp, vertical = 8.dp)
-                        .clickable { onClickStartWorkWithRoutineSetId(routineSetRoutine.id) }
+                        .clickable {
+                            updateRoutineSetIdKey(navController, routineSetRoutine.id)
+                            navigateMainGraphToWorkGraph()
+                        }
                 ) {
                     GlideImage(
                         model = routineSetRoutine.picture,
@@ -145,42 +136,5 @@ internal fun RoutineListView(
     }
 }
 
-@Preview
-@Composable
-@SuppressLint("UnrememberedMutableState")
-internal fun RoutineListPreview() {
-    LiftMaterialTheme {
-        HomeScreen(
-            today = mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())),
-            weekDateRoutineUiState = WeekDateRoutineUiState.Success(weekDateRoutine = routineSetRoutineModelList),
-            userDetailUiState = UserDetailUiState.Success(
-                UserDetail(
-                    name = "리프트",
-                    weight = 90f,
-                    height = 180f,
-                    gender = Gender.Male(),
-                    profilePicture = FAKE_STRING_DATA,
-                    unitOfWeight = UnitOfWeight.Kg()
-                )
-            ),
-            weekDate = listOf(
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(),
-                WeekDate(selected = true),
-            ),
-            onClickCreateRoutine = { },
-            onClickStartWork = {},
-            onClickStartWorkWithRoutineSetId = {},
-            onClickWeekDateCard = {},
-            onClickAddRoutine = {},
-            onClickModifyRoutine = {},
-            onClickAlarm = {},
-            onClickType = {},
-            scrollState = rememberScrollState()
-        )
-    }
-}
+
+

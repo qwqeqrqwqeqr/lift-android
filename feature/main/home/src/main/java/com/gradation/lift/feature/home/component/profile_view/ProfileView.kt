@@ -3,23 +3,24 @@ package com.gradation.lift.feature.home.component.profile_view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.component.profile_view.profile_detail_view.LoadingProfileDetailView
 import com.gradation.lift.feature.home.component.profile_view.profile_detail_view.ProfileDetailView
-import com.gradation.lift.feature.home.data.UserDetailUiState
+import com.gradation.lift.feature.home.data.state.UserDetailUiState
 
 @Composable
 internal fun ProfileView(
     modifier: Modifier = Modifier,
     userDetailUiState: UserDetailUiState,
-    onClickAlarm: () -> Unit,
-    onClickType: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -27,8 +28,20 @@ internal fun ProfileView(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
             )
-            .padding(16.dp, 0.dp, 16.dp, 16.dp),
+            .padding(start = 16.dp, end = 16.dp, bottom = .16.dp)
     ) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.logo_extension_kor),
+                contentDescription = "",
+                tint = Color.Unspecified,
+                modifier = modifier.size(72.dp)
+            )
+        }
+
         Row(
             verticalAlignment = Alignment.Bottom,
             modifier = modifier
@@ -52,18 +65,9 @@ internal fun ProfileView(
                 is UserDetailUiState.Success -> ProfileDetailView(
                     modifier = modifier,
                     userDetail = userDetailUiState.userDetail,
-                    onClickAlarm = onClickAlarm,
-                    onClickType = onClickType,
                 )
             }
-
-
         }
-
-        Spacer(modifier = modifier.padding(10.dp))
-        BadgeView(modifier = modifier)
+        Spacer(modifier = modifier.padding(16.dp))
     }
-
 }
-
-
