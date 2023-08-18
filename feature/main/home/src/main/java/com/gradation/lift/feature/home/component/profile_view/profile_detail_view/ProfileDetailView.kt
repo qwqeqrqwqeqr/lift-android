@@ -56,7 +56,7 @@ internal fun ProfileDetailView(
         Row(
             modifier = modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.End
         ) {
 
             LiftIconButton(

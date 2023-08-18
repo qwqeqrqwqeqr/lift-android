@@ -91,10 +91,10 @@ internal fun HomeScreen(
         ) {
             Column(
                 modifier = modifier
-                    .fillMaxSize()
             ) {
                 Column(
-                    modifier = modifier.verticalScroll(scrollState)
+                    modifier = modifier
+                        .verticalScroll(scrollState)
                 ) {
                     ProfileView(
                         modifier = modifier,

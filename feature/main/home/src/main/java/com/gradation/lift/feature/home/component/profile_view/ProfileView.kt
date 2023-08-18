@@ -2,6 +2,7 @@ package com.gradation.lift.feature.home.component.profile_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -10,12 +11,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.home.HomeScreen
 import com.gradation.lift.feature.home.component.profile_view.profile_detail_view.LoadingProfileDetailView
 import com.gradation.lift.feature.home.component.profile_view.profile_detail_view.ProfileDetailView
+import com.gradation.lift.feature.home.data.model.WeekDateSelection
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
+import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
+import com.gradation.lift.model.model.common.UnitOfWeight
+import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.utils.DefaultDataGenerator
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 @Composable
 internal fun ProfileView(
@@ -24,15 +38,14 @@ internal fun ProfileView(
 ) {
     Column(
         modifier = modifier
-            .padding(bottom = 16.dp)
             .background(
                 color = LiftTheme.colorScheme.no5,
                 shape = RoundedCornerShape(0.dp, 0.dp, 24.dp, 24.dp)
             )
+            .padding(start = 16.dp, end = 16.dp, bottom = .16.dp)
     ) {
         Row(
             modifier = modifier
-                .padding(16.dp)
                 .fillMaxWidth()
         ) {
             Icon(
@@ -68,10 +81,45 @@ internal fun ProfileView(
                     userDetail = userDetailUiState.userDetail,
                 )
             }
-
-
         }
+        Spacer(modifier = modifier.padding(16.dp))
     }
 }
 
 
+@Preview
+@Composable
+internal fun HomeScreenPreview() {
+    LiftMaterialTheme {
+        HomeScreen(
+            modifier = Modifier,
+            navController = rememberNavController(),
+            today = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+            weekDateSelectionList = listOf(
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(selected = true),
+            ),
+            weekDateRoutineUiState = WeekDateRoutineUiState.Empty,
+            userDetailUiState = UserDetailUiState.Success(
+                UserDetail(
+                    name = "리프트",
+                    weight = 90f,
+                    height = 180f,
+                    gender = Gender.Male(),
+                    profilePicture = DefaultDataGenerator.FAKE_URL_DATA,
+                    unitOfWeight = UnitOfWeight.Kg()
+                )
+            ),
+            updateSelectedDate = {},
+            updateRoutineSetIdKey = { _, _ -> },
+            navigateMainGraphToCreateRoutineGraph = { },
+            navigateMainGraphToWorkGraph = { },
+            scrollState = rememberScrollState(),
+        )
+    }
+}
