@@ -5,17 +5,14 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
+import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSetIdUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.model.model.common.toWeekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -30,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 class WorkRoutineSelectionViewModel @Inject constructor(
-    private val getWeekDateUseCase: GetWeekDateUseCase,
+    private val getThisWeekUseCase: GetThisWeekUseCase,
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
     private val getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
 ) : ViewModel() {
@@ -50,7 +47,7 @@ class WorkRoutineSelectionViewModel @Inject constructor(
     )
 
     internal val weekDate = currentDate.map {
-        getWeekDateUseCase(it).map { localDate ->
+        getThisWeekUseCase(it).map { localDate ->
             WeekdayCard(
                 weekday = localDate.toWeekday(),
                 localDate = localDate,

@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.date.GetWeekDateUseCase
+import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
 import com.gradation.lift.domain.usecase.routine.CreateRoutineSetUseCase
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.common.toWeekday
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateRoutineSharedViewModel @Inject constructor(
     private val createRoutineSetUseCase: CreateRoutineSetUseCase,
-    private val getWeekDateUseCase: GetWeekDateUseCase,
+    private val getThisWeekUseCase: GetThisWeekUseCase,
 ) : ViewModel() {
 
 
@@ -45,7 +45,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     internal val weekdayCardList = weekday.map { weekdayList ->
-        getWeekDateUseCase().map { localDate ->
+        getThisWeekUseCase().map { localDate ->
             WeekdayCard(
                 weekday = localDate.toWeekday(),
                 selected = localDate.toWeekday() in weekdayList
