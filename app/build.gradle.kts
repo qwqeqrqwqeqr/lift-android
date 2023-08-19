@@ -47,33 +47,44 @@ dependencies {
 
 
 
+
     implementation(project(":feature:home"))
-    implementation(project(":feature:my-info:my-info"))
 
 
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:find-work-category"))
-    implementation(project(":feature:create-routine:routine"))
     implementation(project(":feature:create-routine:profile"))
+    implementation(project(":feature:create-routine:routine"))
 
-    implementation(project(":feature:login:complete"))
     implementation(project(":feature:login:sign-in"))
     implementation(project(":feature:login:sign-up"))
     implementation(project(":feature:login:find-email-password"))
+    implementation(project(":feature:login:complete"))
 
 
+    implementation(project(":feature:register-detail:name"))
     implementation(project(":feature:register-detail:gender"))
     implementation(project(":feature:register-detail:height-weight"))
-    implementation(project(":feature:register-detail:name"))
     implementation(project(":feature:register-detail:profile-picture"))
-
 
     implementation(project(":feature:work:routine-selection"))
     implementation(project(":feature:work:change-order"))
     implementation(project(":feature:work:work"))
     implementation(project(":feature:work:complete"))
 
+    implementation(project(":feature:badge:badge"))
+    implementation(project(":feature:badge:setting"))
 
+
+    implementation(project(":feature:notification:notice"))
+    implementation(project(":feature:notification:notification"))
+
+
+    implementation(project(":feature:history:analytics"))
     implementation(project(":feature:history:daily-log"))
+
+    implementation(project(":feature:my-info:my-info"))
+    implementation(project(":feature:my-info:update-profile"))
+    implementation(project(":feature:my-info:update"))
 
 }

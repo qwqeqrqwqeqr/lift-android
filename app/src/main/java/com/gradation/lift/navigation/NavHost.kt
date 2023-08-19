@@ -28,10 +28,12 @@ fun LiftNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        mainGraphBuilder(
+        homeGraphBuilder(
             navController = navController,
             navGraphBuilder = this,
         )
+        myInfoGraphBuilder(navController,this)
+        historyGraphBuilder(navController,this)
         createRoutineGraphBuilder(
             navController = navController,
             navGraphBuilder = this,

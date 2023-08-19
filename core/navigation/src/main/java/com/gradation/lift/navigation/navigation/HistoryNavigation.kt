@@ -4,14 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.gradation.lift.navigation.Router
 
-fun NavController.navigateHistoryGraphToHomeGraph() {
-    this.navigate(Router.HISTORY_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateHistoryGraphToHomeGraph.graph.id) {
-            inclusive = true
-        }
-    }
-}
 
 
 fun NavHostController.navigateAnalyticsToDailyLog() {

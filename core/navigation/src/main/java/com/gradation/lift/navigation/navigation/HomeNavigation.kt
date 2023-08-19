@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.Router.HISTORY_GRAPH_NAME
+import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Router.MY_INFO_GRAPH_NAME
 
 
@@ -25,7 +26,7 @@ fun NavController.navigateHomeGraphToNotificationGraph() {
 
 
 
-fun NavHostController.navigateHomeGraphToHistoryGraph() {
+fun NavHostController.navigateHistoryGraph() {
     this.navigate(HISTORY_GRAPH_NAME) {
         launchSingleTop = true
 
@@ -36,11 +37,21 @@ fun NavHostController.navigateHomeGraphToHistoryGraph() {
     }
 }
 
-fun NavHostController.navigateHomeGraphToMyInfoGraph() {
-    this.navigate(MY_INFO_GRAPH_NAME) {
+fun NavHostController.navigateHomeGraph() {
+    this.navigate(HOME_GRAPH_NAME) {
         launchSingleTop = true
         popUpTo(currentDestination!!.id) {
             saveState = true
+            inclusive = true
+        }
+    }
+}
+
+
+fun NavController.navigateMyInfoGraph() {
+    this.navigate(Router.MY_INFO_GRAPH_NAME) {
+        launchSingleTop = true
+        popUpTo(this@navigateMyInfoGraph.graph.id) {
             inclusive = true
         }
     }

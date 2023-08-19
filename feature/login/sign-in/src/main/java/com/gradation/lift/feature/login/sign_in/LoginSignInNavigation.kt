@@ -22,7 +22,7 @@ fun loginSignInScreen(
                 //TODO implement find email password
             },
             navigateSignInToSignUp = { navController.navigateSignInToSignUp() },
-            navigateLoginGraphToMainGraph = { navController.navigateLoginGraphToMainGraph() },
+            navigateLoginGraphToHomeGraph = { navController.navigateLoginGraphToHomeGraph() },
             navigateLoginGraphToRegisterDetailGraph = { navController.navigateLoginGraphToRegisterDetailGraph() },
             naverOAuthConnectState = naverOAuthConnectState,
             kakaoOAuthConnectState = kakaoOAuthConnectState,

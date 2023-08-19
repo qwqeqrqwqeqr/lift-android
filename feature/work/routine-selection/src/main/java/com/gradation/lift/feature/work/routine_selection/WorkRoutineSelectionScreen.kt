@@ -41,7 +41,7 @@ import kotlinx.datetime.LocalDate
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,
     navigateSelectionRoutineToWork: () -> Unit,
-    navigateWorkGraphToMainGraph: () -> Unit,
+    navigateWorkGraphToHomeGraph: () -> Unit,
     selectedRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
@@ -64,7 +64,7 @@ internal fun WorkRoutineSelectionRoute(
         modifier = modifier,
         weekday = weekDate,
         routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = navigateWorkGraphToMainGraph,
+        onBackClickTopBar = navigateWorkGraphToHomeGraph,
         onClickWeekDayCard = viewModel.updateCurrentDate(),
         onClickStartWork = {
             sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetRoutine)
@@ -78,7 +78,7 @@ internal fun WorkRoutineSelectionRoute(
     LaunchedEffect(key1 = true) {
         viewModel.updateSelectedRoutineSetId(selectedRoutineSetId)
     }
-    BackHandler(enabled = true, onBack = navigateWorkGraphToMainGraph)
+    BackHandler(enabled = true, onBack = navigateWorkGraphToHomeGraph)
 
 }
 

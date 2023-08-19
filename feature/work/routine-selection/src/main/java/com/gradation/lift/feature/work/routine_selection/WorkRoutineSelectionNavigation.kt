@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.WORK_ROUTINE_SELECTION_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateSelectionRoutineToWork
-import com.gradation.lift.navigation.navigation.navigateWorkGraphToMainGraph
+import com.gradation.lift.navigation.navigation.navigateWorkGraphToHomeGraph
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
@@ -22,11 +22,11 @@ fun workRoutineSelectionScreen(
                 navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY)
 
             val navigateSelectionRoutineToWork = {navController.navigateSelectionRoutineToWork() }
-            val navigateWorkGraphToMainGraph = {navController.navigateWorkGraphToMainGraph()}
+            val navigateWorkGraphToHomeGraph = {navController.navigateWorkGraphToHomeGraph()}
             WorkRoutineSelectionRoute(
                 navController = navController,
                 navigateSelectionRoutineToWork=navigateSelectionRoutineToWork,
-                navigateWorkGraphToMainGraph=navigateWorkGraphToMainGraph,
+                navigateWorkGraphToHomeGraph=navigateWorkGraphToHomeGraph,
                 selectedRoutineSetId = selectedRoutineSetId
             )
         }

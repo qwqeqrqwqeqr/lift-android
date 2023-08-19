@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.history
+package com.gradation.lift.feature.history.analytics
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

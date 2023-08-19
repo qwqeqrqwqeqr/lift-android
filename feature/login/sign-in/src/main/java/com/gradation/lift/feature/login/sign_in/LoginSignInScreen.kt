@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 internal fun LoginSignInRoute(
-    navigateLoginGraphToMainGraph: () -> Unit,
+    navigateLoginGraphToHomeGraph: () -> Unit,
     navigateSignInToSignUp: () -> Unit,
     navigateLoginGraphToRegisterDetailGraph: () -> Unit,
     navigateToLoginFindEmailPassword: () -> Unit,
@@ -140,7 +140,7 @@ internal fun LoginSignInRoute(
         is SignInState.Success -> {
             LaunchedEffect(signInStateResult) {
                 if (signInStateResult.existUserDetail) {
-                    navigateLoginGraphToMainGraph()
+                    navigateLoginGraphToHomeGraph()
                 } else {
                     navigateLoginGraphToRegisterDetailGraph()
                 }

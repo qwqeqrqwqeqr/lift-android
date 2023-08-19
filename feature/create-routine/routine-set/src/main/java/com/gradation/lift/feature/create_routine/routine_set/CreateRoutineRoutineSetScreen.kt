@@ -45,7 +45,7 @@ internal fun CreateRoutineRoutineSetRoute(
     navController: NavController,
     navigateRoutineSetToFindWorkCategory: () -> Unit,
     navigateRoutineSetToProfile: () -> Unit,
-    navigateCreateRoutineGraphToMainGraph: () -> Unit,
+    navigateCreateRoutineGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
@@ -80,7 +80,7 @@ internal fun CreateRoutineRoutineSetRoute(
         onClickCreateRoutineSet = { sharedViewModel.createRoutine() },
 
         onVisibleCancelDialog = onVisibleCancelDialog,
-        onClickCancelDialogSuspend = navigateCreateRoutineGraphToMainGraph,
+        onClickCancelDialogSuspend = navigateCreateRoutineGraphToHomeGraph,
         onClickCancelDialogDismiss = inVisibleCancelDialog,
 
 

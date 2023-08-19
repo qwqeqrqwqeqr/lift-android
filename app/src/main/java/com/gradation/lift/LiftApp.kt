@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.*
 import com.gradation.lift.navigation.*
+import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
-import com.gradation.lift.navigation.Router.MAIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_NAME
 import com.gradation.lift.state.SplashState
 
@@ -52,7 +52,7 @@ fun LiftApp(
                 )
                 SplashState.Main -> LiftNavHost(
                     navController = appState.navController,
-                    startDestination = MAIN_GRAPH_NAME,
+                    startDestination = HOME_GRAPH_NAME,
                     naverOAuthConnectState = appState.naverOAuthConnectState,
                     kakaoOAuthConnectState = appState.kakaoOAuthConnectState,
                     connectOAuthFromNaver = { appState.connectOAuthFromNaver() },

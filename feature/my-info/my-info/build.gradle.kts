@@ -6,20 +6,15 @@ plugins {
 }
 
 android {
-
     namespace = "com.gradation.lift.feature.my_info.my_info"
 }
 
-
-
-dependencies{
+dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
-    implementation(project(":core:data"))
     implementation(project(":core:common"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
-
 }

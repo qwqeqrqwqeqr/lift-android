@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.history"
+    namespace = "com.gradation.lift.feature.history.daily_log"
 }
 
 

@@ -3,15 +3,6 @@ package com.gradation.lift.navigation.navigation
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Router
 
-fun NavController.navigateMyInfoGraphToHomeGraph() {
-    this.navigate(Router.HOME_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateMyInfoGraphToHomeGraph.graph.id) {
-            inclusive = true
-        }
-    }
-}
-
 
 fun NavController.navigateMyInfoGraphToLoginGraph() {
     this.navigate(Router.LOGIN_GRAPH_NAME) {

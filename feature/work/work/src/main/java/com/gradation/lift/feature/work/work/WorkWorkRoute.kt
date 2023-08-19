@@ -29,7 +29,7 @@ import com.gradation.lift.navigation.Router
 fun WorkWorkRoute(
     navController: NavController,
     navigateWorkToComplete: () -> Unit,
-    navigateWorkGraphToMainGraph: () -> Unit,
+    navigateWorkGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: WorkWorkViewModel = hiltViewModel(),
 
@@ -94,7 +94,7 @@ fun WorkWorkRoute(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 SuspendDialog(
-                    onClickDialogSuspendButton = navigateWorkGraphToMainGraph,
+                    onClickDialogSuspendButton = navigateWorkGraphToHomeGraph,
                     onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
                 )
             }

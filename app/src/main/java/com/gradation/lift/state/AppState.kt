@@ -10,9 +10,7 @@ import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
-import com.gradation.lift.navigation.navigation.navigateToHistory
-import com.gradation.lift.navigation.navigation.navigateToHome
-import com.gradation.lift.navigation.navigation.navigateToMyInfo
+import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.oauth.state.OAuthConnectState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,9 +38,10 @@ class AppState(
 
     val currentTopLevelDestination
         @Composable get() = when (currentDestination?.route) {
-            Router.HOME_ROUTER_NAME -> TopLevelNavDestination.Home
-            Router.HISTORY_ROUTER_NAME -> TopLevelNavDestination.History
-            Router.MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
+            Router.HOME_HOME_ROUTER_NAME -> TopLevelNavDestination.Home
+            Router.HISTORY_ANALYTICS_ROUTER_NAME -> TopLevelNavDestination.History
+            Router.HISTORY_DAILY_LOG_ROUTER_NAME -> TopLevelNavDestination.History
+            Router.MY_INFO_MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
             else -> null
         }
 
@@ -54,9 +53,9 @@ class AppState(
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelNavDestination) {
         trace("Navigation: ${topLevelDestination.name}") {
             when (topLevelDestination) {
-                TopLevelNavDestination.Home -> navController.navigateToHome()
-                TopLevelNavDestination.History -> navController.navigateToHistory()
-                TopLevelNavDestination.MyInfo -> navController.navigateToMyInfo()
+                TopLevelNavDestination.Home -> navController.navigateHomeGraph()
+                TopLevelNavDestination.History -> navController.navigateHistoryGraph()
+                TopLevelNavDestination.MyInfo -> navController.navigateMyInfoGraph()
             }
         }
     }
