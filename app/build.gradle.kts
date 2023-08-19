@@ -47,9 +47,8 @@ dependencies {
 
 
 
-    implementation(project(":feature:main:home"))
-    implementation(project(":feature:main:history"))
-    implementation(project(":feature:main:my-info"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:my-info:my-info"))
 
 
     implementation(project(":feature:create-routine:routine-set"))
@@ -73,5 +72,8 @@ dependencies {
     implementation(project(":feature:work:change-order"))
     implementation(project(":feature:work:work"))
     implementation(project(":feature:work:complete"))
+
+
+    implementation(project(":feature:history:daily-log"))
 
 }
