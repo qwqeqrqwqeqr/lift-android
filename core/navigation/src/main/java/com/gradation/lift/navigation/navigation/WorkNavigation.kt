@@ -7,10 +7,10 @@ import com.gradation.lift.navigation.Router.WORK_ROUTINE_SELECTION_ROUTER_NAME
 import com.gradation.lift.navigation.Router.WORK_WORK_ROUTER_NAME
 
 
-fun NavController.navigateWorkGraphToMainGraph() {
-    this.navigate(Router.MAIN_GRAPH_NAME) {
+fun NavController.navigateWorkGraphToHomeGraph() {
+    this.navigate(Router.HOME_GRAPH_NAME) {
         launchSingleTop = true
-        popUpTo(this@navigateWorkGraphToMainGraph.graph.id) {
+        popUpTo(this@navigateWorkGraphToHomeGraph.graph.id) {
             inclusive = true
         }
     }

@@ -4,6 +4,7 @@ package com.gradation.lift.navigation
  * [Router]
  * 네비게이션 라우터 경로
  * graph 의 경우 접두어로 _graph 사용할 것
+ * 현재 사용하는 그래프는 하단과 같음
  * [BADGE_GRAPH_NAME]
  * [CREATE_ROUTINE_GRAPH_NAME]
  * [HISTORY_GRAPH_NAME]
@@ -13,6 +14,7 @@ package com.gradation.lift.navigation
  * [NOTIFICATION_GRAPH_NAME]
  * [REGISTER_DETAIL_GRAPH_NAME]
  * [WORK_GRAPH_NAME]
+ * @since 2023-08-19 14:55:43
  * */
 object Router {
 

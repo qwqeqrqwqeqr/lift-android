@@ -5,12 +5,12 @@ import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_RO
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
-import com.gradation.lift.navigation.Router.MAIN_GRAPH_NAME
+import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
 
-fun NavController.navigateCreateRoutineGraphToMainGraph() {
-    this.navigate(MAIN_GRAPH_NAME) {
+fun NavController.navigateCreateRoutineGraphToHomeGraph() {
+    this.navigate(HOME_GRAPH_NAME) {
         launchSingleTop = true
-        popUpTo(this@navigateCreateRoutineGraphToMainGraph.graph.id) {
+        popUpTo(this@navigateCreateRoutineGraphToHomeGraph.graph.id) {
             inclusive = true
         }
     }

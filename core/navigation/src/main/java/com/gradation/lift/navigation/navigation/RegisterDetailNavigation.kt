@@ -1,8 +1,8 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
+import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
-import com.gradation.lift.navigation.Router.MAIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GENDER_ROUTER_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME
@@ -11,7 +11,7 @@ import com.gradation.lift.navigation.Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUT
 
 
 fun NavController.navigateRegisterDetailGraphToHomeGraph() {
-    this.navigate(MAIN_GRAPH_NAME) {
+    this.navigate(HOME_GRAPH_NAME) {
         launchSingleTop = true
         popUpTo(this@navigateRegisterDetailGraphToHomeGraph.graph.id) {
             inclusive = true

@@ -1,16 +1,16 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.*
+import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_COMPLETE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_FIND_EMAIL_PASSWORD_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_UP_ROUTER_NAME
-import com.gradation.lift.navigation.Router.MAIN_GRAPH_NAME
 
-fun NavController.navigateLoginGraphToMainGraph() {
-    this.navigate(MAIN_GRAPH_NAME) {
+fun NavController.navigateLoginGraphToHomeGraph() {
+    this.navigate(HOME_GRAPH_NAME) {
         launchSingleTop = true
-        popUpTo(this@navigateLoginGraphToMainGraph.graph.id) {
+        popUpTo(this@navigateLoginGraphToHomeGraph.graph.id) {
             inclusive = true
         }
     }
