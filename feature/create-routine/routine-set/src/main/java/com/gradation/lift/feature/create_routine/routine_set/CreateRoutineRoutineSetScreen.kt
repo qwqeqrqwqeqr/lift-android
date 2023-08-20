@@ -10,10 +10,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.feature.create_routine.routine_set.component.RoutineListView
 import com.gradation.lift.designsystem.component.LiftBackTopBar
@@ -27,9 +30,10 @@ import com.gradation.lift.feature.create_routine.routine_set.component.WeekdayCa
 import com.gradation.lift.feature.create_routine.routine_set.component.DescriptionView
 import com.gradation.lift.feature.create_routine.routine_set.component.NameView
 import com.gradation.lift.feature.create_routine.routine_set.component.ProfileView
+import com.gradation.lift.feature.create_routine.routine_set.data.model.WeekdaySelection
+import com.gradation.lift.feature.create_routine.routine_set.data.state.CreateRoutineState
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineRoutineSetViewModel
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
-import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineUiState
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.WeekdayCard
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutine
@@ -49,68 +53,55 @@ internal fun CreateRoutineRoutineSetRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
-    val scrollState: ScrollState = rememberScrollState()
-    val crateRoutineBackStackEntry =
+    val crateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
-    val name = sharedViewModel.name.collectAsStateWithLifecycle()
-    val description = sharedViewModel.description.collectAsStateWithLifecycle()
-    val picture = sharedViewModel.picture.collectAsStateWithLifecycle()
-    val weekdayCardList = sharedViewModel.weekdayCardList.collectAsStateWithLifecycle()
-    val routine = sharedViewModel.routine.collectAsStateWithLifecycle()
-    val createRoutineCondition =
-        sharedViewModel.createRoutineCondition.collectAsStateWithLifecycle()
+    val name: String by sharedViewModel.routineSetName.collectAsStateWithLifecycle()
+    val description: String by sharedViewModel.routineSetDescription.collectAsStateWithLifecycle()
+    val picture: String by sharedViewModel.routineSetPicture.collectAsStateWithLifecycle()
+    val weekdaySelectionList: List<WeekdaySelection> by sharedViewModel.weekdaySelectionList.collectAsStateWithLifecycle()
+    val routine: List<CreateRoutine> by sharedViewModel.routineSetRoutine.collectAsStateWithLifecycle()
+    val createRoutineCondition: Boolean by
+    sharedViewModel.createRoutineCondition.collectAsStateWithLifecycle()
+    val createRoutineState: CreateRoutineState by sharedViewModel.createRoutineState.collectAsStateWithLifecycle()
 
 
-    val onVisibleCancelDialog = viewModel.onVisibleCancelDialog.collectAsStateWithLifecycle()
-    val visibleCancelDialog = viewModel.visibleCancelDialog()
-    val inVisibleCancelDialog = viewModel.invisibleCancelDialog()
+    val onVisibleCancelDialog: Boolean by viewModel.onVisibleCancelDialog.collectAsStateWithLifecycle()
+    val visibleCancelDialog: () -> Unit = viewModel.visibleCancelDialog()
+    val inVisibleCancelDialog: () -> Unit = viewModel.invisibleCancelDialog()
+
+    val updateName: (String) -> Unit = sharedViewModel.updateName()
+    val updateDescription: (String) -> Unit = sharedViewModel.updateDescription()
+    val updateWeekday: (Weekday) -> Unit = sharedViewModel.updateWeekday()
+    val removeRoutine: (CreateRoutine) -> Unit = sharedViewModel.removeRoutine()
+    val updateCreateRoutineState: (CreateRoutineState) -> Unit =
+        sharedViewModel.updateCreateRoutineState()
+    val createRoutineSet: () -> Unit = sharedViewModel.createRoutineSet()
 
 
-
-    val createRoutineUiState: CreateRoutineUiState by sharedViewModel.createRoutineUiState.collectAsStateWithLifecycle()
+    val scrollState: ScrollState = rememberScrollState()
+    val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
+    val focusManager: FocusManager = LocalFocusManager.current
 
     CreateRoutineRoutineSetScreen(
         modifier = modifier,
 
-        onBackClickTopBar = visibleCancelDialog,
-        onClickProfile = navigateRoutineSetToProfile,
-        onAddRoutine = navigateRoutineSetToFindWorkCategory,
-        onClickCreateRoutineSet = { sharedViewModel.createRoutine() },
-
-        onVisibleCancelDialog = onVisibleCancelDialog,
-        onClickCancelDialogSuspend = navigateCreateRoutineGraphToHomeGraph,
-        onClickCancelDialogDismiss = inVisibleCancelDialog,
+        )
 
 
-        picture = picture,
-
-        nameText = name,
-        updateNameText = sharedViewModel.updateName(),
-
-        descriptionText = description,
-        updateDescriptionText = sharedViewModel.updateDescription(),
-
-        weekdayCardList = weekdayCardList,
-        updateWeekday = sharedViewModel.updateWeekday(),
-
-        routine = routine,
-        onRemoveRoutineSet = sharedViewModel.removeRoutineSet(),
-
-        enabledCreateRoutine = createRoutineCondition,
-
-        scrollState = scrollState
-    )
-
-
-    when (createRoutineUiState) {
-        CreateRoutineUiState.Fail -> {}
-        CreateRoutineUiState.Loading -> {}
-        CreateRoutineUiState.Success -> {
+    when (val createRoutineStateResult = createRoutineState) {
+        is CreateRoutineState.Fail -> {
             LaunchedEffect(true) {
-
+                snackbarHostState.showSnackbar(
+                    message = createRoutineStateResult.message, duration = SnackbarDuration.Short
+                )
+                updateCreateRoutineState(CreateRoutineState.None)
             }
+        }
+        CreateRoutineState.None -> {}
+        CreateRoutineState.Success -> {
+            navigateCreateRoutineGraphToHomeGraph()
         }
     }
 
@@ -124,32 +115,7 @@ internal fun CreateRoutineRoutineSetRoute(
 internal fun CreateRoutineRoutineSetScreen(
     modifier: Modifier = Modifier,
 
-    onBackClickTopBar: () -> Unit,
-    onClickProfile: () -> Unit,
-    onAddRoutine: () -> Unit,
-    onClickCreateRoutineSet: () -> Unit,
-
-    onVisibleCancelDialog: State<Boolean>,
-    onClickCancelDialogSuspend: () -> Unit,
-    onClickCancelDialogDismiss: () -> Unit,
-
-    picture: State<String>,
-
-    nameText: State<String>,
-    updateNameText: (String) -> Unit,
-
-    descriptionText: State<String>,
-    updateDescriptionText: (String) -> Unit,
-
-    weekdayCardList: State<List<WeekdayCard>>,
-    updateWeekday: (Weekday) -> Unit,
-
-    routine: State<List<CreateRoutine>>,
-    onRemoveRoutineSet: (CreateRoutine) -> Unit,
-
-    enabledCreateRoutine: State<Boolean>,
-    scrollState: ScrollState,
-) {
+    ) {
     if (onVisibleCancelDialog.value) {
         Surface(
             color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
@@ -284,54 +250,6 @@ fun CreateRoutineRoutineSetScreenPreview() {
         CreateRoutineRoutineSetScreen(
             modifier = Modifier,
 
-            onBackClickTopBar = { },
-            onClickProfile = {},
-            onAddRoutine = {},
-            onClickCreateRoutineSet = { },
-
-            onVisibleCancelDialog = mutableStateOf(false),
-            onClickCancelDialogSuspend = { },
-            onClickCancelDialogDismiss = { },
-
-
-            picture = mutableStateOf(""),
-
-            nameText = mutableStateOf(""),
-            updateNameText = {},
-
-            descriptionText = mutableStateOf(""),
-            updateDescriptionText = {},
-
-            weekdayCardList = mutableStateOf(
-                listOf(
-                    WeekdayCard(weekday = Weekday.Monday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Tuesday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Wednesday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Thursday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Friday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Saturday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Sunday(), selected = false)
-                )
-            ),
-            updateWeekday = {},
-
-            routine = mutableStateOf(
-                listOf(
-                    CreateRoutine(
-                        workCategory = "바벨로우", workSetList = listOf(
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                        )
-                    )
-                )
-            ),
-            onRemoveRoutineSet = {},
-
-            enabledCreateRoutine = mutableStateOf(true),
-            scrollState = rememberScrollState()
-        )
+            )
     }
 }

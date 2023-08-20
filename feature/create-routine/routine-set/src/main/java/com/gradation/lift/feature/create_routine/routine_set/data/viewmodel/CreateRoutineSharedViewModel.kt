@@ -123,7 +123,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
     )
 
     val createRoutineState: MutableStateFlow<CreateRoutineState> =
-        MutableStateFlow(CreateRoutineState.Loading)
+        MutableStateFlow(CreateRoutineState.None)
 
 
     fun updateName(): (String) -> Unit = {
@@ -151,16 +151,19 @@ class CreateRoutineSharedViewModel @Inject constructor(
     }
 
 
-    fun addRoutineSet(): (CreateRoutine) -> Unit = { createRoutine ->
+    fun addRoutine(): (CreateRoutine) -> Unit = { createRoutine ->
         routineSetRoutine.update { it.plusElement(createRoutine) }
     }
 
-    fun removeRoutineSet(): (CreateRoutine) -> Unit = { createRoutine ->
+    fun removeRoutine(): (CreateRoutine) -> Unit = { createRoutine ->
         routineSetRoutine.update { it.minusElement(createRoutine) }
     }
 
+    fun updateCreateRoutineState(): (CreateRoutineState) -> Unit = {
+        createRoutineState.value = it
+    }
 
-    fun createRoutine() {
+    fun createRoutineSet(): () -> Unit = {
         viewModelScope.launch {
             createRoutineSetUseCase(
                 CreateRoutineSetRoutine(
@@ -173,10 +176,10 @@ class CreateRoutineSharedViewModel @Inject constructor(
             ).collect { createRoutineResult ->
                 when (createRoutineResult) {
                     is DataState.Success -> {
-                        if (createRoutineResult.data) CreateRoutineState.Success else CreateRoutineState.Fail
+                        CreateRoutineState.Success
                     }
                     is DataState.Fail -> {
-                        CreateRoutineState.Fail
+                        CreateRoutineState.Fail(createRoutineResult.message)
                     }
                 }
             }
