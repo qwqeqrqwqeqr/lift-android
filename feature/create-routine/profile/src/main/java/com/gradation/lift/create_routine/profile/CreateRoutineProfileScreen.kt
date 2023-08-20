@@ -20,7 +20,7 @@ import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
 
 @SuppressLint("UnrememberedGetBackStackEntry")

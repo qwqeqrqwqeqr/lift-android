@@ -19,6 +19,9 @@ fun lengthValidator(string: String, lowLimit: Int, highLimit: Int): Boolean =
 fun weightValidator(weight: Float): Boolean = weight in 30f..200f
 fun heightValidator(weight: Float): Boolean = weight in 100f..250f
 
+fun routineSetNameValidator(name :String) :Boolean = name.length in 1 .. 10
+fun routineSetDescriptionValidator(name :String) :Boolean = name.length in 1 .. 20
+
 data class Validator(
     val status: Boolean = false,
     val message: String = "",
