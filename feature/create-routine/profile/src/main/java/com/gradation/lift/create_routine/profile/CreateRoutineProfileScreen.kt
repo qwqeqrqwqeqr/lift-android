@@ -46,7 +46,7 @@ fun CreateRoutineProfileRoute(
         modifier = modifier,
         onBackClickTopBar = navigateProfileToRoutineSet,
         onClickRegisterButton = {
-            sharedViewModel.updatePicture(selectedPicture.value)
+            sharedViewModel.updateRoutineSetPicture(selectedPicture.value)
             navigateProfileToRoutineSet()
         },
         updateSelectedPicture = updateSelectedPicture,

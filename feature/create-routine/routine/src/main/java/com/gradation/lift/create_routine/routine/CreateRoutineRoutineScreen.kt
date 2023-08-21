@@ -41,7 +41,7 @@ fun CreateRoutineRoutineRoute(
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
     val tempWorkCategory = sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
-    val onCreateRoutine = sharedViewModel.addRoutineSet()
+//    val onCreateRoutine = sharedViewModel.addRoutineSet()
     val workSetList = viewModel.workSetList.collectAsStateWithLifecycle()
     val createRoutineCondition = viewModel.createRoutineCondition.collectAsStateWithLifecycle()
 
@@ -55,7 +55,7 @@ fun CreateRoutineRoutineRoute(
         modifier = modifier,
         onBackClickTopBar = navigateRoutineToFindWorkCategory,
         onCreateRoutine = {
-            onCreateRoutine(it)
+//            onCreateRoutine(it)
             navigateRoutineToRoutineSet()
         },
         tempWorkCategory = tempWorkCategory,

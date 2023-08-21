@@ -126,19 +126,19 @@ class CreateRoutineSharedViewModel @Inject constructor(
         MutableStateFlow(CreateRoutineState.None)
 
 
-    fun updateName(): (String) -> Unit = {
+    fun updateRoutineSetName(): (String) -> Unit = {
         routineSetName.value = it
     }
 
-    fun updateDescription(): (String) -> Unit = {
+    fun updateRoutineSetDescription(): (String) -> Unit = {
         routineSetDescription.value = it
     }
 
-    fun updatePicture(value: String) {
+    fun updateRoutineSetPicture(value: String) {
         routineSetPicture.value = value
     }
 
-    fun updateWeekday(): (Weekday) -> Unit = { value ->
+    fun updateRoutineSetWeekday(): (Weekday) -> Unit = { value ->
         if (value in routineSetWeekday.value) {
             routineSetWeekday.update { it.minusElement(value) }
         } else {
