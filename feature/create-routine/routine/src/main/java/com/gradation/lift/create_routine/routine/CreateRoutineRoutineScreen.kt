@@ -2,12 +2,9 @@ package com.gradation.lift.create_routine.routine
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
@@ -15,16 +12,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import com.gradation.lift.create_routine.routine.component.NavigationView
+import com.gradation.lift.create_routine.routine.component.ProfilePictureView
 import com.gradation.lift.create_routine.routine.component.RoutineListView
+import com.gradation.lift.create_routine.routine.data.model.IndexWorkSet
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
-import com.gradation.lift.model.model.routine.CreateRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -36,89 +35,63 @@ fun CreateRoutineRoutineRoute(
     navigateRoutineToRoutineSet: () -> Unit,
     viewModel: CreateRoutineRoutineViewModel = hiltViewModel(),
 ) {
-    val crateRoutineBackStackEntry =
+    val crateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
-    val tempWorkCategory = sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
-//    val onCreateRoutine = sharedViewModel.addRoutineSet()
-    val workSetList = viewModel.workSetList.collectAsStateWithLifecycle()
-    val createRoutineCondition = viewModel.createRoutineCondition.collectAsStateWithLifecycle()
+    val workSetList: List<IndexWorkSet> by viewModel.indexWorkSetList.collectAsStateWithLifecycle()
+    val createRoutineCondition: Boolean by viewModel.createRoutineCondition.collectAsStateWithLifecycle()
+    val tempWorkCategory: String by sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
 
-    val updateWorkSet = viewModel.updateWorkSet
-    val addWorkSet = viewModel.addWorkSet
-    val removeWorkSet = viewModel.removeWorkSet
+
+    val addWorkSet: () -> Unit = viewModel.addWorkSet()
+    val updateWorkSet: (IndexWorkSet) -> Unit = viewModel.updateWorkSet()
+    val removeWorkSet: (IndexWorkSet) -> Unit = viewModel.removeWorkSet()
+
+
+    val addRoutine: (List<WorkSet>) -> Unit = sharedViewModel.addRoutine()
 
 
     val focusManager = LocalFocusManager.current
     CreateRoutineRoutineScreen(
-        modifier = modifier,
-        onBackClickTopBar = navigateRoutineToFindWorkCategory,
-        onCreateRoutine = {
-//            onCreateRoutine(it)
-            navigateRoutineToRoutineSet()
-        },
-        tempWorkCategory = tempWorkCategory,
-        workSetList = workSetList,
-        createRoutineCondition = createRoutineCondition,
-        updateWorkSet = updateWorkSet,
-        addWorkSet = addWorkSet,
-        removeWorkSet = removeWorkSet,
-        focusManager = focusManager
+        modifier,
+        workSetList,
+        createRoutineCondition,
+        tempWorkCategory,
+        addWorkSet,
+        updateWorkSet,
+        removeWorkSet,
+        addRoutine,
+        navigateRoutineToFindWorkCategory,
+        navigateRoutineToRoutineSet,
+        focusManager
     )
 
     BackHandler(onBack = navigateRoutineToFindWorkCategory)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateRoutineRoutineScreen(
     modifier: Modifier = Modifier,
-    onBackClickTopBar: () -> Unit,
-    onCreateRoutine: (CreateRoutine) -> Unit,
-    tempWorkCategory: State<String>,
-    workSetList: State<List<IndexWorkSet>>,
-    createRoutineCondition: State<Boolean>,
-    updateWorkSet: (IndexWorkSet) -> Unit,
+    workSetList: List<IndexWorkSet>,
+    createRoutineCondition: Boolean,
+    tempWorkCategory: String,
     addWorkSet: () -> Unit,
+    updateWorkSet: (IndexWorkSet) -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
-    focusManager: FocusManager
+    addRoutine: (List<WorkSet>) -> Unit,
+    navigateRoutineToFindWorkCategory: () -> Unit,
+    navigateRoutineToRoutineSet: () -> Unit,
+    focusManager: FocusManager,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = tempWorkCategory.value,
-                onBackClickTopBar = onBackClickTopBar,
+                title = tempWorkCategory,
+                onBackClickTopBar = navigateRoutineToFindWorkCategory,
             )
-        }, modifier = modifier.fillMaxSize(), floatingActionButton =
-        {
-            LiftButton(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                    ),
-                onClick = {
-                    onCreateRoutine(
-                        CreateRoutine(
-                            tempWorkCategory.value,
-                            workSetList.value.map {
-                                WorkSet(it.weight.toFloat(), it.repetition.toInt())
-                            }
-                        )
-                    )
-                },
-                enabled = createRoutineCondition.value
-            ) {
-                Text(
-                    text = "등록하기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no5,
-                )
-            }
         },
-        floatingActionButtonPosition = FabPosition.Center
+        modifier = modifier.fillMaxSize(),
     ) { PaddingValues ->
         Surface(
             color = LiftTheme.colorScheme.no5,
@@ -130,63 +103,51 @@ fun CreateRoutineRoutineScreen(
                     .padding(16.dp)
                     .fillMaxWidth()
             ) {
-                Box(
-                    modifier = modifier
-                        .background(
-                            color = LiftTheme.colorScheme.no1,
-                            shape = RoundedCornerShape(size = 12.dp)
-                        )
-                        .align(alignment = Alignment.CenterHorizontally)
-                        .size(128.dp)
-                )
+                ProfilePictureView(modifier)
                 Spacer(modifier = modifier.padding(18.dp))
-                Text(
-                    text = "루틴 만들기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no3,
+                RoutineListView(
+                    modifier,
+                    workSetList,
+                    addWorkSet,
+                    updateWorkSet,
+                    removeWorkSet,
+                    focusManager
                 )
                 Spacer(modifier = modifier.padding(4.dp))
-                RoutineListView(
-                    modifier = modifier,
-                    workSetList = workSetList,
-                    updateWorkSet = updateWorkSet,
-                    addWorkSet = addWorkSet,
-                    removeWorkSet = removeWorkSet,
-                    focusManager = focusManager
+                NavigationView(
+                    modifier,
+                    createRoutineCondition,
+                    workSetList,
+                    addRoutine,
+                    navigateRoutineToRoutineSet
                 )
-
             }
         }
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 fun CreateRoutineRoutineScreenPreview() {
     LiftMaterialTheme {
         CreateRoutineRoutineScreen(
-            modifier = Modifier,
-            onBackClickTopBar = {},
-            tempWorkCategory = mutableStateOf(
-                "숄더프레스"
-            ),
-            onCreateRoutine = {},
-            workSetList = mutableStateOf(
-                createRoutineModel
-                    .workSetList
-                    .mapIndexed { index, workSet ->
-                        IndexWorkSet(
-                            index + 1,
-                            workSet.weight.toString(),
-                            workSet.repetition.toString()
-                        )
-
-                    }),
-            createRoutineCondition = mutableStateOf(false),
-            updateWorkSet = {},
+            workSetList = createRoutineModel
+                .workSetList
+                .mapIndexed { index, workSet ->
+                    IndexWorkSet(
+                        index + 1,
+                        workSet.weight.toString(),
+                        workSet.repetition.toString()
+                    )
+                },
+            createRoutineCondition = true,
+            tempWorkCategory = createRoutineModel.workCategory,
             addWorkSet = {},
+            updateWorkSet = {},
             removeWorkSet = {},
+            addRoutine = {},
+            navigateRoutineToFindWorkCategory = {},
+            navigateRoutineToRoutineSet = {},
             focusManager = LocalFocusManager.current
         )
     }

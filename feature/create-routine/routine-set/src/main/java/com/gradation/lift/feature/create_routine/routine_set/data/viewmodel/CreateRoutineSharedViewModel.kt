@@ -14,6 +14,7 @@ import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.common.toWeekday
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -151,8 +152,16 @@ class CreateRoutineSharedViewModel @Inject constructor(
     }
 
 
-    fun addRoutine(): (CreateRoutine) -> Unit = { createRoutine ->
-        routineSetRoutine.update { it.plusElement(createRoutine) }
+    fun addRoutine(): (List<WorkSet>) -> Unit = { workSet ->
+
+        routineSetRoutine.update {
+            it.plusElement(
+                CreateRoutine(
+                    tempWorkCategory.value,
+                    workSet
+                )
+            )
+        }
     }
 
     fun removeRoutine(): (CreateRoutine) -> Unit = { createRoutine ->

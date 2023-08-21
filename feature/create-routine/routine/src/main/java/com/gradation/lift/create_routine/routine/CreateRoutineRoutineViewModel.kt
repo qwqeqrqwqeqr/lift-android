@@ -2,20 +2,33 @@ package com.gradation.lift.create_routine.routine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gradation.lift.create_routine.routine.data.model.IndexWorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
+/**
+ * [CreateRoutineRoutineViewModel]
+ * @property indexWorkSetList 운동 세트 리스트
+ * @property createRoutineCondition 루틴생선 조건 해당 필드를 뷰와 연결시켜 제어함
+ * @since 2023-08-21 23:15:09
+ */
 @HiltViewModel
 class CreateRoutineRoutineViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val workSetList = MutableStateFlow(emptyList<IndexWorkSet>())
+    val indexWorkSetList: MutableStateFlow<List<IndexWorkSet>> =
+        MutableStateFlow(emptyList())
 
+    val createRoutineCondition : StateFlow<Boolean> = indexWorkSetList.map { it.isNotEmpty() }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    )
 
-    val updateWorkSet: (IndexWorkSet) -> Unit = { indexWorkSet ->
-        workSetList.value = workSetList.value.map {
+    fun updateWorkSet(): (IndexWorkSet) -> Unit = { indexWorkSet ->
+        indexWorkSetList.value = indexWorkSetList.value.map {
             it.copy(
                 index = if (it.index == indexWorkSet.index) indexWorkSet.index else it.index,
                 weight = if (it.index == indexWorkSet.index) indexWorkSet.weight else it.weight,
@@ -24,29 +37,25 @@ class CreateRoutineRoutineViewModel @Inject constructor(
         }
     }
 
-    val addWorkSet: () -> Unit = {
-        workSetList.value = workSetList.value.plus(
-            if (workSetList.value.isEmpty()) IndexWorkSet(1, "30", "1") else {
-                workSetList.value.last().let { it.copy(index = it.index + 1) }
+    fun addWorkSet(): () -> Unit = {
+        indexWorkSetList.value = indexWorkSetList.value.plus(
+            if (indexWorkSetList.value.isEmpty()) IndexWorkSet(1, "30", "1") else {
+                indexWorkSetList.value.last().let { it.copy(index = it.index + 1) }
             }
         )
     }
 
 
-    val removeWorkSet: (IndexWorkSet) -> Unit = { indexWorkSet ->
-        workSetList.value = workSetList.value.minus(indexWorkSet)
+    fun removeWorkSet(): (IndexWorkSet) -> Unit = { indexWorkSet ->
+        indexWorkSetList.value = indexWorkSetList.value.minus(indexWorkSet)
     }
 
 
-    val createRoutineCondition = workSetList.map { it.isNotEmpty() }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = false
-    )
+
+
+
+
 
 }
 
 
-data class IndexWorkSet(
-    var index: Int, var weight: String, var repetition: String
-)

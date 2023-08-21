@@ -1,7 +1,7 @@
 package com.gradation.lift.ui.utils
 
-import androidx.core.util.rangeTo
 import kotlinx.datetime.LocalTime
+import kotlin.math.roundToLong
 
 fun LocalTime.toText(): String {
     val second =
@@ -24,5 +24,12 @@ fun Float.toText(): String {
     else
         this.toString()
 }
+
+
+fun Float.toWeightText(): String =
+    ((this * 10.0).roundToLong() / 10.0).let { if ( it/1000 >= 1) 1000f else it.toFloat() }.toText()
+
+
+fun Int.toRepetitionText(): Int = if(this in 1.. 50) this else 10
 
 
