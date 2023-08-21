@@ -19,5 +19,8 @@ class CreateRoutineRoutineSetViewModel @Inject constructor(
     fun visibleCancelDialog(): () -> Unit = { onVisibleCancelDialog.value = true }
     fun invisibleCancelDialog(): () -> Unit = { onVisibleCancelDialog.value = false }
 
+
+
+
 }
 
