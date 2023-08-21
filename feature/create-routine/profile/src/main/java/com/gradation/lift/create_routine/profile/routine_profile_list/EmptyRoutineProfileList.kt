@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.create_routine.profile.CreateRoutineProfileScreen
-import com.gradation.lift.create_routine.profile.RoutineSetPictureUiState
+import com.gradation.lift.create_routine.profile.data.state.RoutineSetPictureUiState
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 

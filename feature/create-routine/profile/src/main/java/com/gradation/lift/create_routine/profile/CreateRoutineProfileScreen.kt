@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.create_routine.profile.data.model.RoutineSetCategoryPicture
+import com.gradation.lift.create_routine.profile.data.model.SelectedPicture
+import com.gradation.lift.create_routine.profile.data.state.RoutineSetPictureUiState
 import com.gradation.lift.create_routine.profile.routine_profile_list.EmptyRoutineProfileList
 import com.gradation.lift.create_routine.profile.routine_profile_list.RoutineProfileList
 import com.gradation.lift.designsystem.component.LiftBackTopBar
@@ -57,9 +60,7 @@ fun CreateRoutineProfileRoute(
     BackHandler(onBack = navigateProfileToRoutineSet)
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class
-)
+
 @Composable
 fun CreateRoutineProfileScreen(
     modifier: Modifier = Modifier,
