@@ -9,9 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -19,6 +21,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun RoutineSetDescriptionView(
     modifier: Modifier = Modifier,
     routineSetDescription: String,
+    routineSetDescriptionValidator: Validator,
     updateRoutineSetDescription: (String) -> Unit,
     focusManager: FocusManager,
 ) {
@@ -47,4 +50,17 @@ fun RoutineSetDescriptionView(
         }),
         singleLine = true,
     )
+    if (!routineSetDescriptionValidator.status) {
+        Text(
+            text = routineSetDescriptionValidator.message,
+            style = LiftTheme.typography.no7,
+            color = LiftTheme.colorScheme.no12
+        )
+    }else{
+        Text(
+            text = routineSetDescriptionValidator.message,
+            style = LiftTheme.typography.no7,
+            color = Color.Transparent
+        )
+    }
 }

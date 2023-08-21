@@ -85,13 +85,18 @@ internal fun PasswordVerificationTextField(
                 }
             }
         }
-
     )
     if (!passwordVerificationValidator.status) {
         Text(
             text = passwordVerificationValidator.message,
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
+        )
+    }else{
+        Text(
+            text = passwordVerificationValidator.message,
+            style = LiftTheme.typography.no7,
+            color = Color.Transparent
         )
     }
 }

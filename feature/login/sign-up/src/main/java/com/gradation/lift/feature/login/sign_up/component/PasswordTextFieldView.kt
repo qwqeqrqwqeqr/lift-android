@@ -93,6 +93,12 @@ internal fun PasswordTextField(
             style = LiftTheme.typography.no7,
             color = LiftTheme.colorScheme.no12
         )
+    }else{
+        Text(
+            text = passwordValidator.message,
+            style = LiftTheme.typography.no7,
+            color = Color.Transparent
+        )
     }
 }
 
