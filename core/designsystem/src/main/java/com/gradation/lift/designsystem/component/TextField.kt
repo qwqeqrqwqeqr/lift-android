@@ -19,7 +19,6 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiftTextField(
     value: String,
@@ -40,10 +39,13 @@ fun LiftTextField(
     isError: Boolean = false,
     textStyle: TextStyle = LiftTheme.typography.no6,
 
-    colors: TextFieldColors = TextFieldDefaults.textFieldColors(
-        textColor = LiftTheme.colorScheme.no9,
-        containerColor = LiftTheme.colorScheme.no1,
-        placeholderColor = LiftTheme.colorScheme.no9,
+    colors: TextFieldColors = TextFieldDefaults.colors(
+        focusedTextColor = LiftTheme.colorScheme.no9,
+        focusedContainerColor = LiftTheme.colorScheme.no1,
+        focusedPlaceholderColor = LiftTheme.colorScheme.no9,
+        unfocusedLabelColor = LiftTheme.colorScheme.no9,
+        unfocusedContainerColor = LiftTheme.colorScheme.no1,
+        unfocusedPlaceholderColor = LiftTheme.colorScheme.no9,
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent,
@@ -80,7 +82,6 @@ fun LiftTextField(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiftSearchTextField(
     value: String,
@@ -109,10 +110,13 @@ fun LiftSearchTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         placeholder = placeholder,
-        colors = TextFieldDefaults.textFieldColors(
-            textColor = LiftTheme.colorScheme.no9,
-            containerColor = LiftTheme.colorScheme.no1,
-            placeholderColor = LiftTheme.colorScheme.no9,
+        colors = TextFieldDefaults.colors(
+            focusedLabelColor = LiftTheme.colorScheme.no9,
+            focusedContainerColor = LiftTheme.colorScheme.no1,
+            focusedPlaceholderColor = LiftTheme.colorScheme.no9,
+            unfocusedLabelColor = LiftTheme.colorScheme.no9,
+            unfocusedContainerColor = LiftTheme.colorScheme.no1,
+            unfocusedPlaceholderColor = LiftTheme.colorScheme.no9,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
