@@ -4,23 +4,24 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.feature.create_routine.find_work_category.component.FilterCountView
 import com.gradation.lift.feature.create_routine.find_work_category.component.FilterView
 import com.gradation.lift.feature.create_routine.find_work_category.component.SearchView
 import com.gradation.lift.feature.create_routine.find_work_category.component.WorkCategoryView
+import com.gradation.lift.feature.create_routine.find_work_category.data.model.WorkPartFilterSelection
+import com.gradation.lift.feature.create_routine.find_work_category.data.viewmodel.CreateRoutineFindWorkCategoryViewModel
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
- import com.gradation.lift.model.model.work.WorkCategory
+import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -30,112 +31,102 @@ fun CreateRoutineFindWorkCategoryRoute(
     navigateFindWorkCategoryToRoutineSet: () -> Unit,
     navigateFindWorkCategoryToRoutine: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel()
+    viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel(),
 ) {
-    val crateRoutineBackStackEntry =
+    val crateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
 
-    val searchText = viewModel.searchText.collectAsStateWithLifecycle()
-    val workPartFilterList = viewModel.workPartFilterList.collectAsStateWithLifecycle()
-    val workCategoryList = viewModel.workCategoryList.collectAsStateWithLifecycle()
-    val filteredWorkCategoryCount =
-        viewModel.filteredWorkCategoryCount.collectAsStateWithLifecycle()
+    val searchText: String by viewModel.searchTextState.searchText.collectAsStateWithLifecycle()
+    val workPartFilterList: List<WorkPartFilterSelection> by viewModel.workPartFilterList.collectAsStateWithLifecycle()
+    val workCategoryList: List<WorkCategory> by viewModel.workCategoryList.collectAsStateWithLifecycle()
+    val filteredWorkCategoryCount: Int by
+    viewModel.filteredWorkCategoryCount.collectAsStateWithLifecycle()
+
+    val updateSearchText: (String) -> Unit = viewModel.searchTextState.updateSearchText()
+    val updateWorkPartFilter: (String) -> Unit =
+        viewModel.workPartFilterState.updateWorkPartFilter()
+    val updateTempWorkCategory: (String) -> Unit = sharedViewModel.updateTempWorkCategory()
+
+
 
     CreateRoutineFindWorkCategoryScreen(
-        modifier = modifier,
-        onBackClickTopBar = navigateFindWorkCategoryToRoutineSet,
-        onClickWorkCategory = { workCategory ->
-            navigateFindWorkCategoryToRoutine()
-        },
-        searchText = searchText,
-        workPartFilterList = workPartFilterList,
-        workCategoryList = workCategoryList,
-        filteredWorkCategoryCount = filteredWorkCategoryCount,
-        updateSearchText = viewModel.updateSearchText(),
-        updateSelectedWorkPartFilter = viewModel.updateSelectedWorkPartFilter()
+        modifier,
+        searchText,
+        workPartFilterList,
+        workCategoryList,
+        filteredWorkCategoryCount,
+        updateSearchText,
+        updateWorkPartFilter,
+        updateTempWorkCategory,
+        navigateFindWorkCategoryToRoutineSet,
+        navigateFindWorkCategoryToRoutine
     )
 
     BackHandler(onBack = navigateFindWorkCategoryToRoutineSet)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateRoutineFindWorkCategoryScreen(
     modifier: Modifier = Modifier,
-    onBackClickTopBar: () -> Unit,
-    onClickWorkCategory: (String) -> Unit,
-    searchText: State<String>,
-    workPartFilterList: State<List<SelectedWorkPartFilter>>,
-    workCategoryList: State<List<WorkCategory>>,
-    filteredWorkCategoryCount: State<Int>,
+    searchText: String,
+    workPartFilterList: List<WorkPartFilterSelection>,
+    workCategoryList: List<WorkCategory>,
+    filteredWorkCategoryCount: Int,
     updateSearchText: (String) -> Unit,
-    updateSelectedWorkPartFilter: (String) -> Unit
+    updateWorkPartFilter: (String) -> Unit,
+    updateTempWorkCategory: (String) -> Unit,
+    navigateFindWorkCategoryToRoutineSet: () -> Unit,
+    navigateFindWorkCategoryToRoutine: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "운동부위 선택",
-                onBackClickTopBar = onBackClickTopBar,
+                onBackClickTopBar = navigateFindWorkCategoryToRoutineSet,
             )
         }, modifier = modifier.fillMaxSize()
     ) { paddingValues ->
         Column(modifier = modifier.padding(paddingValues)) {
-            SearchView(
-                modifier = modifier,
-                searchText = searchText,
-                workPartFilterList = workPartFilterList,
-                updateSearchText = updateSearchText,
-                updateSelectedWorkPartFilter = updateSelectedWorkPartFilter
-            )
-
-            FilterView(
-                modifier = modifier,
-                filteredWorkCategoryCount = filteredWorkCategoryCount
-            )
-
+            SearchView(modifier, searchText, updateSearchText)
+            FilterView(modifier, workPartFilterList, updateWorkPartFilter)
+            FilterCountView(modifier, filteredWorkCategoryCount)
             WorkCategoryView(
-                modifier=modifier,
-                onClickWorkCategory=onClickWorkCategory,
-                workCategoryList=workCategoryList
+                modifier,
+                workCategoryList,
+                updateTempWorkCategory,
+                navigateFindWorkCategoryToRoutine
             )
-
-
         }
     }
 }
 
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview
 fun CreateRoutineFindWorkCategoryScreenPreview() {
     LiftMaterialTheme {
         CreateRoutineFindWorkCategoryScreen(
-            modifier = Modifier,
-            onBackClickTopBar = {},
-            onClickWorkCategory = {},
-            searchText = mutableStateOf(""),
-            workPartFilterList = mutableStateOf(
-                listOf(
-                    SelectedWorkPartFilter("전체", true),
-                    SelectedWorkPartFilter("어깨", false),
-                    SelectedWorkPartFilter("가슴", false),
-                )
+            searchText = "",
+            workPartFilterList = listOf(
+                WorkPartFilterSelection("전체", true),
+                WorkPartFilterSelection("어깨", false),
+                WorkPartFilterSelection("가슴", false),
             ),
-            workCategoryList = mutableStateOf(
-                listOf(
-                    workCategoryModel1,
-                    workCategoryModel1,
-                    workCategoryModel1,
-                    workCategoryModel1,
-                    workCategoryModel1,
-                )
+            workCategoryList = listOf(
+                workCategoryModel1,
+                workCategoryModel1,
+                workCategoryModel1,
+                workCategoryModel1,
+                workCategoryModel1,
             ),
-            filteredWorkCategoryCount = mutableStateOf(20),
+            filteredWorkCategoryCount = 25,
             updateSearchText = {},
-            updateSelectedWorkPartFilter = { },
+            updateWorkPartFilter = {},
+            updateTempWorkCategory = {},
+            navigateFindWorkCategoryToRoutineSet = {},
+            navigateFindWorkCategoryToRoutine = {}
         )
     }
 }

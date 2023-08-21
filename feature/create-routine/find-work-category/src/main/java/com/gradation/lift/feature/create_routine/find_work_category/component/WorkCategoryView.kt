@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,8 +21,9 @@ import com.gradation.lift.model.model.work.WorkCategory
 @Composable
 fun WorkCategoryView(
     modifier: Modifier = Modifier,
-    workCategoryList: State<List<WorkCategory>>,
-    onClickWorkCategory: (String) -> Unit,
+    workCategoryList: List<WorkCategory>,
+    updateTempWorkCategory: (String) -> Unit,
+    navigateFindWorkCategoryToRoutine: () -> Unit,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5,
@@ -39,7 +39,7 @@ fun WorkCategoryView(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(workCategoryList.value) { workCategory ->
+                items(workCategoryList) { workCategory ->
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -52,7 +52,10 @@ fun WorkCategoryView(
                                 .align(alignment = Alignment.CenterHorizontally)
                                 .size(156.dp)
                                 .clickable(
-                                    onClick = { onClickWorkCategory(workCategory.name) }
+                                    onClick = {
+                                        navigateFindWorkCategoryToRoutine()
+                                        updateTempWorkCategory(workCategory.name)
+                                    }
                                 )
                         )
                         Spacer(modifier = modifier.padding(2.dp))
