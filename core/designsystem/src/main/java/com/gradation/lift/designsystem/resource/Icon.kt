@@ -1,11 +1,6 @@
 package com.gradation.lift.designsystem.resource
 
-import androidx.annotation.DrawableRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.gradation.lift.designsystem.R
-import java.util.concurrent.locks.Lock
 
 
 object LiftIcon {
@@ -34,6 +29,7 @@ object LiftIcon {
     val Timer = R.drawable.timer
     val List = R.drawable.list
     val Close = R.drawable.close
+    val Check = R.drawable.check
 
     val Order = R.drawable.order
     val Warn = R.drawable.warn
