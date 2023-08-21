@@ -13,6 +13,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.feature.create_routine.find_work_category.component.FilterCountView
 import com.gradation.lift.feature.create_routine.find_work_category.component.FilterView
 import com.gradation.lift.feature.create_routine.find_work_category.component.SearchView
 import com.gradation.lift.feature.create_routine.find_work_category.component.WorkCategoryView
@@ -88,14 +89,9 @@ fun CreateRoutineFindWorkCategoryScreen(
         }, modifier = modifier.fillMaxSize()
     ) { paddingValues ->
         Column(modifier = modifier.padding(paddingValues)) {
-            SearchView(
-                modifier,
-                searchText,
-                workPartFilterList,
-                updateSearchText,
-                updateWorkPartFilter
-            )
-            FilterView(modifier, filteredWorkCategoryCount)
+            SearchView(modifier, searchText, updateSearchText)
+            FilterView(modifier, workPartFilterList, updateWorkPartFilter)
+            FilterCountView(modifier, filteredWorkCategoryCount)
             WorkCategoryView(
                 modifier,
                 workCategoryList,

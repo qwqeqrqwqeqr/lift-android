@@ -1,49 +1,30 @@
 package com.gradation.lift.feature.create_routine.find_work_category.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.component.LiftFilterChip
+import com.gradation.lift.feature.create_routine.find_work_category.data.model.WorkPartFilterSelection
 
 @Composable
 fun FilterView(
     modifier: Modifier = Modifier,
-    filteredWorkCategoryCount: Int,
+    workPartFilterList: List<WorkPartFilterSelection>,
+    updateWorkPartFilter: (String) -> Unit,
 ) {
-    Surface(
-        color = LiftTheme.colorScheme.no17,
-        modifier = modifier.fillMaxWidth()
+    LazyRow(
+        modifier = modifier.padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.padding(horizontal = 12.dp, vertical = 2.dp)
-        ) {
-            Text(
-                text = buildAnnotatedString {
-                    append("총 ")
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight(700)
-                        ),
-                    ) {
-                        append("${filteredWorkCategoryCount}개")
-                    }
-                    append("의 운동")
-                },
-                style = LiftTheme.typography.no6,
-                color = LiftTheme.colorScheme.no9,
+        items(workPartFilterList) {
+            LiftFilterChip(
+                modifier = modifier.padding(vertical = 4.dp),
+                text = it.workPart, selected = it.selected,
+                onClick = { updateWorkPartFilter(it.workPart) }
             )
         }
     }
