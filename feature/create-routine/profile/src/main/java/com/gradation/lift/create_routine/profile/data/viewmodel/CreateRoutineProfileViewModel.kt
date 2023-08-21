@@ -1,4 +1,4 @@
-package com.gradation.lift.create_routine.profile
+package com.gradation.lift.create_routine.profile.data.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,9 +22,9 @@ class CreateRoutineProfileViewModel @Inject constructor(
     getRoutineSetPictureUseCase: GetRoutineSetPictureUseCase,
 ) : ViewModel() {
 
-    val selectedPicture : MutableStateFlow<String> = MutableStateFlow("")
+    val selectedPicture: MutableStateFlow<String> = MutableStateFlow("")
 
-    val routineSetPictureUiState =
+    val routineSetPictureUiState: StateFlow<RoutineSetPictureUiState> =
         combine(
             getRoutineSetPictureUseCase(),
             selectedPicture
@@ -36,7 +36,7 @@ class CreateRoutineProfileViewModel @Inject constructor(
                         .map { routineSetPictureGroup ->
                             RoutineSetCategoryPicture(
                                 category = routineSetPictureGroup.key,
-                                picture = routineSetPictureGroup.value.map { routineSetPicture ->
+                                pictureList = routineSetPictureGroup.value.map { routineSetPicture ->
                                     SelectedPicture(
                                         url = routineSetPicture.url,
                                         selected = (selectedPictureUrl == routineSetPicture.url)

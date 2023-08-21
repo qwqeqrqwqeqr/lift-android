@@ -134,8 +134,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
         routineSetDescription.value = it
     }
 
-    fun updateRoutineSetPicture(value: String) {
-        routineSetPicture.value = value
+    fun updateRoutineSetPicture(): (String) -> Unit = {
+        routineSetPicture.value = it
     }
 
     fun updateRoutineSetWeekday(): (Weekday) -> Unit = { value ->
@@ -146,8 +146,8 @@ class CreateRoutineSharedViewModel @Inject constructor(
         }
     }
 
-    fun updateTempWorkCategory(workCategory: String) {
-        tempWorkCategory.value = workCategory
+    fun updateTempWorkCategory(): (String) -> Unit = {
+        tempWorkCategory.value = it
     }
 
 

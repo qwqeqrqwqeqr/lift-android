@@ -12,7 +12,7 @@ fun createRoutineProfileScreen(
 ) {
     navGraphBuilder.composable(CREATE_ROUTINE_PROFILE_ROUTER_NAME) {
 
-        val navigateProfileToRoutineSet =
+        val navigateProfileToRoutineSet: () -> Unit =
             { navController.navigateProfileToRoutineSet() }
 
         CreateRoutineProfileRoute(
