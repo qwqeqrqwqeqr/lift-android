@@ -13,10 +13,10 @@ fun createRoutineRoutineScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
 
-    val navigateRoutineToFindWorkCategory =
+    val navigateRoutineToFindWorkCategory: () -> Unit =
         { navController.navigateRoutineToFindWorkCategory() }
 
-    val navigateRoutineToRoutineSet =
+    val navigateRoutineToRoutineSet: () -> Unit =
         { navController.navigateRoutineToRoutineSet() }
 
     navGraphBuilder.composable(CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
