@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
@@ -19,9 +18,9 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun FilterView(
-    modifier:Modifier=Modifier,
-    filteredWorkCategoryCount : State<Int>
-){
+    modifier: Modifier = Modifier,
+    filteredWorkCategoryCount: Int,
+) {
     Surface(
         color = LiftTheme.colorScheme.no17,
         modifier = modifier.fillMaxWidth()
@@ -39,14 +38,13 @@ fun FilterView(
                             fontWeight = FontWeight(700)
                         ),
                     ) {
-                        append("${filteredWorkCategoryCount.value}개")
+                        append("${filteredWorkCategoryCount}개")
                     }
                     append("의 운동")
                 },
                 style = LiftTheme.typography.no6,
                 color = LiftTheme.colorScheme.no9,
             )
-            //TODO ADD Filter
         }
     }
 
