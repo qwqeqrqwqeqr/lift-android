@@ -1,6 +1,5 @@
-package com.gradation.lift.create_routine.profile.routine_profile_list
+package com.gradation.lift.create_routine.profile.component.routine_profile_list
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -12,22 +11,15 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.gradation.lift.create_routine.profile.CreateRoutineProfileScreen
-import com.gradation.lift.create_routine.profile.RoutineSetCategoryPicture
-import com.gradation.lift.create_routine.profile.RoutineSetPictureUiState
-import com.gradation.lift.create_routine.profile.SelectedPicture
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.create_routine.profile.component.NavigationView
+import com.gradation.lift.create_routine.profile.data.model.RoutineSetCategoryPicture
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
@@ -37,7 +29,9 @@ fun RoutineProfileList(
     modifier: Modifier = Modifier,
     updateSelectedPicture: (String) -> Unit,
     routineSetPictureList: List<RoutineSetCategoryPicture>,
-    selectedPicture: State<String>,
+    updateRoutineSetPicture: (String) -> Unit,
+    navigateProfileToRoutineSet: () ->Unit,
+    selectedPicture: String,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(72.dp),
@@ -46,9 +40,9 @@ fun RoutineProfileList(
     ) {
         item(span = { GridItemSpan(4) }) {
             Column {
-                if (selectedPicture.value.isNotBlank()) {
+                if (selectedPicture.isNotBlank()) {
                     GlideImage(
-                        model = selectedPicture.value,
+                        model = selectedPicture,
                         contentDescription = "selected url",
                         modifier = modifier
                             .align(alignment = Alignment.CenterHorizontally)
@@ -83,7 +77,7 @@ fun RoutineProfileList(
                 )
                 Spacer(modifier = modifier.padding(4.dp))
             }
-            items(routineSetCategoryPicture.picture) { picture ->
+            items(routineSetCategoryPicture.pictureList) { picture ->
                 GlideImage(
                     model = picture.url,
                     contentDescription = "selected url",
@@ -102,49 +96,17 @@ fun RoutineProfileList(
                 )
             }
         }
-
-    }
-
-}
-
-
-
-@SuppressLint("UnrememberedMutableState")
-@Composable
-@Preview
-fun CreateRoutineProfileScreePreview() {
-
-    LiftMaterialTheme {
-        CreateRoutineProfileScreen(
-            modifier = Modifier,
-            onBackClickTopBar = {},
-            onClickRegisterButton = {},
-            updateSelectedPicture = {},
-            routineSetPictureUiState = RoutineSetPictureUiState.Success(
-                listOf(
-                    RoutineSetCategoryPicture(
-                        category = "카테고리1",
-                        picture = listOf(
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                        )
-                    ),
-                    RoutineSetCategoryPicture(
-                        category = "카테고리2",
-                        picture = listOf(
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture("", true),
-                        )
-                    )
-                )
-            ),
-            selectedPicture = mutableStateOf(""),
-        )
+        item(span = { GridItemSpan(4) }) {
+            Spacer(modifier = modifier.padding(18.dp))
+        }
+        item(span = { GridItemSpan(4) }){
+            NavigationView(
+                modifier,
+                selectedPicture,
+                updateRoutineSetPicture,
+                navigateProfileToRoutineSet
+            )
+        }
     }
 }
+

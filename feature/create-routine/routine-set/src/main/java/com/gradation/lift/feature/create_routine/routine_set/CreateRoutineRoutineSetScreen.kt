@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -51,6 +52,9 @@ internal fun CreateRoutineRoutineSetRoute(
 
     val routineSetName: String by sharedViewModel.routineSetName.collectAsStateWithLifecycle()
     val routineSetDescription: String by sharedViewModel.routineSetDescription.collectAsStateWithLifecycle()
+    val routineSetNameValidator: Validator by sharedViewModel.routineSetNameValidator.collectAsStateWithLifecycle()
+    val routineSetDescriptionValidator: Validator by sharedViewModel.routineSetDescriptionValidator.collectAsStateWithLifecycle()
+
     val routineSetPicture: String by sharedViewModel.routineSetPicture.collectAsStateWithLifecycle()
     val routineSetRoutine: List<CreateRoutine> by sharedViewModel.routineSetRoutine.collectAsStateWithLifecycle()
     val weekdaySelectionList: List<WeekdaySelection> by sharedViewModel.weekdaySelectionList.collectAsStateWithLifecycle()
@@ -72,7 +76,6 @@ internal fun CreateRoutineRoutineSetRoute(
         sharedViewModel.updateCreateRoutineState()
     val createRoutineSet: () -> Unit = sharedViewModel.createRoutineSet()
 
-
     val scrollState: ScrollState = rememberScrollState()
     val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
     val focusManager: FocusManager = LocalFocusManager.current
@@ -81,10 +84,13 @@ internal fun CreateRoutineRoutineSetRoute(
         modifier,
         routineSetName,
         routineSetDescription,
+        routineSetNameValidator,
+        routineSetDescriptionValidator,
         routineSetPicture,
         routineSetRoutine,
         weekdaySelectionList,
         createRoutineCondition,
+
         onVisibleCancelDialog,
         visibleCancelDialog,
         inVisibleCancelDialog,
@@ -122,12 +128,13 @@ internal fun CreateRoutineRoutineSetRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CreateRoutineRoutineSetScreen(
     modifier: Modifier = Modifier,
     routineSetName: String,
     routineSetDescription: String,
+    routineSetNameValidator: Validator,
+    routineSetDescriptionValidator: Validator,
     routineSetPicture: String,
     routineSetRoutine: List<CreateRoutine>,
     weekdaySelectionList: List<WeekdaySelection>,
@@ -196,6 +203,7 @@ internal fun CreateRoutineRoutineSetScreen(
                     RoutineSetNameView(
                         modifier,
                         routineSetName,
+                        routineSetNameValidator,
                         updateRoutineSetName,
                         focusManager
                     )
@@ -203,7 +211,11 @@ internal fun CreateRoutineRoutineSetScreen(
                     Spacer(modifier = modifier.padding(9.dp))
 
                     RoutineSetDescriptionView(
-                        modifier, routineSetDescription, updateRoutineSetDescription, focusManager
+                        modifier,
+                        routineSetDescription,
+                        routineSetDescriptionValidator,
+                        updateRoutineSetDescription,
+                        focusManager
                     )
                     Spacer(modifier = modifier.padding(9.dp))
 
@@ -242,6 +254,8 @@ fun CreateRoutineRoutineSetScreenPreview() {
             routineSetName = "",
             routineSetDescription = "",
             routineSetPicture = "",
+            routineSetNameValidator = Validator(false, "실패"),
+            routineSetDescriptionValidator = Validator(false, "실패"),
             routineSetRoutine = listOf(createRoutineModel, createRoutineModel, createRoutineModel),
             weekdaySelectionList = listOf(
                 WeekdaySelection(Weekday.Monday()),

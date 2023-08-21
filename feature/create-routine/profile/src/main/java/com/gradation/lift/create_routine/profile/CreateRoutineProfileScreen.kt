@@ -1,4 +1,3 @@
-
 package com.gradation.lift.create_routine.profile
 
 import android.annotation.SuppressLint
@@ -13,11 +12,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import com.gradation.lift.create_routine.profile.routine_profile_list.EmptyRoutineProfileList
-import com.gradation.lift.create_routine.profile.routine_profile_list.RoutineProfileList
+import com.gradation.lift.create_routine.profile.data.model.RoutineSetCategoryPicture
+import com.gradation.lift.create_routine.profile.data.model.SelectedPicture
+import com.gradation.lift.create_routine.profile.data.state.RoutineSetPictureUiState
+import com.gradation.lift.create_routine.profile.data.viewmodel.CreateRoutineProfileViewModel
+import com.gradation.lift.create_routine.profile.component.routine_profile_list.EmptyRoutineProfileList
+import com.gradation.lift.create_routine.profile.component.routine_profile_list.RoutineProfileList
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
@@ -29,68 +32,45 @@ fun CreateRoutineProfileRoute(
     navController: NavController,
     navigateProfileToRoutineSet: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CreateRoutineProfileViewModel = hiltViewModel()
+    viewModel: CreateRoutineProfileViewModel = hiltViewModel(),
 ) {
-
-    val crateRoutineBackStackEntry =
+    val crateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
-
-
-    val updateSelectedPicture = viewModel.updateSelectedPicture()
-    val selectedPicture = viewModel.selectedPicture.collectAsStateWithLifecycle()
+    val selectedPicture: String by viewModel.selectedPicture.collectAsStateWithLifecycle()
+    val updateSelectedPicture: (String) -> Unit = viewModel.updateSelectedPicture()
+    val updateRoutineSetPicture: (String) -> Unit = sharedViewModel.updateRoutineSetPicture()
     val routineSetPictureUiState: RoutineSetPictureUiState by viewModel.routineSetPictureUiState.collectAsStateWithLifecycle()
 
 
     CreateRoutineProfileScreen(
-        modifier = modifier,
-        onBackClickTopBar = navigateProfileToRoutineSet,
-        onClickRegisterButton = {
-            sharedViewModel.updateRoutineSetPicture(selectedPicture.value)
-            navigateProfileToRoutineSet()
-        },
-        updateSelectedPicture = updateSelectedPicture,
-        routineSetPictureUiState = routineSetPictureUiState,
-        selectedPicture = selectedPicture,
+        modifier,
+        selectedPicture,
+        updateSelectedPicture,
+        updateRoutineSetPicture,
+        navigateProfileToRoutineSet,
+        routineSetPictureUiState
     )
 
     BackHandler(onBack = navigateProfileToRoutineSet)
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class
-)
+
 @Composable
 fun CreateRoutineProfileScreen(
     modifier: Modifier = Modifier,
-    onBackClickTopBar: () -> Unit,
-    onClickRegisterButton: () -> Unit,
+    selectedPicture: String,
     updateSelectedPicture: (String) -> Unit,
+    updateRoutineSetPicture: (String) -> Unit,
+    navigateProfileToRoutineSet: () -> Unit,
     routineSetPictureUiState: RoutineSetPictureUiState,
-    selectedPicture: State<String>,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "프로필 등록하기",
-                onBackClickTopBar = onBackClickTopBar,
+                onBackClickTopBar = navigateProfileToRoutineSet,
             )
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = {
-            LiftButton(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                onClick = onClickRegisterButton,
-            ) {
-                Text(
-                    text = "등록하기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no5,
-                )
-            }
-
         }
     ) { padding ->
         Surface(
@@ -101,7 +81,6 @@ fun CreateRoutineProfileScreen(
                 modifier = modifier
                     .padding(padding)
                     .padding(16.dp)
-
             ) {
                 when (routineSetPictureUiState) {
                     RoutineSetPictureUiState.Fail -> {}
@@ -112,7 +91,9 @@ fun CreateRoutineProfileScreen(
                         RoutineProfileList(
                             updateSelectedPicture = updateSelectedPicture,
                             routineSetPictureList = routineSetPictureUiState.routineSetPictureList,
-                            selectedPicture = selectedPicture
+                            updateRoutineSetPicture=updateRoutineSetPicture,
+                            navigateProfileToRoutineSet = navigateProfileToRoutineSet,
+                            selectedPicture = selectedPicture,
                         )
                     }
                 }
@@ -131,14 +112,15 @@ fun CreateRoutineProfileScreePreview() {
     LiftMaterialTheme {
         CreateRoutineProfileScreen(
             modifier = Modifier,
-            onBackClickTopBar = {},
-            onClickRegisterButton = {},
+            selectedPicture = "",
+            updateRoutineSetPicture = {},
             updateSelectedPicture = {},
+            navigateProfileToRoutineSet = {},
             routineSetPictureUiState = RoutineSetPictureUiState.Success(
                 listOf(
                     RoutineSetCategoryPicture(
                         category = "카테고리1",
-                        picture = listOf(
+                        pictureList = listOf(
                             SelectedPicture(""),
                             SelectedPicture(""),
                             SelectedPicture(""),
@@ -148,7 +130,7 @@ fun CreateRoutineProfileScreePreview() {
                     ),
                     RoutineSetCategoryPicture(
                         category = "카테고리2",
-                        picture = listOf(
+                        pictureList = listOf(
                             SelectedPicture(""),
                             SelectedPicture(""),
                             SelectedPicture(""),
@@ -158,7 +140,6 @@ fun CreateRoutineProfileScreePreview() {
                     )
                 )
             ),
-            selectedPicture = mutableStateOf(""),
         )
     }
 }
