@@ -18,7 +18,7 @@ import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.feature.create_routine.find_work_category.component.FilterView
 import com.gradation.lift.feature.create_routine.find_work_category.component.SearchView
 import com.gradation.lift.feature.create_routine.find_work_category.component.WorkCategoryView
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
  import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.navigation.Router

@@ -8,32 +8,28 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import com.gradation.lift.feature.create_routine.routine_set.component.RoutineListView
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftOutlineButton
-import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.create_routine.routine_set.component.*
 import com.gradation.lift.feature.create_routine.routine_set.component.CancelDialog
 import com.gradation.lift.feature.create_routine.routine_set.component.WeekdayCardListView
-import com.gradation.lift.feature.create_routine.routine_set.component.DescriptionView
-import com.gradation.lift.feature.create_routine.routine_set.component.NameView
-import com.gradation.lift.feature.create_routine.routine_set.component.ProfileView
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineRoutineSetViewModel
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineUiState
-import com.gradation.lift.feature.create_routine.routine_set.data.WeekdayCard
+import com.gradation.lift.feature.create_routine.routine_set.data.model.WeekdaySelection
+import com.gradation.lift.feature.create_routine.routine_set.data.state.CreateRoutineState
+import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineRoutineSetViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutine
-import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 
@@ -49,68 +45,75 @@ internal fun CreateRoutineRoutineSetRoute(
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
-    val scrollState: ScrollState = rememberScrollState()
-    val crateRoutineBackStackEntry =
+    val crateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
-    val name = sharedViewModel.name.collectAsStateWithLifecycle()
-    val description = sharedViewModel.description.collectAsStateWithLifecycle()
-    val picture = sharedViewModel.picture.collectAsStateWithLifecycle()
-    val weekdayCardList = sharedViewModel.weekdayCardList.collectAsStateWithLifecycle()
-    val routine = sharedViewModel.routine.collectAsStateWithLifecycle()
-    val createRoutineCondition =
-        sharedViewModel.createRoutineCondition.collectAsStateWithLifecycle()
+    val routineSetName: String by sharedViewModel.routineSetName.collectAsStateWithLifecycle()
+    val routineSetDescription: String by sharedViewModel.routineSetDescription.collectAsStateWithLifecycle()
+    val routineSetPicture: String by sharedViewModel.routineSetPicture.collectAsStateWithLifecycle()
+    val routineSetRoutine: List<CreateRoutine> by sharedViewModel.routineSetRoutine.collectAsStateWithLifecycle()
+    val weekdaySelectionList: List<WeekdaySelection> by sharedViewModel.weekdaySelectionList.collectAsStateWithLifecycle()
+    val createRoutineCondition: Boolean by
+    sharedViewModel.createRoutineCondition.collectAsStateWithLifecycle()
+    val createRoutineState: CreateRoutineState by sharedViewModel.createRoutineState.collectAsStateWithLifecycle()
 
 
-    val onVisibleCancelDialog = viewModel.onVisibleCancelDialog.collectAsStateWithLifecycle()
-    val visibleCancelDialog = viewModel.visibleCancelDialog()
-    val inVisibleCancelDialog = viewModel.invisibleCancelDialog()
+    val onVisibleCancelDialog: Boolean by viewModel.onVisibleCancelDialog.collectAsStateWithLifecycle()
+    val visibleCancelDialog: () -> Unit = viewModel.visibleCancelDialog()
+    val inVisibleCancelDialog: () -> Unit = viewModel.invisibleCancelDialog()
+
+    val updateRoutineSetName: (String) -> Unit = sharedViewModel.updateRoutineSetName()
+    val updateRoutineSetDescription: (String) -> Unit =
+        sharedViewModel.updateRoutineSetDescription()
+    val updateRoutineSetWeekday: (Weekday) -> Unit = sharedViewModel.updateRoutineSetWeekday()
+    val removeRoutine: (CreateRoutine) -> Unit = sharedViewModel.removeRoutine()
+    val updateCreateRoutineState: (CreateRoutineState) -> Unit =
+        sharedViewModel.updateCreateRoutineState()
+    val createRoutineSet: () -> Unit = sharedViewModel.createRoutineSet()
 
 
-
-    val createRoutineUiState: CreateRoutineUiState by sharedViewModel.createRoutineUiState.collectAsStateWithLifecycle()
+    val scrollState: ScrollState = rememberScrollState()
+    val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
+    val focusManager: FocusManager = LocalFocusManager.current
 
     CreateRoutineRoutineSetScreen(
-        modifier = modifier,
-
-        onBackClickTopBar = visibleCancelDialog,
-        onClickProfile = navigateRoutineSetToProfile,
-        onAddRoutine = navigateRoutineSetToFindWorkCategory,
-        onClickCreateRoutineSet = { sharedViewModel.createRoutine() },
-
-        onVisibleCancelDialog = onVisibleCancelDialog,
-        onClickCancelDialogSuspend = navigateCreateRoutineGraphToHomeGraph,
-        onClickCancelDialogDismiss = inVisibleCancelDialog,
-
-
-        picture = picture,
-
-        nameText = name,
-        updateNameText = sharedViewModel.updateName(),
-
-        descriptionText = description,
-        updateDescriptionText = sharedViewModel.updateDescription(),
-
-        weekdayCardList = weekdayCardList,
-        updateWeekday = sharedViewModel.updateWeekday(),
-
-        routine = routine,
-        onRemoveRoutineSet = sharedViewModel.removeRoutineSet(),
-
-        enabledCreateRoutine = createRoutineCondition,
-
-        scrollState = scrollState
+        modifier,
+        routineSetName,
+        routineSetDescription,
+        routineSetPicture,
+        routineSetRoutine,
+        weekdaySelectionList,
+        createRoutineCondition,
+        onVisibleCancelDialog,
+        visibleCancelDialog,
+        inVisibleCancelDialog,
+        updateRoutineSetName,
+        updateRoutineSetDescription,
+        updateRoutineSetWeekday,
+        removeRoutine,
+        createRoutineSet,
+        navigateRoutineSetToFindWorkCategory,
+        navigateRoutineSetToProfile,
+        navigateCreateRoutineGraphToHomeGraph,
+        scrollState,
+        snackbarHostState,
+        focusManager
     )
 
 
-    when (createRoutineUiState) {
-        CreateRoutineUiState.Fail -> {}
-        CreateRoutineUiState.Loading -> {}
-        CreateRoutineUiState.Success -> {
+    when (val createRoutineStateResult = createRoutineState) {
+        is CreateRoutineState.Fail -> {
             LaunchedEffect(true) {
-
+                snackbarHostState.showSnackbar(
+                    message = createRoutineStateResult.message, duration = SnackbarDuration.Short
+                )
+                updateCreateRoutineState(CreateRoutineState.None)
             }
+        }
+        CreateRoutineState.None -> {}
+        CreateRoutineState.Success -> {
+            navigateCreateRoutineGraphToHomeGraph()
         }
     }
 
@@ -123,40 +126,34 @@ internal fun CreateRoutineRoutineSetRoute(
 @Composable
 internal fun CreateRoutineRoutineSetScreen(
     modifier: Modifier = Modifier,
-
-    onBackClickTopBar: () -> Unit,
-    onClickProfile: () -> Unit,
-    onAddRoutine: () -> Unit,
-    onClickCreateRoutineSet: () -> Unit,
-
-    onVisibleCancelDialog: State<Boolean>,
-    onClickCancelDialogSuspend: () -> Unit,
-    onClickCancelDialogDismiss: () -> Unit,
-
-    picture: State<String>,
-
-    nameText: State<String>,
-    updateNameText: (String) -> Unit,
-
-    descriptionText: State<String>,
-    updateDescriptionText: (String) -> Unit,
-
-    weekdayCardList: State<List<WeekdayCard>>,
-    updateWeekday: (Weekday) -> Unit,
-
-    routine: State<List<CreateRoutine>>,
-    onRemoveRoutineSet: (CreateRoutine) -> Unit,
-
-    enabledCreateRoutine: State<Boolean>,
+    routineSetName: String,
+    routineSetDescription: String,
+    routineSetPicture: String,
+    routineSetRoutine: List<CreateRoutine>,
+    weekdaySelectionList: List<WeekdaySelection>,
+    createRoutineCondition: Boolean,
+    onVisibleCancelDialog: Boolean,
+    visibleCancelDialog: () -> Unit,
+    inVisibleCancelDialog: () -> Unit,
+    updateRoutineSetName: (String) -> Unit,
+    updateRoutineSetDescription: (String) -> Unit,
+    updateRoutineSetWeekday: (Weekday) -> Unit,
+    removeRoutine: (CreateRoutine) -> Unit,
+    createRoutineSet: () -> Unit,
+    navigateRoutineSetToFindWorkCategory: () -> Unit,
+    navigateRoutineSetToProfile: () -> Unit,
+    navigateCreateRoutineGraphToHomeGraph: () -> Unit,
     scrollState: ScrollState,
+    snackbarHostState: SnackbarHostState,
+    focusManager: FocusManager,
 ) {
-    if (onVisibleCancelDialog.value) {
+    if (onVisibleCancelDialog) {
         Surface(
             color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
         ) {
             CancelDialog(
-                onClickDialogSuspendButton = onClickCancelDialogSuspend,
-                onClickDialogDismissButton = onClickCancelDialogDismiss,
+                onClickDialogSuspendButton = navigateCreateRoutineGraphToHomeGraph,
+                onClickDialogDismissButton = inVisibleCancelDialog,
             )
         }
     } else {
@@ -164,110 +161,71 @@ internal fun CreateRoutineRoutineSetScreen(
             topBar = {
                 LiftBackTopBar(
                     title = "루틴리스트 만들기",
-                    onBackClickTopBar = onBackClickTopBar,
+                    onBackClickTopBar = visibleCancelDialog,
                 )
-            }, modifier = modifier.fillMaxSize()
+            },
+            snackbarHost = {
+                LiftErrorSnackBar(
+                    modifier = modifier,
+                    snackbarHostState = snackbarHostState
+                )
+            },
+            modifier = modifier.fillMaxSize()
         ) { padding ->
             Surface(
                 color = LiftTheme.colorScheme.no5,
-                modifier = modifier.fillMaxSize()
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(padding)
             ) {
                 Column(
                     modifier = modifier
-                        .padding(padding)
                         .padding(16.dp)
                         .fillMaxWidth()
                         .verticalScroll(scrollState)
                 ) {
 
-                    ProfileView(
-                        modifier.align(Alignment.CenterHorizontally),
-                        onClickProfile,
-                        picture
+                    RoutineSetPictureView(
+                        modifier,
+                        navigateRoutineSetToProfile,
+                        routineSetPicture
                     )
 
                     Spacer(modifier = modifier.padding(16.dp))
 
-                    NameView(
-                        modifier = modifier,
-                        nameText = nameText,
-                        updateNameText = updateNameText
+                    RoutineSetNameView(
+                        modifier,
+                        routineSetName,
+                        updateRoutineSetName,
+                        focusManager
                     )
 
                     Spacer(modifier = modifier.padding(9.dp))
 
-                    DescriptionView(
-                        modifier = modifier,
-                        descriptionText = descriptionText,
-                        updateDescriptionText = updateDescriptionText
+                    RoutineSetDescriptionView(
+                        modifier, routineSetDescription, updateRoutineSetDescription, focusManager
                     )
                     Spacer(modifier = modifier.padding(9.dp))
 
 
                     WeekdayCardListView(
-                        weekdayCardList = weekdayCardList,
-                        modifier = modifier,
-                        onClickWeekDayCard = updateWeekday
+                        modifier, weekdaySelectionList, updateRoutineSetWeekday
                     )
                     Spacer(modifier = modifier.padding(14.dp))
 
-                    Row(
-                        modifier = modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            modifier = modifier.align(Alignment.CenterVertically),
-                            text = "루틴리스트",
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no3
-                        )
-                        if (routine.value.isNotEmpty()) {
-                            LiftOutlineButton(
-                                modifier = modifier
-                                    .height(32.dp),
-                                contentPadding = PaddingValues(
-                                    start = 15.dp, top = 0.dp, end = 15.dp, bottom = 0.dp
-                                ),
-                                onClick = onAddRoutine,
-                            ) {
-                                Text(
-                                    text = "추가",
-                                    style = LiftTheme.typography.no5,
-                                    color = LiftTheme.colorScheme.no4,
-                                )
-                                Spacer(modifier = modifier.padding(2.dp))
-                                Icon(
-                                    painterResource(id = LiftIcon.Plus),
-                                    contentDescription = null,
-                                )
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = modifier.padding(8.dp))
-
-                    RoutineListView(
-                        modifier = modifier,
-                        routine = routine,
-                        onAddRoutine = onAddRoutine,
-                        onRemoveRoutineSet = onRemoveRoutineSet
+                    RoutineSetRoutineView(
+                        modifier,
+                        routineSetRoutine,
+                        removeRoutine,
+                        navigateRoutineSetToFindWorkCategory
                     )
 
                     Spacer(modifier = modifier.padding(27.dp))
-
-                    LiftButton(
-                        modifier = modifier.fillMaxWidth(),
-                        onClick = onClickCreateRoutineSet,
-                        enabled = enabledCreateRoutine.value
-                    ) {
-                        Text(
-                            text = "생성하기",
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no5,
-                        )
-                    }
-
-
+                    NavigationView(
+                        modifier,
+                        createRoutineCondition,
+                        createRoutineSet
+                    )
                 }
             }
         }
@@ -276,62 +234,39 @@ internal fun CreateRoutineRoutineSetScreen(
 }
 
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 @DevicePreview
 fun CreateRoutineRoutineSetScreenPreview() {
     LiftMaterialTheme {
         CreateRoutineRoutineSetScreen(
-            modifier = Modifier,
-
-            onBackClickTopBar = { },
-            onClickProfile = {},
-            onAddRoutine = {},
-            onClickCreateRoutineSet = { },
-
-            onVisibleCancelDialog = mutableStateOf(false),
-            onClickCancelDialogSuspend = { },
-            onClickCancelDialogDismiss = { },
-
-
-            picture = mutableStateOf(""),
-
-            nameText = mutableStateOf(""),
-            updateNameText = {},
-
-            descriptionText = mutableStateOf(""),
-            updateDescriptionText = {},
-
-            weekdayCardList = mutableStateOf(
-                listOf(
-                    WeekdayCard(weekday = Weekday.Monday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Tuesday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Wednesday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Thursday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Friday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Saturday(), selected = false),
-                    WeekdayCard(weekday = Weekday.Sunday(), selected = false)
-                )
+            routineSetName = "",
+            routineSetDescription = "",
+            routineSetPicture = "",
+            routineSetRoutine = listOf(createRoutineModel, createRoutineModel, createRoutineModel),
+            weekdaySelectionList = listOf(
+                WeekdaySelection(Weekday.Monday()),
+                WeekdaySelection(Weekday.Tuesday()),
+                WeekdaySelection(Weekday.Wednesday()),
+                WeekdaySelection(Weekday.Thursday()),
+                WeekdaySelection(Weekday.Friday()),
+                WeekdaySelection(Weekday.Saturday()),
+                WeekdaySelection(Weekday.Sunday()),
             ),
-            updateWeekday = {},
-
-            routine = mutableStateOf(
-                listOf(
-                    CreateRoutine(
-                        workCategory = "바벨로우", workSetList = listOf(
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                            WorkSet(30f, 12),
-                        )
-                    )
-                )
-            ),
-            onRemoveRoutineSet = {},
-
-            enabledCreateRoutine = mutableStateOf(true),
-            scrollState = rememberScrollState()
+            createRoutineCondition = true,
+            onVisibleCancelDialog = false,
+            visibleCancelDialog = { },
+            inVisibleCancelDialog = { },
+            updateRoutineSetName = { },
+            updateRoutineSetDescription = { },
+            updateRoutineSetWeekday = { },
+            removeRoutine = { },
+            createRoutineSet = { },
+            navigateRoutineSetToFindWorkCategory = { },
+            navigateRoutineSetToProfile = { },
+            navigateCreateRoutineGraphToHomeGraph = { },
+            scrollState = rememberScrollState(),
+            snackbarHostState = SnackbarHostState(),
+            focusManager = LocalFocusManager.current
         )
     }
 }

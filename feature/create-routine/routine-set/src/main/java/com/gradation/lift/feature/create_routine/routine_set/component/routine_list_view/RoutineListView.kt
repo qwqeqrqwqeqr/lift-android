@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.create_routine.routine_set.component
+package com.gradation.lift.feature.create_routine.routine_set.component.routine_list_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -6,69 +6,71 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.create_routine.routine_set.component.RoutineSetRoutineView
 import com.gradation.lift.model.model.routine.CreateRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.ui.utils.DevicePreview
 
+
+/**
+ * [RoutineListView]
+ * 루틴이 추가되었을 때의 뷰
+ * @since 2023-08-21 13:37:13
+ */
 @Composable
 fun RoutineListView(
     modifier: Modifier = Modifier,
-    routine: State<List<CreateRoutine>>,
-    onAddRoutine: () -> Unit,
-    onRemoveRoutineSet: (CreateRoutine) -> Unit
+    routineSetRoutine: List<CreateRoutine>,
+    removeRoutine: (CreateRoutine) -> Unit,
+    navigateRoutineSetToFindWorkCategory: () -> Unit,
 ) {
-    if (routine.value.isEmpty()) {
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .background(
-                    color = LiftTheme.colorScheme.no1,
-                    shape = RoundedCornerShape(size = 12.dp)
-                )
-                .padding(vertical = 32.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Box(
-                    modifier = modifier
-                        .background(
-                            LiftTheme.colorScheme.no4,
-                            shape = RoundedCornerShape(size = 64.dp)
-                        )
-                        .size(42.dp), contentAlignment = Alignment.Center
-                ) {
-                    IconButton(onClick = onAddRoutine) {
-                        Icon(
-                            modifier = modifier.size(16.dp),
-                            painter = painterResource(id = LiftIcon.Plus),
-                            contentDescription = "",
-                            tint = LiftTheme.colorScheme.no5
-                        )
-                    }
-                }
-                Spacer(modifier = modifier.padding(5.dp))
-                Text(
-                    text = "+ 버튼을 눌러 루틴을 추가해요",
-                    style = LiftTheme.typography.no6,
-                    color = LiftTheme.colorScheme.no2
-                )
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = modifier.align(Alignment.CenterVertically),
+            text = "루틴리스트",
+            style = LiftTheme.typography.no3,
+            color = LiftTheme.colorScheme.no3
+        )
 
-            }
+        LiftOutlineButton(
+            modifier = modifier
+                .height(32.dp),
+            contentPadding = PaddingValues(
+                start = 15.dp, top = 0.dp, end = 15.dp, bottom = 0.dp
+            ),
+            onClick = navigateRoutineSetToFindWorkCategory,
+        ) {
+            Text(
+                text = "추가",
+                style = LiftTheme.typography.no5,
+                color = LiftTheme.colorScheme.no4,
+            )
+            Spacer(modifier = modifier.padding(2.dp))
+            Icon(
+                painterResource(id = LiftIcon.Plus),
+                contentDescription = null,
+            )
         }
-    } else {
-        routine.value.forEachIndexed { _, createRoutine ->
+    }
+
+    Spacer(modifier = modifier.padding(8.dp))
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        routineSetRoutine.forEach { routine ->
             Column(
                 modifier = modifier
                     .background(LiftTheme.colorScheme.no5)
@@ -77,15 +79,15 @@ fun RoutineListView(
                         color = LiftTheme.colorScheme.no8,
                         shape = RoundedCornerShape(size = 12.dp)
                     )
-                    .padding(14.dp)
-                    .fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(16.dp)
+                    .fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = createRoutine.workCategory,
+                        text = routine.workCategory,
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no9,
                         modifier = modifier.weight(1f)
@@ -100,7 +102,7 @@ fun RoutineListView(
                             contentDescription = "",
                             tint = Color.Unspecified,
                             modifier = modifier.clickable(
-                                onClick = { onRemoveRoutineSet(createRoutine) }
+                                onClick = { removeRoutine(routine) }
                             )
                         )
                         Spacer(modifier = modifier.padding(12.dp))
@@ -112,12 +114,10 @@ fun RoutineListView(
                         )
                     }
                 }
-                Spacer(
-                    modifier = modifier.padding(8.dp)
-                )
+                Spacer(modifier = modifier.padding(3.dp))
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(24.dp),
-                    modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                    modifier = modifier.padding(horizontal = 12.dp)
                 ) {
                     Text(
                         text = "Set",
@@ -141,8 +141,8 @@ fun RoutineListView(
                         modifier = modifier.weight(1f)
                     )
                 }
-                Spacer(modifier = modifier.padding(4.dp))
-                createRoutine.workSetList.forEachIndexed { index, workSet ->
+                Spacer(modifier = modifier.padding(3.dp))
+                routine.workSetList.forEachIndexed { index, workSet ->
                     Row(
                         modifier = modifier
                             .background(LiftTheme.colorScheme.no5)
@@ -195,11 +195,30 @@ fun RoutineListView(
 
                         )
                     }
-                    Spacer(modifier = modifier.padding(2.dp))
-
                 }
             }
 
+
         }
+    }
+
+}
+
+
+@Composable
+@DevicePreview
+fun CreateRoutineRoutineListViewPreview() {
+    LiftMaterialTheme {
+        RoutineSetRoutineView(
+            modifier=Modifier,
+            routineSetRoutine = listOf(
+                ModelDataGenerator.RoutineSetRoutine.createRoutineModel,
+                ModelDataGenerator.RoutineSetRoutine.createRoutineModel,
+                ModelDataGenerator.RoutineSetRoutine.createRoutineModel
+            ),
+            removeRoutine = { },
+            navigateRoutineSetToFindWorkCategory = { },
+        )
+
     }
 }

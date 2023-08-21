@@ -21,7 +21,7 @@ import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.create_routine.routine_set.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.model.model.work.WorkSet
@@ -41,7 +41,7 @@ fun CreateRoutineRoutineRoute(
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
     val tempWorkCategory = sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
-    val onCreateRoutine = sharedViewModel.addRoutineSet()
+//    val onCreateRoutine = sharedViewModel.addRoutineSet()
     val workSetList = viewModel.workSetList.collectAsStateWithLifecycle()
     val createRoutineCondition = viewModel.createRoutineCondition.collectAsStateWithLifecycle()
 
@@ -55,7 +55,7 @@ fun CreateRoutineRoutineRoute(
         modifier = modifier,
         onBackClickTopBar = navigateRoutineToFindWorkCategory,
         onCreateRoutine = {
-            onCreateRoutine(it)
+//            onCreateRoutine(it)
             navigateRoutineToRoutineSet()
         },
         tempWorkCategory = tempWorkCategory,
