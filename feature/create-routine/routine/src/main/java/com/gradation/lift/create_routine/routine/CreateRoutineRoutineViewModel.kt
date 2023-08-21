@@ -39,7 +39,7 @@ class CreateRoutineRoutineViewModel @Inject constructor(
 
     fun addWorkSet(): () -> Unit = {
         indexWorkSetList.value = indexWorkSetList.value.plus(
-            if (indexWorkSetList.value.isEmpty()) IndexWorkSet(1, "30", "1") else {
+            if (indexWorkSetList.value.isEmpty()) IndexWorkSet(1, "30", "10") else {
                 indexWorkSetList.value.last().let { it.copy(index = it.index + 1) }
             }
         )

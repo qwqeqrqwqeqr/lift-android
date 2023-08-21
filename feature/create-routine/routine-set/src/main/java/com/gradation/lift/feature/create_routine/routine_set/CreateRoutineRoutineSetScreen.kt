@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftErrorSnackBar
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.routine_set.component.*
@@ -90,7 +91,6 @@ internal fun CreateRoutineRoutineSetRoute(
         routineSetRoutine,
         weekdaySelectionList,
         createRoutineCondition,
-
         onVisibleCancelDialog,
         visibleCancelDialog,
         inVisibleCancelDialog,
@@ -184,6 +184,9 @@ internal fun CreateRoutineRoutineSetScreen(
                 modifier = modifier
                     .fillMaxSize()
                     .padding(padding)
+                    .noRippleClickable(
+                        onClick = { focusManager.clearFocus() },
+                    )
             ) {
                 Column(
                     modifier = modifier

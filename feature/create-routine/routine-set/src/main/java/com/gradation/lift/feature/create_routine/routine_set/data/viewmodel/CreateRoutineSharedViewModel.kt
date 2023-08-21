@@ -45,10 +45,10 @@ class CreateRoutineSharedViewModel @Inject constructor(
     val routineSetName: MutableStateFlow<String> = MutableStateFlow("")
     val routineSetDescription: MutableStateFlow<String> = MutableStateFlow("")
     private val routineSetWeekday: MutableStateFlow<List<Weekday>> =
-        MutableStateFlow(emptyList<Weekday>())
+        MutableStateFlow(emptyList())
     val routineSetPicture: MutableStateFlow<String> = MutableStateFlow("")
     val routineSetRoutine: MutableStateFlow<List<CreateRoutine>> =
-        MutableStateFlow(emptyList<CreateRoutine>())
+        MutableStateFlow(emptyList())
 
     val tempWorkCategory: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -57,9 +57,9 @@ class CreateRoutineSharedViewModel @Inject constructor(
             if (it.isBlank()) {
                 Validator(false, "")
             } else if (!routineSetNameValidator(it)) {
-                Validator(false, "1 - 10자 사이로 입력해주세요.")
+                Validator(false, "1 - 10자 사이의 한글로 입력해주세요.")
             } else {
-                Validator(false, "")
+                Validator(true, "")
             }
         }.stateIn(
             scope = viewModelScope,
@@ -72,9 +72,9 @@ class CreateRoutineSharedViewModel @Inject constructor(
             if (it.isBlank()) {
                 Validator(false, "")
             } else if (!routineSetDescriptionValidator(it)) {
-                Validator(false, "1 - 20자 사이로 입력해주세요.")
+                Validator(false, "1 - 20자 사이의 한글로 입력해주세요.")
             } else {
-                Validator(false, "")
+                Validator(true, "")
             }
         }.stateIn(
             scope = viewModelScope,

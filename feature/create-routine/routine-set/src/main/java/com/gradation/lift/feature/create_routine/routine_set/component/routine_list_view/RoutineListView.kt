@@ -22,11 +22,12 @@ import com.gradation.lift.feature.create_routine.routine_set.component.RoutineSe
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.ui.utils.DevicePreview
+import com.gradation.lift.ui.utils.toText
 
 
 /**
  * [RoutineListView]
- * 루틴이 추가되었을 때의 뷰
+ * 루틴이 추가 되었을 때의 뷰
  * @since 2023-08-21 13:37:13
  */
 @Composable
@@ -68,6 +69,7 @@ fun RoutineListView(
         }
     }
 
+
     Spacer(modifier = modifier.padding(8.dp))
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         routineSetRoutine.forEach { routine ->
@@ -80,7 +82,8 @@ fun RoutineListView(
                         shape = RoundedCornerShape(size = 12.dp)
                     )
                     .padding(16.dp)
-                    .fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)
+                    .fillMaxWidth()
+                , verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -168,7 +171,7 @@ fun RoutineListView(
                         Text(
                             style = LiftTheme.typography.no3,
                             color = LiftTheme.colorScheme.no9,
-                            text = workSet.weight.toString(),
+                            text = workSet.weight.toText(),
                             textAlign = TextAlign.Center,
                             modifier = modifier
                                 .weight(1f)

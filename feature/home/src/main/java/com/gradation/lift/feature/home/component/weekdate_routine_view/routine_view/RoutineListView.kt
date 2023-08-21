@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -86,7 +87,7 @@ internal fun RoutineListView(
             verticalArrangement = Arrangement.spacedBy(
                 8.dp,
                 alignment = Alignment.CenterVertically
-            )
+            ),
         ) {
             routineSetRoutineList.forEach { routineSetRoutine ->
                 Row(
@@ -99,10 +100,12 @@ internal fun RoutineListView(
                             shape = RoundedCornerShape(size = 12.dp)
                         )
                         .padding(horizontal = 8.dp, vertical = 8.dp)
-                        .clickable {
-                            updateRoutineSetIdKey(navController, routineSetRoutine.id)
-                            navigateMainGraphToWorkGraph()
-                        }
+                        .noRippleClickable(
+                            onClick = {
+                                updateRoutineSetIdKey(navController, routineSetRoutine.id)
+                                navigateMainGraphToWorkGraph()
+                            }
+                        )
                 ) {
                     GlideImage(
                         model = routineSetRoutine.picture,
