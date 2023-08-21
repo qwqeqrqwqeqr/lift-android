@@ -16,8 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.create_routine.routine_set.component.RoutineSetRoutineView
 import com.gradation.lift.model.model.routine.CreateRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.ui.utils.DevicePreview
 
 
 /**
@@ -32,8 +36,6 @@ fun RoutineListView(
     removeRoutine: (CreateRoutine) -> Unit,
     navigateRoutineSetToFindWorkCategory: () -> Unit,
 ) {
-
-
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -67,138 +69,156 @@ fun RoutineListView(
     }
 
     Spacer(modifier = modifier.padding(8.dp))
-    routineSetRoutine.forEach { routine ->
-        Column(
-            modifier = modifier
-                .background(LiftTheme.colorScheme.no5)
-                .border(
-                    width = 1.dp,
-                    color = LiftTheme.colorScheme.no8,
-                    shape = RoundedCornerShape(size = 12.dp)
-                )
-                .padding(14.dp)
-                .fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        routineSetRoutine.forEach { routine ->
+            Column(
+                modifier = modifier
+                    .background(LiftTheme.colorScheme.no5)
+                    .border(
+                        width = 1.dp,
+                        color = LiftTheme.colorScheme.no8,
+                        shape = RoundedCornerShape(size = 12.dp)
+                    )
+                    .padding(16.dp)
+                    .fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                Text(
-                    text = routine.workCategory,
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    modifier = modifier.weight(1f)
-                )
                 Row(
-                    modifier = modifier.weight(1f),
-                    horizontalArrangement = Arrangement.End,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        painter = painterResource(LiftIcon.Trash),
-                        contentDescription = "",
-                        tint = Color.Unspecified,
-                        modifier = modifier.clickable(
-                            onClick = { removeRoutine(routine) }
+                    Text(
+                        text = routine.workCategory,
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no9,
+                        modifier = modifier.weight(1f)
+                    )
+                    Row(
+                        modifier = modifier.weight(1f),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(LiftIcon.Trash),
+                            contentDescription = "",
+                            tint = Color.Unspecified,
+                            modifier = modifier.clickable(
+                                onClick = { removeRoutine(routine) }
+                            )
                         )
-                    )
-                    Spacer(modifier = modifier.padding(12.dp))
-                    Icon(
-                        painter = painterResource(LiftIcon.Order),
-                        contentDescription = "",
-                        tint = Color.Unspecified,
-                        modifier = modifier
-                    )
+                        Spacer(modifier = modifier.padding(12.dp))
+                        Icon(
+                            painter = painterResource(LiftIcon.Order),
+                            contentDescription = "",
+                            tint = Color.Unspecified,
+                            modifier = modifier
+                        )
+                    }
                 }
-            }
-            Spacer(
-                modifier = modifier.padding(8.dp)
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(24.dp),
-                modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp)
-            ) {
-                Text(
-                    text = "Set",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
-                    modifier = modifier.weight(1f)
-                )
-                Text(
-                    text = "Kg",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
-                    modifier = modifier.weight(1f)
-                )
-                Text(
-                    text = "Reps",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
-                    modifier = modifier.weight(1f)
-                )
-            }
-            Spacer(modifier = modifier.padding(4.dp))
-            routine.workSetList.forEachIndexed { index, workSet ->
+                Spacer(modifier = modifier.padding(3.dp))
                 Row(
-                    modifier = modifier
-                        .background(LiftTheme.colorScheme.no5)
-                        .border(
-                            width = 1.dp,
-                            color = LiftTheme.colorScheme.no8,
-                            shape = RoundedCornerShape(size = 8.dp)
-                        )
-                        .padding(horizontal = 12.dp, vertical = 8.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    horizontalArrangement = Arrangement.spacedBy(24.dp),
+                    modifier = modifier.padding(horizontal = 12.dp)
                 ) {
                     Text(
-                        text = "${index + 1}",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no2,
-                        textAlign = TextAlign.Center,
-                        modifier = modifier
-                            .weight(1f)
-                            .padding(3.dp)
-                    )
-
-                    Text(
+                        text = "Set",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no9,
-                        text = workSet.weight.toString(),
                         textAlign = TextAlign.Center,
-                        modifier = modifier
-                            .weight(1f)
-                            .background(
-                                color = LiftTheme.colorScheme.no1,
-                                shape = RoundedCornerShape(size = 6.dp)
-                            )
-                            .padding(3.dp)
-
+                        modifier = modifier.weight(1f)
                     )
-
                     Text(
+                        text = "Kg",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no9,
-                        text = workSet.repetition.toString(),
                         textAlign = TextAlign.Center,
-                        modifier = modifier
-                            .weight(1f)
-                            .background(
-                                color = LiftTheme.colorScheme.no1,
-                                shape = RoundedCornerShape(size = 6.dp)
-                            )
-                            .padding(3.dp)
-
+                        modifier = modifier.weight(1f)
+                    )
+                    Text(
+                        text = "Reps",
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no9,
+                        textAlign = TextAlign.Center,
+                        modifier = modifier.weight(1f)
                     )
                 }
-                Spacer(modifier = modifier.padding(2.dp))
+                Spacer(modifier = modifier.padding(3.dp))
+                routine.workSetList.forEachIndexed { index, workSet ->
+                    Row(
+                        modifier = modifier
+                            .background(LiftTheme.colorScheme.no5)
+                            .border(
+                                width = 1.dp,
+                                color = LiftTheme.colorScheme.no8,
+                                shape = RoundedCornerShape(size = 8.dp)
+                            )
+                            .padding(horizontal = 12.dp, vertical = 8.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    ) {
+                        Text(
+                            text = "${index + 1}",
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no2,
+                            textAlign = TextAlign.Center,
+                            modifier = modifier
+                                .weight(1f)
+                                .padding(3.dp)
+                        )
 
+                        Text(
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no9,
+                            text = workSet.weight.toString(),
+                            textAlign = TextAlign.Center,
+                            modifier = modifier
+                                .weight(1f)
+                                .background(
+                                    color = LiftTheme.colorScheme.no1,
+                                    shape = RoundedCornerShape(size = 6.dp)
+                                )
+                                .padding(3.dp)
+
+                        )
+
+                        Text(
+                            style = LiftTheme.typography.no3,
+                            color = LiftTheme.colorScheme.no9,
+                            text = workSet.repetition.toString(),
+                            textAlign = TextAlign.Center,
+                            modifier = modifier
+                                .weight(1f)
+                                .background(
+                                    color = LiftTheme.colorScheme.no1,
+                                    shape = RoundedCornerShape(size = 6.dp)
+                                )
+                                .padding(3.dp)
+
+                        )
+                    }
+                }
             }
-        }
 
+
+        }
+    }
+
+}
+
+
+@Composable
+@DevicePreview
+fun CreateRoutineRoutineListViewPreview() {
+    LiftMaterialTheme {
+        RoutineSetRoutineView(
+            modifier=Modifier,
+            routineSetRoutine = listOf(
+                ModelDataGenerator.RoutineSetRoutine.createRoutineModel,
+                ModelDataGenerator.RoutineSetRoutine.createRoutineModel,
+                ModelDataGenerator.RoutineSetRoutine.createRoutineModel
+            ),
+            removeRoutine = { },
+            navigateRoutineSetToFindWorkCategory = { },
+        )
 
     }
 }

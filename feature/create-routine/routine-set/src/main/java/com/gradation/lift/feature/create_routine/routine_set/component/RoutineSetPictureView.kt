@@ -24,23 +24,22 @@ fun RoutineSetPictureView(
     navigateRoutineSetToProfile: () -> Unit,
     routineSetPicture: String,
 ) {
-    Column(
-        modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column(modifier = modifier.fillMaxWidth()){
         Text(
             text = "루틴리스트 프로필",
             style = LiftTheme.typography.no3,
             color = LiftTheme.colorScheme.no3,
+            modifier= modifier.align(Alignment.Start)
         )
         Spacer(modifier = modifier.padding(8.dp))
 
         Box(
-            modifier = modifier
+            modifier =modifier
                 .background(
                     color = LiftTheme.colorScheme.no1,
                     shape = RoundedCornerShape(size = 12.dp)
                 )
+                .align(Alignment.CenterHorizontally)
                 .size(96.dp)
                 .clickable(
                     onClick = navigateRoutineSetToProfile
@@ -49,7 +48,7 @@ fun RoutineSetPictureView(
         ) {
             if (routineSetPicture.isBlank()) {
                 Image(
-                    modifier = modifier.size(32.dp),
+                    modifier = modifier.size(32.dp).align(Alignment.Center),
                     painter = painterResource(id = LiftIcon.Plus),
                     contentDescription = "",
                     colorFilter = ColorFilter.tint(LiftTheme.colorScheme.no6)
@@ -58,7 +57,7 @@ fun RoutineSetPictureView(
                 GlideImage(
                     model = routineSetPicture,
                     contentDescription = "",
-                    modifier = modifier.fillMaxSize()
+                    modifier = modifier.fillMaxSize().align(Alignment.Center)
                 )
             }
         }
