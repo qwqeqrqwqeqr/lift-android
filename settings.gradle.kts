@@ -66,7 +66,7 @@ include(":feature:badge:setting")
 include(":feature:notification:notice")
 include(":feature:notification:notification")
 
-
+include(":feature:history:history")
 include(":feature:history:analytics")
 include(":feature:history:daily-log")
 

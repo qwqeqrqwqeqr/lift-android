@@ -80,6 +80,7 @@ dependencies {
     implementation(project(":feature:notification:notification"))
 
 
+    implementation(project(":feature:history:history"))
     implementation(project(":feature:history:analytics"))
     implementation(project(":feature:history:daily-log"))
 
