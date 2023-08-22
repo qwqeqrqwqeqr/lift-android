@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.home.component.weekdate_routine_view.weekdate_view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -10,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
 import kotlinx.datetime.LocalDate
@@ -44,7 +44,7 @@ private fun WeekDateCard(
 ) {
     Box(
         modifier = modifier
-            .clickable(onClick = { updateSelectedDate(weekDateSelection.localDate) })
+            .noRippleClickable { updateSelectedDate(weekDateSelection.localDate) }
             .background(
                 color = if (weekDateSelection.selected) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no1,
                 shape = RoundedCornerShape(8.dp)

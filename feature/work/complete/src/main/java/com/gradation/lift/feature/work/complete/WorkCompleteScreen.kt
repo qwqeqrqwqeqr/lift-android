@@ -6,34 +6,28 @@ import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftTextField
-import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.complete.component.*
+import com.gradation.lift.feature.work.complete.data.WorkCompleteViewModel
+import com.gradation.lift.feature.work.complete.data.state.CreateWorkHistoryState
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryRoutineModel
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.ui.utils.toText
-import kotlinx.datetime.LocalTime
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -46,57 +40,71 @@ fun WorkCompleteRoute(
     viewModel: WorkCompleteViewModel = hiltViewModel(),
 ) {
 
-    val workBackStackEntry =
+    val workBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
-    val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
-    val historyRoutineList by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
-    val score by viewModel.score.collectAsStateWithLifecycle()
-    val commentText by viewModel.comment.collectAsStateWithLifecycle()
-    val navigateCondition by viewModel.navigateCondition.collectAsStateWithLifecycle()
+    val score: Int by viewModel.score.collectAsStateWithLifecycle()
+    val comment: String by viewModel.comment.collectAsStateWithLifecycle()
+    val commentValidator: Validator by viewModel.commentValidator.collectAsStateWithLifecycle()
+    val createWorkHistoryState: CreateWorkHistoryState by viewModel.createWorkHistoryState.collectAsStateWithLifecycle()
 
-    val updateScore = viewModel.updateScore()
-    val updateCommentText = viewModel.updateComment()
-    val createWorkHistory = viewModel.createWorkHistory(
-        comment = commentText,
+    val historyWorkRestTime: WorkRestTime by sharedViewModel.historyWorkRestTime.collectAsStateWithLifecycle()
+    val historyRoutineList: List<CreateHistoryRoutine> by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
+
+    val updateScore: (Int) -> Unit = viewModel.updateScore()
+    val updateComment: (String) -> Unit = viewModel.updateComment()
+    val updateCreateWorkHistoryState: (CreateWorkHistoryState) -> Unit =
+        viewModel.updateCreateWorkHistoryState()
+
+    val createWorkHistory: () -> Unit = viewModel.createWorkHistory(
+        comment = comment,
         score = score,
-        workTime = workTime.workTime,
-        restTime = workTime.restTime,
-        totalTime = workTime.totalTime,
+        workTime = historyWorkRestTime.workTime,
+        restTime = historyWorkRestTime.restTime,
+        totalTime = historyWorkRestTime.totalTime,
         historyRoutine = historyRoutineList
     )
     val scrollState: ScrollState = rememberScrollState()
+    val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
+    val focusManager: FocusManager = LocalFocusManager.current
 
     WorkCompleteScreen(
-        modifier = modifier,
-        onClickCompleteButton = createWorkHistory,
-
-        workTime = workTime,
-        score = score,
-        commentText = commentText,
-        historyRoutineList = historyRoutineList,
-
-        onClickStar = updateScore,
-        updateCommentText = updateCommentText,
-        scrollState = scrollState
+        modifier,
+        score,
+        comment,
+        commentValidator,
+        historyWorkRestTime,
+        historyRoutineList,
+        updateScore,
+        updateComment,
+        createWorkHistory,
+        scrollState,
+        snackbarHostState,
+        focusManager
     )
 
-    LaunchedEffect(true) {
-        sharedViewModel.stopTime()
-    }
 
-    when (navigateCondition) {
-        false -> {}
-        true -> {
+    when (val createWorkHistoryStateResult = createWorkHistoryState) {
+        is CreateWorkHistoryState.Fail -> {
+            LaunchedEffect(true) {
+                snackbarHostState.showSnackbar(
+                    message = createWorkHistoryStateResult.message
+                )
+                updateCreateWorkHistoryState(CreateWorkHistoryState.None)
+            }
+        }
+        CreateWorkHistoryState.None -> {}
+        CreateWorkHistoryState.Success -> {
             LaunchedEffect(true) {
                 navigateWorkGraphToHomeGraph()
             }
         }
     }
 
-
-
+    LaunchedEffect(true) {
+        sharedViewModel.workState.stopTime()
+    }
     BackHandler(onBack = createWorkHistory)
 
 }
@@ -105,313 +113,69 @@ fun WorkCompleteRoute(
 @Composable
 fun WorkCompleteScreen(
     modifier: Modifier = Modifier,
-    onClickCompleteButton: () -> Unit,
-    workTime: WorkRestTime,
     score: Int,
-    commentText: String,
-    onClickStar: (Int) -> Unit,
-    updateCommentText: (String) -> Unit,
+    comment: String,
+    commentValidator: Validator,
+    historyWorkRestTime: WorkRestTime,
     historyRoutineList: List<CreateHistoryRoutine>,
-    scrollState: ScrollState
+    updateScore: (Int) -> Unit,
+    updateComment: (String) -> Unit,
+    createWorkHistory: () -> Unit,
+    scrollState: ScrollState,
+    snackbarHostState: SnackbarHostState,
+    focusManager: FocusManager,
 ) {
-
-    Surface(
-        color = LiftTheme.colorScheme.no5,
+    Scaffold(
+        snackbarHost = {
+            LiftErrorSnackBar(
+                modifier = modifier,
+                snackbarHostState = snackbarHostState
+            )
+        },
         modifier = modifier.fillMaxSize()
     ) {
-        Column(
-            modifier = modifier.verticalScroll(scrollState)
+        Surface(
+            color = LiftTheme.colorScheme.no5,
+            modifier = modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
-            Box(
-                modifier = modifier.fillMaxWidth()
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.halo),
-                    contentDescription = "",
-                    modifier = modifier.fillMaxWidth()
-                )
-                Image(
-                    painter = painterResource(R.drawable.trophy),
-                    contentDescription = "",
-                    modifier = modifier
-                        .size(160.dp)
-                        .align(Alignment.BottomCenter)
-                )
-            }
             Column(
-                modifier = modifier
-                    .padding(16.dp)
-                    .fillMaxSize(),
+                modifier = modifier.verticalScroll(scrollState)
             ) {
-                Text(
-                    text = buildAnnotatedString {
-                        append("운동을 ")
-                        withStyle(
-                            style = SpanStyle(
-                                color = LiftTheme.colorScheme.no4,
-                                fontWeight = FontWeight.Bold
-                            ),
-                        ) {
-                            append("완료")
-                        }
-                        append("하였습니다!")
-                    },
-                    style = LiftTheme.typography.no1.copy(
-                        fontWeight = FontWeight(400)
-                    ),
-                    color = LiftTheme.colorScheme.no9,
-                    modifier = modifier.align(Alignment.CenterHorizontally)
-                )
+                HeaderView(modifier)
                 Spacer(modifier = modifier.padding(8.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Column(
-                        modifier = modifier
-                            .background(LiftTheme.colorScheme.no5)
-                            .border(
-                                width = 2.dp,
-                                color = LiftTheme.colorScheme.no8,
-                                shape = RoundedCornerShape(16.dp)
-                            )
-                            .weight(1f)
-                            .fillMaxWidth()
-                            .padding(vertical = 12.dp, horizontal = 16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-
-                        ) {
-                            Icon(
-                                painter = painterResource(LiftIcon.Muscle),
-                                contentDescription = "",
-                                tint = LiftTheme.colorScheme.no20
-                            )
-                            Spacer(modifier = modifier.padding(1.dp))
-                            Text(
-                                text = "총 소요시간",
-                                style = LiftTheme.typography.no6,
-                                color = LiftTheme.colorScheme.no11
-                            )
-                        }
-                        Text(
-                            text = workTime.totalTime.toText(),
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no9
-                        )
-                    }
-                    Column(
-                        modifier = modifier
-                            .background(LiftTheme.colorScheme.no5)
-                            .border(
-                                width = 2.dp,
-                                color = LiftTheme.colorScheme.no8,
-                                shape = RoundedCornerShape(16.dp)
-                            )
-                            .weight(1f)
-                            .fillMaxWidth()
-                            .padding(vertical = 12.dp, horizontal = 16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-
-                        ) {
-                            Icon(
-                                painter = painterResource(LiftIcon.Timer),
-                                contentDescription = "",
-                                tint = LiftTheme.colorScheme.no4
-                            )
-                            Spacer(modifier = modifier.padding(1.dp))
-                            Text(
-                                text = "총 휴식시간",
-                                style = LiftTheme.typography.no6,
-                                color = LiftTheme.colorScheme.no11
-                            )
-                        }
-                        Text(
-                            text = workTime.restTime.toText(),
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no9
-                        )
-                    }
-                }
+                TimeView(modifier, historyWorkRestTime)
                 Spacer(modifier = modifier.padding(16.dp))
-                Text(
-                    text = "평가하기",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    modifier = modifier.align(Alignment.Start)
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(
-                        8.dp,
-                        Alignment.CenterHorizontally
-                    ),
-                    modifier = modifier.fillMaxWidth(),
-                ) {
-                    repeat(5) {
-                        Image(
-                            painter = if (it < score) painterResource(R.drawable.star_on) else painterResource(
-                                R.drawable.star_off
-                            ),
-                            contentDescription = "",
-                            modifier = modifier
-                                .size(36.dp)
-                                .clickable(
-                                    onClick = { onClickStar(it + 1) }
-                                )
-                        )
-                    }
-                }
-
+                EvaluationView(modifier, score, updateScore)
                 Spacer(modifier = modifier.padding(16.dp))
-                Text(
-                    text = "한 줄 메모",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    modifier = modifier.align(Alignment.Start)
-                )
-
-                Spacer(modifier = modifier.padding(4.dp))
-                LiftTextField(
-                    value = commentText,
-                    onValueChange = updateCommentText,
-                    modifier = modifier.fillMaxWidth(),
-                    placeholder = {
-                        Text(
-                            text = "간단한 메모를 남겨주세요.",
-                            style = LiftTheme.typography.no6,
-                        )
-                    },
-                    singleLine = true,
-                )
-
+                CommentView(modifier, comment, commentValidator, updateComment, focusManager)
                 Spacer(modifier = modifier.padding(16.dp))
-                Text(
-                    text = "운동 기록",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no9,
-                    modifier = modifier.align(Alignment.Start)
-                )
-                Spacer(modifier = modifier.padding(4.dp))
-
-                historyRoutineList.forEach { historyRoutine ->
-                    Column(
-                        modifier = modifier
-                            .background(LiftTheme.colorScheme.no5)
-                            .border(
-                                width = 1.dp,
-                                color = LiftTheme.colorScheme.no8,
-                                shape = RoundedCornerShape(16.dp)
-                            )
-                            .fillMaxWidth()
-                            .padding(vertical = 12.dp, horizontal = 16.dp),
-                    ) {
-                        Text(
-                            text = historyRoutine.workCategory,
-                            color = LiftTheme.colorScheme.no9,
-                            style = LiftTheme.typography.no3
-                        )
-                        with(historyRoutine.workSetList) {
-                            Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                modifier = modifier.fillMaxWidth()
-                            ) {
-                                Text(
-                                    text = "세트/평균횟수",
-                                    style = LiftTheme.typography.no6,
-                                    color = LiftTheme.colorScheme.no11
-                                )
-                                Text(
-                                    text = buildAnnotatedString {
-                                        withStyle(
-                                            style = SpanStyle(fontWeight = FontWeight.Bold),
-                                        ) {
-                                            append("$size")
-                                        }
-                                        append(" Set  ")
-                                        withStyle(
-                                            style = SpanStyle(fontWeight = FontWeight.Bold),
-                                        ) {
-                                            append("${(sumOf { it.repetition } / size)}")
-                                        }
-                                        append(" Reps")
-
-                                    },
-                                    style = LiftTheme.typography.no6,
-                                    color = LiftTheme.colorScheme.no11
-                                )
-
-                            }
-                            Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                modifier = modifier.fillMaxWidth()
-                            ) {
-                                Text(
-                                    text = "최대 무게",
-                                    style = LiftTheme.typography.no6,
-                                    color = LiftTheme.colorScheme.no11
-                                )
-                                Text(
-                                    text = buildAnnotatedString {
-                                        withStyle(
-                                            style = SpanStyle(fontWeight = FontWeight.Bold),
-                                        ) {
-                                            append((maxBy { it.weight }.weight).toText())
-                                        }
-                                        append("kg")
-                                    },
-                                    style = LiftTheme.typography.no6,
-                                    color = LiftTheme.colorScheme.no11
-                                )
-
-                            }
-                        }
-                    }
-                    Spacer(modifier = modifier.padding(4.dp))
-                }
+                HistoryRoutineView(modifier, historyRoutineList)
                 Spacer(modifier = modifier.padding(16.dp))
-                LiftButton(
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = onClickCompleteButton,
-                ) {
-                    Text(
-                        text = "완료",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
+                NavigationView(modifier, createWorkHistory)
             }
         }
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun WorkCompleteScreenPreview() {
     LiftMaterialTheme {
         WorkCompleteScreen(
-            modifier = Modifier,
-            onClickCompleteButton = {},
-            workTime = WorkRestTime().copy(
-                totalTime = LocalTime(2, 30),
-                restTime = LocalTime(0, 10, 30),
-            ),
-            score = 4,
-            commentText = "열심히 운동했어",
-            updateCommentText = {},
-            onClickStar = {},
-            historyRoutineList = listOf(
-                createHistoryRoutineModel,
-                createHistoryRoutineModel,
-                createHistoryRoutineModel
-            ),
-            scrollState = rememberScrollState()
+            score = 5,
+            comment = "",
+            commentValidator = Validator(),
+            historyWorkRestTime = WorkRestTime(),
+            historyRoutineList = emptyList(),
+            updateScore = {},
+            updateComment = {},
+            createWorkHistory = {},
+            scrollState = rememberScrollState(),
+            snackbarHostState = SnackbarHostState(),
+            focusManager = LocalFocusManager.current
         )
     }
 }

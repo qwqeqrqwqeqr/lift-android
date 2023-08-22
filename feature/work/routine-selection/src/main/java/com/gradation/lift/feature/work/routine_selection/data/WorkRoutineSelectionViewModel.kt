@@ -1,82 +1,78 @@
 package com.gradation.lift.feature.work.routine_selection.data
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
+import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSetIdUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
+import com.gradation.lift.feature.work.routine_selection.data.state.DateState
+import com.gradation.lift.feature.work.routine_selection.data.state.OpenedRoutineState
+import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
+import com.gradation.lift.feature.work.routine_selection.data.state.SelectedRoutineSetState
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.model.model.common.toWeekday
-import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.todayIn
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
+/**
+ * [WorkRoutineSelectionViewModel]
+ * @property selectedRoutineSetState 뷰와 상호작용을 통해 선택된 루틴들의 정보 상태
+ * @property openedRoutineState 뷰와 상호작용을 통해 상세정보가 열린 루틴들의 정보 상태
+ * @property dateState 날짜와 관련된 상태
+ * @property routineSetRoutineState 상단 3개의 상태를 조합하여 만든 루틴 세트 상태
+ *
+ * @constructor getThisWeekUseCase 이번주에 대한 정보를 불러옴 (날짜, 요일)
+ * @constructor getRoutineSetRoutineByWeekdayUseCase  요일을 통해 루틴세트를 불러옴
+ * @constructor getRoutineSetRoutineByRoutineSetIdUseCase 루틴세트 아이디를 통해 루틴세트를 불러옴
+ * @constructor getTodayUseCase 현재 날짜 시간 정보를 불러옴
+ * @since 2023-08-22 12:33:46
+ */
 @HiltViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 class WorkRoutineSelectionViewModel @Inject constructor(
-    private val getThisWeekUseCase: GetThisWeekUseCase,
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
-    private val getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
+    getThisWeekUseCase: GetThisWeekUseCase,
+    getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
+    getTodayUseCase: GetTodayUseCase,
 ) : ViewModel() {
 
 
-    private val currentDate =
-        MutableStateFlow(Clock.System.todayIn(TimeZone.currentSystemDefault()))
+    var selectedRoutineSetState = SelectedRoutineSetState(
+        getRoutineSetRoutineByRoutineSetIdUseCase = getRoutineSetRoutineByRoutineSetIdUseCase,
+        viewModelScope = viewModelScope
+    )
+    val openedRoutineState = OpenedRoutineState()
 
-
-    val selectedRoutineSetList = MutableStateFlow(emptyList<RoutineSetRoutine>())
-    private val openedRoutineIdList = MutableStateFlow(emptySet<Int>())
-
-    internal val selectedRoutineCount = selectedRoutineSetList.map { it -> it.size }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = 0
+    val dateState = DateState(
+        getTodayUseCase = getTodayUseCase,
+        getThisWeekUseCase = getThisWeekUseCase,
+        viewModelScope = viewModelScope
     )
 
-    internal val weekDate = currentDate.map {
-        getThisWeekUseCase(it).map { localDate ->
-            WeekdayCard(
-                weekday = localDate.toWeekday(),
-                localDate = localDate,
-                selected = false
-            ).apply {
-                if (this.localDate == currentDate.value) this.selected = true
-            }
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList()
-    )
 
-    val routineSetRoutineSelection =
-        combine(
-            openedRoutineIdList,
-            selectedRoutineSetList,
-            currentDate
-        ) { openedRoutineIdList, selectedRoutineSetList, currentDate ->
-            getRoutineSetRoutineByWeekdayUseCase(currentDate.toWeekday()).map {
-                when (it) {
-                    is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = it.message)
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val routineSetRoutineState: StateFlow<RoutineSetRoutineSelectionUiState> =
+        dateState.currentDate.flatMapLatest {
+            combine(
+                openedRoutineState.openedRoutineIdList,
+                selectedRoutineSetState.selectedRoutineSetList,
+                getRoutineSetRoutineByWeekdayUseCase(it.toWeekday())
+            ) { openedRoutineIdList, selectedRoutineSetList, getRoutineSetRoutineByWeekdayResult ->
+                when (getRoutineSetRoutineByWeekdayResult) {
+                    is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = getRoutineSetRoutineByWeekdayResult.message)
                     is DataState.Success -> {
-                        if (it.data.isEmpty()) {
+                        if (getRoutineSetRoutineByWeekdayResult.data.isEmpty()) {
                             RoutineSetRoutineSelectionUiState.Empty
                         } else {
                             RoutineSetRoutineSelectionUiState.Success(
-                                it.data.map { routineSetRoutine ->
+                                getRoutineSetRoutineByWeekdayResult.data.map { routineSetRoutine ->
                                     RoutineSetRoutineSelection(
                                         id = routineSetRoutine.id,
                                         name = routineSetRoutine.name,
@@ -97,51 +93,11 @@ class WorkRoutineSelectionViewModel @Inject constructor(
                     }
                 }
             }
-        }.flatMapLatest { it }.stateIn(
+        }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = RoutineSetRoutineSelectionUiState.Loading
         )
-
-    internal fun updateCurrentDate(): (LocalDate) -> Unit = {
-        currentDate.value = it
-    }
-
-    fun updateSelectedRoutineSetIdList(): (RoutineSetRoutine, Boolean) -> Unit =
-        { routineSetRoutine, checked ->
-            if (checked) {
-                selectedRoutineSetList.update { it.plusElement(routineSetRoutine) }
-            } else {
-                selectedRoutineSetList.update { it.minusElement(routineSetRoutine) }
-            }
-        }
-
-    fun updateOpenedRoutineIdList(): (Int, Boolean) -> Unit = { id, checked ->
-        if (checked) {
-            openedRoutineIdList.update { it.plusElement(id) }
-        } else {
-            openedRoutineIdList.update { it.minusElement(id) }
-        }
-    }
-
-
-    fun updateSelectedRoutineSetId(selectedRoutineSetRoutineId: Int?) {
-        selectedRoutineSetRoutineId?.let { id ->
-            viewModelScope.launch {
-                getRoutineSetRoutineByRoutineSetIdUseCase(setOf(id)).collect {
-                    when (it) {
-                        is DataState.Fail -> {}
-                        is DataState.Success -> {
-                            selectedRoutineSetList.update { list ->
-                                Log.d("lift", it.data.toString())
-                                list.plus(it.data)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
 
 }

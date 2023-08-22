@@ -10,28 +10,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.routine_selection.component.WeekdayCardListView
-import com.gradation.lift.feature.work.routine_selection.component.routine_list.EmptyRoutineListView
-import com.gradation.lift.feature.work.routine_selection.component.routine_list.LoadingRoutineSetRoutineListView
-import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.routine_list_view.EmptyRoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.routine_list_view.LoadingRoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.routine_list_view.RoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.week_date_card_view.WeekDateCardListView
 import com.gradation.lift.feature.work.routine_selection.data.*
-import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
+import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
+import com.gradation.lift.feature.work.work.data.model.RoutineSelection
+import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import com.gradation.lift.navigation.Router
 import kotlinx.datetime.LocalDate
 
@@ -46,123 +47,118 @@ internal fun WorkRoutineSelectionRoute(
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
 ) {
-
-    val workBackStackEntry =
+    val workBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
+    val selectedRoutineSetList: List<RoutineSetRoutine> by viewModel.selectedRoutineSetState.selectedRoutineSetList.collectAsStateWithLifecycle()
+    val selectedRoutineCount: Int by viewModel.selectedRoutineSetState.selectedRoutineCount.collectAsStateWithLifecycle()
+    val updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit =
+        viewModel.selectedRoutineSetState.updateSelectedRoutineSetList()
+    val appendBySelectedRoutineSetRoutineId: (Int?) -> Unit =
+        viewModel.selectedRoutineSetState.appendBySelectedRoutineSetRoutineId()
 
-    val weekDate: List<WeekdayCard> by viewModel.weekDate.collectAsStateWithLifecycle()
-    val selectedRoutineSetRoutine by viewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
-    val routineSetRoutineSelection: RoutineSetRoutineSelectionUiState by viewModel.routineSetRoutineSelection.collectAsStateWithLifecycle()
-    val selectedRoutineCount by viewModel.selectedRoutineCount.collectAsStateWithLifecycle()
+    val updateOpenedRoutineIdList: (Int, Boolean) -> Unit =
+        viewModel.openedRoutineState.updateOpenedRoutineIdList()
 
 
+    val weekDate: List<WeekDateSelection> by viewModel.dateState.weekDate.collectAsStateWithLifecycle()
+    val updateCurrentDate: (LocalDate) -> Unit = viewModel.dateState.updateCurrentDate()
+
+    val routineSetRoutineSelectionUiState: RoutineSetRoutineSelectionUiState by viewModel.routineSetRoutineState.collectAsStateWithLifecycle()
+
+
+    val updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit =
+        sharedViewModel.updateRoutineSetRoutineList()
 
 
     WorkRoutineSelectionScreen(
-        modifier = modifier,
-        weekday = weekDate,
-        routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = navigateWorkGraphToHomeGraph,
-        onClickWeekDayCard = viewModel.updateCurrentDate(),
-        onClickStartWork = {
-            sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetRoutine)
-            navigateSelectionRoutineToWork()
-        },
-        selectedRoutineCount = selectedRoutineCount,
-        onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
-        onUpdateRoutineList = viewModel.updateOpenedRoutineIdList(),
+        modifier,
+        weekDate,
+        selectedRoutineSetList,
+        selectedRoutineCount,
+        routineSetRoutineSelectionUiState,
+        updateCurrentDate,
+        updateRoutineSetRoutineList,
+        updateSelectedRoutineSetList,
+        updateOpenedRoutineIdList,
+        navigateWorkGraphToHomeGraph,
+        navigateSelectionRoutineToWork
     )
 
     LaunchedEffect(key1 = true) {
-        viewModel.updateSelectedRoutineSetId(selectedRoutineSetId)
+        appendBySelectedRoutineSetRoutineId(selectedRoutineSetId)
     }
     BackHandler(enabled = true, onBack = navigateWorkGraphToHomeGraph)
 
+
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun WorkRoutineSelectionScreen(
     modifier: Modifier = Modifier,
-    weekday: List<WeekdayCard>,
-    routineSetRoutineSelection: RoutineSetRoutineSelectionUiState,
-    onBackClickTopBar: () -> Unit,
-    onClickWeekDayCard: (LocalDate) -> Unit,
-    onClickStartWork: () -> Unit,
-    onUpdateRoutineSetRoutineList: (RoutineSetRoutine, Boolean) -> Unit,
-    onUpdateRoutineList: (Int, Boolean) -> Unit,
+    weekDate: List<WeekDateSelection>,
+    selectedRoutineSetList: List<RoutineSetRoutine>,
     selectedRoutineCount: Int,
+    routineSetRoutineSelectionUiState: RoutineSetRoutineSelectionUiState,
+    updateCurrentDate: (LocalDate) -> Unit,
+    updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
+    updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit,
+    updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
+    navigateWorkGraphToHomeGraph: () -> Unit,
+    navigateSelectionRoutineToWork: () -> Unit,
 ) {
 
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "루틴리스트 선택",
-                onBackClickTopBar = onBackClickTopBar
+                onBackClickTopBar = navigateWorkGraphToHomeGraph
             )
-        },
-        floatingActionButton = {
-            LiftButton(
-                contentPadding = PaddingValues(
-                    start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
-                ),
-                onClick = onClickStartWork,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                    ),
-                enabled = selectedRoutineCount != 0
-            ) {
-                Text(
-                    text = "운동시작하기 (${selectedRoutineCount}개)",
-                    style = LiftTheme.typography.no3,
-                    color = LiftTheme.colorScheme.no5,
-                )
-                Spacer(modifier = modifier.padding(2.dp))
-                Icon(
-                    painterResource(id = LiftIcon.ChevronRight),
-                    contentDescription = null,
-                    modifier = modifier
-                        .align(Alignment.CenterVertically)
-                        .fillMaxHeight()
-                        .width(8.dp)
-                )
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center
+        }
     ) {
-        Column(
-            modifier = modifier.padding(it)
+        Surface(
+            color = LiftTheme.colorScheme.no17,
+            modifier = modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
-            WeekdayCardListView(
-                weekday = weekday,
-                modifier = modifier,
-                onClickWeekDayCard = onClickWeekDayCard
-            )
+            Column(
+                modifier = modifier
+            ) {
+                WeekDateCardListView(
+                    modifier, weekDate, updateCurrentDate
+                )
 
-            when (routineSetRoutineSelection) {
-                RoutineSetRoutineSelectionUiState.Empty -> {
-                    EmptyRoutineListView(modifier = modifier)
-                }
-                is RoutineSetRoutineSelectionUiState.Fail -> {
+                when (routineSetRoutineSelectionUiState) {
+                    RoutineSetRoutineSelectionUiState.Empty -> {
+                        EmptyRoutineSetRoutineListView(
+                            modifier,
+                            selectedRoutineCount,
+                            selectedRoutineSetList,
+                            updateRoutineSetRoutineList,
+                            navigateSelectionRoutineToWork
+                        )
+                    }
+                    is RoutineSetRoutineSelectionUiState.Fail -> {
 
+                    }
+                    RoutineSetRoutineSelectionUiState.Loading -> {
+                        LoadingRoutineSetRoutineListView(modifier = modifier.padding(horizontal = 16.dp))
+                    }
+                    is RoutineSetRoutineSelectionUiState.Success -> {
+                        RoutineSetRoutineListView(
+                            modifier = modifier,
+                            selectedRoutineSetList = selectedRoutineSetList,
+                            selectedRoutineCount = selectedRoutineCount,
+                            routineSetRoutineSelection = routineSetRoutineSelectionUiState.routineSetRoutineSelection,
+                            updateRoutineSetRoutineList = updateRoutineSetRoutineList,
+                            updateSelectedRoutineSetList = updateSelectedRoutineSetList,
+                            updateOpenedRoutineIdList = updateOpenedRoutineIdList,
+                            navigateSelectionRoutineToWork = navigateSelectionRoutineToWork
+                        )
 
-                }
-                RoutineSetRoutineSelectionUiState.Loading -> {
-                    LoadingRoutineSetRoutineListView(modifier = modifier)
-                }
-                is RoutineSetRoutineSelectionUiState.Success -> {
-                    RoutineSetRoutineListView(
-                        modifier = modifier,
-                        routineSetRoutineSelection = routineSetRoutineSelection.routineSetRoutineSelection,
-                        onUpdateRoutineSetRoutineList = onUpdateRoutineSetRoutineList,
-                        onUpdateRoutineList = onUpdateRoutineList,
-                    )
-
+                    }
                 }
             }
         }
@@ -172,26 +168,43 @@ internal fun WorkRoutineSelectionScreen(
 
 @Composable
 @Preview
-fun WorkRoutineSelectionPreview() {
+fun WorkRoutineSelectionScreenPreview() {
     LiftMaterialTheme {
         WorkRoutineSelectionScreen(
-            modifier = Modifier,
-            weekday = listOf(
-                WeekdayCard(weekday = Weekday.Monday()),
-                WeekdayCard(weekday = Weekday.Tuesday()),
-                WeekdayCard(weekday = Weekday.Wednesday()),
-                WeekdayCard(weekday = Weekday.Thursday()),
-                WeekdayCard(weekday = Weekday.Friday()),
-                WeekdayCard(weekday = Weekday.Saturday()),
-                WeekdayCard(weekday = Weekday.Sunday(), selected = true)
+            weekDate = listOf(
+                WeekDateSelection(weekday = Weekday.Monday()),
+                WeekDateSelection(weekday = Weekday.Tuesday()),
+                WeekDateSelection(weekday = Weekday.Wednesday()),
+                WeekDateSelection(weekday = Weekday.Thursday()),
+                WeekDateSelection(weekday = Weekday.Friday()),
+                WeekDateSelection(weekday = Weekday.Saturday()),
+                WeekDateSelection(weekday = Weekday.Sunday(), selected = true)
             ),
-            routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Empty,
-            onBackClickTopBar = {},
-            onClickWeekDayCard = {},
-            onClickStartWork = {},
-            onUpdateRoutineSetRoutineList = { _, _ -> },
-            onUpdateRoutineList = { _, _ -> },
-            selectedRoutineCount = 2
+            selectedRoutineSetList = routineSetRoutineModelList,
+            selectedRoutineCount = 3,
+            routineSetRoutineSelectionUiState = RoutineSetRoutineSelectionUiState.Success(
+                routineSetRoutineSelection = routineSetRoutineModelList.map {
+                    RoutineSetRoutineSelection(
+                        id = it.id,
+                        name = it.name,
+                        description = it.description,
+                        weekday = it.weekday,
+                        selected = false,
+                        routine = it.routine.map { routine ->
+                            RoutineSelection(
+                                routine = routine,
+                                opened = true
+                            )
+                        }
+                    )
+                }
+            ),
+            navigateWorkGraphToHomeGraph = { },
+            updateCurrentDate = { },
+            navigateSelectionRoutineToWork = {},
+            updateRoutineSetRoutineList = { },
+            updateSelectedRoutineSetList = { _, _ -> },
+            updateOpenedRoutineIdList = { _, _ -> }
         )
     }
 }

@@ -2,7 +2,6 @@ package com.gradation.lift.create_routine.profile.component.routine_profile_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -20,6 +19,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.create_routine.profile.component.NavigationView
 import com.gradation.lift.create_routine.profile.data.model.RoutineSetCategoryPicture
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
@@ -88,11 +88,11 @@ fun RoutineProfileList(
                             color = if (picture.selected) LiftTheme.colorScheme.no4 else Color.Unspecified,
                             shape = RoundedCornerShape(size = 12.dp)
                         )
-                        .clickable(
-                            onClick = {
+                        .noRippleClickable{
+
                                 updateSelectedPicture(picture.url)
                             }
-                        )
+
                 )
             }
         }

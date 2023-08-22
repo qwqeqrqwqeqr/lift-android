@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.register_detail.profile_picture.component
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -14,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.picture.UserProfilePicture
 
@@ -50,9 +50,8 @@ fun ProfilePictureView(
                     contentDescription = "",
                     modifier = modifier
                         .clip(CircleShape)
-                        .clickable(
-                            onClick = { updateSelectedProfile(item.url) }
-                        )
+                        .noRippleClickable { updateSelectedProfile(item.url) }
+
                 )
             }
 

@@ -3,7 +3,6 @@ package com.gradation.lift.feature.work.change_order.component.routine_list
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.NumberCircle
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -81,13 +81,13 @@ fun RoutineListView(
                                 contentDescription = "",
                                 tint = Color.Unspecified,
                                 modifier = modifier
-                                    .clickable(
-                                        onClick = {
+                                    .noRippleClickable
+                                        {
                                             onDeleteRoutineSetRoutineList(
                                                 routineSetRoutine.id
                                             )
                                         }
-                                    )
+
                                     .align(Alignment.CenterVertically)
 
                             )

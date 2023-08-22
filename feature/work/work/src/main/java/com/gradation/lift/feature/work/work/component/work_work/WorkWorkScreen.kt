@@ -24,7 +24,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
-import com.gradation.lift.feature.work.work.data.state.WorkScreenState
+import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
 
@@ -33,7 +33,7 @@ import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCatego
 fun WorkWorkScreen(
     modifier: Modifier = Modifier,
     onCloseClickTopBar: () -> Unit,
-    onListClickTopBar: (WorkScreenState) -> Unit,
+    onListClickTopBar: (WorkScreenUiState) -> Unit,
     onClickWorkCompleteButton: () -> Unit,
     onClickRestButton: () -> Unit,
     updateWorkState: () -> Unit,
@@ -53,7 +53,7 @@ fun WorkWorkScreen(
                 title = null,
                 onCloseClickTopBar = onCloseClickTopBar
             ) {
-                IconButton(onClick = { onListClickTopBar(WorkScreenState.ListScreen(true)) }) {
+                IconButton(onClick = { onListClickTopBar(WorkScreenUiState.ListScreenUi(true)) }) {
                     Icon(
                         painter = painterResource(LiftIcon.List),
                         contentDescription = "",

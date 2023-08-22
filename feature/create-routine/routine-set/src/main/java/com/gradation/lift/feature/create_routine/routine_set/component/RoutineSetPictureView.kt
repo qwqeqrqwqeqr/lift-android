@@ -2,7 +2,6 @@ package com.gradation.lift.feature.create_routine.routine_set.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -14,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -41,9 +41,9 @@ fun RoutineSetPictureView(
                 )
                 .align(Alignment.CenterHorizontally)
                 .size(96.dp)
-                .clickable(
-                    onClick = navigateRoutineSetToProfile
-                ), contentAlignment = Alignment.Center
+                .noRippleClickable {
+                    navigateRoutineSetToProfile()
+                }, contentAlignment = Alignment.Center
 
         ) {
             if (routineSetPicture.isBlank()) {

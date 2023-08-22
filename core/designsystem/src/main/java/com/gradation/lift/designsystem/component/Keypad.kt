@@ -1,7 +1,6 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -13,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -198,7 +198,7 @@ private fun ClearKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { clearNumber() }
+            .noRippleClickable { clearNumber() }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no1,
@@ -223,7 +223,7 @@ private fun NumberKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { appendNumber(number) }
+            .noRippleClickable { appendNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no1,
@@ -248,7 +248,7 @@ private fun PointKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { appendPoint() }
+            .noRippleClickable { appendPoint() }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no1,
@@ -275,7 +275,7 @@ private fun PlusKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { plusNumber(number) }
+            .noRippleClickable { plusNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no13,
@@ -301,7 +301,7 @@ private fun PlusKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { plusNumber(number) }
+            .noRippleClickable { plusNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no13,
@@ -327,7 +327,7 @@ private fun MinusKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { minusNumber(number) }
+            .noRippleClickable { minusNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no13,
@@ -353,7 +353,7 @@ private fun MinusKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { minusNumber(number) }
+            .noRippleClickable { minusNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no13,
@@ -380,7 +380,7 @@ private fun DoneKeypad(
 ) {
     Box(
         modifier = modifier
-            .clickable { done() }
+            .noRippleClickable { done() }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no4,

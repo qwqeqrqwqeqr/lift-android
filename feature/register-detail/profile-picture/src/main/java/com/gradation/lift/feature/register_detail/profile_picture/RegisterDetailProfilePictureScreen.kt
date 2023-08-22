@@ -122,14 +122,15 @@ internal fun RegisterDetailProfilePictureScreen(
     navigateProfilePictureToHeightWeight: () -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
-    if (onVisibleCompleteDialog) {
-        Surface(
-            color = LiftTheme.colorScheme.no23,
-            modifier = modifier.fillMaxSize()
-        ) {
-            CompleteDialog(modifier, navigateRegisterDetailGraphToHomeGraph)
+    Box {
+        if (onVisibleCompleteDialog) {
+            Surface(
+                color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
+                modifier = modifier.fillMaxSize()
+            ) {
+                CompleteDialog(modifier, navigateRegisterDetailGraphToHomeGraph)
+            }
         }
-    } else {
         Scaffold(
             topBar = {
                 LiftBackTopBar(
@@ -186,6 +187,7 @@ internal fun RegisterDetailProfilePictureScreen(
             }
         }
     }
+
 }
 
 

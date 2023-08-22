@@ -1,47 +1,46 @@
 package com.gradation.lift.feature.work.work.data.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
-import com.gradation.lift.feature.work.work.data.model.WorkRestTime
-import com.gradation.lift.feature.work.work.data.state.WorkDialogState
-import com.gradation.lift.feature.work.work.data.state.WorkScreenState
+import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
+import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalTime
-import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 import javax.inject.Inject
 
+/**
+ * [WorkWorkViewModel]
+ * @property workDialogUiState 현재 팝업에 관련한 상태
+ * @property workScreenUiState 현저 화면에 관련한 상태
+ * @property autoCompleteState 주어진 운동을 모두 완료할 경우 자동완료 팝업을 보이게끔 도와주는 상태 (한번만 작동하게끔 설정할 것)
+ */
 @HiltViewModel
 class WorkWorkViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-
-    val workDialogState: MutableStateFlow<WorkDialogState> = MutableStateFlow(WorkDialogState.None)
-    val workScreenState: MutableStateFlow<WorkScreenState> =
-        MutableStateFlow(WorkScreenState.WorkScreen)
+    val workDialogUiState: MutableStateFlow<WorkDialogUiState> = MutableStateFlow(WorkDialogUiState.None)
+    val workScreenUiState: MutableStateFlow<WorkScreenUiState> =
+        MutableStateFlow(WorkScreenUiState.WorkScreenUi)
     val autoCompleteState: MutableStateFlow<Boolean> = MutableStateFlow(true)
 
 
-    fun updateWorkScreenState(): (WorkScreenState) -> Unit = { state ->
-        when (workScreenState.value) {
-            WorkScreenState.ListScreen(true) -> {
-                workScreenState.update { WorkScreenState.WorkScreen }
+
+    fun updateWorkScreenState(): (WorkScreenUiState) -> Unit = { state ->
+        when (workScreenUiState.value) {
+            WorkScreenUiState.ListScreenUi(true) -> {
+                workScreenUiState.update { WorkScreenUiState.WorkScreenUi }
             }
-            WorkScreenState.ListScreen(false) -> {
-                workScreenState.update { WorkScreenState.RestScreen }
+            WorkScreenUiState.ListScreenUi(false) -> {
+                workScreenUiState.update { WorkScreenUiState.RestScreenUi }
             }
             else -> {
-                workScreenState.update { state }
+                workScreenUiState.update { state }
             }
         }
     }
 
-    fun updateWorkDialogState(): (WorkDialogState) -> Unit = {
-        workDialogState.value = it
+    fun updateWorkDialogState(): (WorkDialogUiState) -> Unit = {
+        workDialogUiState.value = it
     }
 
     fun offAutoCompleteState(): () -> Unit = {
