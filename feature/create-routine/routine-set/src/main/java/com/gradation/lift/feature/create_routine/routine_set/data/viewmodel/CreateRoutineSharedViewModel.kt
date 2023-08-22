@@ -57,7 +57,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
             if (it.isBlank()) {
                 Validator(false, "")
             } else if (!routineSetNameValidator(it)) {
-                Validator(false, "1 - 10자 사이의 한글로 입력해주세요.")
+                Validator(false, "1 - 10자 사이의 글자로 입력해주세요.")
             } else {
                 Validator(true, "")
             }
@@ -72,7 +72,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
             if (it.isBlank()) {
                 Validator(false, "")
             } else if (!routineSetDescriptionValidator(it)) {
-                Validator(false, "1 - 20자 사이의 한글로 입력해주세요.")
+                Validator(false, "1 - 20자 사이의 글자로 입력해주세요.")
             } else {
                 Validator(true, "")
             }

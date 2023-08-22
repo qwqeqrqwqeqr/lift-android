@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.complete.component.state
+package com.gradation.lift.feature.work.complete.data.state
 
 /**
  * [CreateWorkHistoryState]

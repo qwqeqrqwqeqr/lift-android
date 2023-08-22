@@ -6,7 +6,6 @@ import java.util.regex.Pattern
 
 val passwordPattern: Pattern = Pattern.compile("""^[a-zA-Z\\d`~!@#${'$'}%^&*()-_=+]{8,16}$""")
 val namePattern: Pattern = Pattern.compile("""^[가-힣]{2,5}$""")
-val koreanPattern: Pattern = Pattern.compile("""^[가-힣\s]+$""")
 
 
 fun emailValidator(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -23,13 +22,13 @@ fun weightValidator(weight: Float): Boolean = weight in 30f..200f
 fun heightValidator(weight: Float): Boolean = weight in 100f..250f
 
 fun routineSetNameValidator(name: String): Boolean =
-    (name.length in 1..10) && (koreanPattern.matcher(name).matches())
+    (name.length in 1..10)
 
 fun routineSetDescriptionValidator(description: String): Boolean =
-    (description.length in 1..20) && (koreanPattern.matcher(description).matches())
+    (description.length in 1..20)
 
 fun historyCommentValidator(name: String): Boolean =
-    (name.length in 0..20) && (koreanPattern.matcher(name).matches())
+    (name.length in 0..20)
 
 
 

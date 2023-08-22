@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.complete
+package com.gradation.lift.feature.work.complete.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.common.utils.routineSetDescriptionValidator
+import com.gradation.lift.common.utils.historyCommentValidator
 import com.gradation.lift.domain.usecase.date.GetNowUseCase
 import com.gradation.lift.domain.usecase.history.CreateHistoryUseCase
-import com.gradation.lift.feature.work.complete.component.state.CreateWorkHistoryState
+import com.gradation.lift.feature.work.complete.data.state.CreateWorkHistoryState
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,8 +40,11 @@ class WorkCompleteViewModel @Inject constructor(
 
     var commentValidator: StateFlow<Validator> =
         comment.map { it ->
-            if (!routineSetDescriptionValidator(it)) {
-                Validator(false, "0 - 20자 사이의 한글로 입력해주세요.")
+            if(it.isBlank()){
+                Validator(true, "")
+            }
+            else if (!historyCommentValidator(it)) {
+                Validator(false, "0 - 20자 사이의 글자로 입력해주세요.")
             } else {
                 Validator(true, "")
             }

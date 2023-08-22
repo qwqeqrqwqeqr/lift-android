@@ -10,19 +10,20 @@ import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.LocalTime
 import javax.inject.Inject
 
 /**
  * [WorkSharedViewModel]
  * @property routineSetRoutineList 현재 설정 되어있는 루틴세트의 목록
  * @property workState 운동 상태를 관리하는 모델
- * @property historyTime 운동 시간 정보, 기록에 등록하기 위한 필드로 실질적인 계산은 [WorkWorkViewModel]에서 진행
+ * @property historyWorkRestTime 운동 시간 정보, 기록에 등록하기 위한 필드로 실질적인 계산은 [WorkWorkViewModel]에서 진행
  * @property historyRoutine 운동 루틴 정보, 기록에 등록하기 위한 필드
  * @since 2023-08-22 15:58:22
  */
 @HiltViewModel
 class WorkSharedViewModel @Inject constructor(
-     initTimerUseCase: InitTimerUseCase,
+    initTimerUseCase: InitTimerUseCase,
 ) : ViewModel() {
 
     private val routineSetRoutineList: MutableStateFlow<List<RoutineSetRoutine>> =
@@ -36,7 +37,18 @@ class WorkSharedViewModel @Inject constructor(
     )
 
 
-    val historyTime: MutableStateFlow<WorkRestTime> = workState.workRestTime
+    val historyWorkRestTime: StateFlow<WorkRestTime> = workState.workRestTime.map {
+        WorkRestTime(
+            workTime = it.workTime,
+            restTime = it.restTime,
+            totalTime = LocalTime.fromSecondOfDay(it.workTime.toSecondOfDay() + it.restTime.toSecondOfDay())
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = WorkRestTime()
+    )
+
     val historyRoutine: StateFlow<List<CreateHistoryRoutine>> = workState.workList.map { workList ->
         workList
             .filter { it.workSetList.count { it.selected } == it.workSetList.count() }

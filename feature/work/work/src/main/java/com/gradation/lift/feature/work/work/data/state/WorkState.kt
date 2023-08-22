@@ -153,14 +153,12 @@ class WorkState @Inject constructor(
                 if (workState.value) {
                     workRestTime.update {
                         it.copy(
-                            totalTime = LocalTime.fromSecondOfDay(it.workTime.toSecondOfDay()+it.restTime.toSecondOfDay()),
                             workTime = LocalTime.fromSecondOfDay((it.workTime.toSecondOfDay() + 1))
                         )
                     }
                 } else {
                     workRestTime.update {
                         it.copy(
-                            totalTime = LocalTime.fromSecondOfDay(it.workTime.toSecondOfDay()+it.restTime.toSecondOfDay()),
                             restTime = LocalTime.fromSecondOfDay((it.restTime.toSecondOfDay() + 1))
                         )
                     }
