@@ -15,6 +15,7 @@ class CreateRoutineRoutineSetViewModel @Inject constructor(
 
 
     val onVisibleCancelDialog = MutableStateFlow(false)
+    val onVisibleCompleteDialog = MutableStateFlow(false)
 
     fun visibleCancelDialog(): () -> Unit = { onVisibleCancelDialog.value = true }
     fun invisibleCancelDialog(): () -> Unit = { onVisibleCancelDialog.value = false }
