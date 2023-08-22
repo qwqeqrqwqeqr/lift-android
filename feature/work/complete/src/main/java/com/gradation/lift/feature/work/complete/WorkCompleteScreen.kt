@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftTextField
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -50,7 +51,7 @@ fun WorkCompleteRoute(
         remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
-    val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
+    val workTime by sharedViewModel.historyTime.collectAsStateWithLifecycle()
     val historyRoutineList by sharedViewModel.historyRoutine.collectAsStateWithLifecycle()
     val score by viewModel.score.collectAsStateWithLifecycle()
     val commentText by viewModel.comment.collectAsStateWithLifecycle()
@@ -83,7 +84,7 @@ fun WorkCompleteRoute(
     )
 
     LaunchedEffect(true) {
-        sharedViewModel.stopTime()
+        sharedViewModel.workState.stopTime()
     }
 
     when (navigateCondition) {
@@ -260,9 +261,9 @@ fun WorkCompleteScreen(
                             contentDescription = "",
                             modifier = modifier
                                 .size(36.dp)
-                                .clickable(
-                                    onClick = { onClickStar(it + 1) }
-                                )
+                                .noRippleClickable
+                                    { onClickStar(it + 1) }
+
                         )
                     }
                 }

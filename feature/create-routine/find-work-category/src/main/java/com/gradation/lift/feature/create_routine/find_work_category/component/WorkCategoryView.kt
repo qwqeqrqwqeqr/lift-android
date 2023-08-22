@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.create_routine.find_work_category.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.work.WorkCategory
 
@@ -51,12 +51,12 @@ fun WorkCategoryView(
                                 )
                                 .align(alignment = Alignment.CenterHorizontally)
                                 .size(156.dp)
-                                .clickable(
-                                    onClick = {
+                                .noRippleClickable
+                                      {
                                         navigateFindWorkCategoryToRoutine()
                                         updateTempWorkCategory(workCategory.name)
                                     }
-                                )
+
                         )
                         Spacer(modifier = modifier.padding(2.dp))
                         Text(

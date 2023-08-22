@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.LiftProgressBar
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
-import com.gradation.lift.feature.work.work.data.model.initModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
 import com.gradation.lift.ui.utils.toText
@@ -41,9 +41,9 @@ fun WorkListScreen(
     workList: List<WorkRoutineSelection>,
     updateOpenedWorkRoutine: (WorkRoutineSelection) -> Unit,
     updateCheckedWorkSet: (Pair<Int, Int>, Boolean) -> Unit,
-    isAllCheckedWorkSet: (List<WorkSetSelection>) -> Boolean
+    isAllCheckedWorkSet: (List<WorkSetSelection>) -> Boolean,
 
-) {
+    ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -132,7 +132,7 @@ fun WorkListScreen(
                         horizontalAlignment = Alignment.Start,
                     ) {
                         Row(
-                            modifier = modifier.fillMaxWidth(),
+                            modifier = modifier.fillMaxWidth().padding(vertical = 16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -166,13 +166,15 @@ fun WorkListScreen(
                                 }
                             }
 
-                            IconButton(onClick = { updateOpenedWorkRoutine(workRoutine) }) {
-                                Icon(
-                                    painterResource(id = if (workRoutine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
-                                    contentDescription = null,
-                                    modifier = modifier
-                                )
-                            }
+                            Icon(
+                                painterResource(id = if (workRoutine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
+                                contentDescription = null,
+                                modifier = modifier.noRippleClickable {
+                                    updateOpenedWorkRoutine(
+                                        workRoutine
+                                    )
+                                }
+                            )
 
                         }
                         if (workRoutine.opened) {
@@ -259,8 +261,7 @@ fun WorkListScreen(
                                             checked = workSet.selected,
                                             onCheckedChange = {
                                                 updateCheckedWorkSet(
-                                                    workSet.set,
-                                                    it
+                                                    workSet.set, it
                                                 )
                                             },
                                             modifier = modifier
@@ -293,7 +294,7 @@ fun WorkListScreenPreview() {
             workTime = WorkRestTime(),
             workProgress = 30,
             workList = listOf(
-                initModel.copy(
+                WorkRoutineSelection().copy(
                     workCategory = workCategoryModel1,
                     opened = false,
                     workSetList = listOf(
@@ -317,7 +318,7 @@ fun WorkListScreenPreview() {
                         )
                     )
                 ),
-                initModel.copy(
+                WorkRoutineSelection().copy(
                     workCategory = workCategoryModel2,
                     opened = true,
                     workSetList = listOf(
@@ -341,7 +342,7 @@ fun WorkListScreenPreview() {
                         )
                     )
                 ),
-                initModel.copy(
+                WorkRoutineSelection().copy(
                     workCategory = workCategoryModel1,
                     opened = true,
                     workSetList = listOf(
@@ -365,7 +366,7 @@ fun WorkListScreenPreview() {
                         )
                     )
                 ),
-                initModel.copy(
+                WorkRoutineSelection().copy(
                     workCategory = workCategoryModel2,
                     opened = false,
                     workSetList = listOf(

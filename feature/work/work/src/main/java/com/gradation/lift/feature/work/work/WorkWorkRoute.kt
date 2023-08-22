@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.component.dialog.AutoCompleteDialog
@@ -16,10 +17,13 @@ import com.gradation.lift.feature.work.work.component.work_list.WorkListScreen
 import com.gradation.lift.feature.work.work.component.work_rest.WorkRestScreen
 import com.gradation.lift.feature.work.work.component.work_work.WorkWorkScreen
 import com.gradation.lift.feature.work.work.component.dialog.SuspendDialog
-import com.gradation.lift.feature.work.work.data.state.WorkDialogState
-import com.gradation.lift.feature.work.work.data.state.WorkScreenState
+import com.gradation.lift.feature.work.work.data.model.WorkRestTime
+import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
+import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
+import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
+import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
+import com.gradation.lift.feature.work.work.data.state.WorkState.Companion.MAX_PROGRESS
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
-import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel.Companion.MAX_PROGRESS
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkWorkViewModel
 import com.gradation.lift.navigation.Router
 
@@ -35,87 +39,87 @@ fun WorkWorkRoute(
 
     ) {
 
-    val workBackStackEntry =
+    val workBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
 
-    val workScreenState: WorkScreenState by viewModel.workScreenState.collectAsStateWithLifecycle()
-    val workDialogState: WorkDialogState by viewModel.workDialogState.collectAsStateWithLifecycle()
+    val workScreenUiState: WorkScreenUiState by viewModel.workScreenUiState.collectAsStateWithLifecycle()
+    val workDialogUiState: WorkDialogUiState by viewModel.workDialogUiState.collectAsStateWithLifecycle()
     val autoCompleteState: Boolean by viewModel.autoCompleteState.collectAsStateWithLifecycle()
 
-    val updateScreenState = viewModel.updateWorkScreenState()
-    val updateDialogState = viewModel.updateWorkDialogState()
-    val updateWorkState = sharedViewModel.updateWorkState()
-    val offAutoCompleteState = viewModel.offAutoCompleteState()
+    val updateScreenState: (WorkScreenUiState) -> Unit = viewModel.updateWorkScreenState()
+    val updateDialogState: (WorkDialogUiState)-> Unit = viewModel.updateWorkDialogState()
+    val updateWorkState: (Boolean) -> Unit = sharedViewModel.workState.updateWorkState()
+    val offAutoCompleteState: () -> Unit = viewModel.offAutoCompleteState()
 
 
-    val workList by sharedViewModel.workList.collectAsStateWithLifecycle()
+    val workList: List<WorkRoutineSelection> by sharedViewModel.workState.workList.collectAsStateWithLifecycle()
 
-    val currentWork by sharedViewModel.currentWork.collectAsStateWithLifecycle()
-    val previousWork by sharedViewModel.previousWork.collectAsStateWithLifecycle()
-    val nextWork by sharedViewModel.nextWork.collectAsStateWithLifecycle()
+    val currentWork: WorkRoutineSelection by sharedViewModel.workState.currentWork.collectAsStateWithLifecycle()
+    val previousWork: WorkRoutineSelection? by sharedViewModel.workState.previousWork.collectAsStateWithLifecycle()
+    val nextWork: WorkRoutineSelection? by sharedViewModel.workState.nextWork.collectAsStateWithLifecycle()
 
-    val workTime by sharedViewModel.workRestTime.collectAsStateWithLifecycle()
-    val workProgress by sharedViewModel.workProgress.collectAsStateWithLifecycle()
+    val workTime: WorkRestTime by sharedViewModel.workState.workRestTime.collectAsStateWithLifecycle()
+    val workProgress: Int by sharedViewModel.workState.workProgress.collectAsStateWithLifecycle()
 
-    val updateOpenedWorkRoutine = sharedViewModel.updateOpenedWorkRoutine()
-    val updateCheckedWorkSet = sharedViewModel.updateCheckedWorkSet()
-    val updateWorkIndexToPreviousIndex = sharedViewModel.updateWorkIndexToPreviousIndex()
-    val updateWorkIndexToNextIndex = sharedViewModel.updateWorkIndexToNextIndex()
+    val updateOpenedWorkRoutine: (WorkRoutineSelection)-> Unit = sharedViewModel.workState.updateOpenedWorkRoutine()
+    val updateCheckedWorkSet: (Pair<Int,Int>,Boolean) -> Unit = sharedViewModel.workState.updateCheckedWorkSet()
+    val updateWorkIndexToPreviousIndex: () -> Unit = sharedViewModel.workState.updateWorkIndexToPreviousIndex()
+    val updateWorkIndexToNextIndex: () -> Unit = sharedViewModel.workState.updateWorkIndexToNextIndex()
 
-    val isAllCheckedWorkSet = sharedViewModel.isAllCheckedWorkSet()
+    val isAllCheckedWorkSet: (List<WorkSetSelection>) -> (Boolean) = sharedViewModel.isAllCheckedWorkSet()
 
 
-    BackHandler(enabled = true, onBack = { updateDialogState(WorkDialogState.SuspendDialog) })
+    BackHandler(enabled = true, onBack = { updateDialogState(WorkDialogUiState.SuspendDialogUi) })
     LaunchedEffect(true) {
-        sharedViewModel.startTimer()
+        sharedViewModel.workState.startTimer()
     }
 
     if (workProgress == MAX_PROGRESS && autoCompleteState) {
         offAutoCompleteState()
-        updateDialogState(WorkDialogState.CompleteDialog)
+        updateDialogState(WorkDialogUiState.CompleteDialogUi)
     }
 
-    when (workDialogState) {
-        WorkDialogState.AutoCompleteDialog -> {
+    when (workDialogUiState) {
+        WorkDialogUiState.AutoCompleteDialogUi -> {
             Surface(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 AutoCompleteDialog(
                     onClickDialogCompleteButton = navigateWorkToComplete,
-                    onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
+                    onClickDialogDismissButton = { updateDialogState(WorkDialogUiState.None) },
                 )
             }
         }
 
-        WorkDialogState.SuspendDialog -> {
+        WorkDialogUiState.SuspendDialogUi -> {
             Surface(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 SuspendDialog(
                     onClickDialogSuspendButton = navigateWorkGraphToHomeGraph,
-                    onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
+                    onClickDialogDismissButton = { updateDialogState(WorkDialogUiState.None) },
                 )
             }
         }
-        WorkDialogState.CompleteDialog -> {
+        WorkDialogUiState.CompleteDialogUi -> {
             Surface(
                 color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
             ) {
                 CompleteDialog(
                     completeState = workProgress == MAX_PROGRESS,
                     onClickDialogCompleteButton = navigateWorkToComplete,
-                    onClickDialogDismissButton = { updateDialogState(WorkDialogState.None) },
+                    onClickDialogDismissButton = { updateDialogState(WorkDialogUiState.None) },
                 )
             }
         }
-        WorkDialogState.None -> {
-            when (workScreenState) {
-                is WorkScreenState.ListScreen -> {
+        WorkDialogUiState.None -> {
+            when (workScreenUiState) {
+                is WorkScreenUiState.ListScreenUi -> {
                     WorkListScreen(
                         modifier = modifier,
-                        onCloseClickTopBar = { updateScreenState(WorkScreenState.WorkScreen) },
+                        onCloseClickTopBar = { updateScreenState(WorkScreenUiState.WorkScreenUi) },
                         workTime = workTime,
                         workProgress = workProgress,
                         workList = workList,
@@ -124,26 +128,26 @@ fun WorkWorkRoute(
                         isAllCheckedWorkSet = isAllCheckedWorkSet
                     )
                 }
-                WorkScreenState.RestScreen -> {
+                WorkScreenUiState.RestScreenUi -> {
                     WorkRestScreen(
                         modifier = modifier,
-                        onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
-                        onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(false)) },
-                        onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
-                        onClickWorkButton = { updateScreenState(WorkScreenState.WorkScreen) },
+                        onCloseClickTopBar = { updateDialogState(WorkDialogUiState.SuspendDialogUi) },
+                        onListClickTopBar = { updateScreenState(WorkScreenUiState.ListScreenUi(false)) },
+                        onClickWorkCompleteButton = { updateDialogState(WorkDialogUiState.CompleteDialogUi) },
+                        onClickWorkButton = { updateScreenState(WorkScreenUiState.WorkScreenUi) },
                         updateWorkState = { updateWorkState(true) },
                         workTime = workTime,
                         workProgress = workProgress,
                         currentWork = currentWork
                     )
                 }
-                WorkScreenState.WorkScreen -> {
+                WorkScreenUiState.WorkScreenUi -> {
                     WorkWorkScreen(
                         modifier = modifier,
-                        onCloseClickTopBar = { updateDialogState(WorkDialogState.SuspendDialog) },
-                        onListClickTopBar = { updateScreenState(WorkScreenState.ListScreen(true)) },
-                        onClickWorkCompleteButton = { updateDialogState(WorkDialogState.CompleteDialog) },
-                        onClickRestButton = { updateScreenState(WorkScreenState.RestScreen) },
+                        onCloseClickTopBar = { updateDialogState(WorkDialogUiState.SuspendDialogUi) },
+                        onListClickTopBar = { updateScreenState(WorkScreenUiState.ListScreenUi(true)) },
+                        onClickWorkCompleteButton = { updateDialogState(WorkDialogUiState.CompleteDialogUi) },
+                        onClickRestButton = { updateScreenState(WorkScreenUiState.RestScreenUi) },
                         updateWorkState = { updateWorkState(false) },
                         updateCheckedWorkSet = updateCheckedWorkSet,
                         updateWorkIndexToPreviousIndex = updateWorkIndexToPreviousIndex,

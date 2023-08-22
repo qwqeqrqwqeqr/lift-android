@@ -2,7 +2,6 @@ package com.gradation.lift.feature.create_routine.routine_set.component.routine_
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -15,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -104,9 +104,9 @@ fun RoutineListView(
                             painter = painterResource(LiftIcon.Trash),
                             contentDescription = "",
                             tint = Color.Unspecified,
-                            modifier = modifier.clickable(
-                                onClick = { removeRoutine(routine) }
-                            )
+                            modifier = modifier.noRippleClickable
+                                 { removeRoutine(routine) }
+
                         )
                         Spacer(modifier = modifier.padding(12.dp))
                         Icon(

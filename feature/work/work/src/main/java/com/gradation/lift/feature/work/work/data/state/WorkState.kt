@@ -26,7 +26,7 @@ import javax.inject.Inject
  * @property previousWork 이전 순번 운동 [currentWorkIndex] 바탕으로 존재 여부를 판단함
  * @property nextWork 다음 순번 운동 [currentWorkIndex] 바탕으로 존재 여부를 판단함
  */
-class WorkState @Inject  constructor(
+class WorkState @Inject constructor(
     private val viewModelScope: CoroutineScope,
     private val initTimerUseCase: InitTimerUseCase,
     routineSetRoutineList: MutableStateFlow<List<RoutineSetRoutine>>,
@@ -85,7 +85,6 @@ class WorkState @Inject  constructor(
 
     private val workState: MutableStateFlow<Boolean> = MutableStateFlow(true)
     val workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime())
-
 
 
     val currentWork: StateFlow<WorkRoutineSelection> =
@@ -150,22 +149,18 @@ class WorkState @Inject  constructor(
 
     fun startTimer() {
         timerJob = viewModelScope.launch {
-            combine(
-                initTimerUseCase(),
-                workState,
-            ) { currentTime, workState ->
-
-                if (workState) {
+            initTimerUseCase().map { _ ->
+                if (workState.value) {
                     workRestTime.update {
                         it.copy(
-                            totalTime = LocalTime.fromSecondOfDay(currentTime),
+                            totalTime = LocalTime.fromSecondOfDay(it.workTime.toSecondOfDay()+it.restTime.toSecondOfDay()),
                             workTime = LocalTime.fromSecondOfDay((it.workTime.toSecondOfDay() + 1))
                         )
                     }
                 } else {
                     workRestTime.update {
                         it.copy(
-                            totalTime = LocalTime.fromSecondOfDay(currentTime),
+                            totalTime = LocalTime.fromSecondOfDay(it.workTime.toSecondOfDay()+it.restTime.toSecondOfDay()),
                             restTime = LocalTime.fromSecondOfDay((it.restTime.toSecondOfDay() + 1))
                         )
                     }

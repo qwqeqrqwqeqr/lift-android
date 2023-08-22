@@ -4,102 +4,40 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import com.gradation.lift.feature.work.work.data.model.*
+import com.gradation.lift.feature.work.work.data.state.WorkState
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalTime
 import javax.inject.Inject
 
-
+/**
+ * [WorkSharedViewModel]
+ * @property routineSetRoutineList 현재 설정 되어있는 루틴세트의 목록
+ * @property workState 운동 상태를 관리하는 모델
+ * @property historyTime 운동 시간 정보, 기록에 등록하기 위한 필드로 실질적인 계산은 [WorkWorkViewModel]에서 진행
+ * @property historyRoutine 운동 루틴 정보, 기록에 등록하기 위한 필드
+ * @since 2023-08-22 15:58:22
+ */
 @HiltViewModel
 class WorkSharedViewModel @Inject constructor(
-    private val initTimerUseCase: InitTimerUseCase,
+     initTimerUseCase: InitTimerUseCase,
+) : ViewModel() {
 
-    ) : ViewModel() {
-
-    private val routineSetRoutineList = MutableStateFlow(emptyList<RoutineSetRoutine>())
-    private val openedWorkRoutineIdList = MutableStateFlow(emptySet<Int>())
-    private val checkedWorkSetList = MutableStateFlow(emptySet<Pair<Int, Int>>())
-    private val currentWorkIndex = MutableStateFlow(0)
-
-    private val workState = MutableStateFlow(true)
-    val workRestTime = MutableStateFlow(WorkRestTime())
-
-    private lateinit var timerJob: Job
+    private val routineSetRoutineList: MutableStateFlow<List<RoutineSetRoutine>> =
+        MutableStateFlow(emptyList())
 
 
-    val workList = combine(
-        routineSetRoutineList,
-        openedWorkRoutineIdList,
-        checkedWorkSetList
-    ) { routineSetRoutineList, openedWorkRoutineIdList, checkedWorkSetList ->
-
-        (routineSetRoutineList.flatMap { it.routine }
-            .mapIndexed { routineIndex, routine ->
-                WorkRoutineSelection(
-                    index = routineIndex,
-                    workCategory = routine.workCategory,
-                    opened = openedWorkRoutineIdList.contains(routineIndex),
-                    workSetList = routine.workSetList.mapIndexed { workSetIndex, workSet ->
-                        WorkSetSelection(
-                            set = Pair(routineIndex, workSetIndex + 1),
-                            weight = workSet.weight,
-                            repetition = workSet.repetition,
-                            selected = checkedWorkSetList.contains(
-                                Pair(
-                                    routineIndex,
-                                    workSetIndex + 1
-                                )
-                            )
-                        )
-                    }
-                )
-            })
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList<WorkRoutineSelection>()
+    val workState = WorkState(
+        viewModelScope = viewModelScope,
+        initTimerUseCase = initTimerUseCase,
+        routineSetRoutineList = routineSetRoutineList
     )
 
 
-    val workProgress = workList.map {
-        ((it.flatMap { it.workSetList.filter { it.selected } }.count()
-            .toFloat() / it.flatMap { it.workSetList }.count().toFloat()) * 100).toInt()
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Lazily,
-        initialValue = MIN_PROGRESS
-    )
-
-
-    val currentWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
-        workList.find { it.index == currentWorkIndex } ?: workList.first()
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Lazily,
-        initialValue = initModel
-    )
-    val previousWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
-        workList.find { it.index == currentWorkIndex - 1 }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null
-    )
-    val nextWork = combine(currentWorkIndex, workList) { currentWorkIndex, workList ->
-        workList.find { it.index == currentWorkIndex + 1 }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null
-    )
-
-
-    val historyRoutine = workList.map { workList ->
+    val historyTime: MutableStateFlow<WorkRestTime> = workState.workRestTime
+    val historyRoutine: StateFlow<List<CreateHistoryRoutine>> = workState.workList.map { workList ->
         workList
             .filter { it.workSetList.count { it.selected } == it.workSetList.count() }
             .map {
@@ -119,83 +57,21 @@ class WorkSharedViewModel @Inject constructor(
         initialValue = emptyList()
     )
 
-    fun updateOpenedWorkRoutine(): (WorkRoutineSelection) -> Unit =
-        { value ->
-            if (value.opened) {
-                openedWorkRoutineIdList.update { it.minus(value.index) }
-            } else {
-                openedWorkRoutineIdList.update { it.plus(value.index) }
-            }
-        }
-
-    fun updateCheckedWorkSet(): ((Pair<Int, Int>), Boolean) -> Unit =
-        { value, checked ->
-            if (checked) {
-                checkedWorkSetList.update { it.plus(value) }
-            } else {
-                checkedWorkSetList.update {
-                    it.minus(value)
-                }
-
-            }
-        }
-
+    /**
+     * 현재 모든 운동이 체크 되었는지 여부
+     * (모든 운동을 완료 했는지)
+     * 해당 메서드를 바탕으로 완료 팝업을 보여줄지 결정함
+     * @since 2023-08-22 16:11:02
+     */
     fun isAllCheckedWorkSet(): (List<WorkSetSelection>) -> Boolean = { workSetList ->
         workSetList.count() == workSetList.count { it.selected }
     }
-
 
     fun updateRoutineSetRoutineList(): (List<RoutineSetRoutine>) -> Unit = { value ->
         routineSetRoutineList.update { it.plus(value) }
     }
 
-    fun updateWorkIndexToPreviousIndex(): () -> Unit = {
-        currentWorkIndex.update { it - 1 }
-    }
 
-    fun updateWorkIndexToNextIndex(): () -> Unit = {
-        currentWorkIndex.update { it + 1 }
-    }
-
-    fun updateWorkState(): (Boolean) -> Unit = {
-        workState.value = it
-    }
-
-
-    fun startTimer() {
-        timerJob = viewModelScope.launch {
-            combine(
-                initTimerUseCase(),
-                workState,
-            ) { currentTime, workState ->
-
-                if (workState) {
-                    workRestTime.update {
-                        it.copy(
-                            totalTime = LocalTime.fromSecondOfDay(currentTime),
-                            workTime = LocalTime.fromSecondOfDay((it.workTime.toSecondOfDay() + 1))
-                        )
-                    }
-                } else {
-                    workRestTime.update {
-                        it.copy(
-                            totalTime = LocalTime.fromSecondOfDay(currentTime),
-                            restTime = LocalTime.fromSecondOfDay((it.restTime.toSecondOfDay() + 1))
-                        )
-                    }
-                }
-            }.collect()
-        }
-    }
-
-    fun stopTime() {
-        timerJob.cancel()
-    }
-
-    companion object {
-        const val MIN_PROGRESS = 0
-        const val MAX_PROGRESS = 100
-    }
 }
 
 
