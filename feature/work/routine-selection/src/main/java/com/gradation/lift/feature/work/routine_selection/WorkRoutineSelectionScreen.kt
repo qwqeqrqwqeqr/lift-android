@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,7 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
@@ -28,7 +26,8 @@ import com.gradation.lift.feature.work.routine_selection.component.routine_list.
 import com.gradation.lift.feature.work.routine_selection.component.routine_list.LoadingRoutineSetRoutineListView
 import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
 import com.gradation.lift.feature.work.routine_selection.data.*
-import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
+import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -46,47 +45,22 @@ internal fun WorkRoutineSelectionRoute(
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
 ) {
-
     val workBackStackEntry =
         remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
     val sharedViewModel: WorkSharedViewModel = hiltViewModel(workBackStackEntry)
 
 
-    val weekDate: List<WeekdayCard> by viewModel.weekDate.collectAsStateWithLifecycle()
-    val selectedRoutineSetRoutine by viewModel.selectedRoutineSetList.collectAsStateWithLifecycle()
-    val routineSetRoutineSelection: RoutineSetRoutineSelectionUiState by viewModel.routineSetRoutineSelection.collectAsStateWithLifecycle()
-    val selectedRoutineCount by viewModel.selectedRoutineCount.collectAsStateWithLifecycle()
-
-
-
-
-    WorkRoutineSelectionScreen(
-        modifier = modifier,
-        weekday = weekDate,
-        routineSetRoutineSelection = routineSetRoutineSelection,
-        onBackClickTopBar = navigateWorkGraphToHomeGraph,
-        onClickWeekDayCard = viewModel.updateCurrentDate(),
-        onClickStartWork = {
-            sharedViewModel.updateRoutineSetRoutineList(selectedRoutineSetRoutine)
-            navigateSelectionRoutineToWork()
-        },
-        selectedRoutineCount = selectedRoutineCount,
-        onUpdateRoutineSetRoutineList = viewModel.updateSelectedRoutineSetIdList(),
-        onUpdateRoutineList = viewModel.updateOpenedRoutineIdList(),
-    )
-
     LaunchedEffect(key1 = true) {
-        viewModel.updateSelectedRoutineSetId(selectedRoutineSetId)
+        viewModel.selectedRoutineSetState.appendBySelectedRoutineSetRoutineId(selectedRoutineSetId)
     }
     BackHandler(enabled = true, onBack = navigateWorkGraphToHomeGraph)
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun WorkRoutineSelectionScreen(
     modifier: Modifier = Modifier,
-    weekday: List<WeekdayCard>,
+    weekday: List<WeekDateSelection>,
     routineSetRoutineSelection: RoutineSetRoutineSelectionUiState,
     onBackClickTopBar: () -> Unit,
     onClickWeekDayCard: (LocalDate) -> Unit,
@@ -177,13 +151,13 @@ fun WorkRoutineSelectionPreview() {
         WorkRoutineSelectionScreen(
             modifier = Modifier,
             weekday = listOf(
-                WeekdayCard(weekday = Weekday.Monday()),
-                WeekdayCard(weekday = Weekday.Tuesday()),
-                WeekdayCard(weekday = Weekday.Wednesday()),
-                WeekdayCard(weekday = Weekday.Thursday()),
-                WeekdayCard(weekday = Weekday.Friday()),
-                WeekdayCard(weekday = Weekday.Saturday()),
-                WeekdayCard(weekday = Weekday.Sunday(), selected = true)
+                WeekDateSelection(weekday = Weekday.Monday()),
+                WeekDateSelection(weekday = Weekday.Tuesday()),
+                WeekDateSelection(weekday = Weekday.Wednesday()),
+                WeekDateSelection(weekday = Weekday.Thursday()),
+                WeekDateSelection(weekday = Weekday.Friday()),
+                WeekDateSelection(weekday = Weekday.Saturday()),
+                WeekDateSelection(weekday = Weekday.Sunday(), selected = true)
             ),
             routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Empty,
             onBackClickTopBar = {},

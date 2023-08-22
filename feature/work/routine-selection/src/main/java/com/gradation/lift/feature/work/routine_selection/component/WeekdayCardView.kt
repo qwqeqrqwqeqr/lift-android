@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
 import kotlinx.datetime.LocalDate
 
 @Composable
 internal fun WeekdayCardListView(
-    weekday: List<WeekdayCard>,
+    weekday: List<WeekDateSelection>,
     modifier: Modifier = Modifier,
     onClickWeekDayCard: (LocalDate) -> Unit,
 ) {
@@ -40,7 +40,7 @@ internal fun WeekdayCardListView(
 @Composable
 private fun WeekdayCard(
     modifier: Modifier = Modifier,
-    weekday: WeekdayCard,
+    weekday: WeekDateSelection,
     onClickWeekDayCard: (LocalDate) -> Unit,
 ) {
     Box(

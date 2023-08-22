@@ -23,8 +23,8 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScreen
-import com.gradation.lift.feature.work.routine_selection.data.RoutineSetRoutineSelectionUiState
-import com.gradation.lift.feature.work.routine_selection.data.WeekdayCard
+import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
+import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.model.model.common.Weekday
@@ -300,13 +300,13 @@ fun ReadyWorkSelectionPreview() {
         WorkRoutineSelectionScreen(
             modifier = Modifier,
             weekday = listOf(
-                WeekdayCard(weekday = Weekday.Monday()),
-                WeekdayCard(weekday = Weekday.Tuesday()),
-                WeekdayCard(weekday = Weekday.Wednesday()),
-                WeekdayCard(weekday = Weekday.Thursday()),
-                WeekdayCard(weekday = Weekday.Friday()),
-                WeekdayCard(weekday = Weekday.Saturday()),
-                WeekdayCard(weekday = Weekday.Sunday(), selected = true)
+                WeekDateSelection(weekday = Weekday.Monday()),
+                WeekDateSelection(weekday = Weekday.Tuesday()),
+                WeekDateSelection(weekday = Weekday.Wednesday()),
+                WeekDateSelection(weekday = Weekday.Thursday()),
+                WeekDateSelection(weekday = Weekday.Friday()),
+                WeekDateSelection(weekday = Weekday.Saturday()),
+                WeekDateSelection(weekday = Weekday.Sunday(), selected = true)
             ),
             routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Success(
                 routineSetRoutineSelection = routineSetRoutineModelList.map {
