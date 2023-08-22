@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.routine_selection.component
+package com.gradation.lift.feature.work.routine_selection.component.week_date_card_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,31 +14,11 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
 import kotlinx.datetime.LocalDate
 
-@Composable
-internal fun WeekDateCardListView(
-    modifier: Modifier = Modifier,
-    weekDate: List<WeekDateSelection>,
-    updateCurrentDate: (LocalDate) -> Unit,
-) {
 
-    Row(
-        modifier = modifier.fillMaxWidth().background(LiftTheme.colorScheme.no5),
-        verticalAlignment=Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally)
-    ) {
-        weekDate.forEach {
-            WeekDateCard(
-                modifier = modifier.weight(1f),
-                weekday = it,
-                onClickWeekDayCard = updateCurrentDate
-            )
-        }
-    }
-}
 
 
 @Composable
-private fun WeekDateCard(
+fun WeekDateCardView(
     modifier: Modifier = Modifier,
     weekday: WeekDateSelection,
     onClickWeekDayCard: (LocalDate) -> Unit,

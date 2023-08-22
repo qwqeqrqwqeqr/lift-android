@@ -20,13 +20,15 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.routine_selection.component.WeekDateCardListView
-import com.gradation.lift.feature.work.routine_selection.component.routine_list.EmptyRoutineSetRoutineListView
-import com.gradation.lift.feature.work.routine_selection.component.routine_list.LoadingRoutineSetRoutineListView
-import com.gradation.lift.feature.work.routine_selection.component.routine_list.RoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.routine_list_view.EmptyRoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.routine_list_view.LoadingRoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.routine_list_view.RoutineSetRoutineListView
+import com.gradation.lift.feature.work.routine_selection.component.week_date_card_view.WeekDateCardListView
 import com.gradation.lift.feature.work.routine_selection.data.*
 import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
 import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
+import com.gradation.lift.feature.work.work.data.model.RoutineSelection
+import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -116,13 +118,13 @@ internal fun WorkRoutineSelectionScreen(
         }
     ) {
         Surface(
-            color = LiftTheme.colorScheme.no5,
+            color = LiftTheme.colorScheme.no17,
             modifier = modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
             Column(
-                modifier = modifier.padding(16.dp)
+                modifier = modifier
             ) {
                 WeekDateCardListView(
                     modifier, weekDate, updateCurrentDate
@@ -142,7 +144,7 @@ internal fun WorkRoutineSelectionScreen(
 
                     }
                     RoutineSetRoutineSelectionUiState.Loading -> {
-                        LoadingRoutineSetRoutineListView(modifier = modifier)
+                        LoadingRoutineSetRoutineListView(modifier = modifier.padding(horizontal = 16.dp))
                     }
                     is RoutineSetRoutineSelectionUiState.Success -> {
                         RoutineSetRoutineListView(
@@ -166,7 +168,7 @@ internal fun WorkRoutineSelectionScreen(
 
 @Composable
 @Preview
-fun WorkRoutineSelectionPreview() {
+fun WorkRoutineSelectionScreenPreview() {
     LiftMaterialTheme {
         WorkRoutineSelectionScreen(
             weekDate = listOf(
@@ -180,10 +182,26 @@ fun WorkRoutineSelectionPreview() {
             ),
             selectedRoutineSetList = routineSetRoutineModelList,
             selectedRoutineCount = 3,
-            routineSetRoutineSelectionUiState = RoutineSetRoutineSelectionUiState.Loading,
+            routineSetRoutineSelectionUiState = RoutineSetRoutineSelectionUiState.Success(
+                routineSetRoutineSelection = routineSetRoutineModelList.map {
+                    RoutineSetRoutineSelection(
+                        id = it.id,
+                        name = it.name,
+                        description = it.description,
+                        weekday = it.weekday,
+                        selected = false,
+                        routine = it.routine.map { routine ->
+                            RoutineSelection(
+                                routine = routine,
+                                opened = true
+                            )
+                        }
+                    )
+                }
+            ),
             navigateWorkGraphToHomeGraph = { },
             updateCurrentDate = { },
-            navigateSelectionRoutineToWork = { { } },
+            navigateSelectionRoutineToWork = {},
             updateRoutineSetRoutineList = { },
             updateSelectedRoutineSetList = { _, _ -> },
             updateOpenedRoutineIdList = { _, _ -> }

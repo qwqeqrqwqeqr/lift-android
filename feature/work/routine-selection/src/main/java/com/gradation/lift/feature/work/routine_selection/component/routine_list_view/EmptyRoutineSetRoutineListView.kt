@@ -1,7 +1,9 @@
-package com.gradation.lift.feature.work.routine_selection.component.routine_list
+package com.gradation.lift.feature.work.routine_selection.component.routine_list_view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,44 +31,53 @@ fun EmptyRoutineSetRoutineListView(
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
     navigateSelectionRoutineToWork: () -> Unit,
 ) {
-    Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxSize()
-    ) {
+    Surface(modifier = modifier
+        .fillMaxSize()
+        .background(LiftTheme.colorScheme.no5)) {
 
-        Box(
-            modifier = modifier.weight(1f).fillMaxWidth(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Column(
-                modifier= modifier,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+        Column(
+            verticalArrangement = Arrangement.SpaceBetween,
+            modifier = modifier
+                .padding(16.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.open_box),
-                    contentDescription = "",
-                    modifier = modifier
-                        .size(96.dp)
-                )
-                Spacer(modifier = modifier.padding(4.dp))
-                Text(
-                    text = "루틴이 존재하지 않네요...",
-                    style = LiftTheme.typography.no4,
-                    color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(modifier = modifier.padding(8.dp))
+
+            Box(
+                modifier = modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center,
+            ) {
+                Column(
+                    modifier = modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.open_box),
+                        contentDescription = "",
+                        modifier = modifier
+                            .size(96.dp)
+                    )
+                    Spacer(modifier = modifier.padding(4.dp))
+                    Text(
+                        text = "루틴이 존재하지 않네요...",
+                        style = LiftTheme.typography.no4,
+                        color = LiftTheme.colorScheme.no9,
+                        textAlign = TextAlign.Center,
+                    )
+                    Spacer(modifier = modifier.padding(8.dp))
+                }
             }
+            NavigationView(
+                modifier,
+                selectedRoutineCount,
+                selectedRoutineSetList,
+                updateRoutineSetRoutineList,
+                navigateSelectionRoutineToWork
+            )
         }
-        NavigationView(
-            modifier,
-            selectedRoutineCount,
-            selectedRoutineSetList,
-            updateRoutineSetRoutineList,
-            navigateSelectionRoutineToWork
-        )
     }
+
 }
 
 
