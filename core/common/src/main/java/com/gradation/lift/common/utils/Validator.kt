@@ -28,6 +28,11 @@ fun routineSetNameValidator(name: String): Boolean =
 fun routineSetDescriptionValidator(description: String): Boolean =
     (description.length in 1..20) && (koreanPattern.matcher(description).matches())
 
+fun historyCommentValidator(name: String): Boolean =
+    (name.length in 0..20) && (koreanPattern.matcher(name).matches())
+
+
+
 data class Validator(
     val status: Boolean = false,
     val message: String = "",
