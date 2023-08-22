@@ -154,16 +154,18 @@ internal fun CreateRoutineRoutineSetScreen(
     snackbarHostState: SnackbarHostState,
     focusManager: FocusManager,
 ) {
+    Box {
+
     if (onVisibleCancelDialog) {
         Surface(
-            color = LiftTheme.colorScheme.no23, modifier = modifier.fillMaxSize()
+            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
         ) {
             CancelDialog(
                 onClickDialogSuspendButton = navigateCreateRoutineGraphToHomeGraph,
                 onClickDialogDismissButton = inVisibleCancelDialog,
             )
         }
-    } else {
+    }
         Scaffold(
             topBar = {
                 LiftBackTopBar(
