@@ -15,22 +15,22 @@ import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSele
 import kotlinx.datetime.LocalDate
 
 @Composable
-internal fun WeekdayCardListView(
-    weekday: List<WeekDateSelection>,
+internal fun WeekDateCardListView(
     modifier: Modifier = Modifier,
-    onClickWeekDayCard: (LocalDate) -> Unit,
+    weekDate: List<WeekDateSelection>,
+    updateCurrentDate: (LocalDate) -> Unit,
 ) {
 
     Row(
-        modifier = modifier.fillMaxWidth().background(LiftTheme.colorScheme.no5).padding(vertical = 10.dp, horizontal = 20.dp),
+        modifier = modifier.fillMaxWidth().background(LiftTheme.colorScheme.no5),
         verticalAlignment=Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally)
     ) {
-        repeat(weekday.size) {
-            WeekdayCard(
+        weekDate.forEach {
+            WeekDateCard(
                 modifier = modifier.weight(1f),
-                weekday = weekday[it],
-                onClickWeekDayCard = onClickWeekDayCard
+                weekday = it,
+                onClickWeekDayCard = updateCurrentDate
             )
         }
     }
@@ -38,7 +38,7 @@ internal fun WeekdayCardListView(
 
 
 @Composable
-private fun WeekdayCard(
+private fun WeekDateCard(
     modifier: Modifier = Modifier,
     weekday: WeekDateSelection,
     onClickWeekDayCard: (LocalDate) -> Unit,

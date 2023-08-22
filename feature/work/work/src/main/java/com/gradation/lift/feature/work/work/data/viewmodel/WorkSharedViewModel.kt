@@ -17,9 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorkSharedViewModel @Inject constructor(
-    private val initTimerUseCase: InitTimerUseCase
+    private val initTimerUseCase: InitTimerUseCase,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val routineSetRoutineList = MutableStateFlow(emptyList<RoutineSetRoutine>())
     private val openedWorkRoutineIdList = MutableStateFlow(emptySet<Int>())
@@ -145,7 +145,7 @@ class WorkSharedViewModel @Inject constructor(
     }
 
 
-    fun updateRoutineSetRoutineList(value: List<RoutineSetRoutine>) {
+    fun updateRoutineSetRoutineList(): (List<RoutineSetRoutine>) -> Unit = { value ->
         routineSetRoutineList.update { it.plus(value) }
     }
 

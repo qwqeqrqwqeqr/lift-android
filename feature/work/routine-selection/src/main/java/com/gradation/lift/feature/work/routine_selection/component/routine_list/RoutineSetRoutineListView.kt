@@ -2,7 +2,6 @@ package com.gradation.lift.feature.work.routine_selection.component.routine_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,32 +15,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.ToggleCheckbox
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScreen
-import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
-import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
+import com.gradation.lift.feature.work.routine_selection.component.NavigationView
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
-import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList
 import com.gradation.lift.ui.utils.toText
 
 
 @Composable
 fun RoutineSetRoutineListView(
     modifier: Modifier = Modifier,
+    selectedRoutineSetList: List<RoutineSetRoutine>,
+    selectedRoutineCount: Int,
     routineSetRoutineSelection: List<RoutineSetRoutineSelection>,
-    onUpdateRoutineSetRoutineList: (RoutineSetRoutine, Boolean) -> Unit,
-    onUpdateRoutineList: (Int, Boolean) -> Unit,
+    updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
+    updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit,
+    updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
+    navigateSelectionRoutineToWork: () -> Unit,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(all = 20.dp),
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -61,19 +58,18 @@ fun RoutineSetRoutineListView(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier
-                        .clickable(
-                            onClick = {
-                                onUpdateRoutineSetRoutineList(
-                                    RoutineSetRoutine(
-                                        id = routineSetRoutine.id,
-                                        name = routineSetRoutine.name,
-                                        description = routineSetRoutine.description,
-                                        weekday = routineSetRoutine.weekday,
-                                        picture = "",
-                                        routine = routineSetRoutine.routine.map { it.routine }),
-                                    !routineSetRoutine.selected
-                                )
-                            })
+                        .noRippleClickable {
+                            updateSelectedRoutineSetList(
+                                RoutineSetRoutine(
+                                    id = routineSetRoutine.id,
+                                    name = routineSetRoutine.name,
+                                    description = routineSetRoutine.description,
+                                    weekday = routineSetRoutine.weekday,
+                                    picture = "",
+                                    routine = routineSetRoutine.routine.map { it.routine }),
+                                !routineSetRoutine.selected
+                            )
+                        }
                         .padding(
                             start = 16.dp,
                             top = 12.dp,
@@ -86,7 +82,7 @@ fun RoutineSetRoutineListView(
                     ToggleCheckbox(
                         checked = routineSetRoutine.selected,
                         onCheckedChange = {
-                            onUpdateRoutineSetRoutineList(
+                            updateSelectedRoutineSetList(
                                 RoutineSetRoutine(
                                     id = routineSetRoutine.id,
                                     name = routineSetRoutine.name,
@@ -133,12 +129,21 @@ fun RoutineSetRoutineListView(
                     RoutineListView(
                         modifier,
                         routine,
-                        onUpdateRoutineList
+                        updateOpenedRoutineIdList
                     )
                 }
                 Spacer(modifier = modifier.padding(4.dp))
             }
             Spacer(modifier = modifier.padding(2.dp))
+        }
+        item {
+            NavigationView(
+                modifier,
+                selectedRoutineCount,
+                selectedRoutineSetList,
+                updateRoutineSetRoutineList,
+                navigateSelectionRoutineToWork
+            )
         }
 
     }
@@ -148,7 +153,7 @@ fun RoutineSetRoutineListView(
 fun RoutineListView(
     modifier: Modifier = Modifier,
     routine: RoutineSelection,
-    onUpdateRoutineList: (Int, Boolean) -> Unit,
+    updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
 ) {
     Divider(
         modifier = modifier,
@@ -158,14 +163,14 @@ fun RoutineListView(
     Spacer(modifier = modifier.padding(2.dp))
     Column(
         modifier = modifier
-            .clickable(
-                onClick = {
-                    onUpdateRoutineList(
-                        routine.routine.id,
-                        !routine.opened
-                    )
-                }
-            )
+            .noRippleClickable {
+
+                updateOpenedRoutineIdList(
+                    routine.routine.id,
+                    !routine.opened
+                )
+
+            }
             .padding(
                 start = 16.dp,
                 top = 12.dp,
@@ -186,7 +191,7 @@ fun RoutineListView(
                 color = LiftTheme.colorScheme.no9,
             )
             Icon(
-                painterResource(id = if (routine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
+                painterResource(id = if (routine.opened) LiftIcon.ChevronUp else LiftIcon.ChevronDown),
                 contentDescription = null,
                 modifier = modifier
                     .height(12.dp)
@@ -290,48 +295,5 @@ fun RoutineListView(
                 Spacer(modifier = modifier.padding(4.dp))
             }
         }
-    }
-}
-
-@Composable
-@Preview
-fun ReadyWorkSelectionPreview() {
-    LiftMaterialTheme {
-        WorkRoutineSelectionScreen(
-            modifier = Modifier,
-            weekday = listOf(
-                WeekDateSelection(weekday = Weekday.Monday()),
-                WeekDateSelection(weekday = Weekday.Tuesday()),
-                WeekDateSelection(weekday = Weekday.Wednesday()),
-                WeekDateSelection(weekday = Weekday.Thursday()),
-                WeekDateSelection(weekday = Weekday.Friday()),
-                WeekDateSelection(weekday = Weekday.Saturday()),
-                WeekDateSelection(weekday = Weekday.Sunday(), selected = true)
-            ),
-            routineSetRoutineSelection = RoutineSetRoutineSelectionUiState.Success(
-                routineSetRoutineSelection = routineSetRoutineModelList.map {
-                    RoutineSetRoutineSelection(
-                        id = it.id,
-                        name = it.name,
-                        description = it.description,
-                        weekday = it.weekday,
-                        selected = false,
-                        routine = it.routine.map { routine ->
-                            RoutineSelection(
-                                routine = routine,
-                                opened = true
-                            )
-                        }
-                    )
-                }
-            ),
-            onBackClickTopBar = {},
-            onClickWeekDayCard = {},
-            onClickStartWork = {},
-            onUpdateRoutineSetRoutineList = { _, _ -> },
-            onUpdateRoutineList = { _, _ -> },
-            selectedRoutineCount = 2
-        )
-
     }
 }

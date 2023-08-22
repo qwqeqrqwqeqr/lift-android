@@ -28,18 +28,18 @@ import javax.inject.Inject
  * @property dateState 날짜와 관련된 상태
  * @property routineSetRoutineState 상단 3개의 상태를 조합하여 만든 루틴 세트 상태
  *
- * @param getThisWeekUseCase 이번주에 대한 정보를 불러옴 (날짜, 요일)
- * @param getRoutineSetRoutineByWeekdayUseCase  요일을 통해 루틴세트를 불러옴
- * @param getRoutineSetRoutineByRoutineSetIdUseCase 루틴세트 아이디를 통해 루틴세트를 불러옴
- * @param getTodayUseCase 현재 날짜 시간 정보를 불러옴
+ * @constructor getThisWeekUseCase 이번주에 대한 정보를 불러옴 (날짜, 요일)
+ * @constructor getRoutineSetRoutineByWeekdayUseCase  요일을 통해 루틴세트를 불러옴
+ * @constructor getRoutineSetRoutineByRoutineSetIdUseCase 루틴세트 아이디를 통해 루틴세트를 불러옴
+ * @constructor getTodayUseCase 현재 날짜 시간 정보를 불러옴
  * @since 2023-08-22 12:33:46
  */
 @HiltViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 class WorkRoutineSelectionViewModel @Inject constructor(
-    private val getThisWeekUseCase: GetThisWeekUseCase,
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
-    private val getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
+    getThisWeekUseCase: GetThisWeekUseCase,
+    getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
     getTodayUseCase: GetTodayUseCase,
 ) : ViewModel() {
 
@@ -56,47 +56,48 @@ class WorkRoutineSelectionViewModel @Inject constructor(
         viewModelScope = viewModelScope
     )
 
+
     @OptIn(ExperimentalCoroutinesApi::class)
-    val routineSetRoutineState: StateFlow<RoutineSetRoutineSelectionUiState> = dateState.currentDate.flatMapLatest {
-        combine(
-            openedRoutineState.openedRoutineIdList,
-            selectedRoutineSetState.selectedRoutineSetList,
-            getRoutineSetRoutineByWeekdayUseCase(it.toWeekday())
-        ) { openedRoutineIdList, selectedRoutineSetList, getRoutineSetRoutineByWeekdayResult ->
-            when (getRoutineSetRoutineByWeekdayResult) {
-                is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = getRoutineSetRoutineByWeekdayResult.message)
-                is DataState.Success -> {
-                    if (getRoutineSetRoutineByWeekdayResult.data.isEmpty()) {
-                        RoutineSetRoutineSelectionUiState.Empty
-                    } else {
-                        RoutineSetRoutineSelectionUiState.Success(
-                            getRoutineSetRoutineByWeekdayResult.data.map { routineSetRoutine ->
-                                RoutineSetRoutineSelection(
-                                    id = routineSetRoutine.id,
-                                    name = routineSetRoutine.name,
-                                    description = routineSetRoutine.description,
-                                    weekday = routineSetRoutine.weekday,
-                                    selected = (selectedRoutineSetList.map { it -> it.id }
-                                        .contains(routineSetRoutine.id)),
-                                    routine = routineSetRoutine.routine.map { routine ->
-                                     RoutineSelection(
-                                            routine = routine,
-                                            opened = (openedRoutineIdList.contains(routine.id))
-                                        )
-                                    }
-                                )
-                            }
-                        )
+    val routineSetRoutineState: StateFlow<RoutineSetRoutineSelectionUiState> =
+        dateState.currentDate.flatMapLatest {
+            combine(
+                openedRoutineState.openedRoutineIdList,
+                selectedRoutineSetState.selectedRoutineSetList,
+                getRoutineSetRoutineByWeekdayUseCase(it.toWeekday())
+            ) { openedRoutineIdList, selectedRoutineSetList, getRoutineSetRoutineByWeekdayResult ->
+                when (getRoutineSetRoutineByWeekdayResult) {
+                    is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = getRoutineSetRoutineByWeekdayResult.message)
+                    is DataState.Success -> {
+                        if (getRoutineSetRoutineByWeekdayResult.data.isEmpty()) {
+                            RoutineSetRoutineSelectionUiState.Empty
+                        } else {
+                            RoutineSetRoutineSelectionUiState.Success(
+                                getRoutineSetRoutineByWeekdayResult.data.map { routineSetRoutine ->
+                                    RoutineSetRoutineSelection(
+                                        id = routineSetRoutine.id,
+                                        name = routineSetRoutine.name,
+                                        description = routineSetRoutine.description,
+                                        weekday = routineSetRoutine.weekday,
+                                        selected = (selectedRoutineSetList.map { it -> it.id }
+                                            .contains(routineSetRoutine.id)),
+                                        routine = routineSetRoutine.routine.map { routine ->
+                                            RoutineSelection(
+                                                routine = routine,
+                                                opened = (openedRoutineIdList.contains(routine.id))
+                                            )
+                                        }
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             }
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = RoutineSetRoutineSelectionUiState.Loading
-    )
-
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = RoutineSetRoutineSelectionUiState.Loading
+        )
 
 
 }

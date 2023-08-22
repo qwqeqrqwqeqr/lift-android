@@ -28,8 +28,8 @@ class SelectedRoutineSetState @Inject constructor(
         initialValue = 0
     )
 
-    fun appendBySelectedRoutineSetRoutineId(selectedRoutineSetId: Int?){
-        selectedRoutineSetId?.let { id ->
+    fun appendBySelectedRoutineSetRoutineId(): (Int?) -> Unit = {
+        it?.let { id ->
             viewModelScope.launch {
                 getRoutineSetRoutineByRoutineSetIdUseCase(setOf(id)).collect { routineSetResult ->
                     when (routineSetResult) {
