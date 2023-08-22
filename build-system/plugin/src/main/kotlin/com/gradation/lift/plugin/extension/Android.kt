@@ -18,6 +18,7 @@ package com.gradation.lift.plugin.extension
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.apache.commons.logging.LogFactory.release
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
@@ -45,12 +46,9 @@ internal fun Project.extensionAndroid(
             buildConfigField("String", "NAVER_OAUTH_CLIENT_SECRET", getKey("NAVER_OAUTH_CLIENT_SECRET",rootDir))
             buildConfigField("String", "NAVER_OAUTH_CLIENT_NAME", getKey("NAVER_OAUTH_CLIENT_NAME",rootDir))
 
-            manifestPlaceholders["KAKAO_SCHEME"] = buildConfigField("String", "KAKAO_SCHEME", getKey("KAKAO_SCHEME",rootDir))
-
-
+            manifestPlaceholders["KAKAO_SCHEME"] = getKey("KAKAO_SCHEME",rootDir)
         }
         buildTypes{
-
         }
 
 
