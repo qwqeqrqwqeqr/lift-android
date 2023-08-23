@@ -6,15 +6,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.*
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.history.data.TabDestination
@@ -28,15 +28,13 @@ fun HistoryHistoryRoute(
     viewModel: HistoryHistoryViewModel = hiltViewModel(),
 ) {
 
-
+    val tabScreenList: List<TabDestination> = listOf(TabDestination.Analytics, TabDestination.DailyLog)
     val pagerState = rememberPagerState(
         initialPage = 0,
-        initialPageOffsetFraction = 0f
-    ) {
-        2
-    }
+        initialPageOffsetFraction = 0f,
+        pageCount = { tabScreenList.size }
+    )
     val coroutineScope = rememberCoroutineScope()
-    val tabScreenList = listOf(TabDestination.Analytics, TabDestination.DailyLog)
 
     HistoryHistoryScreen(modifier, tabScreenList, pagerState, coroutineScope)
 }
@@ -54,15 +52,17 @@ fun HistoryHistoryScreen(
             TabRow(
                 modifier = modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 selectedTabIndex = pagerState.currentPage,
-                indicator = { tabPositions ->
-                    TabRowDefaults.Indicator(
-                        modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
-                        color = LiftTheme.colorScheme.no4,
-                        height = 3.dp
-                    )
+                indicator = @Composable { tabPositions ->
+                    if (pagerState.currentPage < tabPositions.size) {
+                        TabRowDefaults.SecondaryIndicator(
+                            color=LiftTheme.colorScheme.no4,
+                            height=3.dp,
+                            modifier= Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
+                        )
+                    }
                 },
                 divider = {},
-                backgroundColor = LiftTheme.colorScheme.no5,
+                containerColor = LiftTheme.colorScheme.no5,
             ) {
                 tabDestination.forEachIndexed { index, item ->
                     Tab(

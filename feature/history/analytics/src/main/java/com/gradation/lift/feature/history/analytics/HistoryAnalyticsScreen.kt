@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.history.analytics.data.HistoryAnalyticsViewModel
 
 @Composable
 fun HistoryAnalyticsRoute(
