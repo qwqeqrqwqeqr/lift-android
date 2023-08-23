@@ -20,15 +20,4 @@ data class WorkFrequencyWeekDate(
     val week: Int = 0,
     val weekday: Weekday = Weekday.None(),
     val date: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-) {
-    fun weekToText(): String = when (week) {
-        1 -> "첫째"
-        2 -> "둘째"
-        3 -> "셋째"
-        4 -> "넷째"
-        5 -> "다섯째"
-        6 -> "여섯째"
-        else -> ""
-    }
-}
-
+)

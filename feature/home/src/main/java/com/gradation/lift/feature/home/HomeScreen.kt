@@ -24,7 +24,7 @@ import com.gradation.lift.feature.home.data.model.WeekDateSelection
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
 import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA

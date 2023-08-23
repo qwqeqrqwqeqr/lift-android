@@ -28,9 +28,9 @@ class GetWeekDateOfThisMonthUseCase @Inject constructor() {
                 KotlinLocalDate.parse(localDate.withDayOfMonth(it)!!.toString())
             }
         }) {
-            var weekCount: Int = if (first().toWeekday() == Weekday.Monday()) 0 else 1
+            var weekCount: Int = if (first().toWeekday() == Weekday.Sunday()) 0 else 1
             return map {
-                if (it.toWeekday() == Weekday.Monday()) {
+                if (it.toWeekday() == Weekday.Sunday()) {
                     weekCount += 1
                 }
                 WeekDateMonth(

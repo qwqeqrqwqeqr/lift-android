@@ -13,7 +13,8 @@ import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
-import com.gradation.lift.model.model.common.toWeekday
+
+import com.gradation.lift.model.model.date.toWeekday
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel

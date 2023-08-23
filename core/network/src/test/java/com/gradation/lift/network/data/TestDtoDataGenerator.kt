@@ -1,6 +1,6 @@
 package com.gradation.lift.network.data
 
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.createRoutineDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto2

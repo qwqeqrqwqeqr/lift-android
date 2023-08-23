@@ -7,6 +7,7 @@ import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateOfThisMonthUseCase
 import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.feature.history.analytics.data.state.HistoryUiState
+import com.gradation.lift.feature.history.analytics.data.state.WorkFrequencyAnalyticsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.LocalDate
@@ -19,7 +20,7 @@ class HistoryAnalyticsViewModel @Inject constructor(
     private val getWeekDateOfThisMonthUseCase: GetWeekDateOfThisMonthUseCase,
 ) : ViewModel() {
 
-    val today: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
+    val today: StateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
     val historyUiState: StateFlow<HistoryUiState> = getHistoryUseCase().map {
         when (val getHistoryResult = it) {
@@ -36,10 +37,17 @@ class HistoryAnalyticsViewModel @Inject constructor(
         initialValue = HistoryUiState.None
     )
 
-
+    val workFrequencyAnalyticsState = WorkFrequencyAnalyticsState(
+        viewModelScope,
+        today,
+        historyUiState,
+        getTodayUseCase,
+        getWeekDateOfThisMonthUseCase
+    )
 
 
 }
+
 
 
 

@@ -15,7 +15,7 @@ import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
 import com.gradation.lift.database.entity.work_category.WorkPartEntity
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA

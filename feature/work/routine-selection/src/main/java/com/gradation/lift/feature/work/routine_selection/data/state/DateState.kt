@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
-import com.gradation.lift.model.model.common.toWeekday
+import com.gradation.lift.model.model.date.toWeekday
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.LocalDate
