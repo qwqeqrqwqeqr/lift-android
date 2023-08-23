@@ -1,0 +1,65 @@
+package com.gradation.lift.feature.history.analytics.data.state
+
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.gradation.lift.domain.usecase.date.GetTodayUseCase
+import com.gradation.lift.domain.usecase.date.GetWeekDateOfThisMonthUseCase
+import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.*
+import kotlinx.datetime.LocalDate
+import javax.inject.Inject
+
+/**
+ * [WorkFrequencyAnalyticsState]
+ * 운동 빈도 분석 상태
+ * @property selectedMonth 선택된 월, 해당 월을 기준으로 빈도 수를 분석
+ * @property historyCountByThisMonth '현재 사용자의 기준 월' 종합 운동 빈도 수
+ * @property workFrequencyByWeek 선택된 월 기준 주차별 빈도수
+ */
+class WorkFrequencyAnalyticsState @Inject constructor(
+    viewModelScope: CoroutineScope,
+    historyUiState: StateFlow<HistoryUiState>,
+    private val getTodayUseCase: GetTodayUseCase,
+    private val getWeekDateOfThisMonthUseCase: GetWeekDateOfThisMonthUseCase,
+) {
+    val selectedMonth: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
+
+    val historyCountByThisMonth: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
+        if (historyUiStateResult is HistoryUiState.Success) {
+            historyUiStateResult.historyList.count { history ->
+                history.historyTimeStamp.month == getTodayUseCase().month
+            }
+        } else 0
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = 0
+    )
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val workFrequencyByWeek: StateFlow<List<WorkFrequencyWeekDate>> =
+        combine(selectedMonth, historyUiState) { selectedMonth, historyUiStateResult ->
+            if (historyUiStateResult is HistoryUiState.Success) {
+                getWeekDateOfThisMonthUseCase(selectedMonth).map { weekDateMonth ->
+                    WorkFrequencyWeekDate(
+                        frequency = historyUiStateResult.historyList.count {
+                            it.historyTimeStamp.date == weekDateMonth.date
+                        },
+                        week = weekDateMonth.week,
+                        weekday = weekDateMonth.weekday,
+                        date = weekDateMonth.date
+                    )
+                }
+
+            } else emptyList()
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
+
+    fun updateSelectedMonth(): (LocalDate) -> Unit = {
+        selectedMonth.value = it
+    }
+}

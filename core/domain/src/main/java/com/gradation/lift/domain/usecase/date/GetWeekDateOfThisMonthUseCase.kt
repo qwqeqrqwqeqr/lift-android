@@ -2,7 +2,6 @@ package com.gradation.lift.domain.usecase.date
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.gradation.lift.model.model.date.WeekDate
 import com.gradation.lift.model.model.date.WeekDateMonth
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.toWeekday
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class GetWeekDateOfThisMonthUseCase @Inject constructor() {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    operator fun invoke(date: KotlinLocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())): WeekDateMonth {
+    operator fun invoke(date: KotlinLocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())): List<WeekDateMonth> {
         with(JavaLocalDate.parse(date.toString())!!.let { localDate ->
             (1..localDate.lengthOfMonth()).map {
                 KotlinLocalDate.parse(localDate.withDayOfMonth(it)!!.toString())
@@ -34,15 +33,11 @@ class GetWeekDateOfThisMonthUseCase @Inject constructor() {
                 if (it.toWeekday() == Weekday.Monday()) {
                     weekCount += 1
                 }
-                WeekDate(
+                WeekDateMonth(
+                    month = first().monthNumber,
                     week = weekCount,
                     weekday = it.toWeekday(),
                     date = it
-                )
-            }.groupBy { it.week }.let {
-                WeekDateMonth(
-                    month = first().monthNumber,
-                    weekDateList = it
                 )
             }
         }
