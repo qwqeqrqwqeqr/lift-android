@@ -31,7 +31,7 @@ internal fun RoutineListView(
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
 ) {
-    Column {
+    Column(modifier=modifier.fillMaxHeight()) {
         Spacer(modifier = modifier.padding(7.dp))
         Row(
             modifier = modifier.fillMaxWidth(),

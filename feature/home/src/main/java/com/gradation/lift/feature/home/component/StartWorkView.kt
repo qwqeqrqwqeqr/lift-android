@@ -14,14 +14,12 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun StartWorkView(
+fun NavigationView(
     modifier: Modifier = Modifier,
     navigateMainGraphToWorkGraph: () -> Unit,
 ) {
     Surface(color = LiftTheme.colorScheme.no5) {
-        Column(
-            modifier.padding(16.dp)
-        ) {
+        Column(modifier= modifier.padding(vertical = 16.dp)) {
             LiftButton(
                 onClick = navigateMainGraphToWorkGraph,
                 modifier = modifier
