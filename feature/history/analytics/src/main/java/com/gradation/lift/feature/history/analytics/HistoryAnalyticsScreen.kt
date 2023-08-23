@@ -5,18 +5,18 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun HistoryRoute(
+fun HistoryAnalyticsRoute(
     modifier: Modifier = Modifier,
-    viewModel: HistoryViewModel = hiltViewModel()
+    viewModel: HistoryAnalyticsViewModel = hiltViewModel()
 ) {
-    HistoryScreen(
+    HistoryAnalyticsScreen(
         modifier = modifier
     )
 }
 
 
 @Composable
-internal fun HistoryScreen(
+internal fun HistoryAnalyticsScreen(
     modifier: Modifier = Modifier,
 ) {
 

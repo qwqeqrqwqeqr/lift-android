@@ -1,6 +1,5 @@
 package com.gradation.lift.navigation.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.gradation.lift.navigation.Router
 
