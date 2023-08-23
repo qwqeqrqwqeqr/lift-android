@@ -30,7 +30,7 @@ fun HistoryAnalyticsRoute(
 
 
     val selectedMonth: LocalDate by viewModel.workFrequencyAnalyticsState.selectedMonth.collectAsStateWithLifecycle()
-    val historyCountByThisMonth: Int by viewModel.workFrequencyAnalyticsState.historyCountByThisMonth.collectAsStateWithLifecycle()
+    val historyCountByCurrentMonth: Int by viewModel.workFrequencyAnalyticsState.historyCountByCurrentMonth.collectAsStateWithLifecycle()
     val workFrequencyByWeek: List<WorkFrequencyWeekDate> by viewModel.workFrequencyAnalyticsState.workFrequencyByWeek.collectAsStateWithLifecycle()
 
 
@@ -44,7 +44,7 @@ fun HistoryAnalyticsRoute(
     HistoryAnalyticsScreen(
         modifier,
         selectedMonth,
-        historyCountByThisMonth,
+        historyCountByCurrentMonth,
         workFrequencyByWeek,
         plusSelectedMonth,
         minusSelectedMonth,
@@ -56,7 +56,7 @@ fun HistoryAnalyticsRoute(
 internal fun HistoryAnalyticsScreen(
     modifier: Modifier = Modifier,
     selectedMonth: LocalDate,
-    historyCountByThisMonth: Int,
+    historyCountByCurrentMonth: Int,
     workFrequencyByWeek: List<WorkFrequencyWeekDate>,
     plusSelectedMonth: () -> Unit,
     minusSelectedMonth: () -> Unit,
@@ -71,7 +71,7 @@ internal fun HistoryAnalyticsScreen(
             WorkFrequencyAnalyticsScreen(
                 modifier,
                 selectedMonth,
-                historyCountByThisMonth,
+                historyCountByCurrentMonth,
                 workFrequencyByWeek,
                 plusSelectedMonth,
                 minusSelectedMonth
@@ -88,7 +88,7 @@ fun HistoryAnalyticsScreenPreview() {
     LiftMaterialTheme {
         HistoryAnalyticsScreen(
             selectedMonth = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-            historyCountByThisMonth = 32,
+            historyCountByCurrentMonth = 32,
             workFrequencyByWeek = emptyList(),
             plusSelectedMonth = {},
             minusSelectedMonth = {}

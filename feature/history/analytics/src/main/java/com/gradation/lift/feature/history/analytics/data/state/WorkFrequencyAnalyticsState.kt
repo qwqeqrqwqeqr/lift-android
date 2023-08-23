@@ -3,7 +3,7 @@ package com.gradation.lift.feature.history.analytics.data.state
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
-import com.gradation.lift.domain.usecase.date.GetWeekDateOfThisMonthUseCase
+import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -25,11 +25,11 @@ class WorkFrequencyAnalyticsState @Inject constructor(
     today: StateFlow<LocalDate>,
     historyUiState: StateFlow<HistoryUiState>,
     getTodayUseCase: GetTodayUseCase,
-    private val getWeekDateOfThisMonthUseCase: GetWeekDateOfThisMonthUseCase,
+    private val getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,
 ) {
     val selectedMonth: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
-    val historyCountByThisMonth: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
+    val historyCountByCurrentMonth: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
         if (historyUiStateResult is HistoryUiState.Success) {
             historyUiStateResult.historyList.count { history ->
                 history.historyTimeStamp.month == today.value.month
@@ -45,7 +45,7 @@ class WorkFrequencyAnalyticsState @Inject constructor(
     val workFrequencyByWeek: StateFlow<List<WorkFrequencyWeekDate>> =
         combine(selectedMonth, historyUiState) { selectedMonth, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {
-                getWeekDateOfThisMonthUseCase(selectedMonth).map { weekDateMonth ->
+                getWeekDateOfCurrentMonthUseCase(selectedMonth).map { weekDateMonth ->
                     WorkFrequencyWeekDate(
                         frequency = historyUiStateResult.historyList.count {
                             it.historyTimeStamp.date == weekDateMonth.date
