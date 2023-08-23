@@ -9,7 +9,7 @@ import com.gradation.lift.navigation.Router
 fun historyHistoryScreen(navController: NavController, navGraphBuilder: NavGraphBuilder) {
     navGraphBuilder.composable(Router.HISTORY_HISTORY_ROUTER_NAME) {
 
-
+        HistoryHistoryRoute()
 
     }
 

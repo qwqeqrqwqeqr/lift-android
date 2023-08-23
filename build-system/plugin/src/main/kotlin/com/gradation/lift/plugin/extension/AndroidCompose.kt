@@ -27,6 +27,8 @@ internal fun Project.extensionAndroidCompose(
             add("implementation", libs.findLibrary("accompanist-flowlayout").get())
             add("implementation", libs.findLibrary("accompanist-systemuicontroller").get())
             add("implementation", libs.findLibrary("accompanist-testharness").get())
+            add("implementation", libs.findLibrary("accompanist-pager").get())
+            add("implementation", libs.findLibrary("accompanist-pager-indicators").get())
 
 
             add("implementation", libs.findLibrary("androidx-activity-compose").get())

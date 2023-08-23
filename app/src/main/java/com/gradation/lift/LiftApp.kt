@@ -18,7 +18,6 @@ import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_NAME
 import com.gradation.lift.state.SplashState
 
 @RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiftApp(
     splashState: SplashState,

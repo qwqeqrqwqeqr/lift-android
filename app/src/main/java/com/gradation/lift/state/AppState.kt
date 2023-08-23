@@ -39,8 +39,7 @@ class AppState(
     val currentTopLevelDestination
         @Composable get() = when (currentDestination?.route) {
             Router.HOME_HOME_ROUTER_NAME -> TopLevelNavDestination.Home
-            Router.HISTORY_ANALYTICS_ROUTER_NAME -> TopLevelNavDestination.History
-            Router.HISTORY_DAILY_LOG_ROUTER_NAME -> TopLevelNavDestination.History
+            Router.HISTORY_HISTORY_ROUTER_NAME -> TopLevelNavDestination.History
             Router.MY_INFO_MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
             else -> null
         }
