@@ -53,7 +53,7 @@ internal fun HomeRoute(
     val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate()
     val updateRoutineSetIdKey: (NavController, Int) -> Unit = viewModel.updateRoutineSetIdKey()
 
-    val scrollState = rememberScrollState()
+    val scrollState: ScrollState = rememberScrollState()
 
 
     HomeScreen(
@@ -91,7 +91,9 @@ internal fun HomeScreen(
         modifier = modifier
     ) {
         Surface(
-            modifier = modifier.padding(it),
+            modifier = modifier
+                .padding(it)
+                .fillMaxSize(),
             color = LiftTheme.colorScheme.no17
         ) {
             Column(
@@ -100,27 +102,22 @@ internal fun HomeScreen(
                     .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                Column {
-                    ProfileView(
-                        modifier = modifier,
-                        userDetailUiState = userDetailUiState,
-                    )
-                    Spacer(modifier = modifier.padding(8.dp))
-                    WeekDateRoutineView(
-                        modifier,
-                        navController,
-                        today,
-                        weekDateSelectionList,
-                        weekDateRoutineUiState,
-                        updateSelectedDate,
-                        updateRoutineSetIdKey,
-                        navigateMainGraphToCreateRoutineGraph,
-                        navigateMainGraphToWorkGraph
-                    )
-
-                    StartWorkView(modifier, navigateMainGraphToWorkGraph)
-                }
+                ProfileView(
+                    modifier = modifier,
+                    userDetailUiState = userDetailUiState,
+                )
+                Spacer(modifier = modifier.padding(8.dp))
+                WeekDateRoutineView(
+                    modifier,
+                    navController,
+                    today,
+                    weekDateSelectionList,
+                    weekDateRoutineUiState,
+                    updateSelectedDate,
+                    updateRoutineSetIdKey,
+                    navigateMainGraphToCreateRoutineGraph,
+                    navigateMainGraphToWorkGraph
+                )
             }
         }
     }
@@ -156,10 +153,6 @@ internal fun HomeScreenPreview() {
                 weekDateRoutine = listOf(
                     ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 1),
                     ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 2),
-                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 3),
-                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 4),
-                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1.copy(id = 5),
-                    ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel2.copy(id = 6),
                 )
             ),
             userDetailUiState = UserDetailUiState.Success(
