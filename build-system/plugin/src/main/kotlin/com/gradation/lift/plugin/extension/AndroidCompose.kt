@@ -7,13 +7,13 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
 internal fun Project.extensionAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
     commonExtension.apply {
         buildFeatures {
             compose = true
         }
-        composeOptions{
+        composeOptions {
             kotlinCompilerExtensionVersion = "1.4.3"
         }
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -54,9 +54,15 @@ internal fun Project.extensionAndroidCompose(
             add("implementation", libs.findLibrary("androidx-compose-foundation").get())
             add("implementation", libs.findLibrary("androidx-compose-foundation-layout").get())
             add("implementation", libs.findLibrary("androidx-compose-material-icons-core").get())
-            add("implementation", libs.findLibrary("androidx-compose-material-icons-extended").get())
+            add(
+                "implementation",
+                libs.findLibrary("androidx-compose-material-icons-extended").get()
+            )
             add("implementation", libs.findLibrary("androidx-compose-material3").get())
-            add("implementation", libs.findLibrary("androidx-compose-material3-windowsizeclass").get())
+            add(
+                "implementation",
+                libs.findLibrary("androidx-compose-material3-windowsizeclass").get()
+            )
 
 
             add("implementation", libs.findLibrary("androidx-compose-ui-test").get())

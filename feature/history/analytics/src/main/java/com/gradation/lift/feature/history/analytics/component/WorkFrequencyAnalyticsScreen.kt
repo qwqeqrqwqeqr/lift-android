@@ -75,7 +75,7 @@ fun WorkFrequencyAnalyticsScreen(
                 )
             }
             Text(
-                text = selectedMonth.monthNumber.toString(),
+                text = "${selectedMonth.monthNumber}월",
                 style = LiftTheme.typography.no1.copy(fontSize = 20.sp),
                 color = LiftTheme.colorScheme.no9
             )

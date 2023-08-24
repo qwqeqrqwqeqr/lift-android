@@ -4,11 +4,15 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
+import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transform
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
@@ -19,9 +23,10 @@ import kotlin.math.roundToInt
  * [WorkCountByMonthAnalyticsState]
  * 월 별 운동 횟수 분석 상태
  * @property historyCountByPreMonth 지난 달의 총 운동횟수
- * @property historyCountByCurrentMonth 이번달 총 운동횟수
  * @property historyCountByMonthList 현재부터 이전 N월 동안 운동 횟수 (N은 [ANALYTICS_PERIOD] 로 판단함) 현재는 6개월 이전 데이터를 불러옴
- * @property historyCountByMonthList 현재부터 이전 N월 동안 평균 운동 횟수 (N은 [ANALYTICS_PERIOD] 로 판단함)
+ * @property historyAverageCurrentCount 현재부터 이전 N월 동안 평균 운동 횟수 (N은 [ANALYTICS_PERIOD] 로 판단함)
+ * @property historyAveragePreCount 지난 달부터 이전 N+1월 동안 평균 운동 횟수 과거 평균운동횟수를 의미한다 (N은 [ANALYTICS_PERIOD] 로 판단함)
+ * @since 2023-08-24 14:11:28
  */
 @RequiresApi(Build.VERSION_CODES.O)
 class WorkCountByMonthAnalyticsState @Inject constructor(
@@ -42,11 +47,40 @@ class WorkCountByMonthAnalyticsState @Inject constructor(
         initialValue = 0
     )
 
-    val historyCountByCurrentMonth: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
+
+    val historyCountByMonthList: StateFlow<List<WorkFrequencyMonth>> =
+        historyUiState.map { historyUiStateResult ->
+            if (historyUiStateResult is HistoryUiState.Success) {
+                (0..ANALYTICS_PERIOD).map {
+                    today.value.minus(DatePeriod(0, it, 0)).month.let {
+                        WorkFrequencyMonth(month = it.value,
+                            frequency = historyUiStateResult.historyList.count { history ->
+                                history.historyTimeStamp.month == it
+                            })
+                    }
+                }.reversed()
+            } else emptyList()
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
+
+    val historyAverageCurrentCount: StateFlow<Int> =
+        historyCountByMonthList.map { it.map { it.frequency }.average().toInt() }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = 0
+        )
+
+
+    val historyAveragePreCount: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
         if (historyUiStateResult is HistoryUiState.Success) {
-            historyUiStateResult.historyList.count { history ->
-                history.historyTimeStamp.month == today.value.month
-            }
+            (1..ANALYTICS_PERIOD + 1).map {
+                historyUiStateResult.historyList.count { history ->
+                    history.historyTimeStamp.month == today.value.minus(DatePeriod(0, it, 0)).month
+                }
+            }.average().toInt()
         } else 0
     }.stateIn(
         scope = viewModelScope,
@@ -55,27 +89,7 @@ class WorkCountByMonthAnalyticsState @Inject constructor(
     )
 
 
-    val historyCountByMonthList: StateFlow<List<Int>> = historyUiState.map { historyUiStateResult ->
-        if (historyUiStateResult is HistoryUiState.Success) {
-            (0..ANALYTICS_PERIOD).map {
-                historyUiStateResult.historyList.count { history ->
-                    history.historyTimeStamp.month == today.value.minus(DatePeriod(0, it, 0)).month
-                }
-            }
-        } else emptyList()
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList()
-    )
-
-    val historyAverageCount: StateFlow<Int> = historyCountByMonthList.map { it.average().roundToInt() }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = 0
-    )
-
-    companion object{
+    companion object {
         const val ANALYTICS_PERIOD = 6
     }
 }

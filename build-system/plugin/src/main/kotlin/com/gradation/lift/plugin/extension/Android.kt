@@ -21,70 +21,96 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.kotlin.dsl.provideDelegate
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
 /**
  * Configure base Kotlin with Android options
  */
 internal fun Project.extensionAndroid(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
     commonExtension.apply {
         compileSdk = 34
 
+
         defaultConfig {
             minSdk = 23
 
-            vectorDrawables{
+            vectorDrawables {
                 useSupportLibrary = true
             }
+            buildFeatures {
+                buildConfig = true
+            }
 
-            buildConfigField("String", "KAKAO_APP_KEY", getKey("KAKAO_APP_KEY",rootDir))
-            buildConfigField("String", "NAVER_OAUTH_CLIENT_ID", getKey("NAVER_OAUTH_CLIENT_ID",rootDir))
-            buildConfigField("String", "NAVER_OAUTH_CLIENT_SECRET", getKey("NAVER_OAUTH_CLIENT_SECRET",rootDir))
-            buildConfigField("String", "NAVER_OAUTH_CLIENT_NAME", getKey("NAVER_OAUTH_CLIENT_NAME",rootDir))
+            buildConfigField("String", "KAKAO_APP_KEY", getKey("KAKAO_APP_KEY", rootDir))
+            buildConfigField(
+                "String",
+                "NAVER_OAUTH_CLIENT_ID",
+                getKey("NAVER_OAUTH_CLIENT_ID", rootDir)
+            )
+            buildConfigField(
+                "String",
+                "NAVER_OAUTH_CLIENT_SECRET",
+                getKey("NAVER_OAUTH_CLIENT_SECRET", rootDir)
+            )
+            buildConfigField(
+                "String",
+                "NAVER_OAUTH_CLIENT_NAME",
+                getKey("NAVER_OAUTH_CLIENT_NAME", rootDir)
+            )
 
-            manifestPlaceholders["KAKAO_SCHEME"] = getKey("KAKAO_SCHEME",rootDir)
+            manifestPlaceholders["KAKAO_SCHEME"] = getKey("KAKAO_SCHEME", rootDir)
         }
-        buildTypes{
-        }
+        configureKotlin()
+
+
+
+
+
+
+
 
 
 
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
         }
 
 
 
 
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_11.toString()
-        }
-
-        packagingOptions {
-            resources {
-                excludes.add("META-INF/DEPENDENCIES")
-                excludes.add("META-INF/LICENSE")
-                excludes.add("META-INF/LICENSE.txt")
-                excludes.add("META-INF/license.txt")
-                excludes.add("META-INF/NOTICE")
-                excludes.add("META-INF/NOTICE.txt")
-                excludes.add("META-INF/notice.txt")
-                excludes.add("META-INF/ASL2.0")
-                excludes.add("META-INF/*.kotlin_module")
-            }
-        }
 
     }
 }
 
-fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
-    (this as ExtensionAware).extensions.configure("kotlinOptions", block)
+
+private fun Project.configureKotlin() {
+    // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            // Set JVM target to 11
+            jvmTarget = JavaVersion.VERSION_17.toString()
+            // Treat all Kotlin warnings as errors (disabled by default)
+            // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
+            val warningsAsErrors: String? by project
+            allWarningsAsErrors = warningsAsErrors.toBoolean()
+            freeCompilerArgs = freeCompilerArgs + listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                // Enable experimental coroutines APIs, including Flow
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=kotlinx.coroutines.FlowPreview",
+            )
+        }
+    }
 }
-fun getKey(propertyKey: String,rootDir: File): String {
+fun getKey(propertyKey: String, rootDir: File): String {
     return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }

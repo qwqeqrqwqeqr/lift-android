@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.32.0"
-android = "7.4.2"
+androidGradlePlugin = "8.1.1"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.5.1"
 androidxArchCore = "2.2.0"
@@ -57,9 +57,9 @@ versionCheck = "0.46.0"
 work = "2.8.0"
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "android" }
-android-library = { id = "com.android.library", version.ref = "android" }
-android-test = { id = "com.android.test", version.ref = "android" }
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
@@ -196,7 +196,7 @@ room-paging = { group = "androidx.room", name = "room-paging", version.ref = "ro
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 #GRADLE
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android" }
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 

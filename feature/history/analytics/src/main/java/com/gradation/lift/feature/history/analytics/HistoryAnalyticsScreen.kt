@@ -1,25 +1,52 @@
 package com.gradation.lift.feature.history.analytics
 
 import android.os.Build
+import android.widget.Space
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.component.BarChart
+import com.gradation.lift.designsystem.component.BarChartItem
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.history.analytics.component.WorkCountByMonthAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.component.WorkFrequencyAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.data.HistoryAnalyticsViewModel
+import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
+import com.gradation.lift.feature.history.analytics.data.state.HistoryUiState
+import com.gradation.lift.ui.utils.DevicePreview
+import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
+import kotlin.math.abs
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -28,9 +55,11 @@ fun HistoryAnalyticsRoute(
     viewModel: HistoryAnalyticsViewModel = hiltViewModel(),
 ) {
 
+    val historyUiState: HistoryUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
+    val historyCountByCurrentMonth: Int by viewModel.historyCountByCurrentMonth.collectAsStateWithLifecycle()
+
 
     val selectedMonth: LocalDate by viewModel.workFrequencyAnalyticsState.selectedMonth.collectAsStateWithLifecycle()
-    val historyCountByCurrentMonth: Int by viewModel.workFrequencyAnalyticsState.historyCountByCurrentMonth.collectAsStateWithLifecycle()
     val workFrequencyByWeek: List<WorkFrequencyWeekDate> by viewModel.workFrequencyAnalyticsState.workFrequencyByWeek.collectAsStateWithLifecycle()
 
 
@@ -41,6 +70,13 @@ fun HistoryAnalyticsRoute(
         viewModel.workFrequencyAnalyticsState.minusSelectedMonth()
 
 
+    val historyCountByPreMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByPreMonth.collectAsStateWithLifecycle()
+    val historyCountByMonthList: List<WorkFrequencyMonth> by viewModel.workCountByMonthAnalyticsState.historyCountByMonthList.collectAsStateWithLifecycle()
+    val historyAveragePreCount: Int by viewModel.workCountByMonthAnalyticsState.historyAveragePreCount.collectAsStateWithLifecycle()
+    val historyAverageCurrentCount: Int by viewModel.workCountByMonthAnalyticsState.historyAverageCurrentCount.collectAsStateWithLifecycle()
+
+
+    val scrollState = rememberScrollState()
     HistoryAnalyticsScreen(
         modifier,
         selectedMonth,
@@ -48,6 +84,11 @@ fun HistoryAnalyticsRoute(
         workFrequencyByWeek,
         plusSelectedMonth,
         minusSelectedMonth,
+        historyCountByPreMonth,
+        historyCountByMonthList,
+        historyAveragePreCount,
+        historyAverageCurrentCount,
+        scrollState
     )
 }
 
@@ -60,12 +101,18 @@ internal fun HistoryAnalyticsScreen(
     workFrequencyByWeek: List<WorkFrequencyWeekDate>,
     plusSelectedMonth: () -> Unit,
     minusSelectedMonth: () -> Unit,
+    historyCountByPreMonth: Int,
+    historyCountByMonthList: List<WorkFrequencyMonth>,
+    historyAveragePreCount: Int,
+    historyAverageCurrentCount: Int,
+    scrollState: ScrollState,
 ) {
     Surface(color = LiftTheme.colorScheme.no17, modifier = modifier.fillMaxSize()) {
 
         Column(
             modifier = modifier
                 .padding(top = 16.dp)
+                .verticalScroll(scrollState)
         ) {
 
             WorkFrequencyAnalyticsScreen(
@@ -76,11 +123,20 @@ internal fun HistoryAnalyticsScreen(
                 plusSelectedMonth,
                 minusSelectedMonth
             )
-
+            Spacer(modifier = modifier.padding(16.dp))
+            WorkCountByMonthAnalyticsScreen(
+                modifier,
+                historyCountByCurrentMonth,
+                historyCountByPreMonth,
+                historyCountByMonthList,
+                historyAveragePreCount,
+                historyAverageCurrentCount
+            )
+            Spacer(modifier = modifier.padding(16.dp))
         }
-
     }
 }
+
 
 @Preview
 @Composable
@@ -91,7 +147,18 @@ fun HistoryAnalyticsScreenPreview() {
             historyCountByCurrentMonth = 32,
             workFrequencyByWeek = emptyList(),
             plusSelectedMonth = {},
-            minusSelectedMonth = {}
+            minusSelectedMonth = {},
+            historyCountByPreMonth = 15,
+            historyCountByMonthList = listOf(
+                WorkFrequencyMonth(),
+                WorkFrequencyMonth(),
+                WorkFrequencyMonth(),
+                WorkFrequencyMonth(),
+                WorkFrequencyMonth(),
+            ),
+            historyAverageCurrentCount = 25,
+            historyAveragePreCount = 30,
+            scrollState = rememberScrollState()
         )
     }
 }
