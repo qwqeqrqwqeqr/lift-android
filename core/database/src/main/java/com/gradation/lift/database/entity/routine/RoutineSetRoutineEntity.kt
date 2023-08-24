@@ -3,7 +3,7 @@ package com.gradation.lift.database.entity.routine
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WeekdayTypeConverter
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
 @Entity(

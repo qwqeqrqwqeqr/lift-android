@@ -31,8 +31,7 @@ object Router {
     const val CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "find_work_category"
 
     const val HISTORY_GRAPH_NAME = "history_graph"
-    const val HISTORY_ANALYTICS_ROUTER_NAME = "analytics"
-    const val HISTORY_DAILY_LOG_ROUTER_NAME = "daily_log"
+    const val HISTORY_HISTORY_ROUTER_NAME = "history"
 
     const val HOME_GRAPH_NAME = "home_graph"
     const val HOME_HOME_ROUTER_NAME = "home"

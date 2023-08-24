@@ -15,7 +15,7 @@ import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRo
 import com.gradation.lift.feature.work.routine_selection.data.state.SelectedRoutineSetState
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
-import com.gradation.lift.model.model.common.toWeekday
+import com.gradation.lift.model.model.date.toWeekday
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*

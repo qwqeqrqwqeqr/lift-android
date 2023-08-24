@@ -1,6 +1,6 @@
 package com.gradation.lift.model.model.routine
 
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 
 
 /**

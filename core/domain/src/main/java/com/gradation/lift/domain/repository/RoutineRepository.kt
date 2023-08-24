@@ -1,7 +1,7 @@
 package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine

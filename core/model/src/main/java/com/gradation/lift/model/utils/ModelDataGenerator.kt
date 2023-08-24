@@ -2,7 +2,6 @@ package com.gradation.lift.model.utils
 
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.common.Weekday
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.history.History
@@ -29,6 +28,7 @@ import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel2
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.Token
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine

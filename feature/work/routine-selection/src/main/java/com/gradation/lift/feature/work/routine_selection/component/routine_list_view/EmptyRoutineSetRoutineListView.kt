@@ -19,7 +19,7 @@ import com.gradation.lift.feature.work.routine_selection.WorkRoutineSelectionScr
 import com.gradation.lift.feature.work.routine_selection.component.NavigationView
 import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
 import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRoutineSelectionUiState
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator
 

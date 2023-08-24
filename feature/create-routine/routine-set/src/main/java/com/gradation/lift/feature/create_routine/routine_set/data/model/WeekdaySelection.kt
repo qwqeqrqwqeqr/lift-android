@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.create_routine.routine_set.data.model
 
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 
 /**
  * [WeekdaySelection]

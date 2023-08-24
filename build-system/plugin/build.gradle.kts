@@ -3,8 +3,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -53,10 +53,6 @@ gradlePlugin {
         register(property("IMAGE_PLUGIN_ID").toString()) {
             id = property("IMAGE_PLUGIN_ID").toString()
             implementationClass = property("IMAGE_PLUGIN_IMPL_CLASS").toString()
-        }
-        register(property("JACOCO_PLUGIN_ID").toString()) {
-            id = property("JACOCO_PLUGIN_ID").toString()
-            implementationClass = property("JACOCO_PLUGIN_IMPL_CLASS").toString()
         }
         register(property("KOTLIN_PLUGIN_ID").toString()) {
             id = property("KOTLIN_PLUGIN_ID").toString()

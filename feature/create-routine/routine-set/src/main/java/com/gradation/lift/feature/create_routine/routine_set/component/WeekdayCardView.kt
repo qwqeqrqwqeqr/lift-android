@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.routine_set.data.model.WeekdaySelection
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 
 
 @Composable

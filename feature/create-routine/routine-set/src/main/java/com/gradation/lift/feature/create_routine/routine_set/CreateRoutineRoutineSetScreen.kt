@@ -29,7 +29,7 @@ import com.gradation.lift.feature.create_routine.routine_set.data.model.WeekdayS
 import com.gradation.lift.feature.create_routine.routine_set.data.state.CreateRoutineState
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineRoutineSetViewModel
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router
