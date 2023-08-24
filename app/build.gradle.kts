@@ -19,8 +19,8 @@ android {
 
 
     defaultConfig {
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 2
+        versionName = "0.0.7"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
 
