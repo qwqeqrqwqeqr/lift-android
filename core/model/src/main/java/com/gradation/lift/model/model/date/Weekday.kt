@@ -1,4 +1,4 @@
-package com.gradation.lift.model.model.common
+package com.gradation.lift.model.model.date
 
 import android.os.Build
 import androidx.annotation.RequiresApi

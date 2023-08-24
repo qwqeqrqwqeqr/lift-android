@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.work.routine_selection.data.model
 
-import com.gradation.lift.model.model.common.Weekday
+import com.gradation.lift.model.model.date.Weekday
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone

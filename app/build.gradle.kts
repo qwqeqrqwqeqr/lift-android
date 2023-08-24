@@ -6,10 +6,8 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.splash")
     id("lift.android.image")
-    id("lift.android.jacoco")
     id("lift.android.oauth")
     id("lift.android.firebase")
-    id("jacoco")
 }
 
 
@@ -21,16 +19,15 @@ android {
 
 
     defaultConfig {
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 2
+        versionName = "0.0.7"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
-
-
-
-
-
-
     }
+
+
+
+
+
 }
 
 
