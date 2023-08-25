@@ -30,7 +30,6 @@ fun myInfoMyInfoScreen(
 
     navGraphBuilder.composable(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoMyInfoRoute(
-            navController = navController,
             navigateMyInfoGraphToLoginGraph=navigateMyInfoGraphToLoginGraph,
             navigateMyInfoToUpdateProfile=navigateMyInfoToUpdateProfile,
             navigateUpdateToMyInfo=navigateUpdateToMyInfo

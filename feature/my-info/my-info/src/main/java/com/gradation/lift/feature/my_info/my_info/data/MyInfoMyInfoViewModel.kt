@@ -28,7 +28,7 @@ class MyInfoMyInfoViewModel @Inject constructor(
 
 
 
-    internal val workCount = getHistoryUseCase().map {
+    internal val workCount: StateFlow<Int> = getHistoryUseCase().map {
         when (it) {
             is DataState.Fail -> 0
             is DataState.Success -> it.data.count()
