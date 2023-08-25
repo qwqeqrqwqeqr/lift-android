@@ -13,6 +13,7 @@ import com.gradation.lift.navigation.navigation.navigateUpdateToMyInfo
 fun myInfoMyInfoScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
+    versionName: String,
 ) {
 
     /**
@@ -30,6 +31,7 @@ fun myInfoMyInfoScreen(
 
     navGraphBuilder.composable(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoMyInfoRoute(
+            versionName=versionName,
             navigateMyInfoGraphToLoginGraph=navigateMyInfoGraphToLoginGraph,
             navigateMyInfoToUpdateProfile=navigateMyInfoToUpdateProfile,
             navigateUpdateToMyInfo=navigateUpdateToMyInfo

@@ -1,12 +1,9 @@
 package com.gradation.lift.feature.my_info.my_info
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,12 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.my_info.my_info.component.StatisticView
-import com.gradation.lift.feature.my_info.my_info.component.profile_view.LoadingProfileView
-import com.gradation.lift.feature.my_info.my_info.component.profile_view.ProfileView
+import com.gradation.lift.feature.my_info.my_info.component.MyInfoListView
+import com.gradation.lift.feature.my_info.my_info.component.ProfileView
 import com.gradation.lift.feature.my_info.my_info.data.MyInfoMyInfoViewModel
 import com.gradation.lift.feature.my_info.my_info.data.state.UserDetailUiState
 import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
@@ -28,10 +23,11 @@ import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
 @Composable
 fun MyInfoMyInfoRoute(
     modifier: Modifier = Modifier,
+    versionName: String,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
     navigateMyInfoToUpdateProfile: () -> Unit,
     navigateUpdateToMyInfo: () -> Unit,
-    viewModel: MyInfoMyInfoViewModel = hiltViewModel()
+    viewModel: MyInfoMyInfoViewModel = hiltViewModel(),
 ) {
 
     val workCount: Int by viewModel.workCount.collectAsStateWithLifecycle()
@@ -40,6 +36,7 @@ fun MyInfoMyInfoRoute(
 
     MyInfoMyInfoScreen(
         modifier,
+        versionName,
         workCount,
         userDetailUiState,
         navigateMyInfoGraphToLoginGraph,
@@ -48,10 +45,10 @@ fun MyInfoMyInfoRoute(
     )
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun MyInfoMyInfoScreen(
     modifier: Modifier = Modifier,
+    versionName: String,
     workCount: Int,
     userDetailUiState: UserDetailUiState,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
@@ -62,35 +59,16 @@ fun MyInfoMyInfoScreen(
         color = LiftTheme.colorScheme.no17,
     ) {
         Column(modifier = modifier.fillMaxSize()) {
-            Column(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .background(
-                        LiftTheme.colorScheme.no5,
-                        shape = RoundedCornerShape(0.dp, 0.dp, 18.dp, 18.dp)
-                    )
-                    .padding(16.dp)
-            ) {
-                when (userDetailUiState) {
-                    is UserDetailUiState.Fail -> {}
-                    UserDetailUiState.Loading -> {
-                        LoadingProfileView(modifier, navigateMyInfoGraphToLoginGraph)
-                    }
+            ProfileView(
+                modifier,
+                userDetailUiState,
+                workCount,
+                navigateMyInfoGraphToLoginGraph,
+                navigateMyInfoToUpdateProfile
+            )
+            Spacer(modifier = modifier.padding(9.dp))
+            MyInfoListView(modifier, versionName, navigateUpdateToMyInfo)
 
-                    is UserDetailUiState.Success -> {
-                        ProfileView(
-                            modifier = modifier,
-                            userDetail = userDetailUiState.userDetail,
-                            navigateMyInfoGraphToLoginGraph = navigateMyInfoGraphToLoginGraph,
-                                    navigateMyInfoToUpdateProfile=navigateMyInfoToUpdateProfile
-                        )
-                    }
-                }
-                Spacer(modifier = modifier.padding(16.dp))
-                StatisticView(modifier, workCount)
-                Spacer(modifier = modifier.padding(16.dp))
-
-            }
         }
     }
 }
@@ -102,6 +80,7 @@ fun MyInfoMyInfoScreenPreview() {
     LiftMaterialTheme {
         MyInfoMyInfoScreen(
             workCount = 13,
+            versionName = "1.0.0",
             userDetailUiState = UserDetailUiState.Success(userDetailModel),
             navigateMyInfoGraphToLoginGraph = { },
             navigateMyInfoToUpdateProfile = {},

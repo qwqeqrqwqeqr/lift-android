@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info.component.profile_view
+package com.gradation.lift.feature.my_info.my_info.component.profile_detail_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-internal fun LoadingProfileView(
+internal fun LoadingProfileDetailView(
     modifier: Modifier = Modifier,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
 ) {

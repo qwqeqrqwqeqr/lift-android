@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info.component.profile_view
+package com.gradation.lift.feature.my_info.my_info.component.profile_detail_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +31,7 @@ import com.gradation.lift.ui.utils.toText
 
 @ExperimentalGlideComposeApi
 @Composable
-internal fun ProfileView(
+internal fun ProfileDetailView(
     modifier: Modifier = Modifier,
     userDetail: UserDetail,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
