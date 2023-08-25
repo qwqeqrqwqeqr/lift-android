@@ -26,7 +26,7 @@ fun MyInfoMyInfoRoute(
     versionName: String,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
     navigateMyInfoToUpdateProfile: () -> Unit,
-    navigateUpdateToMyInfo: () -> Unit,
+    navigateMyInfoToUpdate: () -> Unit,
     viewModel: MyInfoMyInfoViewModel = hiltViewModel(),
 ) {
 
@@ -41,7 +41,7 @@ fun MyInfoMyInfoRoute(
         userDetailUiState,
         navigateMyInfoGraphToLoginGraph,
         navigateMyInfoToUpdateProfile,
-        navigateUpdateToMyInfo
+        navigateMyInfoToUpdate
     )
 }
 
@@ -53,7 +53,7 @@ fun MyInfoMyInfoScreen(
     userDetailUiState: UserDetailUiState,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
     navigateMyInfoToUpdateProfile: () -> Unit,
-    navigateUpdateToMyInfo: () -> Unit
+    navigateMyInfoToUpdate: () -> Unit
 ) {
     Surface(
         color = LiftTheme.colorScheme.no17,
@@ -67,7 +67,7 @@ fun MyInfoMyInfoScreen(
                 navigateMyInfoToUpdateProfile
             )
             Spacer(modifier = modifier.padding(9.dp))
-            MyInfoListView(modifier, versionName, navigateUpdateToMyInfo)
+            MyInfoListView(modifier, versionName, navigateMyInfoToUpdate)
 
         }
     }
@@ -84,6 +84,6 @@ fun MyInfoMyInfoScreenPreview() {
             userDetailUiState = UserDetailUiState.Success(userDetailModel),
             navigateMyInfoGraphToLoginGraph = { },
             navigateMyInfoToUpdateProfile = {},
-            navigateUpdateToMyInfo = {})
+            navigateMyInfoToUpdate = {})
     }
 }
