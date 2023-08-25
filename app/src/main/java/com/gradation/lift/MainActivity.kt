@@ -79,6 +79,7 @@ class MainActivity : ComponentActivity() {
                 viewModel.splashUiState.onEach { splashState = it }.collect()
             }
 
+
         }
 
 

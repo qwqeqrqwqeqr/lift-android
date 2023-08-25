@@ -26,6 +26,7 @@ object LiftIcon {
     val Mail = R.drawable.mail
     val Trash = R.drawable.trash
     val Filter = R.drawable.filter
+    val Pencil = R.drawable.pencil
     val Timer = R.drawable.timer
     val List = R.drawable.list
     val Close = R.drawable.close
@@ -35,6 +36,12 @@ object LiftIcon {
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
     val Muscle = R.drawable.muscle
+    val Badge = R.drawable.badge
+    val Chat = R.drawable.chat
+    val Kettlebell = R.drawable.kettlebell
+    val LiftSmallLogo = R.drawable.lift_small_logo
+    val Speaker = R.drawable.speaker
+    val TermsPolicies = R.drawable.terms_policies
 
 
     val Search = R.drawable.search
@@ -49,6 +56,7 @@ object LiftIcon {
 
     val ChevronRight = R.drawable.chevron_right
     val ChevronRightSharp = R.drawable.chevorn_right_sharp
+    val ChevronRightLarge = R.drawable.chevron_right_large
     val ChevronUp = R.drawable.chevorn_up
     val ChevronDown = R.drawable.chevorn_down
 
