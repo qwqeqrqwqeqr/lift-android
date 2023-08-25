@@ -16,8 +16,7 @@ fun myInfoUpdateProfileScreen(
 
 
         MyInfoUpdateProfileRoute(
-
-
+            navigateUpdateProfileToMyInfo=navigateUpdateProfileToMyInfo
         )
     }
 
