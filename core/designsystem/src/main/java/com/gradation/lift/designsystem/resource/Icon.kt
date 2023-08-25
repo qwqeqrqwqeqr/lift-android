@@ -26,6 +26,7 @@ object LiftIcon {
     val Mail = R.drawable.mail
     val Trash = R.drawable.trash
     val Filter = R.drawable.filter
+    val Pencil = R.drawable.pencil
     val Timer = R.drawable.timer
     val List = R.drawable.list
     val Close = R.drawable.close
@@ -35,6 +36,7 @@ object LiftIcon {
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
     val Muscle = R.drawable.muscle
+    val Badge = R.drawable.badge
 
 
     val Search = R.drawable.search

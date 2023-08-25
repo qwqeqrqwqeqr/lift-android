@@ -1,12 +1,10 @@
 package com.gradation.lift.feature.my_info.my_info
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
@@ -20,8 +18,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.my_info.my_info.component.LoadingProfileDetailView
-import com.gradation.lift.feature.my_info.my_info.component.ProfileDetailView
+import com.gradation.lift.feature.my_info.my_info.component.StatisticView
+import com.gradation.lift.feature.my_info.my_info.component.profile_view.LoadingProfileView
+import com.gradation.lift.feature.my_info.my_info.component.profile_view.ProfileView
 import com.gradation.lift.feature.my_info.my_info.data.MyInfoMyInfoViewModel
 import com.gradation.lift.feature.my_info.my_info.data.state.UserDetailUiState
 import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
@@ -68,27 +67,29 @@ fun MyInfoMyInfoScreen(
                     .fillMaxWidth()
                     .background(
                         LiftTheme.colorScheme.no5,
-                        shape = RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp)
+                        shape = RoundedCornerShape(0.dp, 0.dp, 18.dp, 18.dp)
                     )
                     .padding(16.dp)
             ) {
                 when (userDetailUiState) {
                     is UserDetailUiState.Fail -> {}
                     UserDetailUiState.Loading -> {
-                        LoadingProfileDetailView(modifier, navigateMyInfoGraphToLoginGraph)
+                        LoadingProfileView(modifier, navigateMyInfoGraphToLoginGraph)
                     }
 
                     is UserDetailUiState.Success -> {
-                        ProfileDetailView(
+                        ProfileView(
                             modifier = modifier,
                             userDetail = userDetailUiState.userDetail,
-                            navigateMyInfoGraphToLoginGraph = navigateMyInfoGraphToLoginGraph
+                            navigateMyInfoGraphToLoginGraph = navigateMyInfoGraphToLoginGraph,
+                                    navigateMyInfoToUpdateProfile=navigateMyInfoToUpdateProfile
                         )
                     }
                 }
-                Row {
+                Spacer(modifier = modifier.padding(16.dp))
+                StatisticView(modifier, workCount)
+                Spacer(modifier = modifier.padding(16.dp))
 
-                }
             }
         }
     }
