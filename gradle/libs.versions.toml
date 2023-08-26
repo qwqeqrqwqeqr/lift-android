@@ -55,6 +55,8 @@ timber = "5.0.1"
 truth = "1.0.1"
 versionCheck = "0.46.0"
 work = "2.8.0"
+junit = "1.1.5"
+material = "1.8.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -219,3 +221,5 @@ kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" 
 google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
 naver-auth = { group = "com.navercorp.nid", name = "oauth", version.ref = "naver" }
 naver-auth-jdk8 = { group = "com.navercorp.nid", name = "oauth-jdk8", version.ref = "naver" }
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }

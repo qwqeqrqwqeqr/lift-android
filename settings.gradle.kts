@@ -64,6 +64,7 @@ include(":feature:badge:setting")
 
 
 include(":feature:notification:notice")
+include(":feature:notification:push")
 include(":feature:notification:notification")
 
 include(":feature:history:history")

@@ -14,8 +14,7 @@ android {
     namespace = "com.gradation.lift.network"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
-        buildConfigField("String", "LIFT_API_URL", getKey("LIFT_API_URL"))
-        buildConfigField("String", "LIFT_S3_URL", getKey("LIFT_S3_URL"))
+
 
     }
 }
