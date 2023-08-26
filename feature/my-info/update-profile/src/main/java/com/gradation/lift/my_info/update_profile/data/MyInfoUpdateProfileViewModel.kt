@@ -21,7 +21,7 @@ import javax.inject.Inject
 /**
  * [MyInfoUpdateProfileViewModel]
  * @property userDetail 프로필 사진을 업데이트 하기 위한 사용자의 아이디 등 사용자를 판별할 수 있는 정보
- * @property updateUserDetailState 프로필 업데이트 상태 (해당 상태가 [Success] 일경우 프로필이 업데이트 됨
+ * @property updateUserDetailState 프로필 업데이트 상태 (해당 상태가 [DataState.Success] 일경우 프로필이 업데이트 됨
  * @property selectedProfilePicture 현재 선택 된 프로필 사진
  * @property updateCondition 프로필을 업데이트하기 위한 조건 (선택된 프로필 사진이 존재해야만함)
  * @since 2023-08-25 16:57:07
@@ -36,12 +36,12 @@ class MyInfoUpdateProfileViewModel @Inject constructor(
 
     private val userDetail: StateFlow<UserDetail> = getUserDetailUseCase().map {
         when (it) {
-            is DataState.Fail -> UserDetail()
-            is DataState.Success -> it.data
+            is DataState.Fail -> { UserDetail() }
+            is DataState.Success -> { it.data }
         }
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Eagerly,
         initialValue = UserDetail()
     )
 
@@ -86,6 +86,7 @@ class MyInfoUpdateProfileViewModel @Inject constructor(
                         updateUserDetailState.value =
                             UpdateUserDetailState.Fail(message = "프로필 사진 업데이트를 실패하였습니다.\n 잠시후 다시 시도해주세요.")
                     }
+
                     is DataState.Success -> {
                         updateUserDetailState.value = UpdateUserDetailState.Success
                     }
