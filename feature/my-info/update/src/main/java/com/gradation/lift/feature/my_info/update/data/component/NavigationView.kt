@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile.component
+package com.gradation.lift.feature.my_info.update.data.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
@@ -8,14 +8,14 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun NavigationView(
+fun UpdateView(
     modifier: Modifier = Modifier,
     updateCondition: Boolean,
-    updateUserProfilePicture: () -> Unit,
+    updateUserDetail: () -> Unit,
 ) {
     LiftButton(
         modifier = modifier.fillMaxWidth(),
-        onClick = updateUserProfilePicture,
+        onClick = updateUserDetail,
         enabled = updateCondition
     ) {
         Text(
