@@ -10,9 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * @property gender 사용자의 성별
  * @since 2023-08-26 13:26:58
  */
-class GenderState(
-    private val userDetail: UserDetail,
-) {
+class GenderState(userDetail: UserDetail) {
     var gender: MutableStateFlow<Gender> = MutableStateFlow(userDetail.gender)
 
     internal fun updateMale(): () -> Unit = {

@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToLoginGraph
 import com.gradation.lift.navigation.navigation.navigateUpdateToMyInfo
 
 fun myInfoUpdateScreen(
@@ -17,7 +16,7 @@ fun myInfoUpdateScreen(
 
 
         MyInfoUpdateRoute(
-
+            navigateUpdateToMyInfo=navigateUpdateToMyInfo
 
         )
     }
