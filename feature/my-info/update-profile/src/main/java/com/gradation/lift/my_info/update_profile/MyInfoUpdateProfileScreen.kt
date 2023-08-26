@@ -55,7 +55,7 @@ fun MyInfoUpdateProfileRoute(
 
     BackHandler(onBack = { navigateUpdateProfileToMyInfo() })
 
-    when (val updateUserDetailStateResult = updateUserDetailState) {
+    when (val updateUserDetailStateResult: UpdateUserDetailState = updateUserDetailState) {
         is UpdateUserDetailState.Fail -> {
             LaunchedEffect(true) {
                 snackbarHostState.showSnackbar(

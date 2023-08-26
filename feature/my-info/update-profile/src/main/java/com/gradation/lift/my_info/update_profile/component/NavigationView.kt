@@ -19,7 +19,7 @@ fun NavigationView(
         enabled = updateCondition
     ) {
         Text(
-            text = "완료",
+            text = "저장하기",
             style = LiftTheme.typography.no3,
             color = LiftTheme.colorScheme.no5,
         )

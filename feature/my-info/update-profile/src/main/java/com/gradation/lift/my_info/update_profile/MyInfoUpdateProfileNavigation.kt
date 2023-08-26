@@ -13,8 +13,6 @@ fun myInfoUpdateProfileScreen(
     navGraphBuilder.composable(Router.MY_INFO_UPDATE_PROFILE_ROUTER_NAME) {
 
         val navigateUpdateProfileToMyInfo:() -> Unit = { navController.navigateUpdateProfileToMyInfo() }
-
-
         MyInfoUpdateProfileRoute(
             navigateUpdateProfileToMyInfo=navigateUpdateProfileToMyInfo
         )
