@@ -53,9 +53,9 @@ class MyInfoUpdateViewModel @Inject constructor(
     )
 
 
-    val heightWeightState = HeightWeightState(userDetail.value, viewModelScope)
-    val nameState = NameState(userDetail.value, checkerDuplicateNameUseCase, viewModelScope)
-    val genderState = GenderState(userDetail.value)
+    val heightWeightState = HeightWeightState(userDetail, viewModelScope)
+    val nameState = NameState(userDetail, checkerDuplicateNameUseCase, viewModelScope)
+    val genderState = GenderState(userDetail)
 
     val updateCondition: StateFlow<Boolean> = combine(
         heightWeightState.heightValidator,

@@ -2,6 +2,7 @@ package com.gradation.lift.feature.my_info.update
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -150,9 +151,13 @@ fun MyInfoUpdateScreen(
         ) {
             Column(modifier = modifier.padding(16.dp)) {
                 Column(modifier=modifier.weight(1f)) {
+                    Spacer(modifier = modifier.padding(16.dp))
                     NameTextFieldView(modifier, nameText, nameValidator, updateNameText, focusManager)
+                    Spacer(modifier = modifier.padding(16.dp))
                     GenderSelectionView(modifier, gender, updateFemale, updateMale)
+                    Spacer(modifier = modifier.padding(16.dp))
                     HeightTextFieldView(modifier, heightText, heightValidator, updateHeightText, focusManager)
+                    Spacer(modifier = modifier.padding(16.dp))
                     WeightTextFieldView(modifier, weightText, weightValidator, updateWeightText, focusManager)
                 }
                 UpdateView(modifier, updateCondition, updateUserDetail)

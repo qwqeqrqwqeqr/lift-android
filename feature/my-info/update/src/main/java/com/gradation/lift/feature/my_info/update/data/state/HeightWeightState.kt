@@ -20,17 +20,19 @@ import kotlinx.coroutines.flow.stateIn
  * @since 2023-08-26 13:29:04
  */
 class HeightWeightState(
-    userDetail: UserDetail,
+    private val userDetail: StateFlow<UserDetail>,
     private val viewModelScope: CoroutineScope
 ) {
-    var heightText: MutableStateFlow<String> = MutableStateFlow(userDetail.height.toString())
-    var weightText: MutableStateFlow<String> = MutableStateFlow(userDetail.weight.toString())
+    var heightText: MutableStateFlow<String> = MutableStateFlow(userDetail.value.height.toString())
+    var weightText: MutableStateFlow<String> = MutableStateFlow(userDetail.value.weight.toString())
 
     var heightValidator: StateFlow<Validator> =
         heightText.mapLatest {
             it.toFloatOrNull()?.let { height ->
                 if (heightValidator(height)) {
                     Validator(true, "")
+                } else if (height == 0f) {
+                    Validator(false, "")
                 } else {
                     Validator(false, "정확한 정보를 입력해주세요.")
                 }
@@ -45,6 +47,8 @@ class HeightWeightState(
             it.toFloatOrNull()?.let { weight ->
                 if (weightValidator(weight)) {
                     Validator(true, "")
+                } else if (weight == 0f) {
+                    Validator(false, "")
                 } else {
                     Validator(false, "정확한 정보를 입력해주세요.")
                 }

@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 /**
@@ -26,12 +26,12 @@ import kotlinx.coroutines.flow.stateIn
  * @since 2023-08-26 13:27:05
  */
 class NameState(
-    private val userDetail: UserDetail,
+    private val userDetail: StateFlow<UserDetail>,
     private val checkerDuplicateNameUseCase: CheckerDuplicateNameUseCase,
-    private val viewModelScope : CoroutineScope
+    private val viewModelScope: CoroutineScope
 ) {
 
-    internal var nameText: MutableStateFlow<String> = MutableStateFlow(userDetail.name)
+    internal var nameText: MutableStateFlow<String> = MutableStateFlow(userDetail.value.name)
     internal var nameValidator: StateFlow<Validator> =
         nameText.debounce(1000).distinctUntilChanged().flatMapLatest { name ->
             validateName(name)
@@ -47,24 +47,26 @@ class NameState(
     }
 
     private fun validateName(name: String): Flow<Validator> {
-        return checkerDuplicateNameUseCase(name).map {
-            when (it) {
+        return userDetail.combine(checkerDuplicateNameUseCase(name)) { userDetail, checker ->
+            when (checker) {
                 is DataState.Fail -> Validator(false, "")
-                is DataState.Success -> if (it.data) {
-                    Validator(false, "이미 사용중인 닉네임이에요")
-                } else {
-                    if (nameValidator(name)) {
+                is DataState.Success -> if (checker.data) {
+                    if (name == userDetail.name) {
                         Validator(true, "")
                     } else {
-                        if (name.isBlank()) {
-                            Validator(false, "")
-                        } else {
-                            Validator(false, "2~5 자리의 한글만 사용 가능해요")
-                        }
+                        Validator(false, "이미 사용중인 닉네임이에요")
+                    }
+                } else if (nameValidator(name)) {
+                    Validator(true, "")
+                } else {
+                    if (name.isBlank()) {
+                        Validator(false, "")
+                    } else {
+                        Validator(false, "2~5 자리의 한글만 사용 가능해요")
                     }
                 }
             }
         }
     }
-
 }
+
