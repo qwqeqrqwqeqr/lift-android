@@ -22,7 +22,7 @@ import com.gradation.lift.feature.login.sign_in.component.SignUpView
 import com.gradation.lift.feature.login.sign_in.data.LoginSignInViewModel
 import com.gradation.lift.feature.login.sign_in.data.SignInState
 import com.gradation.lift.navigation.navigation.*
-import com.gradation.lift.oauth.state.OAuthConnectState
+import com.gradation.lift.oauth.common.OAuthConnectState
 import com.gradation.lift.ui.utils.DevicePreview
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -151,7 +151,6 @@ internal fun LoginSignInRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginSignInScreen(
     modifier: Modifier = Modifier,

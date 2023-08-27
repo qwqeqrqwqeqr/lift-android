@@ -14,8 +14,7 @@ android {
     namespace = "com.gradation.lift.network"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
-        buildConfigField("String", "LIFT_API_URL", getKey("LIFT_API_URL"))
-        buildConfigField("String", "LIFT_S3_URL", getKey("LIFT_S3_URL"))
+
 
     }
 }
@@ -25,8 +24,10 @@ fun getKey(propertyKey: String): String {
 }
 
 dependencies {
-    testImplementation(project(":core:test"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))
     implementation(project(":core:datastore"))
+
+    testImplementation(project(":core:test"))
+
 }

@@ -32,21 +32,22 @@ android {
 
 
 dependencies {
-    implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
+    implementation(project(":core:data"))
     implementation(project(":core:database"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:firebase"))
+    implementation(project(":core:model"))
     implementation(project(":core:navigation"))
     implementation(project(":core:oauth"))
-    implementation(project(":core:work"))
+    implementation(project(":core:test"))
     implementation(project(":core:ui"))
-
-
+    implementation(project(":core:work"))
 
 
     implementation(project(":feature:home"))
-
 
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:find-work-category"))
@@ -72,9 +73,9 @@ dependencies {
     implementation(project(":feature:badge:badge"))
     implementation(project(":feature:badge:setting"))
 
-
     implementation(project(":feature:notification:notice"))
     implementation(project(":feature:notification:notification"))
+    implementation(project(":feature:notification:push"))
 
 
     implementation(project(":feature:history:history"))

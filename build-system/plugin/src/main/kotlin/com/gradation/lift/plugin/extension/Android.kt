@@ -20,11 +20,8 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
-import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
@@ -64,6 +61,20 @@ internal fun Project.extensionAndroid(
                 "NAVER_OAUTH_CLIENT_NAME",
                 getKey("NAVER_OAUTH_CLIENT_NAME", rootDir)
             )
+            buildConfigField(
+                "String",
+                "LIFT_API_URL",
+                getKey("LIFT_API_URL", rootDir)
+            )
+            buildConfigField(
+                "String",
+                "LIFT_S3_URL",
+                getKey("LIFT_S3_URL", rootDir)
+            )
+
+
+
+
 
             manifestPlaceholders["KAKAO_SCHEME"] = getKey("KAKAO_SCHEME", rootDir)
         }

@@ -6,12 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.tracing.trace
 import com.gradation.lift.common.common.DispatcherProvider
+import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.graph.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.*
-import com.gradation.lift.oauth.state.OAuthConnectState
+import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -61,13 +62,36 @@ class AppState(
 
     fun connectOAuthFromNaver() {
         CoroutineScope(dispatcherProvider.default).launch {
-            connectOAuthFromNaverUseCase().collect { naverOAuthConnectState.value = it }
+            connectOAuthFromNaverUseCase().collect {
+                when (it) {
+                    is DataState.Fail -> {
+                        naverOAuthConnectState.value = OAuthConnectState.Fail(it.message)
+                    }
+
+                    is DataState.Success -> {
+                        naverOAuthConnectState.value = OAuthConnectState.Success
+
+                    }
+                }
+
+            }
         }
     }
 
     fun connectOAuthFromKakao() {
         CoroutineScope(dispatcherProvider.default).launch {
-            connectOAuthFromKakaoUseCase().collect { kakaoOAuthConnectState.value = it }
+            connectOAuthFromKakaoUseCase().collect {
+                when (it) {
+                    is DataState.Fail -> {
+                        kakaoOAuthConnectState.value = OAuthConnectState.Fail(it.message)
+                    }
+
+                    is DataState.Success -> {
+                        kakaoOAuthConnectState.value = OAuthConnectState.Success
+
+                    }
+                }
+            }
         }
     }
 }

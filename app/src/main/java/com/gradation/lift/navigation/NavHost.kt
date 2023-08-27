@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.gradation.lift.navigation.graph.*
-import com.gradation.lift.oauth.state.OAuthConnectState
+import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("UnrememberedGetBackStackEntry")

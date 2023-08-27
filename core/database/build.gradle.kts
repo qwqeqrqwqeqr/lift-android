@@ -1,5 +1,3 @@
-
-
 plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
@@ -17,7 +15,6 @@ android {
     }
 }
 dependencies {
-
     implementation(project(":core:test"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))

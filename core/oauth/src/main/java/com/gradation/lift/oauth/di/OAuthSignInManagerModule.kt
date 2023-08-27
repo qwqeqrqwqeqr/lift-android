@@ -10,7 +10,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 
 /**
- * [OAuthSignInManagerModule]
+ * [provideOAuthConnectManager]
  * Activity context 접근하기 위해
  * 개별적으로 모듈 구성
  * Activity Scope 사용
@@ -24,9 +24,9 @@ object OAuthSignInManagerModule {
 
     @ActivityScoped
     @Provides
-    fun provideOAuthSignInManager(
+    fun provideOAuthConnectManager(
         @ActivityContext context: Context,
-    ): OAuthConnectManager = DefaultOAuthConnectManager(context)
+    ): OAuthConnectionManager = DefaultOAuthConnectionManager(context)
 
 
 }

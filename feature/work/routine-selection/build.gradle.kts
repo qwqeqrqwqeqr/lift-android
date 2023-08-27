@@ -23,5 +23,4 @@ dependencies {
 
 
     implementation(project(":feature:work:work"))
-
 }

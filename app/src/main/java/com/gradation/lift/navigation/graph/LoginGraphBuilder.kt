@@ -9,7 +9,7 @@ import com.gradation.lift.feature.login.sign_in.loginSignInScreen
 import com.gradation.lift.feature.login.sign_up.loginSignUpScreen
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
-import com.gradation.lift.oauth.state.OAuthConnectState
+import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.flow.MutableStateFlow
 
 
