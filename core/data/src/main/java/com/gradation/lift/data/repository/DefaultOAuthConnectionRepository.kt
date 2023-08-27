@@ -11,11 +11,15 @@ class DefaultOAuthConnectionRepository @Inject constructor(
     private val oAuthConnectionManager: OAuthConnectionManager,
 ) : OAuthConnectionRepository {
     override fun connectKakao(): Flow<DataState<Unit>> = flow {
-        oAuthConnectionManager.connectKakao()
+        oAuthConnectionManager.connectKakao().collect{
+            emit(it)
+        }
     }
 
     override fun connectNaver(): Flow<DataState<Unit>> = flow{
-        oAuthConnectionManager.connectNaver()
+        oAuthConnectionManager.connectNaver().collect{
+            emit(it)
+        }
     }
 
 }

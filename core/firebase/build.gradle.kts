@@ -9,6 +9,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
     implementation(project(":core:test"))
 }

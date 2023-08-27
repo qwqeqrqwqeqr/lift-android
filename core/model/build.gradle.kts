@@ -14,5 +14,5 @@ android {
 
 
 dependencies {
-    implementation(project(":core:test"))
+    testImplementation(project(":core:test"))
 }

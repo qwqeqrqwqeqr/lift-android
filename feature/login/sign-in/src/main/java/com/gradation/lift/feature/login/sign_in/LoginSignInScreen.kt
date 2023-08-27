@@ -151,7 +151,6 @@ internal fun LoginSignInRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginSignInScreen(
     modifier: Modifier = Modifier,

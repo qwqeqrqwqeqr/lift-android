@@ -1,5 +1,3 @@
-
-
 plugins {
     id("lift.android.library")
     id("lift.android.kotlin")

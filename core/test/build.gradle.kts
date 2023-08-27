@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("lift.android.library")
@@ -11,10 +10,5 @@ plugins {
 android {
     namespace = "com.gradation.lift.test"
 
-}
-
-
-
-dependencies {
 }
 
