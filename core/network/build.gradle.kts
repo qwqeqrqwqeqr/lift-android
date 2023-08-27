@@ -24,8 +24,10 @@ fun getKey(propertyKey: String): String {
 }
 
 dependencies {
-    testImplementation(project(":core:test"))
     implementation(project(":core:common"))
     implementation(project(":core:model"))
     implementation(project(":core:datastore"))
+
+    testImplementation(project(":core:test"))
+
 }

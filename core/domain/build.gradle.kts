@@ -12,8 +12,7 @@ android {
 }
 
 dependencies{
-    testImplementation(project(":core:test"))
-    implementation(project(":core:common"))
     implementation(project(":core:model"))
-    implementation(project(":core:oauth"))
+    implementation(project(":core:common"))
+    testImplementation(project(":core:test"))
 }
