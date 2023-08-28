@@ -10,6 +10,6 @@ import javax.inject.Inject
 class CreateRoutineSetUseCase @Inject constructor(
     private val routineRepository: RoutineRepository
 ) {
-    operator fun invoke(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Boolean>> =
+    operator fun invoke(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Unit>> =
         routineRepository.createRoutineSet(createRoutineSetRoutine)
 }

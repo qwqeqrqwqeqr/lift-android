@@ -9,6 +9,6 @@ import javax.inject.Inject
 class CreateHistoryUseCase @Inject constructor(
     private val historyRepository: HistoryRepository,
 ) {
-    operator fun invoke(createHistory: CreateHistory): Flow<DataState<Boolean>> =
+    operator fun invoke(createHistory: CreateHistory): Flow<DataState<Unit>> =
         historyRepository.createHistory(createHistory = createHistory)
 }

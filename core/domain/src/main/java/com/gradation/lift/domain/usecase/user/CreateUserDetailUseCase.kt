@@ -9,7 +9,7 @@ import javax.inject.Inject
 class CreateUserDetailUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
-    operator fun invoke(userDetail: UserDetail): Flow<DataState<Boolean>> {
+    operator fun invoke(userDetail: UserDetail): Flow<DataState<Unit>> {
 
         return userRepository.createUserDetail(userDetail)
 
