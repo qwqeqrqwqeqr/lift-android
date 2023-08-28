@@ -4,6 +4,11 @@ import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * [UserDataSource]
+ * 사용자 정보와 관련한 데이터 소스
+ * @since 2023-08-28 22:09:31
+ */
 interface UserDataSource {
     suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>>
 

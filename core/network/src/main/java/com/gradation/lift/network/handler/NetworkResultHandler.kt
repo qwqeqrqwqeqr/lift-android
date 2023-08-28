@@ -15,7 +15,8 @@ import javax.inject.Inject
 /**
  * [NetworkResultHandler]
  * API 응답 결과를 핸들링하는 클래스
- * Flow 형태로 반환할 때 사용
+ * 예외가 발생할 경우 [NetworkResult.Fail] 반환
+ * @since 2023-08-28 22:28:20
  */
 class NetworkResultHandler @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
