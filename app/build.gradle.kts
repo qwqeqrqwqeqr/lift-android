@@ -17,17 +17,11 @@ plugins {
 android {
     namespace = "com.gradation.lift"
 
-
     defaultConfig {
-        versionCode = 2
-        versionName = "0.0.7"
+        versionCode = 3
+        versionName = "0.0.8"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
-
-
-
-
-
 }
 
 
