@@ -8,12 +8,14 @@ import retrofit2.http.*
 /**
  * [UserService]
  * 사용자 정보 서비스
+ * @since 2023-08-28 22:30:56
  */
 interface UserService {
 
     /**
      * [getUserDetail]
      * 사용자 상세정보 불러오기
+     * @since 2023-08-28 22:30:51
      */
     @GET("user/user-detail/")
     suspend fun getUserDetail(): Response<APIResultWrapper<GetUserDetailResponseDto>>
@@ -22,6 +24,7 @@ interface UserService {
     /**
      * [createUserDetail]
      * 사용자 상세정보 생성하기
+     * @since 2023-08-28 22:30:46
      */
     @POST("user/user-detail/")
     suspend fun createUserDetail(
@@ -31,6 +34,7 @@ interface UserService {
     /**
      * [createUserDetail]
      * 사용자 상세정보 업데이트하기
+     * @since 2023-08-28 22:30:41
      */
     @PUT("user/user-detail/")
     suspend fun updateUserDetail(@Body updateUserDetailRequestDto: UpdateUserDetailRequestDto): Response<APIResultWrapper<UpdateUserDetailResponseDto>>
@@ -38,6 +42,7 @@ interface UserService {
     /**
      * [createUserDetail]
      * 사용자의 상세정보가 존재하는지 확인하기
+     * @since 2023-08-28 22:30:37
      */
     @GET("user/exist-user-detail/")
     suspend fun existUserDetail(): Response<APIResultWrapper<ExistUserDetailResponseDto>>

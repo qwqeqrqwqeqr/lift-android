@@ -8,7 +8,11 @@ import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
 
-
+/**
+ * [SettingDataStoreDataSource]
+ * 사용자에 대한 설정 값들을 관리하는 DataStore
+ * @since 2023-08-28 22:43:38
+ */
 class SettingDataStoreDataSource @Inject constructor(
     @SettingPreferences private val dataStore: DataStore<Preferences>,
 ) {

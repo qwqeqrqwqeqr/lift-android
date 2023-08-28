@@ -5,7 +5,6 @@ import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.fake.FakeHistoryDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator.History.createHistoryModel
 import com.gradation.lift.model.utils.ModelDataGenerator.History.historyModelList
 import com.gradation.lift.test.rule.CoroutineRule
@@ -51,7 +50,7 @@ class HistoryDataSourceTest {
     fun testCreateHistoryDataSource() = runTest {
         dataSource = FakeHistoryDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            NetworkResult.Success(FAKE_BOOLEAN_DATA)
+            NetworkResult.Success(Unit)
         ).isEqualTo(
             dataSource.createHistory(createHistoryModel).first()
         )
@@ -60,7 +59,7 @@ class HistoryDataSourceTest {
     fun testDeleteHistoryDataSource() = runTest {
         dataSource = FakeHistoryDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            NetworkResult.Success(FAKE_BOOLEAN_DATA)
+            NetworkResult.Success(Unit)
         ).isEqualTo(
             dataSource.deleteHistory(1).first()
         )

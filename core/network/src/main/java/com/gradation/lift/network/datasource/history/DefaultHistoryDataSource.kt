@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class DefaultHistoryDataSource @Inject constructor(
     private val historyService: HistoryService,
-    private val NetworkResultHandler: NetworkResultHandler,
+    private val networkResultHandler: NetworkResultHandler,
 ) : HistoryDataSource {
     override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
-        NetworkResultHandler {
+        networkResultHandler {
             historyService.getHistory()
         }.collect { result ->
             when (result) {
@@ -28,7 +28,7 @@ class DefaultHistoryDataSource @Inject constructor(
 
     override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<NetworkResult<List<History>>> =
         flow {
-            NetworkResultHandler {
+            networkResultHandler {
                 historyService.getHistoryByHistoryId(historyIdList.joinToString(","))
             }.collect { result ->
                 when (result) {
@@ -39,9 +39,9 @@ class DefaultHistoryDataSource @Inject constructor(
             }
         }
 
-    override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Boolean>> =
+    override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Unit>> =
         flow {
-            NetworkResultHandler {
+            networkResultHandler {
                 historyService.createHistory(
                     createHistory.toDto()
                 )
@@ -49,19 +49,19 @@ class DefaultHistoryDataSource @Inject constructor(
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
         }
 
-    override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
-        NetworkResultHandler {
+    override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Unit>> = flow {
+        networkResultHandler {
             historyService.deleteHistory(historyId)
         }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
             }
         }
     }

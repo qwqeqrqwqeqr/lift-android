@@ -14,12 +14,12 @@ import javax.inject.Inject
 
 class DefaultRoutineDataSource @Inject constructor(
     private val routineService: RoutineService,
-    private val NetworkResultHandler: NetworkResultHandler,
+    private val networkResultHandler: NetworkResultHandler,
 ) : RoutineDataSource {
 
-    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Boolean>> =
+    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>> =
         flow {
-            NetworkResultHandler {
+            networkResultHandler {
                 routineService.createRoutineSetRoutine(
                     createRoutineSetRoutineRequestDto = createRoutineSetRoutine.toDto()
                 )
@@ -27,14 +27,14 @@ class DefaultRoutineDataSource @Inject constructor(
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 
-                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
         }
 
 
     override suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>> = flow {
-        NetworkResultHandler { routineService.getRoutine() }
+        networkResultHandler { routineService.getRoutine() }
             .collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
@@ -45,7 +45,7 @@ class DefaultRoutineDataSource @Inject constructor(
     }
 
     override suspend fun getRoutineSetRoutine(): Flow<NetworkResult<List<RoutineSetRoutine>>> = flow {
-        NetworkResultHandler { routineService.getRoutineSetRoutine() }
+        networkResultHandler { routineService.getRoutineSetRoutine() }
             .collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
@@ -57,7 +57,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
-            NetworkResultHandler { routineService.getRoutineSetRoutineByWeekday(weekday.getWeekdayValue()) }
+            networkResultHandler { routineService.getRoutineSetRoutineByWeekday(weekday.getWeekdayValue()) }
                 .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
@@ -69,7 +69,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
-            NetworkResultHandler {
+            networkResultHandler {
                 routineService.getRoutineSetRoutineByRoutineSetId(
                     routineSetIdList = routineSetIdList.joinToString(",")
                 )

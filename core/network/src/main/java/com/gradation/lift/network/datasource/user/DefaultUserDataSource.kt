@@ -13,11 +13,11 @@ import javax.inject.Inject
 
 class DefaultUserDataSource @Inject constructor(
     private val userService: UserService,
-    private val NetworkResultHandler: NetworkResultHandler,
+    private val networkResultHandler: NetworkResultHandler,
 ) : UserDataSource {
 
     override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
-        NetworkResultHandler {
+        networkResultHandler {
             userService.getUserDetail()
         }.collect { result ->
             when (result) {
@@ -29,8 +29,8 @@ class DefaultUserDataSource @Inject constructor(
 
     override suspend fun createUserDetail(
         userDetail: UserDetail,
-    ): Flow<NetworkResult<Boolean>> = flow {
-        NetworkResultHandler {
+    ): Flow<NetworkResult<Unit>> = flow {
+        networkResultHandler {
             userService.createUserDetail(
                 createUserDetailRequestDto = CreateUserDetailRequestDto(
                     userDetailDto = userDetail.toDto()
@@ -39,15 +39,15 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
-                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
             }
         }
     }
 
     override suspend fun updateUserDetail(
         userDetail: UserDetail,
-    ): Flow<NetworkResult<Boolean>> = flow {
-        NetworkResultHandler {
+    ): Flow<NetworkResult<Unit>> = flow {
+        networkResultHandler {
             userService.updateUserDetail(
                 updateUserDetailRequestDto = UpdateUserDetailRequestDto(
                     userDetailDto = userDetail.toDto()
@@ -56,13 +56,13 @@ class DefaultUserDataSource @Inject constructor(
         }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
-                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
             }
         }
     }
 
     override suspend fun existUserDetail(): Flow<NetworkResult<Boolean>> = flow {
-        NetworkResultHandler {
+        networkResultHandler {
             userService.existUserDetail()
         }.collect { result ->
             when (result) {

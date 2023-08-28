@@ -2,10 +2,8 @@ package com.gradation.lift.network.fake
 
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestDtoDataGenerator.User.createUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.existUserDetailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.User.getUserDetailResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.User.updateUserDetailResponseDto
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
@@ -25,19 +23,19 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
 
     override suspend fun createUserDetail(
         userDetail: UserDetail,
-    ): Flow<NetworkResult<Boolean>> = flow {
+    ): Flow<NetworkResult<Unit>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
-            TestReturnState.Success -> emit(NetworkResult.Success(data = createUserDetailResponseDto.result))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
         }
     }
 
     override suspend fun updateUserDetail(
         userDetail: UserDetail,
-    ): Flow<NetworkResult<Boolean>> = flow {
+    ): Flow<NetworkResult<Unit>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
-            TestReturnState.Success -> emit(NetworkResult.Success(data =updateUserDetailResponseDto.result))
+            TestReturnState.Success -> emit(NetworkResult.Success(data =Unit))
         }
     }
 

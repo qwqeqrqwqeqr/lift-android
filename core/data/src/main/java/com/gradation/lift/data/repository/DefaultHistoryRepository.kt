@@ -31,7 +31,7 @@ class DefaultHistoryRepository@Inject constructor(
         }
     }
 
-    override fun createHistory(createHistory: CreateHistory): Flow<DataState<Boolean>>  = flow{
+    override fun createHistory(createHistory: CreateHistory): Flow<DataState<Unit>>  = flow{
         historyDataSource.createHistory(createHistory).collect{ result ->
             when(result){
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
@@ -40,7 +40,7 @@ class DefaultHistoryRepository@Inject constructor(
         }
     }
 
-    override fun deleteHistory(historyId: Int): Flow<DataState<Boolean>> = flow{
+    override fun deleteHistory(historyId: Int): Flow<DataState<Unit>> = flow{
         historyDataSource.deleteHistory(historyId
         ).collect{ result ->
             when(result){

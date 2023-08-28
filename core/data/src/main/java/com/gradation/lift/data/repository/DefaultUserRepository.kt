@@ -23,7 +23,7 @@ class DefaultUserRepository @Inject constructor(
             }
     }
 
-    override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
+    override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Unit>> = flow {
         userDataSource.createUserDetail(
             userDetail = userDetail
         ).collect { result ->
@@ -36,7 +36,7 @@ class DefaultUserRepository @Inject constructor(
     }
 
 
-    override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>> = flow {
+    override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Unit>> = flow {
         userDataSource.updateUserDetail(
             userDetail = userDetail
         ).collect { result ->

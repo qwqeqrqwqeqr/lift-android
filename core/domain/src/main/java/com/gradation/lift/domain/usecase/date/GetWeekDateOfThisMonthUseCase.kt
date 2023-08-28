@@ -18,6 +18,7 @@ import javax.inject.Inject
  * 입력된 날짜 기준 한달 데이터를 가져옴,
  * 파라미터를 입력하지 않을 경우 현재날짜 기준으로 판단
  * [WeekDateMonth] 반환
+ * @since 2023-08-28 22:02:54
  */
 class GetWeekDateOfCurrentMonthUseCase @Inject constructor() {
 

@@ -10,6 +10,7 @@ import retrofit2.http.Query
 /**
  * [CheckerService]
  * 유효성 검증 서비스
+ * @since 2023-08-28 22:32:40
  */
 interface CheckerService {
 
@@ -17,6 +18,7 @@ interface CheckerService {
     /**
      * [checkDuplicateEmail]
      * 이메일 중복 확인
+     * @since 2023-08-28 22:32:34
      */
     @GET("checker/duplicate-email/")
     suspend fun checkDuplicateEmail(@Query("email") email: String): Response<APIResultWrapper<CheckDuplicateEmailResponseDto>>
@@ -25,6 +27,7 @@ interface CheckerService {
     /**
      *  [checkDuplicateName]
      *  이름 중복 확인
+     *  @since 2023-08-28 22:32:30
      */
     @GET("checker/duplicate-name/")
     suspend fun checkDuplicateName(@Query("name") name: String): Response<APIResultWrapper<CheckDuplicateNameResponseDto>>

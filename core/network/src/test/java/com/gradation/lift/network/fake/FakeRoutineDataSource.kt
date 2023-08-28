@@ -11,17 +11,16 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.ge
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.utils.TestReturnState
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
     RoutineDataSource {
-    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Boolean>> =
+    override suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
-                TestReturnState.Success -> emit(NetworkResult.Success(data = FAKE_BOOLEAN_DATA))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
             }
         }
 
