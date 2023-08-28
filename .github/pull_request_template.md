@@ -8,7 +8,8 @@
 
 #### 변경 및 수정 사항
 
-	릴리즈 PR일경우 버전명 작성할 것
+	[release PR일 경우 버전명 작성할 것]
+    [fix PR일 경우 어떤 오류를 수정했는지 작성할 것]
 	이곳에 작성 해주세요 
 
 <hr>
@@ -20,6 +21,11 @@
 
 
 <hr>
+
+    testDebugUnitTest - Run unit tests for the debug build.
+    testReleaseUnitTest - Run unit tests for the release build.
+    lintReportDebug - Run lint on the debug variant
+    lintReportRelease - Run lint on the release variant
 
 ### 제출 전 반드시 해야할 일
 
