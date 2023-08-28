@@ -5,6 +5,7 @@ import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
 import com.gradation.lift.model.model.auth.NaverSignInInfo
 import com.gradation.lift.model.model.auth.Token
+import com.gradation.lift.model.model.auth.*
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInKakaoResponseDto
