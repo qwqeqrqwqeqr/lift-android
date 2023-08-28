@@ -55,6 +55,15 @@ object TestDtoDataGenerator {
         internal val signUpDefaultResponseDto = SignUpDefaultResponseDto(
             result = true
         )
+
+        internal val signInKakaoResponseDto = SignInKakaoResponseDto(
+            accessToken = FAKE_ACCESS_TOKEN,
+            refreshToken = FAKE_REFRESH_TOKEN
+        )
+        internal val signInNaverResponseDto = SignInNaverResponseDto(
+            accessToken = FAKE_ACCESS_TOKEN,
+            refreshToken = FAKE_REFRESH_TOKEN
+        )
     }
 
     object Checker {
