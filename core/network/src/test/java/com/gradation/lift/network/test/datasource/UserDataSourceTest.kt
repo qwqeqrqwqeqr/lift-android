@@ -37,7 +37,7 @@ class UserDataSourceTest {
     fun testCreateUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            NetworkResult.Success(FAKE_BOOLEAN_DATA),
+            NetworkResult.Success(Unit),
             dataSource.createUserDetail(createUserDetailModel).first()
         )
     }
@@ -45,7 +45,7 @@ class UserDataSourceTest {
     fun testUpdateUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            NetworkResult.Success(FAKE_BOOLEAN_DATA),
+            NetworkResult.Success(Unit),
             dataSource.updateUserDetail(userDetailModel).first()
         )
     }

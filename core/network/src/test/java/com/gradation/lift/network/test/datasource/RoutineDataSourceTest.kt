@@ -31,7 +31,7 @@ class RoutineDataSourceTest {
     fun testCreateRoutineSetDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            NetworkResult.Success(true),
+            NetworkResult.Success(Unit),
             dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
         )
     }

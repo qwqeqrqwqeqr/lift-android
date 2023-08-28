@@ -3,8 +3,6 @@ package com.gradation.lift.network.fake
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.createHistoryResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.deleteHistoryResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryByHistoryIdResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryResponseDto
 import com.gradation.lift.network.datasource.history.HistoryDataSource
@@ -30,18 +28,18 @@ class FakeHistoryDataSource(private val testReturnState: TestReturnState = TestR
             }
         }
 
-    override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Boolean>> =
+    override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Unit>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
-                TestReturnState.Success -> emit(NetworkResult.Success(data = createHistoryResponseDto.result))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
             }
         }
 
-    override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>> = flow {
+    override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Unit>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(NetworkResult.Fail("오류"))
-            TestReturnState.Success -> emit(NetworkResult.Success(data = deleteHistoryResponseDto.result))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
         }
     }
 }
