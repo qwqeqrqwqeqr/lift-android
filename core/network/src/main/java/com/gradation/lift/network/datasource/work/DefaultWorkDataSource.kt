@@ -11,10 +11,10 @@ import javax.inject.Inject
 
 class DefaultWorkDataSource @Inject constructor(
     private val workService: WorkService,
-    private val NetworkResultHandler: NetworkResultHandler,
+    private val networkResultHandler: NetworkResultHandler,
 ) : WorkDataSource {
     override suspend fun getWorkPart(): Flow<NetworkResult<List<WorkPart>>> = flow {
-        NetworkResultHandler { workService.getWorkPart() }.collect { result ->
+        networkResultHandler { workService.getWorkPart() }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
@@ -24,7 +24,7 @@ class DefaultWorkDataSource @Inject constructor(
     }
 
     override suspend fun getWorkCategory(): Flow<NetworkResult<List<WorkCategory>>> = flow {
-        NetworkResultHandler { workService.getWorkCategory() }.collect { result ->
+        networkResultHandler { workService.getWorkCategory() }.collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
@@ -34,7 +34,7 @@ class DefaultWorkDataSource @Inject constructor(
 
     override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<NetworkResult<List<WorkCategory>>> =
         flow {
-            NetworkResultHandler { workService.getWorkCategoryByWorkPart(workPart) }
+            networkResultHandler { workService.getWorkCategoryByWorkPart(workPart) }
                 .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))

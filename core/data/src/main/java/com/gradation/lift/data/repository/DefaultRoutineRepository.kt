@@ -18,7 +18,7 @@ class DefaultRoutineRepository @Inject constructor(
 ) : RoutineRepository {
 
 
-    override  fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine) : Flow<DataState<Boolean>> = flow{
+    override  fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine) : Flow<DataState<Unit>> = flow{
         routineDataSource.createRoutineSet(createRoutineSetRoutine).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))

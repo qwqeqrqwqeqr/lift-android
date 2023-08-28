@@ -24,14 +24,14 @@ interface UserRepository {
       * 사용자의 상세정보를 생성함
       * @since 2023-08-28 20:00:34
       */
-     fun createUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
+     fun createUserDetail(userDetail: UserDetail): Flow<DataState<Unit>>
 
      /**
       * [updateUserDetail]
       * 사용자의 상세정보를 갱신함
       * @since 2023-08-28 20:00:59
       */
-     fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Boolean>>
+     fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Unit>>
 
      /**
       * [existUserDetail]

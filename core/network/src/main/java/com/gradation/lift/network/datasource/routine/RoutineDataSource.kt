@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RoutineDataSource {
 
-    suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Boolean>>
+    suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>>
 
     suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>>
 

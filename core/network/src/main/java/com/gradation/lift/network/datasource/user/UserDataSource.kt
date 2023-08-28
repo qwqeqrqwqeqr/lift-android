@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.Flow
 interface UserDataSource {
     suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>>
 
-    suspend fun createUserDetail(userDetail: UserDetail): Flow<NetworkResult<Boolean>>
+    suspend fun createUserDetail(userDetail: UserDetail): Flow<NetworkResult<Unit>>
 
-    suspend fun updateUserDetail(userDetail: UserDetail): Flow<NetworkResult<Boolean>>
+    suspend fun updateUserDetail(userDetail: UserDetail): Flow<NetworkResult<Unit>>
 
     suspend fun existUserDetail(): Flow<NetworkResult<Boolean>>
 }

@@ -32,12 +32,12 @@ interface HistoryRepository {
      * 운동기록 생성
      * @since 2023-08-28 18:26:57
      */
-    fun createHistory(createHistory: CreateHistory): Flow<DataState<Boolean>>
+    fun createHistory(createHistory: CreateHistory): Flow<DataState<Unit>>
 
     /**
      * [deleteHistory]
      * history id 를 통해 운동기록 삭제
      * @since 2023-08-28 18:27:31
      */
-    fun deleteHistory(historyId: Int): Flow<DataState<Boolean>>
+    fun deleteHistory(historyId: Int): Flow<DataState<Unit>>
 }

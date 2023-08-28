@@ -9,7 +9,7 @@ interface HistoryDataSource {
     suspend fun getHistory(): Flow<NetworkResult<List<History>>>
 
     suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<NetworkResult<List<History>>>
-    suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Boolean>>
-    suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Boolean>>
+    suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Unit>>
+    suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Unit>>
 
 }
