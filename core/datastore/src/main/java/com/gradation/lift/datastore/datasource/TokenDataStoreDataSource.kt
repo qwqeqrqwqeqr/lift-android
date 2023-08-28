@@ -13,6 +13,11 @@ import java.io.IOException
 import javax.inject.Inject
 
 
+/**
+ * [TokenDataStoreDataSource]
+ * 사용자의 토큰 정보를 저장하고 있는 DataSource
+ * @since 2023-08-28 22:44:01
+ */
 class TokenDataStoreDataSource @Inject constructor(
     @TokenPreferences private val dataStore: DataStore<Preferences>,
 ) {
