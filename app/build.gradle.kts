@@ -17,36 +17,31 @@ plugins {
 android {
     namespace = "com.gradation.lift"
 
-
     defaultConfig {
-        versionCode = 2
-        versionName = "0.0.7"
+        versionCode = 3
+        versionName = "0.0.8"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
-
-
-
-
-
 }
 
 
 dependencies {
-    implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
+    implementation(project(":core:data"))
     implementation(project(":core:database"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:firebase"))
+    implementation(project(":core:model"))
     implementation(project(":core:navigation"))
     implementation(project(":core:oauth"))
-    implementation(project(":core:work"))
+    implementation(project(":core:test"))
     implementation(project(":core:ui"))
-
-
+    implementation(project(":core:work"))
 
 
     implementation(project(":feature:home"))
-
 
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:find-work-category"))
@@ -72,9 +67,9 @@ dependencies {
     implementation(project(":feature:badge:badge"))
     implementation(project(":feature:badge:setting"))
 
-
     implementation(project(":feature:notification:notice"))
     implementation(project(":feature:notification:notification"))
+    implementation(project(":feature:notification:push"))
 
 
     implementation(project(":feature:history:history"))

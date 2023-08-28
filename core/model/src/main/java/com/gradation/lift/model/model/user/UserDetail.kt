@@ -14,11 +14,11 @@ import com.gradation.lift.model.model.common.UnitOfWeight
  * @property unitOfWeight  무게 단위 (현재 미사용)
  */
 data class UserDetail(
-    val name: String,
-    val gender: Gender,
-    val height: Float,
-    val weight: Float,
-    val profilePicture: String,
+    val name: String="",
+    val gender: Gender=Gender.Male(),
+    val height: Float=0f,
+    val weight: Float=0f,
+    val profilePicture: String="",
     val unitOfWeight: UnitOfWeight = UnitOfWeight.Kg(),
 )
 

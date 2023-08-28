@@ -12,6 +12,9 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    defaultConfig {
+        testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+    }
 }
 dependencies {
     testImplementation(project(":core:test"))

@@ -92,8 +92,14 @@ lint/tmp/
 **/.DS_Store
 **/._.DS_Store
 .idea
+.tmp/*
+android
+caches
+daemon
+jdks
+kotlin-profile
+native
+wrapper
+.tmp
 
-.github
 
-#key
-build-system/plugin/src/main/kotlin/com/gradation/lift/plugin/extension/Constants.kt

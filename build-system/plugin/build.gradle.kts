@@ -6,15 +6,25 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
-
-dependencies {
-    compileOnly(libs.kotlin.gradlePlugin)
-    compileOnly(libs.ksp.gradlePlugin)
-    compileOnly(libs.android.gradlePlugin)
-    compileOnly(libs.firebase.performance.gradle)
-    compileOnly(libs.firebase.crashlytics.gradle)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
 }
 
+dependencies {
+    implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.ksp.gradlePlugin)
+    implementation(libs.android.gradlePlugin)
+    implementation(libs.firebase.performance.gradle)
+    implementation(libs.firebase.crashlytics.gradle)
+
+}
+
+buildscript {
+    dependencies{
+    }
+}
 
 gradlePlugin {
     plugins {
