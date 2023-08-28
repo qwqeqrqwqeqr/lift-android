@@ -9,7 +9,8 @@ import kotlinx.datetime.LocalDate as KotlinLocalDate
 
 /**
  * [GetThisMonthUseCase]
- * 해당 일이 속해있는 달에 모든 날짜 정보를 가져옴
+ * 해당 일이 속해있는 달에 모든 날짜 정보를 가져오는 유즈케이스
+ * @since 2023-08-28 20:22:45
  */
 class GetThisMonthUseCase @Inject constructor() {
     @RequiresApi(Build.VERSION_CODES.O)

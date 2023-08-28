@@ -6,6 +6,11 @@ import kotlinx.datetime.*
 import java.time.DayOfWeek
 import javax.inject.Inject
 
+/**
+ * [GetThisWeekUseCase]
+ * 해당 일이 속해있는 이번 주의 날짜 정보를 가져오는 유즈케이스
+ * @since 2023-08-28 20:23:11
+ */
 class GetThisWeekUseCase @Inject constructor(){
     @RequiresApi(Build.VERSION_CODES.O)
     operator fun invoke(date: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())): List<LocalDate> {

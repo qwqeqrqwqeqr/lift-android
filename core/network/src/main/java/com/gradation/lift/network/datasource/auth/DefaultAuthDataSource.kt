@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
-    private val NetworkResultHandler: NetworkResultHandler,
+    private val networkResultHandler: NetworkResultHandler,
 ) : AuthDataSource {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<NetworkResult<Token>> = flow {
-        NetworkResultHandler {
+        networkResultHandler {
             authService.signInDefault(
                 signInInfo.toDto()
             )
@@ -28,7 +28,7 @@ class DefaultAuthDataSource @Inject constructor(
     }
 
     override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<NetworkResult<Boolean>> = flow {
-        NetworkResultHandler {
+        networkResultHandler {
             authService.signUpDefault(
                 signUpInfo.toDto()
             )
@@ -43,7 +43,7 @@ class DefaultAuthDataSource @Inject constructor(
 
     override fun signInKakao(signInInfo: KakaoSignInInfo): Flow<NetworkResult<Token>> =
         flow {
-            NetworkResultHandler {
+            networkResultHandler {
                 authService.signInKakao(
                     signInInfo.toDto()
                 )
@@ -57,7 +57,7 @@ class DefaultAuthDataSource @Inject constructor(
 
     override fun signInNaver(signInInfo: NaverSignInInfo): Flow<NetworkResult<Token>> =
         flow {
-            NetworkResultHandler {
+            networkResultHandler {
                 authService.signInNaver(
                     signInInfo.toDto()
                 )

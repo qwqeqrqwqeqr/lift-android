@@ -9,6 +9,6 @@ import javax.inject.Inject
 class UpdateUserDetailUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
-    operator fun invoke(userDetail: UserDetail): Flow<DataState<Boolean>> =
+    operator fun invoke(userDetail: UserDetail): Flow<DataState<Unit>> =
         userRepository.updateUserDetail(userDetail)
 }

@@ -1,4 +1,3 @@
-
 plugins {
     id("lift.android.library")
     id("lift.android.compose.library")
@@ -9,6 +8,5 @@ plugins {
 
 android {
     namespace = "com.gradation.lift.test"
-
 }
 

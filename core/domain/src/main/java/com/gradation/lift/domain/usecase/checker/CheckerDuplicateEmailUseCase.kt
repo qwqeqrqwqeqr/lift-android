@@ -5,6 +5,11 @@ import com.gradation.lift.domain.repository.CheckerRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+/**
+ * [CheckDuplicateEmailUseCase]
+ * 중복된 값이 있을 경우 true 반환
+ * @since 2023-08-28 22:03:27
+ */
 class CheckDuplicateEmailUseCase @Inject constructor(
     private val checkerRepository: CheckerRepository
 ) {

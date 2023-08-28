@@ -7,5 +7,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 class ComposeTestRule {
 
     val composeAndroidTestRule = createAndroidComposeRule<ComponentActivity>()
+
     val composeTestRule = createComposeRule()
 }

@@ -9,6 +9,6 @@ import javax.inject.Inject
 class DeleteHistoryUseCase @Inject constructor(
     private val historyRepository: HistoryRepository,
 ) {
-    operator fun invoke(historyId: Int): Flow<DataState<Boolean>> =
+    operator fun invoke(historyId: Int): Flow<DataState<Unit>> =
         historyRepository.deleteHistory(historyId = historyId)
 }

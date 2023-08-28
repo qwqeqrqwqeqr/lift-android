@@ -19,7 +19,7 @@ class RetryInterceptor @Inject constructor(
             var response = proceed(newRequest)
             var tryCount = 0
             while (!response.isSuccessful && tryCount < 3){
-                Log.d("test","통신을 실패하였습니다 재시도 합니다... (${tryCount+1}/3)")
+                Log.d("network","통신을 실패하였습니다 재시도 합니다... (${tryCount+1}/3)")
                 sleep(NETWORK_RETRY_DELAY)
                 tryCount++
                 response.close()

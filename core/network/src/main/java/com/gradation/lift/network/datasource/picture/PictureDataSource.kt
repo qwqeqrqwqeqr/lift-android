@@ -5,6 +5,11 @@ import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.network.common.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * [PictureDataSource]
+ * 서비스에서 사용되는 사진들에 대한 데이터 소스
+ * @since 2023-08-28 22:08:33
+ */
 interface PictureDataSource {
 
     suspend fun getUserProfilePicture(): Flow<NetworkResult<List<UserProfilePicture>>>

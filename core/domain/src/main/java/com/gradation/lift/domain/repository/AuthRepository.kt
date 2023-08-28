@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * [AuthRepository]
- * 사용자의 계정 및 토큰을 관리하는 레퍼지토리 클래스
+ * 사용자의 계정 및 토큰을 관리하는 저장소
  * @since 2023-08-16 11:35:24
  */
 interface AuthRepository {

@@ -3,6 +3,11 @@ package com.gradation.lift.ui.utils
 import kotlinx.datetime.LocalTime
 import kotlin.math.roundToLong
 
+/**
+ * [toText]
+ * LocalTime 데이터를 UI에서 적절하게 표시될 수 있게 변환해주는 메서드
+ * @since 2023-08-28 22:35:44
+ */
 fun LocalTime.toText(): String {
     val second =
         if (second != 0 && hour == 0) "${second}초" else if (second == 0 && hour == 0) "0초" else ""
@@ -12,7 +17,11 @@ fun LocalTime.toText(): String {
     return hour + minute + second
 }
 
-
+/**
+ * [toText]
+ * Float 타입 데이터를 UI에서 적절하게 표시 될 수 있도록 변환해주는 메서드
+ * @since 2023-08-28 22:36:26
+ */
 fun Float.toText(): String {
     return if (
         toString()
@@ -26,10 +35,22 @@ fun Float.toText(): String {
 }
 
 
+/**
+ * [toWeightText]
+ * 무게를 UI에서 적절하게 표시될 수 있도록 변환해주는 함수
+ * 무게를 입력할 때 사용할 것
+ * @since 2023-08-28 22:37:40
+ */
 fun Float.toWeightText(): String =
     ((this * 10.0).roundToLong() / 10.0).let { if ( it/1000 >= 1) 1000f else it.toFloat() }.toText()
 
 
+/**
+ * [toRepetitionText]
+ * 횟수를 UI에서 적절하게 표시될 수 있도록 변환햐주는 함수
+ * 횟수를 입력할 때 사용할 것
+ * @since 2023-08-28 22:38:09
+ */
 fun Int.toRepetitionText(): Int = if(this in 1.. 50) this else 10
 
 
