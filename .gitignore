@@ -100,6 +100,6 @@ jdks
 kotlin-profile
 native
 wrapper
+.tmp
 
-#key
-build-system/plugin/src/main/kotlin/com/gradation/lift/plugin/extension/Constants.kt
+

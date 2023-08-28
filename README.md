@@ -22,7 +22,7 @@
 
 <br>
 
-## 개발 방식
+## 개발
 <div>
 <img src="./docs/lift_screen_5.jpeg"/>
 <img src="./docs/lift_screen_6.jpeg"/>
