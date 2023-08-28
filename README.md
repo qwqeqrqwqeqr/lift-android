@@ -15,9 +15,9 @@
 
 ## 소개
 <div>
-<img src="./docs/lift_screen_2.jpg" align=left" width="33%"/>
-<img src="./docs/lift_screen_3.jpg" align=left" width="33%"/>
-<img src="./docs/lift_screen_4.jpg" align=left" width="33%"/>	
+<img src="./docs/lift_screen_2.jpg" align=left" width="30%"/>
+<img src="./docs/lift_screen_3.jpg" align=left" width="30%"/>
+<img src="./docs/lift_screen_4.jpg" align=left" width="30%"/>	
 </div>
 
 <br>
