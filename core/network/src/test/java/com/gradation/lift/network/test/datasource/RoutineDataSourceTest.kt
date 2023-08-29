@@ -1,6 +1,8 @@
 package com.gradation.lift.network.test.datasource
 
+import com.google.common.truth.Truth
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.fake.FakeRoutineDataSource
@@ -28,50 +30,85 @@ class RoutineDataSourceTest {
 
 
     @Test
-    fun testCreateRoutineSetDataSource() = runTest {
+    fun createRoutineSetDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
             dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
         )
+
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
+        )
     }
 
     @Test
-    fun testGetRoutineDataSource() = runTest {
+    fun getRoutineDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineModelList),
             dataSource.getRoutine().first()
         )
+
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getRoutine().first()
+        )
     }
 
     @Test
-    fun testGetRoutineSetRoutineDataSource() = runTest {
+    fun getRoutineSetRoutineDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
             dataSource.getRoutineSetRoutine().first()
         )
+
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getRoutineSetRoutine().first()
+        )
     }
 
     @Test
-    fun testGetRoutineSetRoutineByWeekdayDataSource() = runTest {
+    fun getRoutineSetRoutineByWeekdayDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
             dataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
         )
+
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
+        )
     }
 
     @Test
-    fun testGetRoutineSetRoutineByRoutineSetIdDataSource() = runTest {
+    fun getRoutineSetRoutineByRoutineSetIdDataSource() = runTest {
         dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
+            dataSource.getRoutineSetRoutineByRoutineSetId(setOf(12,13,14)).first()
+        )
+
+        dataSource = FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
             dataSource.getRoutineSetRoutineByRoutineSetId(setOf(12,13,14)).first()
         )
     }

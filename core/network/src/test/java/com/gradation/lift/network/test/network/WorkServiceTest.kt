@@ -51,7 +51,7 @@ class WorkServiceTest {
 
 
     @Test
-    fun testGetWorkPartService() = runTest {
+    fun getWorkPartService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -73,7 +73,7 @@ class WorkServiceTest {
     }
 
     @Test
-    fun testGetWorkCategoryService() = runTest {
+    fun getWorkCategoryService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -96,7 +96,7 @@ class WorkServiceTest {
 
 
     @Test
-    fun testGetWorkCategoryByWorkPartService() = runTest {
+    fun getWorkCategoryByWorkPartService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

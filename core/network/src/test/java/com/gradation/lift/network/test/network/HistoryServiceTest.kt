@@ -52,7 +52,7 @@ class HistoryServiceTest {
 
 
     @Test
-    fun testGetHistoryService() = runTest {
+    fun getHistoryService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -77,7 +77,7 @@ class HistoryServiceTest {
 
 
     @Test
-    fun testGetHistoryByHistoryIdService() = runTest {
+    fun getHistoryByHistoryIdService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(historyResponseJson)
@@ -99,7 +99,7 @@ class HistoryServiceTest {
     }
 
     @Test
-    fun testCreateHistoryService() = runTest {
+    fun createHistoryService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)
@@ -121,7 +121,7 @@ class HistoryServiceTest {
     }
 
     @Test
-    fun testDeleteHistoryService() = runTest {
+    fun deleteHistoryService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)

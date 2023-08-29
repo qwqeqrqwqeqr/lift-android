@@ -49,7 +49,7 @@ class CheckerServiceTest {
 
 
     @Test
-    fun testCheckDuplicateEmailService() = runTest {
+    fun checkDuplicateEmailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -71,7 +71,7 @@ class CheckerServiceTest {
 
 
     @Test
-    fun testCheckDuplicateNameService() = runTest {
+    fun checkDuplicateNameService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

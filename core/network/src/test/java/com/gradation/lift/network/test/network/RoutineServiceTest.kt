@@ -55,7 +55,7 @@ class RoutineServiceTest {
 
 
     @Test
-    fun testCreateRoutineSetService() = runTest {
+    fun createRoutineSetService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)
@@ -77,7 +77,7 @@ class RoutineServiceTest {
 
 
     @Test
-    fun testGetRoutineService() = runTest {
+    fun getRoutineService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(routineResponseJson)
@@ -99,7 +99,7 @@ class RoutineServiceTest {
 
 
     @Test
-    fun testGetRoutineSetRoutineService() = runTest {
+    fun getRoutineSetRoutineService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(routineSetRoutineResponseJson)
@@ -121,7 +121,7 @@ class RoutineServiceTest {
 
 
     @Test
-    fun testGetRoutineSetRoutineByWeekdayService() = runTest {
+    fun getRoutineSetRoutineByWeekdayService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(routineSetRoutineResponseJson)
@@ -142,7 +142,7 @@ class RoutineServiceTest {
     }
 
     @Test
-    fun testGetRoutineSetRoutineByRoutineSetIdService() = runTest {
+    fun getRoutineSetRoutineByRoutineSetIdService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(routineSetRoutineResponseJson)

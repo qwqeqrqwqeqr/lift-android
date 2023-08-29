@@ -56,7 +56,7 @@ class AuthServiceTest {
     }
 
     @Test
-    fun testSignInDefaultService() = runTest {
+    fun signInDefaultService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -78,7 +78,7 @@ class AuthServiceTest {
     }
 
     @Test
-    fun testSignInKakaoService() = runTest {
+    fun signInKakaoService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -99,7 +99,7 @@ class AuthServiceTest {
             .isEqualTo(signInKakaoResponseDto)
     }
     @Test
-    fun testSignInNaverService() = runTest {
+    fun signInNaverService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -122,7 +122,7 @@ class AuthServiceTest {
 
 
     @Test
-    fun testSignUpDefaultService() = runTest {
+    fun signUpDefaultService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

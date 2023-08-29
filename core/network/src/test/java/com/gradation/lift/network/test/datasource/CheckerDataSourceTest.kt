@@ -1,6 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
 import com.google.common.truth.Truth
+import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.common.NetworkResult
@@ -27,20 +28,33 @@ class CheckerDataSourceTest {
 
 
     @Test
-    fun testSignInDefaultDataSource() = runTest {
+    fun signInDefaultDataSource() = runTest {
         dataSource = FakeCheckerDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(FAKE_BOOLEAN_DATA)
         ).isEqualTo(
             dataSource.checkDuplicateEmail(FAKE_STRING_DATA).first()
         )
+
+        dataSource = FakeCheckerDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.checkDuplicateEmail(FAKE_STRING_DATA).first()
+        )
     }
 
     @Test
-    fun testSignUpDefaultDataSource() = runTest {
+    fun signUpDefaultDataSource() = runTest {
         dataSource = FakeCheckerDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(FAKE_BOOLEAN_DATA)
+        ).isEqualTo(
+            dataSource.checkDuplicateName(FAKE_STRING_DATA).first()
+        )
+        dataSource = FakeCheckerDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
             dataSource.checkDuplicateName(FAKE_STRING_DATA).first()
         )

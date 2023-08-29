@@ -55,7 +55,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testExistUserDetailService() = runTest {
+    fun existUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -76,7 +76,7 @@ class UserServiceTest {
         assertThat(response.body()!!.data).isEqualTo(existUserDetailResponseDto)
     }
     @Test
-    fun testGetUserDetailService() = runTest {
+    fun getUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -97,7 +97,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testCreateUserDetailService() = runTest {
+    fun createUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -118,7 +118,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testUpdateUserDetailService() = runTest {
+    fun updateUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

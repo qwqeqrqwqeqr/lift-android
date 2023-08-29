@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException
 class ErrorMapperTest {
 
     @Test
-    fun testErrorMapper() {
+    fun errorMapper() {
         Truth.assertThat(
             Throwable(SocketTimeoutException()).toMessage()
         ).isEqualTo(

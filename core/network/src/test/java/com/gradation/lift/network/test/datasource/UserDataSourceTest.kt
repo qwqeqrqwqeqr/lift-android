@@ -1,5 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
+import com.google.common.truth.Truth
+import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.fake.FakeUserDataSource
@@ -26,34 +28,62 @@ class UserDataSourceTest {
     private lateinit var dataSource: UserDataSource
 
     @Test
-    fun testGetUserDetailDataSource() = runTest {
+    fun getUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(userDetailModel),
             dataSource.getUserDetail().first()
         )
+
+        dataSource = FakeUserDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getUserDetail().first()
+        )
     }
     @Test
-    fun testCreateUserDetailDataSource() = runTest {
+    fun createUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
             dataSource.createUserDetail(createUserDetailModel).first()
         )
+
+        dataSource = FakeUserDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.createUserDetail(createUserDetailModel).first()
+        )
     }
     @Test
-    fun testUpdateUserDetailDataSource() = runTest {
+    fun updateUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
             dataSource.updateUserDetail(userDetailModel).first()
         )
+
+        dataSource = FakeUserDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.updateUserDetail(userDetailModel).first()
+        )
     }
     @Test
-    fun testExistUserDetailDataSource() = runTest {
+    fun existUserDetailDataSource() = runTest {
         dataSource = FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(FAKE_BOOLEAN_DATA),
+            dataSource.existUserDetail().first()
+        )
+
+        dataSource = FakeUserDataSource(testReturnState = TestReturnState.Fail)
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
             dataSource.existUserDetail().first()
         )
     }

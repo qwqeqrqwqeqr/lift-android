@@ -1,5 +1,7 @@
 package com.gradation.lift.network.test.datasource
 
+import com.google.common.truth.Truth
+import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.work.WorkDataSource
 import com.gradation.lift.network.fake.FakeWorkDataSource
@@ -25,23 +27,55 @@ class WorkDataSourceTest {
     private lateinit var dataSource: WorkDataSource
 
 
-
     @Test
-    fun testGetWorkPartDataSource() = runTest{
-        dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
-        assertEquals(NetworkResult.Success(workPartModelList),dataSource.getWorkPart().first())
+    fun getWorkPartDataSource() = runTest {
+        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Success)
+        assertEquals(
+            NetworkResult.Success(workPartModelList),
+            dataSource.getWorkPart().first()
+        )
+
+        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Fail)
+
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getWorkPart().first()
+        )
     }
 
     @Test
-    fun testGetWorkCategoryDataSource() = runTest{
-        dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
-        assertEquals(NetworkResult.Success(workCategoryModelList),dataSource.getWorkCategory().first())
+    fun getWorkCategoryDataSource() = runTest {
+        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Success)
+        assertEquals(
+            NetworkResult.Success(workCategoryModelList),
+            dataSource.getWorkCategory().first()
+        )
+
+        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Fail)
+
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getWorkCategory().first()
+        )
     }
 
     @Test
-    fun testGetWorkCategoryByWorkPartDataSource() = runTest{
-        dataSource = FakeWorkDataSource(testReturnState=TestReturnState.Success)
-        assertEquals(NetworkResult.Success(workCategoryModelList),dataSource.getWorkCategoryByWorkPart(
-            FAKE_STRING_DATA).first())
+    fun getWorkCategoryByWorkPartDataSource() = runTest {
+        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Success)
+        assertEquals(
+            NetworkResult.Success(workCategoryModelList), dataSource.getWorkCategoryByWorkPart(
+                FAKE_STRING_DATA
+            ).first()
+        )
+
+        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Fail)
+
+        Truth.assertThat(
+            NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            dataSource.getWorkCategory().first()
+        )
     }
 }

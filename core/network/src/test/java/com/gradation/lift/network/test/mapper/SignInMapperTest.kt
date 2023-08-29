@@ -14,7 +14,7 @@ import org.junit.Test
 class SignInMapperTest {
 
     @Test
-    fun testSignInDefaultMapper() {
+    fun signInDefaultMapper() {
 
         with(defaultSignInInfoModel.toDto()) {
             Truth.assertThat(this.id).isEqualTo(signInDefaultRequestDto.id)
@@ -23,7 +23,7 @@ class SignInMapperTest {
     }
 
     @Test
-    fun testSignInKakaoMapper() {
+    fun signInKakaoMapper() {
 
         with(kakaoSignInInfoModel.toDto()) {
             Truth.assertThat(this.id).isEqualTo(signInKakaoRequestDto.id)
@@ -32,7 +32,7 @@ class SignInMapperTest {
     }
 
     @Test
-    fun testSignInNaverMapper() {
+    fun signInNaverMapper() {
 
         with(naverSignInInfoModel.toDto()) {
             Truth.assertThat(this.id).isEqualTo(signInNaverRequestDto.id)

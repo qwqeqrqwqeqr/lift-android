@@ -48,7 +48,7 @@ class PictureServiceTest {
     }
 
     @Test
-    fun testGetUserProfilePictureService() = runTest {
+    fun getUserProfilePictureService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -73,7 +73,7 @@ class PictureServiceTest {
 
 
     @Test
-    fun testGetRoutineSetPictureService() = runTest {
+    fun getRoutineSetPictureService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

@@ -46,7 +46,7 @@ class RefreshServiceTest {
     }
 
     @Test
-    fun testRefreshService() = runTest {
+    fun refreshService() = runTest {
 
         val refreshToken = FAKE_REFRESH_TOKEN
         mockWebServer.enqueue(
