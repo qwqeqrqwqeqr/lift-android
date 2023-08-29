@@ -69,9 +69,8 @@ class WorkDataSourceTest {
         dataSource =
             com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
-            NetworkResult.Success(workCategoryModelList), dataSource.getWorkCategoryByWorkPart(
-                FAKE_STRING_DATA
-            ).first()
+            NetworkResult.Success(workCategoryModelList),
+            dataSource.getWorkCategoryByWorkPart(FAKE_STRING_DATA).first()
         )
 
         dataSource =
