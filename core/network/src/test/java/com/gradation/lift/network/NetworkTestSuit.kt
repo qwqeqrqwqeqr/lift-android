@@ -20,6 +20,7 @@ import com.gradation.lift.network.test.datasource.AuthDataSourceTest
 import com.gradation.lift.network.test.datasource.CheckerDataSourceTest
 import com.gradation.lift.network.test.datasource.HistoryDataSourceTest
 import com.gradation.lift.network.test.datasource.PictureDataSourceTest
+import com.gradation.lift.network.test.datasource.RoutineDataSourceTest
 import com.gradation.lift.network.test.mapper.*
 import com.gradation.lift.network.test.network.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,6 +36,7 @@ import org.junit.runners.Suite
     CheckerDataSourceTest::class,
     HistoryDataSourceTest::class,
     PictureDataSourceTest::class,
+    RoutineDataSourceTest::class,
 
 
     AuthServiceTest::class,
