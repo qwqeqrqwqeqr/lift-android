@@ -6,8 +6,8 @@ import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.fake.FakeAuthDataSource
 import com.gradation.lift.network.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.Auth.signInInfoModel
-import com.gradation.lift.model.utils.ModelDataGenerator.Auth.signUpInfoModel
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.defaultSignInInfoModel
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.defaultSignUpInfoModel
 import com.gradation.lift.model.utils.ModelDataGenerator.Auth.tokenModel
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +33,7 @@ class AuthDataSourceTest {
         Truth.assertThat(
             NetworkResult.Success(tokenModel)
         ).isEqualTo(
-            dataSource.signInDefault(signInInfo = signInInfoModel).first()
+            dataSource.signInDefault(signInInfo = defaultSignInInfoModel).first()
         )
     }
 
@@ -43,7 +43,7 @@ class AuthDataSourceTest {
         Truth.assertThat(
             NetworkResult.Success(FAKE_BOOLEAN_DATA)
         ).isEqualTo(
-            dataSource.signUpDefault(signUpInfo = signUpInfoModel).first()
+            dataSource.signUpDefault(signUpInfo = defaultSignUpInfoModel).first()
         )
     }
 

@@ -56,6 +56,15 @@ object TestDtoDataGenerator {
             result = true
         )
 
+        internal val signInKakaoRequestDto = SignInKakaoRequestDto(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+        internal val signInNaverRequestDto = SignInNaverRequestDto(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+
         internal val signInKakaoResponseDto = SignInKakaoResponseDto(
             accessToken = FAKE_ACCESS_TOKEN,
             refreshToken = FAKE_REFRESH_TOKEN

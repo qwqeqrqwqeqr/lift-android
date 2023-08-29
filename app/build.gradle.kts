@@ -11,7 +11,10 @@ plugins {
 }
 
 
-
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 
 android {
@@ -39,9 +42,6 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:ui"))
     implementation(project(":core:work"))
-
-
-    implementation(project(":feature:home"))
 
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:find-work-category"))

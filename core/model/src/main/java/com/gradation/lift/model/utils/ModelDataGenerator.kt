@@ -27,6 +27,8 @@ import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel2
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.KakaoSignInInfo
+import com.gradation.lift.model.model.auth.NaverSignInInfo
 import com.gradation.lift.model.model.auth.Token
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutine
@@ -41,17 +43,25 @@ import kotlinx.datetime.LocalTime
 object ModelDataGenerator {
 
     object Auth {
-        val signInInfoModel = DefaultSignInInfo(
+        val defaultSignInInfoModel = DefaultSignInInfo(
             id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
-        val signUpInfoModel = DefaultSignUpInfo(
+        val defaultSignUpInfoModel = DefaultSignUpInfo(
             id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
         val tokenModel = Token(
             accessToken = FAKE_ACCESS_TOKEN,
             refreshToken = FAKE_REFRESH_TOKEN
+        )
+        val kakaoSignInInfoModel = KakaoSignInInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+        val naverSignInInfoModel = NaverSignInInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
         )
     }
 
