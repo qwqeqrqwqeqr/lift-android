@@ -1,17 +1,17 @@
-package com.gradation.lift.network.fake
+package com.gradation.lift.data.fake
 
+import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
-import com.gradation.lift.network.utils.TestReturnState
+import com.gradation.lift.data.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

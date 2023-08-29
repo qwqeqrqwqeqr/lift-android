@@ -1,5 +1,9 @@
-package com.gradation.lift.network.fake
+package com.gradation.lift.data.fake
 
+import com.gradation.lift.data.data.TestDtoDataGenerator.Auth.signInDefaultResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.Auth.signInKakaoResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.Auth.signInNaverResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.Auth.signUpDefaultResponseDto
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
@@ -7,12 +11,8 @@ import com.gradation.lift.model.model.auth.NaverSignInInfo
 import com.gradation.lift.model.model.auth.Token
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInKakaoResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInNaverResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signUpDefaultResponseDto
 import com.gradation.lift.network.datasource.auth.AuthDataSource
-import com.gradation.lift.network.utils.TestReturnState
+import com.gradation.lift.data.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

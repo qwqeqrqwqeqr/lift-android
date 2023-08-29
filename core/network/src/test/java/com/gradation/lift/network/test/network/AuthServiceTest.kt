@@ -6,6 +6,7 @@ import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultRequestDto
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInDefaultResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInKakaoRequestDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Auth.signInKakaoResponseDto
@@ -17,8 +18,7 @@ import com.gradation.lift.network.data.TestJsonDataGenerator.Auth.signInDefaultR
 import com.gradation.lift.network.data.TestJsonDataGenerator.Auth.signInKakaoResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.Auth.signInNaverResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
-import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

@@ -1,11 +1,10 @@
-package com.gradation.lift.network.test.datasource
+package com.gradation.lift.data.datasource
 
 import com.google.common.truth.Truth
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.work.WorkDataSource
-import com.gradation.lift.network.fake.FakeWorkDataSource
-import com.gradation.lift.network.utils.TestReturnState
+import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModelList
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModelList
@@ -29,13 +28,15 @@ class WorkDataSourceTest {
 
     @Test
     fun getWorkPartDataSource() = runTest {
-        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Success)
+        dataSource =
+            com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
             NetworkResult.Success(workPartModelList),
             dataSource.getWorkPart().first()
         )
 
-        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Fail)
+        dataSource =
+            com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Fail)
 
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
@@ -46,13 +47,15 @@ class WorkDataSourceTest {
 
     @Test
     fun getWorkCategoryDataSource() = runTest {
-        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Success)
+        dataSource =
+            com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
             NetworkResult.Success(workCategoryModelList),
             dataSource.getWorkCategory().first()
         )
 
-        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Fail)
+        dataSource =
+            com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Fail)
 
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
@@ -63,14 +66,16 @@ class WorkDataSourceTest {
 
     @Test
     fun getWorkCategoryByWorkPartDataSource() = runTest {
-        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Success)
+        dataSource =
+            com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
             NetworkResult.Success(workCategoryModelList), dataSource.getWorkCategoryByWorkPart(
                 FAKE_STRING_DATA
             ).first()
         )
 
-        dataSource = FakeWorkDataSource(testReturnState = TestReturnState.Fail)
+        dataSource =
+            com.gradation.lift.data.fake.FakeWorkDataSource(testReturnState = TestReturnState.Fail)
 
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)

@@ -10,7 +10,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.getUserProfi
 import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.routineSetPictureResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.userProfilePictureResponseJson
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.PictureService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

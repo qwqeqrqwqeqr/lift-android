@@ -1,6 +1,15 @@
-package com.gradation.lift.network.data
+package com.gradation.lift.data.data
 
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.createRoutineDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.routineDto1
+import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.routineDto2
+import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSet.routineSetDto1
+import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSet.routineSetDto2
+import com.gradation.lift.data.data.TestDtoDataGenerator.WorkCategory.workCategoryDto1
+import com.gradation.lift.data.data.TestDtoDataGenerator.WorkCategory.workCategoryDto2
+import com.gradation.lift.data.data.TestDtoDataGenerator.WorkPart.workPartDto1
+import com.gradation.lift.data.data.TestDtoDataGenerator.WorkPart.workPartDto2
 import com.gradation.lift.network.dto.auth.*
 import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
 import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
@@ -21,15 +30,6 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPT
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
-import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.createRoutineDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto1
-import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto2
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.routineSetDto1
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.routineSetDto2
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.workCategoryDto1
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.workCategoryDto2
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.workPartDto1
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.workPartDto2
 
 object TestDtoDataGenerator {
 

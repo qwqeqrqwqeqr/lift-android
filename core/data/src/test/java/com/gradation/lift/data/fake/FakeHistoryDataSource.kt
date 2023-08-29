@@ -1,13 +1,13 @@
-package com.gradation.lift.network.fake
+package com.gradation.lift.data.fake
 
+import com.gradation.lift.data.data.TestDtoDataGenerator.History.getHistoryByHistoryIdResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.History.getHistoryResponseDto
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryByHistoryIdResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryResponseDto
 import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.utils.TestReturnState
+import com.gradation.lift.data.utils.TestReturnState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,4 +1,4 @@
-package com.gradation.lift.network.fake
+package com.gradation.lift.data.fake
 
 import com.gradation.lift.network.common.Constants
 import com.squareup.moshi.Moshi

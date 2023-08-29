@@ -1,4 +1,4 @@
-package com.gradation.lift.network.utils
+package com.gradation.lift.data.utils
 
 
 sealed class TestReturnState{

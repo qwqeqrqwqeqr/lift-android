@@ -8,7 +8,7 @@ import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.data.TestDtoDataGenerator.Refresh.refreshResponseDto
 import com.gradation.lift.network.data.TestJsonDataGenerator.Refresh.refreshResponseJson
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.RefreshService
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import kotlinx.coroutines.ExperimentalCoroutinesApi

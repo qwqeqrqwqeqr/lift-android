@@ -1,6 +1,5 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.*
 
 

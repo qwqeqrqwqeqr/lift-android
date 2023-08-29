@@ -13,7 +13,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryRe
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.History.historyResponseJson
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.HistoryService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

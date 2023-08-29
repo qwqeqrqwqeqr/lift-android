@@ -16,7 +16,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.User.updateUserDetai
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.User.userDetailResponseJson
 import com.gradation.lift.network.di.TestServiceModule.testUserService
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
