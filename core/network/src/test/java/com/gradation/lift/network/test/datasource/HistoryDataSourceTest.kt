@@ -4,18 +4,18 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.service.CheckerService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.network.common.NetworkResult
+import com.gradation.lift.network.data.TestJsonDataGenerator
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
-import com.gradation.lift.network.datasource.checker.CheckerDataSource
-import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
+import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
+import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.handler.NetworkResultHandler
+import com.gradation.lift.network.service.HistoryService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -29,12 +29,12 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
-class CheckerDataSourceTest {
+class HistoryDataSourceTest {
 
     private lateinit var retrofit: TestRetrofit
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var checkerService: CheckerService
-    private lateinit var checkerDataSource: CheckerDataSource
+    private lateinit var historyService: HistoryService
+    private lateinit var historyDataSource: HistoryDataSource
     private lateinit var networkResultHandler: NetworkResultHandler
 
     private val dispatcher: DispatcherProvider = testDispatchers()
@@ -49,11 +49,11 @@ class CheckerDataSourceTest {
             start()
         }
         retrofit = TestRetrofit(mockWebServer = mockWebServer)
-        checkerService = TestServiceModule.testCheckerService(retrofit)
+        historyService = TestServiceModule.testHistoryService(retrofit)
         networkResultHandler =
             NetworkResultHandler(dispatcherProvider = dispatcher)
-        checkerDataSource = DefaultCheckerDataSource(
-            checkerService,
+        historyDataSource = DefaultHistoryDataSource(
+            historyService,
             networkResultHandler = networkResultHandler
         )
     }
@@ -65,25 +65,43 @@ class CheckerDataSourceTest {
 
 
     @Test
-    fun checkDuplicateEmailDataSource() = runTest {
+    fun getHistoryDataSource() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(TestJsonDataGenerator.History.historyResponseJson)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
-        with(checkerDataSource.checkDuplicateEmail(FAKE_STRING_DATA).first()) {
+        with(historyDataSource.getHistory().first()) {
             Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA)
+                NetworkResult.Success(ModelDataGenerator.History.historyModelList)
             ).isEqualTo(this)
         }
     }
 
 
     @Test
-    fun checkDuplicateNameDataSource() = runTest {
+    fun getHistoryByHistoryIdDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.History.historyResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+
+        with(historyDataSource.getHistoryByHistoryId(setOf(12, 13, 14)).first()) {
+            Truth.assertThat(
+                NetworkResult.Success(ModelDataGenerator.History.historyModelList)
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun createHistoryDataSource() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -93,10 +111,30 @@ class CheckerDataSourceTest {
         )
 
 
-        with(checkerDataSource.checkDuplicateName(FAKE_STRING_DATA).first()) {
+        with(historyDataSource.createHistory(ModelDataGenerator.History.createHistoryModel).first()) {
             Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA)
+                NetworkResult.Success(Unit)
             ).isEqualTo(this)
         }
     }
+
+    @Test
+    fun deleteHistoryDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(resultResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+
+        with(historyDataSource.deleteHistory(1).first()) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit)
+            ).isEqualTo(this)
+        }
+    }
+
+
 }
