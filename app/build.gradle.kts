@@ -21,8 +21,8 @@ android {
     namespace = "com.gradation.lift"
 
     defaultConfig {
-        versionCode = 4
-        versionName = "0.0.9"
+        versionCode = 5
+        versionName = "0.0.10"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
 }
