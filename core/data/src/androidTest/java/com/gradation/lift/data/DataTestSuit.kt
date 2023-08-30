@@ -12,6 +12,7 @@ import com.gradation.lift.data.test.repository.CheckerRepositoryTest
 import com.gradation.lift.data.test.repository.HistoryRepositoryTest
 import com.gradation.lift.data.test.repository.PictureRepositoryTest
 import com.gradation.lift.data.test.repository.RoutineRepositoryTest
+import com.gradation.lift.data.test.repository.UserRepositoryTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
@@ -33,6 +34,7 @@ import org.junit.runners.Suite
     HistoryRepositoryTest::class,
     PictureRepositoryTest::class,
     RoutineRepositoryTest::class,
+    UserRepositoryTest::class,
 
 
 )
