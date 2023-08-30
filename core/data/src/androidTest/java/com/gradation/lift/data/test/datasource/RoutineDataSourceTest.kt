@@ -1,6 +1,7 @@
 package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
+import com.gradation.lift.data.fake.datasource.FakeRoutineDataSource
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
@@ -31,14 +32,14 @@ class RoutineDataSourceTest {
     @Test
     fun createRoutineSetDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
             dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -49,7 +50,7 @@ class RoutineDataSourceTest {
     @Test
     fun getRoutineDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineModelList),
@@ -57,7 +58,7 @@ class RoutineDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -68,7 +69,7 @@ class RoutineDataSourceTest {
     @Test
     fun getRoutineSetRoutineDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
@@ -76,7 +77,7 @@ class RoutineDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -87,7 +88,7 @@ class RoutineDataSourceTest {
     @Test
     fun getRoutineSetRoutineByWeekdayDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
@@ -95,7 +96,7 @@ class RoutineDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -106,7 +107,7 @@ class RoutineDataSourceTest {
     @Test
     fun getRoutineSetRoutineByRoutineSetIdDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Success)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Success)
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
@@ -114,7 +115,7 @@ class RoutineDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
+            FakeRoutineDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(

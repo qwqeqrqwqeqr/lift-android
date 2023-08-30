@@ -1,6 +1,7 @@
 package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
+import com.gradation.lift.data.fake.datasource.FakeUserDataSource
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.user.UserDataSource
@@ -29,14 +30,14 @@ class UserDataSourceTest {
     @Test
     fun getUserDetailDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Success)
+            FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(userDetailModel),
             dataSource.getUserDetail().first()
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Fail)
+            FakeUserDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -46,14 +47,14 @@ class UserDataSourceTest {
     @Test
     fun createUserDetailDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Success)
+            FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
             dataSource.createUserDetail(createUserDetailModel).first()
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Fail)
+            FakeUserDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -63,14 +64,14 @@ class UserDataSourceTest {
     @Test
     fun updateUserDetailDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Success)
+            FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
             dataSource.updateUserDetail(userDetailModel).first()
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Fail)
+            FakeUserDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -80,14 +81,14 @@ class UserDataSourceTest {
     @Test
     fun existUserDetailDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Success)
+            FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(FAKE_BOOLEAN_DATA),
             dataSource.existUserDetail().first()
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeUserDataSource(testReturnState = TestReturnState.Fail)
+            FakeUserDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(

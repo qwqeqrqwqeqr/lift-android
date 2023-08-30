@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.data.fake.FakeCheckerDataSource
+import com.gradation.lift.data.fake.datasource.FakeCheckerDataSource
 import com.gradation.lift.data.repository.DefaultCheckerRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.CheckerRepository

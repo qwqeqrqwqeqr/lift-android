@@ -1,4 +1,4 @@
-package com.gradation.lift.data.fake
+package com.gradation.lift.data.fake.datasource
 
 import com.gradation.lift.data.data.TestDtoDataGenerator.User.existUserDetailResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.User.getUserDetailResponseDto

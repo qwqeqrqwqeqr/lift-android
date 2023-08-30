@@ -67,6 +67,8 @@ dependencies {
     implementation(project(":feature:badge:badge"))
     implementation(project(":feature:badge:setting"))
 
+    implementation(project(":feature:home"))
+
     implementation(project(":feature:notification:notice"))
     implementation(project(":feature:notification:notification"))
     implementation(project(":feature:notification:push"))

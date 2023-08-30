@@ -1,7 +1,7 @@
 package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
-import com.gradation.lift.data.fake.FakeCheckerDataSource
+import com.gradation.lift.data.fake.datasource.FakeCheckerDataSource
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA

@@ -1,6 +1,7 @@
 package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
+import com.gradation.lift.data.fake.datasource.FakePictureDataSource
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.picture.PictureDataSource
@@ -29,7 +30,7 @@ class PictureDataSourceTest {
     @Test
     fun routineSetPictureDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakePictureDataSource(testReturnState = TestReturnState.Success)
+            FakePictureDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(routineSetPictureModelList)
         ).isEqualTo(
@@ -38,7 +39,7 @@ class PictureDataSourceTest {
 
 
         dataSource =
-            com.gradation.lift.data.fake.FakePictureDataSource(testReturnState = TestReturnState.Fail)
+            FakePictureDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -49,7 +50,7 @@ class PictureDataSourceTest {
     @Test
     fun userProfilePictureDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakePictureDataSource(testReturnState = TestReturnState.Success)
+            FakePictureDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(userProfilePictureModelList)
         ).isEqualTo(
@@ -57,7 +58,7 @@ class PictureDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakePictureDataSource(testReturnState = TestReturnState.Fail)
+            FakePictureDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(

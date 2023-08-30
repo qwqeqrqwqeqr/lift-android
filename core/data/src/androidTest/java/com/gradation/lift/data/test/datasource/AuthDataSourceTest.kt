@@ -1,6 +1,7 @@
 package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
+import com.gradation.lift.data.fake.datasource.FakeAuthDataSource
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.data.utils.TestReturnState
@@ -32,7 +33,7 @@ class AuthDataSourceTest {
     @Test
     fun signInDefaultDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Success)
+            FakeAuthDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(tokenModel)
         ).isEqualTo(
@@ -40,7 +41,7 @@ class AuthDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Fail)
+            FakeAuthDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -51,7 +52,7 @@ class AuthDataSourceTest {
     @Test
     fun signInKakaoDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Success)
+            FakeAuthDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(tokenModel)
         ).isEqualTo(
@@ -59,7 +60,7 @@ class AuthDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Fail)
+            FakeAuthDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -70,7 +71,7 @@ class AuthDataSourceTest {
     @Test
     fun signInNaverDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Success)
+            FakeAuthDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(tokenModel)
         ).isEqualTo(
@@ -78,7 +79,7 @@ class AuthDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Fail)
+            FakeAuthDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -89,7 +90,7 @@ class AuthDataSourceTest {
     @Test
     fun signUpDefaultDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Success)
+            FakeAuthDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(FAKE_BOOLEAN_DATA)
         ).isEqualTo(
@@ -97,7 +98,7 @@ class AuthDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeAuthDataSource(testReturnState = TestReturnState.Fail)
+            FakeAuthDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(FAKE_ERROR_MESSAGE)
         ).isEqualTo(

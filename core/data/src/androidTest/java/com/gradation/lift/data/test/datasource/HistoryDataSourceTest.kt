@@ -1,6 +1,7 @@
 package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
+import com.gradation.lift.data.fake.datasource.FakeHistoryDataSource
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.history.HistoryDataSource
@@ -28,7 +29,7 @@ class HistoryDataSourceTest {
     @Test
     fun getHistoryDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Success)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(historyModelList)
         ).isEqualTo(
@@ -36,7 +37,7 @@ class HistoryDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -47,7 +48,7 @@ class HistoryDataSourceTest {
     @Test
     fun getHistoryByHistoryIdDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Success)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(historyModelList)
         ).isEqualTo(
@@ -55,7 +56,7 @@ class HistoryDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -67,14 +68,14 @@ class HistoryDataSourceTest {
     @Test
     fun createHistoryDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Success)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(Unit)
         ).isEqualTo(
             dataSource.createHistory(createHistoryModel).first()
         )
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
@@ -85,7 +86,7 @@ class HistoryDataSourceTest {
     @Test
     fun deleteHistoryDataSource() = runTest {
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Success)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
             NetworkResult.Success(Unit)
         ).isEqualTo(
@@ -93,7 +94,7 @@ class HistoryDataSourceTest {
         )
 
         dataSource =
-            com.gradation.lift.data.fake.FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
+            FakeHistoryDataSource(testReturnState = TestReturnState.Fail)
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
