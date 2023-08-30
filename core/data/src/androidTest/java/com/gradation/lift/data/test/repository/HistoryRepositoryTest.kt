@@ -78,7 +78,7 @@ class HistoryRepositoryTest {
     }
 
     @Test
-    fun createHistoryDataSource() = runTest {
+    fun createHistory() = runTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
@@ -94,7 +94,7 @@ class HistoryRepositoryTest {
 
 
     @Test
-    fun deleteHistoryDataSource() = runTest {
+    fun deleteHistory() = runTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
