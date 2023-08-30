@@ -11,15 +11,18 @@ plugins {
 }
 
 
-
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 
 android {
     namespace = "com.gradation.lift"
 
     defaultConfig {
-        versionCode = 4
-        versionName = "0.0.9"
+        versionCode = 5
+        versionName = "0.0.10"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
 }
@@ -39,9 +42,6 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:ui"))
     implementation(project(":core:work"))
-
-
-    implementation(project(":feature:home"))
 
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:find-work-category"))
@@ -66,6 +66,8 @@ dependencies {
 
     implementation(project(":feature:badge:badge"))
     implementation(project(":feature:badge:setting"))
+
+    implementation(project(":feature:home"))
 
     implementation(project(":feature:notification:notice"))
     implementation(project(":feature:notification:notification"))

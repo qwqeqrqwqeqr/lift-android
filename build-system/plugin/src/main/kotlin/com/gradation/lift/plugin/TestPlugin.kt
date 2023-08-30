@@ -25,10 +25,12 @@ class TestPlugin : Plugin<Project> {
                 add("testImplementation", libs.findLibrary("androidx-arch-core-testing").get())
 
 
+
                 add("androidTestImplementation", libs.findLibrary("junit4").get())
                 add("androidTestImplementation", libs.findLibrary("truth").get())
                 add("androidTestImplementation", libs.findLibrary("androidx-test-core").get())
                 add("androidTestImplementation", libs.findLibrary("androidx-arch-core-testing").get())
+                add("androidTestImplementation", libs.findLibrary("androidx-test-ext").get())
 
 
             }

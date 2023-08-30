@@ -13,9 +13,9 @@ import org.junit.Test
 class SignUpMapperTest {
 
     @Test
-    fun testSignUpMapper() = runTest {
+    fun signUpMapper() = runTest {
 
-        with(ModelDataGenerator.Auth.signUpInfoModel.toDto()) {
+        with(ModelDataGenerator.Auth.defaultSignUpInfoModel.toDto()) {
             Truth.assertThat(this.email).isEqualTo(TestDtoDataGenerator.Auth.signUpDefaultRequestDto.email)
             Truth.assertThat(this.password).isEqualTo(TestDtoDataGenerator.Auth.signUpDefaultRequestDto.password)
         }

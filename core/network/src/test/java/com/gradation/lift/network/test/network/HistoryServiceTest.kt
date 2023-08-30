@@ -13,7 +13,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryRe
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.History.historyResponseJson
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.HistoryService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -52,7 +52,7 @@ class HistoryServiceTest {
 
 
     @Test
-    fun testGetHistoryService() = runTest {
+    fun getHistoryService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -77,7 +77,7 @@ class HistoryServiceTest {
 
 
     @Test
-    fun testGetHistoryByHistoryIdService() = runTest {
+    fun getHistoryByHistoryIdService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(historyResponseJson)
@@ -99,7 +99,7 @@ class HistoryServiceTest {
     }
 
     @Test
-    fun testCreateHistoryService() = runTest {
+    fun createHistoryService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)
@@ -121,7 +121,7 @@ class HistoryServiceTest {
     }
 
     @Test
-    fun testDeleteHistoryService() = runTest {
+    fun deleteHistoryService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)

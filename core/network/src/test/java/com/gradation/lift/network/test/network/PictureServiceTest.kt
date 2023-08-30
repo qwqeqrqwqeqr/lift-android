@@ -10,7 +10,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.getUserProfi
 import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.routineSetPictureResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.userProfilePictureResponseJson
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.PictureService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -48,7 +48,7 @@ class PictureServiceTest {
     }
 
     @Test
-    fun testGetUserProfilePictureService() = runTest {
+    fun getUserProfilePictureService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -73,7 +73,7 @@ class PictureServiceTest {
 
 
     @Test
-    fun testGetRoutineSetPictureService() = runTest {
+    fun getRoutineSetPictureService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

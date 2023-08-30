@@ -16,7 +16,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.User.updateUserDetai
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.User.userDetailResponseJson
 import com.gradation.lift.network.di.TestServiceModule.testUserService
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -55,7 +55,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testExistUserDetailService() = runTest {
+    fun existUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -76,7 +76,7 @@ class UserServiceTest {
         assertThat(response.body()!!.data).isEqualTo(existUserDetailResponseDto)
     }
     @Test
-    fun testGetUserDetailService() = runTest {
+    fun getUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -97,7 +97,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testCreateUserDetailService() = runTest {
+    fun createUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -118,7 +118,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testUpdateUserDetailService() = runTest {
+    fun updateUserDetailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

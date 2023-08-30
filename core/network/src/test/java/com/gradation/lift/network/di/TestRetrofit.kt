@@ -1,4 +1,5 @@
-package com.gradation.lift.network.fake
+package com.gradation.lift.network.di
+
 
 import com.gradation.lift.network.common.Constants
 import com.squareup.moshi.Moshi
@@ -30,3 +31,5 @@ class TestRetrofit(
             .build()
     }
 }
+
+

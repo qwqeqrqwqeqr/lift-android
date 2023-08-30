@@ -21,6 +21,26 @@ object TestJsonDataGenerator {
           }
         }
     """.trimIndent()
+        internal val signInKakaoResponseJson = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "access_token": "$FAKE_ACCESS_TOKEN",
+            "refresh_token": "$FAKE_REFRESH_TOKEN"
+          }
+        }
+    """.trimIndent()
+        internal val signInNaverResponseJson = """
+        {
+          "status": true,
+          "message": "",
+          "data": {
+            "access_token": "$FAKE_ACCESS_TOKEN",
+            "refresh_token": "$FAKE_REFRESH_TOKEN"
+          }
+        }
+    """.trimIndent()
     }
 
     object Refresh {

@@ -1,6 +1,5 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.network.fake.TestRetrofit
 import com.gradation.lift.network.service.*
 
 
@@ -33,3 +32,5 @@ object TestServiceModule {
     fun testPictureService(retrofit: TestRetrofit): PictureService =
         retrofit.build().create(PictureService::class.java)
 }
+
+
