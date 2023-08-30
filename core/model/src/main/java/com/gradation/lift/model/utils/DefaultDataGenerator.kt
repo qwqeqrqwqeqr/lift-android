@@ -1,7 +1,5 @@
 package com.gradation.lift.model.utils
 
-import com.gradation.lift.model.model.common.UnitOfWeight
-import kotlinx.datetime.LocalDate
 
 object DefaultDataGenerator {
 
@@ -20,4 +18,5 @@ object DefaultDataGenerator {
     const val FAKE_ROUTINE_DESCRIPTION_DATA = "집중적으로 하는 운동"
 
 
+    const val FAKE_ERROR_MESSAGE = "ERROR"
 }

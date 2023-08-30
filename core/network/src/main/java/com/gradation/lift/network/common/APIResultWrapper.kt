@@ -14,5 +14,5 @@ import kotlinx.serialization.Serializable
 data class APIResultWrapper<out T : Any>(
     val status: Boolean,
     val message: String,
-    val data: T?,
+    val data: T?
 )

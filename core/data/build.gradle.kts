@@ -4,6 +4,9 @@ plugins {
     id("lift.android.hilt")
     id("lift.android.test")
     id("lift.android.network")
+    id("lift.android.datastore")
+    id("lift.android.room")
+    id("lift.android.work")
 }
 
 
@@ -30,4 +33,5 @@ dependencies{
     implementation(project(":core:database"))
     implementation(project(":core:model"))
     implementation(project(":core:oauth"))
+    androidTestImplementation(project(mapOf("path" to ":core:data")))
 }

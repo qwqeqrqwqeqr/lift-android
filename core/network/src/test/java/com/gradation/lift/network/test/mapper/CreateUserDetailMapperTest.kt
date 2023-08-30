@@ -13,7 +13,7 @@ import org.junit.Test
 class CreateUserDetailMapperTest {
 
     @Test
-    fun testCreateUserDetailMapper() = runTest {
+    fun createUserDetailMapper() = runTest {
 
         with(createUserDetailModel.toDto()) {
             Truth.assertThat(this.gender).isEqualTo(createUserDetailRequestDto.userDetailDto.gender)

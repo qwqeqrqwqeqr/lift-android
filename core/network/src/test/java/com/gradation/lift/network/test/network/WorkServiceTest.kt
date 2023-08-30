@@ -11,7 +11,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.getWorkPart
 import com.gradation.lift.network.data.TestJsonDataGenerator.WorkCategory.workCategoryResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.WorkPart.workPartResponseJson
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
+import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.WorkService
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -51,7 +51,7 @@ class WorkServiceTest {
 
 
     @Test
-    fun testGetWorkPartService() = runTest {
+    fun getWorkPartService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -73,7 +73,7 @@ class WorkServiceTest {
     }
 
     @Test
-    fun testGetWorkCategoryService() = runTest {
+    fun getWorkCategoryService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -96,7 +96,7 @@ class WorkServiceTest {
 
 
     @Test
-    fun testGetWorkCategoryByWorkPartService() = runTest {
+    fun getWorkCategoryByWorkPartService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

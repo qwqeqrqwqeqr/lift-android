@@ -5,13 +5,13 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
+import com.gradation.lift.network.di.TestServiceModule
+import com.gradation.lift.network.service.CheckerService
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.data.TestDtoDataGenerator.Checker.checkDuplicateEmailResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Checker.checkDuplicateNameResponseDto
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
-import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.fake.TestRetrofit
-import com.gradation.lift.network.service.CheckerService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.network.di.TestRetrofit
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -49,7 +49,7 @@ class CheckerServiceTest {
 
 
     @Test
-    fun testCheckDuplicateEmailService() = runTest {
+    fun checkDuplicateEmailService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
@@ -71,7 +71,7 @@ class CheckerServiceTest {
 
 
     @Test
-    fun testCheckDuplicateNameService() = runTest {
+    fun checkDuplicateNameService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()

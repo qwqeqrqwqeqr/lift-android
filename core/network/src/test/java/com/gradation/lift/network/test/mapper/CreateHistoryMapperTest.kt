@@ -13,7 +13,7 @@ import org.junit.Test
 class CreateHistoryMapperTest {
 
     @Test
-    fun testCreateHistoryMapper() = runTest {
+    fun createHistoryMapper() = runTest {
 
         with(createHistoryModel.toDto()) {
             Truth.assertThat(this.score).isEqualTo(createHistoryRequestDto.score)

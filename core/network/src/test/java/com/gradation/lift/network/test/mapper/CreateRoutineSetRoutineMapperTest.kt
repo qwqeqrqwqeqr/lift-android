@@ -13,7 +13,7 @@ import org.junit.Test
 class CreateRoutineSetRoutineMapperTest {
 
     @Test
-    fun testCreateRoutineSetRoutineMapper() = runTest {
+    fun createRoutineSetRoutineMapper() = runTest {
 
         with(createRoutineSetRoutineModel.toDto()) {
             Truth.assertThat(this.name).isEqualTo(createRoutineSetRoutineRequestDto.name)
