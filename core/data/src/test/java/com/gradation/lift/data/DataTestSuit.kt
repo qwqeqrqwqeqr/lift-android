@@ -1,12 +1,12 @@
 package com.gradation.lift.data
 
-import com.gradation.lift.data.datasource.AuthDataSourceTest
-import com.gradation.lift.data.datasource.CheckerDataSourceTest
-import com.gradation.lift.data.datasource.HistoryDataSourceTest
-import com.gradation.lift.data.datasource.PictureDataSourceTest
-import com.gradation.lift.data.datasource.RoutineDataSourceTest
-import com.gradation.lift.data.datasource.UserDataSourceTest
-import com.gradation.lift.data.datasource.WorkDataSourceTest
+import com.gradation.lift.data.test.datasource.AuthDataSourceTest
+import com.gradation.lift.data.test.datasource.CheckerDataSourceTest
+import com.gradation.lift.data.test.datasource.HistoryDataSourceTest
+import com.gradation.lift.data.test.datasource.PictureDataSourceTest
+import com.gradation.lift.data.test.datasource.RoutineDataSourceTest
+import com.gradation.lift.data.test.datasource.UserDataSourceTest
+import com.gradation.lift.data.test.datasource.WorkDataSourceTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
 import org.junit.runners.Suite

@@ -1,4 +1,4 @@
-package com.gradation.lift.data.datasource
+package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.NetworkResult
