@@ -65,7 +65,7 @@ fun RoutineListView(
                 color = LiftTheme.colorScheme.no9,
             )
             Icon(
-                painterResource(id = if (routine.opened) LiftIcon.ChevronUp else LiftIcon.ChevronDown),
+                painterResource(id = if (routine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
                 contentDescription = null,
                 modifier = modifier
                     .height(12.dp)
