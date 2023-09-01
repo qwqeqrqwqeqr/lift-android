@@ -25,6 +25,7 @@ import javax.inject.Inject
  * @property currentWork 현재 진행하고 있는 운동
  * @property previousWork 이전 순번 운동 [currentWorkIndex] 바탕으로 존재 여부를 판단함
  * @property nextWork 다음 순번 운동 [currentWorkIndex] 바탕으로 존재 여부를 판단함
+ * @since 2023-09-01 15:49:50
  */
 class WorkState @Inject constructor(
     private val viewModelScope: CoroutineScope,
