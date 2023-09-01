@@ -133,9 +133,6 @@ class DefaultAuthRepository @Inject constructor(
     override fun signOut(): Flow<DataState<Unit>> = flow {
         try {
             tokenDataStoreDataSource.clearAll()
-            Log.d("test",tokenDataStoreDataSource.refreshToken.first())
-            Log.d("test",tokenDataStoreDataSource.accessToken.first())
-            Log.d("test",tokenDataStoreDataSource.loginMethod.first().toValue())
             emit(DataState.Success(Unit))
         } catch (error: Exception) {
             emit(DataState.Fail(error.toMessage()))
