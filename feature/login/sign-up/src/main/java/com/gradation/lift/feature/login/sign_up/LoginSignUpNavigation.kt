@@ -19,8 +19,8 @@ fun loginSignUpScreen(
 
     navGraphBuilder.composable(Router.LOGIN_SIGN_UP_ROUTER_NAME) {
         LoginSignUpRoute(
-            navigateSignUpToComplete,
-            navigateSignUpToSignIn
+            navigateSignUpToComplete = navigateSignUpToComplete,
+            navigateSignUpToSignIn = navigateSignUpToSignIn
         )
 
     }
