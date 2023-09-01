@@ -25,7 +25,7 @@ internal fun CancelDialog(
     onClickDialogSuspendButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,
 ) {
-    LiftDialog(onDismissRequest = {}) {
+    LiftDialog(onDismissRequest = onClickDialogDismissButton) {
         Column(
             modifier
                 .background(
