@@ -1,21 +1,25 @@
 package com.gradation.lift.feature.create_routine.find_work_category.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.create_routine.find_work_category.CreateRoutineFindWorkCategoryScreen
+import com.gradation.lift.feature.create_routine.find_work_category.data.model.WorkPartFilterSelection
 import com.gradation.lift.model.model.work.WorkCategory
+import com.gradation.lift.model.utils.ModelDataGenerator
 
 
 @Composable
@@ -27,49 +31,79 @@ fun WorkCategoryView(
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxSize()
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(16.dp)
+        LazyColumn(
+            modifier = modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                items(workCategoryList) { workCategory ->
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
+            items(workCategoryList) { workCategory ->
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .noRippleClickable
+                        {
+                            navigateFindWorkCategoryToRoutine()
+                            updateTempWorkCategory(workCategory.name)
+                        }
+                        .background(LiftTheme.colorScheme.no5)
+                        .border(
+                            width = 1.dp,
+                            color = LiftTheme.colorScheme.no8,
+                            shape = RoundedCornerShape(size = 12.dp)
+                        )
+                        .padding(horizontal = 16.dp, vertical = 16.dp),
+
                     ) {
-                        Box(
-                            modifier = modifier
-                                .background(
-                                    color = LiftTheme.colorScheme.no1,
-                                    shape = RoundedCornerShape(size = 12.dp)
-                                )
-                                .align(alignment = Alignment.CenterHorizontally)
-                                .size(156.dp)
-                                .noRippleClickable
-                                      {
-                                        navigateFindWorkCategoryToRoutine()
-                                        updateTempWorkCategory(workCategory.name)
-                                    }
+                    Text(
+                        text = workCategory.name,
+                        style = LiftTheme.typography.no3,
+                        color = LiftTheme.colorScheme.no3,
 
                         )
-                        Spacer(modifier = modifier.padding(2.dp))
-                        Text(
-                            text = workCategory.name,
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no3,
-                            textAlign = TextAlign.Center
-                        )
+                    with(workCategory.introduce) {
+                        if (this.isNotBlank()) {
+                            Text(
+                                text = workCategory.introduce,
+                                style = LiftTheme.typography.no4,
+                                color = LiftTheme.colorScheme.no9,
+                            )
+                        }
                     }
 
                 }
-            }
 
+            }
         }
+    }
+}
+
+
+@Composable
+@Preview
+fun CreateRoutineFindWorkCategoryScreenPreview() {
+    LiftMaterialTheme {
+        CreateRoutineFindWorkCategoryScreen(
+            searchText = "",
+            workPartFilterList = listOf(
+                WorkPartFilterSelection("전체", true),
+                WorkPartFilterSelection("어깨", false),
+                WorkPartFilterSelection("가슴", false),
+            ),
+            workCategoryList = listOf(
+                ModelDataGenerator.WorkCategory.workCategoryModel1,
+                ModelDataGenerator.WorkCategory.workCategoryModel1,
+                ModelDataGenerator.WorkCategory.workCategoryModel1,
+                ModelDataGenerator.WorkCategory.workCategoryModel1,
+                ModelDataGenerator.WorkCategory.workCategoryModel1,
+            ),
+            filteredWorkCategoryCount = 25,
+            updateSearchText = {},
+            updateWorkPartFilter = {},
+            updateTempWorkCategory = {},
+            navigateFindWorkCategoryToRoutineSet = {},
+            navigateFindWorkCategoryToRoutine = {}
+        )
     }
 }
