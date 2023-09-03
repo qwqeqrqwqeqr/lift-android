@@ -72,7 +72,6 @@ internal fun HomeRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -87,38 +86,31 @@ internal fun HomeScreen(
     navigateMainGraphToWorkGraph: () -> Unit,
     scrollState: ScrollState,
 ) {
-    Scaffold(
-        modifier = modifier
+
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = LiftTheme.colorScheme.no17
     ) {
-        Surface(
-            modifier = modifier
-                .padding(it)
-                .fillMaxSize(),
-            color = LiftTheme.colorScheme.no17
+        Column(
+            modifier=modifier.verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Column(
-                modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ProfileView(
-                    modifier = modifier,
-                    userDetailUiState = userDetailUiState,
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                WeekDateRoutineView(
-                    modifier,
-                    navController,
-                    today,
-                    weekDateSelectionList,
-                    weekDateRoutineUiState,
-                    updateSelectedDate,
-                    updateRoutineSetIdKey,
-                    navigateMainGraphToCreateRoutineGraph,
-                    navigateMainGraphToWorkGraph
-                )
-            }
+            ProfileView(
+                modifier = modifier,
+                userDetailUiState = userDetailUiState,
+            )
+            WeekDateRoutineView(
+                modifier,
+                navController,
+                today,
+                weekDateSelectionList,
+                weekDateRoutineUiState,
+                updateSelectedDate,
+                updateRoutineSetIdKey,
+                navigateMainGraphToCreateRoutineGraph,
+                navigateMainGraphToWorkGraph
+            )
         }
     }
 }
