@@ -25,7 +25,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 internal fun LoadingProfileDetailView(
     modifier: Modifier = Modifier,
-    navigateMyInfoGraphToLoginGraph: () -> Unit,
+    signOut: () -> Unit,
 ) {
     Row(
         modifier = modifier.padding(16.dp)
@@ -68,7 +68,7 @@ internal fun LoadingProfileDetailView(
                             LiftTheme.colorScheme.no1, RoundedCornerShape(6.dp)
                         )
                         .padding(5.dp)
-                        .noRippleClickable { navigateMyInfoGraphToLoginGraph() }
+                        .noRippleClickable { signOut() }
                 ) {
                     Text(
                         text = "로그아웃",

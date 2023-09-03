@@ -65,7 +65,7 @@ fun WorkListScreen(
 
             }
         },
-    ) {
+    ) { it ->
         Column(
             modifier = modifier
                 .padding(it)
@@ -111,7 +111,18 @@ fun WorkListScreen(
                 itemsIndexed(workList) { index, workRoutine ->
                     Column(
                         modifier = modifier
-                            .background(LiftTheme.colorScheme.no5)
+                            .background(
+                                LiftTheme.colorScheme.no5, shape =
+                                if (workList.size == 1) {
+                                    RoundedCornerShape(16.dp)
+                                } else if (index == 0) {
+                                    RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
+                                } else if (index == workList.size - 1) {
+                                    RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
+                                } else {
+                                    RoundedCornerShape(0.dp)
+                                }
+                            )
                             .border(
                                 width = 1.dp,
                                 color = LiftTheme.colorScheme.no8,
@@ -132,7 +143,9 @@ fun WorkListScreen(
                         horizontalAlignment = Alignment.Start,
                     ) {
                         Row(
-                            modifier = modifier.fillMaxWidth().padding(vertical = 16.dp),
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {

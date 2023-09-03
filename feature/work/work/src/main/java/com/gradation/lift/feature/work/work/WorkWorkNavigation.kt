@@ -14,8 +14,8 @@ fun workWorkScreen(
 ) {
     navGraphBuilder.composable(WORK_WORK_ROUTER_NAME) {
 
-        val navigateWorkToComplete = { navController.navigateWorkToComplete() }
-        val navigateWorkGraphToHomeGraph = { navController.navigateWorkGraphToHomeGraph() }
+        val navigateWorkToComplete: () -> Unit = { navController.navigateWorkToComplete() }
+        val navigateWorkGraphToHomeGraph: () -> Unit = { navController.navigateWorkGraphToHomeGraph() }
 
         WorkWorkRoute(
             navController = navController,

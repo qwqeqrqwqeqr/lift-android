@@ -34,7 +34,7 @@ import com.gradation.lift.ui.utils.toText
 internal fun ProfileDetailView(
     modifier: Modifier = Modifier,
     userDetail: UserDetail,
-    navigateMyInfoGraphToLoginGraph: () -> Unit,
+    signOut: () -> Unit,
     navigateMyInfoToUpdateProfile: () -> Unit
 ) {
     Row(
@@ -102,7 +102,7 @@ internal fun ProfileDetailView(
                             LiftTheme.colorScheme.no1, RoundedCornerShape(6.dp)
                         )
                         .padding(5.dp)
-                        .noRippleClickable { navigateMyInfoGraphToLoginGraph() }
+                        .noRippleClickable { signOut() }
                 ) {
                     Text(
                         text = "로그아웃",

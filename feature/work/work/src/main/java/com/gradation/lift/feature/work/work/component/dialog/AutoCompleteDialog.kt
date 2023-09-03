@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCancelButton
 import com.gradation.lift.designsystem.component.LiftDialog
-import com.gradation.lift.designsystem.component.LiftErrorButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -26,7 +25,7 @@ internal fun AutoCompleteDialog(
     onClickDialogCompleteButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,
 ) {
-    LiftDialog(onDismissRequest = {}) {
+    LiftDialog(onDismissRequest = onClickDialogDismissButton) {
         Column(
             modifier
                 .background(

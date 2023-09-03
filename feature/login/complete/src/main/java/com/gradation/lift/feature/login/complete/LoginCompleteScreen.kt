@@ -23,10 +23,7 @@ import com.gradation.lift.ui.utils.DevicePreview
 fun LoginCompleteRoute(
     navigateSignUpToSignIn: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: LoginCompleteViewModel = hiltViewModel(),
 ) {
-
-
     LoginCompleteScreen(
         modifier, navigateSignUpToSignIn
     )

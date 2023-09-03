@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,7 +18,7 @@ fun LiftButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape : RoundedCornerShape = RoundedCornerShape(size = 12.dp),
+    shape: RoundedCornerShape = RoundedCornerShape(size = 12.dp),
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -106,10 +105,12 @@ fun LiftOutlineButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = LiftTheme.colorScheme.no5,
             contentColor = LiftTheme.colorScheme.no4,
+            disabledContainerColor = LiftTheme.colorScheme.no13,
+            disabledContentColor = LiftTheme.colorScheme.no5
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = LiftTheme.colorScheme.no4
+            color = if (enabled) LiftTheme.colorScheme.no4 else Color.Transparent
         ),
         contentPadding = contentPadding,
         content = content,

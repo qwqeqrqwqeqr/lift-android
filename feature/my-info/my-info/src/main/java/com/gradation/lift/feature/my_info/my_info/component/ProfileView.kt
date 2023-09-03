@@ -20,7 +20,7 @@ fun ProfileView(
     modifier: Modifier = Modifier,
     userDetailUiState: UserDetailUiState,
     workCount:Int,
-    navigateMyInfoGraphToLoginGraph: () -> Unit,
+    signOut: () -> Unit,
     navigateMyInfoToUpdateProfile: () -> Unit
 ) {
 
@@ -37,14 +37,14 @@ fun ProfileView(
         when (userDetailUiState) {
             is UserDetailUiState.Fail -> {}
             UserDetailUiState.Loading -> {
-                LoadingProfileDetailView(modifier, navigateMyInfoGraphToLoginGraph)
+                LoadingProfileDetailView(modifier, signOut)
             }
 
             is UserDetailUiState.Success -> {
                 ProfileDetailView(
                     modifier = modifier,
                     userDetail = userDetailUiState.userDetail,
-                    navigateMyInfoGraphToLoginGraph = navigateMyInfoGraphToLoginGraph,
+                    signOut = signOut,
                     navigateMyInfoToUpdateProfile = navigateMyInfoToUpdateProfile
                 )
             }

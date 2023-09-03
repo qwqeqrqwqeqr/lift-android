@@ -30,50 +30,54 @@ internal fun WeekDateRoutineView(
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
 ) {
+
     Column(
         modifier = modifier
+            .fillMaxSize()
             .background(
                 color = LiftTheme.colorScheme.no5,
-                shape = RoundedCornerShape(24.dp, 24.dp, 0.dp, 0.dp)
+                shape = RoundedCornerShape(24.dp, 24.dp)
             )
+            .fillMaxHeight()
             .padding(16.dp)
     ) {
 
         WeekDateView(modifier, today, weekDateSelectionList, updateSelectedDate)
 
 
-            when (weekDateRoutineUiState) {
-                WeekDateRoutineUiState.Empty -> {
-                    EmptyRoutineListView(
-                        modifier,
-                        navigateMainGraphToCreateRoutineGraph
-                    )
-                }
-                is WeekDateRoutineUiState.Fail -> {
+        when (weekDateRoutineUiState) {
+            WeekDateRoutineUiState.Empty -> {
+                EmptyRoutineListView(
+                    modifier,
+                    navigateMainGraphToCreateRoutineGraph
+                )
+            }
 
-                }
-                WeekDateRoutineUiState.Loading -> {
-                    LoadingRoutineListView(modifier)
+            is WeekDateRoutineUiState.Fail -> {
 
-                }
-                is WeekDateRoutineUiState.Success -> {
-                    Column {
-                        RoutineListView(
-                            modifier.fillMaxHeight(),
-                            navController,
-                            routineSetRoutineList = weekDateRoutineUiState.weekDateRoutine,
-                            updateRoutineSetIdKey,
-                            navigateMainGraphToCreateRoutineGraph,
-                            navigateMainGraphToWorkGraph
-                        )
-                        Spacer(modifier = modifier.padding(128.dp))
-                        NavigationView(modifier.fillMaxHeight(), navigateMainGraphToWorkGraph)
-                    }
-                }
+            }
+
+            WeekDateRoutineUiState.Loading -> {
+                LoadingRoutineListView(modifier)
+
+            }
+
+            is WeekDateRoutineUiState.Success -> {
+                RoutineListView(
+                    modifier,
+                    navController,
+                    routineSetRoutineList = weekDateRoutineUiState.weekDateRoutine,
+                    updateRoutineSetIdKey,
+                    navigateMainGraphToCreateRoutineGraph,
+                    navigateMainGraphToWorkGraph
+                )
             }
         }
 
+        NavigationView(modifier, navigateMainGraphToWorkGraph)
+    }
 }
+
 
 
 
