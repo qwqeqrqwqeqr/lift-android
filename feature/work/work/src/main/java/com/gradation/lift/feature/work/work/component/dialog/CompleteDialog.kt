@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCancelButton
 import com.gradation.lift.designsystem.component.LiftDialog
-import com.gradation.lift.designsystem.component.LiftErrorButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -88,7 +87,7 @@ internal fun CompleteDialog(
             }
             else{
                 Text(
-                    "그래도 완료할 경우, 세트를 \n마무리 하지 않은 운동은 삭제됩니다.",
+                    "그래도 완료할 경우, 세트를 \n마무리 하지 않은 운동들은 삭제됩니다.",
                     textAlign = TextAlign.Center,
                     style = LiftTheme.typography.no4,
                     color = LiftTheme.colorScheme.no9

@@ -18,7 +18,7 @@ import javax.inject.Inject
  * @property routineSetRoutineList 현재 설정 되어있는 루틴세트의 목록
  * @property workState 운동 상태를 관리하는 모델
  * @property historyWorkRestTime 운동 시간 정보, 기록에 등록하기 위한 필드로 실질적인 계산은 [WorkWorkViewModel]에서 진행
- * @property historyRoutine 운동 루틴 정보, 기록에 등록하기 위한 필드
+ * @property historyRoutine 운동 루틴 정보을 기록에 등록하기 위한 필드  완료되지 않은 세트는 기록에 저장되지않는다.
  * @since 2023-08-22 15:58:22
  */
 @HiltViewModel
@@ -51,11 +51,11 @@ class WorkSharedViewModel @Inject constructor(
 
     val historyRoutine: StateFlow<List<CreateHistoryRoutine>> = workState.workList.map { workList ->
         workList
-            .filter { it.workSetList.count { it.selected } == it.workSetList.count() }
+            .filter { it.workSetList.count { it.selected } != 0 }
             .map {
                 CreateHistoryRoutine(
                     workCategory = it.workCategory.name,
-                    workSetList = it.workSetList.map {
+                    workSetList = it.workSetList.filter { it.selected }.map {
                         WorkSet(
                             weight = it.weight,
                             repetition = it.repetition
@@ -72,12 +72,14 @@ class WorkSharedViewModel @Inject constructor(
     /**
      * 현재 모든 운동이 체크 되었는지 여부
      * (모든 운동을 완료 했는지)
-     * 해당 메서드를 바탕으로 완료 팝업을 보여줄지 결정함
+     * 해당 메서드를 바탕으로 완료 팝업을 보여 줄지 결정함
      * @since 2023-08-22 16:11:02
      */
     fun isAllCheckedWorkSet(): (List<WorkSetSelection>) -> Boolean = { workSetList ->
         workSetList.count() == workSetList.count { it.selected }
     }
+
+
 
     fun updateRoutineSetRoutineList(): (List<RoutineSetRoutine>) -> Unit = { value ->
         routineSetRoutineList.update { it.plus(value) }

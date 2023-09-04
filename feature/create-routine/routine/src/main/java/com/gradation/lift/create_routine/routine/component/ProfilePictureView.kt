@@ -9,8 +9,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
@@ -24,7 +24,7 @@ fun ProfilePictureView(
         Box(
             modifier = modifier
                 .background(
-                    color = LiftTheme.colorScheme.no1,
+                    color = Color.Transparent,
                     shape = RoundedCornerShape(size = 12.dp)
                 )
                 .align(alignment = Alignment.CenterHorizontally)

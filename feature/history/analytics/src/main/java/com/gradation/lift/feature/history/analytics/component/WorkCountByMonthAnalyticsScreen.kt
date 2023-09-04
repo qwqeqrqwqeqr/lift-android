@@ -25,8 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.BarChart
-import com.gradation.lift.designsystem.component.BarChartItem
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
@@ -83,13 +81,7 @@ fun WorkCountByMonthAnalyticsScreen(
         Spacer(modifier = modifier.padding(32.dp))
 
 
-        BarChart(
-            modifier=modifier,
-            items=  historyCountByMonthList.map {
-                BarChartItem(x = "${it.month}월", it.frequency.toFloat(), itemName = "${it.frequency}회")
-            }
 
-        )
         Spacer(modifier = modifier.padding(16.dp))
 
         Box {

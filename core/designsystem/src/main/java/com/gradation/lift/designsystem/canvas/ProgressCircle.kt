@@ -12,41 +12,45 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun LiftProgressCircle(
     modifier: Modifier = Modifier,
     progress: Int,
+    progressBarColor: Color = LiftTheme.colorScheme.no4,
+    progressBarBackgroundColor: Color = LiftTheme.colorScheme.no1
 ) {
+
     val maxProgress = 275f
-    Box(
+    BoxWithConstraints(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .padding(top = 8.dp, start = 8.dp)
             .size(196.dp),
     ) {
-
-
+        val canvasHeight = this.maxHeight
+        val canvasWidth = this.maxWidth
         Canvas(
             modifier = modifier
                 .align(Alignment.Center)
                 .fillMaxSize()
         ) {
             drawArc(
-                color = Color(0xFFF2F2F5),
+                color = progressBarBackgroundColor,
                 startAngle = 135f,
                 sweepAngle = maxProgress,
                 useCenter = false,
-                size = Size(512.dp.value, 512.dp.value),
+                size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
                 style = Stroke(width = 48f, cap = StrokeCap.Round)
             )
 
             drawArc(
-                color = Color(0xFF0080FF),
+                color = progressBarColor,
                 startAngle = 135f,
                 sweepAngle = progress / 100f * maxProgress,
                 useCenter = false,
-                size = Size(512.dp.value, 512.dp.value),
+                size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
                 style = Stroke(width = 48f, cap = StrokeCap.Round)
             )
         }

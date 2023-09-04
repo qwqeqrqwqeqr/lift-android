@@ -116,7 +116,6 @@ fun LoginSignUpRoute(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginSignUpScreen(
     modifier: Modifier = Modifier,

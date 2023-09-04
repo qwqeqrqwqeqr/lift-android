@@ -72,13 +72,13 @@ fun WorkWorkScreen(
                             end = 16.dp,
                             bottom = 16.dp
                         ),
+                    enabled = workProgress!=0,
                     shape = RoundedCornerShape(size = 12.dp),
                     onClick = onClickWorkCompleteButton,
                 ) {
                     Text(
                         text = "운동완료",
                         style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no4,
                     )
                 }
                 LiftButton(

@@ -117,13 +117,20 @@ internal fun CreateRoutineRoutineSetRoute(
                 updateCreateRoutineState(CreateRoutineState.None)
             }
         }
+
         CreateRoutineState.None -> {}
         CreateRoutineState.Success -> {
             navigateCreateRoutineGraphToHomeGraph()
         }
     }
 
-    BackHandler(onBack = visibleCancelDialog)
+    BackHandler(
+        onBack = if (routineSetRoutine.isEmpty()) {
+            navigateCreateRoutineGraphToHomeGraph
+        } else {
+            visibleCancelDialog
+        }
+    )
 
 }
 
@@ -154,11 +161,10 @@ internal fun CreateRoutineRoutineSetScreen(
     snackbarHostState: SnackbarHostState,
     focusManager: FocusManager,
 ) {
-    Box {
-
     if (onVisibleCancelDialog) {
         Surface(
-            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
+            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
+            modifier = modifier.fillMaxSize()
         ) {
             CancelDialog(
                 onClickDialogSuspendButton = navigateCreateRoutineGraphToHomeGraph,
@@ -166,87 +172,89 @@ internal fun CreateRoutineRoutineSetScreen(
             )
         }
     }
-        Scaffold(
-            topBar = {
-                LiftBackTopBar(
-                    title = "루틴리스트 만들기",
-                    onBackClickTopBar = visibleCancelDialog,
+    Scaffold(
+        topBar = {
+            LiftBackTopBar(
+                title = "루틴리스트 만들기",
+                onBackClickTopBar = if (routineSetRoutine.isEmpty()) {
+                    navigateCreateRoutineGraphToHomeGraph
+                } else {
+                    visibleCancelDialog
+                },
+            )
+        },
+        snackbarHost = {
+            LiftErrorSnackBar(
+                modifier = modifier,
+                snackbarHostState = snackbarHostState
+            )
+        },
+        modifier = modifier.fillMaxSize()
+    ) { padding ->
+        Surface(
+            color = LiftTheme.colorScheme.no5,
+            modifier = modifier
+                .fillMaxSize()
+                .padding(padding)
+                .noRippleClickable(
+                    onClick = { focusManager.clearFocus() },
                 )
-            },
-            snackbarHost = {
-                LiftErrorSnackBar(
-                    modifier = modifier,
-                    snackbarHostState = snackbarHostState
-                )
-            },
-            modifier = modifier.fillMaxSize()
-        ) { padding ->
-            Surface(
-                color = LiftTheme.colorScheme.no5,
+        ) {
+            Column(
                 modifier = modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .noRippleClickable(
-                        onClick = { focusManager.clearFocus() },
-                    )
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState)
             ) {
-                Column(
-                    modifier = modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                        .verticalScroll(scrollState)
-                ) {
 
-                    RoutineSetPictureView(
-                        modifier,
-                        navigateRoutineSetToProfile,
-                        routineSetPicture
-                    )
+                RoutineSetPictureView(
+                    modifier,
+                    navigateRoutineSetToProfile,
+                    routineSetPicture
+                )
 
-                    Spacer(modifier = modifier.padding(16.dp))
+                Spacer(modifier = modifier.padding(16.dp))
 
-                    RoutineSetNameView(
-                        modifier,
-                        routineSetName,
-                        routineSetNameValidator,
-                        updateRoutineSetName,
-                        focusManager
-                    )
+                RoutineSetNameView(
+                    modifier,
+                    routineSetName,
+                    routineSetNameValidator,
+                    updateRoutineSetName,
+                    focusManager
+                )
 
-                    Spacer(modifier = modifier.padding(9.dp))
+                Spacer(modifier = modifier.padding(9.dp))
 
-                    RoutineSetDescriptionView(
-                        modifier,
-                        routineSetDescription,
-                        routineSetDescriptionValidator,
-                        updateRoutineSetDescription,
-                        focusManager
-                    )
-                    Spacer(modifier = modifier.padding(9.dp))
+                RoutineSetDescriptionView(
+                    modifier,
+                    routineSetDescription,
+                    routineSetDescriptionValidator,
+                    updateRoutineSetDescription,
+                    focusManager
+                )
+                Spacer(modifier = modifier.padding(9.dp))
 
 
-                    WeekdayCardListView(
-                        modifier, weekdaySelectionList, updateRoutineSetWeekday
-                    )
-                    Spacer(modifier = modifier.padding(14.dp))
+                WeekdayCardListView(
+                    modifier, weekdaySelectionList, updateRoutineSetWeekday
+                )
+                Spacer(modifier = modifier.padding(14.dp))
 
-                    RoutineSetRoutineView(
-                        modifier,
-                        routineSetRoutine,
-                        removeRoutine,
-                        navigateRoutineSetToFindWorkCategory
-                    )
+                RoutineSetRoutineView(
+                    modifier,
+                    routineSetRoutine,
+                    removeRoutine,
+                    navigateRoutineSetToFindWorkCategory
+                )
 
-                    Spacer(modifier = modifier.padding(27.dp))
-                    NavigationView(
-                        modifier,
-                        createRoutineCondition,
-                        createRoutineSet
-                    )
-                }
+                Spacer(modifier = modifier.padding(27.dp))
+                NavigationView(
+                    modifier,
+                    createRoutineCondition,
+                    createRoutineSet
+                )
             }
         }
-
     }
 }
 
