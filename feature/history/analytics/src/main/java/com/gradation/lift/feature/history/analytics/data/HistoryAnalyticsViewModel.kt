@@ -13,6 +13,7 @@ import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.feature.history.analytics.data.state.HistoryUiState
 import com.gradation.lift.feature.history.analytics.data.state.WorkCountByMonthAnalyticsState
 import com.gradation.lift.feature.history.analytics.data.state.WorkFrequencyAnalyticsState
+import com.gradation.lift.feature.history.analytics.data.state.WorkPartAnalyticsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.LocalDate
@@ -73,6 +74,15 @@ class HistoryAnalyticsViewModel @Inject constructor(
         viewModelScope,
         today,
         historyUiState
+    )
+
+
+    val workPartAnalyticsState = WorkPartAnalyticsState(
+        viewModelScope,
+        today,
+        historyUiState,
+        getPreWeekUseCase,
+        getCurrentWeekUseCase
     )
 
 
