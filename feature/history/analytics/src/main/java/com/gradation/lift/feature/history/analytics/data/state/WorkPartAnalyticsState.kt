@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
@@ -22,7 +23,9 @@ import javax.inject.Inject
  * @property workPartAnalyticsTargetDate  비교할 타겟 날짜 (주,월,년)
  * @property historyWorkPartCountByCurrent  현재의 운동부위 별 운동 횟수 (주,월,년)
  * @property historyWorkPartCountByPre  과거의 운동부위 별 운동 횟수  (주,월,년)
- * @since 2023-09-05 14:23:25
+ * @property historyCountByPre  과거 총 운동 횟수 [workPartAnalyticsTargetDate] 에 따라 변경
+ * @property historyCoun및tByCurrent 현재 총 운동 횟수 [workPartAnalyticsTargetDate] 에 따라 변경
+ * @since 2023-09-05 15:21:09
  */
 class WorkPartAnalyticsState @Inject constructor(
     viewModelScope: CoroutineScope,
@@ -36,6 +39,7 @@ class WorkPartAnalyticsState @Inject constructor(
     val workPartAnalyticsTargetDate: MutableStateFlow<WorkPartAnalyticsTargetDate> =
         MutableStateFlow(WorkPartAnalyticsTargetDate.Week)
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     val historyWorkPartCountByPre: StateFlow<WorkCategoryFrequency> =
         combine(
@@ -44,7 +48,7 @@ class WorkPartAnalyticsState @Inject constructor(
             historyUiState
         ) { today, workPartAnalyticsTargetDate, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {
-                when(workPartAnalyticsTargetDate){
+                when (workPartAnalyticsTargetDate) {
                     WorkPartAnalyticsTargetDate.Month -> {
                         with(today.minus(DatePeriod(0, 1, 0)).month) {
                             historyUiStateResult.historyList.filter { history -> history.historyTimeStamp.month == this }
@@ -67,6 +71,7 @@ class WorkPartAnalyticsState @Inject constructor(
                                 }
                         }
                     }
+
                     WorkPartAnalyticsTargetDate.Week -> {
                         with(getPreWeekUseCase(today)) {
                             historyUiStateResult.historyList.filter { history -> history.historyTimeStamp.date in this }
@@ -89,6 +94,7 @@ class WorkPartAnalyticsState @Inject constructor(
                                 }
                         }
                     }
+
                     WorkPartAnalyticsTargetDate.Year -> {
                         with(today.minus(DatePeriod(1, 0, 0)).year) {
                             historyUiStateResult.historyList.filter { history -> history.historyTimeStamp.year == this }
@@ -129,7 +135,7 @@ class WorkPartAnalyticsState @Inject constructor(
             historyUiState
         ) { today, workPartAnalyticsTargetDate, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {
-                when(workPartAnalyticsTargetDate){
+                when (workPartAnalyticsTargetDate) {
                     WorkPartAnalyticsTargetDate.Month -> {
                         with(today.month) {
                             historyUiStateResult.historyList.filter { history -> history.historyTimeStamp.month == this }
@@ -152,6 +158,7 @@ class WorkPartAnalyticsState @Inject constructor(
                                 }
                         }
                     }
+
                     WorkPartAnalyticsTargetDate.Week -> {
                         with(getCurrentWeekUseCase(today)) {
                             historyUiStateResult.historyList.filter { history -> history.historyTimeStamp.date in this }
@@ -174,6 +181,7 @@ class WorkPartAnalyticsState @Inject constructor(
                                 }
                         }
                     }
+
                     WorkPartAnalyticsTargetDate.Year -> {
                         with(today.year) {
                             historyUiStateResult.historyList.filter { history -> history.historyTimeStamp.year == this }
@@ -207,7 +215,22 @@ class WorkPartAnalyticsState @Inject constructor(
         )
 
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    val historyCountByPre: StateFlow<Int> = historyWorkPartCountByPre.map {
+        it.absFrequency + it.armFrequency + it.backFrequency + it.chestFrequency + it.shoulderFrequency + it.lowerBodyFrequency
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = 0
+    )
+    @RequiresApi(Build.VERSION_CODES.O)
+    val historyCountByCurrent: StateFlow<Int> = historyWorkPartCountByCurrent.map {
+        it.absFrequency + it.armFrequency + it.backFrequency + it.chestFrequency + it.shoulderFrequency + it.lowerBodyFrequency
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = 0
+    )
 
 
     companion object {

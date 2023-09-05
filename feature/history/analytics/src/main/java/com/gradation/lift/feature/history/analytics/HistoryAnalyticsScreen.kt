@@ -17,8 +17,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.component.WorkCountByMonthAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.component.WorkFrequencyAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.data.HistoryAnalyticsViewModel
+import com.gradation.lift.feature.history.analytics.data.model.WorkCategoryFrequency
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
+import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetDate
 import com.gradation.lift.feature.history.analytics.data.state.HistoryUiState
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -33,7 +35,6 @@ fun HistoryAnalyticsRoute(
 ) {
 
     val historyUiState: HistoryUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
-    val historyCountByCurrentMonth: Int by viewModel.historyCountByCurrentMonth.collectAsStateWithLifecycle()
 
 
     val selectedMonth: LocalDate by viewModel.workFrequencyAnalyticsState.selectedMonth.collectAsStateWithLifecycle()
@@ -48,9 +49,17 @@ fun HistoryAnalyticsRoute(
 
 
     val historyCountByPreMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByPreMonth.collectAsStateWithLifecycle()
+    val historyCountByCurrentMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByCurrentMonth.collectAsStateWithLifecycle()
     val historyCountByMonthList: List<WorkFrequencyMonth> by viewModel.workCountByMonthAnalyticsState.historyCountByMonthList.collectAsStateWithLifecycle()
     val historyAveragePreCount: Int by viewModel.workCountByMonthAnalyticsState.historyAveragePreCount.collectAsStateWithLifecycle()
     val historyAverageCurrentCount: Int by viewModel.workCountByMonthAnalyticsState.historyAverageCurrentCount.collectAsStateWithLifecycle()
+
+
+    val workPartAnalyticsTargetDate: WorkPartAnalyticsTargetDate by viewModel.workPartAnalyticsState.workPartAnalyticsTargetDate.collectAsStateWithLifecycle()
+    val historyWorkPartCountByPre: WorkCategoryFrequency by viewModel.workPartAnalyticsState.historyWorkPartCountByPre.collectAsStateWithLifecycle()
+    val historyWorkPartCountByCurrent: WorkCategoryFrequency by viewModel.workPartAnalyticsState.historyWorkPartCountByCurrent.collectAsStateWithLifecycle()
+    val historyCountByPre: Int by viewModel.workPartAnalyticsState.historyCountByPre.collectAsStateWithLifecycle()
+    val historyCountByCurrent: Int by viewModel.workPartAnalyticsState.historyCountByCurrent.collectAsStateWithLifecycle()
 
 
     val scrollState = rememberScrollState()

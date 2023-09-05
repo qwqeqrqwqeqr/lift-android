@@ -50,17 +50,6 @@ class HistoryAnalyticsViewModel @Inject constructor(
         initialValue = HistoryUiState.None
     )
 
-    val historyCountByCurrentMonth: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
-        if (historyUiStateResult is HistoryUiState.Success) {
-            historyUiStateResult.historyList.count { history ->
-                history.historyTimeStamp.month == today.value.month
-            }
-        } else 0
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = 0
-    )
 
 
     val workFrequencyAnalyticsState = WorkFrequencyAnalyticsState(
