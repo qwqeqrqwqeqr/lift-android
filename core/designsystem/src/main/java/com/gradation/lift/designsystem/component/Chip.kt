@@ -56,6 +56,8 @@ fun LiftOutlineFilterChip(
     modifier: Modifier = Modifier,
     text: String,
     selected: Boolean,
+    selectedTextStyle : androidx.compose.ui.text.TextStyle = LiftTheme.typography.no5,
+    unselectedTextStyle : androidx.compose.ui.text.TextStyle = LiftTheme.typography.no6,
     onClick: () -> Unit
 ) {
     FilterChip(
@@ -82,7 +84,7 @@ fun LiftOutlineFilterChip(
         label = {
             Text(
                 text = text,
-                style = (if (selected) LiftTheme.typography.no5 else LiftTheme.typography.no6)
+                style = (if (selected) selectedTextStyle else unselectedTextStyle)
             )
         }
     )

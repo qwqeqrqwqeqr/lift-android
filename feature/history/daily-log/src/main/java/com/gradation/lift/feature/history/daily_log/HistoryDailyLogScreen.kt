@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -28,13 +31,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.component.LiftOutlineFilterChip
 import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -44,6 +52,7 @@ import com.gradation.lift.feature.history.daily_log.data.model.HistoryScoreWeekD
 import com.gradation.lift.feature.history.daily_log.data.state.HistoryUiState
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.ui.utils.toDayMonthText
+import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -65,6 +74,7 @@ fun HistoryDailyLogRoute(
     val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate()
     val plusMonthSelectedDate: () -> Unit = viewModel.plusMonthSelectedDate()
     val minusMonthSelectedDate: () -> Unit = viewModel.minusMonthSelectedDate()
+    val updateSelectedHistoryIndex: (Int) -> Unit = viewModel.updateSelectedHistoryIndex()
 
     val scrollState: ScrollState = rememberScrollState()
 
@@ -78,6 +88,7 @@ fun HistoryDailyLogRoute(
         updateSelectedDate,
         plusMonthSelectedDate,
         minusMonthSelectedDate,
+        updateSelectedHistoryIndex,
         scrollState
     )
 
@@ -93,6 +104,7 @@ fun HistoryDailyLogScreen(
     updateSelectedDate: (LocalDate) -> Unit,
     plusMonthSelectedDate: () -> Unit,
     minusMonthSelectedDate: () -> Unit,
+    updateSelectedHistoryIndex: (Int) -> Unit,
     scrollState: ScrollState,
 ) {
     Surface(color = LiftTheme.colorScheme.no17, modifier = modifier.fillMaxSize()) {
@@ -251,22 +263,250 @@ fun HistoryDailyLogScreen(
                     }
                 }
                 Spacer(modifier = modifier.padding(16.dp))
-                Column {
-                    if(selectedHistoryList.isEmpty()){
+                Column(
+                    modifier = modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    if (selectedHistoryList.isEmpty()) {
 
-                    }else{
+                    } else {
                         Text(
                             text = selectedDate.toDayMonthText(),
                             color = LiftTheme.colorScheme.no9,
                             style = LiftTheme.typography.no1
                         )
+                        Spacer(modifier = modifier.padding(16.dp))
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(
+                                8.dp,
+                                Alignment.CenterHorizontally
+                            ),
+                            modifier = modifier.fillMaxWidth(),
+                        ) {
+                            repeat(5) {
+                                Image(
+                                    painter = if (it < selectedHistory.score) painterResource(R.drawable.star_on) else painterResource(
+                                        R.drawable.star_off
+                                    ),
+                                    contentDescription = "",
+                                    modifier = modifier
+                                        .size(36.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = modifier.padding(16.dp))
+                        LazyRow(
+                            modifier = modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+                        ) {
+                            itemsIndexed(selectedHistoryList) { index, item ->
+                                LiftOutlineFilterChip(
+                                    modifier = modifier.padding(vertical = 4.dp),
+                                    text = "${index + 1}회",
+                                    selected = item == selectedHistory,
+                                    onClick = { updateSelectedHistoryIndex(index) },
+                                    selectedTextStyle = LiftTheme.typography.no3,
+                                    unselectedTextStyle = LiftTheme.typography.no4,
+                                )
+                            }
+                        }
+                        Spacer(modifier = modifier.padding(16.dp))
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Column(
+                                modifier = modifier
+                                    .background(LiftTheme.colorScheme.no5)
+                                    .border(
+                                        width = 2.dp,
+                                        color = LiftTheme.colorScheme.no8,
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
+                                    .weight(1f)
+                                    .fillMaxWidth()
+                                    .padding(vertical = 12.dp, horizontal = 16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically
+
+                                ) {
+                                    Icon(
+                                        painter = painterResource(LiftIcon.Muscle),
+                                        contentDescription = "",
+                                        tint = LiftTheme.colorScheme.no20
+                                    )
+                                    Spacer(modifier = modifier.padding(1.dp))
+                                    Text(
+                                        text = "총 소요시간",
+                                        style = LiftTheme.typography.no6,
+                                        color = LiftTheme.colorScheme.no11
+                                    )
+                                }
+                                Text(
+                                    text = selectedHistory.totalTime.toText(),
+                                    style = LiftTheme.typography.no3,
+                                    color = LiftTheme.colorScheme.no9
+                                )
+                            }
+                            Column(
+                                modifier = modifier
+                                    .background(LiftTheme.colorScheme.no5)
+                                    .border(
+                                        width = 2.dp,
+                                        color = LiftTheme.colorScheme.no8,
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
+                                    .weight(1f)
+                                    .fillMaxWidth()
+                                    .padding(vertical = 12.dp, horizontal = 16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically
+
+                                ) {
+                                    Icon(
+                                        painter = painterResource(LiftIcon.Timer),
+                                        contentDescription = "",
+                                        tint = LiftTheme.colorScheme.no4
+                                    )
+                                    Spacer(modifier = modifier.padding(1.dp))
+                                    Text(
+                                        text = "총 휴식시간",
+                                        style = LiftTheme.typography.no6,
+                                        color = LiftTheme.colorScheme.no11
+                                    )
+                                }
+                                Text(
+                                    text = selectedHistory.restTime.toText(),
+                                    style = LiftTheme.typography.no3,
+                                    color = LiftTheme.colorScheme.no9
+                                )
+                            }
+                        }
+                        Spacer(modifier = modifier.padding(16.dp))
+                        Column(modifier = modifier.fillMaxWidth()) {
+                            Text(
+                                text = "한 줄 메모",
+                                style = LiftTheme.typography.no3,
+                                color = LiftTheme.colorScheme.no9,
+                                modifier = modifier.align(Alignment.Start)
+                            )
+
+                            Spacer(modifier = modifier.padding(4.dp))
+                            Column(
+                                modifier = modifier
+                                    .border(
+                                        width = 1.5.dp,
+                                        color = LiftTheme.colorScheme.no8,
+                                        shape = RoundedCornerShape(size = 12.dp)
+                                    )
+                                    .background(
+                                        color = LiftTheme.colorScheme.no1,
+                                        shape = RoundedCornerShape(size = 12.dp)
+                                    )
+                                    .height(48.dp)
+                                    .padding(horizontal = 14.dp)
+                                    .fillMaxWidth(),
+                                horizontalAlignment = Alignment.Start,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = selectedHistory.comment ?: "",
+                                    color = LiftTheme.colorScheme.no9,
+                                    style =LiftTheme.typography.no6
+                                )
+                            }
+                        }
+                        Spacer(modifier = modifier.padding(16.dp))
+                        Column{
+                            Text(
+                                text = "운동 기록",
+                                style = LiftTheme.typography.no3,
+                                color = LiftTheme.colorScheme.no9,
+                                modifier = modifier.align(Alignment.Start)
+                            )
+                            Spacer(modifier = modifier.padding(4.dp))
+
+                            selectedHistory.historyRoutine.forEach { historyRoutine ->
+                                Column(
+                                    modifier = modifier
+                                        .background(LiftTheme.colorScheme.no5)
+                                        .border(
+                                            width = 1.dp,
+                                            color = LiftTheme.colorScheme.no8,
+                                            shape = RoundedCornerShape(16.dp)
+                                        )
+                                        .fillMaxWidth()
+                                        .padding(vertical = 12.dp, horizontal = 16.dp),
+                                ) {
+                                    Text(
+                                        text = historyRoutine.workCategory.name,
+                                        color = LiftTheme.colorScheme.no9,
+                                        style = LiftTheme.typography.no3
+                                    )
+                                    with(historyRoutine.workSetList) {
+                                        Row(
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            modifier = modifier.fillMaxWidth()
+                                        ) {
+                                            Text(
+                                                text = "세트/평균횟수",
+                                                style = LiftTheme.typography.no6,
+                                                color = LiftTheme.colorScheme.no11
+                                            )
+                                            Text(
+                                                text = buildAnnotatedString {
+                                                    withStyle(
+                                                        style = SpanStyle(fontWeight = FontWeight.Bold),
+                                                    ) {
+                                                        append("$size")
+                                                    }
+                                                    append(" Set  ")
+                                                    withStyle(
+                                                        style = SpanStyle(fontWeight = FontWeight.Bold),
+                                                    ) {
+                                                        append("${(sumOf { it.repetition } / size)}")
+                                                    }
+                                                    append(" Reps")
+
+                                                },
+                                                style = LiftTheme.typography.no6,
+                                                color = LiftTheme.colorScheme.no11
+                                            )
+
+                                        }
+                                        Row(
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            modifier = modifier.fillMaxWidth()
+                                        ) {
+                                            Text(
+                                                text = "최대 무게",
+                                                style = LiftTheme.typography.no6,
+                                                color = LiftTheme.colorScheme.no11
+                                            )
+                                            Text(
+                                                text = buildAnnotatedString {
+                                                    withStyle(
+                                                        style = SpanStyle(fontWeight = FontWeight.Bold),
+                                                    ) {
+                                                        append((maxBy { it.weight }.weight).toText())
+                                                    }
+                                                    append("kg")
+                                                },
+                                                style = LiftTheme.typography.no6,
+                                                color = LiftTheme.colorScheme.no11
+                                            )
+
+                                        }
+                                    }
+                                }
+                                Spacer(modifier = modifier.padding(4.dp))
+                            }
+                        }
                     }
-
-
                 }
-
-                
-
             }
         }
     }
@@ -280,11 +520,12 @@ fun HistoryDailyLogScreenPreview() {
             Modifier,
             selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             selectedHistoryList = emptyList(),
-            selectedHistory= History(),
+            selectedHistory = History(),
             historyScoreByMonth = emptyList(),
             updateSelectedDate = {},
             plusMonthSelectedDate = {},
             minusMonthSelectedDate = {},
+            updateSelectedHistoryIndex = {},
             rememberScrollState()
         )
     }

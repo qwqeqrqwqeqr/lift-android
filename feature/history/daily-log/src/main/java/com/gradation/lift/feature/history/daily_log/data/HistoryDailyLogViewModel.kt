@@ -28,6 +28,7 @@ import javax.inject.Inject
  * [HistoryDailyLogViewModel]
  * @property selectedDate 선택된 날짜, 해당 날짜를 바탕으로 히스토리 정보를 가져옴
  * @property historyUiState 운동 기록 관련 상태
+ * @property selectedHistoryIndex 현재 선택된 히스토리 인덱스
  * @property selectedHistoryList 현재 선택된 날짜에 대한 히스토리 리스트
  * @property selectedHistory 현재 선택된 날짜에 대한 히스토리 리스트
  * @property historyScoreByMonth 한달 운동 기록에 대한 운동기록 점수
@@ -56,6 +57,8 @@ class HistoryDailyLogViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = HistoryUiState.None
     )
+    private val selectedHistoryIndex = MutableStateFlow(0)
+
     val selectedHistoryList: StateFlow<List<History>> =
         combine(selectedDate, historyUiState) { selectedDate, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {
@@ -67,9 +70,11 @@ class HistoryDailyLogViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    val selectedHistory = selectedHistoryList.map {
-        if (it.isNotEmpty()) {
-            it.first()
+
+    val selectedHistory: StateFlow<History> = combine(selectedHistoryList,selectedHistoryIndex) {
+        selectedHistoryList, selectedHistoryIndex ->
+        if (selectedHistoryList.isNotEmpty()) {
+            selectedHistoryList[selectedHistoryIndex]
         } else {
             History()
         }
@@ -103,14 +108,21 @@ class HistoryDailyLogViewModel @Inject constructor(
 
     fun minusMonthSelectedDate(): () -> Unit = {
         selectedDate.value = selectedDate.value.minus(DatePeriod(0, 1, 0))
+        selectedHistoryIndex.value=0
     }
 
     fun plusMonthSelectedDate(): () -> Unit = {
         selectedDate.value = selectedDate.value.plus(DatePeriod(0, 1, 0))
+        selectedHistoryIndex.value=0
     }
 
     fun updateSelectedDate(): (LocalDate) -> Unit = {
         selectedDate.value = it
+        selectedHistoryIndex.value=0
+    }
+
+    fun updateSelectedHistoryIndex(): (Int) -> Unit = {
+        selectedHistoryIndex.value = it
     }
 
 }

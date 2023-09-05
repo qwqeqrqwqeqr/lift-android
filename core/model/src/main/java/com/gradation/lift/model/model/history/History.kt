@@ -24,6 +24,6 @@ data class History(
     val workTime: LocalTime = LocalTime(0, 0, 0),
     val restTime: LocalTime = LocalTime(0, 0, 0),
     val totalTime: LocalTime = LocalTime(0, 0, 0),
-    val historyTimeStamp: LocalDateTime = LocalDateTime(0, 0, 0, 0, 0, 0),
+    val historyTimeStamp: LocalDateTime = LocalDateTime(2022, 2, 22, 0, 0, 0),
     val historyRoutine: List<HistoryRoutine> = emptyList(),
 )
