@@ -12,11 +12,11 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun NavigationView(
     modifier: Modifier = Modifier,
     createRoutineCondition: Boolean,
-    onVisibleCompleteDialog: () -> Unit,
+    createRoutineSet: () -> Unit,
 ){
     LiftButton(
         modifier = modifier.fillMaxWidth(),
-        onClick = onVisibleCompleteDialog,
+        onClick = createRoutineSet,
         enabled = createRoutineCondition
     ) {
         Text(

@@ -185,10 +185,12 @@ class CreateRoutineSharedViewModel @Inject constructor(
             ).collect { createRoutineResult ->
                 when (createRoutineResult) {
                     is DataState.Success -> {
-                        CreateRoutineState.Success
+                        createRoutineState.value = CreateRoutineState.Success
                     }
+
                     is DataState.Fail -> {
-                        CreateRoutineState.Fail(createRoutineResult.message)
+                        createRoutineState.value =
+                            CreateRoutineState.Fail(createRoutineResult.message)
                     }
                 }
             }
