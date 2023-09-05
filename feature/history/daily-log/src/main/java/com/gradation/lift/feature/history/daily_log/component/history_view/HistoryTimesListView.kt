@@ -14,7 +14,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.history.History
 
 @Composable
-fun HistoryTimeListView(
+fun HistoryTimesListView(
     modifier:Modifier=Modifier,
     selectedHistoryList: List<History>,
     selectedHistory: History,

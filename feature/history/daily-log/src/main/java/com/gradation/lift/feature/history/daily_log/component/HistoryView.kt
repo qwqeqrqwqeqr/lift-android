@@ -13,8 +13,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryCommentView
 import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryRoutineView
 import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryScoreView
-import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryTimeListView
 import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryTimeView
+import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryTimesListView
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.ui.utils.toDayMonthText
 import kotlinx.datetime.LocalDate
@@ -39,7 +39,7 @@ fun HistoryView(
         Spacer(modifier = modifier.padding(16.dp))
         HistoryScoreView(modifier, selectedHistory)
         Spacer(modifier = modifier.padding(16.dp))
-        HistoryTimeListView(
+        HistoryTimesListView(
             modifier,
             selectedHistoryList,
             selectedHistory,
