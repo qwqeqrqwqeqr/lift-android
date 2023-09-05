@@ -293,7 +293,7 @@ class WorkPartAnalyticsState @Inject constructor(
 
     companion object {
         const val CHEST_NAME = "가슴"
-        const val SHOULDER_NAME = "어꺠"
+        const val SHOULDER_NAME = "어깨"
         const val ARM_NAME = "팔"
         const val BACK_NAME = "등"
         const val LOWER_BODY_NAME = "하체"

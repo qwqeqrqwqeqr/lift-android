@@ -44,7 +44,7 @@ fun LiftFilterChip(
         label = {
             Text(
                 text = text,
-                style = if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4
+                style = (if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4)
             )
         }
     )
@@ -82,7 +82,7 @@ fun LiftOutlineFilterChip(
         label = {
             Text(
                 text = text,
-                style = if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4
+                style = (if (selected) LiftTheme.typography.no5 else LiftTheme.typography.no6)
             )
         }
     )
