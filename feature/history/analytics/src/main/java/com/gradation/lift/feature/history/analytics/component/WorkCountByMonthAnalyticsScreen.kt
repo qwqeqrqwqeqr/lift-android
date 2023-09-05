@@ -25,8 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.BarChart
-import com.gradation.lift.designsystem.component.BarChartItem
+import com.gradation.lift.designsystem.chart.chart.BarChart
+import com.gradation.lift.designsystem.chart.model.BarChartItem
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
@@ -34,13 +34,13 @@ import kotlin.math.abs
 
 @Composable
 fun WorkCountByMonthAnalyticsScreen(
-    modifier:Modifier=Modifier,
+    modifier: Modifier = Modifier,
     historyCountByCurrentMonth: Int,
     historyCountByPreMonth: Int,
     historyCountByMonthList: List<WorkFrequencyMonth>,
     historyAveragePreCount: Int,
     historyAverageCurrentCount: Int,
-){
+) {
     Column(
         modifier = modifier
             .background(LiftTheme.colorScheme.no5)
@@ -66,7 +66,7 @@ fun WorkCountByMonthAnalyticsScreen(
                     withStyle(
                         style = SpanStyle(color = LiftTheme.colorScheme.no4),
                     ) {
-                        append("${historyCountByCurrentMonth - historyCountByPreMonth}회")
+                        append("${abs(historyCountByCurrentMonth - historyCountByPreMonth)}회")
                     }
                     if (historyCountByCurrentMonth > historyCountByPreMonth) {
                         append(" 더 운동했어요")
@@ -80,16 +80,21 @@ fun WorkCountByMonthAnalyticsScreen(
             style = LiftTheme.typography.no1,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = modifier.padding(32.dp))
+        Spacer(modifier = modifier.padding(16.dp))
+        if(historyCountByMonthList.isNotEmpty()){
+            BarChart(
+                height= 144.dp,
+                items = historyCountByMonthList.map {
+                    BarChartItem(
+                        x= "${it.month}월",
+                        y= it.frequency,
+                        itemName = "${it.frequency}회"
+                    )
+                },
+            )
+        }
 
 
-        BarChart(
-            modifier=modifier,
-            items=  historyCountByMonthList.map {
-                BarChartItem(x = "${it.month}월", it.frequency.toFloat(), itemName = "${it.frequency}회")
-            }
-
-        )
         Spacer(modifier = modifier.padding(16.dp))
 
         Box {
@@ -269,3 +274,4 @@ fun WorkCountByMonthAnalyticsScreen(
         }
     }
 }
+

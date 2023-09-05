@@ -1,52 +1,32 @@
 package com.gradation.lift.feature.history.analytics
 
 import android.os.Build
-import android.widget.Space
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.BarChart
-import com.gradation.lift.designsystem.component.BarChartItem
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.component.WorkCountByMonthAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.component.WorkFrequencyAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.data.HistoryAnalyticsViewModel
+import com.gradation.lift.feature.history.analytics.data.model.WorkPartFrequency
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
+import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetDate
+import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetType
 import com.gradation.lift.feature.history.analytics.data.state.HistoryUiState
-import com.gradation.lift.ui.utils.DevicePreview
-import com.gradation.lift.ui.utils.toText
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
-import kotlin.math.abs
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -56,12 +36,17 @@ fun HistoryAnalyticsRoute(
 ) {
 
     val historyUiState: HistoryUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
-    val historyCountByCurrentMonth: Int by viewModel.historyCountByCurrentMonth.collectAsStateWithLifecycle()
 
 
     val selectedMonth: LocalDate by viewModel.workFrequencyAnalyticsState.selectedMonth.collectAsStateWithLifecycle()
     val workFrequencyByWeek: List<WorkFrequencyWeekDate> by viewModel.workFrequencyAnalyticsState.workFrequencyByWeek.collectAsStateWithLifecycle()
 
+
+    val historyCountByPreMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByPreMonth.collectAsStateWithLifecycle()
+    val historyCountByCurrentMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByCurrentMonth.collectAsStateWithLifecycle()
+    val historyCountByMonthList: List<WorkFrequencyMonth> by viewModel.workCountByMonthAnalyticsState.historyCountByMonthList.collectAsStateWithLifecycle()
+    val historyAveragePreCount: Int by viewModel.workCountByMonthAnalyticsState.historyAveragePreCount.collectAsStateWithLifecycle()
+    val historyAverageCurrentCount: Int by viewModel.workCountByMonthAnalyticsState.historyAverageCurrentCount.collectAsStateWithLifecycle()
 
     val plusSelectedMonth: () -> Unit =
         viewModel.workFrequencyAnalyticsState.plusSelectedMonth()
@@ -69,12 +54,20 @@ fun HistoryAnalyticsRoute(
     val minusSelectedMonth: () -> Unit =
         viewModel.workFrequencyAnalyticsState.minusSelectedMonth()
 
+    val workPartAnalyticsTargetDate: WorkPartAnalyticsTargetDate by viewModel.workPartAnalyticsState.workPartAnalyticsTargetDate.collectAsStateWithLifecycle()
+    val workPartAnalyticsTargetType: WorkPartAnalyticsTargetType by viewModel.workPartAnalyticsState.workPartAnalyticsTargetType.collectAsStateWithLifecycle()
+    val historyWorkPartCountByPre: WorkPartFrequency by viewModel.workPartAnalyticsState.historyWorkPartCountByPre.collectAsStateWithLifecycle()
+    val historyWorkPartCountByCurrent: WorkPartFrequency by viewModel.workPartAnalyticsState.historyWorkPartCountByCurrent.collectAsStateWithLifecycle()
+    val historyCountByPre: Int by viewModel.workPartAnalyticsState.historyCountByPre.collectAsStateWithLifecycle()
+    val historyCountByCurrent: Int by viewModel.workPartAnalyticsState.historyCountByCurrent.collectAsStateWithLifecycle()
+    val maxOfWorkPartFrequency: String by viewModel.workPartAnalyticsState.maxOfWorkPartFrequency.collectAsStateWithLifecycle()
 
-    val historyCountByPreMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByPreMonth.collectAsStateWithLifecycle()
-    val historyCountByMonthList: List<WorkFrequencyMonth> by viewModel.workCountByMonthAnalyticsState.historyCountByMonthList.collectAsStateWithLifecycle()
-    val historyAveragePreCount: Int by viewModel.workCountByMonthAnalyticsState.historyAveragePreCount.collectAsStateWithLifecycle()
-    val historyAverageCurrentCount: Int by viewModel.workCountByMonthAnalyticsState.historyAverageCurrentCount.collectAsStateWithLifecycle()
 
+    val updateWorkPartAnalyticsTargetDate: (WorkPartAnalyticsTargetDate) -> Unit =
+        viewModel.workPartAnalyticsState.updateWorkPartAnalyticsTargetDate()
+
+    val updateWorkPartAnalyticsTargetType: (WorkPartAnalyticsTargetType) -> Unit =
+        viewModel.workPartAnalyticsState.updateWorkPartAnalyticsTargetType()
 
     val scrollState = rememberScrollState()
     HistoryAnalyticsScreen(
@@ -88,6 +81,15 @@ fun HistoryAnalyticsRoute(
         historyCountByMonthList,
         historyAveragePreCount,
         historyAverageCurrentCount,
+        workPartAnalyticsTargetDate,
+        workPartAnalyticsTargetType,
+        historyWorkPartCountByPre,
+        historyWorkPartCountByCurrent,
+        historyCountByPre,
+        historyCountByCurrent,
+        maxOfWorkPartFrequency,
+        updateWorkPartAnalyticsTargetDate,
+        updateWorkPartAnalyticsTargetType,
         scrollState
     )
 }
@@ -105,6 +107,15 @@ internal fun HistoryAnalyticsScreen(
     historyCountByMonthList: List<WorkFrequencyMonth>,
     historyAveragePreCount: Int,
     historyAverageCurrentCount: Int,
+    workPartAnalyticsTargetDate: WorkPartAnalyticsTargetDate,
+    workPartAnalyticsTargetType: WorkPartAnalyticsTargetType,
+    historyWorkPartCountByPre: WorkPartFrequency,
+    historyWorkPartCountByCurrent: WorkPartFrequency,
+    historyCountByPre: Int,
+    historyCountByCurrent: Int,
+    maxOfWorkPartFrequency: String,
+    updateWorkPartAnalyticsTargetDate: (WorkPartAnalyticsTargetDate) -> Unit,
+    updateWorkPartAnalyticsTargetType: (WorkPartAnalyticsTargetType) -> Unit,
     scrollState: ScrollState,
 ) {
     Surface(color = LiftTheme.colorScheme.no17, modifier = modifier.fillMaxSize()) {
@@ -133,12 +144,27 @@ internal fun HistoryAnalyticsScreen(
                 historyAverageCurrentCount
             )
             Spacer(modifier = modifier.padding(16.dp))
+            WorkFrequencyAnalyticsScreen(
+                modifier,
+                workPartAnalyticsTargetDate,
+                workPartAnalyticsTargetType,
+                historyWorkPartCountByPre,
+                historyWorkPartCountByCurrent,
+                historyCountByPre,
+                historyCountByCurrent,
+                maxOfWorkPartFrequency,
+                updateWorkPartAnalyticsTargetDate,
+                updateWorkPartAnalyticsTargetType
+            )
+
         }
     }
 }
 
 
-@Preview
+@Preview(
+    device = "spec:width=1080px,height=4800px,dpi=440"
+)
 @Composable
 fun HistoryAnalyticsScreenPreview() {
     LiftMaterialTheme {
@@ -150,25 +176,26 @@ fun HistoryAnalyticsScreenPreview() {
             minusSelectedMonth = {},
             historyCountByPreMonth = 15,
             historyCountByMonthList = listOf(
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
+                WorkFrequencyMonth(1, 2),
+                WorkFrequencyMonth(2, 1),
+                WorkFrequencyMonth(3, 12),
+                WorkFrequencyMonth(4, 0),
+                WorkFrequencyMonth(5, 15),
+                WorkFrequencyMonth(6, 25),
+                WorkFrequencyMonth(7, 30),
             ),
             historyAverageCurrentCount = 25,
             historyAveragePreCount = 30,
+            workPartAnalyticsTargetDate = WorkPartAnalyticsTargetDate.Week,
+            workPartAnalyticsTargetType = WorkPartAnalyticsTargetType.All,
+            historyWorkPartCountByPre = WorkPartFrequency(),
+            historyWorkPartCountByCurrent = WorkPartFrequency(),
+            historyCountByPre = 30,
+            historyCountByCurrent = 40,
+            maxOfWorkPartFrequency = "등",
+            updateWorkPartAnalyticsTargetDate = {},
+            updateWorkPartAnalyticsTargetType = {},
             scrollState = rememberScrollState()
         )
     }
-}
-
-fun Int.weekToText(): String = when (this) {
-    1 -> "첫째"
-    2 -> "둘째"
-    3 -> "셋째"
-    4 -> "넷째"
-    5 -> "다섯째"
-    6 -> "여섯째"
-    else -> ""
 }

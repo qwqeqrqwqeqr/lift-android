@@ -1,7 +1,6 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -45,7 +44,45 @@ fun LiftFilterChip(
         label = {
             Text(
                 text = text,
-                style = if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4
+                style = (if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4)
+            )
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LiftOutlineFilterChip(
+    modifier: Modifier = Modifier,
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    FilterChip(
+        modifier = modifier,
+        shape = RoundedCornerShape(6.dp),
+        border = FilterChipDefaults.filterChipBorder(
+            borderWidth = 0.dp,
+            borderColor = Color.Transparent,
+            selectedBorderColor = LiftTheme.colorScheme.no4,
+            selectedBorderWidth = 2.dp
+        ),
+        colors = FilterChipDefaults.filterChipColors(
+            containerColor = LiftTheme.colorScheme.no1,
+            labelColor = LiftTheme.colorScheme.no9,
+            iconColor = LiftTheme.colorScheme.no9,
+
+            selectedContainerColor = LiftTheme.colorScheme.no5,
+            selectedLabelColor = LiftTheme.colorScheme.no4,
+            selectedLeadingIconColor = LiftTheme.colorScheme.no5,
+            selectedTrailingIconColor = LiftTheme.colorScheme.no5,
+        ),
+        selected = selected,
+        onClick = onClick,
+        label = {
+            Text(
+                text = text,
+                style = (if (selected) LiftTheme.typography.no5 else LiftTheme.typography.no6)
             )
         }
     )
@@ -64,6 +101,16 @@ fun LiftFilterChipPreview() {
                 onClick = {}
             )
             LiftFilterChip(
+                text = "리프트",
+                selected = false,
+                onClick = {}
+            )
+            LiftOutlineFilterChip(
+                text = "리프트",
+                selected = true,
+                onClick = {}
+            )
+            LiftOutlineFilterChip(
                 text = "리프트",
                 selected = false,
                 onClick = {}

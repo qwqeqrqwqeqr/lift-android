@@ -7,11 +7,11 @@ import java.time.DayOfWeek
 import javax.inject.Inject
 
 /**
- * [GetThisWeekUseCase]
- * 해당 일이 속해있는 이번 주의 날짜 정보를 가져오는 유즈케이스
+ * [GetPreWeekUseCase]
+ * 지난주의 날짜 정보를 가져오는 유즈케이스
  * @since 2023-08-28 20:23:11
  */
-class GetThisWeekUseCase @Inject constructor(){
+class GetPreWeekUseCase @Inject constructor(){
     @RequiresApi(Build.VERSION_CODES.O)
     operator fun invoke(date: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())): List<LocalDate> {
         return when (date.dayOfWeek) {
@@ -22,7 +22,7 @@ class GetThisWeekUseCase @Inject constructor(){
             DayOfWeek.FRIDAY -> (-4..2).map { date.plus(DatePeriod(days = it)) }
             DayOfWeek.SATURDAY -> (-5..1).map { date.plus(DatePeriod(days = it)) }
             DayOfWeek.SUNDAY -> (-6..0).map { date.plus(DatePeriod(days = it)) }
-        }
+        }.map { it.minus(DatePeriod(0, 0, 7)) }
     }
 }
 
