@@ -23,9 +23,9 @@ import javax.inject.Inject
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class HistoryAnalyticsViewModel @Inject constructor(
-    private val getHistoryUseCase: GetHistoryUseCase,
-    private val getTodayUseCase: GetTodayUseCase,
-    private val getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,
+    getHistoryUseCase: GetHistoryUseCase,
+    getTodayUseCase: GetTodayUseCase,
+    getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,
 ) : ViewModel() {
 
     val today: StateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
@@ -67,7 +67,9 @@ class HistoryAnalyticsViewModel @Inject constructor(
     )
 
     val workCountByMonthAnalyticsState = WorkCountByMonthAnalyticsState(
-        viewModelScope, today, historyUiState
+        viewModelScope,
+        today,
+        historyUiState
     )
 
 

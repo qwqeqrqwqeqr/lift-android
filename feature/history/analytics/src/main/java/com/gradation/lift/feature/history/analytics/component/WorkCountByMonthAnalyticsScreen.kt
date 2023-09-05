@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -23,22 +24,30 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.chart.chart.BarChart
+import com.gradation.lift.designsystem.chart.model.BarChartItem
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.history.analytics.HistoryAnalyticsScreen
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 import kotlin.math.abs
 
 @Composable
 fun WorkCountByMonthAnalyticsScreen(
-    modifier:Modifier=Modifier,
+    modifier: Modifier = Modifier,
     historyCountByCurrentMonth: Int,
     historyCountByPreMonth: Int,
     historyCountByMonthList: List<WorkFrequencyMonth>,
     historyAveragePreCount: Int,
     historyAverageCurrentCount: Int,
-){
+) {
     Column(
         modifier = modifier
             .background(LiftTheme.colorScheme.no5)
@@ -64,7 +73,7 @@ fun WorkCountByMonthAnalyticsScreen(
                     withStyle(
                         style = SpanStyle(color = LiftTheme.colorScheme.no4),
                     ) {
-                        append("${historyCountByCurrentMonth - historyCountByPreMonth}회")
+                        append("${abs(historyCountByCurrentMonth - historyCountByPreMonth)}회")
                     }
                     if (historyCountByCurrentMonth > historyCountByPreMonth) {
                         append(" 더 운동했어요")
@@ -78,8 +87,19 @@ fun WorkCountByMonthAnalyticsScreen(
             style = LiftTheme.typography.no1,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = modifier.padding(32.dp))
-
+        Spacer(modifier = modifier.padding(16.dp))
+        if(historyCountByMonthList.isNotEmpty()){
+            BarChart(
+                height= 144.dp,
+                items = historyCountByMonthList.map {
+                    BarChartItem(
+                        x= "${it.month}월",
+                        y= it.frequency,
+                        itemName = "${it.frequency}회"
+                    )
+                },
+            )
+        }
 
 
         Spacer(modifier = modifier.padding(16.dp))
@@ -259,5 +279,32 @@ fun WorkCountByMonthAnalyticsScreen(
             }
             Spacer(modifier = modifier.padding(16.dp))
         }
+    }
+}
+
+@Preview
+@Composable
+fun HistoryAnalyticsScreenPreview() {
+    LiftMaterialTheme {
+        HistoryAnalyticsScreen(
+            selectedMonth = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+            historyCountByCurrentMonth = 32,
+            workFrequencyByWeek = emptyList(),
+            plusSelectedMonth = {},
+            minusSelectedMonth = {},
+            historyCountByPreMonth = 15,
+            historyCountByMonthList = listOf(
+                WorkFrequencyMonth(1,2),
+                WorkFrequencyMonth(2,1),
+                WorkFrequencyMonth(3,12),
+                WorkFrequencyMonth(4,0),
+                WorkFrequencyMonth(5,15),
+                WorkFrequencyMonth(6,25),
+                WorkFrequencyMonth(7,30),
+            ),
+            historyAverageCurrentCount = 25,
+            historyAveragePreCount = 30,
+            scrollState = rememberScrollState()
+        )
     }
 }

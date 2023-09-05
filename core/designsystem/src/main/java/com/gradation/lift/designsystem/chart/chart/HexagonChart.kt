@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.chart.model.WorkHexagonChartItem
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -45,6 +46,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun WorkHexagonChart(
     modifier: Modifier = Modifier,
+    height: Dp = 360.dp,
     firstItem: WorkHexagonChartItem,
     secondItem: WorkHexagonChartItem
 ) {
@@ -85,7 +87,7 @@ fun WorkHexagonChart(
 
     BoxWithConstraints(
         modifier = modifier
-            .height(360.dp)
+            .height(height)
             .fillMaxWidth()
             .background(LiftTheme.colorScheme.no5),
     ) {
@@ -448,14 +450,17 @@ fun WorkHexagonChartPreview() {
             contentAlignment = Alignment.Center
         ) {
             WorkHexagonChart(
-                modifier = modifier, firstItem = WorkHexagonChartItem(
+                modifier = modifier,
+                height = 360.dp,
+                firstItem = WorkHexagonChartItem(
                     chestValue = 10,
                     shoulderValue = 40,
                     armValue = 30,
                     backValue = 40,
                     lowerBodyValue = 10,
                     absValue = 30,
-                ), secondItem = WorkHexagonChartItem(
+                ),
+                secondItem = WorkHexagonChartItem(
                     chestValue = 30,
                     shoulderValue = 20,
                     armValue = 50,

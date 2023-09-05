@@ -132,6 +132,8 @@ fun HistoryAnalyticsScreenPreview() {
                 WorkFrequencyMonth(),
                 WorkFrequencyMonth(),
                 WorkFrequencyMonth(),
+                WorkFrequencyMonth(),
+                WorkFrequencyMonth(),
             ),
             historyAverageCurrentCount = 25,
             historyAveragePreCount = 30,
