@@ -63,7 +63,7 @@ fun WorkCategoryView(
 
                         )
                     with(workCategory.introduce) {
-                        if (this.isNotBlank()) {
+                        if (this=="") {
                             Text(
                                 text = workCategory.introduce,
                                 style = LiftTheme.typography.no4,
@@ -92,7 +92,7 @@ fun CreateRoutineFindWorkCategoryScreenPreview() {
                 WorkPartFilterSelection("가슴", false),
             ),
             workCategoryList = listOf(
-                ModelDataGenerator.WorkCategory.workCategoryModel1,
+                ModelDataGenerator.WorkCategory.workCategoryModel1.copy(introduce = ""),
                 ModelDataGenerator.WorkCategory.workCategoryModel1,
                 ModelDataGenerator.WorkCategory.workCategoryModel1,
                 ModelDataGenerator.WorkCategory.workCategoryModel1,
