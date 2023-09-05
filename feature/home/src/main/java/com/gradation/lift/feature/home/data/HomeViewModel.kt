@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
+import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
@@ -37,7 +37,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     getTodayUseCase: GetTodayUseCase,
-    getThisWeekUseCase: GetThisWeekUseCase,
+    getCurrentWeekUseCase: GetCurrentWeekUseCase,
     getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
     getUserDetailUseCase: GetUserDetailUseCase,
 ) : ViewModel() {
@@ -47,7 +47,7 @@ class HomeViewModel @Inject constructor(
 
 
     internal val weekDateSelectionList: StateFlow<List<WeekDateSelection>> = selectedDate.map { selectedDate ->
-        getThisWeekUseCase(selectedDate).map { localDate ->
+        getCurrentWeekUseCase(selectedDate).map { localDate ->
             WeekDateSelection(
                 day = localDate.dayOfMonth.toString(),
                 weekday = localDate.toWeekday(),

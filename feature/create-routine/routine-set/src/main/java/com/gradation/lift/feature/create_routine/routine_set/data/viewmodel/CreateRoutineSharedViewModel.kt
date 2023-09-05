@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.*
-import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
+import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.routine.CreateRoutineSetUseCase
 import com.gradation.lift.feature.create_routine.routine_set.data.model.WeekdaySelection
 import com.gradation.lift.feature.create_routine.routine_set.data.state.CreateRoutineState
@@ -38,7 +38,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateRoutineSharedViewModel @Inject constructor(
     private val createRoutineSetUseCase: CreateRoutineSetUseCase,
-    private val getThisWeekUseCase: GetThisWeekUseCase,
+    private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
 ) : ViewModel() {
 
 
@@ -86,7 +86,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     internal val weekdaySelectionList: StateFlow<List<WeekdaySelection>> =
         routineSetWeekday.map { weekdayList ->
-            getThisWeekUseCase().map { localDate ->
+            getCurrentWeekUseCase().map { localDate ->
                 WeekdaySelection(
                     weekday = localDate.toWeekday(),
                     selected = localDate.toWeekday() in weekdayList
@@ -185,10 +185,12 @@ class CreateRoutineSharedViewModel @Inject constructor(
             ).collect { createRoutineResult ->
                 when (createRoutineResult) {
                     is DataState.Success -> {
-                        CreateRoutineState.Success
+                        createRoutineState.value = CreateRoutineState.Success
                     }
+
                     is DataState.Fail -> {
-                        CreateRoutineState.Fail(createRoutineResult.message)
+                        createRoutineState.value =
+                            CreateRoutineState.Fail(createRoutineResult.message)
                     }
                 }
             }

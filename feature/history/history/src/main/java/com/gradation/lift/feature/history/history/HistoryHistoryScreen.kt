@@ -94,8 +94,8 @@ fun HistoryHistoryScreen(
             HorizontalPager(
                 modifier = modifier.fillMaxSize(),
                 state = pagerState,
-            ) {
-                tabDestination[pagerState.currentPage].screen()
+            ) {index ->
+                tabDestination[index].screen()
             }
         }
     }

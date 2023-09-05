@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.chart.model.WorkHexagonChartItem
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -39,14 +40,17 @@ import com.gradation.lift.designsystem.theme.LiftTheme
  * 운동 부위별 루틴 사용 횟수에 따른 차트
  * @param firstItem 원본 사용 횟수 (이번주, 이번달,...)
  * @param secondItem 비교할 사용 횟수 (지난주, 지난달,...)
- * @since 2023-09-04 19:56:27
+ * @param singleView 한개의 그래프만 보여 주는지 설정
+ * @since 2023-09-05 17:15:29
  */
 
 @Composable
 fun WorkHexagonChart(
     modifier: Modifier = Modifier,
+    height: Dp = 360.dp,
     firstItem: WorkHexagonChartItem,
-    secondItem: WorkHexagonChartItem
+    secondItem: WorkHexagonChartItem,
+    singleView: Boolean = true
 ) {
 
 
@@ -66,26 +70,38 @@ fun WorkHexagonChart(
     val lowerBody = "하체"
     val abs = "복근"
 
-    val maxValue = maxOf(
-        firstItem.absValue,
-        firstItem.armValue,
-        firstItem.backValue,
-        firstItem.chestValue,
-        firstItem.shoulderValue,
-        firstItem.lowerBodyValue,
-        secondItem.absValue,
-        secondItem.armValue,
-        secondItem.backValue,
-        secondItem.chestValue,
-        secondItem.shoulderValue,
-        secondItem.lowerBodyValue
-    ).toFloat()
+
+    val maxValue = if (singleView) {
+        maxOf(
+            firstItem.absValue,
+            firstItem.armValue,
+            firstItem.backValue,
+            firstItem.chestValue,
+            firstItem.shoulderValue,
+            firstItem.lowerBodyValue
+        )
+    } else {
+        maxOf(
+            firstItem.absValue,
+            firstItem.armValue,
+            firstItem.backValue,
+            firstItem.chestValue,
+            firstItem.shoulderValue,
+            firstItem.lowerBodyValue,
+            secondItem.absValue,
+            secondItem.armValue,
+            secondItem.backValue,
+            secondItem.chestValue,
+            secondItem.shoulderValue,
+            secondItem.lowerBodyValue
+        )
+    }.toFloat()
 
 
 
     BoxWithConstraints(
         modifier = modifier
-            .height(360.dp)
+            .height(height)
             .fillMaxWidth()
             .background(LiftTheme.colorScheme.no5),
     ) {
@@ -100,6 +116,8 @@ fun WorkHexagonChart(
                 secondValue = secondItem.chestValue,
                 firstColor = firstBorderColor,
                 secondColor = secondBorderColor,
+                singleView = singleView
+
             )
         }
 
@@ -114,6 +132,7 @@ fun WorkHexagonChart(
                 secondValue = secondItem.backValue,
                 firstColor = firstBorderColor,
                 secondColor = secondBorderColor,
+                singleView = singleView
             )
         }
 
@@ -130,7 +149,8 @@ fun WorkHexagonChart(
                     secondValue = secondItem.lowerBodyValue,
                     firstColor = firstBorderColor,
                     secondColor = secondBorderColor,
-                    sideLayout = true
+                    sideLayout = true,
+                    singleView = singleView
                 )
             }
             Column {
@@ -141,7 +161,8 @@ fun WorkHexagonChart(
                     secondValue = secondItem.absValue,
                     firstColor = firstBorderColor,
                     secondColor = secondBorderColor,
-                    sideLayout = true
+                    sideLayout = true,
+                    singleView = singleView
                 )
             }
         }
@@ -159,7 +180,8 @@ fun WorkHexagonChart(
                     secondValue = secondItem.armValue,
                     firstColor = firstBorderColor,
                     secondColor = secondBorderColor,
-                    sideLayout = true
+                    sideLayout = true,
+                    singleView = singleView
                 )
             }
             Column {
@@ -170,7 +192,8 @@ fun WorkHexagonChart(
                     secondValue = secondItem.shoulderValue,
                     firstColor = firstBorderColor,
                     secondColor = secondBorderColor,
-                    sideLayout = true
+                    sideLayout = true,
+                    singleView = singleView
                 )
             }
         }
@@ -197,17 +220,18 @@ fun WorkHexagonChart(
                 heightSecondInterval,
                 backgroundBorderColor
             )
-
-            drawField(
-                canvasWidth,
-                canvasHeight,
-                heightFirstInterval,
-                heightSecondInterval,
-                secondBorderColor,
-                secondBackgroundColor,
-                secondItem,
-                maxValue
-            )
+            if (!singleView) {
+                drawField(
+                    canvasWidth,
+                    canvasHeight,
+                    heightFirstInterval,
+                    heightSecondInterval,
+                    secondBorderColor,
+                    secondBackgroundColor,
+                    secondItem,
+                    maxValue
+                )
+            }
             drawField(
                 canvasWidth,
                 canvasHeight,
@@ -218,6 +242,8 @@ fun WorkHexagonChart(
                 firstItem,
                 maxValue
             )
+
+
         }
     }
 }
@@ -231,7 +257,8 @@ fun WorkContent(
     secondValue: Int,
     firstColor: Color,
     secondColor: Color,
-    sideLayout: Boolean = false
+    sideLayout: Boolean = false,
+    singleView: Boolean
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
@@ -259,22 +286,24 @@ fun WorkContent(
                         style = LiftTheme.typography.no6
                     )
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Spacer(
-                        modifier = modifier
-                            .clip(CircleShape)
-                            .size(12.dp)
-                            .background(secondColor)
-                    )
+                if (!singleView) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Spacer(
+                            modifier = modifier
+                                .clip(CircleShape)
+                                .size(12.dp)
+                                .background(secondColor)
+                        )
 
-                    Text(
-                        text = "${secondValue}회",
-                        color = LiftTheme.colorScheme.no9,
-                        style = LiftTheme.typography.no6
-                    )
+                        Text(
+                            text = "${secondValue}회",
+                            color = LiftTheme.colorScheme.no9,
+                            style = LiftTheme.typography.no6
+                        )
+                    }
                 }
             }
 
@@ -294,17 +323,20 @@ fun WorkContent(
                     color = LiftTheme.colorScheme.no9,
                     style = LiftTheme.typography.no6
                 )
-                Spacer(
-                    modifier = modifier
-                        .clip(CircleShape)
-                        .size(12.dp)
-                        .background(secondColor)
-                )
-                Text(
-                    text = "${secondValue}회",
-                    color = LiftTheme.colorScheme.no9,
-                    style = LiftTheme.typography.no6
-                )
+                if (!singleView) {
+                    Spacer(
+                        modifier = modifier
+                            .clip(CircleShape)
+                            .size(12.dp)
+                            .background(secondColor)
+                    )
+                    Text(
+                        text = "${secondValue}회",
+                        color = LiftTheme.colorScheme.no9,
+                        style = LiftTheme.typography.no6
+                    )
+                }
+
             }
         }
     }
@@ -327,7 +359,7 @@ fun DrawScope.drawBackGround(
             lineTo(0f, heightFirstInterval)
             close()
         },
-        style = Stroke(width = 1.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
+        style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
         color = borderColor
     )
 
@@ -358,7 +390,7 @@ fun DrawScope.drawBackGround(
             )
             close()
         },
-        style = Stroke(width = 1.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
+        style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
         color = borderColor
     )
 }
@@ -371,7 +403,7 @@ fun DrawScope.drawField(
     borderColor: Color,
     backgroundColor: Color,
     item: WorkHexagonChartItem,
-    maxValue: Float
+    maxValue: Float,
 ) {
     drawPath(
         path = Path().apply {
@@ -448,14 +480,17 @@ fun WorkHexagonChartPreview() {
             contentAlignment = Alignment.Center
         ) {
             WorkHexagonChart(
-                modifier = modifier, firstItem = WorkHexagonChartItem(
-                    chestValue = 10,
-                    shoulderValue = 40,
-                    armValue = 30,
-                    backValue = 40,
-                    lowerBodyValue = 10,
-                    absValue = 30,
-                ), secondItem = WorkHexagonChartItem(
+                modifier = modifier,
+                height = 360.dp,
+                firstItem = WorkHexagonChartItem(
+                    chestValue = 3,
+                    shoulderValue = 0,
+                    armValue = 2,
+                    backValue = 10,
+                    lowerBodyValue = 0,
+                    absValue = 0,
+                ),
+                secondItem = WorkHexagonChartItem(
                     chestValue = 30,
                     shoulderValue = 20,
                     armValue = 50,

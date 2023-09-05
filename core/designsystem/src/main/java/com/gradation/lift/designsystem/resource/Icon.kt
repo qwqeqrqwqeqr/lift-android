@@ -31,6 +31,7 @@ object LiftIcon {
     val List = R.drawable.list
     val Close = R.drawable.close
     val Check = R.drawable.check
+    val MiniStar = R.drawable.mini_star
 
     val Order = R.drawable.order
     val Warn = R.drawable.warn

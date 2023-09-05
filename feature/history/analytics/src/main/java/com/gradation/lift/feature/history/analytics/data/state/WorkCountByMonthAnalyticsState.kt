@@ -2,6 +2,7 @@ package com.gradation.lift.feature.history.analytics.data.state
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
@@ -23,10 +24,11 @@ import kotlin.math.roundToInt
  * [WorkCountByMonthAnalyticsState]
  * 월 별 운동 횟수 분석 상태
  * @property historyCountByPreMonth 지난 달의 총 운동횟수
+ * @property historyCountByCurrentMonth 이번 달의 총 운동횟수
  * @property historyCountByMonthList 현재부터 이전 N월 동안 운동 횟수 (N은 [ANALYTICS_PERIOD] 로 판단함) 현재는 6개월 이전 데이터를 불러옴
  * @property historyAverageCurrentCount 현재부터 이전 N월 동안 평균 운동 횟수 (N은 [ANALYTICS_PERIOD] 로 판단함)
  * @property historyAveragePreCount 지난 달부터 이전 N+1월 동안 평균 운동 횟수 과거 평균운동횟수를 의미한다 (N은 [ANALYTICS_PERIOD] 로 판단함)
- * @since 2023-08-24 14:11:28
+ * @since 2023-09-05 15:17:48
  */
 @RequiresApi(Build.VERSION_CODES.O)
 class WorkCountByMonthAnalyticsState @Inject constructor(
@@ -39,6 +41,18 @@ class WorkCountByMonthAnalyticsState @Inject constructor(
         if (historyUiStateResult is HistoryUiState.Success) {
             historyUiStateResult.historyList.count { history ->
                 history.historyTimeStamp.month == today.value.minus(DatePeriod(0, 1, 0)).month
+            }
+        } else 0
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = 0
+    )
+
+    val historyCountByCurrentMonth: StateFlow<Int> = historyUiState.map { historyUiStateResult ->
+        if (historyUiStateResult is HistoryUiState.Success) {
+            historyUiStateResult.historyList.count { history ->
+                history.historyTimeStamp.month == today.value.month
             }
         } else 0
     }.stateIn(

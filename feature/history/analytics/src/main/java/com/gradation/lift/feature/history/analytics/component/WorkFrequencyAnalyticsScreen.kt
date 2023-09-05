@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
-import com.gradation.lift.feature.history.analytics.weekToText
+import com.gradation.lift.feature.history.analytics.util.weekToText
 import kotlinx.datetime.LocalDate
 
 @Composable
