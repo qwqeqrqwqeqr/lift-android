@@ -10,6 +10,7 @@ import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.feature.history.daily_log.data.model.HistoryScoreWeekDate
 import com.gradation.lift.feature.history.daily_log.data.state.HistoryUiState
+import com.gradation.lift.model.model.history.History
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,9 +28,10 @@ import javax.inject.Inject
  * [HistoryDailyLogViewModel]
  * @property selectedDate 선택된 날짜, 해당 날짜를 바탕으로 히스토리 정보를 가져옴
  * @property historyUiState 운동 기록 관련 상태
- * @property selectedHistory 현재 선택된 날짜에 대한 히스토리
+ * @property selectedHistoryList 현재 선택된 날짜에 대한 히스토리 리스트
+ * @property selectedHistory 현재 선택된 날짜에 대한 히스토리 리스트
  * @property historyScoreByMonth 한달 운동 기록에 대한 운동기록 점수
- * @since 2023-09-05 19:51:04
+ * @since 2023-09-05 21:10:41
  */
 @HiltViewModel
 class HistoryDailyLogViewModel @Inject constructor(
@@ -54,7 +56,7 @@ class HistoryDailyLogViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = HistoryUiState.None
     )
-    val selectedHistory =
+    val selectedHistoryList: StateFlow<List<History>> =
         combine(selectedDate, historyUiState) { selectedDate, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {
                 historyUiStateResult.historyList.filter { it.historyTimeStamp.date == selectedDate }
@@ -65,6 +67,18 @@ class HistoryDailyLogViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
+    val selectedHistory = selectedHistoryList.map {
+        if (it.isNotEmpty()) {
+            it.first()
+        } else {
+            History()
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = History()
+    )
+
     @RequiresApi(Build.VERSION_CODES.O)
     val historyScoreByMonth: StateFlow<List<HistoryScoreWeekDate>> =
         combine(selectedDate, historyUiState) { selectedMonth, historyUiStateResult ->
@@ -73,7 +87,7 @@ class HistoryDailyLogViewModel @Inject constructor(
                     HistoryScoreWeekDate(
                         score = historyUiStateResult.historyList.filter {
                             it.historyTimeStamp.date == weekDateMonth.date
-                        }.sortedByDescending { it.historyTimeStamp }.first().score,
+                        }.maxByOrNull { it.historyTimeStamp }?.score ?: 0,
                         week = weekDateMonth.week,
                         weekday = weekDateMonth.weekday,
                         date = weekDateMonth.date

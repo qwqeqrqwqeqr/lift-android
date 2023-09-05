@@ -18,12 +18,12 @@ import kotlinx.datetime.LocalTime
  * @property historyRoutine 해당 기록에 대한 운동들의 리스트
  **/
 data class History(
-    val historyId :Int,
-    val comment : String?,
-    val score :Int,
-    val workTime : LocalTime,
-    val restTime : LocalTime,
-    val totalTime : LocalTime,
-    val historyTimeStamp : LocalDateTime,
-    val historyRoutine : List<HistoryRoutine>,
+    val historyId: Int = 0,
+    val comment: String? = null,
+    val score: Int = 0,
+    val workTime: LocalTime = LocalTime(0, 0, 0),
+    val restTime: LocalTime = LocalTime(0, 0, 0),
+    val totalTime: LocalTime = LocalTime(0, 0, 0),
+    val historyTimeStamp: LocalDateTime = LocalDateTime(0, 0, 0, 0, 0, 0),
+    val historyRoutine: List<HistoryRoutine> = emptyList(),
 )

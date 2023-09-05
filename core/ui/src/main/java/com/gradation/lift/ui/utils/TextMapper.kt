@@ -1,5 +1,6 @@
 package com.gradation.lift.ui.utils
 
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlin.math.roundToLong
 
@@ -53,4 +54,9 @@ fun Float.toWeightText(): String =
  */
 fun Int.toRepetitionText(): Int = if(this in 1.. 50) this else 10
 
-
+/**
+ * [toDayMonthText]
+ * [LocalDate]를 월 일 형식으로 변환합니다.
+ * @since 2023-09-05 20:59:43
+ */
+fun LocalDate.toDayMonthText() : String = "${this.monthNumber}월 ${this.dayOfMonth}일"
