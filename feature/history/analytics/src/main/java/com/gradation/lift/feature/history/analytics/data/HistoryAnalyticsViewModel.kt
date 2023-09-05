@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
+import com.gradation.lift.domain.usecase.date.GetPreWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
@@ -26,6 +28,8 @@ class HistoryAnalyticsViewModel @Inject constructor(
     getHistoryUseCase: GetHistoryUseCase,
     getTodayUseCase: GetTodayUseCase,
     getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,
+    getPreWeekUseCase: GetPreWeekUseCase,
+    getCurrentWeekUseCase: GetCurrentWeekUseCase,
 ) : ViewModel() {
 
     val today: StateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
@@ -60,7 +64,6 @@ class HistoryAnalyticsViewModel @Inject constructor(
 
     val workFrequencyAnalyticsState = WorkFrequencyAnalyticsState(
         viewModelScope,
-        today,
         historyUiState,
         getTodayUseCase,
         getWeekDateOfCurrentMonthUseCase

@@ -16,12 +16,11 @@ import javax.inject.Inject
 /**
  * [WorkFrequencyAnalyticsState]
  * 운동 빈도 분석 상태
- * @property selectedDate 선택된 월, 해당 월을 기준으로 빈도 수를 분석
+ * @property selectedMonth 선택된 월, 해당 월을 기준으로 빈도 수를 분석
  * @property workFrequencyByWeek 선택된 월 기준 주차별 빈도수
  */
 class WorkFrequencyAnalyticsState @Inject constructor(
     viewModelScope: CoroutineScope,
-    today: StateFlow<LocalDate>,
     historyUiState: StateFlow<HistoryUiState>,
     getTodayUseCase: GetTodayUseCase,
     private val getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,

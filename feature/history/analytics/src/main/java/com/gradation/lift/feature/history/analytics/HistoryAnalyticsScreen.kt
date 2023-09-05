@@ -127,27 +127,17 @@ fun HistoryAnalyticsScreenPreview() {
             minusSelectedMonth = {},
             historyCountByPreMonth = 15,
             historyCountByMonthList = listOf(
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
-                WorkFrequencyMonth(),
+                WorkFrequencyMonth(1,2),
+                WorkFrequencyMonth(2,1),
+                WorkFrequencyMonth(3,12),
+                WorkFrequencyMonth(4,0),
+                WorkFrequencyMonth(5,15),
+                WorkFrequencyMonth(6,25),
+                WorkFrequencyMonth(7,30),
             ),
             historyAverageCurrentCount = 25,
             historyAveragePreCount = 30,
             scrollState = rememberScrollState()
         )
     }
-}
-
-fun Int.weekToText(): String = when (this) {
-    1 -> "첫째"
-    2 -> "둘째"
-    3 -> "셋째"
-    4 -> "넷째"
-    5 -> "다섯째"
-    6 -> "여섯째"
-    else -> ""
 }

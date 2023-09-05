@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.date.GetThisWeekUseCase
+import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSetIdUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
@@ -38,7 +38,7 @@ import javax.inject.Inject
 @RequiresApi(Build.VERSION_CODES.O)
 class WorkRoutineSelectionViewModel @Inject constructor(
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
-    getThisWeekUseCase: GetThisWeekUseCase,
+    getCurrentWeekUseCase: GetCurrentWeekUseCase,
     getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
     getTodayUseCase: GetTodayUseCase,
 ) : ViewModel() {
@@ -52,7 +52,7 @@ class WorkRoutineSelectionViewModel @Inject constructor(
 
     val dateState = DateState(
         getTodayUseCase = getTodayUseCase,
-        getThisWeekUseCase = getThisWeekUseCase,
+        getCurrentWeekUseCase = getCurrentWeekUseCase,
         viewModelScope = viewModelScope
     )
 
