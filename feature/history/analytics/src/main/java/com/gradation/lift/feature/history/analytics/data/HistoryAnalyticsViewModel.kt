@@ -21,7 +21,9 @@ import javax.inject.Inject
 
 /**
  * [HistoryAnalyticsViewModel]
- * @property historyCountByCurrentMonth '현재 사용자의 기준 월' 종합 운동 빈도 수
+ * @property today 현재 날짜
+ * @property historyUiState 운동 기록 관련 상태
+ * @since 2023-09-05 19:48:50
  */
 @RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
@@ -33,7 +35,7 @@ class HistoryAnalyticsViewModel @Inject constructor(
     getCurrentWeekUseCase: GetCurrentWeekUseCase,
 ) : ViewModel() {
 
-    val today: StateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
+    private val today: StateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
     val historyUiState: StateFlow<HistoryUiState> = getHistoryUseCase().map {
         when (val getHistoryResult = it) {
