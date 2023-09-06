@@ -16,11 +16,11 @@ interface RoutineRepository {
 
 
      /**
-      * [createRoutineSet]
+      * [createRoutineSetRoutine]
       * 루틴 세트 생성
       * @since 2023-08-28 19:55:50
       */
-     fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Unit>>
+     fun createRoutineSetRoutine(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Unit>>
 
      /**
       * [getRoutine]

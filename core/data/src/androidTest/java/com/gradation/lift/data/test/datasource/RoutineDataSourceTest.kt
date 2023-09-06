@@ -35,7 +35,7 @@ class RoutineDataSourceTest {
             FakeRoutineDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
-            dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
+            dataSource.createRoutineSetRoutine(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
         )
 
         dataSource =
@@ -43,7 +43,7 @@ class RoutineDataSourceTest {
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            dataSource.createRoutineSet(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
+            dataSource.createRoutineSetRoutine(createRoutineSetRoutine =  createRoutineSetRoutineModel).first()
         )
     }
 

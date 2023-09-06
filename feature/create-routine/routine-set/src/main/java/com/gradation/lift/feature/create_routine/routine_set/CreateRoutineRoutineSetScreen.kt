@@ -75,7 +75,7 @@ internal fun CreateRoutineRoutineSetRoute(
     val removeRoutine: (CreateRoutine) -> Unit = sharedViewModel.removeRoutine()
     val updateCreateRoutineState: (CreateRoutineState) -> Unit =
         sharedViewModel.updateCreateRoutineState()
-    val createRoutineSet: () -> Unit = sharedViewModel.createRoutineSet()
+    val createRoutineSetRoutine: () -> Unit = sharedViewModel.createRoutineSetRoutine()
 
     val scrollState: ScrollState = rememberScrollState()
     val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
@@ -98,7 +98,7 @@ internal fun CreateRoutineRoutineSetRoute(
         updateRoutineSetDescription,
         updateRoutineSetWeekday,
         removeRoutine,
-        createRoutineSet,
+        createRoutineSetRoutine,
         navigateRoutineSetToFindWorkCategory,
         navigateRoutineSetToProfile,
         navigateCreateRoutineGraphToHomeGraph,
@@ -153,7 +153,7 @@ internal fun CreateRoutineRoutineSetScreen(
     updateRoutineSetDescription: (String) -> Unit,
     updateRoutineSetWeekday: (Weekday) -> Unit,
     removeRoutine: (CreateRoutine) -> Unit,
-    createRoutineSet: () -> Unit,
+    createRoutineSetRoutine: () -> Unit,
     navigateRoutineSetToFindWorkCategory: () -> Unit,
     navigateRoutineSetToProfile: () -> Unit,
     navigateCreateRoutineGraphToHomeGraph: () -> Unit,
@@ -251,7 +251,7 @@ internal fun CreateRoutineRoutineSetScreen(
                 NavigationView(
                     modifier,
                     createRoutineCondition,
-                    createRoutineSet
+                    createRoutineSetRoutine
                 )
             }
         }
@@ -287,7 +287,7 @@ fun CreateRoutineRoutineSetScreenPreview() {
             updateRoutineSetDescription = { },
             updateRoutineSetWeekday = { },
             removeRoutine = { },
-            createRoutineSet = { },
+            createRoutineSetRoutine = { },
             navigateRoutineSetToFindWorkCategory = { },
             navigateRoutineSetToProfile = { },
             navigateCreateRoutineGraphToHomeGraph = { },

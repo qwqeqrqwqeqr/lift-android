@@ -49,17 +49,17 @@ class RoutineRepositoryTest {
 
 
     @Test
-    fun createRoutineSet() = runTest {
+    fun createRoutineSetRoutine() = runTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.createRoutineSet(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
+            successRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.createRoutineSet(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
+            failRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
         )
     }
 

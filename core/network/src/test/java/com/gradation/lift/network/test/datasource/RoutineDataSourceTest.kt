@@ -75,7 +75,7 @@ class RoutineDataSourceTest {
         )
 
         with(
-            routineDataSource.createRoutineSet(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel)
+            routineDataSource.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel)
                 .first()
         ) {
             Truth.assertThat(

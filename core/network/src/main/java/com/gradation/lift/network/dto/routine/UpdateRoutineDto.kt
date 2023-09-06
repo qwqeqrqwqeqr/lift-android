@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class UpdateRoutineDto(
     @Json(name = "routine_id")
-    val id: Int? = null,
+    val id: Int?,
     @Json(name = "work_category")
     val workCategory: String,
     @Json(name = "work_weight_list")
