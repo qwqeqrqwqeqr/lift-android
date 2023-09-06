@@ -29,6 +29,7 @@ internal fun RoutineListView(
     routineSetRoutineList: List<RoutineSetRoutine>,
     updateRoutineSetIdKey: (NavController, Int) -> Unit,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
+    navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
 ) {
     Column(modifier=modifier.fillMaxHeight()) {
@@ -66,9 +67,7 @@ internal fun RoutineListView(
                 contentPadding = PaddingValues(
                     start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp
                 ),
-                onClick = {
-                    //TODO 수정 기능 추가 시 연동 예정 2023-08-18 19:40:35
-                },
+                onClick = navigateHomeGraphToUpdateRoutineGraph,
             ) {
                 Text(
                     text = "수정",

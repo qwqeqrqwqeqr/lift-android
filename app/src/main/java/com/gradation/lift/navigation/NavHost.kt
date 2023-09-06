@@ -21,8 +21,6 @@ fun LiftNavHost(
     connectOAuthFromNaver: ()->Unit,
     connectOAuthFromKakao: ()->Unit,
 ) {
-
-
     NavHost(
         navController = navController,
         startDestination = startDestination,

@@ -10,8 +10,5 @@ class UpdateRoutineRoutineViewModel  @Inject constructor(
 ): ViewModel() {
 
 
-    init {
-
-    }
 
 }

@@ -120,7 +120,9 @@ internal fun CreateRoutineRoutineSetRoute(
 
         CreateRoutineState.None -> {}
         CreateRoutineState.Success -> {
-            navigateCreateRoutineGraphToHomeGraph()
+            LaunchedEffect(true) {
+                navigateCreateRoutineGraphToHomeGraph()
+            }
         }
     }
 
