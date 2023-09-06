@@ -26,13 +26,21 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
             }
         }
 
-    override suspend fun deleteRoutineSetRoutine(routineSetId: Int): Flow<NetworkResult<Unit>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deleteRoutineSetRoutine(routineSetId: Int): Flow<NetworkResult<Unit>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
+            }
+        }
 
-    override suspend fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<NetworkResult<Unit>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<NetworkResult<Unit>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
+            }
+        }
 
     override suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>> = flow {
         when (testReturnState) {

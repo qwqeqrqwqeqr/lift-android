@@ -10,7 +10,9 @@ import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.utils.DefaultDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateRoutineSetRoutineModel
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -60,6 +62,37 @@ class RoutineRepositoryTest {
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
             failRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
+        )
+    }
+
+
+    @Test
+    fun updateRoutineSetRoutine() = runTest {
+        Truth.assertThat(
+            DataState.Success(Unit)
+        ).isEqualTo(
+            successRepository.updateRoutineSetRoutine(updateRoutineSetRoutine = updateRoutineSetRoutineModel ).first()
+        )
+
+        Truth.assertThat(
+            DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            failRepository.updateRoutineSetRoutine(updateRoutineSetRoutine = updateRoutineSetRoutineModel).first()
+        )
+    }
+
+    @Test
+    fun deleteRoutineSetRoutine() = runTest {
+        Truth.assertThat(
+            DataState.Success(Unit)
+        ).isEqualTo(
+            successRepository.deleteRoutineSetRoutine(FAKE_INT_DATA).first()
+        )
+
+        Truth.assertThat(
+            DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            failRepository.deleteRoutineSetRoutine(FAKE_INT_DATA).first()
         )
     }
 
