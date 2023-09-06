@@ -5,6 +5,7 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.model.utils.ModelDataGenerator
@@ -65,8 +66,7 @@ class RoutineDataSourceTest {
 
 
     @Test
-    fun createRoutineSetDataSource() = runTest {
-
+    fun createRoutineSetRoutineDataSource() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(TestJsonDataGenerator.Common.resultResponseJson)
@@ -83,6 +83,46 @@ class RoutineDataSourceTest {
             ).isEqualTo(this)
         }
     }
+
+
+    @Test
+    fun updateRoutineSetRoutineDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.updateRoutineSetRoutine(updateRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.updateRoutineSetRoutineModel)
+                .first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun deleteRoutineSetRoutineDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.deleteRoutineSetRoutine(FAKE_INT_DATA)
+                .first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
 
     @Test
     fun getRoutineDataSource() = runTest {
