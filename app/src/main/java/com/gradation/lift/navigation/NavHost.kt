@@ -50,6 +50,10 @@ fun LiftNavHost(
             navController = navController,
             navGraphBuilder = this
         )
+        updateRoutineGraphBuilder(
+            navController = navController,
+            navGraphBuilder = this
+        )
         workGraphBuilder(
             navController = navController,
             navGraphBuilder = this
