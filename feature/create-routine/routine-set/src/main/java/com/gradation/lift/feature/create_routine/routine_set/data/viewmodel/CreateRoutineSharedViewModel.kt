@@ -172,7 +172,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
         createRoutineState.value = it
     }
 
-    fun createRoutineSet(): () -> Unit = {
+    fun createRoutineSetRoutine(): () -> Unit = {
         viewModelScope.launch {
             createRoutineSetUseCase(
                 CreateRoutineSetRoutine(

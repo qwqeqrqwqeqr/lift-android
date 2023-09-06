@@ -4,17 +4,21 @@ import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.network.common.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
 /**
  * [RoutineDataSource]
  * 루틴과 관련한 데이터 소스
- * @since 2023-08-28 22:09:13
+ * @since 2023-09-06 16:20:37
  */
 interface RoutineDataSource {
 
-    suspend fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>>
+    suspend fun createRoutineSetRoutine(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>>
+    suspend fun deleteRoutineSetRoutine(routineSetId : Int): Flow<NetworkResult<Unit>>
+    suspend fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<NetworkResult<Unit>>
+
 
     suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>>
 

@@ -8,6 +8,8 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.PUT
 
 
 /**
@@ -27,6 +29,23 @@ interface RoutineService {
      */
     @POST("routine/routine-set-routine/")
     suspend fun createRoutineSetRoutine(@Body createRoutineSetRoutineRequestDto: CreateRoutineSetRoutineRequestDto): Response<APIResultWrapper<CreateRoutineSetRoutineResponseDto>>
+
+    /**
+     * [updateRoutineSetRoutine]
+     * 루틴세트 업데이트하기
+     * @since 2023-09-06 16:12:37
+     */
+    @PUT("routine/routine-set-routine/")
+    suspend fun updateRoutineSetRoutine(@Body updateRoutineSetRoutineRequestDto: UpdateRoutineSetRoutineRequestDto): Response<APIResultWrapper<UpdateRoutineSetRoutineResponseDto>>
+
+
+    /**
+     * [deleteRoutineSetRoutine]
+     * 루틴세트 삭제하기
+     * @since 2023-09-06 16:12:41
+     */
+    @DELETE("routine/routine-set-routine/")
+    suspend fun deleteRoutineSetRoutine(@Query("routine_set_id") routineSetId: Int): Response<APIResultWrapper<DeleteRoutineSetRoutineResponseDto>>
 
 
     /**

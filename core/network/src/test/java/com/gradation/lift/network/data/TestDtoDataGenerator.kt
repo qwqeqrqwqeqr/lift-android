@@ -15,6 +15,7 @@ import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
@@ -24,6 +25,7 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.createRoutineDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.routineDto2
+import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.updateRoutineDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.routineSetDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.routineSetDto2
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.workCategoryDto1
@@ -246,6 +248,13 @@ object TestDtoDataGenerator {
             workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
             workRepetitionList = listOf(12, 12, 12, 12, 12),
         )
+        internal val updateRoutineDto = UpdateRoutineDto(
+            id = null,
+            workCategory = "숄더프레스",
+            workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
+            workRepetitionList = listOf(12, 12, 12, 12, 12),
+        )
+
         val getRoutineResponseDto = GetRoutineResponseDto(
             routine = listOf(
                 routineDto1,
@@ -282,6 +291,22 @@ object TestDtoDataGenerator {
 
         val createRoutineSetRoutineResponseDto =
             CreateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
+
+
+        val updateRoutineSetRoutineRequestDto = UpdateRoutineSetRoutineRequestDto(
+            id = FAKE_INT_DATA,
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            weekday = Weekday.MONDAY_VALUE,
+            picture = FAKE_URL_DATA,
+            routine = listOf(updateRoutineDto)
+        )
+
+        val updateRoutineSetRoutineResponseDto =
+            UpdateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
+
+        val deleteRoutineSetRoutineResponseDto =
+            DeleteRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
 
     }
 
