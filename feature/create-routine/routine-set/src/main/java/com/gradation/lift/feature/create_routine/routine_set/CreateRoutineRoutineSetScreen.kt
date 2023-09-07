@@ -41,8 +41,8 @@ import com.gradation.lift.ui.utils.DevicePreview
 @Composable
 internal fun CreateRoutineRoutineSetRoute(
     navController: NavController,
-    navigateRoutineSetToFindWorkCategory: () -> Unit,
-    navigateRoutineSetToProfile: () -> Unit,
+    navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
+    navigateRoutineSetToProfileInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
@@ -99,8 +99,8 @@ internal fun CreateRoutineRoutineSetRoute(
         updateRoutineSetWeekday,
         removeRoutine,
         createRoutineSetRoutine,
-        navigateRoutineSetToFindWorkCategory,
-        navigateRoutineSetToProfile,
+        navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
+        navigateRoutineSetToProfileInCreateRoutineGraph,
         navigateCreateRoutineGraphToHomeGraph,
         scrollState,
         snackbarHostState,
@@ -156,8 +156,8 @@ internal fun CreateRoutineRoutineSetScreen(
     updateRoutineSetWeekday: (Weekday) -> Unit,
     removeRoutine: (CreateRoutine) -> Unit,
     createRoutineSetRoutine: () -> Unit,
-    navigateRoutineSetToFindWorkCategory: () -> Unit,
-    navigateRoutineSetToProfile: () -> Unit,
+    navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
+    navigateRoutineSetToProfileInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToHomeGraph: () -> Unit,
     scrollState: ScrollState,
     snackbarHostState: SnackbarHostState,
@@ -211,7 +211,7 @@ internal fun CreateRoutineRoutineSetScreen(
 
                 RoutineSetPictureView(
                     modifier,
-                    navigateRoutineSetToProfile,
+                    navigateRoutineSetToProfileInCreateRoutineGraph,
                     routineSetPicture
                 )
 
@@ -246,7 +246,7 @@ internal fun CreateRoutineRoutineSetScreen(
                     modifier,
                     routineSetRoutine,
                     removeRoutine,
-                    navigateRoutineSetToFindWorkCategory
+                    navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph
                 )
 
                 Spacer(modifier = modifier.padding(27.dp))
@@ -290,8 +290,8 @@ fun CreateRoutineRoutineSetScreenPreview() {
             updateRoutineSetWeekday = { },
             removeRoutine = { },
             createRoutineSetRoutine = { },
-            navigateRoutineSetToFindWorkCategory = { },
-            navigateRoutineSetToProfile = { },
+            navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph = { },
+            navigateRoutineSetToProfileInCreateRoutineGraph = { },
             navigateCreateRoutineGraphToHomeGraph = { },
             scrollState = rememberScrollState(),
             snackbarHostState = SnackbarHostState(),

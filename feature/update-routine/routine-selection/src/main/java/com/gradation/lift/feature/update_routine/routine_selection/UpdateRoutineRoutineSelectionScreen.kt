@@ -42,7 +42,7 @@ import kotlinx.datetime.LocalDate
 @Composable
 internal fun UpdateRoutineRoutineSelectionRoute(
     navController: NavController,
-    navigateRoutineSelectionToRoutineSet: () -> Unit,
+    navigateRoutineSelectionToRoutineSetInUpdateRoutineGraph: () -> Unit,
     navigateUpdateRoutineGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UpdateRoutineRoutineSelectionViewModel = hiltViewModel(),
@@ -76,7 +76,7 @@ internal fun UpdateRoutineRoutineSelectionRoute(
         updateOpenedRoutineIdList,
         updateCurrentDate,
         updateSelectedRoutine,
-        navigateRoutineSelectionToRoutineSet,
+        navigateRoutineSelectionToRoutineSetInUpdateRoutineGraph,
         navigateUpdateRoutineGraphToHomeGraph
     )
 
@@ -90,7 +90,7 @@ internal fun UpdateRoutineRoutineSelectionScreen(
     updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
     updateCurrentDate: (LocalDate) -> Unit,
     updateSelectedRoutine: (RoutineSetRoutineSelection) -> Unit,
-    navigateRoutineSelectionToRoutineSet: () -> Unit,
+    navigateRoutineSelectionToRoutineSetInUpdateRoutineGraph: () -> Unit,
     navigateUpdateRoutineGraphToHomeGraph: () -> Unit,
 ) {
     Scaffold(
@@ -135,7 +135,7 @@ internal fun UpdateRoutineRoutineSelectionScreen(
                             routineSetRoutineSelection = routineSetRoutineSelectionUiState.routineSetRoutineSelection,
                             updateOpenedRoutineIdList = updateOpenedRoutineIdList,
                             updateSelectedRoutine = updateSelectedRoutine,
-                            navigateRoutineSelectionToRoutineSet = navigateRoutineSelectionToRoutineSet
+                            navigateRoutineSelectionToRoutineSetInUpdateRoutineGraph = navigateRoutineSelectionToRoutineSetInUpdateRoutineGraph
                         )
                     }
                 }
@@ -179,7 +179,7 @@ fun UpdateRoutineRoutineSelectionScreenPreview() {
             updateOpenedRoutineIdList = { _, _ -> },
             updateCurrentDate = { },
             updateSelectedRoutine = {},
-            navigateRoutineSelectionToRoutineSet = { },
+            navigateRoutineSelectionToRoutineSetInUpdateRoutineGraph = { },
             navigateUpdateRoutineGraphToHomeGraph = { },
         )
     }

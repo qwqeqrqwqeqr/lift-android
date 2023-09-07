@@ -21,7 +21,7 @@ fun ProfileView(
     userDetailUiState: UserDetailUiState,
     workCount:Int,
     signOut: () -> Unit,
-    navigateMyInfoToUpdateProfile: () -> Unit
+    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit
 ) {
 
 
@@ -45,7 +45,7 @@ fun ProfileView(
                     modifier = modifier,
                     userDetail = userDetailUiState.userDetail,
                     signOut = signOut,
-                    navigateMyInfoToUpdateProfile = navigateMyInfoToUpdateProfile
+                    navigateMyInfoToUpdateProfileInMyInfoGraph = navigateMyInfoToUpdateProfileInMyInfoGraph
                 )
             }
         }

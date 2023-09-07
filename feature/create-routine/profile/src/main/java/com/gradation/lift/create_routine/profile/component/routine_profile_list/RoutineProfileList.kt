@@ -30,7 +30,7 @@ fun RoutineProfileList(
     updateSelectedPicture: (String) -> Unit,
     routineSetPictureList: List<RoutineSetCategoryPicture>,
     updateRoutineSetPicture: (String) -> Unit,
-    navigateProfileToRoutineSet: () ->Unit,
+    navigateProfileToRoutineSetInCreateRoutineGraph: () ->Unit,
     selectedPicture: String,
 ) {
     LazyVerticalGrid(
@@ -104,7 +104,7 @@ fun RoutineProfileList(
                 modifier,
                 selectedPicture,
                 updateRoutineSetPicture,
-                navigateProfileToRoutineSet
+                navigateProfileToRoutineSetInCreateRoutineGraph
             )
         }
     }

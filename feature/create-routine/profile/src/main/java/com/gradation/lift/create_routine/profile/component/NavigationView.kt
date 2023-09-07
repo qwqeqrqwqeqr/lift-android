@@ -13,7 +13,7 @@ fun NavigationView(
     modifier: Modifier,
     selectedPicture: String,
     updateRoutineSetPicture: (String) -> Unit,
-    navigateProfileToRoutineSet: () -> Unit,
+    navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         LiftButton(
@@ -21,7 +21,7 @@ fun NavigationView(
                 .fillMaxWidth(),
             onClick = {
                 updateRoutineSetPicture(selectedPicture)
-                navigateProfileToRoutineSet()
+                navigateProfileToRoutineSetInCreateRoutineGraph()
             },
         ) {
             Text(

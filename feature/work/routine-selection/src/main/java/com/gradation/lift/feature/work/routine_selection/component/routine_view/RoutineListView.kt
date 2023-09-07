@@ -119,7 +119,7 @@ fun WorkRoutineSelectionScreenPreview() {
             ),
             navigateWorkGraphToHomeGraph = { },
             updateCurrentDate = { },
-            navigateSelectionRoutineToWork = {},
+            navigateSelectionRoutineToWorkInWorkGraph = {},
             updateRoutineSetRoutineList = { },
             updateSelectedRoutineSetList = { _, _ -> },
             updateOpenedRoutineIdList = { _, _ -> }

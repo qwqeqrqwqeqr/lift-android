@@ -27,7 +27,7 @@ fun WorkCategoryView(
     modifier: Modifier = Modifier,
     workCategoryList: List<WorkCategory>,
     updateTempWorkCategory: (String) -> Unit,
-    navigateFindWorkCategoryToRoutine: () -> Unit,
+    navigateFindWorkCategoryToRoutineInCreateRoutineGraph: () -> Unit,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5,
@@ -44,7 +44,7 @@ fun WorkCategoryView(
                         .fillMaxWidth()
                         .noRippleClickable
                         {
-                            navigateFindWorkCategoryToRoutine()
+                            navigateFindWorkCategoryToRoutineInCreateRoutineGraph()
                             updateTempWorkCategory(workCategory.name)
                         }
                         .background(LiftTheme.colorScheme.no5)
@@ -102,8 +102,8 @@ fun CreateRoutineFindWorkCategoryScreenPreview() {
             updateSearchText = {},
             updateWorkPartFilter = {},
             updateTempWorkCategory = {},
-            navigateFindWorkCategoryToRoutineSet = {},
-            navigateFindWorkCategoryToRoutine = {}
+            navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph = {},
+            navigateFindWorkCategoryToRoutineInCreateRoutineGraph = {}
         )
     }
 }

@@ -27,11 +27,11 @@ fun NavController.navigateLoginGraphToRegisterDetailGraph() {
     }
 }
 
-fun NavController.navigateNameToGender() {
+fun NavController.navigateNameToGenderInRegisterDetailGraph() {
     this.navigate(REGISTER_DETAIL_GENDER_ROUTER_NAME)
 }
 
-fun NavController.navigateGenderToName() {
+fun NavController.navigateGenderToNameInRegisterDetailGraph() {
     this.navigate(REGISTER_DETAIL_NAME_ROUTER_NAME) {
         this.popUpTo(REGISTER_DETAIL_NAME_ROUTER_NAME) {
             inclusive = true
@@ -39,11 +39,11 @@ fun NavController.navigateGenderToName() {
     }
 }
 
-fun NavController.navigateGenderToHeightWeight() {
+fun NavController.navigateGenderToHeightWeightInRegisterDetailGraph() {
     this.navigate(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME)
 }
 
-fun NavController.navigateHeightWeightToGender() {
+fun NavController.navigateHeightWeightToGenderInRegisterDetailGraph() {
     this.navigate(REGISTER_DETAIL_GENDER_ROUTER_NAME) {
         this.popUpTo(REGISTER_DETAIL_GENDER_ROUTER_NAME) {
             inclusive = true
@@ -51,11 +51,11 @@ fun NavController.navigateHeightWeightToGender() {
     }
 }
 
-fun NavController.navigateHeightWeightToProfilePicture() {
+fun NavController.navigateHeightWeightToProfilePictureInRegisterDetailGraph() {
     this.navigate(REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME)
 }
 
-fun NavController.navigateProfilePictureToHeightWeight() {
+fun NavController.navigateProfilePictureToHeightWeightInRegisterDetailGraph() {
     this.navigate(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
         this.popUpTo(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
             inclusive = true

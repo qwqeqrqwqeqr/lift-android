@@ -35,7 +35,7 @@ internal fun ProfileDetailView(
     modifier: Modifier = Modifier,
     userDetail: UserDetail,
     signOut: () -> Unit,
-    navigateMyInfoToUpdateProfile: () -> Unit
+    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit
 ) {
     Row(
         modifier = modifier.padding(vertical = 16.dp)
@@ -55,7 +55,7 @@ internal fun ProfileDetailView(
                 contentAlignment = Alignment.BottomEnd
             ) {
                 IconButton(
-                    onClick = navigateMyInfoToUpdateProfile,
+                    onClick = navigateMyInfoToUpdateProfileInMyInfoGraph,
                     modifier = modifier
                         .background(LiftTheme.colorScheme.no1, CircleShape)
                         .size(24.dp)

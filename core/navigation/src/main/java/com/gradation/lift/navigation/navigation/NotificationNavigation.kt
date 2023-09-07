@@ -24,7 +24,7 @@ fun NavController.navigateNotificationGraphToMyInfoGraph() {
 
 
 
-fun NavHostController.navigateNotificationToNotice() {
+fun NavHostController.navigateNotificationToNoticeInNotificationGraph() {
     this.navigate(Router.NOTIFICATION_NOTICE_ROUTER_NAME) {
         launchSingleTop = true
 
@@ -35,7 +35,7 @@ fun NavHostController.navigateNotificationToNotice() {
     }
 }
 
-fun NavHostController.navigateNoticeToNotification() {
+fun NavHostController.navigateNoticeToNotificationInNotificationGraph() {
     this.navigate(Router.NOTIFICATION_NOTIFICATION_ROUTER_NAME) {
         launchSingleTop = true
 

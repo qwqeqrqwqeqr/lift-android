@@ -23,7 +23,7 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun UpdateRoutineRoutineSetRoute(
     navController: NavController,
-    navigateRoutineSetToRoutineSelection: () -> Unit,
+    navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UpdateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
@@ -58,7 +58,7 @@ fun UpdateRoutineRoutineSetRoute(
         UpdateRoutineState.None -> {}
         is UpdateRoutineState.Success -> {
             LaunchedEffect(true) {
-                navigateRoutineSetToRoutineSelection()
+                navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph()
             }
         }
     }

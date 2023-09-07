@@ -22,7 +22,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun EmptyRoutineListView(
     modifier: Modifier = Modifier,
-    navigateRoutineSetToFindWorkCategory: () -> Unit,
+    navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -58,7 +58,7 @@ fun EmptyRoutineListView(
                     )
                     .size(42.dp), contentAlignment = Alignment.Center
             ) {
-                IconButton(onClick = navigateRoutineSetToFindWorkCategory) {
+                IconButton(onClick = navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph) {
                     Icon(
                         modifier = modifier.size(16.dp),
                         painter = painterResource(id = LiftIcon.Plus),

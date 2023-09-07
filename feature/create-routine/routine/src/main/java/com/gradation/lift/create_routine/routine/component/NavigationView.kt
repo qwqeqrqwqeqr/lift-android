@@ -15,7 +15,7 @@ fun NavigationView(
     createRoutineCondition: Boolean,
     workSetList: List<IndexWorkSet>,
     addRoutine: (List<WorkSet>) -> Unit,
-    navigateRoutineToRoutineSet: () -> Unit,
+    navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
 ) {
     LiftButton(
         modifier = modifier.fillMaxWidth(),
@@ -28,7 +28,7 @@ fun NavigationView(
                     )
                 }
             )
-            navigateRoutineToRoutineSet()
+            navigateRoutineToRoutineSetInCreateRoutineGraph()
         },
         enabled = createRoutineCondition
     ) {
