@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.update_routine.routine
 
+import android.annotation.SuppressLint
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -12,9 +13,13 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.feature.update_routine.routine.data.UpdateRoutineState
+import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
+import com.gradation.lift.navigation.Router
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun UpdateRoutineRoutineRoute(
     navController: NavController,
@@ -22,6 +27,9 @@ fun UpdateRoutineRoutineRoute(
     modifier: Modifier = Modifier,
     viewModel: UpdateRoutineRoutineViewModel = hiltViewModel(),
 ) {
+    val workBackStackEntry: NavBackStackEntry =
+        remember { navController.getBackStackEntry(Router.UPDATE_ROUTINE_GRAPH_NAME) }
+    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(workBackStackEntry)
 
     val updateRoutineState : UpdateRoutineState by viewModel.updateRoutineState.collectAsStateWithLifecycle()
 
@@ -31,9 +39,11 @@ fun UpdateRoutineRoutineRoute(
         modifier = modifier
     )
 
+
+
+
     val snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
     val focusManager: FocusManager = LocalFocusManager.current
-
 
 
     when (val updateRoutineStateResult = updateRoutineState) {

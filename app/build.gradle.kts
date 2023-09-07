@@ -84,6 +84,6 @@ dependencies {
 
 
     implementation(project(":feature:update-routine:routine"))
-    implementation(project(":feature:update-routine:routine_selection"))
+    implementation(project(":feature:update-routine:routine-selection"))
 
 }

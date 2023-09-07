@@ -5,7 +5,7 @@ import com.gradation.lift.domain.repository.RoutineRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class DeleteRoutineSetUseCase @Inject constructor(
+class DeleteRoutineSetRoutineUseCase @Inject constructor(
     private val routineRepository: RoutineRepository
 ) {
     operator fun invoke(routineSetId: Int): Flow<DataState<Unit>> =

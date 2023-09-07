@@ -6,7 +6,7 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CreateRoutineSetUseCase @Inject constructor(
+class CreateRoutineSetRoutineUseCase @Inject constructor(
     private val routineRepository: RoutineRepository
 ) {
     operator fun invoke(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Unit>> =
