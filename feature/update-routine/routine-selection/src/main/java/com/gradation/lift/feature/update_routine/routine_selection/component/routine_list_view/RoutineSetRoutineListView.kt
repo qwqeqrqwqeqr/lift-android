@@ -32,7 +32,7 @@ fun RoutineSetRoutineListView(
     routineSetRoutineSelection: List<RoutineSetRoutineSelection>,
     updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
     updateSelectedRoutine: (RoutineSetRoutineSelection) -> Unit,
-    navigateRoutineSelectionToRoutine: () -> Unit,
+    navigateRoutineSelectionToRoutineSet: () -> Unit,
 ) {
     Surface(color = LiftTheme.colorScheme.no17) {
         LazyColumn(
@@ -58,7 +58,7 @@ fun RoutineSetRoutineListView(
                         modifier = modifier
                             .noRippleClickable {
                                 updateSelectedRoutine(routineSetRoutine)
-                                navigateRoutineSelectionToRoutine()
+                                navigateRoutineSelectionToRoutineSet()
                             }
                             .padding(
                                 start = 16.dp,

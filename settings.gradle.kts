@@ -75,5 +75,5 @@ include(":feature:my-info:my-info")
 include(":feature:my-info:update-profile")
 include(":feature:my-info:update")
 
-include(":feature:update-routine:routine")
+include(":feature:update-routine:routine-set")
 include(":feature:update-routine:routine-selection")

@@ -33,7 +33,7 @@ object Router {
 
     const val UPDATE_ROUTINE_GRAPH_NAME = "update_routine_graph"
     const val UPDATE_ROUTINE_ROUTINE_SELECTION_ROUTER_NAME = "update_routine_routine_selection"
-    const val UPDATE_ROUTINE_ROUTINE_ROUTER_NAME = "update_routine_routine"
+    const val UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME = "update_routine_routine_set"
 
     const val HISTORY_GRAPH_NAME = "history_graph"
     const val HISTORY_HISTORY_ROUTER_NAME = "history_history"
