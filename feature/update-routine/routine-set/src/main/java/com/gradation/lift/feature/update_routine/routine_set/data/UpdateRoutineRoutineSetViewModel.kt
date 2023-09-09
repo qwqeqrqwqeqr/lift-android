@@ -1,11 +1,11 @@
-package com.gradation.lift.feature.update_routine.routine_set
+package com.gradation.lift.feature.update_routine.routine_set.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.routine.DeleteRoutineSetRoutineUseCase
 import com.gradation.lift.domain.usecase.routine.UpdateRoutineSetRoutineUseCase
-import com.gradation.lift.feature.update_routine.routine_set.data.UpdateRoutineState
+import com.gradation.lift.feature.update_routine.routine_set.data.state.UpdateRoutineState
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +27,12 @@ class UpdateRoutineRoutineSetViewModel @Inject constructor(
 
     var updateRoutineState: MutableStateFlow<UpdateRoutineState> =
         MutableStateFlow(UpdateRoutineState.None)
+
+    val onVisibleDeleteDialog : MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    
+    fun visibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = true }
+    fun invisibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = false }
 
 
     fun updateUpdateRoutineState(): (UpdateRoutineState) -> Unit = {

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.update_routine.routine_set.data
+package com.gradation.lift.feature.update_routine.routine_set.data.state
 
 /**
  * [UpdateRoutineState]

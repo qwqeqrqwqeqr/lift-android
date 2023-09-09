@@ -17,10 +17,10 @@ import com.gradation.lift.model.model.date.Weekday
  */
 data class UpdateRoutineSetRoutine(
     val id: Int = 0,
-    val name: String = "",
-    val description: String = "",
-    val weekday: Weekday = Weekday.None(),
-    val picture: String = "",
+    var name: String = "",
+    var description: String = "",
+    var weekday: Weekday = Weekday.None(),
+    var picture: String = "",
     val routine: List<UpdateRoutine> = emptyList()
 )
 
