@@ -29,7 +29,6 @@ class UpdateRoutineRoutineSetViewModel @Inject constructor(
         MutableStateFlow(UpdateRoutineState.None)
 
     val onVisibleDeleteDialog : MutableStateFlow<Boolean> = MutableStateFlow(false)
-
     
     fun visibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = true }
     fun invisibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = false }
@@ -57,6 +56,7 @@ class UpdateRoutineRoutineSetViewModel @Inject constructor(
                 }
         }
     }
+
 
     fun updateRoutineSetRoutine(): (UpdateRoutineSetRoutine) -> Unit = {
         viewModelScope.launch {

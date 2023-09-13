@@ -113,19 +113,27 @@ class UpdateRoutineSharedViewModel @Inject constructor(
     }
 
     fun updateRoutineSetName(): (String) -> Unit = {
-        selectedRoutineSetRoutine.value.name = it
+        selectedRoutineSetRoutine.value = selectedRoutineSetRoutine.value.copy(
+            name = it
+        )
     }
 
     fun updateRoutineSetDescription(): (String) -> Unit = {
-        selectedRoutineSetRoutine.value.description = it
+        selectedRoutineSetRoutine.value = selectedRoutineSetRoutine.value.copy(
+            description = it
+        )
     }
 
     fun updateRoutineSetPicture(): (String) -> Unit = {
-        selectedRoutineSetRoutine.value.picture = it
+        selectedRoutineSetRoutine.value = selectedRoutineSetRoutine.value.copy(
+            picture = it
+        )
     }
 
     fun updateRoutineSetWeekday(): (Weekday) -> Unit = {
-        selectedRoutineSetRoutine.value.weekday = it
+        selectedRoutineSetRoutine.value = selectedRoutineSetRoutine.value.copy(
+            weekday = it
+        )
     }
 
     fun updateTempWorkCategory(): (String) -> Unit = {
