@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
+import com.gradation.lift.navigation.navigation.navigateProfilePictureToRoutineSetInUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateProfileToRoutineSetInCreateRoutineGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -15,12 +16,12 @@ fun updateRoutineProfilePictureScreen(
 ) {
     navGraphBuilder.composable(UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME) {
 
-        val navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit =
-            { navController.navigateProfileToRoutineSetInCreateRoutineGraph() }
+        val navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () -> Unit =
+            { navController.navigateProfilePictureToRoutineSetInUpdateRoutineGraph() }
 
         UpdateRoutineProfilePictureRoute(
             navController = navController,
-            navigateProfileToRoutineSetInCreateRoutineGraph = navigateProfileToRoutineSetInCreateRoutineGraph
+            navigateProfilePictureToRoutineSetInUpdateRoutineGraph = navigateProfilePictureToRoutineSetInUpdateRoutineGraph
         )
     }
 }

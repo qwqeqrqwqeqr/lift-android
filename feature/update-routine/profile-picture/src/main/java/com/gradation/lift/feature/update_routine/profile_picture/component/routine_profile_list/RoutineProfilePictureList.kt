@@ -21,6 +21,7 @@ import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.update_routine.profile_picture.component.NavigationView
 import com.gradation.lift.feature.update_routine.profile_picture.data.model.RoutineSetCategoryPicture
+import com.gradation.lift.navigation.navigation.navigateProfilePictureToRoutineSetInUpdateRoutineGraph
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -30,7 +31,7 @@ fun RoutineProfilePictureList(
     updateSelectedPicture: (String) -> Unit,
     routineSetPictureList: List<RoutineSetCategoryPicture>,
     updateRoutineSetPicture: (String) -> Unit,
-    navigateProfileToRoutineSetInCreateRoutineGraph: () ->Unit,
+    navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () ->Unit,
     selectedPicture: String,
 ) {
     LazyVerticalGrid(
@@ -104,7 +105,7 @@ fun RoutineProfilePictureList(
                 modifier,
                 selectedPicture,
                 updateRoutineSetPicture,
-                navigateProfileToRoutineSetInCreateRoutineGraph
+                navigateProfilePictureToRoutineSetInUpdateRoutineGraph
             )
         }
     }

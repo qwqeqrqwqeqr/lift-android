@@ -33,7 +33,7 @@ import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_GRAPH_NAME
 @Composable
 fun UpdateRoutineProfilePictureRoute(
     navController: NavController,
-    navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit,
+    navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UpdateRoutineProfilePictureViewModel = hiltViewModel(),
 ) {
@@ -51,11 +51,11 @@ fun UpdateRoutineProfilePictureRoute(
         selectedPicture,
         updateSelectedPicture,
         updateRoutineSetPicture,
-        navigateProfileToRoutineSetInCreateRoutineGraph,
+        navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
         routineSetPictureUiState
     )
 
-    BackHandler(onBack = navigateProfileToRoutineSetInCreateRoutineGraph)
+    BackHandler(onBack = navigateProfilePictureToRoutineSetInUpdateRoutineGraph)
 }
 
 
@@ -65,14 +65,14 @@ fun UpdateRoutineProfilePictureScreen(
     selectedPicture: String,
     updateSelectedPicture: (String) -> Unit,
     updateRoutineSetPicture: (String) -> Unit,
-    navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit,
+    navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () -> Unit,
     routineSetPictureUiState: RoutineSetPictureUiState,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "프로필 등록하기",
-                onBackClickTopBar = navigateProfileToRoutineSetInCreateRoutineGraph,
+                onBackClickTopBar = navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
             )
         }
     ) { padding ->
@@ -95,7 +95,7 @@ fun UpdateRoutineProfilePictureScreen(
                             updateSelectedPicture = updateSelectedPicture,
                             routineSetPictureList = routineSetPictureUiState.routineSetPictureList,
                             updateRoutineSetPicture=updateRoutineSetPicture,
-                            navigateProfileToRoutineSetInCreateRoutineGraph = navigateProfileToRoutineSetInCreateRoutineGraph,
+                            navigateProfilePictureToRoutineSetInUpdateRoutineGraph = navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
                             selectedPicture = selectedPicture,
                         )
                     }
@@ -110,7 +110,7 @@ fun UpdateRoutineProfilePictureScreen(
 @SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview
-fun CreateRoutineProfilePictureScreenPreview() {
+fun UpdateRoutineProfilePictureScreenPreview() {
 
     LiftMaterialTheme {
         UpdateRoutineProfilePictureScreen(
@@ -118,7 +118,7 @@ fun CreateRoutineProfilePictureScreenPreview() {
             selectedPicture = "",
             updateRoutineSetPicture = {},
             updateSelectedPicture = {},
-            navigateProfileToRoutineSetInCreateRoutineGraph = {},
+            navigateProfilePictureToRoutineSetInUpdateRoutineGraph = {},
             routineSetPictureUiState = RoutineSetPictureUiState.Success(
                 listOf(
                     RoutineSetCategoryPicture(
