@@ -115,9 +115,7 @@ internal fun UpdateRoutineRoutineSelectionScreen(
 
                 when (routineSetRoutineSelectionUiState) {
                     RoutineSetRoutineSelectionUiState.Empty -> {
-                        EmptyRoutineSetRoutineListView(
-                            modifier
-                        )
+                        EmptyRoutineSetRoutineListView(modifier)
                     }
 
                     is RoutineSetRoutineSelectionUiState.Fail -> {

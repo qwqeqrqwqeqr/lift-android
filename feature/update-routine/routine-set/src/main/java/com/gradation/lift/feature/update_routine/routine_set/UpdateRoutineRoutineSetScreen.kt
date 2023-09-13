@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,11 +34,13 @@ import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.update_routine.routine_set.data.state.UpdateRoutineState
 import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
 import com.gradation.lift.feature.update_routine.routine_selection.data.model.WeekDateSelection
 import com.gradation.lift.feature.update_routine.routine_set.component.DeleteDialog
+import com.gradation.lift.feature.update_routine.routine_set.component.NavigationView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetDescriptionView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetNameView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetPictureView
@@ -47,6 +50,7 @@ import com.gradation.lift.feature.update_routine.routine_set.data.UpdateRoutineR
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1
 import com.gradation.lift.navigation.Router
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -70,6 +74,7 @@ fun UpdateRoutineRoutineSetRoute(
     val routineSetNameValidator: Validator by sharedViewModel.routineSetNameValidator.collectAsStateWithLifecycle()
     val routineSetDescriptionValidator: Validator by sharedViewModel.routineSetDescriptionValidator.collectAsStateWithLifecycle()
     val weekDateSelectionList: List<WeekDateSelection> by sharedViewModel.weekDateSelectionList.collectAsStateWithLifecycle()
+    val navigationCondition: Boolean by sharedViewModel.navigationCondition.collectAsStateWithLifecycle()
 
 
     val onVisibleDeleteDialog: Boolean by viewModel.onVisibleDeleteDialog.collectAsStateWithLifecycle()
@@ -127,6 +132,7 @@ fun UpdateRoutineRoutineSetRoute(
         routineSetNameValidator,
         routineSetDescriptionValidator,
         weekDateSelectionList,
+        navigationCondition,
         updateRoutineSetName,
         updateRoutineSetDescription,
         updateRoutineSetWeekday,
@@ -153,6 +159,7 @@ internal fun UpdateRoutineRoutineSetScreen(
     routineSetNameValidator: Validator,
     routineSetDescriptionValidator: Validator,
     weekDateSelectionList: List<WeekDateSelection>,
+    navigationCondition: Boolean,
     updateRoutineSetName: (String) -> Unit,
     updateRoutineSetDescription: (String) -> Unit,
     updateRoutineSetWeekday: (Weekday) -> Unit,
@@ -252,14 +259,67 @@ internal fun UpdateRoutineRoutineSetScreen(
                     removeRoutine,
                     navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph
                 )
-//
-//                Spacer(modifier = modifier.padding(27.dp))
-//                NavigationView(
-//                    modifier,
-//                    createRoutineCondition,
-//                    createRoutineSetRoutine
-//                )
+                Spacer(modifier = modifier.padding(24.dp))
+
+                NavigationView(
+                    modifier,
+                    selectedRoutineSetRoutine,
+                    navigationCondition,
+                    updateRoutineSetRoutine,
+                    visibleDeleteDialog
+                )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun UpdateRoutineRoutineSetScreenPreview() {
+    LiftMaterialTheme {
+        UpdateRoutineRoutineSetScreen(
+            selectedRoutineSetRoutine = routineSetRoutineModel1.let {
+                UpdateRoutineSetRoutine(
+                    id = it.id,
+                    name = it.name,
+                    description = it.description,
+                    weekday = it.weekday,
+                    picture = it.picture,
+                    routine = it.routine.map { routineSelection ->
+                        UpdateRoutine(
+                            id = routineSelection.id,
+                            workCategory = routineSelection.workCategory.name,
+                            workSetList = routineSelection.workSetList
+                        )
+                    }
+                )
+            },
+            onVisibleDeleteDialog = false,
+            routineSetNameValidator = Validator(),
+            routineSetDescriptionValidator = Validator(),
+            weekDateSelectionList = listOf(
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+                WeekDateSelection(),
+            ),
+            navigationCondition = true,
+            updateRoutineSetName = {},
+            updateRoutineSetDescription = {},
+            updateRoutineSetWeekday = {},
+            deleteRoutineSetRoutine = {},
+            updateRoutineSetRoutine = {},
+            removeRoutine = {},
+            visibleDeleteDialog = {},
+            invisibleDeleteDialog = {},
+            navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph = { },
+            navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph = { },
+            navigateRoutineSetToProfilePictureInUpdateRoutineGraph = { },
+            snackbarHostState = SnackbarHostState(),
+            focusManager = LocalFocusManager.current,
+            scrollState = rememberScrollState()
+        )
     }
 }

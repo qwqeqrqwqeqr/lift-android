@@ -3,10 +3,12 @@ package com.gradation.lift.feature.update_routine.routine_set.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -16,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftCancelButton
 import com.gradation.lift.designsystem.component.LiftDialog
 import com.gradation.lift.designsystem.component.LiftErrorButton
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -42,6 +45,14 @@ internal fun DeleteDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
+            Icon(
+                painterResource(id = LiftIcon.Warn), contentDescription = "",
+                modifier = modifier.size(52.dp),
+                tint = LiftTheme.colorScheme.no12
+            )
+            Spacer(
+                modifier = modifier.padding(10.dp)
+            )
             Text(
                 text = buildAnnotatedString {
                     append("제작한 루틴리스트가")
@@ -56,16 +67,7 @@ internal fun DeleteDialog(
                 style = LiftTheme.typography.no2,
                 color = LiftTheme.colorScheme.no3
             )
-            Spacer(
-                modifier = modifier.padding(10.dp)
-            )
-            Text(
-                "이전 화면으로 돌아갈 시 \n" +
-                        "열심히 제작한 루틴이 삭제됩니다",
-                textAlign = TextAlign.Center,
-                style = LiftTheme.typography.no4,
-                color = LiftTheme.colorScheme.no9
-            )
+
             Spacer(
                 modifier = modifier.padding(10.dp)
             )

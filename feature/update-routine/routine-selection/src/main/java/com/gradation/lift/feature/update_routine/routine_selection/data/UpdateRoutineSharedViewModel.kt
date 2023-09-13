@@ -27,7 +27,7 @@ import javax.inject.Inject
  * @property [updateRoutine] 루틴 세트 내 루틴 자체 업데이트
  * @property [appendRoutine] 루틴 세트 내 루틴 추가
  * @property [removeRoutine] 루틴 세트 내 루틴 삭제
- * @since 2023-09-06 21:07:27
+ * @since 2023-09-13 11:34:48
  */
 @HiltViewModel
 @RequiresApi(Build.VERSION_CODES.O)
@@ -88,6 +88,13 @@ class UpdateRoutineSharedViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
+    val navigationCondition : StateFlow<Boolean> = combine(routineSetNameValidator,routineSetDescriptionValidator){
+        e1,e2 -> e1.status&&e2.status
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    )
 
     fun updateSelectedRoutineSetRoutineWithRoutineSelection(): (RoutineSetRoutineSelection) -> Unit =
         {

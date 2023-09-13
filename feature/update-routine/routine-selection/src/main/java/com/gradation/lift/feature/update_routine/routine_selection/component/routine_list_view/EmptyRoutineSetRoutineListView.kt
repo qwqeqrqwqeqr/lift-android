@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.update_routine.routine_selection.component.routine_list_view
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -18,42 +17,33 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun EmptyRoutineSetRoutineListView(
     modifier: Modifier = Modifier,
 ) {
-    Surface(modifier = modifier
-        .fillMaxSize()
-        .background(LiftTheme.colorScheme.no5)) {
-
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            modifier = modifier
-                .padding(16.dp)
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color =  LiftTheme.colorScheme.no5
+    ) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        ) {
+            Column(
+                modifier = modifier,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-
-            Box(
-                modifier = modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Column(
-                    modifier = modifier,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.open_box),
-                        contentDescription = "",
-                        modifier = modifier
-                            .size(96.dp)
-                    )
-                    Spacer(modifier = modifier.padding(4.dp))
-                    Text(
-                        text = "루틴이 존재하지 않네요...",
-                        style = LiftTheme.typography.no4,
-                        color = LiftTheme.colorScheme.no9,
-                        textAlign = TextAlign.Center,
-                    )
-                    Spacer(modifier = modifier.padding(8.dp))
-                }
+                Image(
+                    painter = painterResource(id = R.drawable.open_box),
+                    contentDescription = "",
+                    modifier = modifier
+                        .size(96.dp)
+                )
+                Spacer(modifier = modifier.padding(4.dp))
+                Text(
+                    text = "루틴이 존재하지 않네요...",
+                    style = LiftTheme.typography.no4,
+                    color = LiftTheme.colorScheme.no9,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(modifier = modifier.padding(8.dp))
             }
         }
     }
