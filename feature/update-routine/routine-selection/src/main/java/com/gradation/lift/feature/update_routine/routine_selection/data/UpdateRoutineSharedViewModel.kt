@@ -14,6 +14,7 @@ import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.toWeekday
 import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.work.WorkSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -88,13 +89,14 @@ class UpdateRoutineSharedViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    val navigationCondition : StateFlow<Boolean> = combine(routineSetNameValidator,routineSetDescriptionValidator){
-        e1,e2 -> e1.status&&e2.status
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = false
-    )
+    val navigationCondition: StateFlow<Boolean> =
+        combine(routineSetNameValidator, routineSetDescriptionValidator) { e1, e2 ->
+            e1.status && e2.status
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
 
     fun updateSelectedRoutineSetRoutineWithRoutineSelection(): (RoutineSetRoutineSelection) -> Unit =
         {
@@ -161,10 +163,16 @@ class UpdateRoutineSharedViewModel @Inject constructor(
         }
     }
 
-    fun appendRoutine(): (UpdateRoutine) -> Unit = { routine ->
+    fun appendRoutine(): (List<WorkSet>) -> Unit = { workSetList ->
         selectedRoutineSetRoutine.update {
             it.copy(
-                routine = it.routine.plusElement(routine)
+                routine = it.routine.plusElement(
+                    UpdateRoutine(
+                        null,
+                        workCategory = tempWorkCategory.value,
+                        workSetList = workSetList
+                    )
+                )
             )
         }
     }
