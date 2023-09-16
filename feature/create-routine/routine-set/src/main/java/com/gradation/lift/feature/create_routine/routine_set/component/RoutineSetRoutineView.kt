@@ -12,16 +12,16 @@ fun RoutineSetRoutineView(
     modifier: Modifier = Modifier,
     routineSetRoutine: List<CreateRoutine>,
     removeRoutine: (CreateRoutine) -> Unit,
-    navigateRoutineSetToFindWorkCategory: () -> Unit,
+    navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
 ) {
 
     if (routineSetRoutine.isEmpty()) {
         EmptyRoutineListView(
-            modifier, navigateRoutineSetToFindWorkCategory
+            modifier, navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph
         )
     } else {
         RoutineListView(
-            modifier, routineSetRoutine, removeRoutine, navigateRoutineSetToFindWorkCategory
+            modifier, routineSetRoutine, removeRoutine, navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph
         )
     }
 

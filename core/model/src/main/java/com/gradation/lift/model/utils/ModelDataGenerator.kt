@@ -35,6 +35,9 @@ import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import kotlinx.datetime.LocalDateTime
@@ -287,9 +290,28 @@ object ModelDataGenerator {
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(createRoutineModel),
         )
+
+        private val updateRoutineModel = UpdateRoutine(
+            id = null,
+            workCategory = "숄더프레스",
+            workSetList = listOf(
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12),
+                WorkSet(weight = 10f, repetition = 12)
+            )
+        )
+
+        val updateRoutineSetRoutineModel = UpdateRoutineSetRoutine(
+            id= FAKE_INT_DATA,
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            weekday = Weekday.Monday(),
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+            routine = listOf(updateRoutineModel),
+        )
     }
-
-
 }
 
 

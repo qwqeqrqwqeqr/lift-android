@@ -28,6 +28,7 @@ internal fun WeekDateRoutineView(
     updateSelectedDate: (LocalDate) -> Unit,
     updateRoutineSetIdKey: (NavController, Int) -> Unit,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
+    navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
 ) {
 
@@ -69,6 +70,7 @@ internal fun WeekDateRoutineView(
                     routineSetRoutineList = weekDateRoutineUiState.weekDateRoutine,
                     updateRoutineSetIdKey,
                     navigateMainGraphToCreateRoutineGraph,
+                    navigateHomeGraphToUpdateRoutineGraph,
                     navigateMainGraphToWorkGraph
                 )
             }

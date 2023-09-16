@@ -17,7 +17,7 @@ fun NavigationView(
     currentRegisterProgressNumber: Int,
     updateCreateUserDetailName: (String) -> Unit,
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
-    navigateNameToGender: () -> Unit,
+    navigateNameToGenderInRegisterDetailGraph: () -> Unit,
     focusManager: FocusManager
 ) {
     LiftButton(
@@ -26,7 +26,7 @@ fun NavigationView(
             focusManager.clearFocus()
             updateCreateUserDetailName(nameText)
             updateCurrentRegisterProgressNumber(currentRegisterProgressNumber + 1)
-            navigateNameToGender()
+            navigateNameToGenderInRegisterDetailGraph()
         },
         enabled = navigateCondition,
     ) {

@@ -43,7 +43,7 @@ fun RoutineSetRoutineListView(
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
     updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit,
     updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
-    navigateSelectionRoutineToWork: () -> Unit,
+    navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {
     Surface(color = LiftTheme.colorScheme.no17) {
         LazyColumn(
@@ -151,7 +151,7 @@ fun RoutineSetRoutineListView(
                     selectedRoutineCount,
                     selectedRoutineSetList,
                     updateRoutineSetRoutineList,
-                    navigateSelectionRoutineToWork
+                    navigateSelectionRoutineToWorkInWorkGraph
                 )
             }
 
@@ -196,7 +196,7 @@ fun WorkRoutineSelectionScreenPreview() {
             ),
             navigateWorkGraphToHomeGraph = { },
             updateCurrentDate = { },
-            navigateSelectionRoutineToWork = {},
+            navigateSelectionRoutineToWorkInWorkGraph = {},
             updateRoutineSetRoutineList = { },
             updateSelectedRoutineSetList = { _, _ -> },
             updateOpenedRoutineIdList = { _, _ -> }

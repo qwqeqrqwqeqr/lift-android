@@ -37,7 +37,7 @@ import com.gradation.lift.model.model.user.Gender
 @Composable
 fun MyInfoUpdateRoute(
     modifier: Modifier = Modifier,
-    navigateUpdateToMyInfo: () -> Unit,
+    navigateUpdateToMyInfoInMyInfoGraph: () -> Unit,
     viewModel: MyInfoUpdateViewModel = hiltViewModel(),
 ) {
 
@@ -65,7 +65,7 @@ fun MyInfoUpdateRoute(
     val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
     val focusManager: FocusManager = LocalFocusManager.current
 
-    BackHandler(onBack = { navigateUpdateToMyInfo() })
+    BackHandler(onBack = { navigateUpdateToMyInfoInMyInfoGraph() })
 
 
     when (val updateUserDetailStateResult: UpdateUserDetailState = updateUserDetailState) {
@@ -81,7 +81,7 @@ fun MyInfoUpdateRoute(
         UpdateUserDetailState.None -> {}
         UpdateUserDetailState.Success -> {
             LaunchedEffect(true) {
-                navigateUpdateToMyInfo()
+                navigateUpdateToMyInfoInMyInfoGraph()
             }
         }
     }
@@ -102,7 +102,7 @@ fun MyInfoUpdateRoute(
         updateMale,
         updateFemale,
         updateUserDetail,
-        navigateUpdateToMyInfo,
+        navigateUpdateToMyInfoInMyInfoGraph,
         snackbarHostState,
         focusManager
     )
@@ -125,7 +125,7 @@ fun MyInfoUpdateScreen(
     updateMale: () -> Unit,
     updateFemale: () -> Unit,
     updateUserDetail: () -> Unit,
-    navigateUpdateToMyInfo: () -> Unit,
+    navigateUpdateToMyInfoInMyInfoGraph: () -> Unit,
     snackbarHostState: SnackbarHostState,
     focusManager: FocusManager
 ) {
@@ -133,7 +133,7 @@ fun MyInfoUpdateScreen(
         topBar = {
             LiftBackTopBar(
                 title = "내정보 수정",
-                onBackClickTopBar = navigateUpdateToMyInfo
+                onBackClickTopBar = navigateUpdateToMyInfoInMyInfoGraph
             )
         },
         snackbarHost = {
@@ -187,7 +187,7 @@ fun MyInfoUpdateScreenPreview() {
             updateMale = { },
             updateFemale = { },
             updateUserDetail = { },
-            navigateUpdateToMyInfo = { },
+            navigateUpdateToMyInfoInMyInfoGraph = { },
             snackbarHostState = SnackbarHostState(),
             focusManager = LocalFocusManager.current
         )

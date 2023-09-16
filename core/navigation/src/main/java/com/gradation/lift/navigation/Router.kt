@@ -7,6 +7,7 @@ package com.gradation.lift.navigation
  * 현재 사용하는 그래프는 하단과 같음
  * [BADGE_GRAPH_NAME]
  * [CREATE_ROUTINE_GRAPH_NAME]
+ * [UPDATE_ROUTINE_GRAPH_NAME]
  * [HISTORY_GRAPH_NAME]
  * [HOME_GRAPH_NAME]
  * [LOGIN_GRAPH_NAME]
@@ -14,7 +15,7 @@ package com.gradation.lift.navigation
  * [NOTIFICATION_GRAPH_NAME]
  * [REGISTER_DETAIL_GRAPH_NAME]
  * [WORK_GRAPH_NAME]
- * @since 2023-08-19 14:55:43
+ * @since 2023-09-06 17:46:31
  * */
 object Router {
 
@@ -29,6 +30,13 @@ object Router {
     const val CREATE_ROUTINE_ROUTINE_ROUTER_NAME = "create_routine_routine"
     const val CREATE_ROUTINE_PROFILE_ROUTER_NAME = "create_routine_profile"
     const val CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "create_routine_find_work_category"
+
+    const val UPDATE_ROUTINE_GRAPH_NAME = "update_routine_graph"
+    const val UPDATE_ROUTINE_ROUTINE_SELECTION_ROUTER_NAME = "update_routine_routine_selection"
+    const val UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME = "update_routine_routine_set"
+    const val UPDATE_ROUTINE_ROUTINE_ROUTER_NAME = "update_routine_routine"
+    const val UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME = "update_routine_profile_picture"
+    const val UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "update_routine_find_work_category"
 
     const val HISTORY_GRAPH_NAME = "history_graph"
     const val HISTORY_HISTORY_ROUTER_NAME = "history_history"

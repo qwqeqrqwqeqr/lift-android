@@ -26,7 +26,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun MyInfoListView(
     modifier: Modifier = Modifier,
     versionName: String,
-    navigateMyInfoToUpdate: () -> Unit
+    navigateMyInfoToUpdateInMyInfoGraph: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -40,7 +40,7 @@ fun MyInfoListView(
             modifier = modifier
                 .padding(16.dp)
                 .fillMaxWidth()
-                .noRippleClickable { navigateMyInfoToUpdate() },
+                .noRippleClickable { navigateMyInfoToUpdateInMyInfoGraph() },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

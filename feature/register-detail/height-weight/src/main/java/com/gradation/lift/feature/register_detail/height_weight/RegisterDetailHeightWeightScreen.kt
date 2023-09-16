@@ -33,8 +33,8 @@ import com.gradation.lift.ui.utils.DevicePreview
 internal fun RegisterHeightWeightRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navigateHeightWeightToProfilePicture: () -> Unit,
-    navigateHeightWeightToGender: () -> Unit,
+    navigateHeightWeightToProfilePictureInRegisterDetailGraph: () -> Unit,
+    navigateHeightWeightToGenderInRegisterDetailGraph: () -> Unit,
     viewModel: RegisterDetailHeightWeightViewModel = hiltViewModel(),
 ) {
     val registerDetailBackStackEntry: NavBackStackEntry =
@@ -76,14 +76,14 @@ internal fun RegisterHeightWeightRoute(
         updateCreateUserDetailHeight,
         updateCreateUserDetailWeight,
         updateCurrentRegisterProgressNumber,
-        navigateHeightWeightToProfilePicture,
-        navigateHeightWeightToGender,
+        navigateHeightWeightToProfilePictureInRegisterDetailGraph,
+        navigateHeightWeightToGenderInRegisterDetailGraph,
         focusManager
     )
 
     BackHandler(onBack = {
         updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-        navigateHeightWeightToGender()
+        navigateHeightWeightToGenderInRegisterDetailGraph()
     })
 
 }
@@ -105,8 +105,8 @@ internal fun RegisterDetailHeightWeightScreen(
     updateCreateUserDetailHeight: (Float) -> Unit,
     updateCreateUserDetailWeight: (Float) -> Unit,
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
-    navigateHeightWeightToProfilePicture: () -> Unit,
-    navigateHeightWeightToGender: () -> Unit,
+    navigateHeightWeightToProfilePictureInRegisterDetailGraph: () -> Unit,
+    navigateHeightWeightToGenderInRegisterDetailGraph: () -> Unit,
     focusManager: FocusManager,
 ) {
 
@@ -116,7 +116,7 @@ internal fun RegisterDetailHeightWeightScreen(
                 title = "추가정보 입력",
                 onBackClickTopBar = {
                     updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-                    navigateHeightWeightToGender()
+                    navigateHeightWeightToGenderInRegisterDetailGraph()
                 },
             )
         },
@@ -154,7 +154,7 @@ internal fun RegisterDetailHeightWeightScreen(
                     updateCreateUserDetailHeight,
                     updateCreateUserDetailWeight,
                     updateCurrentRegisterProgressNumber,
-                    navigateHeightWeightToProfilePicture
+                    navigateHeightWeightToProfilePictureInRegisterDetailGraph
                 )
             }
         }
@@ -181,8 +181,8 @@ fun RegisterDetailHeightWeightScreenPreview(
             updateCreateUserDetailHeight = {},
             updateCreateUserDetailWeight = {},
             updateCurrentRegisterProgressNumber = {},
-            navigateHeightWeightToProfilePicture = {},
-            navigateHeightWeightToGender = {},
+            navigateHeightWeightToProfilePictureInRegisterDetailGraph = {},
+            navigateHeightWeightToGenderInRegisterDetailGraph = {},
             focusManager = LocalFocusManager.current
         )
     }

@@ -7,9 +7,8 @@ import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToLoginGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToNotificationGraph
-import com.gradation.lift.navigation.navigation.navigateMyInfoToUpdate
-import com.gradation.lift.navigation.navigation.navigateMyInfoToUpdateProfile
-import com.gradation.lift.navigation.navigation.navigateUpdateToMyInfo
+import com.gradation.lift.navigation.navigation.navigateMyInfoToUpdateInMyInfoGraph
+import com.gradation.lift.navigation.navigation.navigateMyInfoToUpdateProfileInMyInfoGraph
 
 fun myInfoMyInfoScreen(
     navController: NavController,
@@ -26,16 +25,16 @@ fun myInfoMyInfoScreen(
     val navigateMyInfoGraphToBadgeGraph:() -> Unit = { navController.navigateMyInfoGraphToBadgeGraph() }
 
     val navigateMyInfoGraphToLoginGraph:() -> Unit = { navController.navigateMyInfoGraphToLoginGraph() }
-    val navigateMyInfoToUpdateProfile:() -> Unit = { navController.navigateMyInfoToUpdateProfile() }
-    val navigateMyInfoToUpdate:() -> Unit = { navController.navigateMyInfoToUpdate() }
+    val navigateMyInfoToUpdateProfileInMyInfoGraph:() -> Unit = { navController.navigateMyInfoToUpdateProfileInMyInfoGraph() }
+    val navigateMyInfoToUpdateInMyInfoGraph:() -> Unit = { navController.navigateMyInfoToUpdateInMyInfoGraph() }
 
 
     navGraphBuilder.composable(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoMyInfoRoute(
             versionName=versionName,
             navigateMyInfoGraphToLoginGraph=navigateMyInfoGraphToLoginGraph,
-            navigateMyInfoToUpdateProfile=navigateMyInfoToUpdateProfile,
-            navigateMyInfoToUpdate=navigateMyInfoToUpdate
+            navigateMyInfoToUpdateProfileInMyInfoGraph=navigateMyInfoToUpdateProfileInMyInfoGraph,
+            navigateMyInfoToUpdateInMyInfoGraph=navigateMyInfoToUpdateInMyInfoGraph
             )
     }
 }

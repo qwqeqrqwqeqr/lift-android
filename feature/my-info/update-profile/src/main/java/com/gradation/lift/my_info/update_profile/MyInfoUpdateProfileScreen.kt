@@ -35,7 +35,7 @@ import com.gradation.lift.my_info.update_profile.data.state.UpdateUserDetailStat
 @Composable
 fun MyInfoUpdateProfileRoute(
     modifier: Modifier = Modifier,
-    navigateUpdateProfileToMyInfo: () -> Unit,
+    navigateUpdateProfileToMyInfoInMyInfoGraph: () -> Unit,
     viewModel: MyInfoUpdateProfileViewModel = hiltViewModel(),
 ) {
 
@@ -53,7 +53,7 @@ fun MyInfoUpdateProfileRoute(
     val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
 
 
-    BackHandler(onBack = { navigateUpdateProfileToMyInfo() })
+    BackHandler(onBack = { navigateUpdateProfileToMyInfoInMyInfoGraph() })
 
     when (val updateUserDetailStateResult: UpdateUserDetailState = updateUserDetailState) {
         is UpdateUserDetailState.Fail -> {
@@ -68,7 +68,7 @@ fun MyInfoUpdateProfileRoute(
         UpdateUserDetailState.None -> {}
         UpdateUserDetailState.Success -> {
             LaunchedEffect(true) {
-                navigateUpdateProfileToMyInfo()
+                navigateUpdateProfileToMyInfoInMyInfoGraph()
             }
         }
     }
@@ -80,7 +80,7 @@ fun MyInfoUpdateProfileRoute(
         updateCondition,
         updateUserProfilePicture,
         updateSelectedProfile,
-        navigateUpdateProfileToMyInfo,
+        navigateUpdateProfileToMyInfoInMyInfoGraph,
         snackbarHostState
     )
 
@@ -95,7 +95,7 @@ fun MyInfoUpdateProfileScreen(
     updateCondition: Boolean,
     updateUserProfilePicture: () -> Unit,
     updateSelectedProfile: (String) -> Unit,
-    navigateUpdateProfileToMyInfo: () -> Unit,
+    navigateUpdateProfileToMyInfoInMyInfoGraph: () -> Unit,
     snackbarHostState: SnackbarHostState
 
 ) {
@@ -103,7 +103,7 @@ fun MyInfoUpdateProfileScreen(
         topBar = {
             LiftBackTopBar(
                 title = "프로필사진 변경",
-                onBackClickTopBar = navigateUpdateProfileToMyInfo
+                onBackClickTopBar = navigateUpdateProfileToMyInfoInMyInfoGraph
             )
         },
         snackbarHost = {
@@ -160,7 +160,7 @@ fun MyInfoUpdateProfileScreenPreview() {
             updateCondition = true,
             updateUserProfilePicture = {},
             updateSelectedProfile = {},
-            navigateUpdateProfileToMyInfo = {},
+            navigateUpdateProfileToMyInfoInMyInfoGraph = {},
             snackbarHostState = SnackbarHostState()
         )
     }

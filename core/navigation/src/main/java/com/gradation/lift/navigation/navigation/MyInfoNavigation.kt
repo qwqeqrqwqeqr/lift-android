@@ -23,16 +23,16 @@ fun NavController.navigateMyInfoGraphToBadgeGraph() {
 }
 
 
-fun NavController.navigateMyInfoToUpdateProfile() {
+fun NavController.navigateMyInfoToUpdateProfileInMyInfoGraph() {
     this.navigate(Router.MY_INFO_UPDATE_PROFILE_ROUTER_NAME)
 }
 
-fun NavController.navigateMyInfoToUpdate() {
+fun NavController.navigateMyInfoToUpdateInMyInfoGraph() {
     this.navigate(Router.MY_INFO_UPDATE_ROUTER_NAME)
 }
 
 
-fun NavController.navigateUpdateProfileToMyInfo() {
+fun NavController.navigateUpdateProfileToMyInfoInMyInfoGraph() {
     this.navigate(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
         this.popUpTo(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
             inclusive = true
@@ -40,7 +40,7 @@ fun NavController.navigateUpdateProfileToMyInfo() {
     }
 }
 
-fun NavController.navigateUpdateToMyInfo() {
+fun NavController.navigateUpdateToMyInfoInMyInfoGraph() {
     this.navigate(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
         this.popUpTo(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
             inclusive = true

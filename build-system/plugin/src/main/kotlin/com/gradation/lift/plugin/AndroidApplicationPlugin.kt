@@ -20,7 +20,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 extensionAndroid(this)
-                defaultConfig.targetSdk = 33
+                defaultConfig.targetSdk = 34
             }
         }
     }

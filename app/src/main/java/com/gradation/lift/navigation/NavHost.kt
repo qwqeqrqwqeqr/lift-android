@@ -21,8 +21,6 @@ fun LiftNavHost(
     connectOAuthFromNaver: ()->Unit,
     connectOAuthFromKakao: ()->Unit,
 ) {
-
-
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -47,6 +45,10 @@ fun LiftNavHost(
             connectOAuthFromKakao = { connectOAuthFromKakao() }
         )
         registerDetailGraphBuilder(
+            navController = navController,
+            navGraphBuilder = this
+        )
+        updateRoutineGraphBuilder(
             navController = navController,
             navGraphBuilder = this
         )

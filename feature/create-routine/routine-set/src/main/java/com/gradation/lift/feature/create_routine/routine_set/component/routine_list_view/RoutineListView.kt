@@ -35,7 +35,7 @@ fun RoutineListView(
     modifier: Modifier = Modifier,
     routineSetRoutine: List<CreateRoutine>,
     removeRoutine: (CreateRoutine) -> Unit,
-    navigateRoutineSetToFindWorkCategory: () -> Unit,
+    navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -54,7 +54,7 @@ fun RoutineListView(
             contentPadding = PaddingValues(
                 start = 15.dp, top = 0.dp, end = 15.dp, bottom = 0.dp
             ),
-            onClick = navigateRoutineSetToFindWorkCategory,
+            onClick = navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
         ) {
             Text(
                 text = "추가",
@@ -220,7 +220,7 @@ fun CreateRoutineRoutineListViewPreview() {
                 ModelDataGenerator.RoutineSetRoutine.createRoutineModel
             ),
             removeRoutine = { },
-            navigateRoutineSetToFindWorkCategory = { },
+            navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph = { },
         )
 
     }

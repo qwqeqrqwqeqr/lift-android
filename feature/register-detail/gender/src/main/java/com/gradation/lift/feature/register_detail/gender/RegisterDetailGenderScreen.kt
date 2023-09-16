@@ -33,8 +33,8 @@ import com.gradation.lift.ui.utils.DevicePreview
 @Composable
 fun RegisterDetailGenderRoute(
     navController: NavController,
-    navigateGenderToHeightWeight: () -> Unit,
-    navigateGenderToName: () -> Unit,
+    navigateGenderToHeightWeightInRegisterDetailGraph: () -> Unit,
+    navigateGenderToNameInRegisterDetailGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailGenderViewModel = hiltViewModel(),
 ) {
@@ -66,13 +66,13 @@ fun RegisterDetailGenderRoute(
         updateFemale,
         updateCreateUserDetailGender,
         updateCurrentRegisterProgressNumber,
-        navigateGenderToHeightWeight,
-        navigateGenderToName
+        navigateGenderToHeightWeightInRegisterDetailGraph,
+        navigateGenderToNameInRegisterDetailGraph
     )
 
     BackHandler(onBack = {
         updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-        navigateGenderToName()
+        navigateGenderToNameInRegisterDetailGraph()
     })
 }
 
@@ -89,8 +89,8 @@ internal fun RegisterDetailGenderScreen(
     updateFemale: () -> Unit,
     updateCreateUserDetailGender: (Gender) -> Unit,
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
-    navigateGenderToHeightWeight: () -> Unit,
-    navigateGenderToName: () -> Unit,
+    navigateGenderToHeightWeightInRegisterDetailGraph: () -> Unit,
+    navigateGenderToNameInRegisterDetailGraph: () -> Unit,
 ) {
 
     Scaffold(
@@ -99,7 +99,7 @@ internal fun RegisterDetailGenderScreen(
                 title = "추가정보 입력",
                 onBackClickTopBar = {
                     updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-                    navigateGenderToName()
+                    navigateGenderToNameInRegisterDetailGraph()
                 }
             )
         },
@@ -130,7 +130,7 @@ internal fun RegisterDetailGenderScreen(
                     currentRegisterProgressNumber,
                     updateCreateUserDetailGender,
                     updateCurrentRegisterProgressNumber,
-                    navigateGenderToHeightWeight
+                    navigateGenderToHeightWeightInRegisterDetailGraph
                 )
             }
         }
@@ -154,8 +154,8 @@ fun RegisterDetailGenderScreenPreview(
             updateFemale = {},
             updateCreateUserDetailGender = {},
             updateCurrentRegisterProgressNumber = {},
-            navigateGenderToHeightWeight = {},
-            navigateGenderToName = {}
+            navigateGenderToHeightWeightInRegisterDetailGraph = {},
+            navigateGenderToNameInRegisterDetailGraph = {}
         )
     }
 }

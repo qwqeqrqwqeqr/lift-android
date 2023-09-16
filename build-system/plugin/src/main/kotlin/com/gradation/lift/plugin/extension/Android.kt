@@ -15,7 +15,7 @@ internal fun Project.extensionAndroid(
 
 
         defaultConfig {
-            minSdk = 23
+            minSdk = 30
 
             vectorDrawables {
                 useSupportLibrary = true

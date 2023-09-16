@@ -24,11 +24,11 @@ fun NavController.navigateBadgeGraphToMyInfoGraph() {
 }
 
 
-fun NavController.navigateBadgeToSetting() {
+fun NavController.navigateBadgeToSettingInBadgeGraph() {
     this.navigate(Router.BADGE_BADGE_ROUTER_NAME)
 }
 
-fun NavController.navigateSettingToBadge() {
+fun NavController.navigateSettingToBadgeInBadgeGraph() {
     this.navigate(BADGE_SETTING_ROUTER_NAME) {
         this.popUpTo(BADGE_SETTING_ROUTER_NAME)
     }

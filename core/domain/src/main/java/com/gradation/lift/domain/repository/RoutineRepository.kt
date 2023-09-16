@@ -5,6 +5,7 @@ import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -16,11 +17,26 @@ interface RoutineRepository {
 
 
      /**
-      * [createRoutineSet]
+      * [createRoutineSetRoutine]
       * 루틴 세트 생성
       * @since 2023-08-28 19:55:50
       */
-     fun createRoutineSet(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Unit>>
+     fun createRoutineSetRoutine(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<DataState<Unit>>
+
+
+     /**
+      * [updateRoutineSetRoutine]
+      * 루틴 세트 업데이트
+      * @since 2023-09-06 16:45:57
+      */
+     fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<DataState<Unit>>
+
+     /**
+      * [deleteRoutineSetRoutine]
+      * 루틴 세트 삭제
+      * @since 2023-09-06 16:46:09
+      */
+     fun deleteRoutineSetRoutine(routineSetId: Int): Flow<DataState<Unit>>
 
      /**
       * [getRoutine]

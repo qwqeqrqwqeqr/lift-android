@@ -20,7 +20,7 @@ fun NavigationView(
     selectedRoutineCount: Int,
     selectedRoutineSetList: List<RoutineSetRoutine>,
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
-    navigateSelectionRoutineToWork: () -> Unit,
+    navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -28,7 +28,7 @@ fun NavigationView(
         LiftButton(
             onClick = {
                 updateRoutineSetRoutineList(selectedRoutineSetList)
-                navigateSelectionRoutineToWork()
+                navigateSelectionRoutineToWorkInWorkGraph()
             },
             modifier=modifier.fillMaxWidth(),
             enabled = selectedRoutineCount != 0

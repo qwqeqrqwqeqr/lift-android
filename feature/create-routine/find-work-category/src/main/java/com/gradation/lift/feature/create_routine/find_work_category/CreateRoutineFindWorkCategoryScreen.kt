@@ -28,8 +28,8 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun CreateRoutineFindWorkCategoryRoute(
     navController: NavController,
-    navigateFindWorkCategoryToRoutineSet: () -> Unit,
-    navigateFindWorkCategoryToRoutine: () -> Unit,
+    navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph: () -> Unit,
+    navigateFindWorkCategoryToRoutineInCreateRoutineGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineFindWorkCategoryViewModel = hiltViewModel(),
 ) {
@@ -60,11 +60,11 @@ fun CreateRoutineFindWorkCategoryRoute(
         updateSearchText,
         updateWorkPartFilter,
         updateTempWorkCategory,
-        navigateFindWorkCategoryToRoutineSet,
-        navigateFindWorkCategoryToRoutine
+        navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph,
+        navigateFindWorkCategoryToRoutineInCreateRoutineGraph
     )
 
-    BackHandler(onBack = navigateFindWorkCategoryToRoutineSet)
+    BackHandler(onBack = navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph)
 }
 
 @Composable
@@ -77,14 +77,14 @@ fun CreateRoutineFindWorkCategoryScreen(
     updateSearchText: (String) -> Unit,
     updateWorkPartFilter: (String) -> Unit,
     updateTempWorkCategory: (String) -> Unit,
-    navigateFindWorkCategoryToRoutineSet: () -> Unit,
-    navigateFindWorkCategoryToRoutine: () -> Unit,
+    navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph: () -> Unit,
+    navigateFindWorkCategoryToRoutineInCreateRoutineGraph: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "운동부위 선택",
-                onBackClickTopBar = navigateFindWorkCategoryToRoutineSet,
+                onBackClickTopBar = navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph,
             )
         }, modifier = modifier.fillMaxSize()
     ) { paddingValues ->
@@ -96,7 +96,7 @@ fun CreateRoutineFindWorkCategoryScreen(
                 modifier,
                 workCategoryList,
                 updateTempWorkCategory,
-                navigateFindWorkCategoryToRoutine
+                navigateFindWorkCategoryToRoutineInCreateRoutineGraph
             )
         }
     }
@@ -125,8 +125,8 @@ fun CreateRoutineFindWorkCategoryScreenPreview() {
             updateSearchText = {},
             updateWorkPartFilter = {},
             updateTempWorkCategory = {},
-            navigateFindWorkCategoryToRoutineSet = {},
-            navigateFindWorkCategoryToRoutine = {}
+            navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph = {},
+            navigateFindWorkCategoryToRoutineInCreateRoutineGraph = {}
         )
     }
 }

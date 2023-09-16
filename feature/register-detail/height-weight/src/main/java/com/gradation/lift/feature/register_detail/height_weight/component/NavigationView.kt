@@ -17,7 +17,7 @@ fun NavigationView(
     updateCreateUserDetailHeight: (Float) -> Unit,
     updateCreateUserDetailWeight: (Float) -> Unit,
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
-    navigateHeightWeightToProfilePicture: () -> Unit,
+    navigateHeightWeightToProfilePictureInRegisterDetailGraph: () -> Unit,
 ) {
     LiftButton(
         enabled = navigateCondition,
@@ -26,7 +26,7 @@ fun NavigationView(
             updateCreateUserDetailHeight(heightText.toFloat())
             updateCreateUserDetailWeight(weightText.toFloat())
             updateCurrentRegisterProgressNumber(currentRegisterProgressNumber+1)
-            navigateHeightWeightToProfilePicture()
+            navigateHeightWeightToProfilePictureInRegisterDetailGraph()
         },
     ) {
         Text(

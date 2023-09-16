@@ -3,6 +3,7 @@ package com.gradation.lift.network.test.network
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
@@ -18,6 +19,9 @@ import com.gradation.lift.network.service.RoutineService
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineRequestDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.deleteRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineResponseDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -55,7 +59,7 @@ class RoutineServiceTest {
 
 
     @Test
-    fun createRoutineSetService() = runTest {
+    fun createRoutineSetRoutineService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)
@@ -73,6 +77,49 @@ class RoutineServiceTest {
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
             .isEqualTo(createRoutineSetRoutineResponseDto)
+    }
+
+    @Test
+    fun updateRoutineSetRoutineService() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(resultResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.CREATED)
+        )
+
+        val response = routineService.updateRoutineSetRoutine(updateRoutineSetRoutineRequestDto = updateRoutineSetRoutineRequestDto)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/")
+        Truth.assertThat(request.method).isEqualTo(Constants.PUT)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(updateRoutineSetRoutineResponseDto)
+    }
+
+
+    @Test
+    fun deleteRoutineSetRoutineService() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(resultResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.CREATED)
+        )
+
+        val response = routineService.deleteRoutineSetRoutine(routineSetId = FAKE_INT_DATA)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/?routine_set_id=${FAKE_INT_DATA}")
+        Truth.assertThat(request.method).isEqualTo(Constants.DELETE)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(deleteRoutineSetRoutineResponseDto)
     }
 
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.common.utils.*
 import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
-import com.gradation.lift.domain.usecase.routine.CreateRoutineSetUseCase
+import com.gradation.lift.domain.usecase.routine.CreateRoutineSetRoutineUseCase
 import com.gradation.lift.feature.create_routine.routine_set.data.model.WeekdaySelection
 import com.gradation.lift.feature.create_routine.routine_set.data.state.CreateRoutineState
 import com.gradation.lift.model.model.date.Weekday
@@ -37,7 +37,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class CreateRoutineSharedViewModel @Inject constructor(
-    private val createRoutineSetUseCase: CreateRoutineSetUseCase,
+    private val createRoutineSetRoutineUseCase: CreateRoutineSetRoutineUseCase,
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
 ) : ViewModel() {
 
@@ -172,9 +172,9 @@ class CreateRoutineSharedViewModel @Inject constructor(
         createRoutineState.value = it
     }
 
-    fun createRoutineSet(): () -> Unit = {
+    fun createRoutineSetRoutine(): () -> Unit = {
         viewModelScope.launch {
-            createRoutineSetUseCase(
+            createRoutineSetRoutineUseCase(
                 CreateRoutineSetRoutine(
                     routineSetName.value,
                     routineSetDescription.value,

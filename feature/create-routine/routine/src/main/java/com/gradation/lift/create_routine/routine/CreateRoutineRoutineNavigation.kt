@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateRoutineToFindWorkCategory
-import com.gradation.lift.navigation.navigation.navigateRoutineToRoutineSet
+import com.gradation.lift.navigation.navigation.navigateRoutineToFindWorkCategoryInCreateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateRoutineToRoutineSetInCreateRoutineGraph
 
 
 fun createRoutineRoutineScreen(
@@ -13,17 +13,17 @@ fun createRoutineRoutineScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
 
-    val navigateRoutineToFindWorkCategory: () -> Unit =
-        { navController.navigateRoutineToFindWorkCategory() }
+    val navigateRoutineToFindWorkCategoryInCreateRoutineGraph: () -> Unit =
+        { navController.navigateRoutineToFindWorkCategoryInCreateRoutineGraph() }
 
-    val navigateRoutineToRoutineSet: () -> Unit =
-        { navController.navigateRoutineToRoutineSet() }
+    val navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit =
+        { navController.navigateRoutineToRoutineSetInCreateRoutineGraph() }
 
     navGraphBuilder.composable(CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
         CreateRoutineRoutineRoute(
             navController = navController,
-            navigateRoutineToFindWorkCategory = navigateRoutineToFindWorkCategory,
-            navigateRoutineToRoutineSet = navigateRoutineToRoutineSet
+            navigateRoutineToFindWorkCategoryInCreateRoutineGraph = navigateRoutineToFindWorkCategoryInCreateRoutineGraph,
+            navigateRoutineToRoutineSetInCreateRoutineGraph = navigateRoutineToRoutineSetInCreateRoutineGraph
 
         )
     }

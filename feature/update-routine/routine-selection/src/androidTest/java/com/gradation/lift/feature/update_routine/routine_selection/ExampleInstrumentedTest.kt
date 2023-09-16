@@ -1,7 +1,7 @@
-package com.gradation.lift.data
+package com.gradation.lift.feature.update_routine.routine_selection
 
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,6 +19,9 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.gradation.lift.data.test", appContext.packageName)
+        assertEquals(
+            "com.gradation.lift.feature.update_routine.routine_selection.test",
+            appContext.packageName
+        )
     }
 }

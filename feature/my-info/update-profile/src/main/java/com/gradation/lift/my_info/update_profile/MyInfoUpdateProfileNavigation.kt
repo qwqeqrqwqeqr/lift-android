@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateUpdateProfileToMyInfo
+import com.gradation.lift.navigation.navigation.navigateUpdateProfileToMyInfoInMyInfoGraph
 
 fun myInfoUpdateProfileScreen(
     navController: NavController,
@@ -12,9 +12,9 @@ fun myInfoUpdateProfileScreen(
 ) {
     navGraphBuilder.composable(Router.MY_INFO_UPDATE_PROFILE_ROUTER_NAME) {
 
-        val navigateUpdateProfileToMyInfo:() -> Unit = { navController.navigateUpdateProfileToMyInfo() }
+        val navigateUpdateProfileToMyInfoInMyInfoGraph:() -> Unit = { navController.navigateUpdateProfileToMyInfoInMyInfoGraph() }
         MyInfoUpdateProfileRoute(
-            navigateUpdateProfileToMyInfo=navigateUpdateProfileToMyInfo
+            navigateUpdateProfileToMyInfoInMyInfoGraph=navigateUpdateProfileToMyInfoInMyInfoGraph
         )
     }
 
