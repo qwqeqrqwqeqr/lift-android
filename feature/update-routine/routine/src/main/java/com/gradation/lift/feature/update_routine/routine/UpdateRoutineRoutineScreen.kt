@@ -23,7 +23,7 @@ import com.gradation.lift.feature.update_routine.routine.component.NavigationVie
 import com.gradation.lift.feature.update_routine.routine.component.ProfilePictureView
 import com.gradation.lift.feature.update_routine.routine.component.RoutineListView
 import com.gradation.lift.feature.update_routine.routine.data.model.IndexWorkSet
-import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
+import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router

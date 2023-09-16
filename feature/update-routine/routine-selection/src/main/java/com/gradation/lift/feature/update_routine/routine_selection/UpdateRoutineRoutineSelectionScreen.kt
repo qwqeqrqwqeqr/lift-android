@@ -26,8 +26,8 @@ import com.gradation.lift.feature.update_routine.routine_selection.component.rou
 import com.gradation.lift.feature.update_routine.routine_selection.component.routine_list_view.LoadingRoutineSetRoutineListView
 import com.gradation.lift.feature.update_routine.routine_selection.component.routine_list_view.RoutineSetRoutineListView
 import com.gradation.lift.feature.update_routine.routine_selection.component.week_date_card_view.WeekDateCardListView
-import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineRoutineSelectionViewModel
-import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
+import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineRoutineSelectionViewModel
+import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.feature.update_routine.routine_selection.data.model.RoutineSelection
 import com.gradation.lift.feature.update_routine.routine_selection.data.model.RoutineSetRoutineSelection
 import com.gradation.lift.feature.update_routine.routine_selection.data.model.WeekDateSelection

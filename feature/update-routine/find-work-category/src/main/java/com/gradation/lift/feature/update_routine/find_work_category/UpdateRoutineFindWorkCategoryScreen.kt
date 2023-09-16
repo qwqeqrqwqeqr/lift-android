@@ -21,7 +21,7 @@ import com.gradation.lift.feature.update_routine.find_work_category.component.Se
 import com.gradation.lift.feature.update_routine.find_work_category.component.WorkCategoryView
 import com.gradation.lift.feature.update_routine.find_work_category.data.model.WorkPartFilterSelection
 import com.gradation.lift.feature.update_routine.find_work_category.data.viewmodel.UpdateRoutineFindWorkCategoryViewModel
-import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
+import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.navigation.Router

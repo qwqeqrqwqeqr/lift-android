@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.update_routine.routine_selection.data
+package com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -21,14 +21,17 @@ import javax.inject.Inject
 
 /**
  * [UpdateRoutineSharedViewModel]
+ * @constructor getCurrentWeekUseCase 이번주 날짜 정보를 불러오는 유즈케이스
  * @property selectedRoutineSetRoutine 현재 수정을 하기 위해 선택된 루틴
- *
- * @property [updateSelectedRoutineSetRoutineWithRoutineSelection] 루틴 선택 화면에서 선택된 루틴을 바탕으로 업데이트할 때 사용할 것
- * @property [updateSelectedRoutineSetRoutine] 루틴 수정 화면에서 루틴 세트 자체 업데이트
- * @property [updateRoutine] 루틴 세트 내 루틴 자체 업데이트
- * @property [appendRoutine] 루틴 세트 내 루틴 추가
- * @property [removeRoutine] 루틴 세트 내 루틴 삭제
- * @since 2023-09-13 11:34:48
+ * @property tempWorkCategory 현재 수정을 하기 위해 선택된 루틴
+ * @property routineSetNameValidator 루틴 세트 이름 유효성 검사
+ * @property routineSetDescriptionValidator 루틴 세트 설명 유효성 검사
+ * @property weekDateSelectionList 요일 및 날짜 정보와 해당 요일을 뷰에서 선택했는지에 대한 정보를 가지고 있음
+ * @property navigationCondition 네비게이션 조건
+ * @property updateSelectedRoutineSetRoutineWithRoutineSelection 루틴 선택 화면에서 선택된 루틴을 바탕으로 업데이트할 때 사용할 것
+ * @property appendRoutine 루틴 세트 내 루틴 추가
+ * @property removeRoutine 루틴 세트 내 루틴 삭제
+ * @since 2023-09-16 16:27:34
  */
 @HiltViewModel
 @RequiresApi(Build.VERSION_CODES.O)
@@ -90,8 +93,12 @@ class UpdateRoutineSharedViewModel @Inject constructor(
         )
 
     val navigationCondition: StateFlow<Boolean> =
-        combine(routineSetNameValidator, routineSetDescriptionValidator) { e1, e2 ->
-            e1.status && e2.status
+        combine(
+            routineSetNameValidator,
+            routineSetDescriptionValidator,
+            selectedRoutineSetRoutine
+        ) { e1, e2, e3 ->
+            e1.status && e2.status && e3.routine.isNotEmpty()
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -117,9 +124,7 @@ class UpdateRoutineSharedViewModel @Inject constructor(
         }
 
 
-    fun updateSelectedRoutineSetRoutine(): (UpdateRoutineSetRoutine) -> Unit = {
-        selectedRoutineSetRoutine.value = it
-    }
+
 
     fun updateRoutineSetName(): (String) -> Unit = {
         selectedRoutineSetRoutine.value = selectedRoutineSetRoutine.value.copy(
@@ -149,19 +154,6 @@ class UpdateRoutineSharedViewModel @Inject constructor(
         tempWorkCategory.value = it
     }
 
-
-    fun updateRoutine(): (UpdateRoutine) -> Unit = { routine ->
-        selectedRoutineSetRoutine.update {
-            it.copy(
-                routine = it.routine.apply {
-                    find { it.id == routine.id }?.copy(
-                        workCategory = routine.workCategory,
-                        workSetList = routine.workSetList
-                    )
-                }
-            )
-        }
-    }
 
     fun appendRoutine(): (List<WorkSet>) -> Unit = { workSetList ->
         selectedRoutineSetRoutine.update {

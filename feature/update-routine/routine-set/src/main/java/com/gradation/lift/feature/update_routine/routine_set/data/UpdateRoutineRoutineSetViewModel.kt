@@ -14,10 +14,11 @@ import javax.inject.Inject
 
 /**
  * [UpdateRoutineRoutineSetViewModel]
- * @property updateRoutineState 루틴세트 업데이트(수정 또는 삭제)와 관련 되어있는 상태
  * @constructor deleteRoutineSetRoutineUseCase 루틴세트 삭제 유즈케이스
  * @constructor updateRoutineSetRoutineUseCase 루틴세트 수정 유즈케이스
- * @since 2023-09-07 13:29:42
+ * @property updateRoutineState 루틴세트 업데이트(수정 또는 삭제)와 관련 되어있는 상태
+ * @property onVisibleDeleteDialog 루틴세트 삭제에 대한 다이얼로그 온오프 여부
+ * @since 2023-09-16 16:18:41
  */
 @HiltViewModel
 class UpdateRoutineRoutineSetViewModel @Inject constructor(
@@ -28,8 +29,8 @@ class UpdateRoutineRoutineSetViewModel @Inject constructor(
     var updateRoutineState: MutableStateFlow<UpdateRoutineState> =
         MutableStateFlow(UpdateRoutineState.None)
 
-    val onVisibleDeleteDialog : MutableStateFlow<Boolean> = MutableStateFlow(false)
-    
+    val onVisibleDeleteDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     fun visibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = true }
     fun invisibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = false }
 

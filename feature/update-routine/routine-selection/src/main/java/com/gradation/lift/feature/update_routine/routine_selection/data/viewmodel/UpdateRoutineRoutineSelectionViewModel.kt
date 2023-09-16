@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.update_routine.routine_selection.data
+package com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -21,14 +21,10 @@ import javax.inject.Inject
 
 /**
  * [UpdateRoutineRoutineSelectionViewModel]
+ * @constructor getRoutineSetRoutineByWeekdayUseCase 요일을 통해 루틴세트를 불러옴
  * @property openedRoutineState 뷰와 상호작용을 통해 상세정보가 열린 루틴들의 정보 상태
  * @property dateState 날짜와 관련된 상태
- * @property routineSetRoutineState 상단 3개의 상태를 조합하여 만든 루틴 세트 상태
- *
- * @constructor getThisWeekUseCase 이번주에 대한 정보를 불러옴 (날짜, 요일)
- * @constructor getRoutineSetRoutineByWeekdayUseCase  요일을 통해 루틴세트를 불러옴
- * @constructor getRoutineSetRoutineByRoutineSetIdUseCase 루틴세트 아이디를 통해 루틴세트를 불러옴
- * @constructor getTodayUseCase 현재 날짜 시간 정보를 불러옴
+ * @property routineSetRoutineState 상단 3개의 상태를 조합 하여 만든 루틴 세트 상태
  * @since 2023-09-06 21:03:44
  */
 @HiltViewModel

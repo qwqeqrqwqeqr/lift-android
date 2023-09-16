@@ -25,7 +25,7 @@ import com.gradation.lift.feature.update_routine.profile_picture.data.model.Rout
 import com.gradation.lift.feature.update_routine.profile_picture.data.model.SelectedPicture
 import com.gradation.lift.feature.update_routine.profile_picture.data.state.RoutineSetPictureUiState
 import com.gradation.lift.feature.update_routine.profile_picture.data.viewmodel.UpdateRoutineProfilePictureViewModel
-import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
+import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_GRAPH_NAME
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -37,9 +37,9 @@ fun UpdateRoutineProfilePictureRoute(
     modifier: Modifier = Modifier,
     viewModel: UpdateRoutineProfilePictureViewModel = hiltViewModel(),
 ) {
-    val crateRoutineBackStackEntry: NavBackStackEntry =
+    val updateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(UPDATE_ROUTINE_GRAPH_NAME) }
-    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
+    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(updateRoutineBackStackEntry)
     val selectedPicture: String by viewModel.selectedPicture.collectAsStateWithLifecycle()
     val updateSelectedPicture: (String) -> Unit = viewModel.updateSelectedPicture()
     val updateRoutineSetPicture: (String) -> Unit = sharedViewModel.updateRoutineSetPicture()

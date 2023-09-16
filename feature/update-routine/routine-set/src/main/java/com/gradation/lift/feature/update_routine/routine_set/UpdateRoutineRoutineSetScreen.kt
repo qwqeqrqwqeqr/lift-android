@@ -37,7 +37,7 @@ import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.update_routine.routine_set.data.state.UpdateRoutineState
-import com.gradation.lift.feature.update_routine.routine_selection.data.UpdateRoutineSharedViewModel
+import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.feature.update_routine.routine_selection.data.model.WeekDateSelection
 import com.gradation.lift.feature.update_routine.routine_set.component.DeleteDialog
 import com.gradation.lift.feature.update_routine.routine_set.component.NavigationView
@@ -64,9 +64,9 @@ fun UpdateRoutineRoutineSetRoute(
     modifier: Modifier = Modifier,
     viewModel: UpdateRoutineRoutineSetViewModel = hiltViewModel(),
 ) {
-    val workBackStackEntry: NavBackStackEntry =
+    val updateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.UPDATE_ROUTINE_GRAPH_NAME) }
-    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(workBackStackEntry)
+    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(updateRoutineBackStackEntry)
 
     val updateRoutineState: UpdateRoutineState by viewModel.updateRoutineState.collectAsStateWithLifecycle()
     val selectedRoutineSetRoutine: UpdateRoutineSetRoutine by sharedViewModel.selectedRoutineSetRoutine.collectAsStateWithLifecycle()
@@ -87,14 +87,11 @@ fun UpdateRoutineRoutineSetRoute(
     val updateRoutineSetName: (String) -> Unit = sharedViewModel.updateRoutineSetName()
     val updateRoutineSetDescription: (String) -> Unit =
         sharedViewModel.updateRoutineSetDescription()
-    val updateRoutineSetPicture: (String) -> Unit = sharedViewModel.updateRoutineSetPicture()
     val updateRoutineSetWeekday: (Weekday) -> Unit = sharedViewModel.updateRoutineSetWeekday()
 
 
     val updateUpdateRoutineState: (UpdateRoutineState) -> Unit =
         viewModel.updateUpdateRoutineState()
-    val updateSelectedRoutineSetRoutine: (UpdateRoutineSetRoutine) -> Unit =
-        sharedViewModel.updateSelectedRoutineSetRoutine()
     val removeRoutine: (UpdateRoutine) -> Unit = sharedViewModel.removeRoutine()
 
     val visibleDeleteDialog: () -> Unit = viewModel.visibleDeleteDialog()
