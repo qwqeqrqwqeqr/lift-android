@@ -29,7 +29,7 @@ fun EmptyRoutineSetRoutineListView(
     selectedRoutineCount: Int,
     selectedRoutineSetList: List<RoutineSetRoutine>,
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
-    navigateSelectionRoutineToWork: () -> Unit,
+    navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {
     Surface(modifier = modifier
         .fillMaxSize()
@@ -73,7 +73,7 @@ fun EmptyRoutineSetRoutineListView(
                 selectedRoutineCount,
                 selectedRoutineSetList,
                 updateRoutineSetRoutineList,
-                navigateSelectionRoutineToWork
+                navigateSelectionRoutineToWorkInWorkGraph
             )
         }
     }
@@ -100,7 +100,7 @@ fun WorkRoutineSelectionPreview() {
             routineSetRoutineSelectionUiState = RoutineSetRoutineSelectionUiState.Empty,
             navigateWorkGraphToHomeGraph = { },
             updateCurrentDate = { },
-            navigateSelectionRoutineToWork = {},
+            navigateSelectionRoutineToWorkInWorkGraph = {},
             updateRoutineSetRoutineList = { },
             updateSelectedRoutineSetList = { _, _ -> },
             updateOpenedRoutineIdList = { _, _ -> }

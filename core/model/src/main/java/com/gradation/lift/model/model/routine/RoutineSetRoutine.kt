@@ -15,10 +15,10 @@ import com.gradation.lift.model.model.date.Weekday
  * @property routine 루틴 세트에 들어가는 루틴들
  **/
 data class RoutineSetRoutine(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val weekday: Weekday,
-    val picture : String,
-    val routine : List<Routine>
+    val id: Int = 0,
+    val name: String = "",
+    val description: String = "",
+    val weekday: Weekday = Weekday.None(),
+    val picture: String = "",
+    val routine: List<Routine> = emptyList()
 )

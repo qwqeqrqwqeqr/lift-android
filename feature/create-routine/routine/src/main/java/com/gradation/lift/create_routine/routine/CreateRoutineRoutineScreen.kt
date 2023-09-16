@@ -31,8 +31,8 @@ import com.gradation.lift.navigation.Router
 fun CreateRoutineRoutineRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navigateRoutineToFindWorkCategory: () -> Unit,
-    navigateRoutineToRoutineSet: () -> Unit,
+    navigateRoutineToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
+    navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
     viewModel: CreateRoutineRoutineViewModel = hiltViewModel(),
 ) {
     val crateRoutineBackStackEntry: NavBackStackEntry =
@@ -62,12 +62,12 @@ fun CreateRoutineRoutineRoute(
         updateWorkSet,
         removeWorkSet,
         addRoutine,
-        navigateRoutineToFindWorkCategory,
-        navigateRoutineToRoutineSet,
+        navigateRoutineToFindWorkCategoryInCreateRoutineGraph,
+        navigateRoutineToRoutineSetInCreateRoutineGraph,
         focusManager
     )
 
-    BackHandler(onBack = navigateRoutineToFindWorkCategory)
+    BackHandler(onBack = navigateRoutineToFindWorkCategoryInCreateRoutineGraph)
 }
 
 @Composable
@@ -80,15 +80,15 @@ fun CreateRoutineRoutineScreen(
     updateWorkSet: (IndexWorkSet) -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
     addRoutine: (List<WorkSet>) -> Unit,
-    navigateRoutineToFindWorkCategory: () -> Unit,
-    navigateRoutineToRoutineSet: () -> Unit,
+    navigateRoutineToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
+    navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
     focusManager: FocusManager,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = tempWorkCategory,
-                onBackClickTopBar = navigateRoutineToFindWorkCategory,
+                onBackClickTopBar = navigateRoutineToFindWorkCategoryInCreateRoutineGraph,
             )
         },
         modifier = modifier.fillMaxSize(),
@@ -119,7 +119,7 @@ fun CreateRoutineRoutineScreen(
                     createRoutineCondition,
                     workSetList,
                     addRoutine,
-                    navigateRoutineToRoutineSet
+                    navigateRoutineToRoutineSetInCreateRoutineGraph
                 )
             }
         }
@@ -146,8 +146,8 @@ fun CreateRoutineRoutineScreenPreview() {
             updateWorkSet = {},
             removeWorkSet = {},
             addRoutine = {},
-            navigateRoutineToFindWorkCategory = {},
-            navigateRoutineToRoutineSet = {},
+            navigateRoutineToFindWorkCategoryInCreateRoutineGraph = {},
+            navigateRoutineToRoutineSetInCreateRoutineGraph = {},
             focusManager = LocalFocusManager.current
         )
     }

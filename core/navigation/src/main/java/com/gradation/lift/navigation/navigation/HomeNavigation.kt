@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.Router.HISTORY_GRAPH_NAME
 import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
-import com.gradation.lift.navigation.Router.MY_INFO_GRAPH_NAME
 
 
 fun NavController.navigateHomeGraphToWorkGraph() {
@@ -15,6 +14,11 @@ fun NavController.navigateHomeGraphToWorkGraph() {
 fun NavController.navigateHomeGraphToCreateRoutineGraph() {
     this.navigate(Router.CREATE_ROUTINE_GRAPH_NAME)
 }
+
+fun NavController.navigateHomeGraphToUpdateRoutineGraph() {
+    this.navigate(Router.UPDATE_ROUTINE_GRAPH_NAME)
+}
+
 
 fun NavController.navigateHomeGraphToBadgeGraph() {
     this.navigate(Router.BADGE_GRAPH_NAME)

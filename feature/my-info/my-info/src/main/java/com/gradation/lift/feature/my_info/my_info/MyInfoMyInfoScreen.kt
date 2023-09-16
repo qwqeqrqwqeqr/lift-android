@@ -33,8 +33,8 @@ fun MyInfoMyInfoRoute(
     modifier: Modifier = Modifier,
     versionName: String,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
-    navigateMyInfoToUpdateProfile: () -> Unit,
-    navigateMyInfoToUpdate: () -> Unit,
+    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit,
+    navigateMyInfoToUpdateInMyInfoGraph: () -> Unit,
     viewModel: MyInfoMyInfoViewModel = hiltViewModel(),
 ) {
 
@@ -74,8 +74,8 @@ fun MyInfoMyInfoRoute(
         workCount,
         userDetailUiState,
         signOut,
-        navigateMyInfoToUpdateProfile,
-        navigateMyInfoToUpdate,
+        navigateMyInfoToUpdateProfileInMyInfoGraph,
+        navigateMyInfoToUpdateInMyInfoGraph,
         snackbarHostState
     )
 }
@@ -87,8 +87,8 @@ fun MyInfoMyInfoScreen(
     workCount: Int,
     userDetailUiState: UserDetailUiState,
     signOut: () -> Unit,
-    navigateMyInfoToUpdateProfile: () -> Unit,
-    navigateMyInfoToUpdate: () -> Unit,
+    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit,
+    navigateMyInfoToUpdateInMyInfoGraph: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
     Scaffold(
@@ -109,10 +109,10 @@ fun MyInfoMyInfoScreen(
                     userDetailUiState,
                     workCount,
                     signOut,
-                    navigateMyInfoToUpdateProfile
+                    navigateMyInfoToUpdateProfileInMyInfoGraph
                 )
                 Spacer(modifier = modifier.padding(9.dp))
-                MyInfoListView(modifier, versionName, navigateMyInfoToUpdate)
+                MyInfoListView(modifier, versionName, navigateMyInfoToUpdateInMyInfoGraph)
 
             }
         }
@@ -129,8 +129,8 @@ fun MyInfoMyInfoScreenPreview() {
             versionName = "1.0.0",
             userDetailUiState = UserDetailUiState.Success(userDetailModel),
             signOut = {},
-            navigateMyInfoToUpdateProfile = {},
-            navigateMyInfoToUpdate = {},
+            navigateMyInfoToUpdateProfileInMyInfoGraph = {},
+            navigateMyInfoToUpdateInMyInfoGraph = {},
             snackbarHostState = SnackbarHostState()
         )
     }

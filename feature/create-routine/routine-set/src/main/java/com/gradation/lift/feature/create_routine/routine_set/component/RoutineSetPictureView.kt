@@ -21,7 +21,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun RoutineSetPictureView(
     modifier: Modifier = Modifier,
-    navigateRoutineSetToProfile: () -> Unit,
+    navigateRoutineSetToProfileInCreateRoutineGraph: () -> Unit,
     routineSetPicture: String,
 ) {
     Column(modifier = modifier.fillMaxWidth()){
@@ -42,7 +42,7 @@ fun RoutineSetPictureView(
                 .align(Alignment.CenterHorizontally)
                 .size(96.dp)
                 .noRippleClickable {
-                    navigateRoutineSetToProfile()
+                    navigateRoutineSetToProfileInCreateRoutineGraph()
                 }, contentAlignment = Alignment.Center
 
         ) {

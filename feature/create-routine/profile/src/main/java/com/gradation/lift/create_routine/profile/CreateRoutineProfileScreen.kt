@@ -30,7 +30,7 @@ import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
 @Composable
 fun CreateRoutineProfileRoute(
     navController: NavController,
-    navigateProfileToRoutineSet: () -> Unit,
+    navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineProfileViewModel = hiltViewModel(),
 ) {
@@ -48,11 +48,11 @@ fun CreateRoutineProfileRoute(
         selectedPicture,
         updateSelectedPicture,
         updateRoutineSetPicture,
-        navigateProfileToRoutineSet,
+        navigateProfileToRoutineSetInCreateRoutineGraph,
         routineSetPictureUiState
     )
 
-    BackHandler(onBack = navigateProfileToRoutineSet)
+    BackHandler(onBack = navigateProfileToRoutineSetInCreateRoutineGraph)
 }
 
 
@@ -62,14 +62,14 @@ fun CreateRoutineProfileScreen(
     selectedPicture: String,
     updateSelectedPicture: (String) -> Unit,
     updateRoutineSetPicture: (String) -> Unit,
-    navigateProfileToRoutineSet: () -> Unit,
+    navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit,
     routineSetPictureUiState: RoutineSetPictureUiState,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "프로필 등록하기",
-                onBackClickTopBar = navigateProfileToRoutineSet,
+                onBackClickTopBar = navigateProfileToRoutineSetInCreateRoutineGraph,
             )
         }
     ) { padding ->
@@ -92,7 +92,7 @@ fun CreateRoutineProfileScreen(
                             updateSelectedPicture = updateSelectedPicture,
                             routineSetPictureList = routineSetPictureUiState.routineSetPictureList,
                             updateRoutineSetPicture=updateRoutineSetPicture,
-                            navigateProfileToRoutineSet = navigateProfileToRoutineSet,
+                            navigateProfileToRoutineSetInCreateRoutineGraph = navigateProfileToRoutineSetInCreateRoutineGraph,
                             selectedPicture = selectedPicture,
                         )
                     }
@@ -115,7 +115,7 @@ fun CreateRoutineProfileScreePreview() {
             selectedPicture = "",
             updateRoutineSetPicture = {},
             updateSelectedPicture = {},
-            navigateProfileToRoutineSet = {},
+            navigateProfileToRoutineSetInCreateRoutineGraph = {},
             routineSetPictureUiState = RoutineSetPictureUiState.Success(
                 listOf(
                     RoutineSetCategoryPicture(

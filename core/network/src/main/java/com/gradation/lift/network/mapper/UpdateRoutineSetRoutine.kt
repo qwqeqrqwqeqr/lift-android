@@ -16,6 +16,7 @@ fun UpdateRoutineSetRoutine.toDto(): UpdateRoutineSetRoutineRequestDto =
         routine = this.routine.map { routine ->
             UpdateRoutineDto(
                 id = routine.id,
+                routineSetId = this.id,
                 workCategory = routine.workCategory,
                 workWeightList = routine.workSetList.map { it.weight },
                 workRepetitionList = routine.workSetList.map { it.repetition }

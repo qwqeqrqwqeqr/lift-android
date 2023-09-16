@@ -1,9 +1,7 @@
 package com.gradation.lift.network.test.mapper
 
 import com.google.common.truth.Truth
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateRoutineSetRoutineModel
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineRequestDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineRequestDto
 import com.gradation.lift.network.mapper.toDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,7 +14,6 @@ class UpdateRoutineSetRoutineMapperTest {
 
     @Test
     fun updateRoutineSetRoutineMapper() = runTest {
-
         with(updateRoutineSetRoutineModel.toDto()) {
             Truth.assertThat(this.name).isEqualTo(updateRoutineSetRoutineRequestDto.name)
             Truth.assertThat(this.description).isEqualTo(updateRoutineSetRoutineRequestDto.description)

@@ -15,14 +15,14 @@ fun NavigationView(
     currentRegisterProgressNumber: Int,
     updateCreateUserDetailGender: (Gender) -> Unit,
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
-    navigateGenderToHeightWeight: () -> Unit,
+    navigateGenderToHeightWeightInRegisterDetailGraph: () -> Unit,
 ) {
     LiftButton(
         modifier = modifier.fillMaxWidth(),
         onClick = {
             updateCreateUserDetailGender(gender)
             updateCurrentRegisterProgressNumber(currentRegisterProgressNumber + 1)
-            navigateGenderToHeightWeight()
+            navigateGenderToHeightWeightInRegisterDetailGraph()
         },
     ) {
         Text(

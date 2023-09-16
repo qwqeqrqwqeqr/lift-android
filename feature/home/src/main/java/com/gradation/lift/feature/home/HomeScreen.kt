@@ -40,6 +40,7 @@ import kotlinx.datetime.todayIn
 internal fun HomeRoute(
     navController: NavController,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
+    navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -66,6 +67,7 @@ internal fun HomeRoute(
         updateSelectedDate,
         updateRoutineSetIdKey,
         navigateMainGraphToCreateRoutineGraph,
+        navigateHomeGraphToUpdateRoutineGraph,
         navigateMainGraphToWorkGraph,
         scrollState
     )
@@ -83,6 +85,7 @@ internal fun HomeScreen(
     updateSelectedDate: (LocalDate) -> Unit,
     updateRoutineSetIdKey: (NavController, Int) -> Unit,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
+    navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     scrollState: ScrollState,
 ) {
@@ -92,7 +95,7 @@ internal fun HomeScreen(
         color = LiftTheme.colorScheme.no17
     ) {
         Column(
-            modifier=modifier.verticalScroll(scrollState),
+            modifier = modifier.verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -109,6 +112,7 @@ internal fun HomeScreen(
                 updateSelectedDate,
                 updateRoutineSetIdKey,
                 navigateMainGraphToCreateRoutineGraph,
+                navigateHomeGraphToUpdateRoutineGraph,
                 navigateMainGraphToWorkGraph
             )
         }
@@ -160,6 +164,7 @@ internal fun HomeScreenPreview() {
             updateSelectedDate = {},
             updateRoutineSetIdKey = { _, _ -> },
             navigateMainGraphToCreateRoutineGraph = { },
+            navigateHomeGraphToUpdateRoutineGraph = {},
             navigateMainGraphToWorkGraph = { },
             scrollState = rememberScrollState(),
         )

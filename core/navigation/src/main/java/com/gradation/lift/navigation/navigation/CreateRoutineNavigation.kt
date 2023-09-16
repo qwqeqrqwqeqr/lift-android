@@ -17,11 +17,11 @@ fun NavController.navigateCreateRoutineGraphToHomeGraph() {
 }
 
 
-fun NavController.navigateRoutineSetToFindWorkCategory() {
+fun NavController.navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME)
 }
 
-fun NavController.navigateFindWorkCategoryToRoutineSet() {
+fun NavController.navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
             inclusive = true
@@ -29,11 +29,11 @@ fun NavController.navigateFindWorkCategoryToRoutineSet() {
     }
 }
 
-fun NavController.navigateFindWorkCategoryToRoutine() {
+fun NavController.navigateFindWorkCategoryToRoutineInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
 }
 
-fun NavController.navigateRoutineToFindWorkCategory() {
+fun NavController.navigateRoutineToFindWorkCategoryInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
             inclusive = true
@@ -41,7 +41,7 @@ fun NavController.navigateRoutineToFindWorkCategory() {
     }
 }
 
-fun NavController.navigateRoutineToRoutineSet() {
+fun NavController.navigateRoutineToRoutineSetInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
             inclusive = true
@@ -49,11 +49,11 @@ fun NavController.navigateRoutineToRoutineSet() {
     }
 }
 
-fun NavController.navigateRoutineSetToProfile() {
+fun NavController.navigateRoutineSetToProfileInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_PROFILE_ROUTER_NAME)
 }
 
-fun NavController.navigateProfileToRoutineSet() {
+fun NavController.navigateProfileToRoutineSetInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
             inclusive = true

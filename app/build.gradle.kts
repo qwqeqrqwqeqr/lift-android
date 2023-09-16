@@ -82,4 +82,10 @@ dependencies {
     implementation(project(":feature:my-info:update-profile"))
     implementation(project(":feature:my-info:update"))
 
+    implementation(project(":feature:update-routine:routine-selection"))
+    implementation(project(":feature:update-routine:routine-set"))
+    implementation(project(":feature:update-routine:routine"))
+    implementation(project(":feature:update-routine:profile-picture"))
+    implementation(project(":feature:update-routine:find-work-category"))
+
 }

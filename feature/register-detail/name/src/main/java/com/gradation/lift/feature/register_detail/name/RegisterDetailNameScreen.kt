@@ -35,7 +35,7 @@ import kotlinx.coroutines.FlowPreview
 @Composable
 fun RegisterDetailNameRoute(
     navController: NavController,
-    navigateNameToGender: () -> Unit,
+    navigateNameToGenderInRegisterDetailGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailNameViewModel = hiltViewModel(),
 ) {
@@ -68,7 +68,7 @@ fun RegisterDetailNameRoute(
         updateNameText,
         updateCreateUserDetailName,
         updateCurrentRegisterProgressNumber,
-        navigateNameToGender,
+        navigateNameToGenderInRegisterDetailGraph,
         focusManager
     )
 }
@@ -86,7 +86,7 @@ private fun RegisterDetailNameScreen(
     updateNameText: (String) -> Unit,
     updateCreateUserDetailName: (String) -> Unit,
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
-    navigateNameToGender: () -> Unit,
+    navigateNameToGenderInRegisterDetailGraph: () -> Unit,
     focusManager: FocusManager,
 ) {
 
@@ -131,7 +131,7 @@ private fun RegisterDetailNameScreen(
                     currentRegisterProgressNumber,
                     updateCreateUserDetailName,
                     updateCurrentRegisterProgressNumber,
-                    navigateNameToGender,
+                    navigateNameToGenderInRegisterDetailGraph,
                     focusManager
                 )
             }
@@ -156,7 +156,7 @@ internal fun RegisterDetailNameScreenPreview(
             updateNameText = {},
             updateCreateUserDetailName = {},
             updateCurrentRegisterProgressNumber = {},
-            navigateNameToGender = {},
+            navigateNameToGenderInRegisterDetailGraph = {},
             focusManager = LocalFocusManager.current
         )
     }

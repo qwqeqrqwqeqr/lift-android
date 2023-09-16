@@ -30,7 +30,7 @@ import com.gradation.lift.navigation.Router
 internal fun RegisterDetailProfilePictureRoute(
     navController: NavController,
     navigateRegisterDetailGraphToHomeGraph: () -> Unit,
-    navigateProfilePictureToHeightWeight: () -> Unit,
+    navigateProfilePictureToHeightWeightInRegisterDetailGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterDetailProfilePictureViewModel = hiltViewModel(),
 ) {
@@ -64,7 +64,7 @@ internal fun RegisterDetailProfilePictureRoute(
 
     BackHandler(onBack = {
         updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-        navigateProfilePictureToHeightWeight()
+        navigateProfilePictureToHeightWeightInRegisterDetailGraph()
     })
 
     when (val createUserDetailResult = createUserDetailState) {
@@ -97,7 +97,7 @@ internal fun RegisterDetailProfilePictureRoute(
         updateCurrentRegisterProgressNumber,
         createUserDetail,
         navigateRegisterDetailGraphToHomeGraph,
-        navigateProfilePictureToHeightWeight,
+        navigateProfilePictureToHeightWeightInRegisterDetailGraph,
         snackbarHostState
     )
 
@@ -119,7 +119,7 @@ internal fun RegisterDetailProfilePictureScreen(
     updateCurrentRegisterProgressNumber: (Int) -> Unit,
     createUserDetail: () -> Unit,
     navigateRegisterDetailGraphToHomeGraph: () -> Unit,
-    navigateProfilePictureToHeightWeight: () -> Unit,
+    navigateProfilePictureToHeightWeightInRegisterDetailGraph: () -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     Box {
@@ -137,7 +137,7 @@ internal fun RegisterDetailProfilePictureScreen(
                     title = "추가정보 입력",
                     onBackClickTopBar = {
                         updateCurrentRegisterProgressNumber(currentRegisterProgressNumber - 1)
-                        navigateProfilePictureToHeightWeight()
+                        navigateProfilePictureToHeightWeightInRegisterDetailGraph()
                     }
                 )
             },
@@ -208,7 +208,7 @@ fun PreviewRegisterDetailProfilePictureScreen() {
             updateCurrentRegisterProgressNumber = {},
             createUserDetail = {},
             navigateRegisterDetailGraphToHomeGraph = {},
-            navigateProfilePictureToHeightWeight = {},
+            navigateProfilePictureToHeightWeightInRegisterDetailGraph = {},
             snackbarHostState = SnackbarHostState()
         )
     }

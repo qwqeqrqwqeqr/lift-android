@@ -250,6 +250,7 @@ object TestDtoDataGenerator {
         )
         internal val updateRoutineDto = UpdateRoutineDto(
             id = null,
+            routineSetId = FAKE_INT_DATA,
             workCategory = "숄더프레스",
             workWeightList = listOf(10f, 10f, 10f, 10f, 10f),
             workRepetitionList = listOf(12, 12, 12, 12, 12),

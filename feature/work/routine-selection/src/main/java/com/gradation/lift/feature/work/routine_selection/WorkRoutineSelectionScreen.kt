@@ -41,7 +41,7 @@ import kotlinx.datetime.LocalDate
 @Composable
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,
-    navigateSelectionRoutineToWork: () -> Unit,
+    navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
     selectedRoutineSetId: Int?,
     modifier: Modifier = Modifier,
@@ -83,7 +83,7 @@ internal fun WorkRoutineSelectionRoute(
         updateSelectedRoutineSetList,
         updateOpenedRoutineIdList,
         navigateWorkGraphToHomeGraph,
-        navigateSelectionRoutineToWork
+        navigateSelectionRoutineToWorkInWorkGraph
     )
 
     LaunchedEffect(key1 = true) {
@@ -106,7 +106,7 @@ internal fun WorkRoutineSelectionScreen(
     updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit,
     updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
-    navigateSelectionRoutineToWork: () -> Unit,
+    navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {
 
     Scaffold(
@@ -137,7 +137,7 @@ internal fun WorkRoutineSelectionScreen(
                             selectedRoutineCount,
                             selectedRoutineSetList,
                             updateRoutineSetRoutineList,
-                            navigateSelectionRoutineToWork
+                            navigateSelectionRoutineToWorkInWorkGraph
                         )
                     }
                     is RoutineSetRoutineSelectionUiState.Fail -> {
@@ -155,7 +155,7 @@ internal fun WorkRoutineSelectionScreen(
                             updateRoutineSetRoutineList = updateRoutineSetRoutineList,
                             updateSelectedRoutineSetList = updateSelectedRoutineSetList,
                             updateOpenedRoutineIdList = updateOpenedRoutineIdList,
-                            navigateSelectionRoutineToWork = navigateSelectionRoutineToWork
+                            navigateSelectionRoutineToWorkInWorkGraph = navigateSelectionRoutineToWorkInWorkGraph
                         )
 
                     }
@@ -201,7 +201,7 @@ fun WorkRoutineSelectionScreenPreview() {
             ),
             navigateWorkGraphToHomeGraph = { },
             updateCurrentDate = { },
-            navigateSelectionRoutineToWork = {},
+            navigateSelectionRoutineToWorkInWorkGraph = {},
             updateRoutineSetRoutineList = { },
             updateSelectedRoutineSetList = { _, _ -> },
             updateOpenedRoutineIdList = { _, _ -> }

@@ -16,7 +16,7 @@ fun NavController.navigateWorkGraphToHomeGraph() {
     }
 }
 
-fun NavController.navigateSelectionRoutineToWork() {
+fun NavController.navigateSelectionRoutineToWorkInWorkGraph() {
     this.navigate(WORK_WORK_ROUTER_NAME) {
         this.popUpTo(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
             inclusive = true
@@ -24,7 +24,7 @@ fun NavController.navigateSelectionRoutineToWork() {
     }
 }
 
-fun NavController.navigateWorkToComplete() {
+fun NavController.navigateWorkToCompleteInWorkGraph() {
     this.navigate(WORK_COMPLETE_ROUTER_NAME) {
         popUpTo(WORK_COMPLETE_ROUTER_NAME) {
             inclusive = true

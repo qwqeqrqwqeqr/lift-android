@@ -32,7 +32,7 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun WorkWorkRoute(
     navController: NavController,
-    navigateWorkToComplete: () -> Unit,
+    navigateWorkToCompleteInWorkGraph: () -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: WorkWorkViewModel = hiltViewModel(),
@@ -92,7 +92,7 @@ fun WorkWorkRoute(
                     color = LiftTheme.colorScheme.no4.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
                 ) {
                     AutoCompleteDialog(
-                        onClickDialogCompleteButton = navigateWorkToComplete,
+                        onClickDialogCompleteButton = navigateWorkToCompleteInWorkGraph,
                         onClickDialogDismissButton = { updateDialogState(WorkDialogUiState.None) },
                     )
                 }
@@ -114,7 +114,7 @@ fun WorkWorkRoute(
                 ) {
                     CompleteDialog(
                         completeState = workProgress == MAX_PROGRESS,
-                        onClickDialogCompleteButton = navigateWorkToComplete,
+                        onClickDialogCompleteButton = navigateWorkToCompleteInWorkGraph,
                         onClickDialogDismissButton = { updateDialogState(WorkDialogUiState.None) },
                     )
                 }
