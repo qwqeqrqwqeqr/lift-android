@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.history.daily_log.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -84,7 +82,7 @@ class HistoryDailyLogViewModel @Inject constructor(
         initialValue = History()
     )
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val historyScoreByMonth: StateFlow<List<HistoryScoreWeekDate>> =
         combine(selectedDate, historyUiState) { selectedMonth, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {

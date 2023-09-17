@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.history.analytics.data.state
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyWeekDate
@@ -29,7 +27,7 @@ class WorkFrequencyAnalyticsState @Inject constructor(
 
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val workFrequencyByWeek: StateFlow<List<WorkFrequencyWeekDate>> =
         combine(selectedMonth, historyUiState) { selectedMonth, historyUiStateResult ->
             if (historyUiStateResult is HistoryUiState.Success) {

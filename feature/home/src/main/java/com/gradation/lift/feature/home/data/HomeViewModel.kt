@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.home.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -33,7 +31,7 @@ import javax.inject.Inject
  * @since 2023-08-18 18:57:49
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-@RequiresApi(Build.VERSION_CODES.O)
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     getTodayUseCase: GetTodayUseCase,

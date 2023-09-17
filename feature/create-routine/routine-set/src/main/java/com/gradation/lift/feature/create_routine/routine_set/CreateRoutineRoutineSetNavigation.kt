@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.create_routine.routine_set
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,7 +9,7 @@ import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfileInCre
 import com.gradation.lift.navigation.navigation.navigateCreateRoutineGraphToHomeGraph
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 fun createRoutineScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,

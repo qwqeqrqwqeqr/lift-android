@@ -1,24 +1,15 @@
 package com.gradation.lift.feature.history.analytics.data.state
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.lifecycle.viewModelScope
-import com.gradation.lift.domain.usecase.date.GetTodayUseCase
-import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transform
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 /**
  * [WorkCountByMonthAnalyticsState]
@@ -30,7 +21,7 @@ import kotlin.math.roundToInt
  * @property historyAveragePreCount 지난 달부터 이전 N+1월 동안 평균 운동 횟수 과거 평균운동횟수를 의미한다 (N은 [ANALYTICS_PERIOD] 로 판단함)
  * @since 2023-09-05 15:17:48
  */
-@RequiresApi(Build.VERSION_CODES.O)
+
 class WorkCountByMonthAnalyticsState @Inject constructor(
     viewModelScope: CoroutineScope,
     today: StateFlow<LocalDate>,

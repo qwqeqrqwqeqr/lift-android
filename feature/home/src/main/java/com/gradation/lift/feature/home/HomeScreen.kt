@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.home
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -16,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.component.profile_view.ProfileView
 import com.gradation.lift.feature.home.component.weekdate_routine_view.WeekDateRoutineView
 import com.gradation.lift.feature.home.data.*
@@ -35,7 +32,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 internal fun HomeRoute(
     navController: NavController,

@@ -1,6 +1,4 @@
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,7 +8,7 @@ import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("UnrememberedGetBackStackEntry")
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun LiftNavHost(
     navController: NavHostController,

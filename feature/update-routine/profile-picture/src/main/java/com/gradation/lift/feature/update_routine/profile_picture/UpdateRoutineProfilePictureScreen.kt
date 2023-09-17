@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.update_routine.profile_picture
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -28,7 +26,7 @@ import com.gradation.lift.feature.update_routine.profile_picture.data.viewmodel.
 import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_GRAPH_NAME
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun UpdateRoutineProfilePictureRoute(

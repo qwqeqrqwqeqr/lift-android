@@ -1,7 +1,5 @@
 package com.gradation.lift.model.model.date
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import kotlinx.datetime.*
 
 /**
@@ -108,7 +106,7 @@ fun String.toWeekDay(): Weekday =
         Weekday.SUNDAY_VALUE -> Weekday.Sunday()
         else -> Weekday.None()
     }
-@RequiresApi(Build.VERSION_CODES.O)
+
 fun LocalDate.toWeekday(): Weekday =
     when (this.dayOfWeek) {
         DayOfWeek.MONDAY -> Weekday.Monday()

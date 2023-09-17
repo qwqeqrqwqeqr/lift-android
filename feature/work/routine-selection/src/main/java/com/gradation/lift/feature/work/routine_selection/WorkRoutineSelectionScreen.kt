@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.work.routine_selection
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -37,7 +35,7 @@ import com.gradation.lift.navigation.Router
 import kotlinx.datetime.LocalDate
 
 @SuppressLint("UnrememberedGetBackStackEntry")
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 internal fun WorkRoutineSelectionRoute(
     navController: NavController,

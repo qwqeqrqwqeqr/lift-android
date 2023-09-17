@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.update_routine.routine_set
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -53,7 +51,7 @@ import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModel1
 import com.gradation.lift.navigation.Router
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun UpdateRoutineRoutineSetRoute(

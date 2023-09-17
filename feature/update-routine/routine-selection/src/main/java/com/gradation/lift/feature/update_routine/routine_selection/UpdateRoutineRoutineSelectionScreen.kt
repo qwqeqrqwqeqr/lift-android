@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.update_routine.routine_selection
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -38,7 +36,7 @@ import com.gradation.lift.navigation.Router
 import kotlinx.datetime.LocalDate
 
 @SuppressLint("UnrememberedGetBackStackEntry")
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 internal fun UpdateRoutineRoutineSelectionRoute(
     navController: NavController,
