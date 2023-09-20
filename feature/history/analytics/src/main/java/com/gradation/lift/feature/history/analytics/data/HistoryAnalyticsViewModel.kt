@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.history.analytics.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -25,7 +23,7 @@ import javax.inject.Inject
  * @property historyUiState 운동 기록 관련 상태
  * @since 2023-09-05 19:48:50
  */
-@RequiresApi(Build.VERSION_CODES.O)
+
 @HiltViewModel
 class HistoryAnalyticsViewModel @Inject constructor(
     getHistoryUseCase: GetHistoryUseCase,

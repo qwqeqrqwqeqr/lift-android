@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.update_routine.routine
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -28,7 +26,7 @@ import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun UpdateRoutineRoutineRoute(

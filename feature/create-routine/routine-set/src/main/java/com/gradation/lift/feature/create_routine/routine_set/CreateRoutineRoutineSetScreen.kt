@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.create_routine.routine_set
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -36,7 +34,7 @@ import com.gradation.lift.navigation.Router
 import com.gradation.lift.ui.utils.DevicePreview
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @SuppressLint("UnrememberedGetBackStackEntry", "StateFlowValueCalledInComposition")
 @Composable
 internal fun CreateRoutineRoutineSetRoute(

@@ -1,7 +1,5 @@
 package com.gradation.lift.domain.usecase.date
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import kotlinx.datetime.*
 import java.time.DayOfWeek
 import javax.inject.Inject
@@ -12,7 +10,7 @@ import javax.inject.Inject
  * @since 2023-08-28 20:23:11
  */
 class GetCurrentWeekUseCase @Inject constructor(){
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     operator fun invoke(date: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())): List<LocalDate> {
         return when (date.dayOfWeek) {
             DayOfWeek.MONDAY -> (0..6).map { date.plus(DatePeriod(days = it)) }

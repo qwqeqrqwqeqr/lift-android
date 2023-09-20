@@ -1,9 +1,7 @@
 package com.gradation.lift.feature.work.complete
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -29,7 +27,7 @@ import com.gradation.lift.feature.work.work.data.viewmodel.WorkSharedViewModel
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.navigation.Router
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @SuppressLint("UnrememberedGetBackStackEntry")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

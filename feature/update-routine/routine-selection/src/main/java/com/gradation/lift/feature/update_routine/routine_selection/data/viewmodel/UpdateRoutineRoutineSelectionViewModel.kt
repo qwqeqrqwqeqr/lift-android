@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -28,7 +26,7 @@ import javax.inject.Inject
  * @since 2023-09-06 21:03:44
  */
 @HiltViewModel
-@RequiresApi(Build.VERSION_CODES.O)
+
 class UpdateRoutineRoutineSelectionViewModel @Inject constructor(
     private val getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
     getCurrentWeekUseCase: GetCurrentWeekUseCase,

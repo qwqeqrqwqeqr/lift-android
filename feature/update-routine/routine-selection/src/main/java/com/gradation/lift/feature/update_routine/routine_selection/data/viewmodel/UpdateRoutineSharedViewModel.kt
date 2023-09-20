@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.utils.Validator
@@ -34,7 +32,7 @@ import javax.inject.Inject
  * @since 2023-09-16 16:27:34
  */
 @HiltViewModel
-@RequiresApi(Build.VERSION_CODES.O)
+
 class UpdateRoutineSharedViewModel @Inject constructor(
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase
 ) : ViewModel() {
@@ -77,7 +75,7 @@ class UpdateRoutineSharedViewModel @Inject constructor(
         )
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val weekDateSelectionList: StateFlow<List<WeekDateSelection>> =
         selectedRoutineSetRoutine.map { routine ->
             getCurrentWeekUseCase().map { localDate ->

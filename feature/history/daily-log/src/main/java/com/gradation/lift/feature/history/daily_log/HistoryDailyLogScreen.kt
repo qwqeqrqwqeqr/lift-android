@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.history.daily_log
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -33,7 +31,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun HistoryDailyLogRoute(
     modifier: Modifier = Modifier,
