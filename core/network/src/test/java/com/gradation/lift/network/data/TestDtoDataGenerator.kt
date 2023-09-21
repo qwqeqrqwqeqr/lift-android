@@ -263,6 +263,9 @@ object TestDtoDataGenerator {
                     workCategoryDto2
                 )
             )
+        val getPopularWorkCategoryResponseDto = GetPopularWorkCategoryResponseDto(
+            workCategory = listOf(workCategoryDto1, workCategoryDto2)
+        )
     }
 
     object Routine {
