@@ -32,6 +32,17 @@ import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.workCat
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.workCategoryDto2
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.workPartDto1
 import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.workPartDto2
+import com.gradation.lift.network.dto.badge.BadgeDto
+import com.gradation.lift.network.dto.badge.CreateUserBadgeDto
+import com.gradation.lift.network.dto.badge.CreateUserBadgeRequestDto
+import com.gradation.lift.network.dto.badge.CreateUserBadgeResponseDto
+import com.gradation.lift.network.dto.badge.GetBadgeResponseDto
+import com.gradation.lift.network.dto.badge.GetUserBadgeByMainFlagResponseDto
+import com.gradation.lift.network.dto.badge.GetUserBadgeConditionResponseDto
+import com.gradation.lift.network.dto.badge.GetUserBadgeResponseDto
+import com.gradation.lift.network.dto.badge.UserBadgeDto
+import com.gradation.lift.network.dto.notification.GetNoticeResponseDto
+import com.gradation.lift.network.dto.notification.NoticeDto
 
 object TestDtoDataGenerator {
 
@@ -75,6 +86,33 @@ object TestDtoDataGenerator {
             accessToken = FAKE_ACCESS_TOKEN,
             refreshToken = FAKE_REFRESH_TOKEN
         )
+    }
+
+    object Badge {
+        internal val badgeDto = BadgeDto(
+            id = FAKE_INT_DATA,
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            hint = FAKE_STRING_DATA,
+            url = FAKE_URL_DATA,
+        )
+        internal val userBadgeDto = UserBadgeDto(
+            badge = badgeDto,
+            badgeTimeStamp = "2023-08-31T00:00:00",
+            mainFlag = FAKE_BOOLEAN_DATA
+        )
+        internal val createUserBadgeDto = CreateUserBadgeDto(
+            id = FAKE_INT_DATA,
+            badgeTimeStamp = "2023-08-31T00:00:00",
+        )
+
+        internal val createUserBadgeResponseDto = CreateUserBadgeResponseDto(FAKE_BOOLEAN_DATA)
+        internal val createUserDetailRequestDto = CreateUserBadgeRequestDto(createUserBadgeDto)
+        internal val getBadgeResponseDto = GetBadgeResponseDto(listOf(badgeDto))
+        internal val getUserBadgeByMainFlagResponseDto =
+            GetUserBadgeByMainFlagResponseDto(listOf(userBadgeDto))
+        internal val getUserBadgeConditionResponseDto = GetUserBadgeConditionResponseDto(badgeDto)
+        internal val getUserBadgeResponseDto = GetUserBadgeResponseDto(listOf(userBadgeDto))
     }
 
     object Checker {
@@ -348,8 +386,19 @@ object TestDtoDataGenerator {
     }
 
 
+    object Notification {
+        internal val noticeDto = NoticeDto(
+            title = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            date = "2023-08-31"
+        )
+
+        val getNoticeResponseDto = GetNoticeResponseDto(listOf(noticeDto))
+    }
+
+
     object User {
-        val userDetailDto = UserDetailDto(
+        private val userDetailDto = UserDetailDto(
             name = FAKE_STRING_DATA,
             gender = "male",
             height = 180.0f,
