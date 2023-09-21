@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface NotificationDataSource {
 
 
-    suspend fun getNotice(name: String): Flow<NetworkResult<List<Notice>>>
+    suspend fun getNotice(): Flow<NetworkResult<List<Notice>>>
 }

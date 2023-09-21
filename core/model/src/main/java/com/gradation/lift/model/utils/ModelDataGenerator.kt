@@ -81,14 +81,14 @@ object ModelDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             hint = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL + FAKE_STRING_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
         val badgeConditionModel = BadgeCondition(
             badge = badgeModel
         )
         val createUserBadgeModel = CreateUserBadge(
             id = FAKE_INT_DATA,
-            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0)
+            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
         )
         val userBadgeModel = UserBadge(
             badge = badgeModel,

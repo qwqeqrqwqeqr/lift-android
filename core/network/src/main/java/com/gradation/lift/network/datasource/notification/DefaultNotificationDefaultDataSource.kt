@@ -12,7 +12,7 @@ class DefaultNotificationDefaultDataSource @Inject constructor(
     private val notificationService: NotificationService,
     private val networkResultHandler: NetworkResultHandler,
 ) : NotificationDataSource {
-    override suspend fun getNotice(name: String): Flow<NetworkResult<List<Notice>>> =
+    override suspend fun getNotice(): Flow<NetworkResult<List<Notice>>> =
         flow {
             networkResultHandler {
                 notificationService.getNotice()

@@ -98,16 +98,16 @@ object TestDtoDataGenerator {
         )
         internal val userBadgeDto = UserBadgeDto(
             badge = badgeDto,
-            badgeTimeStamp = "2023-08-31T00:00:00",
+            badgeTimeStamp = "2023-08-31T00:00",
             mainFlag = FAKE_BOOLEAN_DATA
         )
         internal val createUserBadgeDto = CreateUserBadgeDto(
             id = FAKE_INT_DATA,
-            badgeTimeStamp = "2023-08-31T00:00:00",
+            badgeTimeStamp = "2023-08-31T00:00",
         )
 
         internal val createUserBadgeResponseDto = CreateUserBadgeResponseDto(FAKE_BOOLEAN_DATA)
-        internal val createUserDetailRequestDto = CreateUserBadgeRequestDto(createUserBadgeDto)
+        internal val createUserBadgeRequestDto = CreateUserBadgeRequestDto(createUserBadgeDto)
         internal val getBadgeResponseDto = GetBadgeResponseDto(listOf(badgeDto))
         internal val getUserBadgeByMainFlagResponseDto =
             GetUserBadgeByMainFlagResponseDto(listOf(userBadgeDto))
