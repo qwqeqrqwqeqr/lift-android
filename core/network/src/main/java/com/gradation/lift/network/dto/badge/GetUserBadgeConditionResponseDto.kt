@@ -4,7 +4,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class GetBadgeByUserIdResponseDto(
-    @Json(name = "user_badge")
-    val userBadge: List<UserBadgeDto>
+
+data class GetUserBadgeConditionResponseDto(
+    @Json(name = "badge")
+    val badge: BadgeDto? = null
 )
