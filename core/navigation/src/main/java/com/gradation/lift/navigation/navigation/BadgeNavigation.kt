@@ -33,3 +33,14 @@ fun NavController.navigateSettingToBadgeInBadgeGraph() {
         this.popUpTo(BADGE_SETTING_ROUTER_NAME)
     }
 }
+
+
+
+fun NavController.navigateNewBadgeGraphToHomeGraph() {
+    this.navigate(Router.HOME_GRAPH_NAME) {
+        launchSingleTop = true
+        popUpTo(this@navigateNewBadgeGraphToHomeGraph.graph.id) {
+            inclusive = true
+        }
+    }
+}

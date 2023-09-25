@@ -24,6 +24,10 @@ fun NavController.navigateHomeGraphToBadgeGraph() {
     this.navigate(Router.BADGE_GRAPH_NAME)
 }
 
+fun NavController.navigateHomeGraphToNewBadgeGraph() {
+    this.navigate(Router.NEW_BADGE_GRAPH_NAME)
+}
+
 fun NavController.navigateHomeGraphToNotificationGraph() {
     this.navigate(Router.NOTIFICATION_GRAPH_NAME)
 }
