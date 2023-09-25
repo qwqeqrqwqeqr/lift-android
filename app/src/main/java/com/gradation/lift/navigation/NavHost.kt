@@ -1,4 +1,5 @@
-import android.annotation.SuppressLint
+package com.gradation.lift.navigation
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -7,7 +8,6 @@ import com.gradation.lift.navigation.graph.*
 import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.flow.MutableStateFlow
 
-@SuppressLint("UnrememberedGetBackStackEntry")
 
 @Composable
 fun LiftNavHost(
@@ -16,44 +16,31 @@ fun LiftNavHost(
     startDestination: String,
     naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
     kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
-    connectOAuthFromNaver: ()->Unit,
-    connectOAuthFromKakao: ()->Unit,
+    connectOAuthFromNaver: () -> Unit,
+    connectOAuthFromKakao: () -> Unit,
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
-        homeGraphBuilder(
-            navController = navController,
-            navGraphBuilder = this,
-        )
-        myInfoGraphBuilder(navController,this)
-        historyGraphBuilder(navController,this)
-        createRoutineGraphBuilder(
-            navController = navController,
-            navGraphBuilder = this,
-        )
+        homeGraphBuilder(navController, this)
+        myInfoGraphBuilder(navController, this)
+        historyGraphBuilder(navController, this)
+        badgeGraphBuilder(navController, this)
+        newBadgeGraphBuilder(navController, this)
+        createRoutineGraphBuilder(navController, this)
         loginGraphBuilder(
             navController = navController,
             navGraphBuilder = this,
-            naverOAuthConnectState =naverOAuthConnectState,
-            kakaoOAuthConnectState =kakaoOAuthConnectState,
+            naverOAuthConnectState = naverOAuthConnectState,
+            kakaoOAuthConnectState = kakaoOAuthConnectState,
             connectOAuthFromNaver = { connectOAuthFromNaver() },
             connectOAuthFromKakao = { connectOAuthFromKakao() }
         )
-        registerDetailGraphBuilder(
-            navController = navController,
-            navGraphBuilder = this
-        )
-        updateRoutineGraphBuilder(
-            navController = navController,
-            navGraphBuilder = this
-        )
-        workGraphBuilder(
-            navController = navController,
-            navGraphBuilder = this
-        )
+        registerDetailGraphBuilder(navController, this)
+        updateRoutineGraphBuilder(navController, this)
+        workGraphBuilder(navController, this)
     }
 }
 
