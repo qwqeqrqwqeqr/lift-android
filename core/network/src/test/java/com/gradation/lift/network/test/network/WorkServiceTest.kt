@@ -14,6 +14,7 @@ import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.WorkService
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getPopularWorkCategoryResponseDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -92,6 +93,29 @@ class WorkServiceTest {
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
             .isEqualTo(getWorkCategoryResponseDto)
+    }
+
+
+    @Test
+    fun getPopularWorkCategoryService() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(workCategoryResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        val response = workService.getPopularWorkCategory()
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/work/work-category/popular")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(getPopularWorkCategoryResponseDto)
     }
 
 

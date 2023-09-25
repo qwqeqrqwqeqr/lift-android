@@ -22,5 +22,5 @@ data class GetWorkCategoryResponseDto(
                 introduce = it.introduce,
                 description = it.description
             )
-        }.filter { true }
+        }
 }

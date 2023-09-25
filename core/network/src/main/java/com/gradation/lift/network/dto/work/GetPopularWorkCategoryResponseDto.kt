@@ -5,12 +5,12 @@ import com.gradation.lift.model.model.work.WorkPart
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-
 @JsonClass(generateAdapter = true)
-data class GetWorkCategoryByWorkPartResponseDto (
+
+data class GetPopularWorkCategoryResponseDto(
     @Json(name = "work_category")
     val workCategory: List<WorkCategoryDto>
-){
+) {
     fun toDomain(): List<WorkCategory> =
         this.workCategory.map {
             WorkCategory(

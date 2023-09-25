@@ -1,6 +1,8 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
@@ -42,6 +44,84 @@ object TestJsonDataGenerator {
         }
     """.trimIndent()
     }
+
+    object Badge {
+        internal val badgeResponseJson: String = """
+            {
+              "status": true,
+              "message": "",
+              "data": {
+                "badge": [
+                  {
+                    "id": "$FAKE_INT_DATA",
+                    "name": "$FAKE_STRING_DATA",
+                    "description": "$FAKE_STRING_DATA",
+                    "hint": "$FAKE_STRING_DATA",
+                    "url": "$FAKE_URL_DATA"
+                  }
+                ]
+              }
+            }
+        """.trimIndent()
+        internal val badgeConditionResponseJson: String = """
+            {
+              "status": true,
+              "message": "",
+              "data": {
+                "badge": {
+                    "id": "$FAKE_INT_DATA",
+                    "name": "$FAKE_STRING_DATA",
+                    "description": "$FAKE_STRING_DATA",
+                    "hint": "$FAKE_STRING_DATA",
+                    "url": "$FAKE_URL_DATA"
+                  }
+              }
+            }
+        """.trimIndent()
+
+
+        internal val userBadgeResponseJson: String = """
+            {
+              "status": true,
+              "message": "",
+              "data": {
+                "user_badge": [
+                  {
+                    "badge":
+                     {
+                     "id": "$FAKE_INT_DATA",
+                     "name": "$FAKE_STRING_DATA",
+                     "description": "$FAKE_STRING_DATA",
+                     "hint": "$FAKE_STRING_DATA",
+                     "url": "$FAKE_URL_DATA"
+                    },
+                    "badge_time_stamp": "2023-08-31T00:00",
+                    "main_flag": true
+                  }
+                ]
+              }
+            }
+        """.trimIndent()
+    }
+
+    object Notification {
+        internal val noticeResponseJson: String = """
+            {
+              "status": true,
+              "message": "",
+              "data": {
+                "notice": [
+                  {
+                    "title": "$FAKE_STRING_DATA",
+                    "description": "$FAKE_STRING_DATA",
+                    "date": "2023-08-31"
+                  }
+                ]
+              }
+            }
+        """.trimIndent()
+    }
+
 
     object Refresh {
         internal val refreshResponseJson = """
@@ -117,7 +197,7 @@ object TestJsonDataGenerator {
           "status": true,
           "message": "",
           "data": {
-            "result": true
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()

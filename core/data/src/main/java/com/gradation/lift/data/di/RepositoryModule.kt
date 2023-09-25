@@ -7,8 +7,10 @@ import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
 import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.network.datasource.badge.BadgeDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.notification.NotificationDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
@@ -76,6 +78,21 @@ object RepositoryModule {
         userDataSource: UserDataSource,
     ): UserRepository = DefaultUserRepository(
         userDataSource = userDataSource,
+    )
+
+    @ViewModelScoped
+    @Provides
+    fun provideBadgeRepository(
+        badgeDataSource: BadgeDataSource,
+    ): BadgeRepository = DefaultBadgeRepository(
+        badgeDataSource = badgeDataSource,
+    )
+    @ViewModelScoped
+    @Provides
+    fun provideNotificationRepository(
+        notificationDataSource: NotificationDataSource,
+    ): NotificationRepository = DefaultNotificationRepository(
+        notificationDataSource = notificationDataSource,
     )
 
     @ViewModelScoped

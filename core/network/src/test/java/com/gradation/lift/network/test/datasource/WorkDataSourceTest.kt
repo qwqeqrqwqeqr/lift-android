@@ -105,6 +105,26 @@ class WorkDataSourceTest {
     }
 
     @Test
+    fun getPopularWorkCategoryDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.WorkCategory.workCategoryResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+
+        with(
+            workDataSource.getPopularWorkCategory().first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(ModelDataGenerator.WorkCategory.workCategoryModelList),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
     fun getWorkCategoryByWorkPartDataSource() = runTest {
 
         mockWebServer.enqueue(
