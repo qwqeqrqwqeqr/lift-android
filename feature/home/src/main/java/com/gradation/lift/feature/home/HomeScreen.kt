@@ -32,13 +32,14 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 
-
 @Composable
 internal fun HomeRoute(
     navController: NavController,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
+    navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToNewBadgeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -66,6 +67,7 @@ internal fun HomeRoute(
         navigateMainGraphToCreateRoutineGraph,
         navigateHomeGraphToUpdateRoutineGraph,
         navigateMainGraphToWorkGraph,
+        navigateHomeGraphToBadgeGraph,
         scrollState
     )
 }
@@ -84,6 +86,7 @@ internal fun HomeScreen(
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
+    navigateHomeGraphToBadgeGraph: () -> Unit,
     scrollState: ScrollState,
 ) {
 
@@ -163,6 +166,7 @@ internal fun HomeScreenPreview() {
             navigateMainGraphToCreateRoutineGraph = { },
             navigateHomeGraphToUpdateRoutineGraph = {},
             navigateMainGraphToWorkGraph = { },
+            navigateHomeGraphToBadgeGraph = {},
             scrollState = rememberScrollState(),
         )
     }

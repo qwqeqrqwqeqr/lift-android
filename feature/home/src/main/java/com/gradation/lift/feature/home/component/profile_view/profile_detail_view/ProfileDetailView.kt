@@ -46,19 +46,17 @@ internal fun ProfileDetailView(
                 style = LiftTheme.typography.no1,
                 color = LiftTheme.colorScheme.no5,
             )
-            Spacer(modifier = modifier.padding(4.dp))
+        }
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = "${userDetail.height}cm/${userDetail.weight}kg",
                 style = LiftTheme.typography.no4,
                 color = LiftTheme.colorScheme.no5
             )
-        }
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-
             LiftIconButton(
                 onClick = {
                     //TODO 알림 기능 추가시 작성 예정 (2023-08-18 19:19:30)
