@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.HOME_HOME_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeGraph
+import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToNewBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToUpdateRoutineGraph
@@ -17,6 +18,7 @@ fun homeScreen(navController: NavController, navGraphBuilder: NavGraphBuilder) {
     val navigateMainGraphToWorkGraph: () -> Unit = { navController.navigateHomeGraphToWorkGraph() }
     val navigateHomeGraphToBadgeGraph: () -> Unit = { navController.navigateHomeGraphToBadgeGraph() }
     val navigateHomeGraphToNewBadgeGraph: () -> Unit = { navController.navigateHomeGraphToNewBadgeGraph() }
+    val navigateHomeGraphToBadgeSettingRouter:()-> Unit={navController.navigateHomeGraphToBadgeSettingRouter()}
 
     navGraphBuilder.composable(HOME_HOME_ROUTER_NAME) {
         HomeRoute(
@@ -25,7 +27,8 @@ fun homeScreen(navController: NavController, navGraphBuilder: NavGraphBuilder) {
             navigateHomeGraphToUpdateRoutineGraph=navigateHomeGraphToUpdateRoutineGraph,
             navigateMainGraphToWorkGraph = navigateMainGraphToWorkGraph,
             navigateHomeGraphToBadgeGraph=navigateHomeGraphToBadgeGraph,
-            navigateHomeGraphToNewBadgeGraph=navigateHomeGraphToNewBadgeGraph
+            navigateHomeGraphToNewBadgeGraph=navigateHomeGraphToNewBadgeGraph,
+            navigateHomeGraphToBadgeSettingRouter=navigateHomeGraphToBadgeSettingRouter
         )
     }
 

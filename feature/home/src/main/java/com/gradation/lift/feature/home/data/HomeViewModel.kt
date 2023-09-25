@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.badge.GetUserBadgeByMainFlagUseCase
 import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
+import com.gradation.lift.feature.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
 
@@ -28,7 +30,8 @@ import javax.inject.Inject
  * @property weekDateSelectionList 이번주에 해당하는 weekDataSelection 목록 [WeekDateSelection] 참고할 것
  * @property weekDateRoutineUiState 해당 요일에 따른 루틴 목록 상태 루틴이 존재하지 않을 수 도 있음
  * @property userDetailUiState 사용자 상세정보 상태
- * @since 2023-08-18 18:57:49
+ * @property badgeUiState 대표 뱃지 상태
+ * @since 2023-09-25 21:24:35
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 
@@ -38,6 +41,7 @@ class HomeViewModel @Inject constructor(
     getCurrentWeekUseCase: GetCurrentWeekUseCase,
     getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
     getUserDetailUseCase: GetUserDetailUseCase,
+    getUserBadgeByMainFlagUseCase: GetUserBadgeByMainFlagUseCase,
 ) : ViewModel() {
 
     var today: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
@@ -93,6 +97,18 @@ class HomeViewModel @Inject constructor(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = UserDetailUiState.Loading
+    )
+
+
+    internal val badgeUiState: StateFlow<BadgeUiState> = getUserBadgeByMainFlagUseCase().map {
+        when (it) {
+            is DataState.Fail -> BadgeUiState.Fail(it.message)
+            is DataState.Success -> BadgeUiState.Success(it.data)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = BadgeUiState.Loading
     )
 
 

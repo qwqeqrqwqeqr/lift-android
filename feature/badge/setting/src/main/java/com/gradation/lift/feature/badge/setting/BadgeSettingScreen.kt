@@ -12,7 +12,6 @@ fun BadgeSettingRoute(
 ) {
 
 
-
     BadgeSettingScreen(
         modifier,
 
