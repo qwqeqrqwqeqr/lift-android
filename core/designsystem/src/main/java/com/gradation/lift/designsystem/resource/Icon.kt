@@ -23,6 +23,7 @@ object LiftIcon {
     val Cancel = R.drawable.cancel
     val Gallery = R.drawable.gallery
     val Lock = R.drawable.lock
+    val LockFilled = R.drawable.lock_filled
     val Mail = R.drawable.mail
     val Trash = R.drawable.trash
     val Filter = R.drawable.filter
@@ -38,6 +39,8 @@ object LiftIcon {
     val Bell = R.drawable.bell
     val Muscle = R.drawable.muscle
     val Badge = R.drawable.badge
+    val BadgeDisabled = R.drawable.badge_disabled
+    val BadgeAdd = R.drawable.badge_add
     val Chat = R.drawable.chat
     val Kettlebell = R.drawable.kettlebell
     val LiftSmallLogo = R.drawable.lift_small_logo
