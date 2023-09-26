@@ -1,37 +1,35 @@
 package com.gradation.lift.feature.badge.badge
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftIconButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.component.BadgeInfoView
+import com.gradation.lift.feature.badge.badge.component.BadgeStoreView
+import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeInfoView
+import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeStoreView
+import com.gradation.lift.feature.badge.badge.data.model.AllBadge
+import com.gradation.lift.feature.badge.badge.data.model.FilterType
+import com.gradation.lift.feature.badge.badge.data.model.SortType
+import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState
 
 @Composable
 fun BadgeBadgeRoute(
@@ -41,26 +39,63 @@ fun BadgeBadgeRoute(
     viewModel: BadgeBadgeViewModel = hiltViewModel(),
 ) {
 
+    val sortType: SortType by viewModel.sortType.collectAsStateWithLifecycle()
+    val filterType: FilterType by viewModel.filterType.collectAsStateWithLifecycle()
+    val onVisibleBottomDialog: Boolean by viewModel.onVisibleBottomDialog.collectAsStateWithLifecycle()
+    val onVisibleBadgeDialog: Boolean by viewModel.onVisibleBadgeDialog.collectAsStateWithLifecycle()
+    val selectedBadge: AllBadge by viewModel.selectedBadge.collectAsStateWithLifecycle()
+    val badgeUiState: BadgeUiState by viewModel.badgeUiState.collectAsStateWithLifecycle()
+
+    val updateSortType: (SortType) -> Unit = viewModel.updateSortType
+    val updateFilterType: (FilterType) -> Unit = viewModel.updateFilterType
+    val updateSelectedBadge: (AllBadge) -> Unit = viewModel.updateSelectedBadge
+    val updateVisibleBottomDialog: (Boolean) -> Unit = viewModel.updateVisibleBottomDialog
+    val updateVisibleBadgeDialog: (Boolean) -> Unit = viewModel.updateVisibleBadgeDialog
 
     BadgeBadgeScreen(
         modifier,
-
-        )
+        sortType,
+        filterType,
+        onVisibleBottomDialog,
+        onVisibleBadgeDialog,
+        selectedBadge,
+        badgeUiState,
+        updateSortType,
+        updateFilterType,
+        updateSelectedBadge,
+        updateVisibleBottomDialog,
+        updateVisibleBadgeDialog,
+        navigateBadgeGraphToPreGraph,
+        navigateBadgeToSettingInBadgeGraph,
+    )
 
 }
 
 @Composable
 fun BadgeBadgeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    sortType: SortType,
+    filterType: FilterType,
+    onVisibleBottomDialog: Boolean,
+    onVisibleBadgeDialog: Boolean,
+    selectedBadge: AllBadge,
+    badgeUiState: BadgeUiState,
+    updateSortType: (SortType) -> Unit,
+    updateFilterType: (FilterType) -> Unit,
+    updateSelectedBadge: (AllBadge) -> Unit,
+    updateVisibleBottomDialog: (Boolean) -> Unit,
+    updateVisibleBadgeDialog: (Boolean) -> Unit,
+    navigateBadgeGraphToPreGraph: () -> Unit,
+    navigateBadgeToSettingInBadgeGraph: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "내 뱃지",
-                onBackClickTopBar = {},
+                onBackClickTopBar = navigateBadgeGraphToPreGraph,
                 actions = {
                     LiftIconButton(
-                        onClick = { },
+                        onClick = navigateBadgeToSettingInBadgeGraph,
                         modifier = modifier
                     ) {
                         Icon(
@@ -79,73 +114,53 @@ fun BadgeBadgeScreen(
                 .fillMaxSize(),
             color = LiftTheme.colorScheme.no17,
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                BadgeInfoView(modifier)
+            when (badgeUiState) {
+                is BadgeUiState.Fail -> {
 
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .background(
-                            LiftTheme.colorScheme.no5,
-                            RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
-                        )
-                ) {
-                    Column(modifier = modifier.padding(16.dp)) {
-                        Text(
-                            text = "뱃지보관함",
-                            color = LiftTheme.colorScheme.no9,
-                            style = LiftTheme.typography.no3
-                        )
-                    }
-
-                    Surface(
-                        color = LiftTheme.colorScheme.no17,
-                        modifier = modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = modifier.padding(horizontal = 12.dp, vertical = 2.dp)
-                        ) {
-                            Text(
-                                text = buildAnnotatedString {
-                                    append("총 ")
-                                    withStyle(
-                                        style = SpanStyle(
-                                            fontWeight = FontWeight(700)
-                                        ),
-                                    ) {
-                                        append("개")
-                                    }
-                                    append("의 뱃지")
-                                },
-                                style = LiftTheme.typography.no6,
-                                color = LiftTheme.colorScheme.no9,
-                            )
-                            Icon(
-                                modifier = modifier
-                                    .width(16.dp)
-                                    .height(18.dp),
-                                painter = painterResource(id = LiftIcon.Filter),
-                                contentDescription = "filter",
-                                tint = Color.Unspecified
-                            )
-                        }
-                    }
-                    Column(
-                        modifier = modifier.height(256.dp)
-                    ){}
                 }
-            }
 
+                BadgeUiState.Loading -> {
+                    Column(
+                        modifier = modifier,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        LoadingBadgeInfoView(modifier)
+                        LoadingBadgeStoreView(modifier)
+                    }
+                }
+
+                is BadgeUiState.Success -> {
+                    Column(
+                        modifier = modifier,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        BadgeInfoView(modifier, badgeUiState.badgeState)
+                        BadgeStoreView(modifier, badgeUiState.badgeState)
+                    }
+                }
+
+            }
         }
     }
 }
-
-@Composable
 @Preview
+@Composable
 fun BadgeBadgeScreenPreview() {
     LiftMaterialTheme {
-        BadgeBadgeScreen()
+        BadgeBadgeScreen(
+            sortType = SortType.Number,
+            filterType = FilterType.UnAcquired,
+            onVisibleBottomDialog = false,
+            onVisibleBadgeDialog = false,
+            selectedBadge = AllBadge.UnacquiredBadge(0, "", "", "", ""),
+            badgeUiState = BadgeUiState.Loading,
+            updateSortType = {},
+            updateFilterType = {},
+            updateSelectedBadge = {},
+            updateVisibleBottomDialog = {},
+            updateVisibleBadgeDialog = {},
+            navigateBadgeGraphToPreGraph = {},
+            navigateBadgeToSettingInBadgeGraph = {}
+        )
     }
 }
