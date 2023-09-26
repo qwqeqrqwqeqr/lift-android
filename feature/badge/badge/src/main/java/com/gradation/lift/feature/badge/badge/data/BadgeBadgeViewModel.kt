@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.badge.badge
+package com.gradation.lift.feature.badge.badge.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -27,6 +27,7 @@ import com.gradation.lift.feature.badge.badge.component.fail.FailBadgeInfoView
 import com.gradation.lift.feature.badge.badge.component.fail.FailBadgeStoreView
 import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeInfoView
 import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeStoreView
+import com.gradation.lift.feature.badge.badge.data.BadgeBadgeViewModel
 import com.gradation.lift.feature.badge.badge.data.model.AllBadge
 import com.gradation.lift.feature.badge.badge.data.model.FilterType
 import com.gradation.lift.feature.badge.badge.data.model.SortType
