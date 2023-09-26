@@ -12,18 +12,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftIconButton
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.component.BadgeInfoView
 import com.gradation.lift.feature.badge.badge.component.BadgeStoreView
+import com.gradation.lift.feature.badge.badge.component.fail.FailBadgeInfoView
+import com.gradation.lift.feature.badge.badge.component.fail.FailBadgeStoreView
 import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeInfoView
 import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeStoreView
 import com.gradation.lift.feature.badge.badge.data.model.AllBadge
@@ -116,7 +115,13 @@ fun BadgeBadgeScreen(
         ) {
             when (badgeUiState) {
                 is BadgeUiState.Fail -> {
-
+                    Column(
+                        modifier = modifier,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        FailBadgeInfoView(modifier)
+                        FailBadgeStoreView(modifier)
+                    }
                 }
 
                 BadgeUiState.Loading -> {
@@ -141,26 +146,5 @@ fun BadgeBadgeScreen(
 
             }
         }
-    }
-}
-@Preview
-@Composable
-fun BadgeBadgeScreenPreview() {
-    LiftMaterialTheme {
-        BadgeBadgeScreen(
-            sortType = SortType.Number,
-            filterType = FilterType.UnAcquired,
-            onVisibleBottomDialog = false,
-            onVisibleBadgeDialog = false,
-            selectedBadge = AllBadge.UnacquiredBadge(0, "", "", "", ""),
-            badgeUiState = BadgeUiState.Loading,
-            updateSortType = {},
-            updateFilterType = {},
-            updateSelectedBadge = {},
-            updateVisibleBottomDialog = {},
-            updateVisibleBadgeDialog = {},
-            navigateBadgeGraphToPreGraph = {},
-            navigateBadgeToSettingInBadgeGraph = {}
-        )
     }
 }
