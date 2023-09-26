@@ -9,6 +9,6 @@ import javax.inject.Inject
 class CreateUserBadgeUseCase @Inject constructor(
     private val badgeRepository: BadgeRepository
 ) {
-    operator fun invoke(createUserBadge: CreateUserBadge): Flow<DataState<Boolean>> =
+    operator fun invoke(createUserBadge: CreateUserBadge): Flow<DataState<Unit>> =
         badgeRepository.createUserBadge(createUserBadge)
 }
