@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.badge.badge.component
+package com.gradation.lift.feature.badge.badge.component.success
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

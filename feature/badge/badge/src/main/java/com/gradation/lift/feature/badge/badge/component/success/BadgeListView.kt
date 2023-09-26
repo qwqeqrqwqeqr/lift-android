@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.badge.badge.component
+package com.gradation.lift.feature.badge.badge.component.success
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.data.model.AllBadge
@@ -32,6 +33,8 @@ import com.gradation.lift.feature.badge.badge.data.state.BadgeState
 fun BadgeListView(
     modifier: Modifier,
     badgeState: BadgeState,
+    updateSelectedBadge: (AllBadge) -> Unit,
+    updateVisibleBadgeDialog: (Boolean) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = modifier.padding(16.dp),
@@ -51,7 +54,11 @@ fun BadgeListView(
                     ) {
                         GlideImage(
                             modifier = modifier
-                                .size(72.dp),
+                                .size(72.dp)
+                                .noRippleClickable {
+                                    updateSelectedBadge(badge)
+                                    updateVisibleBadgeDialog(true)
+                                },
                             model = badge.url,
                             contentDescription = "acquiredBadge"
                         )
@@ -80,7 +87,11 @@ fun BadgeListView(
                             modifier = modifier
                                 .size(72.dp)
                                 .clip(CircleShape)
-                                .background(LiftTheme.colorScheme.no1),
+                                .background(LiftTheme.colorScheme.no1)
+                                .noRippleClickable {
+                                    updateSelectedBadge(badge)
+                                    updateVisibleBadgeDialog(true)
+                                },
 
                             contentAlignment = Alignment.Center
                         ) {

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.badge.badge.component
+package com.gradation.lift.feature.badge.badge.component.success
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

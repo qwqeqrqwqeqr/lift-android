@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.badge.badge.component
+package com.gradation.lift.feature.badge.badge.component.success
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,13 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.badge.badge.data.model.AllBadge
 import com.gradation.lift.feature.badge.badge.data.state.BadgeState
 
 
 @Composable
 fun BadgeStoreView(
     modifier: Modifier,
-    badgeState: BadgeState
+    badgeState: BadgeState,
+    updateSelectedBadge: (AllBadge) -> Unit,
+    updateVisibleBadgeDialog: (Boolean) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -33,8 +36,7 @@ fun BadgeStoreView(
                 style = LiftTheme.typography.no3
             )
         }
-        BadgeFilterView(modifier,badgeState)
-        BadgeListView(modifier, badgeState)
-
+        BadgeFilterView(modifier, badgeState)
+        BadgeListView(modifier, badgeState, updateSelectedBadge, updateVisibleBadgeDialog)
     }
 }

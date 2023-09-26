@@ -19,8 +19,10 @@ import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftIconButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.badge.badge.component.BadgeInfoView
-import com.gradation.lift.feature.badge.badge.component.BadgeStoreView
+import com.gradation.lift.feature.badge.badge.component.dialog.BadgeDialog
+import com.gradation.lift.feature.badge.badge.component.dialog.LockBadgeDialog
+import com.gradation.lift.feature.badge.badge.component.success.BadgeInfoView
+import com.gradation.lift.feature.badge.badge.component.success.BadgeStoreView
 import com.gradation.lift.feature.badge.badge.component.fail.FailBadgeInfoView
 import com.gradation.lift.feature.badge.badge.component.fail.FailBadgeStoreView
 import com.gradation.lift.feature.badge.badge.component.loading.LoadingBadgeInfoView
@@ -87,6 +89,27 @@ fun BadgeBadgeScreen(
     navigateBadgeGraphToPreGraph: () -> Unit,
     navigateBadgeToSettingInBadgeGraph: () -> Unit,
 ) {
+    if (onVisibleBadgeDialog) {
+        Surface(
+            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
+            modifier = modifier.fillMaxSize()
+        ) {
+            when (selectedBadge) {
+                is AllBadge.AcquireBadge -> BadgeDialog(
+                    modifier=modifier,
+                    badge = selectedBadge,
+                    updateVisibleBadgeDialog = updateVisibleBadgeDialog
+                )
+
+                is AllBadge.UnacquiredBadge -> LockBadgeDialog(
+                    modifier=modifier,
+                    badge = selectedBadge,
+                    updateVisibleBadgeDialog = updateVisibleBadgeDialog
+                )
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -107,6 +130,7 @@ fun BadgeBadgeScreen(
             )
         },
     ) { padding ->
+
         Surface(
             modifier = modifier
                 .padding(padding)
@@ -140,7 +164,12 @@ fun BadgeBadgeScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         BadgeInfoView(modifier, badgeUiState.badgeState)
-                        BadgeStoreView(modifier, badgeUiState.badgeState)
+                        BadgeStoreView(
+                            modifier,
+                            badgeUiState.badgeState,
+                            updateSelectedBadge,
+                            updateVisibleBadgeDialog
+                        )
                     }
                 }
 
