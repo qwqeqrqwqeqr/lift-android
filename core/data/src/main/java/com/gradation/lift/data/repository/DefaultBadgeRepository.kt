@@ -5,6 +5,7 @@ import com.gradation.lift.domain.repository.BadgeRepository
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.model.model.badge.CreateUserBadge
+import com.gradation.lift.model.model.badge.UpdateUserBadgeMainFlag
 import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.badge.BadgeDataSource
@@ -33,7 +34,7 @@ class DefaultBadgeRepository @Inject constructor(
         }
     }
 
-    override fun createUserBadge(createUserBadge: CreateUserBadge): Flow<DataState<Boolean>> =
+    override fun createUserBadge(createUserBadge: CreateUserBadge): Flow<DataState<Unit>> =
         flow {
             badgeDataSource.createUserBadge(createUserBadge).collect { result ->
                 when (result) {
@@ -54,6 +55,15 @@ class DefaultBadgeRepository @Inject constructor(
 
     override fun getUserBadgeByCondition(): Flow<DataState<BadgeCondition>> = flow {
         badgeDataSource.getUserBadgeByCondition().collect { result ->
+            when (result) {
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
+    }
+
+    override fun updateUserBadgeMainFlag(updateUserBadgeMainFlag: UpdateUserBadgeMainFlag): Flow<DataState<Unit>> = flow {
+        badgeDataSource.updateUserBadgeMainFlag(updateUserBadgeMainFlag).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
