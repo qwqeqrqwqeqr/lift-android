@@ -26,11 +26,13 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.LiftProgressBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.badge.badge.data.state.BadgeState
 
 
 @Composable
 fun BadgeInfoView(
-    modifier:Modifier=Modifier
+    modifier:Modifier=Modifier,
+    badgeState: BadgeState
 ){
     Column(
         modifier = modifier
@@ -49,7 +51,7 @@ fun BadgeInfoView(
                 ) {
                     append("전체 뱃지 ")
                 }
-                append("(27개)")
+                append("(${badgeState.totalBadgeCount}개)")
             },
             color = LiftTheme.colorScheme.no9,
             style = LiftTheme.typography.no4
@@ -84,7 +86,7 @@ fun BadgeInfoView(
                     )
                 }
                 Text(
-                    text = "27개", color = LiftTheme.colorScheme.no9,
+                    text = "${badgeState.acquiredBadgeCount}개", color = LiftTheme.colorScheme.no9,
                     style = LiftTheme.typography.no3
                 )
             }
@@ -117,7 +119,7 @@ fun BadgeInfoView(
                     )
                 }
                 Text(
-                    text = "27개",
+                    text = "${badgeState.unacquiredBadgeCount}개",
                     color = LiftTheme.colorScheme.no9,
                     style = LiftTheme.typography.no3
                 )
@@ -138,11 +140,11 @@ fun BadgeInfoView(
             LiftProgressBar(
                 modifier = modifier
                     .weight(1f),
-                progress = 50
+                progress = badgeState.badgeProgress
             )
             Text(
                 modifier = modifier.padding(start = 8.dp),
-                text = "50%",
+                text = "${badgeState.badgeProgress}%",
                 color = LiftTheme.colorScheme.no9,
                 style = LiftTheme.typography.no3
             )

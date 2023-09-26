@@ -13,6 +13,7 @@ import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -34,11 +35,12 @@ class BadgeBadgeViewModel @Inject constructor(
     val sortType: MutableStateFlow<SortType> = MutableStateFlow<SortType>(SortType.Number)
     val filterType: MutableStateFlow<FilterType> = MutableStateFlow<FilterType>(FilterType.All)
 
+    val onVisibleBottomDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val onVisibleBadgeDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val selectedBadge: MutableStateFlow<AllBadge> =
         MutableStateFlow(AllBadge.UnacquiredBadge(0, "", "", "", ""))
 
-    val badgeUiState = combine(
+    val badgeUiState: StateFlow<BadgeUiState> = combine(
         getBadgeUseCase(),
         getUserBadgeUseCase(),
         sortType,
@@ -85,6 +87,7 @@ class BadgeBadgeViewModel @Inject constructor(
     val updateSortType: (SortType) -> Unit = { sortType.value = it }
     val updateFilterType: (FilterType) -> Unit = { filterType.value = it }
     val updateSelectedBadge: (AllBadge) -> Unit = { selectedBadge.value = it }
+    val updateVisibleBottomDialog: (Boolean) -> Unit = { onVisibleBottomDialog.value = it }
     val updateVisibleBadgeDialog: (Boolean) -> Unit = { onVisibleBadgeDialog.value = it }
 
 

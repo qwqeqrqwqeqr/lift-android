@@ -11,8 +11,9 @@ import com.gradation.lift.feature.badge.badge.data.model.SortType
  * @property totalBadgeCount 총 뱃지 개수
  * @property acquiredBadgeCount 획득한 뱃지 개수
  * @property unacquiredBadgeCount 미획득한 뱃지 개수
+ * @property currentBadgeCount 현재 화면에 보여지는 뱃지 개수 (필터링에 따라 달라짐)
  * @property badgeProgress 획득한 뱃지 달성률
- * @since 2023-09-26 12:58:28
+ * @since 2023-09-26 17:15:34
  */
 class BadgeState(
     badge: List<AllBadge>,
@@ -67,10 +68,10 @@ class BadgeState(
 
         }
     }
-
     val totalBadgeCount = badge.count()
     val acquiredBadgeCount = badge.count { it is AllBadge.AcquireBadge }
     val unacquiredBadgeCount = badge.count { it is AllBadge.UnacquiredBadge }
+    val currentBadgeCount = badgeList.count()
     val badgeProgress =
         (badge.count { it is AllBadge.AcquireBadge }.toFloat() / badge.count()
             .toFloat() * 100).toInt()

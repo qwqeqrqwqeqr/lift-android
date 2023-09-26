@@ -2,6 +2,7 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Router.BADGE_BADGE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.BADGE_SETTING_ROUTER_NAME
 
 
@@ -11,12 +12,12 @@ fun NavController.navigateBadgeGraphToPreGraph(){
 
 
 fun NavController.navigateBadgeToSettingInBadgeGraph() {
-    this.navigate(Router.BADGE_BADGE_ROUTER_NAME)
+    this.navigate(BADGE_SETTING_ROUTER_NAME)
 }
 
 fun NavController.navigateSettingToBadgeInBadgeGraph() {
-    this.navigate(BADGE_SETTING_ROUTER_NAME) {
-        this.popUpTo(BADGE_SETTING_ROUTER_NAME)
+    this.navigate(BADGE_BADGE_ROUTER_NAME) {
+        this.popUpTo(BADGE_BADGE_ROUTER_NAME)
     }
 }
 
