@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -15,12 +16,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftInfoSnackBar
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.badge.setting.component.fail.FailBadgeListView
+import com.gradation.lift.feature.badge.setting.component.fail.FailMainBadgeView
+import com.gradation.lift.feature.badge.setting.component.loading.LoadingBadgeListView
+import com.gradation.lift.feature.badge.setting.component.loading.LoadingMainBadgeView
 import com.gradation.lift.feature.badge.setting.component.success.ApplyView
 import com.gradation.lift.feature.badge.setting.component.success.BadgeListView
 import com.gradation.lift.feature.badge.setting.component.success.MainBadgeView
@@ -108,11 +114,17 @@ fun BadgeSettingScreen(
         ) {
             when (badgeUiState) {
                 is BadgeUiState.Fail -> {
-
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        FailMainBadgeView(modifier)
+                        FailBadgeListView(modifier)
+                    }
                 }
 
                 BadgeUiState.Loading -> {
-
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        LoadingMainBadgeView(modifier)
+                        LoadingBadgeListView(modifier)
+                    }
                 }
 
                 is BadgeUiState.Success -> {
@@ -134,3 +146,19 @@ fun BadgeSettingScreen(
     }
 }
 
+@Preview
+@Composable
+fun BadgeSettingScreenPreview(){
+    MaterialTheme {
+        BadgeSettingScreen(
+            badgeUiState = BadgeUiState.Fail(""),
+            mainBadgeSet = emptySet() ,
+            buttonCondition = false,
+            appendBadgeInMain = {},
+            removeBadgeInMain = {},
+            updateUserBadgeMainFlag = {  },
+            navigateSettingToBadgeInBadgeGraph = {  },
+            snackbarHostState =  SnackbarHostState()
+        )
+    }
+}
