@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,7 +32,11 @@ fun LoadingBadgeStoreView(
                 style = LiftTheme.typography.no3
             )
         }
-        LoadingBadgeFilterView(modifier)
+        Divider(
+            modifier = modifier.fillMaxWidth(),
+            thickness = 8.dp,
+            color = LiftTheme.colorScheme.no17
+        )
         LoadingBadgeListView(modifier)
 
     }
