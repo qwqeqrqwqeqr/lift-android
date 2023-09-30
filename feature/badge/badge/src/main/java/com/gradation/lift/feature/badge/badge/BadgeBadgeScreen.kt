@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.badge.badge
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,7 +37,7 @@ import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState
 @Composable
 fun BadgeBadgeRoute(
     modifier: Modifier = Modifier,
-    navigateBadgeGraphToPreGraph: () -> Unit,
+    navigateBadgeGraphToHomeGraph: () -> Unit,
     navigateBadgeToSettingInBadgeGraph: () -> Unit,
     viewModel: BadgeBadgeViewModel = hiltViewModel(),
 ) {
@@ -67,9 +68,11 @@ fun BadgeBadgeRoute(
         updateSelectedBadge,
         updateVisibleBottomDialog,
         updateVisibleBadgeDialog,
-        navigateBadgeGraphToPreGraph,
+        navigateBadgeGraphToHomeGraph,
         navigateBadgeToSettingInBadgeGraph,
     )
+
+    BackHandler { navigateBadgeGraphToHomeGraph() }
 
 }
 
@@ -87,7 +90,7 @@ fun BadgeBadgeScreen(
     updateSelectedBadge: (AllBadge) -> Unit,
     updateVisibleBottomDialog: (Boolean) -> Unit,
     updateVisibleBadgeDialog: (Boolean) -> Unit,
-    navigateBadgeGraphToPreGraph: () -> Unit,
+    navigateBadgeGraphToHomeGraph: () -> Unit,
     navigateBadgeToSettingInBadgeGraph: () -> Unit,
 ) {
     if (onVisibleBadgeDialog) {
@@ -115,7 +118,7 @@ fun BadgeBadgeScreen(
         topBar = {
             LiftBackTopBar(
                 title = "내 뱃지",
-                onBackClickTopBar = navigateBadgeGraphToPreGraph,
+                onBackClickTopBar = navigateBadgeGraphToHomeGraph,
                 actions = {
                     LiftIconButton(
                         onClick = navigateBadgeToSettingInBadgeGraph,
