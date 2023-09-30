@@ -79,7 +79,7 @@ fun LiftInfoSnackBar(
                     .height(48.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = cardColors(
-                    containerColor = LiftTheme.colorScheme.no22,
+                    containerColor = LiftTheme.colorScheme.no14,
                     contentColor = LiftTheme.colorScheme.no21
                 )
             ) {

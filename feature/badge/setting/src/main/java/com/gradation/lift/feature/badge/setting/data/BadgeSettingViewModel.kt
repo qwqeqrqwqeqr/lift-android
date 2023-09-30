@@ -1,10 +1,8 @@
 package com.gradation.lift.feature.badge.setting.data
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.badge.GetUserBadgeByMainFlagUseCase
 import com.gradation.lift.domain.usecase.badge.GetUserBadgeUseCase
 import com.gradation.lift.domain.usecase.badge.UpdateUserBadgeMainFlagUseCase
 import com.gradation.lift.feature.badge.setting.data.state.BadgeUiState
@@ -24,6 +22,7 @@ import javax.inject.Inject
  * [badgeUiState] 대표뱃지 설정 화면 상태
  * [updateBadgeList] 현재 업데이트 된 뱃지리스트
  * [buttonCondition] 적용하기 조건 (업데이트가 된 뱃지가 하나라도 있을 경우에 활성화)
+ * [snackBarState] 화면에서 표기될 스낵바의 상태 (true일 경우 보여짐)
  * @since 2023-09-30 13:55:57
  */
 @HiltViewModel
@@ -57,12 +56,17 @@ class BadgeSettingViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = false
     )
+    val snackBarState: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     fun appendBadgeInMain(): (UserBadge) -> Unit = { userBadge ->
-        mainBadgeSet.update { it.plus(userBadge.copy(mainFlag = true)) }
-        updateBadgeList.value = updateBadgeList.value.filter {
-            it.first != userBadge.badge.id
-        }.plus(Pair(userBadge.badge.id, true)).toMutableList()
+        if (mainBadgeSet.value.size >= 5) {
+            snackBarState.value = true
+        } else {
+            mainBadgeSet.update { it.plus(userBadge.copy(mainFlag = true)) }
+            updateBadgeList.value = updateBadgeList.value.filter {
+                it.first != userBadge.badge.id
+            }.plus(Pair(userBadge.badge.id, true)).toMutableList()
+        }
     }
 
     fun removeBadgeInMain(): (UserBadge) -> Unit = { userBadge ->
@@ -85,5 +89,9 @@ class BadgeSettingViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun updateSnackBarState(): (Boolean) -> Unit = {
+        snackBarState.update { it }
     }
 }

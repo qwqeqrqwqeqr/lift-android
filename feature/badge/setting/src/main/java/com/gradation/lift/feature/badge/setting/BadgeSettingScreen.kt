@@ -6,14 +6,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.LiftInfoSnackBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.setting.component.success.ApplyView
 import com.gradation.lift.feature.badge.setting.component.success.BadgeListView
@@ -33,10 +39,25 @@ fun BadgeSettingRoute(
 
     val mainBadgeSet: Set<UserBadge> by viewModel.mainBadgeSet.collectAsStateWithLifecycle()
     val buttonCondition: Boolean by viewModel.buttonCondition.collectAsStateWithLifecycle()
+    val snackBarState: Boolean by viewModel.snackBarState.collectAsStateWithLifecycle()
 
     val appendBadgeInMain: (UserBadge) -> Unit = viewModel.appendBadgeInMain()
     val removeBadgeInMain: (UserBadge) -> Unit = viewModel.removeBadgeInMain()
     val updateUserBadgeMainFlag: () -> Unit = viewModel.updateUserBadgeMainFlag()
+    val updateSnackBarState: (Boolean) -> Unit = viewModel.updateSnackBarState()
+
+    val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
+
+
+    if (snackBarState) {
+        LaunchedEffect(true) {
+            snackbarHostState.showSnackbar(
+                message = "대표뱃지 설정은 최대 5개까지 가능해요",
+                duration = SnackbarDuration.Indefinite
+            )
+            updateSnackBarState(false)
+        }
+    }
 
     BadgeSettingScreen(
         modifier,
@@ -46,7 +67,8 @@ fun BadgeSettingRoute(
         appendBadgeInMain,
         removeBadgeInMain,
         updateUserBadgeMainFlag,
-        navigateSettingToBadgeInBadgeGraph
+        navigateSettingToBadgeInBadgeGraph,
+        snackbarHostState
     )
 
     BackHandler { navigateSettingToBadgeInBadgeGraph() }
@@ -61,7 +83,8 @@ fun BadgeSettingScreen(
     appendBadgeInMain: (UserBadge) -> Unit,
     removeBadgeInMain: (UserBadge) -> Unit,
     updateUserBadgeMainFlag: () -> Unit,
-    navigateSettingToBadgeInBadgeGraph: () -> Unit
+    navigateSettingToBadgeInBadgeGraph: () -> Unit,
+    snackbarHostState: SnackbarHostState,
 ) {
     Scaffold(
         topBar = {
@@ -70,6 +93,12 @@ fun BadgeSettingScreen(
                 onBackClickTopBar = navigateSettingToBadgeInBadgeGraph,
             )
         },
+        snackbarHost = {
+            LiftInfoSnackBar(
+                modifier = modifier,
+                snackbarHostState = snackbarHostState
+            )
+        }
     ) { padding ->
         Surface(
             modifier = modifier
@@ -89,12 +118,14 @@ fun BadgeSettingScreen(
                 is BadgeUiState.Success -> {
                     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         MainBadgeView(modifier, mainBadgeSet, removeBadgeInMain)
-                        BadgeListView(
-                            modifier.weight(1f),
-                            badgeUiState.badgeList,
-                            mainBadgeSet,
-                            appendBadgeInMain
-                        )
+                        Column(modifier = modifier.weight(1f)) {
+                            BadgeListView(
+                                modifier,
+                                badgeUiState.badgeList,
+                                mainBadgeSet,
+                                appendBadgeInMain
+                            )
+                        }
                         ApplyView(modifier, buttonCondition, updateUserBadgeMainFlag)
                     }
                 }
