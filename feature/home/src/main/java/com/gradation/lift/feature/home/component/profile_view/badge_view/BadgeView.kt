@@ -2,8 +2,6 @@ package com.gradation.lift.feature.home.component.profile_view.badge_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -47,30 +45,35 @@ internal fun BadgeView(
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     Box(
                         modifier = modifier
+                            .weight(1f)
                             .size(56.dp)
                             .clip(CircleShape)
                             .background(SkeletonBrush())
                     )
                     Box(
                         modifier = modifier
+                            .weight(1f)
                             .size(56.dp)
                             .clip(CircleShape)
                             .background(SkeletonBrush())
                     )
                     Box(
                         modifier = modifier
+                            .weight(1f)
                             .size(56.dp)
                             .clip(CircleShape)
                             .background(SkeletonBrush())
                     )
                     Box(
                         modifier = modifier
+                            .weight(1f)
                             .size(56.dp)
                             .clip(CircleShape)
                             .background(SkeletonBrush())
                     )
                     Box(
                         modifier = modifier
+                            .weight(1f)
                             .size(56.dp)
                             .clip(CircleShape)
                             .background(SkeletonBrush())
@@ -79,9 +82,16 @@ internal fun BadgeView(
             }
 
             is BadgeUiState.Success -> {
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    items(badgeUiState.userBadge) {
-                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Row(
+                    modifier = modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    badgeUiState.userBadge.forEach {
+                        Column(
+                            modifier = modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(2.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             GlideImage(
                                 modifier = modifier.size(56.dp),
                                 model = it.badge.url,
@@ -95,8 +105,12 @@ internal fun BadgeView(
                             )
                         }
                     }
-                    item {
-                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    if (badgeUiState.userBadge.size < 5) {
+                        Column(
+                            modifier = modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(2.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             Box(
                                 modifier = modifier
                                     .background(
@@ -123,7 +137,19 @@ internal fun BadgeView(
                             )
                         }
                     }
+                    repeat(4 - badgeUiState.userBadge.size) {
 
+                        Spacer(
+                            modifier = modifier
+                                .weight(1f)
+                                .background(
+                                    color = LiftTheme.colorScheme.no5,
+                                    shape = RoundedCornerShape(96.dp)
+                                )
+                                .size(56.dp),
+                        )
+
+                    }
                 }
             }
         }
