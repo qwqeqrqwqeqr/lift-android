@@ -22,9 +22,11 @@ import javax.inject.Inject
  * @property sortType 뱃지 정렬 타입 (기본,이름순,최신순,오래된순)
  * @property filterType 뱃지 필터 타입 (전체,획득뱃지,미획득뱃지)
  * @property onVisibleBadgeDialog 뱃지 팝업, 뱃지 클릭시 나타나는 뱃지 정보 팝업을 의미함
+ * @property onVisibleFilterBottomSheet 필터 바텀사트 가시성
+ * @property onVisibleSortBottomSheet 정렬 바텀시트 가시성
  * @property selectedBadge 선택된 뱃지, 팝업에서 보여줄 뱃지
  * @property badgeUiState 뱃지 관련 상태 정보 해당 상태를 바탕으로 뱃지 관련 정보들이 조회됨
- * @since 2023-09-26 13:12:12¬
+ * @since 2023-09-30 16:22:35
  */
 @HiltViewModel
 class BadgeBadgeViewModel @Inject constructor(
@@ -32,10 +34,11 @@ class BadgeBadgeViewModel @Inject constructor(
     private val getBadgeUseCase: GetBadgeUseCase
 ) : ViewModel() {
 
-    val sortType: MutableStateFlow<SortType> = MutableStateFlow<SortType>(SortType.Number)
-    val filterType: MutableStateFlow<FilterType> = MutableStateFlow<FilterType>(FilterType.All)
+    val sortType: MutableStateFlow<SortType> = MutableStateFlow<SortType>(SortType.Number())
+    val filterType: MutableStateFlow<FilterType> = MutableStateFlow<FilterType>(FilterType.All())
 
-    val onVisibleBottomDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val onVisibleFilterBottomSheet: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val onVisibleSortBottomSheet: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val onVisibleBadgeDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val selectedBadge: MutableStateFlow<AllBadge> =
         MutableStateFlow(AllBadge.UnacquiredBadge(0, "", "", "", ""))
@@ -87,7 +90,9 @@ class BadgeBadgeViewModel @Inject constructor(
     val updateSortType: (SortType) -> Unit = { sortType.value = it }
     val updateFilterType: (FilterType) -> Unit = { filterType.value = it }
     val updateSelectedBadge: (AllBadge) -> Unit = { selectedBadge.value = it }
-    val updateVisibleBottomDialog: (Boolean) -> Unit = { onVisibleBottomDialog.value = it }
+    val updateVisibleFilterBottomSheet: (Boolean) -> Unit =
+        { onVisibleFilterBottomSheet.value = it }
+    val updateVisibleSortBottomSheet: (Boolean) -> Unit = { onVisibleSortBottomSheet.value = it }
     val updateVisibleBadgeDialog: (Boolean) -> Unit = { onVisibleBadgeDialog.value = it }
 
 

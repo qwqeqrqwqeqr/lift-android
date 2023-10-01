@@ -21,48 +21,48 @@ class BadgeState(
     private val filterType: FilterType
 ) {
     val badgeList: List<AllBadge> = when (filterType) {
-        FilterType.Acquired -> {
+        is FilterType.Acquired -> {
             when (sortType) {
-                SortType.Name -> badge.filterIsInstance<AllBadge.AcquireBadge>()
+                is SortType.Name -> badge.filterIsInstance<AllBadge.AcquireBadge>()
                     .sortedBy { it.name }
 
-                SortType.Newest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
+                is SortType.Newest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
                     .sortedByDescending { it.badgeTimeStamp }
 
-                SortType.Number -> badge.filterIsInstance<AllBadge.AcquireBadge>()
+                is SortType.Number -> badge.filterIsInstance<AllBadge.AcquireBadge>()
                     .sortedBy { it.id }
 
-                SortType.Oldest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
+                is SortType.Oldest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
                     .sortedBy { it.badgeTimeStamp }
             }
         }
 
-        FilterType.All -> {
+        is FilterType.All -> {
             when (sortType) {
-                SortType.Name -> badge.sortedBy { it.name }
-                SortType.Newest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
+                is SortType.Name -> badge.sortedBy { it.name }
+                is SortType.Newest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
                     .sortedByDescending { it.badgeTimeStamp } + badge.filterIsInstance<AllBadge.UnacquiredBadge>()
                     .sortedBy { it.id }
 
-                SortType.Number -> badge.sortedBy { it.id }
-                SortType.Oldest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
+                is SortType.Number -> badge.sortedBy { it.id }
+                is SortType.Oldest -> badge.filterIsInstance<AllBadge.AcquireBadge>()
                     .sortedBy { it.badgeTimeStamp } + badge.filterIsInstance<AllBadge.UnacquiredBadge>()
                     .sortedBy { it.id }
             }
         }
 
-        FilterType.UnAcquired -> {
+        is FilterType.UnAcquired -> {
             when (sortType) {
-                SortType.Name -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
+                is SortType.Name -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
                     .sortedBy { it.name }
 
-                SortType.Newest -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
+                is SortType.Newest -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
                     .sortedBy { it.id }
 
-                SortType.Number -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
+                is SortType.Number -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
                     .sortedBy { it.id }
 
-                SortType.Oldest -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
+                is SortType.Oldest -> badge.filterIsInstance<AllBadge.UnacquiredBadge>()
                     .sortedBy { it.id }
             }
 
