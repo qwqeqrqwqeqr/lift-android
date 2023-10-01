@@ -48,7 +48,10 @@ fun BadgeFilterView(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(text = "정렬", color = LiftTheme.colorScheme.no14)
+                Text(
+                    text = "정렬", color = LiftTheme.colorScheme.no14,
+                    style = LiftTheme.typography.no7
+                )
                 Divider(
                     modifier = modifier
                         .height(14.dp)
@@ -56,9 +59,9 @@ fun BadgeFilterView(
                     color = LiftTheme.colorScheme.no4
 
                 )
-                Text(text = sortType.getTitleName())
+                Text(text = sortType.getTitleName(), style = LiftTheme.typography.no7)
                 Icon(
-                    painter = painterResource(id = LiftIcon.ReverseTriangle),
+                    painter = painterResource(id = LiftIcon.DropDown),
                     contentDescription = "sortIcon"
                 )
             }
@@ -73,16 +76,23 @@ fun BadgeFilterView(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(text = "뱃지", color = LiftTheme.colorScheme.no14)
+                Text(
+                    text = "뱃지",
+                    color = LiftTheme.colorScheme.no14,
+                    style = LiftTheme.typography.no7
+                )
                 Divider(
                     modifier = modifier
                         .height(14.dp)
                         .width(1.dp),
                     color = LiftTheme.colorScheme.no4
                 )
-                Text(text = filterType.getTitleName())
+                Text(
+                    text = filterType.getTitleName(),
+                    style = LiftTheme.typography.no7
+                )
                 Icon(
-                    painter = painterResource(id = LiftIcon.ReverseTriangle),
+                    painter = painterResource(id = LiftIcon.DropDown),
                     contentDescription = "filterIcon"
                 )
             }
