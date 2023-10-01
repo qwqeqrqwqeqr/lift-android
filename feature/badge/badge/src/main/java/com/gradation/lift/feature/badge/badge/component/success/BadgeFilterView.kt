@@ -19,18 +19,22 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.badge.badge.data.state.BadgeState
+import com.gradation.lift.feature.badge.badge.data.model.FilterType
+import com.gradation.lift.feature.badge.badge.data.model.SortType
 
 @Composable
 fun BadgeFilterView(
     modifier: Modifier = Modifier,
-    badgeState: BadgeState
+    sortType: SortType,
+    filterType: FilterType,
+    updateVisibleFilterBottomSheet: (Boolean) -> Unit,
+    updateVisibleSortBottomSheet: (Boolean) -> Unit,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp,Alignment.Start),
+        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically
     ) {
         LiftOutlineButton(
@@ -39,7 +43,7 @@ fun BadgeFilterView(
                 start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp
             ),
             shape = RoundedCornerShape(6.dp),
-            onClick = {}) {
+            onClick = { updateVisibleSortBottomSheet(true) }) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -52,7 +56,7 @@ fun BadgeFilterView(
                     color = LiftTheme.colorScheme.no4
 
                 )
-                Text(text = "기본")
+                Text(text = sortType.getTitleName())
                 Icon(
                     painter = painterResource(id = LiftIcon.ReverseTriangle),
                     contentDescription = "sortIcon"
@@ -64,7 +68,7 @@ fun BadgeFilterView(
                 start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp
             ),
             shape = RoundedCornerShape(6.dp),
-            onClick = {}) {
+            onClick = { updateVisibleFilterBottomSheet(true) }) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -76,7 +80,7 @@ fun BadgeFilterView(
                         .width(1.dp),
                     color = LiftTheme.colorScheme.no4
                 )
-                Text(text = "전체")
+                Text(text = filterType.getTitleName())
                 Icon(
                     painter = painterResource(id = LiftIcon.ReverseTriangle),
                     contentDescription = "filterIcon"

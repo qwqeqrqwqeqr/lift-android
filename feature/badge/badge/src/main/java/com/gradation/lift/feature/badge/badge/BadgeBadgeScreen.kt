@@ -20,6 +20,8 @@ import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftIconButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.badge.badge.component.bottom_sheet.FilterBottomSheet
+import com.gradation.lift.feature.badge.badge.component.bottom_sheet.SortBottomSheet
 import com.gradation.lift.feature.badge.badge.component.dialog.BadgeDialog
 import com.gradation.lift.feature.badge.badge.component.dialog.LockBadgeDialog
 import com.gradation.lift.feature.badge.badge.component.success.BadgeInfoView
@@ -44,7 +46,8 @@ fun BadgeBadgeRoute(
 
     val sortType: SortType by viewModel.sortType.collectAsStateWithLifecycle()
     val filterType: FilterType by viewModel.filterType.collectAsStateWithLifecycle()
-    val onVisibleBottomDialog: Boolean by viewModel.onVisibleBottomDialog.collectAsStateWithLifecycle()
+    val onVisibleFilterBottomSheet: Boolean by viewModel.onVisibleFilterBottomSheet.collectAsStateWithLifecycle()
+    val onVisibleSortBottomSheet: Boolean by viewModel.onVisibleSortBottomSheet.collectAsStateWithLifecycle()
     val onVisibleBadgeDialog: Boolean by viewModel.onVisibleBadgeDialog.collectAsStateWithLifecycle()
     val selectedBadge: AllBadge by viewModel.selectedBadge.collectAsStateWithLifecycle()
     val badgeUiState: BadgeUiState by viewModel.badgeUiState.collectAsStateWithLifecycle()
@@ -52,21 +55,24 @@ fun BadgeBadgeRoute(
     val updateSortType: (SortType) -> Unit = viewModel.updateSortType
     val updateFilterType: (FilterType) -> Unit = viewModel.updateFilterType
     val updateSelectedBadge: (AllBadge) -> Unit = viewModel.updateSelectedBadge
-    val updateVisibleBottomDialog: (Boolean) -> Unit = viewModel.updateVisibleBottomDialog
+    val updateVisibleFilterBottomSheet: (Boolean) -> Unit = viewModel.updateVisibleFilterBottomSheet
+    val updateVisibleSortBottomSheet: (Boolean) -> Unit = viewModel.updateVisibleSortBottomSheet
     val updateVisibleBadgeDialog: (Boolean) -> Unit = viewModel.updateVisibleBadgeDialog
 
     BadgeBadgeScreen(
         modifier,
         sortType,
         filterType,
-        onVisibleBottomDialog,
+        onVisibleFilterBottomSheet,
+        onVisibleSortBottomSheet,
         onVisibleBadgeDialog,
         selectedBadge,
         badgeUiState,
         updateSortType,
         updateFilterType,
         updateSelectedBadge,
-        updateVisibleBottomDialog,
+        updateVisibleFilterBottomSheet,
+        updateVisibleSortBottomSheet,
         updateVisibleBadgeDialog,
         navigateBadgeGraphToHomeGraph,
         navigateBadgeToSettingInBadgeGraph,
@@ -81,14 +87,16 @@ fun BadgeBadgeScreen(
     modifier: Modifier = Modifier,
     sortType: SortType,
     filterType: FilterType,
-    onVisibleBottomDialog: Boolean,
+    onVisibleFilterBottomSheet: Boolean,
+    onVisibleSortBottomSheet: Boolean,
     onVisibleBadgeDialog: Boolean,
     selectedBadge: AllBadge,
     badgeUiState: BadgeUiState,
     updateSortType: (SortType) -> Unit,
     updateFilterType: (FilterType) -> Unit,
     updateSelectedBadge: (AllBadge) -> Unit,
-    updateVisibleBottomDialog: (Boolean) -> Unit,
+    updateVisibleFilterBottomSheet: (Boolean) -> Unit,
+    updateVisibleSortBottomSheet: (Boolean) -> Unit,
     updateVisibleBadgeDialog: (Boolean) -> Unit,
     navigateBadgeGraphToHomeGraph: () -> Unit,
     navigateBadgeToSettingInBadgeGraph: () -> Unit,
@@ -100,18 +108,27 @@ fun BadgeBadgeScreen(
         ) {
             when (selectedBadge) {
                 is AllBadge.AcquireBadge -> BadgeDialog(
-                    modifier=modifier,
+                    modifier = modifier,
                     badge = selectedBadge,
                     updateVisibleBadgeDialog = updateVisibleBadgeDialog
                 )
 
                 is AllBadge.UnacquiredBadge -> LockBadgeDialog(
-                    modifier=modifier,
+                    modifier = modifier,
                     badge = selectedBadge,
                     updateVisibleBadgeDialog = updateVisibleBadgeDialog
                 )
             }
         }
+    }
+    if (onVisibleFilterBottomSheet) {
+        FilterBottomSheet(
+            modifier, filterType, updateFilterType, updateVisibleFilterBottomSheet
+        )
+    } else if (onVisibleSortBottomSheet) {
+        SortBottomSheet(
+            modifier, sortType, updateSortType, updateVisibleSortBottomSheet
+        )
     }
 
     Scaffold(
@@ -171,8 +188,12 @@ fun BadgeBadgeScreen(
                         BadgeStoreView(
                             modifier,
                             badgeUiState.badgeState,
+                            sortType,
+                            filterType,
                             updateSelectedBadge,
-                            updateVisibleBadgeDialog
+                            updateVisibleBadgeDialog,
+                            updateVisibleFilterBottomSheet,
+                            updateVisibleSortBottomSheet
                         )
                     }
                 }

@@ -19,6 +19,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.data.model.AllBadge
+import com.gradation.lift.feature.badge.badge.data.model.FilterType
+import com.gradation.lift.feature.badge.badge.data.model.SortType
 import com.gradation.lift.feature.badge.badge.data.state.BadgeState
 
 
@@ -26,8 +28,12 @@ import com.gradation.lift.feature.badge.badge.data.state.BadgeState
 fun BadgeStoreView(
     modifier: Modifier,
     badgeState: BadgeState,
+    sortType: SortType,
+    filterType: FilterType,
     updateSelectedBadge: (AllBadge) -> Unit,
     updateVisibleBadgeDialog: (Boolean) -> Unit,
+    updateVisibleFilterBottomSheet: (Boolean) -> Unit,
+    updateVisibleSortBottomSheet: (Boolean) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -65,7 +71,13 @@ fun BadgeStoreView(
                 color = LiftTheme.colorScheme.no9,
             )
         }
-        BadgeFilterView(modifier, badgeState)
+        BadgeFilterView(
+            modifier,
+            sortType,
+            filterType,
+            updateVisibleFilterBottomSheet,
+            updateVisibleSortBottomSheet
+        )
         Divider(
             modifier = modifier.fillMaxWidth(),
             thickness = 8.dp,
