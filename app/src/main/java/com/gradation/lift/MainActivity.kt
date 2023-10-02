@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
 
 
         naverInitializer(
-            this@MainActivity,
+            applicationContext,
             BuildConfig.NAVER_OAUTH_CLIENT_ID,
             BuildConfig.NAVER_OAUTH_CLIENT_SECRET,
             BuildConfig.NAVER_OAUTH_CLIENT_NAME

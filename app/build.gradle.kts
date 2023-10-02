@@ -66,6 +66,7 @@ dependencies {
 
     implementation(project(":feature:badge:badge"))
     implementation(project(":feature:badge:setting"))
+    implementation(project(":feature:badge:new-badge"))
 
     implementation(project(":feature:home"))
 

@@ -64,43 +64,136 @@ fun LiftErrorSnackBar(
 }
 
 
+@Composable
+fun LiftInfoSnackBar(
+    snackbarHostState: SnackbarHostState,
+    modifier: Modifier = Modifier,
+) {
+    SnackbarHost(
+        modifier = modifier.padding(horizontal = 16.dp),
+        hostState = snackbarHostState,
+        snackbar = { data ->
+            Card(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = cardColors(
+                    containerColor = LiftTheme.colorScheme.no14,
+                    contentColor = LiftTheme.colorScheme.no21
+                )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth()
+                        .align(Alignment.Start)
+                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = data.visuals.message,
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no21,
+                        modifier = modifier.align(Alignment.CenterVertically),
+                        textAlign = TextAlign.Start
+                    )
+                    Spacer(modifier = modifier.padding(6.dp))
+                    IconButton(modifier=modifier.size(12.dp),onClick = {data.dismiss()}) {
+                        Icon(
+                            painter = painterResource(LiftIcon.Close),
+                            contentDescription = "",
+                            tint = LiftTheme.colorScheme.no21,
+                        )
+                    }
+
+                }
+            }
+        }
+
+    )
+}
+
+
 @Preview
 @Composable
 fun LiftSnackBarPreview(
     modifier: Modifier=Modifier
 ){
     LiftMaterialTheme {
-        Card(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = cardColors(
-                containerColor = LiftTheme.colorScheme.no22,
-                contentColor = LiftTheme.colorScheme.no21
-            )
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
+        Column {
+
+
+            Card(
                 modifier = modifier
-                    .fillMaxHeight()
-                    .align(Alignment.Start)
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = cardColors(
+                    containerColor = LiftTheme.colorScheme.no22,
+                    contentColor = LiftTheme.colorScheme.no21
+                )
             ) {
-                Icon(
-                    painter = painterResource(LiftIcon.Warn),
-                    contentDescription = "",
-                    tint = Color.Unspecified,
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .align(Alignment.Start)
+                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(LiftIcon.Warn),
+                        contentDescription = "",
+                        tint = Color.Unspecified,
+                    )
+                    Spacer(modifier = modifier.padding(6.dp))
+                    Text(
+                        text = "Routers Street 3126, Wurdong Heights,",
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no21,
+                        modifier = modifier.align(Alignment.CenterVertically),
+                        textAlign = TextAlign.Start
+                    )
+                }
+            }
+            Card(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = cardColors(
+                    containerColor = LiftTheme.colorScheme.no14,
+                    contentColor = LiftTheme.colorScheme.no21
                 )
-                Spacer(modifier = modifier.padding(6.dp))
-                Text(
-                    text = "Routers Street 3126, Wurdong Heights,",
-                    style = LiftTheme.typography.no5,
-                    color = LiftTheme.colorScheme.no21,
-                    modifier = modifier.align(Alignment.CenterVertically),
-                    textAlign = TextAlign.Start
-                )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth()
+                        .align(Alignment.Start)
+                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = "Routers Street 3126, Wurdong Heights,",
+                        style = LiftTheme.typography.no5,
+                        color = LiftTheme.colorScheme.no21,
+                        modifier = modifier.align(Alignment.CenterVertically),
+                        textAlign = TextAlign.Start
+                    )
+                    Spacer(modifier = modifier.padding(6.dp))
+                    IconButton(modifier=modifier.size(12.dp),onClick = {}) {
+                        Icon(
+                            painter = painterResource(LiftIcon.Close),
+                            contentDescription = "",
+                            tint = LiftTheme.colorScheme.no21,
+                        )
+                    }
+
+                }
             }
         }
     }

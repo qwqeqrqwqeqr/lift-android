@@ -59,6 +59,7 @@ internal val COLOR_NO26: Color = Color(0xFF66B3FF)
 internal val COLOR_NO27: Color = Color(0xFF7AE27E)
 internal val COLOR_NO28: Color = Color(0xFFFF8888)
 internal val COLOR_NO29: Color = Color(0xFF94C9FF)
+internal val COLOR_NO30: Color = Color(0xFF41414D)
 
 
 data class LiftColorScheme(
@@ -91,6 +92,7 @@ data class LiftColorScheme(
     val no27: Color,
     val no28: Color,
     val no29: Color,
+    val no30: Color,
 )
 
 fun liftLightColorScheme(
@@ -123,6 +125,7 @@ fun liftLightColorScheme(
     no27: Color = COLOR_NO27,
     no28: Color = COLOR_NO28,
     no29: Color = COLOR_NO29,
+    no30: Color = COLOR_NO30,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -154,6 +157,7 @@ fun liftLightColorScheme(
         no27,
         no28,
         no29,
+        no30,
     )
 
 fun liftDarkColorScheme(
@@ -186,6 +190,7 @@ fun liftDarkColorScheme(
     no27: Color = Color.Unspecified,
     no28: Color = Color.Unspecified,
     no29: Color = Color.Unspecified,
+    no30: Color = Color.Unspecified,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -217,6 +222,7 @@ fun liftDarkColorScheme(
         no27,
         no28,
         no29,
+        no30,
     )
 
 val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }
