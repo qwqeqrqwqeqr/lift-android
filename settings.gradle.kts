@@ -61,6 +61,7 @@ include(":feature:work:complete")
 
 include(":feature:badge:badge")
 include(":feature:badge:setting")
+include(":feature:badge:new-badge")
 
 
 include(":feature:notification:notice")

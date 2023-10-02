@@ -24,6 +24,9 @@ object Router {
     const val BADGE_BADGE_ROUTER_NAME = "badge_badge"
     const val BADGE_SETTING_ROUTER_NAME = "badge_setting"
 
+    const val NEW_BADGE_GRAPH_NAME = "new_badge_graph"
+    const val NEW_BADGE_NEW_BADGE_ROUTER_NAME = "new_badge_new_badge"
+
 
     const val CREATE_ROUTINE_GRAPH_NAME = "create_routine_graph"
     const val CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME = "create_routine_routine_set"

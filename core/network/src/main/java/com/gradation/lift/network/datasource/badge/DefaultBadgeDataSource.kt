@@ -3,6 +3,7 @@ package com.gradation.lift.network.datasource.badge
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.model.model.badge.CreateUserBadge
+import com.gradation.lift.model.model.badge.UpdateUserBadgeMainFlag
 import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.dto.badge.CreateUserBadgeRequestDto
@@ -41,7 +42,7 @@ class DefaultBadgeDataSource @Inject constructor(
             }
         }
 
-    override suspend fun createUserBadge(createUserBadge: CreateUserBadge): Flow<NetworkResult<Boolean>> =
+    override suspend fun createUserBadge(createUserBadge: CreateUserBadge): Flow<NetworkResult<Unit>> =
         flow {
             networkResultHandler {
                 badgeService.createUserBadge(
@@ -50,7 +51,7 @@ class DefaultBadgeDataSource @Inject constructor(
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
-                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
         }
@@ -78,5 +79,18 @@ class DefaultBadgeDataSource @Inject constructor(
                 }
             }
         }
+
+    override suspend fun updateUserBadgeMainFlag(updateUserBadgeMainFlag: UpdateUserBadgeMainFlag): Flow<NetworkResult<Unit>> =
+        flow {
+            networkResultHandler {
+                badgeService.updateUserBadgeMainFlag(updateUserBadgeMainFlag.toDto())
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
+                }
+            }
+        }
+
 
 }

@@ -4,6 +4,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.model.model.badge.CreateUserBadge
+import com.gradation.lift.model.model.badge.UpdateUserBadgeMainFlag
 import com.gradation.lift.model.model.badge.UserBadge
 import kotlinx.coroutines.flow.Flow
 
@@ -34,7 +35,7 @@ interface BadgeRepository {
      * 뱃지를 획득합니다.
      * @since 2023-09-25 18:08:25
      */
-    fun createUserBadge(createUserBadge: CreateUserBadge): Flow<DataState<Boolean>>
+    fun createUserBadge(createUserBadge: CreateUserBadge): Flow<DataState<Unit>>
 
     /**
      * [getUserBadgeByMainFlag]
@@ -50,6 +51,14 @@ interface BadgeRepository {
      * @since 2023-09-25 18:10:14
      */
     fun getUserBadgeByCondition(): Flow<DataState<BadgeCondition>>
+
+
+    /**
+     * [updateUserBadgeMainFlag]
+     * 대표뱃지 상태를 업데이트합니다.
+     * @since 2023-09-26 20:05:52
+     */
+    fun updateUserBadgeMainFlag(updateUserBadgeMainFlag: UpdateUserBadgeMainFlag): Flow<DataState<Unit>>
 
 
 }
