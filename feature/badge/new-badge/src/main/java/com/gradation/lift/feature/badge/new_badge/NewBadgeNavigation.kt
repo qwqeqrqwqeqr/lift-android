@@ -5,7 +5,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateNewBadgeGraphToHomeGraph
-import com.gradation.lift.navigation.navigation.navigateSettingToBadgeInBadgeGraph
 
 fun newBadgeScreen(
     navController: NavController,
@@ -17,6 +16,7 @@ fun newBadgeScreen(
 
         NewBadgeRoute(
             navigateNewBadgeGraphToHomeGraph=navigateNewBadgeGraphToHomeGraph,
+            navController=navController
         )
     }
 
