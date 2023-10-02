@@ -1,15 +1,18 @@
 package com.gradation.lift.feature.home.data
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.badge.GetUserBadgeByConditionUseCase
 import com.gradation.lift.domain.usecase.badge.GetUserBadgeByMainFlagUseCase
 import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByWeekdayUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
+import com.gradation.lift.feature.home.data.state.BadgeConditionState
 import com.gradation.lift.feature.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
@@ -42,26 +45,28 @@ class HomeViewModel @Inject constructor(
     getRoutineSetRoutineByWeekdayUseCase: GetRoutineSetRoutineByWeekdayUseCase,
     getUserDetailUseCase: GetUserDetailUseCase,
     getUserBadgeByMainFlagUseCase: GetUserBadgeByMainFlagUseCase,
+    getUserBadgeByConditionUseCase: GetUserBadgeByConditionUseCase
 ) : ViewModel() {
 
     var today: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
     private val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
 
-    internal val weekDateSelectionList: StateFlow<List<WeekDateSelection>> = selectedDate.map { selectedDate ->
-        getCurrentWeekUseCase(selectedDate).map { localDate ->
-            WeekDateSelection(
-                day = localDate.dayOfMonth.toString(),
-                weekday = localDate.toWeekday(),
-                localDate = localDate,
-                selected = localDate == selectedDate
-            )
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList()
-    )
+    internal val weekDateSelectionList: StateFlow<List<WeekDateSelection>> =
+        selectedDate.map { selectedDate ->
+            getCurrentWeekUseCase(selectedDate).map { localDate ->
+                WeekDateSelection(
+                    day = localDate.dayOfMonth.toString(),
+                    weekday = localDate.toWeekday(),
+                    localDate = localDate,
+                    selected = localDate == selectedDate
+                )
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
 
     internal val weekDateRoutineUiState: StateFlow<WeekDateRoutineUiState> =
         selectedDate.flatMapLatest { selectedDate ->
@@ -70,6 +75,7 @@ class HomeViewModel @Inject constructor(
                     is DataState.Fail -> {
                         WeekDateRoutineUiState.Fail(message = it.message)
                     }
+
                     is DataState.Success -> {
                         if (it.data.isEmpty()) {
                             WeekDateRoutineUiState.Empty
@@ -111,6 +117,26 @@ class HomeViewModel @Inject constructor(
         initialValue = BadgeUiState.Loading
     )
 
+    val badgeConditionState: StateFlow<BadgeConditionState> =
+        getUserBadgeByConditionUseCase().map { state ->
+            when (state) {
+                is DataState.Fail ->{
+                    Log.d("test","실패 ㅜㅠ")
+                    BadgeConditionState.None
+                }
+                is DataState.Success -> {
+                    Log.d("test","성공 ${state.data.toString()}")
+                    state.data.badge?.let { BadgeConditionState.Success(it) }
+                        ?: BadgeConditionState.None
+                }
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = BadgeConditionState.None
+        )
+
+
 
     internal fun updateSelectedDate(): (LocalDate) -> Unit = {
         selectedDate.value = it
@@ -122,12 +148,13 @@ class HomeViewModel @Inject constructor(
      * 해당 루틴세트 정보를 운동 페이지로 넘겨줘야함
      * 해당 루틴세트의 아이디를 키에 보관한 후 운동페이지에서 호출함
      */
-    internal fun updateRoutineSetIdKey(): (NavController, Int) -> Unit = { navController,routineSetId ->
-        navController.setValueSavedStateHandle(
-            SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY,
-            routineSetId
-        )
-    }
+    internal fun updateRoutineSetIdKey(): (NavController, Int) -> Unit =
+        { navController, routineSetId ->
+            navController.setValueSavedStateHandle(
+                SavedStateHandleKey.WorkKey.ROUTINE_SET_ID_KEY,
+                routineSetId
+            )
+        }
 }
 
 

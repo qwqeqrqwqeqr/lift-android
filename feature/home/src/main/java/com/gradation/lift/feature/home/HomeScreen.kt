@@ -18,6 +18,7 @@ import com.gradation.lift.feature.home.component.profile_view.ProfileView
 import com.gradation.lift.feature.home.component.weekdate_routine_view.WeekDateRoutineView
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
+import com.gradation.lift.feature.home.data.state.BadgeConditionState
 import com.gradation.lift.feature.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
@@ -51,11 +52,21 @@ internal fun HomeRoute(
     val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutineUiState.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
     val badgeUiState: BadgeUiState by viewModel.badgeUiState.collectAsStateWithLifecycle()
+    val badgeConditionState: BadgeConditionState by viewModel.badgeConditionState.collectAsStateWithLifecycle()
 
     val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate()
     val updateRoutineSetIdKey: (NavController, Int) -> Unit = viewModel.updateRoutineSetIdKey()
 
     val scrollState: ScrollState = rememberScrollState()
+
+
+    when (badgeConditionState) {
+        is BadgeConditionState.Success -> LaunchedEffect(true) {
+            navigateHomeGraphToNewBadgeGraph()
+        }
+
+        BadgeConditionState.None -> {}
+    }
 
 
     HomeScreen(
@@ -75,6 +86,8 @@ internal fun HomeRoute(
         navigateHomeGraphToBadgeSettingRouter,
         scrollState
     )
+
+
 }
 
 
@@ -93,7 +106,7 @@ internal fun HomeScreen(
     navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
-    navigateHomeGraphToBadgeSettingRouter:() -> Unit,
+    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     scrollState: ScrollState,
 ) {
 
@@ -180,7 +193,7 @@ internal fun HomeScreenPreview() {
             navigateHomeGraphToUpdateRoutineGraph = {},
             navigateMainGraphToWorkGraph = { },
             navigateHomeGraphToBadgeGraph = {},
-            navigateHomeGraphToBadgeSettingRouter={},
+            navigateHomeGraphToBadgeSettingRouter = {},
             scrollState = rememberScrollState(),
         )
     }
