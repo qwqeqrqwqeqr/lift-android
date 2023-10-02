@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator.Badge.badgeConditionModel
 import com.gradation.lift.model.utils.ModelDataGenerator.Badge.badgeModel
 import com.gradation.lift.model.utils.ModelDataGenerator.Badge.createUserBadgeModel
@@ -113,7 +112,7 @@ class BadgeDataSourceTest {
 
         with(badgeDataSource.createUserBadge(createUserBadgeModel).first()) {
             Truth.assertThat(
-                NetworkResult.Success(FAKE_BOOLEAN_DATA)
+                NetworkResult.Success(Unit)
             ).isEqualTo(this)
         }
     }
