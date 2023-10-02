@@ -21,8 +21,8 @@ android {
     namespace = "com.gradation.lift"
 
     defaultConfig {
-        versionCode = 7
-        versionName = "0.0.12"
+        versionCode = 8
+        versionName = "0.0.13"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
 }
@@ -66,6 +66,7 @@ dependencies {
 
     implementation(project(":feature:badge:badge"))
     implementation(project(":feature:badge:setting"))
+    implementation(project(":feature:badge:new-badge"))
 
     implementation(project(":feature:home"))
 

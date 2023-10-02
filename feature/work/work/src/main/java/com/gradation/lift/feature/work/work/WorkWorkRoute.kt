@@ -89,7 +89,7 @@ fun WorkWorkRoute(
         when (workDialogUiState) {
             WorkDialogUiState.AutoCompleteDialogUi -> {
                 Surface(
-                    color = LiftTheme.colorScheme.no4.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
+                        color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
                 ) {
                     AutoCompleteDialog(
                         onClickDialogCompleteButton = navigateWorkToCompleteInWorkGraph,
@@ -100,7 +100,7 @@ fun WorkWorkRoute(
 
             WorkDialogUiState.SuspendDialogUi -> {
                 Surface(
-                    color = LiftTheme.colorScheme.no4.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
+                    color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f), modifier = modifier.fillMaxSize()
                 ) {
                     SuspendDialog(
                         onClickDialogSuspendButton = navigateWorkGraphToHomeGraph,
@@ -110,7 +110,7 @@ fun WorkWorkRoute(
             }
             WorkDialogUiState.CompleteDialogUi -> {
                 Surface(
-                    color = LiftTheme.colorScheme.no4.copy(alpha = 0.7f),  modifier = modifier.fillMaxSize()
+                    color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),  modifier = modifier.fillMaxSize()
                 ) {
                     CompleteDialog(
                         completeState = workProgress == MAX_PROGRESS,

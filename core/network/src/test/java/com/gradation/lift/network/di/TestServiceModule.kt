@@ -16,6 +16,13 @@ object TestServiceModule {
     fun testAuthService(retrofit: TestRetrofit): AuthService =
         retrofit.build().create(AuthService::class.java)
 
+    fun testBadgeService(retrofit: TestRetrofit): BadgeService =
+        retrofit.build().create(BadgeService::class.java)
+
+
+    fun testNotificationService(retrofit: TestRetrofit): NotificationService =
+        retrofit.build().create(NotificationService::class.java)
+
 
     fun testRefreshService(retrofit: TestRetrofit): RefreshService =
         retrofit.build().create(RefreshService::class.java)

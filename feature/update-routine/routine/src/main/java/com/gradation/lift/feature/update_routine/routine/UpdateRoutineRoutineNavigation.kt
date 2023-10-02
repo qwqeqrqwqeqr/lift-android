@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.update_routine.routine
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -10,7 +8,7 @@ import com.gradation.lift.navigation.navigation.navigateRoutineToFindWorkCategor
 import com.gradation.lift.navigation.navigation.navigateRoutineToRoutineSetInUpdateRoutineGraph
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 fun updateRoutineRoutineScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,

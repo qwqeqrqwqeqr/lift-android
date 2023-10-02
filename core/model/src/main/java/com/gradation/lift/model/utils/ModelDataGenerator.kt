@@ -30,16 +30,23 @@ import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
 import com.gradation.lift.model.model.auth.NaverSignInInfo
 import com.gradation.lift.model.model.auth.Token
+import com.gradation.lift.model.model.badge.Badge
+import com.gradation.lift.model.model.badge.BadgeCondition
+import com.gradation.lift.model.model.badge.CreateUserBadge
+import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.notification.Notice
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
@@ -65,6 +72,28 @@ object ModelDataGenerator {
         val naverSignInInfoModel = NaverSignInInfo(
             id = FAKE_STRING_DATA,
             email = FAKE_EMAIL_DATA
+        )
+    }
+
+    object Badge {
+        val badgeModel = Badge(
+            id = FAKE_INT_DATA,
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            hint = FAKE_STRING_DATA,
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
+        )
+        val badgeConditionModel = BadgeCondition(
+            badge = badgeModel
+        )
+        val createUserBadgeModel = CreateUserBadge(
+            id = FAKE_INT_DATA,
+            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+        )
+        val userBadgeModel = UserBadge(
+            badge = badgeModel,
+            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            mainFlag = FAKE_BOOLEAN_DATA
         )
     }
 
@@ -304,12 +333,20 @@ object ModelDataGenerator {
         )
 
         val updateRoutineSetRoutineModel = UpdateRoutineSetRoutine(
-            id= FAKE_INT_DATA,
+            id = FAKE_INT_DATA,
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             weekday = Weekday.Monday(),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(updateRoutineModel),
+        )
+    }
+
+    object Notification {
+        val noticeModel = Notice(
+            title = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            date = LocalDate(2023, 8, 31)
         )
     }
 }

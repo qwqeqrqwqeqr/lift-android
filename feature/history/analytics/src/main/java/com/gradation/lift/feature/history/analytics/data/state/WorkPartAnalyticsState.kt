@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.history.analytics.data.state
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetPreWeekUseCase
 import com.gradation.lift.feature.history.analytics.data.model.WorkPartFrequency
@@ -46,7 +44,7 @@ class WorkPartAnalyticsState @Inject constructor(
         MutableStateFlow(WorkPartAnalyticsTargetType.All)
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val historyWorkPartCountByPre: StateFlow<WorkPartFrequency> =
         combine(
             today,
@@ -133,7 +131,7 @@ class WorkPartAnalyticsState @Inject constructor(
             initialValue = WorkPartFrequency()
         )
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val historyWorkPartCountByCurrent: StateFlow<WorkPartFrequency> =
         combine(
             today,
@@ -221,7 +219,7 @@ class WorkPartAnalyticsState @Inject constructor(
         )
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val historyCountByPre: StateFlow<Int> = historyWorkPartCountByPre.map {
         it.absFrequency + it.armFrequency + it.backFrequency + it.chestFrequency + it.shoulderFrequency + it.lowerBodyFrequency
     }.stateIn(
@@ -230,7 +228,7 @@ class WorkPartAnalyticsState @Inject constructor(
         initialValue = 0
     )
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val historyCountByCurrent: StateFlow<Int> = historyWorkPartCountByCurrent.map {
         it.absFrequency + it.armFrequency + it.backFrequency + it.chestFrequency + it.shoulderFrequency + it.lowerBodyFrequency
     }.stateIn(
@@ -240,7 +238,7 @@ class WorkPartAnalyticsState @Inject constructor(
     )
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     val maxOfWorkPartFrequency: StateFlow<String> =
         historyWorkPartCountByCurrent.map { workPartFrequency ->
             maxOf(

@@ -1,10 +1,7 @@
 package com.gradation.lift
 
 import AppState
-import LiftNavHost
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -17,7 +14,7 @@ import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GRAPH_NAME
 import com.gradation.lift.state.SplashState
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun LiftApp(
     splashState: SplashState,

@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.update_routine.routine_selection.data.state
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.feature.update_routine.routine_selection.data.model.WeekDateSelection
@@ -20,14 +18,14 @@ import javax.inject.Inject
 class DateState @Inject constructor(
     getTodayUseCase: GetTodayUseCase,
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
-    private val viewModelScope: CoroutineScope,
+    viewModelScope: CoroutineScope,
 ) {
 
 
     internal val currentDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     internal val weekDate: StateFlow<List<WeekDateSelection>> = currentDate.map {
         getCurrentWeekUseCase(it).map { localDate ->
             WeekDateSelection(

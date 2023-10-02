@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.home
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -16,11 +14,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.home.component.*
 import com.gradation.lift.feature.home.component.profile_view.ProfileView
 import com.gradation.lift.feature.home.component.weekdate_routine_view.WeekDateRoutineView
 import com.gradation.lift.feature.home.data.*
 import com.gradation.lift.feature.home.data.model.WeekDateSelection
+import com.gradation.lift.feature.home.data.state.BadgeConditionState
+import com.gradation.lift.feature.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.data.state.WeekDateRoutineUiState
 import com.gradation.lift.model.model.common.UnitOfWeight
@@ -35,13 +34,15 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun HomeRoute(
     navController: NavController,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
+    navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToNewBadgeGraph: () -> Unit,
+    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -50,11 +51,22 @@ internal fun HomeRoute(
 
     val weekDateRoutineUiState: WeekDateRoutineUiState by viewModel.weekDateRoutineUiState.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
+    val badgeUiState: BadgeUiState by viewModel.badgeUiState.collectAsStateWithLifecycle()
+    val badgeConditionState: BadgeConditionState by viewModel.badgeConditionState.collectAsStateWithLifecycle()
 
     val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate()
     val updateRoutineSetIdKey: (NavController, Int) -> Unit = viewModel.updateRoutineSetIdKey()
 
     val scrollState: ScrollState = rememberScrollState()
+
+
+    when (badgeConditionState) {
+        is BadgeConditionState.Success -> LaunchedEffect(true) {
+            navigateHomeGraphToNewBadgeGraph()
+        }
+
+        BadgeConditionState.None -> {}
+    }
 
 
     HomeScreen(
@@ -64,13 +76,18 @@ internal fun HomeRoute(
         weekDateSelectionList,
         weekDateRoutineUiState,
         userDetailUiState,
+        badgeUiState,
         updateSelectedDate,
         updateRoutineSetIdKey,
         navigateMainGraphToCreateRoutineGraph,
         navigateHomeGraphToUpdateRoutineGraph,
         navigateMainGraphToWorkGraph,
+        navigateHomeGraphToBadgeGraph,
+        navigateHomeGraphToBadgeSettingRouter,
         scrollState
     )
+
+
 }
 
 
@@ -82,11 +99,14 @@ internal fun HomeScreen(
     weekDateSelectionList: List<WeekDateSelection>,
     weekDateRoutineUiState: WeekDateRoutineUiState,
     userDetailUiState: UserDetailUiState,
+    badgeUiState: BadgeUiState,
     updateSelectedDate: (LocalDate) -> Unit,
     updateRoutineSetIdKey: (NavController, Int) -> Unit,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
+    navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     scrollState: ScrollState,
 ) {
 
@@ -100,8 +120,11 @@ internal fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             ProfileView(
-                modifier = modifier,
-                userDetailUiState = userDetailUiState,
+                modifier,
+                userDetailUiState,
+                badgeUiState,
+                navigateHomeGraphToBadgeGraph,
+                navigateHomeGraphToBadgeSettingRouter
             )
             WeekDateRoutineView(
                 modifier,
@@ -161,11 +184,16 @@ internal fun HomeScreenPreview() {
                     unitOfWeight = UnitOfWeight.Kg()
                 )
             ),
+            badgeUiState = BadgeUiState.Success(
+                userBadge = listOf(ModelDataGenerator.Badge.userBadgeModel)
+            ),
             updateSelectedDate = {},
             updateRoutineSetIdKey = { _, _ -> },
             navigateMainGraphToCreateRoutineGraph = { },
             navigateHomeGraphToUpdateRoutineGraph = {},
             navigateMainGraphToWorkGraph = { },
+            navigateHomeGraphToBadgeGraph = {},
+            navigateHomeGraphToBadgeSettingRouter = {},
             scrollState = rememberScrollState(),
         )
     }

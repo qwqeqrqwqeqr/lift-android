@@ -36,6 +36,13 @@ interface WorkRepository {
     fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>>
 
     /**
+     * [getPopularWorkCategory]
+     * 인기 있는 운동 종목들을 불러옵니다.
+     * @since 2023-09-25 17:35:38
+     */
+    fun getPopularWorkCategory(): Flow<DataState<List<WorkCategory>>>
+
+    /**
      * [getWork]
      * 진행중인 운동을 불러옴
      * @since 2023-08-28 20:05:30
@@ -47,7 +54,7 @@ interface WorkRepository {
      * 운동을 생성함
      * @since 2023-08-28 20:05:35
      */
-    fun createWork(work: Work):  Flow<DataState<Unit>>
+    fun createWork(work: Work): Flow<DataState<Unit>>
 
     /**
      * [updateWork]

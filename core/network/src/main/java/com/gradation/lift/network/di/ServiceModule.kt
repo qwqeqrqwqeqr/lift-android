@@ -38,7 +38,6 @@ object ServiceModule {
         retrofit.create(AuthService::class.java)
 
 
-
     @Provides
     @Singleton
     fun provideRefreshService(@DefaultRetrofit retrofit: Retrofit): RefreshService =
@@ -58,4 +57,15 @@ object ServiceModule {
     @Singleton
     fun provideHistoryService(@AuthRetrofit retrofit: Retrofit): HistoryService =
         retrofit.create(HistoryService::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideNotificationService(@AuthRetrofit retrofit: Retrofit): NotificationService =
+        retrofit.create(NotificationService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideBadgeService(@AuthRetrofit retrofit: Retrofit): BadgeService =
+        retrofit.create(BadgeService::class.java)
 }

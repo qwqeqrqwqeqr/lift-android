@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.history.analytics
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
@@ -28,7 +26,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun HistoryAnalyticsRoute(
     modifier: Modifier = Modifier,

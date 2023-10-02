@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.work.complete.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -67,7 +65,7 @@ class WorkCompleteViewModel @Inject constructor(
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     fun createWorkHistory(
         comment: String?,
         score: Int,

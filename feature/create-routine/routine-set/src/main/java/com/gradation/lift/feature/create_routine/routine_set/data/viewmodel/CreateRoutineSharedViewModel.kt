@@ -1,7 +1,5 @@
 package com.gradation.lift.feature.create_routine.routine_set.data.viewmodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
@@ -83,7 +81,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
         )
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    
     internal val weekdaySelectionList: StateFlow<List<WeekdaySelection>> =
         routineSetWeekday.map { weekdayList ->
             getCurrentWeekUseCase().map { localDate ->

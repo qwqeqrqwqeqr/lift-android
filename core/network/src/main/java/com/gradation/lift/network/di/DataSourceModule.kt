@@ -3,10 +3,14 @@ package com.gradation.lift.network.di
 import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
+import com.gradation.lift.network.datasource.badge.BadgeDataSource
+import com.gradation.lift.network.datasource.badge.DefaultBadgeDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
 import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.notification.DefaultNotificationDefaultDataSource
+import com.gradation.lift.network.datasource.notification.NotificationDataSource
 import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
@@ -72,6 +76,19 @@ object DataSourceModule {
         networkResultHandler: NetworkResultHandler,
     ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler)
 
+
+    @Provides
+    fun provideNotificationDataSource(
+        notificationService: NotificationService,
+        networkResultHandler: NetworkResultHandler,
+    ): NotificationDataSource = DefaultNotificationDefaultDataSource(notificationService, networkResultHandler)
+
+
+    @Provides
+    fun provideBadgeDataSource(
+        badgeService: BadgeService,
+        networkResultHandler: NetworkResultHandler,
+    ): BadgeDataSource = DefaultBadgeDataSource(badgeService, networkResultHandler)
 
 
 }
