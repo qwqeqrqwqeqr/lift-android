@@ -23,6 +23,7 @@ import com.gradation.lift.model.model.user.UserDetail
 internal fun ProfileDetailView(
     modifier: Modifier = Modifier,
     userDetail: UserDetail,
+    navigateHomeGraphToNotificationGraph: () -> Unit
 ) {
     GlideImage(
         model = userDetail.profilePicture,
@@ -58,9 +59,7 @@ internal fun ProfileDetailView(
                 color = LiftTheme.colorScheme.no5
             )
             LiftIconButton(
-                onClick = {
-                    //TODO 알림 기능 추가시 작성 예정 (2023-08-18 19:19:30)
-                },
+                onClick = navigateHomeGraphToNotificationGraph,
                 modifier = modifier.size(24.dp)
             ) {
                 Icon(

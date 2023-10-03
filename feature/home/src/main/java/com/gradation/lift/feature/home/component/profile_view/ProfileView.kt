@@ -25,6 +25,7 @@ internal fun ProfileView(
     userDetailUiState: UserDetailUiState,
     badgeUiState: BadgeUiState,
     navigateHomeGraphToNewBadgeGraph: () -> Unit,
+    navigateHomeGraphToNotificationGraph:()->Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit
 ) {
     Column(
@@ -71,6 +72,7 @@ internal fun ProfileView(
                 is UserDetailUiState.Success -> ProfileDetailView(
                     modifier = modifier,
                     userDetail = userDetailUiState.userDetail,
+                    navigateHomeGraphToNotificationGraph=navigateHomeGraphToNotificationGraph
                 )
             }
         }
