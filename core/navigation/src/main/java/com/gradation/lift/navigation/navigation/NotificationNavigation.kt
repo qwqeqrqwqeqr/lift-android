@@ -1,7 +1,6 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.gradation.lift.navigation.Router
 
 fun NavController.navigateNotificationGraphToPreGraph() {
@@ -9,23 +8,23 @@ fun NavController.navigateNotificationGraphToPreGraph() {
 }
 
 
-fun NavHostController.navigatePreGraphToNotificationGraph() {
+fun NavController.navigatePreGraphToNotificationGraph() {
     this.navigate(Router.NOTIFICATION_NOTIFICATION_ROUTER_NAME)
 }
 
-fun NavHostController.navigateNotificationToNoticeDetailInNotificationGraph() {
+fun NavController.navigateNotificationToNoticeDetailInNotificationGraph() {
     this.navigate(Router.NOTIFICATION_NOTICE_DETAIL_ROUTER_NAME)
 }
 
-fun NavHostController.navigateNotificationToPushDetailInNotificationGraph() {
+fun NavController.navigateNotificationToPushDetailInNotificationGraph() {
     this.navigate(Router.NOTIFICATION_PUSH_DETAIL_ROUTER_NAME)
 }
 
 
-fun NavHostController.navigateNoticeDetailToNotificationInNotificationGraph() {
+fun NavController.navigateNoticeDetailToNotificationInNotificationGraph() {
     this.popBackStack()
 }
 
-fun NavHostController.navigatePushDetailToNotificationInNotificationGraph() {
+fun NavController.navigatePushDetailToNotificationInNotificationGraph() {
     this.popBackStack()
 }

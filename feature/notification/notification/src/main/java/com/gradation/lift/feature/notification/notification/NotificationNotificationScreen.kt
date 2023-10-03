@@ -53,7 +53,7 @@ fun NotificationNotificationRoute(
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     NotificationNotificationScreen(
-        modifier, tabScreenList, pagerState, coroutineScope,
+        modifier, navController, tabScreenList, pagerState, coroutineScope,
         navigateNotificationGraphToPreGraph
     )
 }
@@ -63,6 +63,7 @@ fun NotificationNotificationRoute(
 @Composable
 fun NotificationNotificationScreen(
     modifier: Modifier = Modifier,
+    navController: NavController,
     tabScreenList: List<TabDestination>,
     pagerState: PagerState,
     coroutineScope: CoroutineScope,
@@ -124,7 +125,7 @@ fun NotificationNotificationScreen(
                     modifier = modifier.fillMaxSize(),
                     state = pagerState,
                 ) { index ->
-                    tabScreenList[index].screen()
+                    tabScreenList[index].screen(navController)
                 }
             }
         }
