@@ -70,9 +70,11 @@ dependencies {
 
     implementation(project(":feature:home"))
 
-    implementation(project(":feature:notification:notice"))
     implementation(project(":feature:notification:notification"))
+    implementation(project(":feature:notification:notice"))
+    implementation(project(":feature:notification:notice-detail"))
     implementation(project(":feature:notification:push"))
+    implementation(project(":feature:notification:push-detail"))
 
 
     implementation(project(":feature:history:history"))
