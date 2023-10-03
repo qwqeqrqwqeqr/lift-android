@@ -24,12 +24,10 @@ fun LiftNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        homeGraphBuilder(navController, this)
-        myInfoGraphBuilder(navController, this)
-        historyGraphBuilder(navController, this)
         badgeGraphBuilder(navController, this)
-        newBadgeGraphBuilder(navController, this)
         createRoutineGraphBuilder(navController, this)
+        homeGraphBuilder(navController, this)
+        historyGraphBuilder(navController, this)
         loginGraphBuilder(
             navController = navController,
             navGraphBuilder = this,
@@ -38,9 +36,13 @@ fun LiftNavHost(
             connectOAuthFromNaver = { connectOAuthFromNaver() },
             connectOAuthFromKakao = { connectOAuthFromKakao() }
         )
+        myInfoGraphBuilder(navController, this)
+        newBadgeGraphBuilder(navController, this)
+        notificationGraphBuilder(navController, this)
         registerDetailGraphBuilder(navController, this)
         updateRoutineGraphBuilder(navController, this)
         workGraphBuilder(navController, this)
+
     }
 }
 
