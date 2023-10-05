@@ -39,7 +39,7 @@ import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState
 @Composable
 fun BadgeBadgeRoute(
     modifier: Modifier = Modifier,
-    navigateBadgeGraphToHomeGraph: () -> Unit,
+    navigateBadgeGraphToPreGraph: () -> Unit,
     navigateBadgeToSettingInBadgeGraph: () -> Unit,
     viewModel: BadgeBadgeViewModel = hiltViewModel(),
 ) {
@@ -74,11 +74,11 @@ fun BadgeBadgeRoute(
         updateVisibleFilterBottomSheet,
         updateVisibleSortBottomSheet,
         updateVisibleBadgeDialog,
-        navigateBadgeGraphToHomeGraph,
+        navigateBadgeGraphToPreGraph,
         navigateBadgeToSettingInBadgeGraph,
     )
 
-    BackHandler { navigateBadgeGraphToHomeGraph() }
+    BackHandler { navigateBadgeGraphToPreGraph() }
 
 }
 
@@ -98,7 +98,7 @@ fun BadgeBadgeScreen(
     updateVisibleFilterBottomSheet: (Boolean) -> Unit,
     updateVisibleSortBottomSheet: (Boolean) -> Unit,
     updateVisibleBadgeDialog: (Boolean) -> Unit,
-    navigateBadgeGraphToHomeGraph: () -> Unit,
+    navigateBadgeGraphToPreGraph: () -> Unit,
     navigateBadgeToSettingInBadgeGraph: () -> Unit,
 ) {
     if (onVisibleBadgeDialog) {
@@ -135,7 +135,7 @@ fun BadgeBadgeScreen(
         topBar = {
             LiftBackTopBar(
                 title = "내 뱃지",
-                onBackClickTopBar = navigateBadgeGraphToHomeGraph,
+                onBackClickTopBar = navigateBadgeGraphToPreGraph,
                 actions = {
                     LiftIconButton(
                         onClick = navigateBadgeToSettingInBadgeGraph,

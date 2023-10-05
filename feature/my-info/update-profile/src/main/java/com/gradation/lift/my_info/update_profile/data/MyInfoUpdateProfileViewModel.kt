@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,9 +36,15 @@ class MyInfoUpdateProfileViewModel @Inject constructor(
 
 
     private val userDetail: StateFlow<UserDetail> = getUserDetailUseCase().map {
-        when (it) {
-            is DataState.Fail -> { UserDetail() }
-            is DataState.Success -> { it.data }
+        when (val state = it) {
+            is DataState.Fail -> {
+                UserDetail()
+            }
+
+            is DataState.Success -> {
+                selectedProfilePicture.update { state.data.profilePicture }
+                state.data
+            }
         }
     }.stateIn(
         scope = viewModelScope,
