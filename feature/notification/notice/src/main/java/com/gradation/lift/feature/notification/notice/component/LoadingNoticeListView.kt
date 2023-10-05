@@ -10,8 +10,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.feature.notification.notice.NotificationNoticeScreen
+import com.gradation.lift.feature.notification.notice.data.NoticeUiState
 
 
 @Composable
@@ -28,5 +32,17 @@ fun LoadingNoticeListView(modifier: Modifier =Modifier){
                     .background(SkeletonBrush(), shape = RoundedCornerShape(12.dp))
             )
         }
+    }
+}
+
+@Preview
+@Composable
+fun LoadingNotificationNoticeScreenPreview() {
+    LiftMaterialTheme {
+        NotificationNoticeScreen(
+            noticeUiState = NoticeUiState.Loading,
+            updateSelectedNotice = {},
+            navigateNotificationToNoticeDetailInNotificationGraph = {}
+        )
     }
 }
