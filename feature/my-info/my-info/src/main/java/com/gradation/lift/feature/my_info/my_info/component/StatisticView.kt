@@ -27,6 +27,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun StatisticView(
     modifier: Modifier = Modifier,
+    badgeCount:Int,
     workCount: Int,
     navigateMyInfoGraphToNotificationGraph: () -> Unit,
     navigateMyInfoGraphToBadgeGraph: () -> Unit,
@@ -81,7 +82,7 @@ fun StatisticView(
                 )
             }
             Text(
-                text = "준비 중",
+                text = "${badgeCount}개",
                 color = LiftTheme.colorScheme.no9,
                 style = LiftTheme.typography.no3,
                 textAlign = TextAlign.Center
@@ -180,7 +181,7 @@ fun StatisticView(
                 )
             }
             Text(
-                text = "준비 중",
+                text = "0건",
                 color = LiftTheme.colorScheme.no9,
                 style = LiftTheme.typography.no3,
                 textAlign = TextAlign.Center

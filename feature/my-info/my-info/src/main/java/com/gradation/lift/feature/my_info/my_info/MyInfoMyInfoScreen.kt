@@ -40,6 +40,7 @@ fun MyInfoMyInfoRoute(
     viewModel: MyInfoMyInfoViewModel = hiltViewModel(),
 ) {
 
+    val badgeCount: Int by viewModel.badgeCount.collectAsStateWithLifecycle()
     val workCount: Int by viewModel.workCount.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
     val signOutState: SignOutState by viewModel.signOutState.collectAsStateWithLifecycle()
@@ -73,6 +74,7 @@ fun MyInfoMyInfoRoute(
     MyInfoMyInfoScreen(
         modifier,
         versionName,
+        badgeCount,
         workCount,
         userDetailUiState,
         signOut,
@@ -88,6 +90,7 @@ fun MyInfoMyInfoRoute(
 fun MyInfoMyInfoScreen(
     modifier: Modifier = Modifier,
     versionName: String,
+    badgeCount:Int,
     workCount: Int,
     userDetailUiState: UserDetailUiState,
     signOut: () -> Unit,
@@ -113,6 +116,7 @@ fun MyInfoMyInfoScreen(
                 ProfileView(
                     modifier,
                     userDetailUiState,
+                    badgeCount,
                     workCount,
                     signOut,
                     navigateMyInfoToUpdateProfileInMyInfoGraph,
@@ -133,6 +137,7 @@ fun MyInfoMyInfoScreen(
 fun MyInfoMyInfoScreenPreview() {
     LiftMaterialTheme {
         MyInfoMyInfoScreen(
+            badgeCount=15,
             workCount = 13,
             versionName = "1.0.0",
             userDetailUiState = UserDetailUiState.Success(userDetailModel),
