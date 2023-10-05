@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.notification.notice.component
+package com.gradation.lift.feature.notification.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,16 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.notification.notice.NotificationNoticeScreen
-import com.gradation.lift.feature.notification.notice.data.NoticeUiState
 
 @Composable
-fun EmptyNoticeListView(modifier: Modifier = Modifier) {
+fun EmptyPushListView(modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
@@ -37,35 +33,23 @@ fun EmptyNoticeListView(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
-                painter = painterResource(id = LiftIcon.EmptyNotice),
-                contentDescription = "EmptyAlarm",
+                painter = painterResource(id = LiftIcon.EmptyAlarm),
+                contentDescription = "EmptyPush",
                 tint = Color.Unspecified
             )
             Spacer(modifier = modifier.padding(8.dp))
             Text(
-                text = "등록된 공지사항이 없어요",
+                text = "도착한 알림이 없어요",
                 color = LiftTheme.colorScheme.no2,
                 style = LiftTheme.typography.no1
             )
             Text(
-                text = "공지사항이 등록되면 알려드릴게요",
+                text = "알림이 도착하면 알려드릴게요",
                 color = LiftTheme.colorScheme.no2,
                 style = LiftTheme.typography.no4
             )
         }
 
 
-    }
-}
-
-@Preview
-@Composable
-fun EmptyNotificationNoticeScreenPreview() {
-    LiftMaterialTheme {
-        NotificationNoticeScreen(
-            noticeUiState = NoticeUiState.Empty,
-            updateSelectedNotice = {},
-            navigateNotificationToNoticeDetailInNotificationGraph = {}
-        )
     }
 }
