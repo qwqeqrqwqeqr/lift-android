@@ -13,7 +13,6 @@ import com.gradation.lift.navigation.navigation.navigateMyInfoToUpdateProfileInM
 fun myInfoMyInfoScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
-    versionName: String,
 ) {
 
     val navigateMyInfoGraphToNotificationGraph:() -> Unit =
@@ -24,6 +23,7 @@ fun myInfoMyInfoScreen(
     val navigateMyInfoToUpdateProfileInMyInfoGraph:() -> Unit = { navController.navigateMyInfoToUpdateProfileInMyInfoGraph() }
     val navigateMyInfoToUpdateInMyInfoGraph:() -> Unit = { navController.navigateMyInfoToUpdateInMyInfoGraph() }
 
+    val versionName =navController.context.packageManager.getPackageInfo(navController.context.packageName, 0).versionName
 
     navGraphBuilder.composable(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoMyInfoRoute(
