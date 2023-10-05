@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
+import kotlin.math.roundToLong
 
 @Composable
 internal fun WeightTextFieldView(
@@ -48,7 +49,12 @@ internal fun WeightTextFieldView(
         ),
         keyboardActions = KeyboardActions(
             onDone = {
-                updateWeightText(weightText.toFloatOrNull()?.toString() ?: "75.0")
+                updateWeightText(
+                    weightText.toFloatOrNull()?.let {
+                        ((it * 10.0).roundToLong() / 10.0).toString()
+                    } ?: "75.0"
+
+                )
                 focusManager.clearFocus()
             },
         ),

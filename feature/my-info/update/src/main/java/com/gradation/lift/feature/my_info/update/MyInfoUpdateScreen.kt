@@ -1,8 +1,8 @@
 package com.gradation.lift.feature.my_info.update
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -32,6 +32,7 @@ import com.gradation.lift.feature.my_info.update.data.component.NameTextFieldVie
 import com.gradation.lift.feature.my_info.update.data.component.UpdateView
 import com.gradation.lift.feature.my_info.update.data.component.WeightTextFieldView
 import com.gradation.lift.feature.my_info.update.data.state.UpdateUserDetailState
+import com.gradation.lift.feature.my_info.update.data.state.UserDetailUiState
 import com.gradation.lift.model.model.user.Gender
 
 @Composable
@@ -41,22 +42,22 @@ fun MyInfoUpdateRoute(
     viewModel: MyInfoUpdateViewModel = hiltViewModel(),
 ) {
 
-
-    val nameText: String by viewModel.nameState.nameText.collectAsStateWithLifecycle()
-    val nameValidator: Validator by viewModel.nameState.nameValidator.collectAsStateWithLifecycle()
-    val gender: Gender by viewModel.genderState.gender.collectAsStateWithLifecycle()
-    val heightText: String by viewModel.heightWeightState.heightText.collectAsStateWithLifecycle()
-    val weightText: String by viewModel.heightWeightState.weightText.collectAsStateWithLifecycle()
-    val heightValidator: Validator by viewModel.heightWeightState.heightValidator.collectAsStateWithLifecycle()
-    val weightValidator: Validator by viewModel.heightWeightState.weightValidator.collectAsStateWithLifecycle()
+    val userDetailUiState :UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
+    val nameText: String by viewModel.nameText.collectAsStateWithLifecycle()
+    val nameValidator: Validator by viewModel.nameValidator.collectAsStateWithLifecycle()
+    val gender: Gender by viewModel.gender.collectAsStateWithLifecycle()
+    val heightText: String by viewModel.heightText.collectAsStateWithLifecycle()
+    val weightText: String by viewModel.weightText.collectAsStateWithLifecycle()
+    val heightValidator: Validator by viewModel.heightValidator.collectAsStateWithLifecycle()
+    val weightValidator: Validator by viewModel.weightValidator.collectAsStateWithLifecycle()
     val updateUserDetailState: UpdateUserDetailState by viewModel.updateUserDetailState.collectAsStateWithLifecycle()
     val updateCondition :Boolean by viewModel.updateCondition.collectAsStateWithLifecycle()
 
-    val updateNameText: (String) -> Unit = viewModel.nameState.updateNameText()
-    val updateHeightText: (String) -> Unit = viewModel.heightWeightState.updateHeightText()
-    val updateWeightText: (String) -> Unit = viewModel.heightWeightState.updateWeightText()
-    val updateMale: () -> Unit = viewModel.genderState.updateMale()
-    val updateFemale: () -> Unit = viewModel.genderState.updateFemale()
+    val updateNameText: (String) -> Unit = viewModel.updateNameText()
+    val updateHeightText: (String) -> Unit = viewModel.updateHeightText()
+    val updateWeightText: (String) -> Unit = viewModel.updateWeightText()
+    val updateMale: () -> Unit = viewModel.updateMale()
+    val updateFemale: () -> Unit = viewModel.updateFemale()
 
     val updateUserDetail: () -> Unit = viewModel.updateUserDetail()
     val updateUpdateUserDetailState: (UpdateUserDetailState) -> Unit =
@@ -88,6 +89,7 @@ fun MyInfoUpdateRoute(
 
     MyInfoUpdateScreen(
         modifier,
+        userDetailUiState,
         nameText,
         nameValidator,
         gender,
@@ -111,6 +113,7 @@ fun MyInfoUpdateRoute(
 @Composable
 fun MyInfoUpdateScreen(
     modifier: Modifier = Modifier,
+    userDetailUiState: UserDetailUiState,
     nameText: String,
     nameValidator: Validator,
     gender: Gender,
@@ -149,19 +152,23 @@ fun MyInfoUpdateScreen(
                 .fillMaxSize(),
             color = LiftTheme.colorScheme.no5,
         ) {
-            Column(modifier = modifier.padding(16.dp)) {
-                Column(modifier=modifier.weight(1f)) {
-                    Spacer(modifier = modifier.padding(16.dp))
-                    NameTextFieldView(modifier, nameText, nameValidator, updateNameText, focusManager)
-                    Spacer(modifier = modifier.padding(16.dp))
-                    GenderSelectionView(modifier, gender, updateFemale, updateMale)
-                    Spacer(modifier = modifier.padding(16.dp))
-                    HeightTextFieldView(modifier, heightText, heightValidator, updateHeightText, focusManager)
-                    Spacer(modifier = modifier.padding(16.dp))
-                    WeightTextFieldView(modifier, weightText, weightValidator, updateWeightText, focusManager)
+            when(userDetailUiState){
+                UserDetailUiState.Fail -> {}
+                UserDetailUiState.Loading -> {}
+                UserDetailUiState.Success -> {
+                    Column(modifier = modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        Column(modifier=modifier.weight(1f)) {
+                            NameTextFieldView(modifier, nameText, nameValidator, updateNameText, focusManager)
+                            GenderSelectionView(modifier, gender, updateFemale, updateMale)
+                            HeightTextFieldView(modifier, heightText, heightValidator, updateHeightText, focusManager)
+                            WeightTextFieldView(modifier, weightText, weightValidator, updateWeightText, focusManager)
+                        }
+                        UpdateView(modifier, updateCondition, updateUserDetail)
+                    }
                 }
-                UpdateView(modifier, updateCondition, updateUserDetail)
             }
+
         }
 
     }
@@ -173,6 +180,7 @@ fun MyInfoUpdateScreen(
 fun MyInfoUpdateScreenPreview() {
     LiftMaterialTheme {
         MyInfoUpdateScreen(
+            userDetailUiState = UserDetailUiState.Success,
             nameText = "",
             nameValidator = Validator(false, ""),
             gender = Gender.Male(),
