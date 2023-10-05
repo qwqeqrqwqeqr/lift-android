@@ -22,7 +22,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class NotificationNoticeViewModel @Inject constructor(
-     getNoticeUseCase: GetNoticeUseCase
+    getNoticeUseCase: GetNoticeUseCase
 ) : ViewModel() {
 
     val noticeUiState: StateFlow<NoticeUiState> = getNoticeUseCase().map {
@@ -30,9 +30,9 @@ class NotificationNoticeViewModel @Inject constructor(
             is DataState.Fail -> NoticeUiState.Fail(it.message)
             is DataState.Success -> {
                 if (it.data.isEmpty()) {
-                    NoticeUiState.Success(it.data)
-                } else {
                     NoticeUiState.Empty
+                } else {
+                    NoticeUiState.Success(it.data.sortedByDescending { notice -> notice.date })
                 }
             }
         }
@@ -41,9 +41,7 @@ class NotificationNoticeViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = NoticeUiState.Loading
     )
-
-
-    val selectedNotice: MutableStateFlow<Notice> = MutableStateFlow(Notice())
+    private val selectedNotice: MutableStateFlow<Notice> = MutableStateFlow(Notice())
 
     fun updateSelectedNotice(): (Notice) -> Unit = {
         selectedNotice.value = it
