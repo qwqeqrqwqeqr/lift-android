@@ -59,8 +59,9 @@ object Router {
     const val MY_INFO_UPDATE_PROFILE_ROUTER_NAME = "myinfo_update_profile"
 
     const val NOTIFICATION_GRAPH_NAME = "notification_graph"
-    const val NOTIFICATION_NOTICE_ROUTER_NAME = "notification_notice"
     const val NOTIFICATION_NOTIFICATION_ROUTER_NAME = "notification_notification"
+    const val NOTIFICATION_NOTICE_DETAIL_ROUTER_NAME = "notification_notice_detail"
+    const val NOTIFICATION_PUSH_DETAIL_ROUTER_NAME = "notification_push_detail"
 
     const val REGISTER_DETAIL_GRAPH_NAME = "register_detail_graph"
     const val REGISTER_DETAIL_GENDER_ROUTER_NAME = "register_detail_gender"

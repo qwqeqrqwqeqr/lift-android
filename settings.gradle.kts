@@ -64,9 +64,12 @@ include(":feature:badge:setting")
 include(":feature:badge:new-badge")
 
 
-include(":feature:notification:notice")
-include(":feature:notification:push")
 include(":feature:notification:notification")
+include(":feature:notification:notice")
+include(":feature:notification:notice-detail")
+include(":feature:notification:push")
+include(":feature:notification:push-detail")
+
 
 include(":feature:history:history")
 include(":feature:history:analytics")
