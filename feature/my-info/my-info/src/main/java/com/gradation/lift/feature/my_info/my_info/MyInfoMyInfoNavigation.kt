@@ -16,10 +16,6 @@ fun myInfoMyInfoScreen(
     versionName: String,
 ) {
 
-    /**
-     * TODO 뱃지, 알림 기능이 완성될 경우 사용할 것 2023-08-25 13:25:12
-     *
-     */
     val navigateMyInfoGraphToNotificationGraph:() -> Unit =
         { navController.navigateMyInfoGraphToNotificationGraph() }
     val navigateMyInfoGraphToBadgeGraph:() -> Unit = { navController.navigateMyInfoGraphToBadgeGraph() }
@@ -34,7 +30,9 @@ fun myInfoMyInfoScreen(
             versionName=versionName,
             navigateMyInfoGraphToLoginGraph=navigateMyInfoGraphToLoginGraph,
             navigateMyInfoToUpdateProfileInMyInfoGraph=navigateMyInfoToUpdateProfileInMyInfoGraph,
-            navigateMyInfoToUpdateInMyInfoGraph=navigateMyInfoToUpdateInMyInfoGraph
+            navigateMyInfoToUpdateInMyInfoGraph=navigateMyInfoToUpdateInMyInfoGraph,
+            navigateMyInfoGraphToNotificationGraph=navigateMyInfoGraphToNotificationGraph,
+            navigateMyInfoGraphToBadgeGraph=navigateMyInfoGraphToBadgeGraph
             )
     }
 }

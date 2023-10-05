@@ -19,15 +19,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
 fun StatisticView(
-    modifier:Modifier= Modifier,
-    workCount: Int
-){
+    modifier: Modifier = Modifier,
+    workCount: Int,
+    navigateMyInfoGraphToNotificationGraph: () -> Unit,
+    navigateMyInfoGraphToBadgeGraph: () -> Unit,
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
     ) {
@@ -48,8 +51,11 @@ fun StatisticView(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             Row(
+                modifier = modifier.noRippleClickable {
+                    navigateMyInfoGraphToBadgeGraph()
+                },
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
                 Icon(
                     modifier = modifier
@@ -144,6 +150,9 @@ fun StatisticView(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             Row(
+                modifier = modifier.noRippleClickable {
+                    navigateMyInfoGraphToNotificationGraph()
+                },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {

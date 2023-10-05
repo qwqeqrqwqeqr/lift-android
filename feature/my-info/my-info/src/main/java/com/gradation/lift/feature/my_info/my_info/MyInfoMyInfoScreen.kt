@@ -35,6 +35,8 @@ fun MyInfoMyInfoRoute(
     navigateMyInfoGraphToLoginGraph: () -> Unit,
     navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit,
     navigateMyInfoToUpdateInMyInfoGraph: () -> Unit,
+    navigateMyInfoGraphToNotificationGraph: () -> Unit,
+    navigateMyInfoGraphToBadgeGraph: () -> Unit,
     viewModel: MyInfoMyInfoViewModel = hiltViewModel(),
 ) {
 
@@ -76,6 +78,8 @@ fun MyInfoMyInfoRoute(
         signOut,
         navigateMyInfoToUpdateProfileInMyInfoGraph,
         navigateMyInfoToUpdateInMyInfoGraph,
+        navigateMyInfoGraphToNotificationGraph,
+        navigateMyInfoGraphToBadgeGraph,
         snackbarHostState
     )
 }
@@ -89,6 +93,8 @@ fun MyInfoMyInfoScreen(
     signOut: () -> Unit,
     navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit,
     navigateMyInfoToUpdateInMyInfoGraph: () -> Unit,
+    navigateMyInfoGraphToNotificationGraph: () -> Unit,
+    navigateMyInfoGraphToBadgeGraph: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
     Scaffold(
@@ -109,7 +115,9 @@ fun MyInfoMyInfoScreen(
                     userDetailUiState,
                     workCount,
                     signOut,
-                    navigateMyInfoToUpdateProfileInMyInfoGraph
+                    navigateMyInfoToUpdateProfileInMyInfoGraph,
+                    navigateMyInfoGraphToNotificationGraph,
+                navigateMyInfoGraphToBadgeGraph
                 )
                 Spacer(modifier = modifier.padding(9.dp))
                 MyInfoListView(modifier, versionName, navigateMyInfoToUpdateInMyInfoGraph)
@@ -131,6 +139,8 @@ fun MyInfoMyInfoScreenPreview() {
             signOut = {},
             navigateMyInfoToUpdateProfileInMyInfoGraph = {},
             navigateMyInfoToUpdateInMyInfoGraph = {},
+            navigateMyInfoGraphToNotificationGraph={},
+            navigateMyInfoGraphToBadgeGraph={},
             snackbarHostState = SnackbarHostState()
         )
     }

@@ -19,9 +19,11 @@ import com.gradation.lift.feature.my_info.my_info.data.state.UserDetailUiState
 fun ProfileView(
     modifier: Modifier = Modifier,
     userDetailUiState: UserDetailUiState,
-    workCount:Int,
+    workCount: Int,
     signOut: () -> Unit,
-    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit
+    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit,
+    navigateMyInfoGraphToNotificationGraph: () -> Unit,
+    navigateMyInfoGraphToBadgeGraph: () -> Unit,
 ) {
 
 
@@ -49,6 +51,11 @@ fun ProfileView(
                 )
             }
         }
-        StatisticView(modifier, workCount)
+        StatisticView(
+            modifier,
+            workCount,
+            navigateMyInfoGraphToNotificationGraph,
+            navigateMyInfoGraphToBadgeGraph
+        )
     }
 }
