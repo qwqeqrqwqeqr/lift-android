@@ -78,7 +78,7 @@ class MyInfoUpdateViewModel @Inject constructor(
     val userDetailUiState: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
         when (val state = it) {
             is DataState.Fail -> {
-                UserDetailUiState.Fail
+                UserDetailUiState.None
             }
 
             is DataState.Success -> {
@@ -86,7 +86,6 @@ class MyInfoUpdateViewModel @Inject constructor(
                 heightText.update { state.data.height.toText() }
                 weightText.update { state.data.weight.toText() }
                 gender.update { state.data.gender }
-
 
                 defaultName.update { state.data.name }
                 defaultHeight.update { state.data.height.toText() }
@@ -99,7 +98,7 @@ class MyInfoUpdateViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = UserDetailUiState.Loading
+        initialValue = UserDetailUiState.None
     )
 
 

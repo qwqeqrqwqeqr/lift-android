@@ -153,8 +153,7 @@ fun MyInfoUpdateScreen(
             color = LiftTheme.colorScheme.no5,
         ) {
             when(userDetailUiState){
-                UserDetailUiState.Fail -> {}
-                UserDetailUiState.Loading -> {}
+                UserDetailUiState.None -> {}
                 UserDetailUiState.Success -> {
                     Column(modifier = modifier.padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)) {
