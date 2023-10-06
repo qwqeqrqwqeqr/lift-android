@@ -344,6 +344,7 @@ object ModelDataGenerator {
 
     object Notification {
         val noticeModel = Notice(
+            id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             date = LocalDate(2023, 8, 31)

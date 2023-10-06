@@ -12,6 +12,7 @@ data class GetNoticeResponseDto(
 ) {
     fun toDomain(): List<Notice> = notice.map {
         Notice(
+            id = it.id,
             title = it.title,
             description = it.description,
             date = parse(it.date),
