@@ -41,7 +41,7 @@ class NotificationNoticeViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = NoticeUiState.Loading
     )
-    private val selectedNotice: MutableStateFlow<Notice> = MutableStateFlow(Notice())
+    val selectedNotice: MutableStateFlow<Notice> = MutableStateFlow(Notice())
 
     fun updateSelectedNotice(): (Notice) -> Unit = {
         selectedNotice.value = it
