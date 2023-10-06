@@ -104,188 +104,193 @@ fun WorkListScreen(
                     )
                 }
             }
-            LazyColumn(
-                modifier = modifier
-                    .padding(16.dp)
-            ) {
-                itemsIndexed(workList) { index, workRoutine ->
-                    Column(
-                        modifier = modifier
-                            .background(
-                                LiftTheme.colorScheme.no5, shape =
-                                if (workList.size == 1) {
-                                    RoundedCornerShape(16.dp)
-                                } else if (index == 0) {
-                                    RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
-                                } else if (index == workList.size - 1) {
-                                    RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
-                                } else {
-                                    RoundedCornerShape(0.dp)
-                                }
-                            )
-                            .border(
-                                width = 1.dp,
-                                color = LiftTheme.colorScheme.no8,
-                                shape =
-                                if (workList.size == 1) {
-                                    RoundedCornerShape(16.dp)
-                                } else if (index == 0) {
-                                    RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
-                                } else if (index == workList.size - 1) {
-                                    RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
-                                } else {
-                                    RoundedCornerShape(0.dp)
-                                }
-                            )
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .fillMaxWidth(),
-                        verticalArrangement = Arrangement.Top,
-                        horizontalAlignment = Alignment.Start,
-                    ) {
-                        Row(
+            Surface(color = LiftTheme.colorScheme.no5) {
+                LazyColumn(
+                    modifier = modifier
+                        .padding(16.dp)
+                ) {
+                    itemsIndexed(workList) { index, workRoutine ->
+                        Column(
                             modifier = modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                                .background(
+                                    LiftTheme.colorScheme.no5, shape =
+                                    if (workList.size == 1) {
+                                        RoundedCornerShape(16.dp)
+                                    } else if (index == 0) {
+                                        RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
+                                    } else if (index == workList.size - 1) {
+                                        RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
+                                    } else {
+                                        RoundedCornerShape(0.dp)
+                                    }
+                                )
+                                .border(
+                                    width = 1.dp,
+                                    color = LiftTheme.colorScheme.no8,
+                                    shape =
+                                    if (workList.size == 1) {
+                                        RoundedCornerShape(16.dp)
+                                    } else if (index == 0) {
+                                        RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
+                                    } else if (index == workList.size - 1) {
+                                        RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
+                                    } else {
+                                        RoundedCornerShape(0.dp)
+                                    }
+                                )
+                                .padding(horizontal = 16.dp, vertical = 8.dp)
+                                .fillMaxWidth(),
+                            verticalArrangement = Arrangement.Top,
+                            horizontalAlignment = Alignment.Start,
                         ) {
-                            Row {
-                                Text(
-                                    text = workRoutine.workCategory.name,
-                                    style = LiftTheme.typography.no3,
-                                    color = LiftTheme.colorScheme.no9
+                            Row(
+                                modifier = modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Row {
+                                    Text(
+                                        text = workRoutine.workCategory.name,
+                                        style = LiftTheme.typography.no3,
+                                        color = LiftTheme.colorScheme.no9
+                                    )
+
+                                    if (isAllCheckedWorkSet(workRoutine.workSetList)) {
+                                        Spacer(modifier = modifier.padding(4.dp))
+                                        Surface(
+                                            color = LiftTheme.colorScheme.no25,
+                                            modifier = modifier
+                                                .clip(RoundedCornerShape(12.dp))
+                                                .align(
+                                                    Alignment.CenterVertically
+                                                )
+                                        ) {
+                                            Text(
+                                                modifier = modifier.padding(
+                                                    horizontal = 12.dp,
+                                                    vertical = 2.dp
+                                                ),
+                                                text = "완료",
+                                                style = LiftTheme.typography.no5,
+                                                color = LiftTheme.colorScheme.no24,
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Icon(
+                                    painterResource(id = if (workRoutine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
+                                    contentDescription = null,
+                                    modifier = modifier.noRippleClickable {
+                                        updateOpenedWorkRoutine(
+                                            workRoutine
+                                        )
+                                    }
                                 )
 
-                                if (isAllCheckedWorkSet(workRoutine.workSetList)) {
-                                    Spacer(modifier = modifier.padding(4.dp))
-                                    Surface(
-                                        color = LiftTheme.colorScheme.no25,
-                                        modifier = modifier
-                                            .clip(RoundedCornerShape(12.dp))
-                                            .align(
-                                                Alignment.CenterVertically
-                                            )
-                                    ) {
-                                        Text(
-                                            modifier = modifier.padding(
-                                                horizontal = 12.dp,
-                                                vertical = 2.dp
-                                            ),
-                                            text = "완료",
-                                            style = LiftTheme.typography.no5,
-                                            color = LiftTheme.colorScheme.no24,
-                                        )
-                                    }
-                                }
                             }
+                            if (workRoutine.opened) {
+                                Column(
+                                    modifier = modifier.fillMaxWidth(),
+                                    verticalArrangement = Arrangement.spacedBy(4.dp)
 
-                            Icon(
-                                painterResource(id = if (workRoutine.opened) LiftIcon.ChevronDown else LiftIcon.ChevronUp),
-                                contentDescription = null,
-                                modifier = modifier.noRippleClickable {
-                                    updateOpenedWorkRoutine(
-                                        workRoutine
-                                    )
-                                }
-                            )
-
-                        }
-                        if (workRoutine.opened) {
-                            Column(
-                                modifier = modifier.fillMaxWidth(),
-                                verticalArrangement = Arrangement.spacedBy(4.dp)
-
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(24.dp),
-                                    modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp)
                                 ) {
-                                    Text(
-                                        text = "Set",
-                                        style = LiftTheme.typography.no2,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                    Text(
-                                        text = "Kg",
-                                        style = LiftTheme.typography.no2,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                    Text(
-                                        text = "Reps",
-                                        style = LiftTheme.typography.no2,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                    Text(
-                                        text = "완료",
-                                        style = LiftTheme.typography.no2,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                }
-                                workRoutine.workSetList.forEach { workSet ->
                                     Row(
-                                        modifier = modifier
-                                            .background(LiftTheme.colorScheme.no5)
-                                            .border(
-                                                width = 1.dp,
-                                                color = LiftTheme.colorScheme.no8,
-                                                shape = RoundedCornerShape(size = 8.dp)
-                                            )
-                                            .padding(horizontal = 12.dp, vertical = 8.dp)
-                                            .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.spacedBy(24.dp)
+                                        horizontalArrangement = Arrangement.spacedBy(24.dp),
+                                        modifier = modifier.padding(
+                                            horizontal = 12.dp,
+                                            vertical = 8.dp
+                                        )
                                     ) {
                                         Text(
-                                            text = "${workSet.set.second}",
+                                            text = "Set",
                                             style = LiftTheme.typography.no2,
-                                            color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
+                                            color = LiftTheme.colorScheme.no9,
                                             textAlign = TextAlign.Center,
-                                            modifier = modifier
-                                                .weight(1f)
-                                                .align(Alignment.CenterVertically)
+                                            modifier = modifier.weight(1f)
                                         )
                                         Text(
-                                            text = workSet.weight.toText(),
+                                            text = "Kg",
                                             style = LiftTheme.typography.no2,
-                                            color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
+                                            color = LiftTheme.colorScheme.no9,
                                             textAlign = TextAlign.Center,
-                                            modifier = modifier
-                                                .weight(1f)
-                                                .align(Alignment.CenterVertically)
+                                            modifier = modifier.weight(1f)
                                         )
-
                                         Text(
-                                            text = "${workSet.repetition}",
+                                            text = "Reps",
                                             style = LiftTheme.typography.no2,
-                                            color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
+                                            color = LiftTheme.colorScheme.no9,
                                             textAlign = TextAlign.Center,
-                                            modifier = modifier
-                                                .weight(1f)
-                                                .align(Alignment.CenterVertically)
+                                            modifier = modifier.weight(1f)
                                         )
-                                        ToggleCheckbox(
-                                            checked = workSet.selected,
-                                            onCheckedChange = {
-                                                updateCheckedWorkSet(
-                                                    workSet.set, it
-                                                )
-                                            },
-                                            modifier = modifier
-                                                .size(22.dp)
-                                                .weight(1f)
-
+                                        Text(
+                                            text = "완료",
+                                            style = LiftTheme.typography.no2,
+                                            color = LiftTheme.colorScheme.no9,
+                                            textAlign = TextAlign.Center,
+                                            modifier = modifier.weight(1f)
                                         )
                                     }
+                                    workRoutine.workSetList.forEach { workSet ->
+                                        Row(
+                                            modifier = modifier
+                                                .background(LiftTheme.colorScheme.no5)
+                                                .border(
+                                                    width = 1.dp,
+                                                    color = LiftTheme.colorScheme.no8,
+                                                    shape = RoundedCornerShape(size = 8.dp)
+                                                )
+                                                .padding(horizontal = 12.dp, vertical = 8.dp)
+                                                .fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.spacedBy(24.dp)
+                                        ) {
+                                            Text(
+                                                text = "${workSet.set.second}",
+                                                style = LiftTheme.typography.no2,
+                                                color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
+                                                textAlign = TextAlign.Center,
+                                                modifier = modifier
+                                                    .weight(1f)
+                                                    .align(Alignment.CenterVertically)
+                                            )
+                                            Text(
+                                                text = workSet.weight.toText(),
+                                                style = LiftTheme.typography.no2,
+                                                color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
+                                                textAlign = TextAlign.Center,
+                                                modifier = modifier
+                                                    .weight(1f)
+                                                    .align(Alignment.CenterVertically)
+                                            )
+
+                                            Text(
+                                                text = "${workSet.repetition}",
+                                                style = LiftTheme.typography.no2,
+                                                color = if (workSet.selected) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
+                                                textAlign = TextAlign.Center,
+                                                modifier = modifier
+                                                    .weight(1f)
+                                                    .align(Alignment.CenterVertically)
+                                            )
+                                            ToggleCheckbox(
+                                                checked = workSet.selected,
+                                                onCheckedChange = {
+                                                    updateCheckedWorkSet(
+                                                        workSet.set, it
+                                                    )
+                                                },
+                                                modifier = modifier
+                                                    .size(22.dp)
+                                                    .weight(1f)
+
+                                            )
+                                        }
+                                    }
                                 }
+                                Spacer(modifier = modifier.padding(8.dp))
                             }
-                            Spacer(modifier = modifier.padding(8.dp))
                         }
                     }
                 }
