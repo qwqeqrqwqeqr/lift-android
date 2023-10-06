@@ -90,7 +90,7 @@ fun MyInfoMyInfoRoute(
 fun MyInfoMyInfoScreen(
     modifier: Modifier = Modifier,
     versionName: String,
-    badgeCount:Int,
+    badgeCount: Int,
     workCount: Int,
     userDetailUiState: UserDetailUiState,
     signOut: () -> Unit,
@@ -121,10 +121,15 @@ fun MyInfoMyInfoScreen(
                     signOut,
                     navigateMyInfoToUpdateProfileInMyInfoGraph,
                     navigateMyInfoGraphToNotificationGraph,
-                navigateMyInfoGraphToBadgeGraph
+                    navigateMyInfoGraphToBadgeGraph
                 )
                 Spacer(modifier = modifier.padding(9.dp))
-                MyInfoListView(modifier, versionName, navigateMyInfoToUpdateInMyInfoGraph)
+                MyInfoListView(
+                    modifier,
+                    versionName,
+                    navigateMyInfoToUpdateInMyInfoGraph,
+                    navigateMyInfoGraphToNotificationGraph,
+                )
 
             }
         }
@@ -137,15 +142,15 @@ fun MyInfoMyInfoScreen(
 fun MyInfoMyInfoScreenPreview() {
     LiftMaterialTheme {
         MyInfoMyInfoScreen(
-            badgeCount=15,
+            badgeCount = 15,
             workCount = 13,
             versionName = "1.0.0",
             userDetailUiState = UserDetailUiState.Success(userDetailModel),
             signOut = {},
             navigateMyInfoToUpdateProfileInMyInfoGraph = {},
             navigateMyInfoToUpdateInMyInfoGraph = {},
-            navigateMyInfoGraphToNotificationGraph={},
-            navigateMyInfoGraphToBadgeGraph={},
+            navigateMyInfoGraphToNotificationGraph = {},
+            navigateMyInfoGraphToBadgeGraph = {},
             snackbarHostState = SnackbarHostState()
         )
     }
