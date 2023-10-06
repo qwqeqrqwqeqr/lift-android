@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.notification.notice.component
 
+import android.icu.text.DecimalFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -75,7 +76,8 @@ fun NoticeListView(
                             style = LiftTheme.typography.no2,
                         )
                         Text(
-                            text = "${notice.date.monthNumber}.${notice.date.dayOfMonth}",
+                            text = DecimalFormat("00").format(notice.date.monthNumber) +
+                                    DecimalFormat("00").format(notice.date.dayOfMonth),
                             color = LiftTheme.colorScheme.no9,
                             style = LiftTheme.typography.no4,
                         )
