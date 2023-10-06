@@ -37,7 +37,7 @@ import com.gradation.lift.model.model.badge.UserBadge
 @Composable
 fun BadgeSettingRoute(
     modifier: Modifier = Modifier,
-    navigateSettingToBadgeInBadgeGraph: () -> Unit,
+    navigateBadgeGraphToPreGraph: () -> Unit,
     viewModel: BadgeSettingViewModel = hiltViewModel(),
 ) {
 
@@ -73,11 +73,11 @@ fun BadgeSettingRoute(
         appendBadgeInMain,
         removeBadgeInMain,
         updateUserBadgeMainFlag,
-        navigateSettingToBadgeInBadgeGraph,
+        navigateBadgeGraphToPreGraph,
         snackbarHostState
     )
 
-    BackHandler { navigateSettingToBadgeInBadgeGraph() }
+    BackHandler { navigateBadgeGraphToPreGraph() }
 }
 
 @Composable
@@ -89,14 +89,14 @@ fun BadgeSettingScreen(
     appendBadgeInMain: (UserBadge) -> Unit,
     removeBadgeInMain: (UserBadge) -> Unit,
     updateUserBadgeMainFlag: () -> Unit,
-    navigateSettingToBadgeInBadgeGraph: () -> Unit,
+    navigateBadgeGraphToPreGraph: () -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
                 title = "대표뱃지 설정",
-                onBackClickTopBar = navigateSettingToBadgeInBadgeGraph,
+                onBackClickTopBar = navigateBadgeGraphToPreGraph,
             )
         },
         snackbarHost = {
@@ -157,7 +157,7 @@ fun BadgeSettingScreenPreview(){
             appendBadgeInMain = {},
             removeBadgeInMain = {},
             updateUserBadgeMainFlag = {  },
-            navigateSettingToBadgeInBadgeGraph = {  },
+            navigateBadgeGraphToPreGraph = {  },
             snackbarHostState =  SnackbarHostState()
         )
     }

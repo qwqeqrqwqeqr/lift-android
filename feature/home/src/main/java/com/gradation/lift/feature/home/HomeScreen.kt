@@ -42,6 +42,7 @@ internal fun HomeRoute(
     navigateMainGraphToWorkGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
     navigateHomeGraphToNewBadgeGraph: () -> Unit,
+    navigateHomeGraphToNotificationGraph: () -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -58,6 +59,7 @@ internal fun HomeRoute(
     val updateRoutineSetIdKey: (NavController, Int) -> Unit = viewModel.updateRoutineSetIdKey()
 
     val scrollState: ScrollState = rememberScrollState()
+
 
 
     when (badgeConditionState) {
@@ -83,6 +85,7 @@ internal fun HomeRoute(
         navigateHomeGraphToUpdateRoutineGraph,
         navigateMainGraphToWorkGraph,
         navigateHomeGraphToBadgeGraph,
+        navigateHomeGraphToNotificationGraph,
         navigateHomeGraphToBadgeSettingRouter,
         scrollState
     )
@@ -106,6 +109,7 @@ internal fun HomeScreen(
     navigateHomeGraphToUpdateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToNotificationGraph: () -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     scrollState: ScrollState,
 ) {
@@ -124,6 +128,7 @@ internal fun HomeScreen(
                 userDetailUiState,
                 badgeUiState,
                 navigateHomeGraphToBadgeGraph,
+                navigateHomeGraphToNotificationGraph,
                 navigateHomeGraphToBadgeSettingRouter
             )
             WeekDateRoutineView(
@@ -193,6 +198,7 @@ internal fun HomeScreenPreview() {
             navigateHomeGraphToUpdateRoutineGraph = {},
             navigateMainGraphToWorkGraph = { },
             navigateHomeGraphToBadgeGraph = {},
+            navigateHomeGraphToNotificationGraph={},
             navigateHomeGraphToBadgeSettingRouter = {},
             scrollState = rememberScrollState(),
         )

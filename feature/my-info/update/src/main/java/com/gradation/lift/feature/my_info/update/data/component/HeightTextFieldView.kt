@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
+import kotlin.math.roundToLong
 
 @Composable
 internal fun HeightTextFieldView(
@@ -50,7 +51,9 @@ internal fun HeightTextFieldView(
         keyboardActions = KeyboardActions(
             onNext = {
                 updateHeightText(
-                    heightText.toFloatOrNull()?.toString() ?: "175.0"
+                    heightText.toFloatOrNull()?.let {
+                        ((it * 10.0).roundToLong() / 10.0).toString()
+                    } ?: "175.0"
                 )
                 focusManager.moveFocus(FocusDirection.Down)
             },

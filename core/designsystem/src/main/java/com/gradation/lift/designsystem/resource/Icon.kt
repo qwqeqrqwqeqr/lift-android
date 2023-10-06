@@ -47,6 +47,9 @@ object LiftIcon {
     val Speaker = R.drawable.speaker
     val TermsPolicies = R.drawable.terms_policies
 
+    val EmptyAlarm = R.drawable.empty_alarm
+    val EmptyNotice = R.drawable.empty_notice
+
 
     val Search = R.drawable.search
     val Bang = R.drawable.bang

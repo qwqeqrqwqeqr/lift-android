@@ -82,14 +82,15 @@ internal fun ProfileDetailView(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier.fillMaxWidth()
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
+                    horizontalAlignment = Alignment.Start
+                ) {
                     Text(
                         text = userDetail.name,
                         style = LiftTheme.typography.no1,
                         color = LiftTheme.colorScheme.no11,
                     )
-                    Spacer(modifier = modifier.padding(4.dp))
                     Text(
                         text = "${userDetail.height.toText()}cm/${userDetail.weight.toText()}kg",
                         style = LiftTheme.typography.no4,

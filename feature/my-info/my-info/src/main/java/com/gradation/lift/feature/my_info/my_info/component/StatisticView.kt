@@ -19,15 +19,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
 fun StatisticView(
-    modifier:Modifier= Modifier,
-    workCount: Int
-){
+    modifier: Modifier = Modifier,
+    badgeCount:Int,
+    workCount: Int,
+    navigateMyInfoGraphToNotificationGraph: () -> Unit,
+    navigateMyInfoGraphToBadgeGraph: () -> Unit,
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
     ) {
@@ -48,8 +52,11 @@ fun StatisticView(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             Row(
+                modifier = modifier.noRippleClickable {
+                    navigateMyInfoGraphToBadgeGraph()
+                },
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
                 Icon(
                     modifier = modifier
@@ -75,7 +82,7 @@ fun StatisticView(
                 )
             }
             Text(
-                text = "준비 중",
+                text = "${badgeCount}개",
                 color = LiftTheme.colorScheme.no9,
                 style = LiftTheme.typography.no3,
                 textAlign = TextAlign.Center
@@ -144,6 +151,9 @@ fun StatisticView(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             Row(
+                modifier = modifier.noRippleClickable {
+                    navigateMyInfoGraphToNotificationGraph()
+                },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -171,7 +181,7 @@ fun StatisticView(
                 )
             }
             Text(
-                text = "준비 중",
+                text = "0건",
                 color = LiftTheme.colorScheme.no9,
                 style = LiftTheme.typography.no3,
                 textAlign = TextAlign.Center

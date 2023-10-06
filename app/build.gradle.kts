@@ -21,8 +21,8 @@ android {
     namespace = "com.gradation.lift"
 
     defaultConfig {
-        versionCode = 8
-        versionName = "0.0.13"
+        versionCode = 9
+        versionName = "0.0.14"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
 }
@@ -70,9 +70,11 @@ dependencies {
 
     implementation(project(":feature:home"))
 
-    implementation(project(":feature:notification:notice"))
     implementation(project(":feature:notification:notification"))
+    implementation(project(":feature:notification:notice"))
+    implementation(project(":feature:notification:notice-detail"))
     implementation(project(":feature:notification:push"))
+    implementation(project(":feature:notification:push-detail"))
 
 
     implementation(project(":feature:history:history"))

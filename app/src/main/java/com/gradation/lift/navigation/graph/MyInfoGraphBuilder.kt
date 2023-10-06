@@ -1,6 +1,5 @@
 package com.gradation.lift.navigation.graph
 
-import androidx.multidex.BuildConfig
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
@@ -18,7 +17,7 @@ fun myInfoGraphBuilder(
         route = MY_INFO_GRAPH_NAME,
         startDestination = MY_INFO_MY_INFO_ROUTER_NAME,
     ) {
-        myInfoMyInfoScreen(navController, this, BuildConfig.VERSION_NAME)
+        myInfoMyInfoScreen(navController, this)
         myInfoUpdateScreen(navController, this)
         myInfoUpdateProfileScreen(navController, this)
 
