@@ -58,6 +58,17 @@ class DefaultWorkRepository @Inject constructor(
         }
     }
 
+    override fun getRecommendWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
+        flow {
+            workDataSource.getRecommendWorkCategory().collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+    }
+
     override fun getWork(): Flow<DataState<Work>> = flow {
         workDao.getAllWork().map {
             if (it.keys.size != 1) {

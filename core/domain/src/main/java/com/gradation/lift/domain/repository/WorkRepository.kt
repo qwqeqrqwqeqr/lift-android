@@ -43,6 +43,13 @@ interface WorkRepository {
     fun getPopularWorkCategory(): Flow<DataState<List<WorkCategory>>>
 
     /**
+     * [getRecommendWorkCategory]
+     * 추천 운동 종목들을 불러옵니다.
+     * @since 2023-10-06 22:26:50
+     */
+    fun getRecommendWorkCategory(): Flow<DataState<List<WorkCategory>>>
+
+    /**
      * [getWork]
      * 진행중인 운동을 불러옴
      * @since 2023-08-28 20:05:30
