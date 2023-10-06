@@ -49,7 +49,7 @@ internal fun CreateRoutineView(
                     withStyle(
                         style = SpanStyle(color = LiftTheme.colorScheme.no4),
                     ) {
-                        append("루틴 리스트")
+                        append("루틴")
                     }
                     append(" 만들기")
                 },
@@ -70,7 +70,7 @@ internal fun CreateRoutineView(
                 onClick = {}
             ) {
                 Text(
-                    text = "루틴 리스트 만들기",
+                    text = "루틴 만들기",
                     style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no4,
                 )

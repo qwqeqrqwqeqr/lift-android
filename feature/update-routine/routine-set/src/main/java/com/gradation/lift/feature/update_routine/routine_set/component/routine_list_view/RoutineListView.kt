@@ -16,13 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetRoutineView
-import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
-import com.gradation.lift.model.utils.ModelDataGenerator
-import com.gradation.lift.ui.utils.DevicePreview
 import com.gradation.lift.ui.utils.toText
 
 
@@ -44,7 +39,7 @@ fun RoutineListView(
     ) {
         Text(
             modifier = modifier.align(Alignment.CenterVertically),
-            text = "루틴리스트",
+            text = "루틴",
             style = LiftTheme.typography.no3,
             color = LiftTheme.colorScheme.no3
         )

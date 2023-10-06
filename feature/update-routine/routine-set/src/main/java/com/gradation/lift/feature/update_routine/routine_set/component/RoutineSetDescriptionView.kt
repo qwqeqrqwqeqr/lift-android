@@ -27,7 +27,7 @@ fun RoutineSetDescriptionView(
     focusManager: FocusManager,
 ) {
     Text(
-        text = "루틴리스트 설명",
+        text = "루틴 설명",
         style = LiftTheme.typography.no3,
         color = LiftTheme.colorScheme.no3
     )

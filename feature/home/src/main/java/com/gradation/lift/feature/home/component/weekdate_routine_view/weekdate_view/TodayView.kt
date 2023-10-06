@@ -19,7 +19,7 @@ fun TodayView(
     today: LocalDate,
 ) {
     Text(
-        text = "내 루틴 리스트",
+        text = "내 루틴",
         style = LiftTheme.typography.no1,
         color = LiftTheme.colorScheme.no9,
     )

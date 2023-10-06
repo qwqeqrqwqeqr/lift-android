@@ -28,7 +28,7 @@ fun RoutineSetNameView(
     focusManager: FocusManager,
 ) {
     Text(
-        text = "루틴리스트 이름",
+        text = "루틴 이름",
         style = LiftTheme.typography.no3,
         color = LiftTheme.colorScheme.no3
     )
