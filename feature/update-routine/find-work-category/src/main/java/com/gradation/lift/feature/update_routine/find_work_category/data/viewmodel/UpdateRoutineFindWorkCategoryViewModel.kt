@@ -3,6 +3,7 @@ package com.gradation.lift.feature.update_routine.find_work_category.data.viewmo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.work.GetPopularWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
 import com.gradation.lift.feature.update_routine.find_work_category.data.model.WorkPartFilterSelection
@@ -27,6 +28,7 @@ import javax.inject.Inject
 class UpdateRoutineFindWorkCategoryViewModel @Inject constructor(
     getWorkPartUseCase: GetWorkPartUseCase,
     getWorkCategoryUseCase: GetWorkCategoryUseCase,
+    getPopularWorkCategoryUseCase: GetPopularWorkCategoryUseCase
 ) : ViewModel() {
 
     internal val searchTextState = SearchTextState()
