@@ -67,9 +67,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
 
     var routineSetDescriptionValidator: StateFlow<Validator> =
         routineSetDescription.map { it ->
-            if (it.isBlank()) {
-                Validator(false, "")
-            } else if (!routineSetDescriptionValidator(it)) {
+            if (!routineSetDescriptionValidator(it)) {
                 Validator(false, "20자 내로 입력해주세요.")
             } else {
                 Validator(true, "")
