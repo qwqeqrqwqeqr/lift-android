@@ -64,7 +64,7 @@ class UpdateRoutineSharedViewModel @Inject constructor(
             if (it.description.isBlank()) {
                 Validator(false, "")
             } else if (!routineSetDescriptionValidator(it.description)) {
-                Validator(false, "1 - 20자 사이의 글자로 입력해주세요.")
+                Validator(false, "20자 내로 입력해주세요.")
             } else {
                 Validator(true, "")
             }

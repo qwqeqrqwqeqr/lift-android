@@ -25,7 +25,7 @@ fun routineSetNameValidator(name: String): Boolean =
     (name.length in 1..10)
 
 fun routineSetDescriptionValidator(description: String): Boolean =
-    (description.length in 1..20)
+    (description.length in 0..20)
 
 fun historyCommentValidator(name: String): Boolean =
     (name.length in 0..20)

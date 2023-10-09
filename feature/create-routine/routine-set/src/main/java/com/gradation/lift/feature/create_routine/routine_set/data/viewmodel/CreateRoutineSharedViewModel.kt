@@ -70,7 +70,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
             if (it.isBlank()) {
                 Validator(false, "")
             } else if (!routineSetDescriptionValidator(it)) {
-                Validator(false, "1 - 20자 사이의 글자로 입력해주세요.")
+                Validator(false, "20자 내로 입력해주세요.")
             } else {
                 Validator(true, "")
             }
@@ -81,7 +81,6 @@ class CreateRoutineSharedViewModel @Inject constructor(
         )
 
 
-    
     internal val weekdaySelectionList: StateFlow<List<WeekdaySelection>> =
         routineSetWeekday.map { weekdayList ->
             getCurrentWeekUseCase().map { localDate ->
