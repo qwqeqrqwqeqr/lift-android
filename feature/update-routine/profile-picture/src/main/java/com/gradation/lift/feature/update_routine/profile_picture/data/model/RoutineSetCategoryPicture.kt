@@ -8,5 +8,5 @@ package com.gradation.lift.feature.update_routine.profile_picture.data.model
  */
 data class RoutineSetCategoryPicture(
     val category: String,
-    val pictureList: List<SelectedPicture>
+    val pictureList: List<String>
 )

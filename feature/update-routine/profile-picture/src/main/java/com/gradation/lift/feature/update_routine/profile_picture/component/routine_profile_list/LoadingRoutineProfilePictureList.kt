@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 
 @Composable
-fun EmptyRoutineProfilePictureList(
+fun LoadingRoutineProfilePictureList(
     modifier: Modifier = Modifier
 ) {
     Column(
