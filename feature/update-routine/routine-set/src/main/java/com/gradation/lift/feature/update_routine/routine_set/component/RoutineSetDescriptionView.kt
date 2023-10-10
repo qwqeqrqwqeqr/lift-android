@@ -27,7 +27,7 @@ fun RoutineSetDescriptionView(
     focusManager: FocusManager,
 ) {
     Text(
-        text = "루틴리스트 설명",
+        text = "루틴 설명",
         style = LiftTheme.typography.no3,
         color = LiftTheme.colorScheme.no3
     )
@@ -38,7 +38,7 @@ fun RoutineSetDescriptionView(
         modifier = modifier.fillMaxWidth(),
         placeholder = {
             Text(
-                text = "간단한 설명을 입력해주세요 (1-15 자)",
+                text = "간단한 설명을 입력해주세요 (0 - 20자)",
                 style = LiftTheme.typography.no6,
                 color = LiftTheme.colorScheme.no9.copy(alpha = 0.7f)
             )

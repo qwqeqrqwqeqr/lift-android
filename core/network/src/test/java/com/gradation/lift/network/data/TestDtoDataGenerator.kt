@@ -391,6 +391,7 @@ object TestDtoDataGenerator {
 
     object Notification {
         internal val noticeDto = NoticeDto(
+            id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             date = "2023-08-31"

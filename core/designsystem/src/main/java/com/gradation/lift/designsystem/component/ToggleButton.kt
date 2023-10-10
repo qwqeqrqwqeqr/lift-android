@@ -1,11 +1,12 @@
 package com.gradation.lift.designsystem.component
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -18,11 +19,16 @@ fun ToggleCheckbox(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    IconToggleButton(
-        checked = checked,
-        onCheckedChange = onCheckedChange,
-        modifier = modifier,
-        interactionSource = remember { MutableInteractionSource() }
+
+    Box(
+        modifier = modifier.toggleable(
+            value = checked,
+            interactionSource= MutableInteractionSource(),
+            onValueChange = onCheckedChange,
+            role = null,
+            indication = null
+        ),
+        contentAlignment = Alignment.Center
     ) {
         if (checked) {
             Icon(
@@ -49,10 +55,15 @@ fun ToggleVisible(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    IconToggleButton(
-        checked = checked,
-        onCheckedChange = onCheckedChange,
-        modifier = modifier
+    Box(
+        modifier = modifier.toggleable(
+            value = checked,
+            interactionSource= MutableInteractionSource(),
+            onValueChange = onCheckedChange,
+            role = null,
+            indication = null
+        ),
+        contentAlignment = Alignment.Center
     ) {
         if (checked) {
             Icon(

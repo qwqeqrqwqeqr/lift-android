@@ -2,6 +2,7 @@ package com.gradation.lift.network.service
 
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.work.GetPopularWorkCategoryResponseDto
+import com.gradation.lift.network.dto.work.GetRecommendWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
@@ -39,6 +40,14 @@ interface WorkService {
      */
     @GET("work/work-category/popular")
     suspend fun getPopularWorkCategory(): Response<APIResultWrapper<GetPopularWorkCategoryResponseDto>>
+
+    /**
+     * [getRecommendWorkCategory]
+     * 추천 운동 카테고리 정보 불러오기
+     * @since 2023-10-06 22:23:58
+     */
+    @GET("work/work-category/recommend")
+    suspend fun getRecommendWorkCategory(): Response<APIResultWrapper<GetRecommendWorkCategoryResponseDto>>
 
     /**
      * [getWorkPart]

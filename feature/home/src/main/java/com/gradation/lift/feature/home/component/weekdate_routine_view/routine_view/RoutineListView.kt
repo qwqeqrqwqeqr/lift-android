@@ -104,7 +104,8 @@ internal fun RoutineListView(
                                 updateRoutineSetIdKey(navController, routineSetRoutine.id)
                                 navigateMainGraphToWorkGraph()
                             }
-                        )
+                        ),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     GlideImage(
                         model = routineSetRoutine.picture,
@@ -125,12 +126,14 @@ internal fun RoutineListView(
                             color = LiftTheme.colorScheme.no9,
                             overflow = TextOverflow.Ellipsis
                         )
-                        Text(
-                            text = routineSetRoutine.description,
-                            style = LiftTheme.typography.no4,
-                            color = LiftTheme.colorScheme.no9,
-                            overflow = TextOverflow.Ellipsis
-                        )
+                        if(routineSetRoutine.description.isNotEmpty()) {
+                            Text(
+                                text = routineSetRoutine.description,
+                                style = LiftTheme.typography.no4,
+                                color = LiftTheme.colorScheme.no9,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
                 }
             }

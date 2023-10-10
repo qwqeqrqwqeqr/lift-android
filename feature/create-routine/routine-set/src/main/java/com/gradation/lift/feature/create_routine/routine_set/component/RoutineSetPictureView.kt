@@ -26,7 +26,7 @@ fun RoutineSetPictureView(
 ) {
     Column(modifier = modifier.fillMaxWidth()){
         Text(
-            text = "루틴리스트 프로필",
+            text = "루틴 프로필",
             style = LiftTheme.typography.no3,
             color = LiftTheme.colorScheme.no3,
             modifier= modifier.align(Alignment.Start)

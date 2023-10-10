@@ -31,15 +31,15 @@ fun EmptyRoutineSetRoutineListView(
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
     navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {
-    Surface(modifier = modifier
-        .fillMaxSize()
-        .background(LiftTheme.colorScheme.no5)) {
-
+    Surface(
+        color = LiftTheme.colorScheme.no5
+    ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = modifier
+                .fillMaxSize()
                 .padding(16.dp)
-            ) {
+        ) {
 
             Box(
                 modifier = modifier

@@ -48,7 +48,7 @@ fun EmptyRoutineListView(
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = "루틴 리스트 만들기",
+                text = "루틴 만들기",
                 style = LiftTheme.typography.no3,
                 color = LiftTheme.colorScheme.no4,
             )

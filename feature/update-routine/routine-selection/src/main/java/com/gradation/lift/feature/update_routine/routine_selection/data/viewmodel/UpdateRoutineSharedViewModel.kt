@@ -61,10 +61,8 @@ class UpdateRoutineSharedViewModel @Inject constructor(
 
     var routineSetDescriptionValidator: StateFlow<Validator> =
         selectedRoutineSetRoutine.map { it ->
-            if (it.description.isBlank()) {
-                Validator(false, "")
-            } else if (!routineSetDescriptionValidator(it.description)) {
-                Validator(false, "1 - 20자 사이의 글자로 입력해주세요.")
+            if (!routineSetDescriptionValidator(it.description)) {
+                Validator(false, "20자 내로 입력해주세요.")
             } else {
                 Validator(true, "")
             }
@@ -75,7 +73,6 @@ class UpdateRoutineSharedViewModel @Inject constructor(
         )
 
 
-    
     val weekDateSelectionList: StateFlow<List<WeekDateSelection>> =
         selectedRoutineSetRoutine.map { routine ->
             getCurrentWeekUseCase().map { localDate ->
@@ -120,8 +117,6 @@ class UpdateRoutineSharedViewModel @Inject constructor(
                 }
             )
         }
-
-
 
 
     fun updateRoutineSetName(): (String) -> Unit = {

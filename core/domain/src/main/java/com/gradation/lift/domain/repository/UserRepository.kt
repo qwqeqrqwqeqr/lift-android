@@ -2,6 +2,7 @@ package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import kotlinx.coroutines.flow.Flow
 
 
@@ -32,6 +33,14 @@ interface UserRepository {
       * @since 2023-08-28 20:00:59
       */
      fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Unit>>
+
+
+     /**
+      * [updateUserDetailProfilePicture]
+      * 사용자의 프로필 사진을 갱신함
+      * @since 2023-08-28 20:00:59
+      */
+     fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<DataState<Unit>>
 
      /**
       * [existUserDetail]

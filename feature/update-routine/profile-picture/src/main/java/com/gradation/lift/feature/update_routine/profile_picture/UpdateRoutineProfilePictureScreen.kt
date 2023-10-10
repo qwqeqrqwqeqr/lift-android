@@ -17,13 +17,13 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.update_routine.profile_picture.component.routine_profile_list.EmptyRoutineProfilePictureList
+import com.gradation.lift.feature.update_routine.profile_picture.component.routine_profile_list.LoadingRoutineProfilePictureList
 import com.gradation.lift.feature.update_routine.profile_picture.component.routine_profile_list.RoutineProfilePictureList
 import com.gradation.lift.feature.update_routine.profile_picture.data.model.RoutineSetCategoryPicture
-import com.gradation.lift.feature.update_routine.profile_picture.data.model.SelectedPicture
 import com.gradation.lift.feature.update_routine.profile_picture.data.state.RoutineSetPictureUiState
 import com.gradation.lift.feature.update_routine.profile_picture.data.viewmodel.UpdateRoutineProfilePictureViewModel
 import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
+import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_GRAPH_NAME
 
 
@@ -38,16 +38,14 @@ fun UpdateRoutineProfilePictureRoute(
     val updateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(UPDATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(updateRoutineBackStackEntry)
-    val selectedPicture: String by viewModel.selectedPicture.collectAsStateWithLifecycle()
-    val updateSelectedPicture: (String) -> Unit = viewModel.updateSelectedPicture()
+    val selectedPicture: UpdateRoutineSetRoutine by sharedViewModel.selectedRoutineSetRoutine.collectAsStateWithLifecycle()
     val updateRoutineSetPicture: (String) -> Unit = sharedViewModel.updateRoutineSetPicture()
     val routineSetPictureUiState: RoutineSetPictureUiState by viewModel.routineSetPictureUiState.collectAsStateWithLifecycle()
 
 
     UpdateRoutineProfilePictureScreen(
         modifier,
-        selectedPicture,
-        updateSelectedPicture,
+        selectedPicture.picture,
         updateRoutineSetPicture,
         navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
         routineSetPictureUiState
@@ -61,7 +59,6 @@ fun UpdateRoutineProfilePictureRoute(
 fun UpdateRoutineProfilePictureScreen(
     modifier: Modifier = Modifier,
     selectedPicture: String,
-    updateSelectedPicture: (String) -> Unit,
     updateRoutineSetPicture: (String) -> Unit,
     navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () -> Unit,
     routineSetPictureUiState: RoutineSetPictureUiState,
@@ -86,13 +83,13 @@ fun UpdateRoutineProfilePictureScreen(
                 when (routineSetPictureUiState) {
                     RoutineSetPictureUiState.Fail -> {}
                     RoutineSetPictureUiState.Loading -> {
-                        EmptyRoutineProfilePictureList(modifier)
+                        LoadingRoutineProfilePictureList(modifier)
                     }
+
                     is RoutineSetPictureUiState.Success -> {
                         RoutineProfilePictureList(
-                            updateSelectedPicture = updateSelectedPicture,
                             routineSetPictureList = routineSetPictureUiState.routineSetPictureList,
-                            updateRoutineSetPicture=updateRoutineSetPicture,
+                            updateRoutineSetPicture = updateRoutineSetPicture,
                             navigateProfilePictureToRoutineSetInUpdateRoutineGraph = navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
                             selectedPicture = selectedPicture,
                         )
@@ -115,29 +112,16 @@ fun UpdateRoutineProfilePictureScreenPreview() {
             modifier = Modifier,
             selectedPicture = "",
             updateRoutineSetPicture = {},
-            updateSelectedPicture = {},
             navigateProfilePictureToRoutineSetInUpdateRoutineGraph = {},
             routineSetPictureUiState = RoutineSetPictureUiState.Success(
                 listOf(
                     RoutineSetCategoryPicture(
                         category = "카테고리1",
-                        pictureList = listOf(
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                        )
+                        pictureList = listOf("", "", "", "", "")
                     ),
                     RoutineSetCategoryPicture(
                         category = "카테고리2",
-                        pictureList = listOf(
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture("", true),
-                        )
+                        pictureList = listOf("", "", "", "", "")
                     )
                 )
             ),

@@ -13,17 +13,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.change_order.component.routine_list.LoadingRoutineListView
-import com.gradation.lift.feature.work.change_order.component.routine_list.RoutineListView
 import com.gradation.lift.feature.work.change_order.data.WorkChangeOrderViewModel
-import com.gradation.lift.feature.work.change_order.data.RoutineSetRoutineUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +54,7 @@ fun WorkChangeOrderScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "루틴리스트 선택",
+                title = "루틴 선택",
                 onBackClickTopBar = onBackClickTopBar
             )
         },

@@ -1,4 +1,4 @@
-package com.gradation.lift.create_routine.profile.component.routine_profile_list
+package com.gradation.lift.feature.update_routine.profile_picture.component.routine_profile_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 
 @Composable
-fun EmptyRoutineProfileList(
+fun LoadingRoutineProfilePictureList(
     modifier: Modifier = Modifier
 ) {
     Column(

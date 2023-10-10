@@ -110,7 +110,7 @@ internal fun WorkRoutineSelectionScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "루틴리스트 선택",
+                title = "루틴 선택",
                 onBackClickTopBar = navigateWorkGraphToHomeGraph
             )
         }

@@ -60,20 +60,8 @@ fun WorkCategoryView(
                         text = workCategory.name,
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no3,
-
                         )
-                    with(workCategory.introduce) {
-                        if (this=="") {
-                            Text(
-                                text = workCategory.introduce,
-                                style = LiftTheme.typography.no4,
-                                color = LiftTheme.colorScheme.no9,
-                            )
-                        }
-                    }
-
                 }
-
             }
         }
     }

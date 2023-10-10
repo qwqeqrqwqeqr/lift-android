@@ -30,7 +30,7 @@ fun EmptyRoutineListView(
     ) {
         Text(
             modifier = modifier.align(Alignment.CenterVertically),
-            text = "루틴리스트",
+            text = "루틴",
             style = LiftTheme.typography.no3,
             color = LiftTheme.colorScheme.no3
         )

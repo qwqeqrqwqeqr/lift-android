@@ -93,7 +93,7 @@ internal fun UpdateRoutineRoutineSelectionScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "루틴리스트 수정",
+                title = "루틴 수정",
                 onBackClickTopBar = navigateUpdateRoutineGraphToHomeGraph
             )
         }

@@ -175,7 +175,7 @@ internal fun CreateRoutineRoutineSetScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "루틴리스트 만들기",
+                title = "루틴 만들기",
                 onBackClickTopBar = if (routineSetRoutine.isEmpty()) {
                     navigateCreateRoutineGraphToHomeGraph
                 } else {

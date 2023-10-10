@@ -15,10 +15,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.gradation.lift.create_routine.profile.data.model.RoutineSetCategoryPicture
-import com.gradation.lift.create_routine.profile.data.model.SelectedPicture
 import com.gradation.lift.create_routine.profile.data.state.RoutineSetPictureUiState
 import com.gradation.lift.create_routine.profile.data.viewmodel.CreateRoutineProfileViewModel
-import com.gradation.lift.create_routine.profile.component.routine_profile_list.EmptyRoutineProfileList
+import com.gradation.lift.create_routine.profile.component.routine_profile_list.LoadingRoutineProfileList
 import com.gradation.lift.create_routine.profile.component.routine_profile_list.RoutineProfileList
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
@@ -37,8 +36,7 @@ fun CreateRoutineProfileRoute(
     val crateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
-    val selectedPicture: String by viewModel.selectedPicture.collectAsStateWithLifecycle()
-    val updateSelectedPicture: (String) -> Unit = viewModel.updateSelectedPicture()
+    val selectedPicture: String by sharedViewModel.routineSetPicture.collectAsStateWithLifecycle()
     val updateRoutineSetPicture: (String) -> Unit = sharedViewModel.updateRoutineSetPicture()
     val routineSetPictureUiState: RoutineSetPictureUiState by viewModel.routineSetPictureUiState.collectAsStateWithLifecycle()
 
@@ -46,7 +44,6 @@ fun CreateRoutineProfileRoute(
     CreateRoutineProfileScreen(
         modifier,
         selectedPicture,
-        updateSelectedPicture,
         updateRoutineSetPicture,
         navigateProfileToRoutineSetInCreateRoutineGraph,
         routineSetPictureUiState
@@ -60,7 +57,6 @@ fun CreateRoutineProfileRoute(
 fun CreateRoutineProfileScreen(
     modifier: Modifier = Modifier,
     selectedPicture: String,
-    updateSelectedPicture: (String) -> Unit,
     updateRoutineSetPicture: (String) -> Unit,
     navigateProfileToRoutineSetInCreateRoutineGraph: () -> Unit,
     routineSetPictureUiState: RoutineSetPictureUiState,
@@ -85,13 +81,13 @@ fun CreateRoutineProfileScreen(
                 when (routineSetPictureUiState) {
                     RoutineSetPictureUiState.Fail -> {}
                     RoutineSetPictureUiState.Loading -> {
-                        EmptyRoutineProfileList(modifier)
+                        LoadingRoutineProfileList(modifier)
                     }
+
                     is RoutineSetPictureUiState.Success -> {
                         RoutineProfileList(
-                            updateSelectedPicture = updateSelectedPicture,
                             routineSetPictureList = routineSetPictureUiState.routineSetPictureList,
-                            updateRoutineSetPicture=updateRoutineSetPicture,
+                            updateRoutineSetPicture = updateRoutineSetPicture,
                             navigateProfileToRoutineSetInCreateRoutineGraph = navigateProfileToRoutineSetInCreateRoutineGraph,
                             selectedPicture = selectedPicture,
                         )
@@ -114,28 +110,19 @@ fun CreateRoutineProfileScreePreview() {
             modifier = Modifier,
             selectedPicture = "",
             updateRoutineSetPicture = {},
-            updateSelectedPicture = {},
             navigateProfileToRoutineSetInCreateRoutineGraph = {},
             routineSetPictureUiState = RoutineSetPictureUiState.Success(
                 listOf(
                     RoutineSetCategoryPicture(
                         category = "카테고리1",
                         pictureList = listOf(
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
+                            "", "", "", "", ""
                         )
                     ),
                     RoutineSetCategoryPicture(
                         category = "카테고리2",
                         pictureList = listOf(
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture(""),
-                            SelectedPicture("", true),
+                            "", "", "", "", ""
                         )
                     )
                 )

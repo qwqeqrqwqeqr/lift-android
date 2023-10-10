@@ -32,12 +32,22 @@ interface UserService {
     ): Response<APIResultWrapper<CreateUserDetailResponseDto>>
 
     /**
-     * [createUserDetail]
+     * [updateUserDetail]
      * 사용자 상세정보 업데이트하기
      * @since 2023-08-28 22:30:41
      */
     @PUT("user/user-detail/")
     suspend fun updateUserDetail(@Body updateUserDetailRequestDto: UpdateUserDetailRequestDto): Response<APIResultWrapper<UpdateUserDetailResponseDto>>
+
+    /**
+     * [updateUserDetailProfilePicture]
+     * 사용자 상세정보 업데이트하기
+     * @since 2023-10-06 21:52:40
+     */
+    @PUT("user/user-detail/profile-picture")
+    suspend fun updateUserDetailProfilePicture(@Body updateUserDetailProfilePictureRequestDto: UpdateUserDetailProfilePictureRequestDto):
+            Response<APIResultWrapper<UpdateUserDetailProfilePictureResponseDto>>
+
 
     /**
      * [createUserDetail]

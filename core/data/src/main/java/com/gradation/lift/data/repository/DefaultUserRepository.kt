@@ -3,6 +3,7 @@ package com.gradation.lift.data.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.user.UserDataSource
 import kotlinx.coroutines.flow.*
@@ -47,6 +48,19 @@ class DefaultUserRepository @Inject constructor(
         }
 
     }
+
+    override fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<DataState<Unit>> =
+        flow {
+            userDataSource.updateUserDetailProfilePicture(
+                userDetailProfilePicture
+            ).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
         userDataSource.existUserDetail(
