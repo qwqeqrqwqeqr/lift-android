@@ -6,24 +6,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import com.gradation.lift.create_routine.routine.component.NavigationView
-import com.gradation.lift.create_routine.routine.component.ProfilePictureView
+import com.gradation.lift.create_routine.routine.component.CreateRoutineView
 import com.gradation.lift.create_routine.routine.component.RoutineListView
+import com.gradation.lift.create_routine.routine.data.state.KeypadState
 import com.gradation.lift.create_routine.routine.data.model.IndexWorkSet
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.keypad.RepetitionKeypadContainer
+import com.gradation.lift.designsystem.keypad.WeightKeypadContainer
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.create_routine.routine_set.data.viewmodel.CreateRoutineSharedViewModel
 import com.gradation.lift.model.model.work.WorkSet
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -39,32 +36,35 @@ fun CreateRoutineRoutineRoute(
         remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) }
     val sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(crateRoutineBackStackEntry)
 
-    val workSetList: List<IndexWorkSet> by viewModel.indexWorkSetList.collectAsStateWithLifecycle()
-    val createRoutineCondition: Boolean by viewModel.createRoutineCondition.collectAsStateWithLifecycle()
     val tempWorkCategory: String by sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
+    val indexWorkSetList: List<IndexWorkSet> by viewModel.indexWorkSetList.collectAsStateWithLifecycle()
+    val keypadState: KeypadState by viewModel.keypadState.collectAsStateWithLifecycle()
+    val createRoutineCondition: Boolean by viewModel.createRoutineCondition.collectAsStateWithLifecycle()
 
 
-    val addWorkSet: () -> Unit = viewModel.addWorkSet()
-    val updateWorkSet: (IndexWorkSet) -> Unit = viewModel.updateWorkSet()
+    val updateWeight: (Int, String) -> Unit = viewModel.updateWeight()
+    val updateRepetition: (Int, String) -> Unit = viewModel.updateRepetition()
+    val appendWorkSet: () -> Unit = viewModel.appendWorkSet()
     val removeWorkSet: (IndexWorkSet) -> Unit = viewModel.removeWorkSet()
-
+    val updateKeypadState: (KeypadState) -> Unit = viewModel.updateKeypadState()
 
     val addRoutine: (List<WorkSet>) -> Unit = sharedViewModel.addRoutine()
 
 
-    val focusManager = LocalFocusManager.current
     CreateRoutineRoutineScreen(
         modifier,
-        workSetList,
-        createRoutineCondition,
         tempWorkCategory,
-        addWorkSet,
-        updateWorkSet,
+        indexWorkSetList,
+        keypadState,
+        createRoutineCondition,
+        updateWeight,
+        updateRepetition,
+        appendWorkSet,
         removeWorkSet,
+        updateKeypadState,
         addRoutine,
         navigateRoutineToFindWorkCategoryInCreateRoutineGraph,
-        navigateRoutineToRoutineSetInCreateRoutineGraph,
-        focusManager
+        navigateRoutineToRoutineSetInCreateRoutineGraph
     )
 
     BackHandler(onBack = navigateRoutineToFindWorkCategoryInCreateRoutineGraph)
@@ -73,17 +73,80 @@ fun CreateRoutineRoutineRoute(
 @Composable
 fun CreateRoutineRoutineScreen(
     modifier: Modifier = Modifier,
-    workSetList: List<IndexWorkSet>,
-    createRoutineCondition: Boolean,
     tempWorkCategory: String,
-    addWorkSet: () -> Unit,
-    updateWorkSet: (IndexWorkSet) -> Unit,
+    indexWorkSetList: List<IndexWorkSet>,
+    keypadState: KeypadState,
+    createRoutineCondition: Boolean,
+    updateWeight: (Int, String) -> Unit,
+    updateRepetition: (Int, String) -> Unit,
+    appendWorkSet: () -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
+    updateKeypadState: (KeypadState) -> Unit,
     addRoutine: (List<WorkSet>) -> Unit,
     navigateRoutineToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
     navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
-    focusManager: FocusManager,
 ) {
+    when (keypadState) {
+        KeypadState.None -> {}
+        is KeypadState.Repetition -> {
+            RepetitionKeypadContainer(
+                modifier = modifier.fillMaxWidth(),
+                clearNumber = {
+                    keypadState.clearNumber()
+                    updateRepetition(keypadState.index, keypadState.repetition.value)
+                },
+                appendNumber = {
+                    keypadState.appendNumber(it)
+                    updateRepetition(keypadState.index, keypadState.repetition.value)
+
+                },
+                plusNumber = {
+                    keypadState.plusNumber(it)
+                    updateRepetition(keypadState.index, keypadState.repetition.value)
+                },
+                minusNumber = {
+                    keypadState.minusNumber(it)
+                    updateRepetition(keypadState.index, keypadState.repetition.value)
+                },
+                onDismissRequest = {
+                    keypadState.onDone()
+                    updateRepetition(keypadState.index, keypadState.repetition.value)
+                    updateKeypadState(KeypadState.None)
+                }
+            )
+
+        }
+
+        is KeypadState.Weight -> {
+            WeightKeypadContainer(
+                clearNumber = {
+                    keypadState.clearNumber()
+                    updateWeight(keypadState.index, keypadState.weight.value)
+                },
+                appendNumber = {
+                    keypadState.appendNumber(it)
+                    updateWeight(keypadState.index, keypadState.weight.value)
+                },
+                appendPoint = {
+                    keypadState.appendPoint(it)
+                    updateWeight(keypadState.index, keypadState.weight.value)
+                },
+                plusNumber = {
+                    keypadState.plusNumber(it)
+                    updateWeight(keypadState.index, keypadState.weight.value)
+                },
+                minusNumber = {
+                    keypadState.minusNumber(it)
+                    updateWeight(keypadState.index, keypadState.weight.value)
+                },
+                onDismissRequest = {
+                    keypadState.onDone()
+                    updateWeight(keypadState.index, keypadState.weight.value)
+                    updateKeypadState(KeypadState.None)
+                })
+        }
+    }
+
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -92,63 +155,36 @@ fun CreateRoutineRoutineScreen(
             )
         },
         modifier = modifier.fillMaxSize(),
-    ) { PaddingValues ->
+    ) {
         Surface(
             color = LiftTheme.colorScheme.no5,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .padding(it)
         ) {
             Column(
                 modifier = modifier
-                    .padding(PaddingValues)
-                    .padding(16.dp)
-                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(32.dp)
             ) {
-                ProfilePictureView(modifier)
-                Spacer(modifier = modifier.padding(18.dp))
-                RoutineListView(
+                Column(modifier = modifier.weight(1f)) {
+                    RoutineListView(
+                        modifier,
+                        indexWorkSetList,
+                        keypadState,
+                        updateKeypadState,
+                        appendWorkSet,
+                        removeWorkSet
+                    )
+                }
+                CreateRoutineView(
                     modifier,
-                    workSetList,
-                    addWorkSet,
-                    updateWorkSet,
-                    removeWorkSet,
-                    focusManager
-                )
-                Spacer(modifier = modifier.padding(4.dp))
-                NavigationView(
-                    modifier,
-                    createRoutineCondition,
-                    workSetList,
+                    indexWorkSetList,
                     addRoutine,
+                    createRoutineCondition,
                     navigateRoutineToRoutineSetInCreateRoutineGraph
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun CreateRoutineRoutineScreenPreview() {
-    LiftMaterialTheme {
-        CreateRoutineRoutineScreen(
-            workSetList = createRoutineModel
-                .workSetList
-                .mapIndexed { index, workSet ->
-                    IndexWorkSet(
-                        index + 1,
-                        workSet.weight.toString(),
-                        workSet.repetition.toString()
-                    )
-                },
-            createRoutineCondition = true,
-            tempWorkCategory = createRoutineModel.workCategory,
-            addWorkSet = {},
-            updateWorkSet = {},
-            removeWorkSet = {},
-            addRoutine = {},
-            navigateRoutineToFindWorkCategoryInCreateRoutineGraph = {},
-            navigateRoutineToRoutineSetInCreateRoutineGraph = {},
-            focusManager = LocalFocusManager.current
-        )
     }
 }
