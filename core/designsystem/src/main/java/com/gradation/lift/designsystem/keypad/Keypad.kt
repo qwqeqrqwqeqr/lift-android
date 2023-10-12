@@ -1,6 +1,7 @@
 package com.gradation.lift.designsystem.keypad
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -9,13 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gradation.lift.designsystem.component.LiftBottomSheet
-import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 /**
@@ -32,7 +30,6 @@ import com.gradation.lift.designsystem.theme.LiftTheme
  * @param appendPoint  텍스트에 소수점을 이어 붙힘
  * @param plusNumber 현재 텍스트에 키패드 숫자만큼 가감
  * @param minusNumber 현재 텍스트에 키패드 숫자만큼 차감
- * @param onDone 완료, 해당 컨테이너를 삭제
  * @since 2023-10-11 10:50:06
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,12 +41,14 @@ fun WeightKeypadContainer(
     appendPoint: (String) -> Unit,
     plusNumber: (String) -> Unit,
     minusNumber: (String) -> Unit,
-    onDone: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     LiftBottomSheet(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
+        tonalElevation= 8.dp,
         onDismissRequest = onDismissRequest,
+        scrimColor = LiftTheme.colorScheme.no5.copy(0.0f),
+        shape = ShapeDefaults.ExtraSmall,
         dragHandle = null
     ) {
         Row(
@@ -126,7 +125,7 @@ fun WeightKeypadContainer(
                     )
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    DoneKeypad(modifier = modifier.weight(1f), onDone = onDone)
+                    DoneKeypad(modifier = modifier.weight(1f), onDone = onDismissRequest)
                 }
             }
         }
@@ -142,12 +141,14 @@ fun RepetitionKeypadContainer(
     appendNumber: (String) -> Unit,
     plusNumber: (String) -> Unit,
     minusNumber: (String) -> Unit,
-    onDone: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     LiftBottomSheet(
         modifier = modifier,
+        tonalElevation= 8.dp,
+        scrimColor = LiftTheme.colorScheme.no5.copy(0.0f),
         onDismissRequest = onDismissRequest,
+        shape = ShapeDefaults.ExtraSmall,
         dragHandle = null
     ) {
         Row(
@@ -224,7 +225,7 @@ fun RepetitionKeypadContainer(
                     )
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    DoneKeypad(modifier = modifier.weight(1f), onDone = onDone)
+                    DoneKeypad(modifier = modifier.weight(1f), onDone = onDismissRequest)
                 }
             }
         }
@@ -253,7 +254,7 @@ private fun ClearKeypad(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { clearNumber() }
+            .clickable { clearNumber() }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no1,
@@ -278,7 +279,7 @@ private fun NumberKeypad(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { appendNumber(number) }
+            .clickable { appendNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no1,
@@ -287,7 +288,7 @@ private fun NumberKeypad(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = number.toString(),
+            text = number,
             style = LiftTheme.typography.no1.copy(fontSize = 28.sp),
             color = LiftTheme.colorScheme.no2,
             textAlign = TextAlign.Center
@@ -303,7 +304,7 @@ private fun PointKeypad(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { appendPoint(".") }
+            .clickable { appendPoint(".") }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no1,
@@ -330,7 +331,7 @@ private fun PlusKeypad(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { plusNumber(number) }
+            .clickable { plusNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no13,
@@ -356,7 +357,7 @@ private fun MinusKeypad(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { minusNumber(number) }
+            .clickable { minusNumber(number) }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no13,
@@ -382,7 +383,7 @@ private fun DoneKeypad(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { onDone() }
+            .clickable { onDone() }
             .height(48.dp)
             .background(
                 LiftTheme.colorScheme.no4,
@@ -397,38 +398,4 @@ private fun DoneKeypad(
         )
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun WeightKeypadContainerPreview() {
-    LiftMaterialTheme {
-        WeightKeypadContainer(
-            clearNumber = {},
-            appendNumber = {},
-            appendPoint = {},
-            plusNumber = {},
-            minusNumber = {},
-            onDone = {},
-            onDismissRequest = {}
-        )
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun RepetitionKeypadContainerPreview() {
-    LiftMaterialTheme {
-        RepetitionKeypadContainer(
-            clearNumber = {},
-            appendNumber = {},
-            plusNumber = {},
-            minusNumber = {},
-            onDone = {},
-            onDismissRequest = {}
-        )
-    }
-}
-
 
