@@ -44,7 +44,7 @@ interface RoutineService {
      * @since 2023-10-13 11:35:46
      */
     @PUT("routine/routine-set/count")
-    suspend fun updateRoutineSetCount(@Body updateRoutineSetRoutineRequestDto: UpdateRoutineSetRoutineRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
+    suspend fun updateRoutineSetCount(@Body updateRoutineSetCountRequestDto: UpdateRoutineSetCountRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
 
 
     /**
