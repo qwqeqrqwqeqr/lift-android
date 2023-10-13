@@ -8,10 +8,12 @@ data class CreateRoutineSetRoutineRequestDto(
     val name: String,
     @Json(name = "description")
     val description: String,
-    @Json(name = "weekday")
-    val weekday: List<String>,
     @Json(name = "picture")
     val picture: String,
+    @Json(name = "weekday")
+    val weekday: String,
+    @Json(name = "label")
+    val label: String,
     @Json(name = "routine")
     val routine: List<CreateRoutineDto>
 )

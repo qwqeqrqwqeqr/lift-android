@@ -6,12 +6,13 @@ import com.gradation.lift.network.dto.routine.CreateRoutineDto
 import com.gradation.lift.network.dto.routine.CreateRoutineSetRoutineRequestDto
 
 
-fun CreateRoutineSetRoutine.toDto() : CreateRoutineSetRoutineRequestDto =
+fun CreateRoutineSetRoutine.toDto(): CreateRoutineSetRoutineRequestDto =
     CreateRoutineSetRoutineRequestDto(
         name = this.name,
         description = this.description,
-        weekday = this.weekday.map { it.getWeekdayValue() },
-        picture = this.picture.replace(Constants.DEFAULT_S3_URL,""),
+        weekday = this.weekday.joinToString(","),
+        label = this.label.joinToString(","),
+        picture = this.picture.replace(Constants.DEFAULT_S3_URL, ""),
         routine = this.routine.map { routine ->
             CreateRoutineDto(
                 workCategory = routine.workCategory,
