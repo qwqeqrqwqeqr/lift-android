@@ -14,7 +14,9 @@ data class BadgeDto(
     @Json(name = "hint")
     val hint: String,
     @Json(name = "url")
-    val url: String
+    val url: String,
+    @Json(name = "color")
+    val color: String
 )
 
 

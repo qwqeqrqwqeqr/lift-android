@@ -16,7 +16,8 @@ data class GetBadgeResponseDto(
             name = it.name,
             description = it.description,
             hint = it.hint,
-            url = DEFAULT_S3_URL+it.url
+            url = DEFAULT_S3_URL+it.url,
+            color = it.color
         )
     }
 }

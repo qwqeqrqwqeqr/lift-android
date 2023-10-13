@@ -19,7 +19,8 @@ data class GetUserBadgeResponseDto(
                 name = it.badge.name,
                 description = it.badge.description,
                 hint = it.badge.hint,
-                url = Constants.DEFAULT_S3_URL +it.badge.url
+                url = Constants.DEFAULT_S3_URL +it.badge.url,
+                color = it.badge.color
             ),
             badgeTimeStamp = LocalDateTime.parse(it.badgeTimeStamp),
             mainFlag = it.mainFlag

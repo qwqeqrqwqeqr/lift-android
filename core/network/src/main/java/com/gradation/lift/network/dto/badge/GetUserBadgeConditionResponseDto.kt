@@ -20,7 +20,8 @@ data class GetUserBadgeConditionResponseDto(
                     name = badge.name,
                     description = badge.description,
                     hint = badge.hint,
-                    url = Constants.DEFAULT_S3_URL + badge.url
+                    url = Constants.DEFAULT_S3_URL + badge.url,
+                    color = it.color
                 )
             }
         )
