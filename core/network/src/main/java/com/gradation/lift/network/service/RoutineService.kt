@@ -73,6 +73,17 @@ interface RoutineService {
     @GET("routine/routine-set-routine/weekday")
     suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
+
+    /**
+     * [getRoutineSetRoutineByLabel]
+     * 특정 라벨에 대한 모든 루틴 세트 불러오기
+     * @param label 3글자료 표기한 요일을 ,로 분류한 문자열 (ex. Mon,Tue,Wed,...)
+     * @since 2023-10-13 11:21:09
+     */
+    @GET("routine/routine-set-routine/label")
+    suspend fun getRoutineSetRoutineByLabel(@Query("label") label: String): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
+
+
     /**
      * [getRoutineSetRoutineByRoutineSetId]
      * 루틴세트 고유 아이디들과 일치하는 모든 루틴 세트 불러오기
