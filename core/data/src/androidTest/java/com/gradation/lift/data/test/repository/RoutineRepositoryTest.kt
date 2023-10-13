@@ -9,9 +9,11 @@ import com.gradation.lift.data.repository.DefaultRoutineRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateRoutineSetCountModel
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateRoutineSetRoutineModel
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.test.rule.CoroutineRule
@@ -49,19 +51,20 @@ class RoutineRepositoryTest {
     }
 
 
-
     @Test
     fun createRoutineSetRoutine() = runTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
+            successRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel)
+                .first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel).first()
+            failRepository.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel)
+                .first()
         )
     }
 
@@ -71,13 +74,32 @@ class RoutineRepositoryTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.updateRoutineSetRoutine(updateRoutineSetRoutine = updateRoutineSetRoutineModel ).first()
+            successRepository.updateRoutineSetRoutine(updateRoutineSetRoutine = updateRoutineSetRoutineModel)
+                .first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.updateRoutineSetRoutine(updateRoutineSetRoutine = updateRoutineSetRoutineModel).first()
+            failRepository.updateRoutineSetRoutine(updateRoutineSetRoutine = updateRoutineSetRoutineModel)
+                .first()
+        )
+    }
+
+    @Test
+    fun updateRoutineSetCount() = runTest {
+        Truth.assertThat(
+            DataState.Success(Unit)
+        ).isEqualTo(
+            successRepository.updateRoutineSetCount(updateRoutineSetCount = updateRoutineSetCountModel)
+                .first()
+        )
+
+        Truth.assertThat(
+            DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            failRepository.updateRoutineSetCount(updateRoutineSetCount = updateRoutineSetCountModel)
+                .first()
         )
     }
 
@@ -131,13 +153,34 @@ class RoutineRepositoryTest {
         Truth.assertThat(
             DataState.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList)
         ).isEqualTo(
-            successRepository.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
+            successRepository.getRoutineSetRoutineByWeekday(
+                setOf(
+                    Weekday.Monday(),
+                    Weekday.Tuesday()
+                )
+            ).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
+            failRepository.getRoutineSetRoutineByWeekday(setOf(Weekday.Monday(), Weekday.Tuesday()))
+                .first()
+        )
+    }
+
+    @Test
+    fun getRoutineSetRoutineByLabel() = runTest {
+        Truth.assertThat(
+            DataState.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList)
+        ).isEqualTo(
+            successRepository.getRoutineSetRoutineByLabel(setOf(Label.LABEL1, Label.LABEL2)).first()
+        )
+
+        Truth.assertThat(
+            DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
+        ).isEqualTo(
+            failRepository.getRoutineSetRoutineByLabel(setOf(Label.LABEL1, Label.LABEL2)).first()
         )
     }
 
@@ -146,13 +189,13 @@ class RoutineRepositoryTest {
         Truth.assertThat(
             DataState.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList)
         ).isEqualTo(
-            successRepository.getRoutineSetRoutineByRoutineSetId(setOf(12,13,14)).first()
+            successRepository.getRoutineSetRoutineByRoutineSetId(setOf(12, 13, 14)).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.getRoutineSetRoutineByRoutineSetId(setOf(12,13,14)).first()
+            failRepository.getRoutineSetRoutineByRoutineSetId(setOf(12, 13, 14)).first()
         )
     }
 

@@ -1,6 +1,7 @@
 package com.gradation.lift.data.fake.datasource
 
 import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
+import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByLabelResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
@@ -11,6 +12,9 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.data.utils.TestReturnState
+import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -41,6 +45,14 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
             }
         }
 
+    override suspend fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<NetworkResult<Unit>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
+            }
+        }
+
     override suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
@@ -61,19 +73,24 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
         }
     }
 
-    override suspend fun getRoutineSetRoutineByWeekday(label: List<Any>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
-        flow {
-            when (testReturnState) {
-                TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
-                TestReturnState.Success -> emit(NetworkResult.Success(data = getRoutineSetRoutineByRoutineSetIdResponseDto.toDomain()))
-            }
+    override suspend fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<NetworkResult<List<RoutineSetRoutine>>> = flow {
+        when (testReturnState) {
+            TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = getRoutineSetRoutineByWeekdayResponseDto.toDomain()))
         }
+    }
+    override suspend fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<NetworkResult<List<RoutineSetRoutine>>>  = flow {
+        when (testReturnState) {
+            TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = getRoutineSetRoutineByLabelResponseDto.toDomain()))
+        }
+    }
 
     override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
-                TestReturnState.Success -> emit(NetworkResult.Success(data = getRoutineSetRoutineByWeekdayResponseDto.toDomain()))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = getRoutineSetRoutineByRoutineSetIdResponseDto.toDomain()))
             }
         }
 
