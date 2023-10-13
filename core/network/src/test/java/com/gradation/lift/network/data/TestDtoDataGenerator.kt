@@ -357,8 +357,17 @@ object TestDtoDataGenerator {
         val updateRoutineSetRoutineResponseDto =
             UpdateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
 
+        val updateRoutineSetCountRequestDto = UpdateRoutineSetCountRequestDto(
+            id = FAKE_INT_DATA)
+
+        val updateRoutineSetCountResponseDto =
+            UpdateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
+
+
         val deleteRoutineSetRoutineResponseDto =
             DeleteRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
+
+
 
     }
 
@@ -390,6 +399,13 @@ object TestDtoDataGenerator {
             )
 
         val getRoutineSetRoutineByWeekdayResponseDto = GetRoutineSetRoutineByWeekdayResponseDto(
+            routineSetRoutine = listOf(
+                routineSetRoutineDto1,
+                routineSetRoutineDto2,
+            )
+        )
+
+        val getRoutineSetRoutineByLabelResponseDto = GetRoutineSetRoutineByLabelResponseDto(
             routineSetRoutine = listOf(
                 routineSetRoutineDto1,
                 routineSetRoutineDto2,

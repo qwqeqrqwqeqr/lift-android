@@ -42,6 +42,7 @@ import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
@@ -348,6 +349,10 @@ object ModelDataGenerator {
             label = listOf(Label.LABEL1, Label.LABEL2),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(updateRoutineModel),
+        )
+
+        val updateRoutineSetCountModel = UpdateRoutineSetCount(
+            id = FAKE_INT_DATA
         )
     }
 
