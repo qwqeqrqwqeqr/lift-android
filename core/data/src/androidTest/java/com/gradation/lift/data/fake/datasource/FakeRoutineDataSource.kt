@@ -4,7 +4,6 @@ import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.getRoutineRespo
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
-import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -62,7 +61,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
         }
     }
 
-    override suspend fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<NetworkResult<List<RoutineSetRoutine>>> =
+    override suspend fun getRoutineSetRoutineByWeekday(label: List<Any>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))

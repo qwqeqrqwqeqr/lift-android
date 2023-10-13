@@ -4,6 +4,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
@@ -66,7 +67,7 @@ class DefaultRoutineRepository @Inject constructor(
         }
     }
 
-    override fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<DataState<List<RoutineSetRoutine>>> =
+    override fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
             routineDataSource.getRoutineSetRoutineByWeekday(weekday).collect { result ->
                 when (result) {
@@ -75,6 +76,17 @@ class DefaultRoutineRepository @Inject constructor(
                 }
             }
         }
+
+    override fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<DataState<List<RoutineSetRoutine>>> =
+        flow {
+            routineDataSource.getRoutineSetRoutineByLabel(label).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+
 
     override fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {

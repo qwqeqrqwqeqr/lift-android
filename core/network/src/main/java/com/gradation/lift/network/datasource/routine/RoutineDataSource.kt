@@ -2,6 +2,7 @@ package com.gradation.lift.network.datasource.routine
 
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
@@ -24,7 +25,9 @@ interface RoutineDataSource {
 
     suspend fun getRoutineSetRoutine(): Flow<NetworkResult<List<RoutineSetRoutine>>>
 
-    suspend fun getRoutineSetRoutineByWeekday(weekday: Weekday): Flow<NetworkResult<List<RoutineSetRoutine>>>
+    suspend fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<NetworkResult<List<RoutineSetRoutine>>>
+
+    suspend fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<NetworkResult<List<RoutineSetRoutine>>>
 
     suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<NetworkResult<List<RoutineSetRoutine>>>
 
