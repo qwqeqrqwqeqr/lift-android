@@ -5,6 +5,7 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.di.TestServiceModule
@@ -105,6 +106,25 @@ class RoutineDataSourceTest {
     }
 
     @Test
+    fun updateRoutineSetCountDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.updateRoutineSetCount(updateRoutineSetCount = ModelDataGenerator.RoutineSetRoutine.updateRoutineSetCountModel)
+                .first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
     fun deleteRoutineSetRoutineDataSource() = runTest {
         mockWebServer.enqueue(
             MockResponse()
@@ -180,6 +200,26 @@ class RoutineDataSourceTest {
             ).isEqualTo(this)
         }
     }
+
+    @Test
+    fun getRoutineSetRoutineByLabelDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.getRoutineSetRoutineByLabel(setOf(Label.LABEL1,Label.LABEL2)).first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList),
+            ).isEqualTo(this)
+        }
+    }
+
 
     @Test
     fun getRoutineSetRoutineByRoutineSetIdDataSource() = runTest {

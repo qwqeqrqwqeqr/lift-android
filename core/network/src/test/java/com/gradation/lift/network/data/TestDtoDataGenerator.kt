@@ -358,15 +358,15 @@ object TestDtoDataGenerator {
             UpdateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
 
         val updateRoutineSetCountRequestDto = UpdateRoutineSetCountRequestDto(
-            id = FAKE_INT_DATA)
+            id = FAKE_INT_DATA
+        )
 
         val updateRoutineSetCountResponseDto =
-            UpdateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
+            UpdateRoutineSetCountResponseDto(result = FAKE_BOOLEAN_DATA)
 
 
         val deleteRoutineSetRoutineResponseDto =
             DeleteRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
-
 
 
     }

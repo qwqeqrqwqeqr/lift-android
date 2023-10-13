@@ -16,8 +16,10 @@ class UpdateRoutineSetRoutineMapperTest {
     fun updateRoutineSetRoutineMapper() = runTest {
         with(updateRoutineSetRoutineModel.toDto()) {
             Truth.assertThat(this.name).isEqualTo(updateRoutineSetRoutineRequestDto.name)
-            Truth.assertThat(this.description).isEqualTo(updateRoutineSetRoutineRequestDto.description)
+            Truth.assertThat(this.description)
+                .isEqualTo(updateRoutineSetRoutineRequestDto.description)
             Truth.assertThat(this.weekday).isEqualTo(updateRoutineSetRoutineRequestDto.weekday)
+            Truth.assertThat(this.label).isEqualTo(updateRoutineSetRoutineRequestDto.label)
             Truth.assertThat(this.picture).isEqualTo(updateRoutineSetRoutineRequestDto.picture)
             Truth.assertThat(this.routine)
                 .isEqualTo(updateRoutineSetRoutineRequestDto.routine)
