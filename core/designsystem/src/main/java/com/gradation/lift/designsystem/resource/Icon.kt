@@ -50,6 +50,7 @@ object LiftIcon {
 
     val EmptyAlarm = R.drawable.empty_alarm
     val EmptyNotice = R.drawable.empty_notice
+    val Work = R.drawable.work
 
 
     val Search = R.drawable.search
