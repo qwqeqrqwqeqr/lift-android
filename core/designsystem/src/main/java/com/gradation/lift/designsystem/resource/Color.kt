@@ -76,6 +76,8 @@ internal val SUNDAY_LABEL_COLOR: Color = Color(0xFF8C4BF3)
 internal val SUNDAY_BACKGROUND_COLOR: Color = Color(0xFFECE0FF)
 internal val ALL_LABEL_COLOR: Color = Color(0xFF0080FF)
 internal val ALL_BACKGROUND_COLOR: Color = Color(0xFFE4F2FF)
+internal val RECENT_LABEL_COLOR: Color = Color(0xFF32A836)
+internal val RECENT_BACKGROUND_COLOR: Color = Color(0xFFE4FFE5)
 
 data class LiftColorScheme(
     val no1: Color,
@@ -123,7 +125,9 @@ data class LiftColorScheme(
     val sundayLabelColor: Color,
     val sundayBackgroundColor: Color,
     val allLabelColor: Color,
-    val allBackgroundColor: Color
+    val allBackgroundColor: Color,
+    val recentLabelColor: Color,
+    val recentBackgroundColor: Color,
 )
 
 fun liftLightColorScheme(
@@ -172,7 +176,9 @@ fun liftLightColorScheme(
     sundayLabelColor: Color = SUNDAY_LABEL_COLOR,
     sundayBackgroundColor: Color = SUNDAY_BACKGROUND_COLOR,
     allLabelColor: Color = ALL_LABEL_COLOR,
-    allBackgroundColor: Color = ALL_BACKGROUND_COLOR
+    allBackgroundColor: Color = ALL_BACKGROUND_COLOR,
+    recentLabelColor: Color = RECENT_LABEL_COLOR,
+    recentBackgroundColor: Color = RECENT_BACKGROUND_COLOR,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -220,7 +226,9 @@ fun liftLightColorScheme(
         sundayLabelColor,
         sundayBackgroundColor,
         allLabelColor,
-        allBackgroundColor
+        allBackgroundColor,
+        recentLabelColor,
+        recentBackgroundColor
     )
 
 fun liftDarkColorScheme(
@@ -269,7 +277,9 @@ fun liftDarkColorScheme(
     sundayLabelColor: Color = SUNDAY_LABEL_COLOR,
     sundayBackgroundColor: Color = SUNDAY_BACKGROUND_COLOR,
     allLabelColor: Color = ALL_LABEL_COLOR,
-    allBackgroundColor: Color = ALL_BACKGROUND_COLOR
+    allBackgroundColor: Color = ALL_BACKGROUND_COLOR,
+    recentLabelColor: Color = RECENT_LABEL_COLOR,
+    recentBackgroundColor: Color = RECENT_BACKGROUND_COLOR,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -317,7 +327,9 @@ fun liftDarkColorScheme(
         sundayLabelColor,
         sundayBackgroundColor,
         allLabelColor,
-        allBackgroundColor
+        allBackgroundColor,
+        recentLabelColor,
+        recentBackgroundColor
     )
 
 val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }

@@ -135,6 +135,20 @@ fun AllRoutineLabel(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun RecentRoutineLabel(modifier: Modifier = Modifier) {
+    Text(
+        modifier = modifier
+            .background(
+                color = LiftTheme.colorScheme.recentBackgroundColor,
+                shape = RoundedCornerShape(size = 30.dp)
+            )
+            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+        text = "최근",
+        color = LiftTheme.colorScheme.recentLabelColor,
+        style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
+    )
+}
+@Composable
 @Preview(showBackground = true)
 fun RoutineLabelPreview() {
     LiftMaterialTheme {
@@ -147,6 +161,7 @@ fun RoutineLabelPreview() {
             SaturdayRoutineLabel()
             SundayRoutineLabel()
             AllRoutineLabel()
+            RecentRoutineLabel()
         }
     }
 }
