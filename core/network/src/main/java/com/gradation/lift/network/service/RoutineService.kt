@@ -43,7 +43,7 @@ interface RoutineService {
      * 루틴세트의 사용횟수를 1 증가시킵니다.
      * @since 2023-10-13 11:35:46
      */
-    @PUT("routine/routine-set/count")
+    @PUT("routine/routine-set/count/")
     suspend fun updateRoutineSetCount(@Body updateRoutineSetCountRequestDto: UpdateRoutineSetCountRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
 
 
@@ -78,7 +78,7 @@ interface RoutineService {
      * @param weekday 3글자료 표기한 요일을 ,로 분류한 문자열 (ex. Mon,Tue,Wed,...)
      * @since 2023-10-13 11:21:09
      */
-    @GET("routine/routine-set-routine/weekday")
+    @GET("routine/routine-set-routine/weekday/")
     suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
 
@@ -88,7 +88,7 @@ interface RoutineService {
      * @param label 3글자료 표기한 요일을 ,로 분류한 문자열 (ex. Mon,Tue,Wed,...)
      * @since 2023-10-13 11:21:09
      */
-    @GET("routine/routine-set-routine/label")
+    @GET("routine/routine-set-routine/label/")
     suspend fun getRoutineSetRoutineByLabel(@Query("label") label: String): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
 
 
@@ -98,6 +98,6 @@ interface RoutineService {
      * @param routineSetIdList 루틴세트 고유 아이디 번호 리스트,  ','로 구분 하여 [String]으로 전달함
      * @since 2023-10-13 11:21:14
      */
-    @GET("routine/routine-set-routine/routine-set-id")
+    @GET("routine/routine-set-routine/routine-set-id/")
     suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id_list") routineSetIdList: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
 }

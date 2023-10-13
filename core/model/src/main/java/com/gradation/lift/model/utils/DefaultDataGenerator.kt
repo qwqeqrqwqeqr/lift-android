@@ -18,6 +18,8 @@ object DefaultDataGenerator {
     const val FAKE_ROUTINE_NAME_DATA = "월요일 루틴"
     const val FAKE_ROUTINE_DESCRIPTION_DATA = "집중적으로 하는 운동"
 
+    const val FAKE_COLOR_DATA = "#FFFFFFFF"
+
 
     const val FAKE_ERROR_MESSAGE = "ERROR"
 }

@@ -1,6 +1,7 @@
 package com.gradation.lift.network.mapper
 
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.dto.routine.UpdateRoutineDto
 import com.gradation.lift.network.dto.routine.UpdateRoutineSetRoutineRequestDto
@@ -11,8 +12,8 @@ fun UpdateRoutineSetRoutine.toDto(): UpdateRoutineSetRoutineRequestDto =
         id = this.id,
         name = this.name,
         description = this.description,
-        weekday = this.weekday.joinToString(","),
-        label = this.label.joinToString(","),
+        weekday = this.weekday.joinToString(",") { it.getWeekdayValue() },
+        label = this.label.joinToString(",") { it.getId() },
         picture = this.picture.replace(Constants.DEFAULT_S3_URL, ""),
         routine = this.routine.map { routine ->
             UpdateRoutineDto(

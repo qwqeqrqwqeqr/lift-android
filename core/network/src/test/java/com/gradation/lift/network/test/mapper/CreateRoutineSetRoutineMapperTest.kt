@@ -14,7 +14,6 @@ class CreateRoutineSetRoutineMapperTest {
 
     @Test
     fun createRoutineSetRoutineMapper() = runTest {
-
         with(createRoutineSetRoutineModel.toDto()) {
             Truth.assertThat(this.name).isEqualTo(createRoutineSetRoutineRequestDto.name)
             Truth.assertThat(this.description).isEqualTo(createRoutineSetRoutineRequestDto.description)

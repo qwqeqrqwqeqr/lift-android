@@ -173,7 +173,7 @@ class RoutineDataSourceTest {
         )
 
         with(
-            routineDataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
+            routineDataSource.getRoutineSetRoutineByWeekday(setOf(Weekday.Monday(),Weekday.Tuesday())).first()
         ) {
             Truth.assertThat(
                 NetworkResult.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList),

@@ -179,7 +179,7 @@ class RoutineServiceTest {
         val response = routineService.getRoutineSetRoutineByWeekday(FAKE_STRING_DATA)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine-by-weekday/?weekday=${FAKE_STRING_DATA}")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/weekday/?weekday=${FAKE_STRING_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -200,7 +200,7 @@ class RoutineServiceTest {
         val response = routineService.getRoutineSetRoutineByRoutineSetId("12,13,14")
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine-by-routine-set-id/?routine_set_id_list=12%2C13%2C14")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/routine-set-id/?routine_set_id_list=12%2C13%2C14")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)

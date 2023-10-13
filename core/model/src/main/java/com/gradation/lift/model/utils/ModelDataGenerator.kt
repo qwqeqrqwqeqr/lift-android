@@ -38,11 +38,13 @@ import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.notification.Notice
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
@@ -81,7 +83,8 @@ object ModelDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             hint = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+            color = FAKE_COLOR_DATA
         )
         val badgeConditionModel = BadgeCondition(
             badge = badgeModel
@@ -285,18 +288,22 @@ object ModelDataGenerator {
             id = 1,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.Monday(),
+            weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
+            label = listOf(Label.LABEL1, Label.LABEL2),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            routine = listOf(routineModel1)
+            routine = listOf(routineModel1),
+            count = FAKE_INT_DATA
         )
 
         val routineSetRoutineModel2 = RoutineSetRoutine(
             id = 2,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.Monday(),
+            weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
+            label = listOf(Label.LABEL1, Label.LABEL2),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            routine = listOf(routineModel2)
+            routine = listOf(routineModel2),
+            count = FAKE_INT_DATA
         )
         val routineSetRoutineModelList = listOf(routineSetRoutineModel1, routineSetRoutineModel2)
 
@@ -316,6 +323,7 @@ object ModelDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
+            label = listOf(Label.LABEL1, Label.LABEL2),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(createRoutineModel),
         )
@@ -336,7 +344,8 @@ object ModelDataGenerator {
             id = FAKE_INT_DATA,
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = Weekday.Monday(),
+            weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
+            label = listOf(Label.LABEL1, Label.LABEL2),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(updateRoutineModel),
         )

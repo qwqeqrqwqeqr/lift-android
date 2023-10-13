@@ -27,13 +27,14 @@ data class RoutineSetRoutineEntity(
 
     @ColumnInfo(name = "picture")
     val picture: String,
-){
+) {
     fun toDomain() = RoutineSetRoutine(
-        id=id,
-        name=name,
-        description=description,
-        weekday=weekday,
-        picture=picture,
+        id = id,
+        name = name,
+        description = description,
+        weekday = listOf(weekday),
+        picture = picture,
+        label = emptyList(),
         routine = emptyList()
     )
 }
