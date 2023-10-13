@@ -40,6 +40,7 @@ object LiftIcon {
     val Muscle = R.drawable.muscle
     val Badge = R.drawable.badge
     val BadgeDisabled = R.drawable.badge_disabled
+    val routineList = R.drawable.routine_list
     val BadgeAdd = R.drawable.badge_add
     val Chat = R.drawable.chat
     val Kettlebell = R.drawable.kettlebell
@@ -66,7 +67,7 @@ object LiftIcon {
     val ChevronRightLarge = R.drawable.chevron_right_large
     val ChevronUp = R.drawable.chevorn_up
     val ChevronDown = R.drawable.chevorn_down
-    val DropDown =  R.drawable.drop_down
+    val DropDown = R.drawable.drop_down
 
     val IncreaseArrow = R.drawable.increase_arrow
     val DecreaseArrow = R.drawable.decrease_arrow
@@ -75,6 +76,12 @@ object LiftIcon {
 
     val LeftArrowCircle = R.drawable.left_arrow_circle
     val RightArrowCircle = R.drawable.right_arrow_circle
+
+    val RoutineLabel1 = R.drawable.routine_label_1
+    val RoutineLabel2 = R.drawable.routine_label_2
+    val RoutineLabel3 = R.drawable.routine_label_3
+    val RoutineLabel4 = R.drawable.routine_label_4
+    val RoutineLabel5 = R.drawable.routine_label_5
 
 }
 
