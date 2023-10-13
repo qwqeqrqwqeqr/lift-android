@@ -60,7 +60,22 @@ internal val COLOR_NO27: Color = Color(0xFF7AE27E)
 internal val COLOR_NO28: Color = Color(0xFFFF8888)
 internal val COLOR_NO29: Color = Color(0xFF94C9FF)
 internal val COLOR_NO30: Color = Color(0xFF41414D)
-
+internal val MONDAY_LABEL_COLOR: Color = Color(0xFFFF9900)
+internal val MONDAY_BACKGROUND_COLOR: Color = Color(0xFFFFF6E9)
+internal val TUESDAY_LABEL_COLOR: Color = Color(0xFFFF6B00)
+internal val TUESDAY_BACKGROUND_COLOR: Color = Color(0xFFFFECE9)
+internal val WEDNESDAY_LABEL_COLOR: Color = Color(0xFF4E66E5)
+internal val WEDNESDAY_BACKGROUND_COLOR: Color = Color(0xFFEBE9FF)
+internal val THURSDAY_LABEL_COLOR: Color = Color(0xFFE4B307)
+internal val THURSDAY_BACKGROUND_COLOR: Color = Color(0xFFFFF5E2)
+internal val FRIDAY_LABEL_COLOR: Color = Color(0xFFDB55DD)
+internal val FRIDAY_BACKGROUND_COLOR: Color = Color(0xFFF4E2FF)
+internal val SATURDAY_LABEL_COLOR: Color = Color(0xFF3FB9ED)
+internal val SATURDAY_BACKGROUND_COLOR: Color = Color(0xFFE9F5FF)
+internal val SUNDAY_LABEL_COLOR: Color = Color(0xFF8C4BF3)
+internal val SUNDAY_BACKGROUND_COLOR: Color = Color(0xFFECE0FF)
+internal val ALL_LABEL_COLOR: Color = Color(0xFF0080FF)
+internal val ALL_BACKGROUND_COLOR: Color = Color(0xFFE4F2FF)
 
 data class LiftColorScheme(
     val no1: Color,
@@ -93,6 +108,22 @@ data class LiftColorScheme(
     val no28: Color,
     val no29: Color,
     val no30: Color,
+    val mondayLabelColor: Color,
+    val mondayBackgroundColor: Color,
+    val tuesdayLabelColor: Color,
+    val tuesdayBackgroundColor: Color,
+    val wednesdayLabelColor: Color,
+    val wednesdayBackgroundColor: Color,
+    val thursdayLabelColor: Color,
+    val thursdayBackgroundColor: Color,
+    val fridayLabelColor: Color,
+    val fridayBackgroundColor: Color,
+    val saturdayLabelColor: Color,
+    val saturdayBackgroundColor: Color,
+    val sundayLabelColor: Color,
+    val sundayBackgroundColor: Color,
+    val allLabelColor: Color,
+    val allBackgroundColor: Color
 )
 
 fun liftLightColorScheme(
@@ -126,6 +157,22 @@ fun liftLightColorScheme(
     no28: Color = COLOR_NO28,
     no29: Color = COLOR_NO29,
     no30: Color = COLOR_NO30,
+    mondayLabelColor: Color = MONDAY_LABEL_COLOR,
+    mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
+    tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
+    tuesdayBackgroundColor: Color = TUESDAY_BACKGROUND_COLOR,
+    wednesdayLabelColor: Color = WEDNESDAY_LABEL_COLOR,
+    wednesdayBackgroundColor: Color = WEDNESDAY_BACKGROUND_COLOR,
+    thursdayLabelColor: Color = THURSDAY_LABEL_COLOR,
+    thursdayBackgroundColor: Color = THURSDAY_BACKGROUND_COLOR,
+    fridayLabelColor: Color = FRIDAY_LABEL_COLOR,
+    fridayBackgroundColor: Color = FRIDAY_BACKGROUND_COLOR,
+    saturdayLabelColor: Color = SATURDAY_LABEL_COLOR,
+    saturdayBackgroundColor: Color = SATURDAY_BACKGROUND_COLOR,
+    sundayLabelColor: Color = SUNDAY_LABEL_COLOR,
+    sundayBackgroundColor: Color = SUNDAY_BACKGROUND_COLOR,
+    allLabelColor: Color = ALL_LABEL_COLOR,
+    allBackgroundColor: Color = ALL_BACKGROUND_COLOR
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -158,6 +205,22 @@ fun liftLightColorScheme(
         no28,
         no29,
         no30,
+        mondayLabelColor,
+        mondayBackgroundColor,
+        tuesdayLabelColor,
+        tuesdayBackgroundColor,
+        wednesdayLabelColor,
+        wednesdayBackgroundColor,
+        thursdayLabelColor,
+        thursdayBackgroundColor,
+        fridayLabelColor,
+        fridayBackgroundColor,
+        saturdayLabelColor,
+        saturdayBackgroundColor,
+        sundayLabelColor,
+        sundayBackgroundColor,
+        allLabelColor,
+        allBackgroundColor
     )
 
 fun liftDarkColorScheme(
@@ -191,6 +254,22 @@ fun liftDarkColorScheme(
     no28: Color = Color.Unspecified,
     no29: Color = Color.Unspecified,
     no30: Color = Color.Unspecified,
+    mondayLabelColor: Color = MONDAY_LABEL_COLOR,
+    mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
+    tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
+    tuesdayBackgroundColor: Color = TUESDAY_BACKGROUND_COLOR,
+    wednesdayLabelColor: Color = WEDNESDAY_LABEL_COLOR,
+    wednesdayBackgroundColor: Color = WEDNESDAY_BACKGROUND_COLOR,
+    thursdayLabelColor: Color = THURSDAY_LABEL_COLOR,
+    thursdayBackgroundColor: Color = THURSDAY_BACKGROUND_COLOR,
+    fridayLabelColor: Color = FRIDAY_LABEL_COLOR,
+    fridayBackgroundColor: Color = FRIDAY_BACKGROUND_COLOR,
+    saturdayLabelColor: Color = SATURDAY_LABEL_COLOR,
+    saturdayBackgroundColor: Color = SATURDAY_BACKGROUND_COLOR,
+    sundayLabelColor: Color = SUNDAY_LABEL_COLOR,
+    sundayBackgroundColor: Color = SUNDAY_BACKGROUND_COLOR,
+    allLabelColor: Color = ALL_LABEL_COLOR,
+    allBackgroundColor: Color = ALL_BACKGROUND_COLOR
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -223,6 +302,22 @@ fun liftDarkColorScheme(
         no28,
         no29,
         no30,
+        mondayLabelColor,
+        mondayBackgroundColor,
+        tuesdayLabelColor,
+        tuesdayBackgroundColor,
+        wednesdayLabelColor,
+        wednesdayBackgroundColor,
+        thursdayLabelColor,
+        thursdayBackgroundColor,
+        fridayLabelColor,
+        fridayBackgroundColor,
+        saturdayLabelColor,
+        saturdayBackgroundColor,
+        sundayLabelColor,
+        sundayBackgroundColor,
+        allLabelColor,
+        allBackgroundColor
     )
 
 val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }
