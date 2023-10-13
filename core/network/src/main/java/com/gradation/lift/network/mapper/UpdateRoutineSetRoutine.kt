@@ -11,7 +11,8 @@ fun UpdateRoutineSetRoutine.toDto(): UpdateRoutineSetRoutineRequestDto =
         id = this.id,
         name = this.name,
         description = this.description,
-        weekday = this.weekday.getWeekdayValue() ,
+        weekday = this.weekday.joinToString(","),
+        label = this.label.joinToString(","),
         picture = this.picture.replace(Constants.DEFAULT_S3_URL, ""),
         routine = this.routine.map { routine ->
             UpdateRoutineDto(

@@ -10,16 +10,18 @@ import com.gradation.lift.model.model.date.Weekday
  * @property id 루틴 세트의 아이디
  * @property name 루틴 세트 이름
  * @property description 해당 루틴 세트에 대한 설명
- * @property weekday 해당 루틴세트가 적용될 요일
+ * @property weekday 해당 루틴세트가 적용된 요일
+ * @property label 해당 루틴세트가 적용된 라벨
  * @property picture 루틴 세트의 대표 사진
  * @property routine 루틴 세트에 들어가는 루틴들
- * @since 2023-09-06 16:16:31
+ * @since 2023-10-13 11:15:00
  */
 data class UpdateRoutineSetRoutine(
     val id: Int = 0,
     var name: String = "",
     var description: String = "",
-    var weekday: Weekday = Weekday.None(),
+    var weekday: List<Weekday> = emptyList(),
+    var label: List<Label> = emptyList(),
     var picture: String = "",
     val routine: List<UpdateRoutine> = emptyList()
 )
