@@ -16,6 +16,11 @@ data class RoutineSetDto(
     val weekday: String,
     @Json(name = "picture")
     val picture: String,
+    @Json(name = "label")
+    val label: String,
+    @Json(name = "count")
+    val count: Int
+
 )
 
 

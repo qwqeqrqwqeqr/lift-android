@@ -55,7 +55,7 @@ sealed class Weekday {
         const val FRIDAY_VALUE = "Fri"
         const val SATURDAY_VALUE = "Sat"
         const val SUNDAY_VALUE = "Sun"
-        const val NONE_VALUE = "None"
+        const val NONE_VALUE = ""
 
         const val MONDAY_NAME_VALUE = "월"
         const val TUESDAY_NAME_VALUE = "화"
