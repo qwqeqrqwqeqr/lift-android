@@ -5,6 +5,7 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
@@ -63,6 +64,17 @@ class DefaultRoutineDataSource @Inject constructor(
             }
         }
 
+    override suspend fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<NetworkResult<Unit>> =
+        flow {
+            networkResultHandler { routineService.updateRoutineSetCount(updateRoutineSetCount.toDto()) }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+
+                    is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
+                }
+            }
+        }
+
 
     override suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>> = flow {
         networkResultHandler { routineService.getRoutine() }.collect { result ->
@@ -105,7 +117,7 @@ class DefaultRoutineDataSource @Inject constructor(
 
     override suspend fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
-            networkResultHandler { routineService.getRoutineSetRoutineByWeekday(label.joinToString(",")) }.collect { result ->
+            networkResultHandler { routineService.getRoutineSetRoutineByLabel(label.joinToString(",")) }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
 

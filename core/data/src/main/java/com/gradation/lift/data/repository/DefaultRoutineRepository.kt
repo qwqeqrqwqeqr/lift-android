@@ -7,6 +7,7 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
@@ -33,6 +34,16 @@ class DefaultRoutineRepository @Inject constructor(
     override fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<DataState<Unit>> =
         flow {
             routineDataSource.updateRoutineSetRoutine(updateRoutineSetRoutine).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+
+    override fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<DataState<Unit>> =
+        flow {
+            routineDataSource.updateRoutineSetCount(updateRoutineSetCount).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
