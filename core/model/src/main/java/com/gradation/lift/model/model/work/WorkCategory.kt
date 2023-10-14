@@ -14,6 +14,6 @@ data class WorkCategory(
     val id: Int,
     val name: String,
     val workPart: WorkPart,
-    val introduce: String?,
-    val description: String?
+    val introduce: String,
+    val description: String
 )
