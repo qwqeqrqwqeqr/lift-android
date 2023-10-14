@@ -6,6 +6,9 @@ import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.common.toUnitOfWeight
 import com.gradation.lift.model.model.date.toWeekDay
+import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.model.model.routine.getId
+import com.gradation.lift.model.model.routine.toLabel
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.toGender
 import com.gradation.lift.model.model.work.WorkSet
@@ -22,14 +25,29 @@ import javax.inject.Inject
 @ProvidedTypeConverter
 class WeekdayTypeConverter @Inject constructor() {
     @TypeConverter
-    fun jsonTypeToWeekdayType(value: String): Weekday {
-        return value.toWeekDay()
+    fun jsonTypeToWeekdayType(value: List<String>): List<Weekday> {
+        return value.map { it.toWeekDay() }
     }
 
 
     @TypeConverter
-    fun weekdayTypeToJsonType(type: Weekday): String {
-        return type.getWeekdayValue()
+    fun weekdayTypeToJsonType(type: List<Weekday>): List<String> {
+        return type.map { it.getWeekdayValue() }
+    }
+}
+
+
+@ProvidedTypeConverter
+class LabelTypeConverter @Inject constructor() {
+    @TypeConverter
+    fun jsonTypeToLabelType(value: List<String>): List<Label> {
+        return value.map { it.toLabel() }
+    }
+
+
+    @TypeConverter
+    fun labelTypeToJsonType(type: List<Label>): List<String> {
+        return type.map { it.getId() }
     }
 }
 
@@ -61,7 +79,6 @@ class UnitOfWeightTypeConverter @Inject constructor() {
         return type.getUnitOfWeightValue()
     }
 }
-
 
 
 @ProvidedTypeConverter
@@ -100,7 +117,7 @@ class LocalTimeTypeConverter {
 
 
 @ProvidedTypeConverter
-class LocalDateTimeTypeConverter{
+class LocalDateTimeTypeConverter {
 
     @TypeConverter
     fun jsonTypeToLocalDateTime(value: String): LocalDateTime {

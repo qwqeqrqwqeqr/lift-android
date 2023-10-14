@@ -28,7 +28,7 @@ data class RoutineEntity(
     @ColumnInfo(name = "routine_set_id")
     var routineSetId: Int,
 
-    @Embedded(prefix = "work_category_")
+    @Embedded(prefix = "work_category")
     val workCategoryEntity: WorkCategoryEntity,
 
 

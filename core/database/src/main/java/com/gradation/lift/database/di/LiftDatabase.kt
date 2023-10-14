@@ -40,6 +40,7 @@ import com.gradation.lift.database.util.*
 @TypeConverters(
     value = [
         WeekdayTypeConverter::class,
+        LabelTypeConverter::class,
         WorkSetListTypeConverter::class,
         LocalTimeTypeConverter::class,
         GenderTypeConverter::class,
