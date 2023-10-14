@@ -5,6 +5,8 @@ object Constants {
 
     const val DATABASE_NAME = "lift_database"
     object Entity {
+        const val BADGE_TABLE_NAME = "badge"
+        const val USER_BADGE_TABLE_NAME = "user_badge"
         const val HISTORY_TABLE_NAME = "history"
         const val HISTORY_ROUTINE_TABLE_NAME = "history_routine"
         const val ROUTINE_TABLE_NAME = "routine"
