@@ -19,13 +19,9 @@ object TestConverterModule {
 
     @Provides
     @Singleton
-    fun provideWeekdayTypeConverter(): WeekdayTypeConverter =
-        WeekdayTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
+    fun provideListTypeConverter(): ListTypeConverter =
+        ListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
-    @Provides
-    @Singleton
-    fun provideLabelTypeConverter(): LabelTypeConverter =
-        LabelTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
     @Provides
     @Singleton

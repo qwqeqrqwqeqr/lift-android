@@ -16,10 +16,13 @@ import com.gradation.lift.database.entity.work_category.WorkPartEntity
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import kotlinx.datetime.LocalDateTime
@@ -40,7 +43,7 @@ object TestEntityDataGenerator {
         )
     }
 
-    object History{
+    object History {
         internal val historyEntity1 = HistoryEntity(
             id = 1,
             comment = "보람찬 하루",
@@ -77,7 +80,7 @@ object TestEntityDataGenerator {
         internal val historyRoutineEntity2 = HistoryRoutineEntity(
             id = 2,
             historyId = 2,
-            workCategory= workCategoryEntity2,
+            workCategory = workCategoryEntity2,
             workSetList = listOf(
                 WorkSet(weight = 10f, repetition = 12),
                 WorkSet(weight = 10f, repetition = 12),
@@ -91,25 +94,25 @@ object TestEntityDataGenerator {
 
     }
 
-    object Picture{
+    object Picture {
         val userProfilePictureEntity1 = UserProfilePictureEntity(
             id = 1,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
         val userProfilePictureEntity2 = UserProfilePictureEntity(
             id = 2,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
 
         val routineSetPictureEntity1 = RoutineSetPictureEntity(
             id = 1,
             category = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
         val routineSetPictureEntity2 = RoutineSetPictureEntity(
             id = 2,
             category = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
 
         val userProfilePictureEntityList = listOf(
@@ -122,10 +125,10 @@ object TestEntityDataGenerator {
         )
     }
 
-    object Work{
+    object Work {
         internal val workEntity = WorkEntity(
             id = 1,
-            workTime = LocalTime(0,20,0),
+            workTime = LocalTime(0, 20, 0),
             restTime = LocalTime(0, 10, 0),
             totalTime = LocalTime(0, 30, 0),
         )
@@ -151,7 +154,7 @@ object TestEntityDataGenerator {
             gender = Gender.Male(),
             height = 180.0f,
             weight = 83.3f,
-            profilePicture = BuildConfig.LIFT_S3_URL+FAKE_URL_DATA,
+            profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             unitOfWeight = UnitOfWeight.Kg()
         )
 
@@ -181,7 +184,7 @@ object TestEntityDataGenerator {
     }
 
     object Routine {
-         val routineEntity1 = RoutineEntity(
+        val routineEntity1 = RoutineEntity(
             id = 1,
             routineSetId = 1,
             workCategoryEntity = workCategoryEntity1,
@@ -193,7 +196,7 @@ object TestEntityDataGenerator {
                 WorkSet(weight = 10f, repetition = 12)
             )
         )
-         val routineEntity2 = RoutineEntity(
+        val routineEntity2 = RoutineEntity(
             id = 2,
             routineSetId = 2,
             workCategoryEntity = workCategoryEntity2,
@@ -213,20 +216,30 @@ object TestEntityDataGenerator {
     }
 
     object RoutineSetRoutine {
-         val routineSetRoutineEntity1 = RoutineSetRoutineEntity(
+        val routineSetRoutineEntity1 = RoutineSetRoutineEntity(
             id = 1,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.Monday(),
+            weekday = listOf(
+                Weekday.Monday().getWeekdayValue(),
+                Weekday.Tuesday().getWeekdayValue()
+            ),
+            label = listOf(Label.LABEL1.getId(), Label.LABEL2.getId()),
+            count = FAKE_INT_DATA,
             picture = FAKE_URL_DATA,
         )
 
-         val routineSetRoutineEntity2 = RoutineSetRoutineEntity(
+        val routineSetRoutineEntity2 = RoutineSetRoutineEntity(
             id = 2,
             name = "FAKE_ROUTINE_NAME",
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.Monday(),
+            weekday = listOf(
+                Weekday.Monday().getWeekdayValue(),
+                Weekday.Tuesday().getWeekdayValue()
+            ),
+            label = listOf(Label.LABEL1.getId(), Label.LABEL2.getId()),
             picture = FAKE_URL_DATA,
+            count = FAKE_INT_DATA,
         )
 
         val routineSetRoutineEntityList = listOf(
