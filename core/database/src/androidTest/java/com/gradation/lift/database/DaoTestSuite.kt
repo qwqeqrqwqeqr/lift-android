@@ -12,7 +12,7 @@ import org.junit.runners.Suite
     BadgeDaoTest::class,
     HistoryDaoTest::class,
     PictureDaoTest::class,
-    RoutineSetRoutineDaoTest::class,
+    RoutineDaoTest::class,
     PictureDaoTest::class,
     WorkDaoTest::class,
     WorkPartDaoTest::class,

@@ -41,7 +41,7 @@ object DaoModule {
     @Singleton
     fun provideRoutineSetRoutineDao(
         database: LiftDatabase,
-    ): RoutineSetRoutineDao = database.routineSetRoutineDao()
+    ): RoutineDao = database.routineSetRoutineDao()
 
     @Provides
     @Singleton

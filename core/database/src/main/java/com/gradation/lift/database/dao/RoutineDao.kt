@@ -8,7 +8,7 @@ import com.gradation.lift.database.util.Constants.Entity.ROUTINE_TABLE_NAME
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface RoutineSetRoutineDao {
+interface RoutineDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

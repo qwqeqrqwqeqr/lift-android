@@ -3,8 +3,7 @@ package com.gradation.lift.database.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
-import com.gradation.lift.database.dao.RoutineSetRoutineDao
-import com.gradation.lift.database.data.TestEntityDataGenerator.Routine.routineEntity1
+import com.gradation.lift.database.dao.RoutineDao
 import com.gradation.lift.database.data.TestEntityDataGenerator.Routine.routineEntityList
 import com.gradation.lift.database.data.TestEntityDataGenerator.RoutineSetRoutine.routineSetRoutineEntity1
 import com.gradation.lift.database.data.TestEntityDataGenerator.RoutineSetRoutine.routineSetRoutineEntity2
@@ -26,11 +25,11 @@ import javax.inject.Named
 @ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
-class RoutineSetRoutineDaoTest {
+class RoutineDaoTest {
     @Inject
     @Named(TEST_DATABASE)
     lateinit var database: LiftDatabase
-    private lateinit var routineSetRoutineDao: RoutineSetRoutineDao
+    private lateinit var routineDao: RoutineDao
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -41,7 +40,7 @@ class RoutineSetRoutineDaoTest {
     @Before
     fun setup() {
         hiltRule.inject()
-        routineSetRoutineDao = database.routineSetRoutineDao()
+        routineDao = database.routineSetRoutineDao()
     }
 
     @After
@@ -51,12 +50,12 @@ class RoutineSetRoutineDaoTest {
 
     @Test
     fun testInsertAllRoutineSetRoutine() = runTest {
-        routineSetRoutineDao.insertAll(
+        routineDao.insertAll(
             routineSetRoutineEntity = routineSetRoutineEntityList,
             routineEntity = routineEntityList
         )
 
-        with(routineSetRoutineDao.getAllRoutineSetRoutine().first()){
+        with(routineDao.getAllRoutineSetRoutine().first()){
             Truth.assertThat(this.size).isEqualTo(2)
             Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(
                 setOf(
@@ -71,12 +70,12 @@ class RoutineSetRoutineDaoTest {
 
     @Test
     fun testDeleteAllRoutineSetRoutine() = runTest {
-        routineSetRoutineDao.insertAll(
+        routineDao.insertAll(
             routineSetRoutineEntity = routineSetRoutineEntityList,
             routineEntity = routineEntityList
         )
 
-        routineSetRoutineDao.deleteAllRoutineSetRoutine()
-        Truth.assertThat(routineSetRoutineDao.getAllRoutineSetRoutine().first().size).isEqualTo(0)
+        routineDao.deleteAllRoutineSetRoutine()
+        Truth.assertThat(routineDao.getAllRoutineSetRoutine().first().size).isEqualTo(0)
     }
 }
