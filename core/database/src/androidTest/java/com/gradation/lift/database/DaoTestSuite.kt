@@ -6,7 +6,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
 
-
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
@@ -19,5 +18,6 @@ import org.junit.runners.Suite
     WorkPartDaoTest::class,
     WorkCategoryDaoTest::class,
     UserDaoTest::class,
+    NoticeDaoTest::class,
 )
 class DaoTestSuite

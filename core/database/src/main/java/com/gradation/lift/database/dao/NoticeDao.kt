@@ -12,7 +12,7 @@ interface NoticeDao {
     suspend fun insertAllNotice(vararg noticeEntity: NoticeEntity)
 
     @Query("DELETE FROM '${NOTICE_TABLE_NAME}'")
-    suspend fun deleteAllUserProfilePicture()
+    suspend fun deleteAllNotice()
 
     @Query("SELECT * FROM `${NOTICE_TABLE_NAME}`")
     fun getAllNotice(): Flow<List<NoticeEntity>>

@@ -65,6 +65,7 @@ object TestEntityDataGenerator {
             description = FAKE_STRING_DATA,
             date = LocalDate(2023, 8, 31)
         )
+        val noticeEntityList = listOf(noticeEntity)
     }
 
     object WorkPart {

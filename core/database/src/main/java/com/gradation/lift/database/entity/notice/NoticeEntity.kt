@@ -28,5 +28,5 @@ data class NoticeEntity(
     val date: LocalDate,
 
     @ColumnInfo(name = "checked")
-    val checked: Boolean
+    val checked: Boolean = false
 )
