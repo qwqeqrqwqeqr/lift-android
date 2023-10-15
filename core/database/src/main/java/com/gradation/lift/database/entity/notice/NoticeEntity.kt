@@ -27,4 +27,6 @@ data class NoticeEntity(
     @ColumnInfo(name = "date")
     val date: LocalDate,
 
-    )
+    @ColumnInfo(name = "checked")
+    val checked: Boolean
+)
