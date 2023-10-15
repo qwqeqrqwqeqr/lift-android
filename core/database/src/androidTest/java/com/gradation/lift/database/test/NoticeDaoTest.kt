@@ -3,14 +3,11 @@ package com.gradation.lift.database.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
-import com.gradation.lift.database.dao.BadgeDao
 import com.gradation.lift.database.dao.NoticeDao
-import com.gradation.lift.database.data.TestEntityDataGenerator.Badge.badgeEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.Badge.userBadgeEntityList
+import com.gradation.lift.database.data.TestEntityDataGenerator.Notification.noticeEntity
 import com.gradation.lift.database.data.TestEntityDataGenerator.Notification.noticeEntityList
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.di.LiftDatabase
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -51,7 +48,7 @@ class NoticeDaoTest {
     }
 
     @Test
-    fun testInsertAllBadge() = runTest {
+    fun testInsertAllNotice() = runTest {
         noticeDao.insertAllNotice(
             noticeEntity = noticeEntityList.toTypedArray()
         )
@@ -62,9 +59,24 @@ class NoticeDaoTest {
         }
     }
 
+    @Test
+    fun testUpdateNotice() = runTest {
+        noticeDao.insertAllNotice(
+            noticeEntity = noticeEntityList.toTypedArray()
+        )
+        noticeDao.updateNotice(
+            noticeEntity.copy(checked = true)
+        )
+
+        with(noticeDao.getAllNotice().first()) {
+            Truth.assertThat(this.size).isEqualTo(1)
+            Truth.assertThat(this.map { it.checked }.first()).isEqualTo(true)
+        }
+    }
+
 
     @Test
-    fun testDeleteAllBadge() = runTest {
+    fun testDeleteAllNotice() = runTest {
         noticeDao.insertAllNotice(
             noticeEntity = noticeEntityList.toTypedArray()
         )

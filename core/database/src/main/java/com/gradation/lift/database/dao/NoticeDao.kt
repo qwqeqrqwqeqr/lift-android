@@ -17,4 +17,8 @@ interface NoticeDao {
     @Query("SELECT * FROM `${NOTICE_TABLE_NAME}`")
     fun getAllNotice(): Flow<List<NoticeEntity>>
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateNotice(noticeEntity: NoticeEntity)
+
+
 }
