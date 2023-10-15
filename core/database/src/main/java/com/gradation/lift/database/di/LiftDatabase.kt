@@ -6,8 +6,11 @@ import androidx.room.RoomWarnings
 import androidx.room.TypeConverters
 import com.gradation.lift.database.dao.*
 import com.gradation.lift.database.entity.*
+import com.gradation.lift.database.entity.badge.BadgeEntity
+import com.gradation.lift.database.entity.badge.UserBadgeEntity
 import com.gradation.lift.database.entity.history.HistoryEntity
 import com.gradation.lift.database.entity.history.HistoryRoutineEntity
+import com.gradation.lift.database.entity.notice.NoticeEntity
 import com.gradation.lift.database.entity.picture.RoutineSetPictureEntity
 import com.gradation.lift.database.entity.picture.UserProfilePictureEntity
 import com.gradation.lift.database.entity.routine.RoutineEntity
@@ -22,17 +25,20 @@ import com.gradation.lift.database.util.*
 @SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 @Database(
     entities = [
+        BadgeEntity::class,
+        UserBadgeEntity::class,
         HistoryEntity::class,
         HistoryRoutineEntity::class,
-        RoutineEntity::class,
+        NoticeEntity::class,
         RoutineSetPictureEntity::class,
-        RoutineSetRoutineEntity::class,
         UserProfilePictureEntity::class,
-        WorkCategoryEntity::class,
+        RoutineEntity::class,
+        RoutineSetRoutineEntity::class,
+        UserEntity::class,
         WorkEntity::class,
         WorkRoutineEntity::class,
+        WorkCategoryEntity::class,
         WorkPartEntity::class,
-        UserEntity::class,
     ],
     version = 1,
     exportSchema = false,
@@ -50,13 +56,16 @@ import com.gradation.lift.database.util.*
     ]
 )
 abstract class LiftDatabase : RoomDatabase() {
-    abstract fun workCategoryDao(): WorkCategoryDao
-    abstract fun workPartDao(): WorkPartDao
-    abstract fun routineSetRoutineDao(): RoutineSetRoutineDao
-    abstract fun pictureDao(): PictureDao
+    abstract fun badgeDao(): BadgeDao
     abstract fun historyDao(): HistoryDao
-    abstract fun workDao(): WorkDao
+    abstract fun noticeDao(): NoticeDao
+    abstract fun pictureDao(): PictureDao
+    abstract fun routineSetRoutineDao(): RoutineSetRoutineDao
     abstract fun userDao(): UserDao
+    abstract fun workCategoryDao(): WorkCategoryDao
+    abstract fun workDao(): WorkDao
+    abstract fun workPartDao(): WorkPartDao
+
 
 }
 
