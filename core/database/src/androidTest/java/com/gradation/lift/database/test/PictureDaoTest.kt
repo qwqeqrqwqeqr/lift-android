@@ -52,7 +52,7 @@ class PictureDaoTest {
 
 
     @Test
-    fun testInsertUserProfilePicture() = runTest {
+    fun testInsertAllUserProfilePicture() = runTest {
         pictureDao.insertAllUserProfilePicture(userProfilePictureEntity = userProfilePictureEntityList.toTypedArray())
 
         with(pictureDao.getAllUserProfilePicture().first()){
@@ -68,7 +68,7 @@ class PictureDaoTest {
     }
 
     @Test
-    fun testInsertRoutineSetPicture() = runTest {
+    fun testInsertAllRoutineSetPicture() = runTest {
         pictureDao.insertAllRoutineSetPicture(routineSetPictureEntity = routineSetPictureEntityList.toTypedArray())
 
         with(pictureDao.getAllRoutineSetPicture().first()){
@@ -85,7 +85,7 @@ class PictureDaoTest {
     }
 
     @Test
-    fun testDeleteUserProfilePicture() = runTest {
+    fun testDeleteAllUserProfilePicture() = runTest {
         pictureDao.insertAllUserProfilePicture(userProfilePictureEntity = userProfilePictureEntityList.toTypedArray())
         pictureDao.deleteAllUserProfilePicture()
         with(pictureDao.getAllUserProfilePicture().first()){
@@ -95,7 +95,7 @@ class PictureDaoTest {
 
 
     @Test
-    fun testDeleteRoutineSetPicture() = runTest {
+    fun testDeleteAllRoutineSetPicture() = runTest {
         pictureDao.insertAllRoutineSetPicture(routineSetPictureEntity = routineSetPictureEntityList.toTypedArray())
         pictureDao.deleteAllRoutineSetPicture()
 

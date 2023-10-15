@@ -85,7 +85,7 @@ class WorkDaoTest {
 
 
     @Test
-    fun testExistUser() = runTest {
+    fun testExistWork() = runTest {
         Truth.assertThat(workDao.existWork().first()).isEqualTo(false)
         workDao.insert(workEntity = workEntity, workRoutineEntity = workRoutineEntityList)
         Truth.assertThat(workDao.existWork().first()).isEqualTo(true)

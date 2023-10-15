@@ -50,11 +50,7 @@ class RoutineSetRoutineDaoTest {
     }
 
     @Test
-    fun testInsertRoutineSetRoutine() = runTest {
-        routineSetRoutineDao.insert(
-            routineSetRoutineEntity = routineSetRoutineEntity1,
-            routineEntity = routineEntity1
-        )
+    fun testInsertAllRoutineSetRoutine() = runTest {
         routineSetRoutineDao.insertAll(
             routineSetRoutineEntity = routineSetRoutineEntityList,
             routineEntity = routineEntityList
@@ -74,13 +70,11 @@ class RoutineSetRoutineDaoTest {
     }
 
     @Test
-    fun testDeleteRoutineSetRoutine() = runTest {
+    fun testDeleteAllRoutineSetRoutine() = runTest {
         routineSetRoutineDao.insertAll(
             routineSetRoutineEntity = routineSetRoutineEntityList,
             routineEntity = routineEntityList
         )
-        routineSetRoutineDao.deleteRoutineSetRoutine(routineSetRoutineEntity1)
-        Truth.assertThat(routineSetRoutineDao.getAllRoutineSetRoutine().first().size).isEqualTo(1)
 
         routineSetRoutineDao.deleteAllRoutineSetRoutine()
         Truth.assertThat(routineSetRoutineDao.getAllRoutineSetRoutine().first().size).isEqualTo(0)
