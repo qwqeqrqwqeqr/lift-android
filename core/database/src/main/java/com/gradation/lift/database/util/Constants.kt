@@ -18,6 +18,7 @@ object Constants {
         const val WORK_PART_TABLE_NAME = "work_part"
         const val WORK_ROUTINE_TABLE_NAME = "work_routine"
         const val USER_TABLE_NAME = "user"
+        const val NOTICE_TABLE_NAME = "notice"
     }
 
 }

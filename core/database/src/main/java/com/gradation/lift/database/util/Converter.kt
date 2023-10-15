@@ -12,10 +12,13 @@ import com.gradation.lift.model.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.LocalTime.Companion.parse as localTimeParse
 import kotlinx.datetime.LocalDateTime.Companion.parse as localDateTimeParse
+import kotlinx.datetime.LocalDate.Companion.parse as localDateParse
+
 import javax.inject.Inject
 
 
@@ -119,6 +122,20 @@ class LocalTimeTypeConverter {
 
     @TypeConverter
     fun localTimeToJsonType(type: LocalTime): String {
+        return type.toString()
+    }
+}
+
+
+@ProvidedTypeConverter
+class LocalDateTypeConverter {
+    @TypeConverter
+    fun jsonTypeToLocalDate(value: String): LocalDate {
+        return localDateParse(value)
+    }
+
+    @TypeConverter
+    fun localDateToJsonType(type: LocalTime): String {
         return type.toString()
     }
 }

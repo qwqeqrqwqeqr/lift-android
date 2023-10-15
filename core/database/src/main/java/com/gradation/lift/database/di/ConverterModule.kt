@@ -16,9 +16,13 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideWeekdayTypeConverter(): WeekdayTypeConverter =
-        WeekdayTypeConverter()
+    fun provideWeekdayTypeConverter(moshi: Moshi): WeekdayTypeConverter =
+        WeekdayTypeConverter(moshi)
 
+    @Provides
+    @Singleton
+    fun provideLabelTypeConverter(moshi: Moshi): LabelTypeConverter =
+        LabelTypeConverter(moshi)
 
     @Provides
     @Singleton
@@ -37,14 +41,16 @@ object ConverterModule {
         WorkSetListTypeConverter(moshi)
 
 
-
-
-
     @Provides
     @Singleton
     fun provideLocalTimeTypeConverter(): LocalTimeTypeConverter =
         LocalTimeTypeConverter()
 
+
+    @Provides
+    @Singleton
+    fun provideLocalDateTypeConverter(): LocalDateTypeConverter =
+        LocalDateTypeConverter()
 
     @Provides
     @Singleton

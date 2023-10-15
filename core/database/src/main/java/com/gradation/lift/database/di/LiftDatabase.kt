@@ -45,7 +45,8 @@ import com.gradation.lift.database.util.*
         LocalTimeTypeConverter::class,
         GenderTypeConverter::class,
         UnitOfWeightTypeConverter::class,
-        LocalDateTimeTypeConverter::class
+        LocalDateTimeTypeConverter::class,
+        LocalDateTypeConverter::class
     ]
 )
 abstract class LiftDatabase : RoomDatabase() {
