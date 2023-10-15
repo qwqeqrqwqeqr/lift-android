@@ -20,17 +20,22 @@ object TestConverterModule {
     @Provides
     @Singleton
     fun provideWeekdayTypeConverter(): WeekdayTypeConverter =
-        WeekdayTypeConverter()
+        WeekdayTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
+
     @Provides
     @Singleton
-    fun provideUnitOfWeightTypeConverter(): UnitOfWeightTypeConverter =
-        UnitOfWeightTypeConverter()
-
+    fun provideLabelTypeConverter(): LabelTypeConverter =
+        LabelTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
     @Provides
     @Singleton
     fun provideGenderTypeConverter(): GenderTypeConverter =
         GenderTypeConverter()
+
+    @Provides
+    @Singleton
+    fun provideUnitOfWeightTypeConverter(): UnitOfWeightTypeConverter =
+        UnitOfWeightTypeConverter()
 
 
     @Provides
@@ -44,6 +49,11 @@ object TestConverterModule {
     fun provideLocalTimeTypeConverter(): LocalTimeTypeConverter =
         LocalTimeTypeConverter()
 
+
+    @Provides
+    @Singleton
+    fun provideLocalDateTypeConverter(): LocalDateTypeConverter =
+        LocalDateTypeConverter()
 
     @Provides
     @Singleton
