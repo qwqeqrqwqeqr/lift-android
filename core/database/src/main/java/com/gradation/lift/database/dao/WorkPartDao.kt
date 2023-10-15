@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WorkPartDao {
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorkPart(workPartEntity: WorkPartEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -18,7 +16,6 @@ interface WorkPartDao {
     suspend fun deleteWorkPart(workPartEntity: WorkPartEntity)
     @Query("DELETE FROM '${WORK_PART_TABLE_NAME}'")
     suspend fun deleteAllWorkPart()
-
 
     @Query("SELECT * FROM `${WORK_PART_TABLE_NAME}`")
     fun getAllWorkPart() : Flow<List<WorkPartEntity>>

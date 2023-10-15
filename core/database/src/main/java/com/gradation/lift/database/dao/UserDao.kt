@@ -11,16 +11,10 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(userEntity: UserEntity)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateUser(userEntity: UserEntity)
-
     @Query("DELETE FROM '${USER_TABLE_NAME}'")
     suspend fun deleteAllUser()
 
     @Query("SELECT * FROM `${USER_TABLE_NAME}`")
-     fun getAllUser() : Flow<List<UserEntity>>
-
-    @Query("SELECT EXISTS(SELECT * FROM `${USER_TABLE_NAME}`)")
-    fun existUser() : Flow<Boolean>
+    fun getAllUser(): Flow<List<UserEntity>>
 
 }
