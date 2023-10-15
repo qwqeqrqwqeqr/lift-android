@@ -16,13 +16,8 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideWeekdayTypeConverter(moshi: Moshi): WeekdayTypeConverter =
-        WeekdayTypeConverter(moshi)
-
-    @Provides
-    @Singleton
-    fun provideLabelTypeConverter(moshi: Moshi): LabelTypeConverter =
-        LabelTypeConverter(moshi)
+    fun provideListTypeConverter(moshi: Moshi): ListTypeConverter =
+        ListTypeConverter(moshi)
 
     @Provides
     @Singleton

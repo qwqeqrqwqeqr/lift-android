@@ -3,9 +3,7 @@ package com.gradation.lift.database.util
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.common.toUnitOfWeight
-import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.toGender
 import com.gradation.lift.model.model.work.WorkSet
@@ -23,41 +21,20 @@ import javax.inject.Inject
 
 
 @ProvidedTypeConverter
-class WeekdayTypeConverter(
+class ListTypeConverter(
     private val moshi: Moshi,
 ) {
     @TypeConverter
-    fun jsonTypeToWeekdayType(value: String): List<Weekday>? {
-        val listType = Types.newParameterizedType(List::class.java, Weekday::class.java)
-        val adapter: JsonAdapter<List<Weekday>> = moshi.adapter(listType)
+    fun jsonTypeToListType(value: String): List<String>? {
+        val listType = Types.newParameterizedType(List::class.java, String::class.java)
+        val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun weekdayTypeToJsonType(type: List<Weekday>): String {
-        val listType = Types.newParameterizedType(List::class.java, Weekday::class.java)
-        val adapter: JsonAdapter<List<Weekday>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-}
-
-
-@ProvidedTypeConverter
-class LabelTypeConverter(
-    private val moshi: Moshi
-) {
-    @TypeConverter
-    fun jsonTypeToLabelType(value: String): List<Label>? {
-        val listType = Types.newParameterizedType(List::class.java, Label::class.java)
-        val adapter: JsonAdapter<List<Label>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-
-    @TypeConverter
-    fun labelTypeToJsonType(type: List<Label>): String {
-        val listType = Types.newParameterizedType(List::class.java, Label::class.java)
-        val adapter: JsonAdapter<List<Label>> = moshi.adapter(listType)
+    fun listTypeToJsonType(type: List<String>): String {
+        val listType = Types.newParameterizedType(List::class.java, String::class.java)
+        val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
@@ -135,7 +112,7 @@ class LocalDateTypeConverter {
     }
 
     @TypeConverter
-    fun localDateToJsonType(type: LocalTime): String {
+    fun localDateToJsonType(type: LocalDate): String {
         return type.toString()
     }
 }

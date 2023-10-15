@@ -2,11 +2,10 @@ package com.gradation.lift.database.entity.routine
 
 import androidx.room.*
 import com.gradation.lift.database.util.Constants.Entity.ROUTINE_SET_ROUTINE_TABLE_NAME
-import com.gradation.lift.database.util.LabelTypeConverter
-import com.gradation.lift.database.util.WeekdayTypeConverter
-import com.gradation.lift.model.model.date.Weekday
-import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.database.util.ListTypeConverter
+import com.gradation.lift.model.model.date.toWeekDay
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.toLabel
 
 @Entity(
     tableName = ROUTINE_SET_ROUTINE_TABLE_NAME
@@ -27,12 +26,12 @@ data class RoutineSetRoutineEntity(
     val picture: String,
 
     @ColumnInfo(name = "weekday")
-    @TypeConverters(WeekdayTypeConverter::class)
-    val weekday: List<Weekday>,
+    @TypeConverters(ListTypeConverter::class)
+    val weekday: List<String>,
 
     @ColumnInfo(name = "label")
-    @TypeConverters(LabelTypeConverter::class)
-    val label: List<Label>,
+    @TypeConverters(ListTypeConverter::class)
+    val label: List<String>,
 
     @ColumnInfo(name = "count")
     val count: Int,
@@ -41,9 +40,9 @@ data class RoutineSetRoutineEntity(
         id = id,
         name = name,
         description = description,
-        weekday = weekday,
+        weekday = weekday.map { it.toWeekDay() },
         picture = picture,
-        label = label,
+        label = label.map { it.toLabel() },
         count = count,
         routine = emptyList()
     )
