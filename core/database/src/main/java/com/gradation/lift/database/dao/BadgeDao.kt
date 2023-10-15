@@ -14,7 +14,7 @@ interface BadgeDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllBadge(vararg workPartEntity: BadgeEntity)
+    suspend fun insertAllBadge(vararg badgeEntity: BadgeEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllUserBadge(vararg userBadgeEntity: UserBadgeEntity)

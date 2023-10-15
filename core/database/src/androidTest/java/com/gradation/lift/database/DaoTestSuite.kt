@@ -10,6 +10,7 @@ import org.junit.runners.Suite
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
+    BadgeDaoTest::class,
     HistoryDaoTest::class,
     PictureDaoTest::class,
     RoutineSetRoutineDaoTest::class,

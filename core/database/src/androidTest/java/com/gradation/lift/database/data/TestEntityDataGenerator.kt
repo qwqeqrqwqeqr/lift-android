@@ -2,8 +2,11 @@ package com.gradation.lift.database.data
 
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity2
+import com.gradation.lift.database.entity.badge.BadgeEntity
+import com.gradation.lift.database.entity.badge.UserBadgeEntity
 import com.gradation.lift.database.entity.history.HistoryEntity
 import com.gradation.lift.database.entity.history.HistoryRoutineEntity
+import com.gradation.lift.database.entity.notice.NoticeEntity
 import com.gradation.lift.database.entity.picture.RoutineSetPictureEntity
 import com.gradation.lift.database.entity.picture.UserProfilePictureEntity
 import com.gradation.lift.database.entity.routine.RoutineEntity
@@ -22,15 +25,47 @@ import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
 object TestEntityDataGenerator {
     const val TEST_DATABASE = "test_database"
 
+
+    object Badge {
+        internal val badgeEntity = BadgeEntity(
+            id = FAKE_INT_DATA,
+            name = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            hint = FAKE_STRING_DATA,
+            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+            color = DefaultDataGenerator.FAKE_COLOR_DATA
+        )
+
+        internal val userBadgeEntity = UserBadgeEntity(
+            badge = badgeEntity,
+            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            mainFlag = DefaultDataGenerator.FAKE_BOOLEAN_DATA
+        )
+
+        val badgeEntityList = listOf(badgeEntity)
+        val userBadgeEntityList = listOf(userBadgeEntity)
+
+    }
+
+    object Notification {
+        val noticeEntity = NoticeEntity(
+            id = FAKE_INT_DATA,
+            title = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            date = LocalDate(2023, 8, 31)
+        )
+    }
 
     object WorkPart {
         internal val workPartEntity1 = WorkPartEntity(id = 1, name = "어깨")
