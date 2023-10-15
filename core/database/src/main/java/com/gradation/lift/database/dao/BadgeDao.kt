@@ -1,5 +1,6 @@
 package com.gradation.lift.database.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,6 +10,7 @@ import com.gradation.lift.database.entity.badge.UserBadgeEntity
 import com.gradation.lift.database.util.Constants
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface BadgeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
