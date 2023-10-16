@@ -1,6 +1,5 @@
-package com.gradation.lift.database.datasource
+package com.gradation.lift.database.datasource.routine
 
-import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 
@@ -14,5 +13,7 @@ interface RoutineDataSource {
 
     suspend fun getAllRoutineSetRoutine(): Flow<List<RoutineSetRoutine>>
     suspend fun deleteAllRoutineSetRoutine()
-    suspend fun insertAllRoutine(routineSetPicture: List<RoutineSetPicture>)
+    suspend fun insertAllRoutine(
+        routineSetRoutine: List<RoutineSetRoutine>,
+    )
 }
