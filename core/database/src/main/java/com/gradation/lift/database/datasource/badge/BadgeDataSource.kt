@@ -1,4 +1,4 @@
-package com.gradation.lift.database.datasource
+package com.gradation.lift.database.datasource.badge
 
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.UserBadge
