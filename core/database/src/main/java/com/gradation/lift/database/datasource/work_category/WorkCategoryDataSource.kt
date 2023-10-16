@@ -1,4 +1,4 @@
-package com.gradation.lift.database.datasource
+package com.gradation.lift.database.datasource.work_category
 
 import com.gradation.lift.model.model.work.WorkCategory
 import kotlinx.coroutines.flow.Flow
