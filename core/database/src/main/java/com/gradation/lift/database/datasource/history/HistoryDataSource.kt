@@ -1,7 +1,6 @@
 package com.gradation.lift.database.datasource.history
 
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.model.model.history.HistoryRoutine
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -16,6 +15,5 @@ interface HistoryDataSource {
     suspend fun deleteAllHistory()
     suspend fun insertAllHistory(
         history: List<History>,
-        historyRoutine: List<HistoryRoutine>
     )
 }
