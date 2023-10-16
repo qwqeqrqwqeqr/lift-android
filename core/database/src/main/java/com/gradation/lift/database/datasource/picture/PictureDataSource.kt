@@ -1,4 +1,4 @@
-package com.gradation.lift.database.datasource
+package com.gradation.lift.database.datasource.picture
 
 import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.model.model.picture.UserProfilePicture
