@@ -1,4 +1,4 @@
-package com.gradation.lift.database.datasource
+package com.gradation.lift.database.datasource.work
 
 import com.gradation.lift.model.model.work.Work
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ interface WorkDataSource {
 
     suspend fun insertWork(work: Work)
     suspend fun updateWork(work: Work)
-    suspend fun deleteWork()
+    suspend fun deleteWork(work: Work)
     suspend fun deleteAllWork()
     fun getAllWork(): Flow<List<Work>>
     fun existWork(): Flow<Boolean>
