@@ -16,4 +16,6 @@ interface HistoryDataSource {
     suspend fun insertAllHistory(
         history: List<History>,
     )
+
+    suspend fun fetch(history: List<History>)
 }

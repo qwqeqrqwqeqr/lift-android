@@ -39,4 +39,14 @@ class DefaultBadgeDataSource @Inject constructor(
         badgeDao.insertAllUserBadge(*userBadge.map { it.toEntity() }.toTypedArray())
     }
 
+    override suspend fun fetch(badge: List<Badge>) {
+        badgeDao.deleteAllBadge()
+        badgeDao.insertAllBadge(*badge.map { it.toEntity() }.toTypedArray())
+    }
+
+    override suspend fun fetch(userBadge: List<UserBadge>) {
+        badgeDao.deleteAllUserBadge()
+        badgeDao.insertAllUserBadge(*userBadge.map { it.toEntity() }.toTypedArray())
+    }
+
 }

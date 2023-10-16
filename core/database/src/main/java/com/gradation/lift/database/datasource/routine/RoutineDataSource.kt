@@ -16,4 +16,6 @@ interface RoutineDataSource {
     suspend fun insertAllRoutine(
         routineSetRoutine: List<RoutineSetRoutine>,
     )
+
+    suspend fun fetch(routineSetRoutine: List<RoutineSetRoutine>)
 }

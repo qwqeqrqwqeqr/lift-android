@@ -20,4 +20,7 @@ interface PictureDataSource {
     suspend fun deleteAllRoutineSetPicture()
     suspend fun insertAllUserProfilePicture(userProfilePicture: List<UserProfilePicture>)
     suspend fun insertAllRoutineSetPicture(routineSetPicture: List<RoutineSetPicture>)
+
+    suspend fun fetch(userProfilePicture: List<UserProfilePicture>)
+    suspend fun fetch(routineSetPicture: List<RoutineSetPicture>)
 }

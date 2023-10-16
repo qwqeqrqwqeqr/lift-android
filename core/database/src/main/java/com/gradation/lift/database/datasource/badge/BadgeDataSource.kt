@@ -21,4 +21,8 @@ interface BadgeDataSource {
 
     suspend fun insertAllBadge(badge: List<Badge>)
     suspend fun insertAllUserBadge(userBadge: List<UserBadge>)
+
+
+    suspend fun fetch(badge: List<Badge>)
+    suspend fun fetch(userBadge: List<UserBadge>)
 }

@@ -34,5 +34,13 @@ class DefaultRoutineDataSource @Inject constructor(
         )
     }
 
+    override suspend fun fetch(routineSetRoutine: List<RoutineSetRoutine>) {
+        routineDao.deleteAllRoutineSetRoutine()
+        routineDao.insertAll(
+            routineSetRoutineEntity = routineSetRoutine.map { it.toEntity() },
+            routineEntity = routineSetRoutine.flatMap { it.routine.map { it.toEntity() } }
+        )
+    }
+
 
 }

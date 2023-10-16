@@ -26,4 +26,11 @@ class DefaultWorkCategoryDataSource @Inject constructor(
         }
     }
 
+    override suspend fun fetch(workCategory: List<WorkCategory>) {
+        workCategoryDao.deleteAllWorkCategory()
+        workCategoryDao.insertAllWorkCategory(
+            *workCategory.map { it.toEntity() }.toTypedArray()
+        )
+    }
+
 }

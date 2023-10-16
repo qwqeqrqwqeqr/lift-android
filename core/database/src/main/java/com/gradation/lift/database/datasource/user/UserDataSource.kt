@@ -13,4 +13,6 @@ interface UserDataSource {
     suspend fun getUser(): Flow<UserDetail>
     suspend fun deleteAllUser()
     suspend fun insertUser(userDetail: UserDetail)
+
+    suspend fun fetch(userDetail: UserDetail)
 }

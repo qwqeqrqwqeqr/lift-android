@@ -15,4 +15,6 @@ interface NoticeDataSource {
     suspend fun deleteAllNotice()
     suspend fun insertAllNotice(notice: List<Notice>)
     suspend fun updateNoticeChecked(notice: Notice)
+
+    suspend fun fetch(notice: List<Notice>)
 }

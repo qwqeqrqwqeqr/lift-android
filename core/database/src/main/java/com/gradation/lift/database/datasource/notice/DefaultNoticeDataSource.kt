@@ -12,11 +12,7 @@ class DefaultNoticeDataSource @Inject constructor(
 ) : NoticeDataSource {
     override suspend fun getAllNotice(): Flow<List<Pair<Notice, Boolean>>> = flow {
         noticeDao.getAllNotice().collect { noticeEntity ->
-            emit(
-                noticeEntity.map {
-                    Pair(it.toDomain(), it.checked)
-                }
-            )
+            emit(noticeEntity.map { Pair(it.toDomain(), it.checked) })
         }
     }
 
@@ -30,6 +26,20 @@ class DefaultNoticeDataSource @Inject constructor(
 
     override suspend fun updateNoticeChecked(notice: Notice) {
         noticeDao.updateNotice(notice.toEntity().copy(checked = true))
+    }
+
+    override suspend fun fetch(notice: List<Notice>) {
+        noticeDao.getAllNotice().collect {
+            val checkedList = it.filter { noticeEntity -> noticeEntity.checked }.map { it.id }
+            noticeDao.deleteAllNotice()
+            noticeDao.insertAllNotice(
+                *notice.map { notice ->
+                    notice
+                        .toEntity()
+                        .copy(checked = checkedList.contains(notice.id))
+                }.toTypedArray()
+            )
+        }
     }
 
 
