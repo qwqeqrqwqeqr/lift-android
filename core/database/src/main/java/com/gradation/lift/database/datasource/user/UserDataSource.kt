@@ -1,4 +1,4 @@
-package com.gradation.lift.database.datasource
+package com.gradation.lift.database.datasource.user
 
 import com.gradation.lift.model.model.user.UserDetail
 import kotlinx.coroutines.flow.Flow
