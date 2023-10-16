@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.gradation.lift.database.util.Constants
 import com.gradation.lift.database.util.LocalDateTypeConverter
+import com.gradation.lift.model.model.notification.Notice
 import kotlinx.datetime.LocalDate
 
 @Entity(
@@ -29,4 +30,8 @@ data class NoticeEntity(
 
     @ColumnInfo(name = "checked")
     val checked: Boolean = false
-)
+) {
+    fun toDomain() = Notice(
+        id, title, description, date
+    )
+}
