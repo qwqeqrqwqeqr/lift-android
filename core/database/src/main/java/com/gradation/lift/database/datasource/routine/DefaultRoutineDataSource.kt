@@ -25,7 +25,7 @@ class DefaultRoutineDataSource @Inject constructor(
         routineDao.deleteAllRoutineSetRoutine()
     }
 
-    override suspend fun insertAllRoutine(
+    override suspend fun insertAllRoutineSetRoutine(
         routineSetRoutine: List<RoutineSetRoutine>,
     ) {
         routineDao.insertAll(
@@ -34,7 +34,7 @@ class DefaultRoutineDataSource @Inject constructor(
         )
     }
 
-    override suspend fun fetch(routineSetRoutine: List<RoutineSetRoutine>) {
+    override suspend fun fetchRoutineSetRoutine(routineSetRoutine: List<RoutineSetRoutine>) {
         routineDao.deleteAllRoutineSetRoutine()
         routineDao.insertAll(
             routineSetRoutineEntity = routineSetRoutine.map { it.toEntity() },

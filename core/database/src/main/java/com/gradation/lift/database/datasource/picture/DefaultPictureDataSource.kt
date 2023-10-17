@@ -41,13 +41,13 @@ class DefaultPictureDataSource @Inject constructor(
             .toTypedArray())
     }
 
-    override suspend fun fetch(userProfilePicture: List<UserProfilePicture>) {
+    override suspend fun fetchUserProfilePicture(userProfilePicture: List<UserProfilePicture>) {
         pictureDao.deleteAllUserProfilePicture()
         pictureDao.insertAllUserProfilePicture(*userProfilePicture.map { it.toEntity() }
             .toTypedArray())
     }
 
-    override suspend fun fetch(routineSetPicture: List<RoutineSetPicture>) {
+    override suspend fun fetchRoutineSetPicture(routineSetPicture: List<RoutineSetPicture>) {
         pictureDao.deleteAllRoutineSetPicture()
         pictureDao.insertAllRoutineSetPicture(*routineSetPicture.map { it.toEntity() }
             .toTypedArray())

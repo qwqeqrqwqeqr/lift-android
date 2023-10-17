@@ -34,7 +34,7 @@ class DefaultHistoryDataSource @Inject constructor(
         )
     }
 
-    override suspend fun fetch(history: List<History>) {
+    override suspend fun fetchHistory(history: List<History>) {
         historyDao.deleteAllHistory()
         historyDao.insertAll(
             historyEntity = history.map { it.toEntity() },

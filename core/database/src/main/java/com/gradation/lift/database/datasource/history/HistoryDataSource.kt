@@ -17,5 +17,5 @@ interface HistoryDataSource {
         history: List<History>,
     )
 
-    suspend fun fetch(history: List<History>)
+    suspend fun fetchHistory(history: List<History>)
 }

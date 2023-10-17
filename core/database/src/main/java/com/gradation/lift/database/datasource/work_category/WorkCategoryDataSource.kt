@@ -16,6 +16,6 @@ interface WorkCategoryDataSource {
     suspend fun deleteAllWorkCategory()
     suspend fun getAllWorkCategory(): Flow<List<WorkCategory>>
 
-    suspend fun fetch(workCategory: List<WorkCategory>)
+    suspend fun fetchWorkCategory(workCategory: List<WorkCategory>)
 
 }

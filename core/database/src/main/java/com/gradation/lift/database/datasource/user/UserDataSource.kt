@@ -14,5 +14,5 @@ interface UserDataSource {
     suspend fun deleteAllUser()
     suspend fun insertUser(userDetail: UserDetail)
 
-    suspend fun fetch(userDetail: UserDetail)
+    suspend fun fetchUser(userDetail: UserDetail)
 }

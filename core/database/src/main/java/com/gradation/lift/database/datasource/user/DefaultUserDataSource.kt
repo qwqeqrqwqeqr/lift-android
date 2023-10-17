@@ -24,7 +24,7 @@ class DefaultUserDataSource @Inject constructor(
         userDao.insertUser(userDetail.toDomain())
     }
 
-    override suspend fun fetch(userDetail: UserDetail) {
+    override suspend fun fetchUser(userDetail: UserDetail) {
         userDao.deleteAllUser()
         userDao.insertUser(userDetail.toDomain())
     }

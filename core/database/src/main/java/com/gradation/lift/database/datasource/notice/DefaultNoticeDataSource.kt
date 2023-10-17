@@ -28,7 +28,7 @@ class DefaultNoticeDataSource @Inject constructor(
         noticeDao.updateNotice(notice.toEntity().copy(checked = true))
     }
 
-    override suspend fun fetch(notice: List<Notice>) {
+    override suspend fun fetchNotice(notice: List<Notice>) {
         noticeDao.getAllNotice().collect {
             val checkedList = it.filter { noticeEntity -> noticeEntity.checked }.map { it.id }
             noticeDao.deleteAllNotice()
