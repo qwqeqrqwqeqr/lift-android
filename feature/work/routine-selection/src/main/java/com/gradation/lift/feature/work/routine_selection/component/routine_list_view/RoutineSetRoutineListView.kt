@@ -73,8 +73,9 @@ fun RoutineSetRoutineListView(
                                         id = routineSetRoutine.id,
                                         name = routineSetRoutine.name,
                                         description = routineSetRoutine.description,
-                                        weekday = routineSetRoutine.weekday,
                                         picture = "",
+                                        weekday = emptyList(),
+                                        label = emptyList(),
                                         routine = routineSetRoutine.routine.map { it.routine }),
                                     !routineSetRoutine.selected
                                 )
@@ -96,7 +97,8 @@ fun RoutineSetRoutineListView(
                                         id = routineSetRoutine.id,
                                         name = routineSetRoutine.name,
                                         description = routineSetRoutine.description,
-                                        weekday = routineSetRoutine.weekday,
+                                        weekday = emptyList(),
+                                        label = emptyList(),
                                         picture = "",
                                         routine = routineSetRoutine.routine.map { it.routine }),
                                     it
@@ -160,7 +162,6 @@ fun RoutineSetRoutineListView(
 }
 
 
-
 @Composable
 @Preview
 fun WorkRoutineSelectionScreenPreview() {
@@ -183,7 +184,6 @@ fun WorkRoutineSelectionScreenPreview() {
                         id = it.id,
                         name = it.name,
                         description = it.description,
-                        weekday = it.weekday,
                         selected = false,
                         routine = it.routine.map { routine ->
                             RoutineSelection(

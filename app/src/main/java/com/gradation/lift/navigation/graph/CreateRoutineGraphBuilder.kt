@@ -3,7 +3,7 @@ package com.gradation.lift.navigation.graph
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
-import com.gradation.lift.create_routine.profile.createRoutineProfileScreen
+import com.gradation.lift.create_routine.profile_picture.createRoutineProfilePictureScreen
 import com.gradation.lift.create_routine.routine.createRoutineRoutineScreen
 import com.gradation.lift.feature.create_routine.routine_set.createRoutineScreen
 import com.gradation.lift.feature.create_routine.find_work_category.createRoutineFindWorkCategoryScreen
@@ -21,7 +21,7 @@ fun createRoutineGraphBuilder(
     ) {
         createRoutineScreen(navController, this)
         createRoutineRoutineScreen(navController, this)
-        createRoutineProfileScreen(navController, this)
+        createRoutineProfilePictureScreen(navController, this)
         createRoutineFindWorkCategoryScreen(navController, this)
     }
 }

@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfilePictureInUpdateRoutineGraph
-import com.gradation.lift.navigation.navigation.navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph
 
 
 fun updateRoutineRoutineSetScreen(
@@ -14,8 +13,6 @@ fun updateRoutineRoutineSetScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
     navGraphBuilder.composable(UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-        val navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph: () -> Unit =
-            { navController.navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph() }
 
         val navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit =
             { navController.navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph() }
@@ -25,7 +22,6 @@ fun updateRoutineRoutineSetScreen(
 
         UpdateRoutineRoutineSetRoute(
             navController,
-            navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph,
             navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
             navigateRoutineSetToProfilePictureInUpdateRoutineGraph
         )

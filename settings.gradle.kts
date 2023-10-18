@@ -40,7 +40,7 @@ include(":feature:home")
 
 include(":feature:create-routine:routine-set")
 include(":feature:create-routine:find-work-category")
-include(":feature:create-routine:profile")
+include(":feature:create-routine:profile-picture")
 include(":feature:create-routine:routine")
 
 include(":feature:login:sign-in")
@@ -80,7 +80,6 @@ include(":feature:my-info:update-profile")
 include(":feature:my-info:update")
 
 include(":feature:update-routine:routine-set")
-include(":feature:update-routine:routine-selection")
 include(":feature:update-routine:profile-picture")
 include(":feature:update-routine:routine")
 include(":feature:update-routine:find-work-category")

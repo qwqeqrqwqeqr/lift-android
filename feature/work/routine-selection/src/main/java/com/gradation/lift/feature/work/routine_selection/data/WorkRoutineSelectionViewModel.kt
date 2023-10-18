@@ -13,6 +13,7 @@ import com.gradation.lift.feature.work.routine_selection.data.state.RoutineSetRo
 import com.gradation.lift.feature.work.routine_selection.data.state.SelectedRoutineSetState
 import com.gradation.lift.feature.work.work.data.model.RoutineSelection
 import com.gradation.lift.feature.work.work.data.model.RoutineSetRoutineSelection
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.toWeekday
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,39 +56,35 @@ class WorkRoutineSelectionViewModel @Inject constructor(
     )
 
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val routineSetRoutineState: StateFlow<RoutineSetRoutineSelectionUiState> =
-        dateState.currentDate.flatMapLatest {
-            combine(
-                openedRoutineState.openedRoutineIdList,
-                selectedRoutineSetState.selectedRoutineSetList,
-                getRoutineSetRoutineByWeekdayUseCase(it.toWeekday())
-            ) { openedRoutineIdList, selectedRoutineSetList, getRoutineSetRoutineByWeekdayResult ->
-                when (getRoutineSetRoutineByWeekdayResult) {
-                    is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = getRoutineSetRoutineByWeekdayResult.message)
-                    is DataState.Success -> {
-                        if (getRoutineSetRoutineByWeekdayResult.data.isEmpty()) {
-                            RoutineSetRoutineSelectionUiState.Empty
-                        } else {
-                            RoutineSetRoutineSelectionUiState.Success(
-                                getRoutineSetRoutineByWeekdayResult.data.map { routineSetRoutine ->
-                                    RoutineSetRoutineSelection(
-                                        id = routineSetRoutine.id,
-                                        name = routineSetRoutine.name,
-                                        description = routineSetRoutine.description,
-                                        weekday = routineSetRoutine.weekday,
-                                        selected = (selectedRoutineSetList.map { it -> it.id }
-                                            .contains(routineSetRoutine.id)),
-                                        routine = routineSetRoutine.routine.map { routine ->
-                                            RoutineSelection(
-                                                routine = routine,
-                                                opened = (openedRoutineIdList.contains(routine.id))
-                                            )
-                                        }
-                                    )
-                                }
-                            )
-                        }
+        combine(
+            openedRoutineState.openedRoutineIdList,
+            selectedRoutineSetState.selectedRoutineSetList,
+            getRoutineSetRoutineByWeekdayUseCase(setOf(Weekday.Monday()))
+        ) { openedRoutineIdList, selectedRoutineSetList, getRoutineSetRoutineByWeekdayResult ->
+            when (getRoutineSetRoutineByWeekdayResult) {
+                is DataState.Fail -> RoutineSetRoutineSelectionUiState.Fail(message = getRoutineSetRoutineByWeekdayResult.message)
+                is DataState.Success -> {
+                    if (getRoutineSetRoutineByWeekdayResult.data.isEmpty()) {
+                        RoutineSetRoutineSelectionUiState.Empty
+                    } else {
+                        RoutineSetRoutineSelectionUiState.Success(
+                            getRoutineSetRoutineByWeekdayResult.data.map { routineSetRoutine ->
+                                RoutineSetRoutineSelection(
+                                    id = routineSetRoutine.id,
+                                    name = routineSetRoutine.name,
+                                    description = routineSetRoutine.description,
+                                    selected = (selectedRoutineSetList.map { it -> it.id }
+                                        .contains(routineSetRoutine.id)),
+                                    routine = routineSetRoutine.routine.map { routine ->
+                                        RoutineSelection(
+                                            routine = routine,
+                                            opened = (openedRoutineIdList.contains(routine.id))
+                                        )
+                                    }
+                                )
+                            }
+                        )
                     }
                 }
             }

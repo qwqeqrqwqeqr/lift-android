@@ -21,7 +21,6 @@ import com.gradation.lift.feature.update_routine.routine.component.NavigationVie
 import com.gradation.lift.feature.update_routine.routine.component.ProfilePictureView
 import com.gradation.lift.feature.update_routine.routine.component.RoutineListView
 import com.gradation.lift.feature.update_routine.routine.data.model.IndexWorkSet
-import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.createRoutineModel
 import com.gradation.lift.navigation.Router
@@ -38,11 +37,9 @@ fun UpdateRoutineRoutineRoute(
 ) {
     val updateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.UPDATE_ROUTINE_GRAPH_NAME) }
-    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(updateRoutineBackStackEntry)
 
     val workSetList: List<IndexWorkSet> by viewModel.indexWorkSetList.collectAsStateWithLifecycle()
     val createRoutineCondition: Boolean by viewModel.createRoutineCondition.collectAsStateWithLifecycle()
-    val tempWorkCategory: String by sharedViewModel.tempWorkCategory.collectAsStateWithLifecycle()
 
 
     val addWorkSet: () -> Unit = viewModel.addWorkSet()
@@ -50,7 +47,6 @@ fun UpdateRoutineRoutineRoute(
     val removeWorkSet: (IndexWorkSet) -> Unit = viewModel.removeWorkSet()
 
 
-    val appendRoutine: (List<WorkSet>) -> Unit = sharedViewModel.appendRoutine()
 
 
     val focusManager = LocalFocusManager.current
@@ -58,11 +54,9 @@ fun UpdateRoutineRoutineRoute(
         modifier,
         workSetList,
         createRoutineCondition,
-        tempWorkCategory,
         addWorkSet,
         updateWorkSet,
         removeWorkSet,
-        appendRoutine,
         navigateRoutineToFindWorkCategoryInUpdateRoutineGraph,
         navigateRoutineToRoutineSetInUpdateRoutineGraph,
         focusManager
@@ -76,11 +70,9 @@ fun UpdateRoutineRoutineScreen(
     modifier: Modifier = Modifier,
     workSetList: List<IndexWorkSet>,
     createRoutineCondition: Boolean,
-    tempWorkCategory: String,
     addWorkSet: () -> Unit,
     updateWorkSet: (IndexWorkSet) -> Unit,
     removeWorkSet: (IndexWorkSet) -> Unit,
-    appendRoutine: (List<WorkSet>) -> Unit,
     navigateRoutineToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateRoutineToRoutineSetInUpdateRoutineGraph: () -> Unit,
     focusManager: FocusManager,
@@ -88,7 +80,7 @@ fun UpdateRoutineRoutineScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = tempWorkCategory,
+                title = "",
                 onBackClickTopBar = navigateRoutineToFindWorkCategoryInUpdateRoutineGraph,
             )
         },
@@ -115,13 +107,6 @@ fun UpdateRoutineRoutineScreen(
                     focusManager
                 )
                 Spacer(modifier = modifier.padding(4.dp))
-                NavigationView(
-                    modifier,
-                    createRoutineCondition,
-                    workSetList,
-                    appendRoutine,
-                    navigateRoutineToRoutineSetInUpdateRoutineGraph
-                )
             }
         }
     }
@@ -142,11 +127,9 @@ fun UpdateRoutineRoutineScreenPreview() {
                     )
                 },
             createRoutineCondition = true,
-            tempWorkCategory = createRoutineModel.workCategory,
             addWorkSet = {},
             updateWorkSet = {},
             removeWorkSet = {},
-            appendRoutine = {},
             navigateRoutineToFindWorkCategoryInUpdateRoutineGraph = {},
             navigateRoutineToRoutineSetInUpdateRoutineGraph = {},
             focusManager = LocalFocusManager.current

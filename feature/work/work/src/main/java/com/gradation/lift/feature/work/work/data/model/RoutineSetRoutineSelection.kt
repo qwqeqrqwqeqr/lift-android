@@ -12,7 +12,6 @@ data class RoutineSetRoutineSelection(
     val id: Int,
     val name: String,
     val description: String,
-    val weekday: Weekday,
     val routine: List<RoutineSelection>,
     val selected: Boolean,
 )

@@ -40,7 +40,7 @@ import com.gradation.lift.ui.utils.DevicePreview
 internal fun CreateRoutineRoutineSetRoute(
     navController: NavController,
     navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
-    navigateRoutineSetToProfileInCreateRoutineGraph: () -> Unit,
+    navigateRoutineSetToProfilePictureInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToHomeGraph: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CreateRoutineRoutineSetViewModel = hiltViewModel(),
@@ -98,7 +98,7 @@ internal fun CreateRoutineRoutineSetRoute(
         removeRoutine,
         createRoutineSetRoutine,
         navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
-        navigateRoutineSetToProfileInCreateRoutineGraph,
+        navigateRoutineSetToProfilePictureInCreateRoutineGraph,
         navigateCreateRoutineGraphToHomeGraph,
         scrollState,
         snackbarHostState,
@@ -155,7 +155,7 @@ internal fun CreateRoutineRoutineSetScreen(
     removeRoutine: (CreateRoutine) -> Unit,
     createRoutineSetRoutine: () -> Unit,
     navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
-    navigateRoutineSetToProfileInCreateRoutineGraph: () -> Unit,
+    navigateRoutineSetToProfilePictureInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToHomeGraph: () -> Unit,
     scrollState: ScrollState,
     snackbarHostState: SnackbarHostState,
@@ -209,7 +209,7 @@ internal fun CreateRoutineRoutineSetScreen(
 
                 RoutineSetPictureView(
                     modifier,
-                    navigateRoutineSetToProfileInCreateRoutineGraph,
+                    navigateRoutineSetToProfilePictureInCreateRoutineGraph,
                     routineSetPicture
                 )
 
@@ -289,7 +289,7 @@ fun CreateRoutineRoutineSetScreenPreview() {
             removeRoutine = { },
             createRoutineSetRoutine = { },
             navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph = { },
-            navigateRoutineSetToProfileInCreateRoutineGraph = { },
+            navigateRoutineSetToProfilePictureInCreateRoutineGraph = { },
             navigateCreateRoutineGraphToHomeGraph = { },
             scrollState = rememberScrollState(),
             snackbarHostState = SnackbarHostState(),

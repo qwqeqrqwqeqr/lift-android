@@ -45,7 +45,7 @@ dependencies {
 
     implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:find-work-category"))
-    implementation(project(":feature:create-routine:profile"))
+    implementation(project(":feature:create-routine:profile-picture"))
     implementation(project(":feature:create-routine:routine"))
 
     implementation(project(":feature:login:sign-in"))
@@ -85,7 +85,6 @@ dependencies {
     implementation(project(":feature:my-info:update-profile"))
     implementation(project(":feature:my-info:update"))
 
-    implementation(project(":feature:update-routine:routine-selection"))
     implementation(project(":feature:update-routine:routine-set"))
     implementation(project(":feature:update-routine:routine"))
     implementation(project(":feature:update-routine:profile-picture"))

@@ -106,7 +106,6 @@ fun WorkRoutineSelectionScreenPreview() {
                         id = it.id,
                         name = it.name,
                         description = it.description,
-                        weekday = it.weekday,
                         selected = false,
                         routine = it.routine.map { routine ->
                             RoutineSelection(

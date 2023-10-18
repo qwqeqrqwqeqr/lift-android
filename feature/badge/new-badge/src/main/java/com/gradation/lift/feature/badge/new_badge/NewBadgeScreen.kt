@@ -198,6 +198,7 @@ fun NewBadgePreview() {
             "설명",
             "힌트",
             "",
+            ""
         ), createUserBadge = {})
     }
 }

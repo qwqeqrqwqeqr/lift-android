@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.update_routine.routine_set
 
 import android.annotation.SuppressLint
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -35,15 +34,12 @@ import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.update_routine.routine_set.data.state.UpdateRoutineState
-import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
-import com.gradation.lift.feature.update_routine.routine_selection.data.model.WeekDateSelection
 import com.gradation.lift.feature.update_routine.routine_set.component.DeleteDialog
 import com.gradation.lift.feature.update_routine.routine_set.component.NavigationView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetDescriptionView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetNameView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetPictureView
 import com.gradation.lift.feature.update_routine.routine_set.component.RoutineSetRoutineView
-import com.gradation.lift.feature.update_routine.routine_set.component.WeekdayCardListView
 import com.gradation.lift.feature.update_routine.routine_set.data.UpdateRoutineRoutineSetViewModel
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.UpdateRoutine
@@ -56,7 +52,6 @@ import com.gradation.lift.navigation.Router
 @Composable
 fun UpdateRoutineRoutineSetRoute(
     navController: NavController,
-    navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph: () -> Unit,
     navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit,
     modifier: Modifier = Modifier,
@@ -64,15 +59,9 @@ fun UpdateRoutineRoutineSetRoute(
 ) {
     val updateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.UPDATE_ROUTINE_GRAPH_NAME) }
-    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(updateRoutineBackStackEntry)
 
     val updateRoutineState: UpdateRoutineState by viewModel.updateRoutineState.collectAsStateWithLifecycle()
-    val selectedRoutineSetRoutine: UpdateRoutineSetRoutine by sharedViewModel.selectedRoutineSetRoutine.collectAsStateWithLifecycle()
 
-    val routineSetNameValidator: Validator by sharedViewModel.routineSetNameValidator.collectAsStateWithLifecycle()
-    val routineSetDescriptionValidator: Validator by sharedViewModel.routineSetDescriptionValidator.collectAsStateWithLifecycle()
-    val weekDateSelectionList: List<WeekDateSelection> by sharedViewModel.weekDateSelectionList.collectAsStateWithLifecycle()
-    val navigationCondition: Boolean by sharedViewModel.navigationCondition.collectAsStateWithLifecycle()
 
 
     val onVisibleDeleteDialog: Boolean by viewModel.onVisibleDeleteDialog.collectAsStateWithLifecycle()
@@ -82,15 +71,10 @@ fun UpdateRoutineRoutineSetRoute(
     val updateRoutineSetRoutine: (UpdateRoutineSetRoutine) -> Unit =
         viewModel.updateRoutineSetRoutine()
 
-    val updateRoutineSetName: (String) -> Unit = sharedViewModel.updateRoutineSetName()
-    val updateRoutineSetDescription: (String) -> Unit =
-        sharedViewModel.updateRoutineSetDescription()
-    val updateRoutineSetWeekday: (Weekday) -> Unit = sharedViewModel.updateRoutineSetWeekday()
 
 
     val updateUpdateRoutineState: (UpdateRoutineState) -> Unit =
         viewModel.updateUpdateRoutineState()
-    val removeRoutine: (UpdateRoutine) -> Unit = sharedViewModel.removeRoutine()
 
     val visibleDeleteDialog: () -> Unit = viewModel.visibleDeleteDialog()
     val invisibleDeleteDialog: () -> Unit = viewModel.invisibleDeleteDialog()
@@ -113,36 +97,12 @@ fun UpdateRoutineRoutineSetRoute(
         UpdateRoutineState.None -> {}
         is UpdateRoutineState.Success -> {
             LaunchedEffect(true) {
-                navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph()
             }
         }
     }
 
-    BackHandler(enabled = true, onBack = navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph)
 
-    UpdateRoutineRoutineSetScreen(
-        modifier,
-        selectedRoutineSetRoutine,
-        onVisibleDeleteDialog,
-        routineSetNameValidator,
-        routineSetDescriptionValidator,
-        weekDateSelectionList,
-        navigationCondition,
-        updateRoutineSetName,
-        updateRoutineSetDescription,
-        updateRoutineSetWeekday,
-        deleteRoutineSetRoutine,
-        updateRoutineSetRoutine,
-        removeRoutine,
-        visibleDeleteDialog,
-        invisibleDeleteDialog,
-        navigateRoutineSetToRoutineSelectionInUpdateRoutineGraph,
-        navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
-        navigateRoutineSetToProfilePictureInUpdateRoutineGraph,
-        snackbarHostState,
-        focusManager,
-        scrollState
-    )
+
 }
 
 
@@ -153,7 +113,6 @@ internal fun UpdateRoutineRoutineSetScreen(
     onVisibleDeleteDialog: Boolean,
     routineSetNameValidator: Validator,
     routineSetDescriptionValidator: Validator,
-    weekDateSelectionList: List<WeekDateSelection>,
     navigationCondition: Boolean,
     updateRoutineSetName: (String) -> Unit,
     updateRoutineSetDescription: (String) -> Unit,
@@ -243,9 +202,7 @@ internal fun UpdateRoutineRoutineSetScreen(
                 Spacer(modifier = modifier.padding(9.dp))
 
 
-                WeekdayCardListView(
-                    modifier, weekDateSelectionList, updateRoutineSetWeekday
-                )
+
                 Spacer(modifier = modifier.padding(14.dp))
 
                 RoutineSetRoutineView(
@@ -292,14 +249,6 @@ fun UpdateRoutineRoutineSetScreenPreview() {
             onVisibleDeleteDialog = false,
             routineSetNameValidator = Validator(),
             routineSetDescriptionValidator = Validator(),
-            weekDateSelectionList = listOf(
-                WeekDateSelection(),
-                WeekDateSelection(),
-                WeekDateSelection(),
-                WeekDateSelection(),
-                WeekDateSelection(),
-                WeekDateSelection(),
-            ),
             navigationCondition = true,
             updateRoutineSetName = {},
             updateRoutineSetDescription = {},

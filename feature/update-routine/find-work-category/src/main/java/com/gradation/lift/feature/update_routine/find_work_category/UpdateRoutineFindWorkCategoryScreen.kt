@@ -19,7 +19,6 @@ import com.gradation.lift.feature.update_routine.find_work_category.component.Se
 import com.gradation.lift.feature.update_routine.find_work_category.component.WorkCategoryView
 import com.gradation.lift.feature.update_routine.find_work_category.data.model.WorkPartFilterSelection
 import com.gradation.lift.feature.update_routine.find_work_category.data.viewmodel.UpdateRoutineFindWorkCategoryViewModel
-import com.gradation.lift.feature.update_routine.routine_selection.data.viewmodel.UpdateRoutineSharedViewModel
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.navigation.Router
@@ -36,7 +35,6 @@ fun UpdateRoutineFindWorkCategoryRoute(
 ) {
     val updateRoutineBackStackEntry: NavBackStackEntry =
         remember { navController.getBackStackEntry(Router.UPDATE_ROUTINE_GRAPH_NAME) }
-    val sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(updateRoutineBackStackEntry)
 
 
     val searchText: String by viewModel.searchTextState.searchText.collectAsStateWithLifecycle()
@@ -48,7 +46,6 @@ fun UpdateRoutineFindWorkCategoryRoute(
     val updateSearchText: (String) -> Unit = viewModel.searchTextState.updateSearchText()
     val updateWorkPartFilter: (String) -> Unit =
         viewModel.workPartFilterState.updateWorkPartFilter()
-    val updateTempWorkCategory: (String) -> Unit = sharedViewModel.updateTempWorkCategory()
 
 
 
@@ -60,7 +57,6 @@ fun UpdateRoutineFindWorkCategoryRoute(
         filteredWorkCategoryCount,
         updateSearchText,
         updateWorkPartFilter,
-        updateTempWorkCategory,
         navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph,
         navigateFindWorkCategoryToRoutineInUpdateRoutineGraph
     )
@@ -77,7 +73,6 @@ fun UpdateRoutineFindWorkCategoryScreen(
     filteredWorkCategoryCount: Int,
     updateSearchText: (String) -> Unit,
     updateWorkPartFilter: (String) -> Unit,
-    updateTempWorkCategory: (String) -> Unit,
     navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph: () -> Unit,
     navigateFindWorkCategoryToRoutineInUpdateRoutineGraph: () -> Unit,
 ) {
@@ -93,12 +88,6 @@ fun UpdateRoutineFindWorkCategoryScreen(
             SearchView(modifier, searchText, updateSearchText)
             FilterView(modifier, workPartFilterList, updateWorkPartFilter)
             FilterCountView(modifier, filteredWorkCategoryCount)
-            WorkCategoryView(
-                modifier,
-                workCategoryList,
-                updateTempWorkCategory,
-                navigateFindWorkCategoryToRoutineInUpdateRoutineGraph
-            )
         }
     }
 }
@@ -125,7 +114,6 @@ fun UpdateRoutineFindWorkCategoryScreenPreview() {
             filteredWorkCategoryCount = 25,
             updateSearchText = {},
             updateWorkPartFilter = {},
-            updateTempWorkCategory = {},
             navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph = {},
             navigateFindWorkCategoryToRoutineInUpdateRoutineGraph = {}
         )

@@ -174,6 +174,7 @@ class CreateRoutineSharedViewModel @Inject constructor(
                     routineSetName.value,
                     routineSetDescription.value,
                     routineSetWeekday.value,
+                    emptyList(), //TODO
                     routineSetPicture.value,
                     routineSetRoutine.value
                 )

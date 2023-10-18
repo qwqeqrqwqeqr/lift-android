@@ -68,30 +68,3 @@ fun WorkCategoryView(
 }
 
 
-@Composable
-@Preview
-fun CreateRoutineFindWorkCategoryScreenPreview() {
-    LiftMaterialTheme {
-        UpdateRoutineFindWorkCategoryScreen(
-            searchText = "",
-            workPartFilterList = listOf(
-                WorkPartFilterSelection("전체", true),
-                WorkPartFilterSelection("어깨", false),
-                WorkPartFilterSelection("가슴", false),
-            ),
-            workCategoryList = listOf(
-                ModelDataGenerator.WorkCategory.workCategoryModel1.copy(introduce = ""),
-                ModelDataGenerator.WorkCategory.workCategoryModel1,
-                ModelDataGenerator.WorkCategory.workCategoryModel1,
-                ModelDataGenerator.WorkCategory.workCategoryModel1,
-                ModelDataGenerator.WorkCategory.workCategoryModel1,
-            ),
-            filteredWorkCategoryCount = 25,
-            updateSearchText = {},
-            updateWorkPartFilter = {},
-            updateTempWorkCategory = {},
-            navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph = {},
-            navigateFindWorkCategoryToRoutineInUpdateRoutineGraph = {}
-        )
-    }
-}

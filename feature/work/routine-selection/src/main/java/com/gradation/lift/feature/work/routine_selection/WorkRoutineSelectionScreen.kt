@@ -41,7 +41,6 @@ internal fun WorkRoutineSelectionRoute(
     navController: NavController,
     navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
-    selectedRoutineSetId: Int?,
     modifier: Modifier = Modifier,
     viewModel: WorkRoutineSelectionViewModel = hiltViewModel(),
 ) {
@@ -53,8 +52,6 @@ internal fun WorkRoutineSelectionRoute(
     val selectedRoutineCount: Int by viewModel.selectedRoutineSetState.selectedRoutineCount.collectAsStateWithLifecycle()
     val updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit =
         viewModel.selectedRoutineSetState.updateSelectedRoutineSetList()
-    val appendBySelectedRoutineSetRoutineId: (Int?) -> Unit =
-        viewModel.selectedRoutineSetState.appendBySelectedRoutineSetRoutineId()
 
     val updateOpenedRoutineIdList: (Int, Boolean) -> Unit =
         viewModel.openedRoutineState.updateOpenedRoutineIdList()
@@ -84,9 +81,6 @@ internal fun WorkRoutineSelectionRoute(
         navigateSelectionRoutineToWorkInWorkGraph
     )
 
-    LaunchedEffect(key1 = true) {
-        appendBySelectedRoutineSetRoutineId(selectedRoutineSetId)
-    }
     BackHandler(enabled = true, onBack = navigateWorkGraphToHomeGraph)
 
 
@@ -186,7 +180,6 @@ fun WorkRoutineSelectionScreenPreview() {
                         id = it.id,
                         name = it.name,
                         description = it.description,
-                        weekday = it.weekday,
                         selected = false,
                         routine = it.routine.map { routine ->
                             RoutineSelection(

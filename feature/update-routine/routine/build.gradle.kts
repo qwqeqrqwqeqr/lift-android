@@ -21,5 +21,4 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
-    implementation(project(":feature:update-routine:routine-selection"))
 }
