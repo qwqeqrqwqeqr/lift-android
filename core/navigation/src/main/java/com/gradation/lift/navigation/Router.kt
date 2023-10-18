@@ -69,8 +69,8 @@ object Router {
     const val REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME = "register_detail_profile_picture"
 
     const val ROUTINE_DETAIL_GRAPH_NAME = "routine_detail_graph"
-    const val ROUTINE_DETAIL_LIST_ROUTER_NAME = "routine_detail_graph"
-    const val ROUTINE_DETAIL_DETAIL_ROUTER_NAME = "routine_detail_graph"
+    const val ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME = "routine_detail_routine_list"
+    const val ROUTINE_DETAIL_ROUTINE_ROUTER_NAME = "routine_detail_routine"
 
     const val WORK_GRAPH_NAME = "work_graph"
     const val WORK_ROUTINE_SELECTION_ROUTER_NAME = "work_routine_selection"

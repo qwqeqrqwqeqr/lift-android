@@ -2,7 +2,7 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_ROUTER_NAME
+import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
@@ -49,11 +49,11 @@ fun NavController.navigateRoutineToRoutineSetInCreateRoutineGraph() {
     }
 }
 
-fun NavController.navigateRoutineSetToProfileInCreateRoutineGraph() {
-    this.navigate(CREATE_ROUTINE_PROFILE_ROUTER_NAME)
+fun NavController.navigateRoutineSetToProfilePictureInCreateRoutineGraph() {
+    this.navigate(CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME)
 }
 
-fun NavController.navigateProfileToRoutineSetInCreateRoutineGraph() {
+fun NavController.navigateProfilePictureToRoutineSetInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
             inclusive = true
