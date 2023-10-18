@@ -9,29 +9,38 @@ import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingR
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToNewBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToNotificationGraph
-import com.gradation.lift.navigation.navigation.navigateHomeGraphToUpdateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailGraph
+import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailRoutineRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToWorkGraph
 
 
 fun homeScreen(navController: NavController, navGraphBuilder: NavGraphBuilder) {
-    val navigateMainGraphToCreateRoutineGraph: () -> Unit = { navController.navigateHomeGraphToCreateRoutineGraph() }
-    val navigateHomeGraphToUpdateRoutineGraph: () -> Unit = { navController.navigateHomeGraphToUpdateRoutineGraph() }
+    val navigateMainGraphToCreateRoutineGraph: () -> Unit =
+        { navController.navigateHomeGraphToCreateRoutineGraph() }
     val navigateMainGraphToWorkGraph: () -> Unit = { navController.navigateHomeGraphToWorkGraph() }
-    val navigateHomeGraphToBadgeGraph: () -> Unit = { navController.navigateHomeGraphToBadgeGraph() }
-    val navigateHomeGraphToNewBadgeGraph: () -> Unit = { navController.navigateHomeGraphToNewBadgeGraph() }
-    val navigateHomeGraphToNotificationGraph:()-> Unit={navController.navigateHomeGraphToNotificationGraph()}
-    val navigateHomeGraphToBadgeSettingRouter:()-> Unit={navController.navigateHomeGraphToBadgeSettingRouter()}
+    val navigateHomeGraphToBadgeGraph: () -> Unit =
+        { navController.navigateHomeGraphToBadgeGraph() }
+    val navigateHomeGraphToNewBadgeGraph: () -> Unit =
+        { navController.navigateHomeGraphToNewBadgeGraph() }
+    val navigateHomeGraphToNotificationGraph: () -> Unit =
+        { navController.navigateHomeGraphToNotificationGraph() }
+    val navigateHomeGraphToRoutineDetailGraph: () -> Unit =
+        { navController.navigateHomeGraphToRoutineDetailGraph() }
+    val navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit =
+        { navController.navigateHomeGraphToRoutineDetailRoutineRouter(it) }
+    val navigateHomeGraphToBadgeSettingRouter: () -> Unit =
+        { navController.navigateHomeGraphToBadgeSettingRouter() }
 
     navGraphBuilder.composable(HOME_HOME_ROUTER_NAME) {
         HomeRoute(
-            navController = navController,
             navigateMainGraphToCreateRoutineGraph = navigateMainGraphToCreateRoutineGraph,
-            navigateHomeGraphToUpdateRoutineGraph=navigateHomeGraphToUpdateRoutineGraph,
             navigateMainGraphToWorkGraph = navigateMainGraphToWorkGraph,
-            navigateHomeGraphToBadgeGraph=navigateHomeGraphToBadgeGraph,
-            navigateHomeGraphToNewBadgeGraph=navigateHomeGraphToNewBadgeGraph,
-            navigateHomeGraphToNotificationGraph=navigateHomeGraphToNotificationGraph,
-            navigateHomeGraphToBadgeSettingRouter=navigateHomeGraphToBadgeSettingRouter
+            navigateHomeGraphToBadgeGraph = navigateHomeGraphToBadgeGraph,
+            navigateHomeGraphToNewBadgeGraph = navigateHomeGraphToNewBadgeGraph,
+            navigateHomeGraphToNotificationGraph = navigateHomeGraphToNotificationGraph,
+            navigateHomeGraphToRoutineDetailGraph = navigateHomeGraphToRoutineDetailGraph,
+            navigateHomeGraphToRoutineDetailRoutineRouter = navigateHomeGraphToRoutineDetailRoutineRouter,
+            navigateHomeGraphToBadgeSettingRouter = navigateHomeGraphToBadgeSettingRouter
         )
     }
 
