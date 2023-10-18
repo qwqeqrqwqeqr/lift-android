@@ -1,5 +1,5 @@
 # 리프트
-<img src="./screenshot/lift_screen_1.jpg"/>
+<img src="./screenshot/lift_icon.png"/>
 
 ### 당신의 하루를 들어 올리세요 🔺 <br> lift your day 🚀
 <br>
