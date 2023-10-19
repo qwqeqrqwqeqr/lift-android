@@ -136,7 +136,7 @@ fun LiftHomeTopBar(
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
     TopAppBar(
-        modifier = modifier.statusBarsPadding(),
+        modifier = modifier.statusBarsPadding().padding(end = 8.dp),
         title={
             Icon(
                 painter = painterResource(R.drawable.logo_extension_kor),
@@ -147,7 +147,7 @@ fun LiftHomeTopBar(
         },
 
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = LiftTheme.colorScheme.no5,
+            containerColor = LiftTheme.colorScheme.no31,
             scrolledContainerColor = LiftTheme.colorScheme.no5,
             navigationIconContentColor = LiftTheme.colorScheme.no9,
             titleContentColor = LiftTheme.colorScheme.no9,
