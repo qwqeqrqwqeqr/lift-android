@@ -40,7 +40,7 @@ object LiftIcon {
     val Muscle = R.drawable.muscle
     val Badge = R.drawable.badge
     val BadgeDisabled = R.drawable.badge_disabled
-    val routineList = R.drawable.routine_list
+    val RoutineList = R.drawable.routine_list
     val BadgeAdd = R.drawable.badge_add
     val Chat = R.drawable.chat
     val Kettlebell = R.drawable.kettlebell
