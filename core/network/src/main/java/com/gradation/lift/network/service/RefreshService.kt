@@ -19,7 +19,7 @@ interface RefreshService {
      * @param Authorization 토큰을 갱신하기위해 필요한 refresh Token
      * @since 2023-08-28 22:32:01
      */
-    @POST("auth/refresh/")
+    @POST("auth/refresh")
     suspend fun refresh(
         @Header("Authorization") Authorization: String,
     ): Response<APIResultWrapper<RefreshResponseDto>>

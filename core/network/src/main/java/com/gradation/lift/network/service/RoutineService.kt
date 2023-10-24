@@ -27,7 +27,7 @@ interface RoutineService {
      * 루틴세트 만들기
      * @since 2023-08-28 22:31:32
      */
-    @POST("routine/routine-set-routine/")
+    @POST("routine/routine-set-routine")
     suspend fun createRoutineSetRoutine(@Body createRoutineSetRoutineRequestDto: CreateRoutineSetRoutineRequestDto): Response<APIResultWrapper<CreateRoutineSetRoutineResponseDto>>
 
     /**
@@ -35,7 +35,7 @@ interface RoutineService {
      * 루틴세트 업데이트하기
      * @since 2023-09-06 16:12:37
      */
-    @PUT("routine/routine-set-routine/")
+    @PUT("routine/routine-set-routine")
     suspend fun updateRoutineSetRoutine(@Body updateRoutineSetRoutineRequestDto: UpdateRoutineSetRoutineRequestDto): Response<APIResultWrapper<UpdateRoutineSetRoutineResponseDto>>
 
     /**
@@ -43,7 +43,7 @@ interface RoutineService {
      * 루틴세트의 사용횟수를 1 증가시킵니다.
      * @since 2023-10-13 11:35:46
      */
-    @PUT("routine/routine-set/count/")
+    @PUT("routine/routine-set/count")
     suspend fun updateRoutineSetCount(@Body updateRoutineSetCountRequestDto: UpdateRoutineSetCountRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
 
 
@@ -52,7 +52,7 @@ interface RoutineService {
      * 루틴세트 삭제하기
      * @since 2023-09-06 16:12:41
      */
-    @DELETE("routine/routine-set-routine/")
+    @DELETE("routine/routine-set-routine")
     suspend fun deleteRoutineSetRoutine(@Query("routine_set_id") routineSetId: Int): Response<APIResultWrapper<DeleteRoutineSetRoutineResponseDto>>
 
 
@@ -61,7 +61,7 @@ interface RoutineService {
      * 사용자가 보유하고 있는 모든 루틴 불러오기
      * @since 2023-08-28 22:31:28
      */
-    @GET("routine/routine/")
+    @GET("routine/routine")
     suspend fun getRoutine(): Response<APIResultWrapper<GetRoutineResponseDto>>
 
     /**
@@ -69,7 +69,7 @@ interface RoutineService {
      * 사용자가 보유하고 있는 모든 루틴 세트 불러오기
      * @since 2023-08-28 22:31:23
      */
-    @GET("routine/routine-set-routine/")
+    @GET("routine/routine-set-routine")
     suspend fun getRoutineSetRoutine(): Response<APIResultWrapper<GetRoutineSetRoutineResponseDto>>
 
     /**
@@ -78,7 +78,7 @@ interface RoutineService {
      * @param weekday 3글자료 표기한 요일을 ,로 분류한 문자열 (ex. Mon,Tue,Wed,...)
      * @since 2023-10-13 11:21:09
      */
-    @GET("routine/routine-set-routine/weekday/")
+    @GET("routine/routine-set-routine/weekday")
     suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
 
@@ -88,7 +88,7 @@ interface RoutineService {
      * @param label 3글자료 표기한 요일을 ,로 분류한 문자열 (ex. Mon,Tue,Wed,...)
      * @since 2023-10-13 11:21:09
      */
-    @GET("routine/routine-set-routine/label/")
+    @GET("routine/routine-set-routine/label")
     suspend fun getRoutineSetRoutineByLabel(@Query("label") label: String): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
 
 
@@ -98,6 +98,6 @@ interface RoutineService {
      * @param routineSetIdList 루틴세트 고유 아이디 번호 리스트,  ','로 구분 하여 [String]으로 전달함
      * @since 2023-10-13 11:21:14
      */
-    @GET("routine/routine-set-routine/routine-set-id/")
+    @GET("routine/routine-set-routine/routine-set-id")
     suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id_list") routineSetIdList: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
 }

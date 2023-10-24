@@ -21,7 +21,7 @@ interface WorkService {
      * 모든 운동 부위 정보 불러오기
      * @since 2023-08-28 22:29:40
      */
-    @GET("work/work-part/")
+    @GET("work/work-part")
     suspend fun getWorkPart(): Response<APIResultWrapper<GetWorkPartResponseDto>>
 
     /**
@@ -29,7 +29,7 @@ interface WorkService {
      * 모든 운동 카테고리 정보 불러오기
      * @since 2023-08-28 22:29:35
      */
-    @GET("work/work-category/")
+    @GET("work/work-category")
     suspend fun getWorkCategory(): Response<APIResultWrapper<GetWorkCategoryResponseDto>>
 
 
@@ -54,7 +54,7 @@ interface WorkService {
      * 운동 부위에 맞는 운동 카테고리 정보 불러오기
      * @since 2023-08-28 22:29:31
      */
-    @GET("work/work-category-by-work-part/")
+    @GET("work/work-category-by-work-part")
     suspend fun getWorkCategoryByWorkPart(@Query("work_part") workPart: String): Response<APIResultWrapper<GetWorkCategoryByWorkPartResponseDto>>
 }
 

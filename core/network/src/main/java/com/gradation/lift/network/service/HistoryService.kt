@@ -25,7 +25,7 @@ interface HistoryService {
      *  운동 기록 불러오기
      *  @since 2023-08-28 22:33:04
      */
-    @GET("history/history/")
+    @GET("history/history")
     suspend fun getHistory(): Response<APIResultWrapper<GetHistoryResponseDto>>
 
 
@@ -36,7 +36,7 @@ interface HistoryService {
      * 운동기록 고유 아이디 번호 리스트,  ','로 구분 하여 [String]으로 전달함
      * @since 2023-08-28 22:32:59
      */
-    @GET("history/history-by-history-id/")
+    @GET("history/history-by-history-id")
     suspend fun getHistoryByHistoryId(@Query("history_id_list") historyIdList: String): Response<APIResultWrapper<GetHistoryByHistoryIdResponseDto>>
 
 
@@ -45,7 +45,7 @@ interface HistoryService {
      * 운동 기록 생성하기
      * @since 2023-08-28 22:32:54
      */
-    @POST("history/history/")
+    @POST("history/history")
     suspend fun createHistory(@Body createHistoryRequestDto: CreateHistoryRequestDto): Response<APIResultWrapper<CreateHistoryResponseDto>>
 
 
@@ -55,7 +55,7 @@ interface HistoryService {
      * @param historyId 운동기록 고유 아이디를 지정하여 운동을 삭제한다.
      * @since 2023-08-28 22:32:48
      */
-    @DELETE("history/history/")
+    @DELETE("history/history")
     suspend fun deleteHistory(@Query("history_id") historyId: Int): Response<APIResultWrapper<DeleteHistoryResponseDto>>
 }
 

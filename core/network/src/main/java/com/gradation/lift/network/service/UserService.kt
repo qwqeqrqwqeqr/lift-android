@@ -17,7 +17,7 @@ interface UserService {
      * 사용자 상세정보 불러오기
      * @since 2023-08-28 22:30:51
      */
-    @GET("user/user-detail/")
+    @GET("user/user-detail")
     suspend fun getUserDetail(): Response<APIResultWrapper<GetUserDetailResponseDto>>
 
 
@@ -26,7 +26,7 @@ interface UserService {
      * 사용자 상세정보 생성하기
      * @since 2023-08-28 22:30:46
      */
-    @POST("user/user-detail/")
+    @POST("user/user-detail")
     suspend fun createUserDetail(
         @Body createUserDetailRequestDto: CreateUserDetailRequestDto
     ): Response<APIResultWrapper<CreateUserDetailResponseDto>>
@@ -36,7 +36,7 @@ interface UserService {
      * 사용자 상세정보 업데이트하기
      * @since 2023-08-28 22:30:41
      */
-    @PUT("user/user-detail/")
+    @PUT("user/user-detail")
     suspend fun updateUserDetail(@Body updateUserDetailRequestDto: UpdateUserDetailRequestDto): Response<APIResultWrapper<UpdateUserDetailResponseDto>>
 
     /**
@@ -54,7 +54,7 @@ interface UserService {
      * 사용자의 상세정보가 존재하는지 확인하기
      * @since 2023-08-28 22:30:37
      */
-    @GET("user/exist-user-detail/")
+    @GET("user/exist-user-detail")
     suspend fun existUserDetail(): Response<APIResultWrapper<ExistUserDetailResponseDto>>
 
 

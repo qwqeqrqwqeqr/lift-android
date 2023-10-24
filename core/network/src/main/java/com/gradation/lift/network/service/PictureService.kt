@@ -19,7 +19,7 @@ interface PictureService {
      * 사용자 기본 프로필에 적용할 수 있는 사진 리스트 불러오기
      * @since 2023-08-28 22:32:13
      */
-    @GET("picture/user-profile/")
+    @GET("picture/user-profile")
     suspend fun getUserProfilePicture(): Response<APIResultWrapper<GetUserProfilePictureResponseDto>>
 
     /**
@@ -27,7 +27,7 @@ interface PictureService {
      * 루틴 세트에 적용할 수 있는 사진 리스트 불러오기
      * @since 2023-08-28 22:32:08
      */
-    @GET("picture/routine-set/")
+    @GET("picture/routine-set")
     suspend fun getRoutineSetPicture(): Response<APIResultWrapper<GetRoutineSetPictureResponseDto>>
 
 }

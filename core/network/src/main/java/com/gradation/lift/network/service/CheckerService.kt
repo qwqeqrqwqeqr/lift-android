@@ -20,7 +20,7 @@ interface CheckerService {
      * 이메일 중복 확인
      * @since 2023-08-28 22:32:34
      */
-    @GET("checker/duplicate-email/")
+    @GET("checker/duplicate-email")
     suspend fun checkDuplicateEmail(@Query("email") email: String): Response<APIResultWrapper<CheckDuplicateEmailResponseDto>>
 
 
@@ -29,7 +29,7 @@ interface CheckerService {
      *  이름 중복 확인
      *  @since 2023-08-28 22:32:30
      */
-    @GET("checker/duplicate-name/")
+    @GET("checker/duplicate-name")
     suspend fun checkDuplicateName(@Query("name") name: String): Response<APIResultWrapper<CheckDuplicateNameResponseDto>>
 
 }
