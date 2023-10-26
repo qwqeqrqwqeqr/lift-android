@@ -8,41 +8,49 @@ import kotlinx.datetime.*
  */
 sealed class Weekday {
     data class Monday(
+        val number: Int = 1,
         val value: String = MONDAY_VALUE,
         val name: String = MONDAY_NAME_VALUE
     ) : Weekday()
 
     data class Tuesday(
+        val number: Int = 2,
         val value: String = TUESDAY_VALUE,
         val name: String = TUESDAY_NAME_VALUE
     ) : Weekday()
 
     data class Wednesday(
+        val number: Int = 3,
         val value: String = WEDNESDAY_VALUE,
         val name: String = WEDNESDAY_NAME_VALUE
     ) : Weekday()
 
     data class Thursday(
+        val number: Int = 4,
         val value: String = THURSDAY_VALUE,
         val name: String = THURSDAY_NAME_VALUE
     ) : Weekday()
 
     data class Friday(
+        val number: Int = 5,
         val value: String = FRIDAY_VALUE,
         val name: String = FRIDAY_NAME_VALUE
     ) : Weekday()
 
     data class Saturday(
+        val number: Int = 6,
         val value: String = SATURDAY_VALUE,
         val name: String = SATURDAY_NAME_VALUE
     ) : Weekday()
 
     data class Sunday(
+        val number: Int = 7,
         val value: String = SUNDAY_VALUE,
         val name: String = SUNDAY_NAME_VALUE
     ) : Weekday()
 
     data class None(
+        val number: Int = 0,
         val value: String = NONE_VALUE,
         val name: String = NONE_NAME_VALUE
     ) : Weekday()
@@ -88,6 +96,17 @@ sealed class Weekday {
         is Thursday -> weekday.name
         is Tuesday -> weekday.name
         is Wednesday -> weekday.name
+    }
+
+    fun getWeekdayNumber(): Int = when (val weekday = this) {
+        is Friday -> weekday.number
+        is Monday -> weekday.number
+        is None -> weekday.number
+        is Saturday -> weekday.number
+        is Sunday -> weekday.number
+        is Thursday -> weekday.number
+        is Tuesday -> weekday.number
+        is Wednesday -> weekday.number
     }
 }
 

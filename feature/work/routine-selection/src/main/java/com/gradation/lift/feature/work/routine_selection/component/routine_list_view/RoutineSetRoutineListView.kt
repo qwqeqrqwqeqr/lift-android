@@ -74,8 +74,8 @@ fun RoutineSetRoutineListView(
                                         name = routineSetRoutine.name,
                                         description = routineSetRoutine.description,
                                         picture = "",
-                                        weekday = emptyList(),
-                                        label = emptyList(),
+                                        weekday = emptySet(),
+                                        label = emptySet(),
                                         routine = routineSetRoutine.routine.map { it.routine }),
                                     !routineSetRoutine.selected
                                 )
@@ -97,8 +97,8 @@ fun RoutineSetRoutineListView(
                                         id = routineSetRoutine.id,
                                         name = routineSetRoutine.name,
                                         description = routineSetRoutine.description,
-                                        weekday = emptyList(),
-                                        label = emptyList(),
+                                        weekday = emptySet(),
+                                        label = emptySet(),
                                         picture = "",
                                         routine = routineSetRoutine.routine.map { it.routine }),
                                     it

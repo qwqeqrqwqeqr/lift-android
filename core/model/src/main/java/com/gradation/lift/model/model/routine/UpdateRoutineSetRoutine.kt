@@ -20,8 +20,8 @@ data class UpdateRoutineSetRoutine(
     val id: Int = 0,
     var name: String = "",
     var description: String = "",
-    var weekday: List<Weekday> = emptyList(),
-    var label: List<Label> = emptyList(),
+    var weekday: Set<Weekday> = emptySet(),
+    var label: Set<Label> = emptySet(),
     var picture: String = "",
     val routine: List<UpdateRoutine> = emptyList()
 )

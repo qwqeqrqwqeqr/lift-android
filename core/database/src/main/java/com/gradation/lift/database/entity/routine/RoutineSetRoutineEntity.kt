@@ -40,9 +40,9 @@ data class RoutineSetRoutineEntity(
         id = id,
         name = name,
         description = description,
-        weekday = weekday.map { it.toWeekDay() },
+        weekday = weekday.map { it.toWeekDay() }.toSet(),
         picture = picture,
-        label = label.map { it.toLabel() },
+        label = label.map { it.toLabel() }.toSet(),
         count = count,
         routine = emptyList()
     )

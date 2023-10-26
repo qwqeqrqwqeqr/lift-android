@@ -1,5 +1,6 @@
 package com.gradation.lift.network.dto.routine
 
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.toWeekDay
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -17,18 +18,18 @@ data class GetRoutineSetRoutineByWeekdayResponseDto(
     val routineSetRoutine: List<RoutineSetRoutineDto>
 ) {
     fun toDomain(): List<RoutineSetRoutine> =
-        this.routineSetRoutine.groupBy { it.routineSetDto.routineSetId }.map {
+        this.routineSetRoutine.groupBy { it.routineSetDto.routineSetId }.map { routineSetGroup ->
             RoutineSetRoutine(
-                id = it.value.first().routineSetDto.routineSetId,
-                name = it.value.first().routineSetDto.name,
-                description = it.value.first().routineSetDto.description,
-                weekday = it.value.first().routineSetDto.weekday.split(",")
-                    .map { weekday -> weekday.toWeekDay() },
-                picture = Constants.DEFAULT_S3_URL + it.value.first().routineSetDto.picture,
-                label = it.value.first().routineSetDto.label.split(",")
-                    .map { label -> label.toLabel() },
-                count = it.value.first().routineSetDto.count,
-                routine = it.value.map { routine ->
+                id = routineSetGroup.value.first().routineSetDto.routineSetId,
+                name = routineSetGroup.value.first().routineSetDto.name,
+                description = routineSetGroup.value.first().routineSetDto.description,
+                weekday = routineSetGroup.value.first().routineSetDto.weekday.split(",")
+                    .map { weekday -> weekday.toWeekDay() }.filterNot { it is Weekday.None }.sortedBy { it.getWeekdayNumber() }.toSet(),
+                picture = Constants.DEFAULT_S3_URL + routineSetGroup.value.first().routineSetDto.picture,
+                label = routineSetGroup.value.first().routineSetDto.label.split(",")
+                    .map { label -> label.toLabel() }.toSet(),
+                count = routineSetGroup.value.first().routineSetDto.count,
+                routine = routineSetGroup.value.map { routine ->
                     Routine(
                         id = routine.routineDto.routineId,
                         routineSetId = routine.routineDto.routineSetId,
