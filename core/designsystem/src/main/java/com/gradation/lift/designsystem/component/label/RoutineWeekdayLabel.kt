@@ -22,7 +22,7 @@ fun MondayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.mondayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "월요일",
         color = LiftTheme.colorScheme.mondayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -37,7 +37,7 @@ fun TuesdayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.tuesdayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "화요일",
         color = LiftTheme.colorScheme.tuesdayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -52,7 +52,7 @@ fun WednesdayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.wednesdayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "수요일",
         color = LiftTheme.colorScheme.wednesdayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -67,7 +67,7 @@ fun ThursdayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.thursdayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "목요일",
         color = LiftTheme.colorScheme.thursdayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -82,7 +82,7 @@ fun FridayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.fridayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "금요일",
         color = LiftTheme.colorScheme.fridayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -97,7 +97,7 @@ fun SaturdayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.saturdayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "토요일",
         color = LiftTheme.colorScheme.saturdayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -112,7 +112,7 @@ fun SundayRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.sundayBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "일요일",
         color = LiftTheme.colorScheme.sundayLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -127,7 +127,7 @@ fun AllRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.allBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "모든요일",
         color = LiftTheme.colorScheme.allLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
@@ -142,7 +142,7 @@ fun RecentRoutineLabel(modifier: Modifier = Modifier) {
                 color = LiftTheme.colorScheme.recentBackgroundColor,
                 shape = RoundedCornerShape(size = 30.dp)
             )
-            .padding(start = 8.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            .padding(horizontal= 8.dp,vertical=4.dp),
         text = "최근",
         color = LiftTheme.colorScheme.recentLabelColor,
         style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
