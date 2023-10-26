@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
  * [COLOR_NO21] :오류
  * [COLOR_NO22] :
  * [COLOR_NO23] :
+ * [COLOR_NO34] :그림자
  *
  */
 internal val COLOR_NO1: Color = Color(0xFFF2F2F5)
@@ -63,6 +64,7 @@ internal val COLOR_NO30: Color = Color(0xFF41414D)
 internal val COLOR_NO31: Color = Color(0xFFF2F5FA)
 internal val COLOR_NO32: Color = Color(0xFFB7C4DA)
 internal val COLOR_NO33: Color = Color(0xFFD6DDE8)
+internal val COLOR_NO34: Color = Color(0xAA000000)
 internal val MONDAY_LABEL_COLOR: Color = Color(0xFFFF9900)
 internal val MONDAY_BACKGROUND_COLOR: Color = Color(0xFFFFF6E9)
 internal val TUESDAY_LABEL_COLOR: Color = Color(0xFFFF6B00)
@@ -116,6 +118,7 @@ data class LiftColorScheme(
     val no31: Color,
     val no32: Color,
     val no33: Color,
+    val no34: Color,
     val mondayLabelColor: Color,
     val mondayBackgroundColor: Color,
     val tuesdayLabelColor: Color,
@@ -170,6 +173,7 @@ fun liftLightColorScheme(
     no31: Color = COLOR_NO31,
     no32: Color = COLOR_NO32,
     no33: Color = COLOR_NO33,
+    no34: Color = COLOR_NO34,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -223,6 +227,7 @@ fun liftLightColorScheme(
         no31,
         no32,
         no33,
+        no34,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
@@ -277,6 +282,7 @@ fun liftDarkColorScheme(
     no31: Color = Color.Unspecified,
     no32: Color = Color.Unspecified,
     no33: Color = Color.Unspecified,
+    no34: Color = Color.Unspecified,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -330,6 +336,7 @@ fun liftDarkColorScheme(
         no31,
         no32,
         no33,
+        no34,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
