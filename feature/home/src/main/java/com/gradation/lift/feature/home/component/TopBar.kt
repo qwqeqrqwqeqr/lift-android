@@ -27,12 +27,13 @@ import com.gradation.lift.feature.home.data.state.UserDetailUiState
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    userDetailUiState: UserDetailUiState
+    userDetailUiState: UserDetailUiState,
+    navigateHomeGraphToNotificationGraph: () -> Unit
 ) {
     LiftHomeTopBar(
         modifier = modifier,
         actions = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = navigateHomeGraphToNotificationGraph) {
                 Icon(
                     painter = painterResource(LiftIcon.Bell),
                     contentDescription = "",

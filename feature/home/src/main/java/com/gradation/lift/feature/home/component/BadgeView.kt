@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.data.state.BadgeUiState
@@ -36,8 +37,13 @@ import com.gradation.lift.feature.home.data.state.BadgeUiState
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun BadgeView(modifier: Modifier = Modifier, badgeUiState: BadgeUiState) {
-    Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+fun BadgeView(
+    modifier: Modifier = Modifier,
+    badgeUiState: BadgeUiState,
+    navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToBadgeSettingRouter: () -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -60,11 +66,13 @@ fun BadgeView(modifier: Modifier = Modifier, badgeUiState: BadgeUiState) {
             }
 
             Row(
+                modifier = modifier.noRippleClickable { navigateHomeGraphToBadgeGraph() },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(2.dp)
             ) {
 
                 Text(
+
                     text = "전체보기",
                     color = LiftTheme.colorScheme.no2,
                     style = LiftTheme.typography.no6
@@ -83,16 +91,20 @@ fun BadgeView(modifier: Modifier = Modifier, badgeUiState: BadgeUiState) {
         Column {
             when (badgeUiState) {
                 is BadgeUiState.Fail -> {
-                    Spacer(modifier = modifier
-                        .fillMaxWidth()
-                        .height(96.dp))
+                    Spacer(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(96.dp)
+                    )
                 }
 
                 BadgeUiState.Loading -> {
-                    Spacer(modifier = modifier
-                        .fillMaxWidth()
-                        .height(96.dp)
-                        .background(SkeletonBrush(), RoundedCornerShape(12.dp)))
+                    Spacer(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(96.dp)
+                            .background(SkeletonBrush(), RoundedCornerShape(12.dp))
+                    )
                 }
 
                 is BadgeUiState.Success -> {
@@ -120,7 +132,7 @@ fun BadgeView(modifier: Modifier = Modifier, badgeUiState: BadgeUiState) {
                     ) {
                         Row(
                             modifier = modifier,
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
                         ) {
                             badgeUiState.userBadge.forEach {
                                 GlideImage(
@@ -140,7 +152,8 @@ fun BadgeView(modifier: Modifier = Modifier, badgeUiState: BadgeUiState) {
                                         .background(
                                             LiftTheme.colorScheme.no5,
                                             CircleShape
-                                        ),
+                                        )
+                                        .noRippleClickable { navigateHomeGraphToBadgeSettingRouter() },
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Icon(
