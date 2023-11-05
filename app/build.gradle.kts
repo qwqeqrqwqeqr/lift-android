@@ -48,6 +48,8 @@ dependencies {
     implementation(project(":feature:create-routine:profile-picture"))
     implementation(project(":feature:create-routine:routine"))
 
+    implementation(project(":feature:routine-detail:navigation"))
+
     implementation(project(":feature:login:sign-in"))
     implementation(project(":feature:login:sign-up"))
     implementation(project(":feature:login:find-email-password"))

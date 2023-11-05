@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.gradation.lift.feature.routineDetail.navigation.routineDetailGraphBuilder
 import com.gradation.lift.navigation.graph.*
 import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,7 +43,7 @@ fun LiftNavHost(
         registerDetailGraphBuilder(navController, this)
         updateRoutineGraphBuilder(navController, this)
         workGraphBuilder(navController, this)
-
+        routineDetailGraphBuilder(navController,this)
     }
 }
 
