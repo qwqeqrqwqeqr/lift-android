@@ -83,3 +83,6 @@ include(":feature:update-routine:routine-set")
 include(":feature:update-routine:profile-picture")
 include(":feature:update-routine:routine")
 include(":feature:update-routine:find-work-category")
+
+include(":feature:routine-detail:routine")
+include(":feature:routine-detail:routine-list")
