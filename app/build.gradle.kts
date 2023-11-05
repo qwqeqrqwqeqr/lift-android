@@ -45,11 +45,7 @@ dependencies {
 
     implementation(project(":feature:create-routine:navigation"))
     implementation(project(":feature:routine-detail:navigation"))
-
-    implementation(project(":feature:login:sign-in"))
-    implementation(project(":feature:login:sign-up"))
-    implementation(project(":feature:login:find-email-password"))
-    implementation(project(":feature:login:complete"))
+    implementation(project(":feature:login:navigation"))
 
 
     implementation(project(":feature:register-detail:name"))

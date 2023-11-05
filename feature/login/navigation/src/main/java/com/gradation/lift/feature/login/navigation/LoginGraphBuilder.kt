@@ -1,4 +1,4 @@
-package com.gradation.lift.navigation.graph
+package com.gradation.lift.feature.login.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

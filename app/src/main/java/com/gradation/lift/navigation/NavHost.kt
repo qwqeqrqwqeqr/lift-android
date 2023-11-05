@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.gradation.lift.feature.badge.navigation.badgeGraphBuilder
+import com.gradation.lift.feature.login.navigation.loginGraphBuilder
 import com.gradation.lift.feature.routineDetail.navigation.routineDetailGraphBuilder
 import com.gradation.lift.navigation.graph.*
 import com.gradation.lift.oauth.common.OAuthConnectState
