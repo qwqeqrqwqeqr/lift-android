@@ -27,7 +27,10 @@ fun LiftNavHost(
         modifier = modifier
     ) {
         badgeGraphBuilder(navController, this)
-        createRoutineGraphBuilder(navController, this)
+        com.gradation.lift.feature.createRoutine.navigation.createRoutineGraphBuilder(
+            navController,
+            this
+        )
         homeGraphBuilder(navController, this)
         historyGraphBuilder(navController, this)
         loginGraphBuilder(
