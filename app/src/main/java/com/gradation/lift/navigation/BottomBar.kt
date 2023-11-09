@@ -9,8 +9,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import com.gradation.lift.designsystem.component.LiftNavigationBar
 import com.gradation.lift.designsystem.component.LiftNavigationBarItem
-import com.gradation.lift.navigation.graph.TopLevelNavDestination
-import com.gradation.lift.navigation.graph.isTopLevelDestinationInHierarchy
 
 
 @Composable

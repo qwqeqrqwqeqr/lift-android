@@ -10,7 +10,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
 import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.graph.TopLevelNavDestination
+import com.gradation.lift.navigation.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.*
 import com.gradation.lift.oauth.common.OAuthConnectState
 import kotlinx.coroutines.CoroutineScope

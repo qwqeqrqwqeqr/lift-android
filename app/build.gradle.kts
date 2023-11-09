@@ -45,41 +45,14 @@ dependencies {
 
     implementation(project(":feature:create-routine:navigation"))
     implementation(project(":feature:routine-detail:navigation"))
+    implementation(project(":feature:register-detail:navigation"))
     implementation(project(":feature:login:navigation"))
-
-
-    implementation(project(":feature:register-detail:name"))
-    implementation(project(":feature:register-detail:gender"))
-    implementation(project(":feature:register-detail:height-weight"))
-    implementation(project(":feature:register-detail:profile-picture"))
-
-    implementation(project(":feature:work:routine-selection"))
-    implementation(project(":feature:work:change-order"))
-    implementation(project(":feature:work:work"))
-    implementation(project(":feature:work:complete"))
-
+    implementation(project(":feature:work:navigation"))
     implementation(project(":feature:badge:navigation"))
+    implementation(project(":feature:history:navigation"))
+    implementation(project(":feature:notification:navigation"))
+    implementation(project(":feature:update-routine:navigation"))
+    implementation(project(":feature:my-info:navigation"))
 
     implementation(project(":feature:home"))
-
-    implementation(project(":feature:notification:notification"))
-    implementation(project(":feature:notification:notice"))
-    implementation(project(":feature:notification:notice-detail"))
-    implementation(project(":feature:notification:push"))
-    implementation(project(":feature:notification:push-detail"))
-
-
-    implementation(project(":feature:history:history"))
-    implementation(project(":feature:history:analytics"))
-    implementation(project(":feature:history:daily-log"))
-
-    implementation(project(":feature:my-info:my-info"))
-    implementation(project(":feature:my-info:update-profile"))
-    implementation(project(":feature:my-info:update"))
-
-    implementation(project(":feature:update-routine:routine-set"))
-    implementation(project(":feature:update-routine:routine"))
-    implementation(project(":feature:update-routine:profile-picture"))
-    implementation(project(":feature:update-routine:find-work-category"))
-
 }

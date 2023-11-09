@@ -86,7 +86,15 @@ include(":feature:update-routine:find-work-category")
 
 include(":feature:routine-detail:routine")
 include(":feature:routine-detail:routine-list")
+
+
 include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
 include(":feature:login:navigation")
+include(":feature:history:navigation")
+include(":feature:register-detail:navigation")
+include(":feature:work:navigation")
+include(":feature:notification:navigation")
+include(":feature:update-routine:navigation")
+include(":feature:my-info:navigation")
