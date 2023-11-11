@@ -1,6 +1,5 @@
 plugins {
     id("lift.android.application")
-    id("lift.android.common")
     id("lift.android.compose.application")
     id("lift.android.hilt")
     id("lift.android.kotlin")
@@ -11,18 +10,10 @@ plugins {
 }
 
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-
 android {
     namespace = "com.gradation.lift"
 
     defaultConfig {
-        versionCode = 9
-        versionName = "0.0.14"
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
 }

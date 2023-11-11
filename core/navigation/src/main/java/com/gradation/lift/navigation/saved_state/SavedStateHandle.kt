@@ -17,20 +17,6 @@ fun <T> NavController.getValueSavedStateHandle(key: String): T? {
 
 
 
-fun  NavController.findValueInBackStackEntry(keyList: List<String>): Map<String, String> {
-    val valueList = HashMap<String, String>()
-    backQueue.reversed().forEach { backStackEntry ->
-        keyList.forEach { key ->
-            backStackEntry.savedStateHandle.get<String>(key)?.let { value ->
-                valueList[key] = value
-            }
-        }
-    }
-    return valueList
-}
-
-
-
 
 
 
