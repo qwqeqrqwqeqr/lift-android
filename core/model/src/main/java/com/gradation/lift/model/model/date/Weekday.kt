@@ -73,6 +73,8 @@ sealed class Weekday {
         const val SATURDAY_NAME_VALUE = "토"
         const val SUNDAY_NAME_VALUE = "일"
         const val NONE_NAME_VALUE = ""
+
+        const val WEEKDAY_SIZE = 7
     }
 
 
