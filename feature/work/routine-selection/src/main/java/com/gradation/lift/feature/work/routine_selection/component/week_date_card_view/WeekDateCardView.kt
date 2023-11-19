@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.ui.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.routine_selection.data.model.WeekDateSelection
 import kotlinx.datetime.LocalDate

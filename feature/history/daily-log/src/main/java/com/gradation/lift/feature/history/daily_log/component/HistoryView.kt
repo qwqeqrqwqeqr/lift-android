@@ -16,7 +16,7 @@ import com.gradation.lift.feature.history.daily_log.component.history_view.Histo
 import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryTimeView
 import com.gradation.lift.feature.history.daily_log.component.history_view.HistoryTimesListView
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.ui.utils.toDayMonthText
+import com.gradation.lift.ui.mapper.toDayMonthText
 import kotlinx.datetime.LocalDate
 
 @Composable

@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.extensions
+package com.gradation.lift.ui.extensions
 
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.ui.graphics.Color

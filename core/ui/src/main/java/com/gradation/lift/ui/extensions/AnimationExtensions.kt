@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.extensions
+package com.gradation.lift.ui.extensions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

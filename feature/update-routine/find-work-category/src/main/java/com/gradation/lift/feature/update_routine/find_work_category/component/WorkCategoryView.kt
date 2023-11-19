@@ -11,15 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.extensions.noRippleClickable
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.ui.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.update_routine.find_work_category.UpdateRoutineFindWorkCategoryScreen
-import com.gradation.lift.feature.update_routine.find_work_category.data.model.WorkPartFilterSelection
 import com.gradation.lift.model.model.work.WorkCategory
-import com.gradation.lift.model.utils.ModelDataGenerator
 
 
 @Composable

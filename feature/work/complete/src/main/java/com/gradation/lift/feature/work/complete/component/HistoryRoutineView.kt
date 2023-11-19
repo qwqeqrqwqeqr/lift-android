@@ -14,7 +14,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
-import com.gradation.lift.ui.utils.toText
+import com.gradation.lift.ui.mapper.toText
 
 @Composable
 fun HistoryRoutineView(

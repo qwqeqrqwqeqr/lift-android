@@ -14,7 +14,7 @@ import com.gradation.lift.feature.my_info.update.data.state.UpdateUserDetailStat
 import com.gradation.lift.feature.my_info.update.data.state.UserDetailUiState
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.ui.utils.toText
+import com.gradation.lift.ui.mapper.toText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

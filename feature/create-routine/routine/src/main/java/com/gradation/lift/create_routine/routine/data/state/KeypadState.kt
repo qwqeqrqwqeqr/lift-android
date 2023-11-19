@@ -1,8 +1,8 @@
 package com.gradation.lift.create_routine.routine.data.state
 
 import androidx.compose.runtime.MutableState
-import com.gradation.lift.ui.utils.toRepetitionText
-import com.gradation.lift.ui.utils.toWeightText
+import com.gradation.lift.ui.mapper.toRepetitionText
+import com.gradation.lift.ui.mapper.toWeightText
 
 /**
  * [KeypadState]

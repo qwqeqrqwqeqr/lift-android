@@ -1,7 +1,7 @@
 package com.gradation.lift.feature.work.routine_selection.component.routine_view
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.ui.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -29,7 +29,7 @@ fun RoutineListView(
     routine: RoutineSelection,
     updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
 ) {
-    Divider(
+    HorizontalDivider(
         modifier = modifier,
         thickness = 2.dp,
         color = LiftTheme.colorScheme.no1,

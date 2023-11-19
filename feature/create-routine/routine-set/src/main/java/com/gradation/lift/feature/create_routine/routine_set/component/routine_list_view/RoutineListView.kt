@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
-import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.ui.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -22,7 +22,7 @@ import com.gradation.lift.feature.create_routine.routine_set.component.RoutineSe
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.ui.utils.DevicePreview
-import com.gradation.lift.ui.utils.toText
+import com.gradation.lift.ui.mapper.toText
 
 
 /**

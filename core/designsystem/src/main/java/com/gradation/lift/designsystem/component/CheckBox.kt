@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.extensions.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -38,10 +37,7 @@ fun LiftCircleCheckBox(
             Box(
                 modifier = modifier
                     .size(25.dp)
-                    .background(if (checked.value) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no5)
-                    .noRippleClickable {
-                        checked.value = !checked.value
-                    },
+                    .background(if (checked.value) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no5),
                 contentAlignment = Alignment.Center
             ) {
                 if(checked.value)

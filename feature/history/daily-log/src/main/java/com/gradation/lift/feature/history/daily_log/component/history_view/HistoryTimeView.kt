@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.history.History
-import com.gradation.lift.ui.utils.toText
+import com.gradation.lift.ui.mapper.toText
 
 @Composable
 fun HistoryTimeView(

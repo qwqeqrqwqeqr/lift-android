@@ -1,4 +1,4 @@
-package com.gradation.lift.ui.utils
+package com.gradation.lift.ui.mapper
 
 import android.icu.text.DecimalFormat
 import kotlinx.datetime.LocalDate

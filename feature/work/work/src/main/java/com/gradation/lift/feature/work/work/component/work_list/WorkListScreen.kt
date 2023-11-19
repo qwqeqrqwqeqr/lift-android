@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.LiftProgressBar
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
-import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.ui.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -29,7 +29,7 @@ import com.gradation.lift.feature.work.work.data.model.WorkRoutineSelection
 import com.gradation.lift.feature.work.work.data.model.WorkSetSelection
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
 import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
-import com.gradation.lift.ui.utils.toText
+import com.gradation.lift.ui.mapper.toText
 
 @ExperimentalMaterial3Api
 @Composable

@@ -9,16 +9,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.extensions.noRippleClickable
+import com.gradation.lift.ui.extensions.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -73,7 +73,7 @@ fun MyInfoListView(
                 tint = LiftTheme.colorScheme.no2
             )
         }
-        Divider(
+        HorizontalDivider(
             modifier = modifier.fillMaxWidth(),
             thickness = 1.dp,
             color = LiftTheme.colorScheme.no17
@@ -109,7 +109,7 @@ fun MyInfoListView(
                 tint = LiftTheme.colorScheme.no2
             )
         }
-        Divider(
+        HorizontalDivider(
             modifier = modifier.fillMaxWidth(),
             thickness = 1.dp,
             color = LiftTheme.colorScheme.no17
@@ -144,7 +144,7 @@ fun MyInfoListView(
                 tint = LiftTheme.colorScheme.no2
             )
         }
-        Divider(
+        HorizontalDivider(
             modifier = modifier.fillMaxWidth(),
             thickness = 1.dp,
             color = LiftTheme.colorScheme.no17
@@ -179,7 +179,7 @@ fun MyInfoListView(
                 tint = LiftTheme.colorScheme.no2
             )
         }
-        Divider(
+        HorizontalDivider(
             modifier = modifier.fillMaxWidth(),
             thickness = 1.dp,
             color = LiftTheme.colorScheme.no17

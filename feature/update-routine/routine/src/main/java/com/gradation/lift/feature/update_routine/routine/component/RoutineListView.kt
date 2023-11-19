@@ -26,12 +26,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.component.LiftRoutineTextField
-import com.gradation.lift.designsystem.extensions.transparentTextSelectionColors
+import com.gradation.lift.ui.extensions.transparentTextSelectionColors
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.update_routine.routine.data.model.IndexWorkSet
-import com.gradation.lift.ui.utils.toRepetitionText
-import com.gradation.lift.ui.utils.toWeightText
+import com.gradation.lift.ui.mapper.toRepetitionText
+import com.gradation.lift.ui.mapper.toWeightText
 
 @Composable
 fun RoutineListView(

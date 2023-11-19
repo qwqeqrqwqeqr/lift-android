@@ -13,7 +13,7 @@ fun routineDetailGraphBuilder(
 ) {
     navGraphBuilder.navigation(
         route = Router.ROUTINE_DETAIL_GRAPH_NAME,
-        startDestination = Router.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME,
+        startDestination = Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME,
     ) {
         routineDetailRoutineScreen(navController, this)
         routineDetailRoutineListScreen(navController, this)

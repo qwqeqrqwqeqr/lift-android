@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRestTime
-import com.gradation.lift.ui.utils.toText
+import com.gradation.lift.ui.mapper.toText
 
 @Composable
 fun TimeView(
