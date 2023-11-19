@@ -1,14 +1,9 @@
 package com.gradation.lift.designsystem.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import com.gradation.lift.designsystem.resource.*
 
 @Composable
@@ -34,7 +29,8 @@ fun LiftMaterialTheme(
             content = {
                 CompositionLocalProvider(
                     LocalLiftColorScheme provides liftColorScheme,
-                    LocalLiftTypography provides LiftTypography()
+                    LocalLiftTypography provides LiftTypography(),
+                    LocalLiftSpace provides LiftSpace()
                 ) {
                     Surface(content = content)
                 }
