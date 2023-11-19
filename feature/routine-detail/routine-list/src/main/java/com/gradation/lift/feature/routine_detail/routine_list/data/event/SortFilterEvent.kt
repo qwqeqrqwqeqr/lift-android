@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.routine_detail.routine_list.data.event
 
-import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.Label
 

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_detail.routine_list.data.state
+package com.gradation.lift.feature.routine_detail.routine_list.data.model
 
 
 /**

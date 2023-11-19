@@ -1,5 +1,9 @@
 package com.gradation.lift.feature.routine_detail.routine_list.data.state
 
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
+
 /**
  * [SortFilterState]
  * 루틴을 조회할 때에 대한 정렬 필터를 모아둔 상태필

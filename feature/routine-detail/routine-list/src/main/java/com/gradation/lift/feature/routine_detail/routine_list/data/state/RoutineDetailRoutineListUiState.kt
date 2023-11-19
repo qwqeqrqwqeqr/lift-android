@@ -2,6 +2,9 @@ package com.gradation.lift.feature.routine_detail.routine_list.data.state
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineUseCase
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,14 +29,14 @@ fun routineDetailRoutineListUiState(
                     RoutineDetailRoutineListUiState.Empty
                 } else {
                     RoutineDetailRoutineListUiState.Success(
-                        routineSetRoutine.data.let { routineSetRoutine ->
+                        routineSetRoutine.data.let { routineSetRoutineList ->
                             when (val labelFilterType = state.labelFilterType) {
                                 LabelFilterType.All -> {
-                                    routineSetRoutine
+                                    routineSetRoutineList
                                 }
 
                                 is LabelFilterType.Label -> {
-                                    routineSetRoutine.filter {
+                                    routineSetRoutineList.filter {
                                         it.label.intersect(labelFilterType.labelSet).isNotEmpty()
                                     }
                                 }
