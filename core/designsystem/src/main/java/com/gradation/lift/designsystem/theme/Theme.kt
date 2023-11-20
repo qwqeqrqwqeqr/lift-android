@@ -50,4 +50,10 @@ object LiftTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalLiftTypography.current
+
+
+    val space: LiftSpace
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalLiftSpace.current
 }
