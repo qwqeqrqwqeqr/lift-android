@@ -30,7 +30,7 @@ fun routineDetailRoutineListUiState(
                 } else {
                     RoutineDetailRoutineListUiState.Success(
                         routineSetRoutine.data.let { routineSetRoutineList ->
-                            when (val labelFilterType = state.labelFilterType) {
+                            when (val labelFilterType = state.labelFilterType.value) {
                                 LabelFilterType.All -> {
                                     routineSetRoutineList
                                 }
@@ -42,7 +42,7 @@ fun routineDetailRoutineListUiState(
                                 }
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (val weekdayFilterType = state.weekdayFilterType) {
+                            when (val weekdayFilterType = state.weekdayFilterType.value) {
                                 WeekdayFilterType.All -> {
                                     filteredRoutineSetRoutine
                                 }
@@ -56,10 +56,10 @@ fun routineDetailRoutineListUiState(
                             }
                         }.let { filteredRoutineSetRoutine ->
                             filteredRoutineSetRoutine.filter {
-                                it.name.contains(state.searchTextFilter)
+                                it.name.contains(state.searchTextFilter.value)
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (state.sortType) {
+                            when (state.sortType.value) {
                                 SortType.Name -> filteredRoutineSetRoutine.sortedBy { it.name }
                                 SortType.Count -> filteredRoutineSetRoutine.sortedByDescending { it.count }
                             }
@@ -76,7 +76,6 @@ sealed interface RoutineDetailRoutineListUiState {
 
     data class Success(val routineSetRoutineList: List<RoutineSetRoutine>) :
         RoutineDetailRoutineListUiState
-
     data class Fail(val message: String) : RoutineDetailRoutineListUiState
     data object Empty : RoutineDetailRoutineListUiState
     data object Loading : RoutineDetailRoutineListUiState
