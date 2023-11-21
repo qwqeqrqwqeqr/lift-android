@@ -1,7 +1,8 @@
 package com.gradation.lift.feature.routine_detail.routine_list.data.state
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.gradation.lift.feature.routine_detail.routine_list.data.event.SortFilterEvent
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
@@ -13,18 +14,18 @@ import com.gradation.lift.model.model.routine.Label
 /**
  * [SortFilterState]
  * 루틴을 조회할 때에 대한 정렬 필터를 모아둔 상태필
- * @param labelFilterType 라벨 필터
- * @param weekdayFilterType 요일 필터
- * @param searchTextFilter 검색어 필터
- * @param sortType 정렬 방식
+ * [labelFilterType] 라벨 필터
+ * [weekdayFilterType] 요일 필터
+ * [searchTextFilter] 검색어 필터
+ * [sortType] 정렬 방식
  * @since 2023-11-18 17:25:09
  */
-data class SortFilterState(
-    val labelFilterType: MutableState<LabelFilterType> = mutableStateOf(LabelFilterType.All),
-    val weekdayFilterType: MutableState<WeekdayFilterType> = mutableStateOf(WeekdayFilterType.All),
-    val searchTextFilter: MutableState<String> = mutableStateOf(""),
-    val sortType: MutableState<SortType> = mutableStateOf(SortType.Name)
-) {
+class SortFilterState{
+    var labelFilterType: LabelFilterType by mutableStateOf(LabelFilterType.All)
+    var weekdayFilterType: WeekdayFilterType by mutableStateOf(WeekdayFilterType.All)
+    var searchTextFilter: String by mutableStateOf("")
+    var sortType: SortType by mutableStateOf(SortType.Name)
+
     val updateAllWeekdayFilter: () -> Unit = {
         onSortFilterEvent(SortFilterEvent.UpdateAllWeekdayFilter)
     }
@@ -53,30 +54,30 @@ data class SortFilterState(
     private fun onSortFilterEvent(sortFilterEvent: SortFilterEvent) {
         when (sortFilterEvent) {
             SortFilterEvent.UpdateAllLabelFilter -> {
-                labelFilterType.value = LabelFilterType.All
+                labelFilterType = LabelFilterType.All
             }
 
             SortFilterEvent.UpdateAllWeekdayFilter -> {
-                weekdayFilterType.value = WeekdayFilterType.All
+                weekdayFilterType = WeekdayFilterType.All
             }
 
             is SortFilterEvent.UpdateLabelFilter -> {
-                labelFilterType.value =
+                labelFilterType =
                     if (sortFilterEvent.labelSet.size == Label.entries.size)
                         LabelFilterType.All
                     else LabelFilterType.Label(labelSet = sortFilterEvent.labelSet)
             }
 
             is SortFilterEvent.UpdateSearchText -> {
-                searchTextFilter.value = sortFilterEvent.searchText
+                searchTextFilter = sortFilterEvent.searchText
             }
 
             is SortFilterEvent.UpdateSortType -> {
-                sortType.value = sortFilterEvent.sortType
+                sortType = sortFilterEvent.sortType
             }
 
             is SortFilterEvent.UpdateWeekdayFilter -> {
-                weekdayFilterType.value = if (sortFilterEvent.weekdaySet.size == WEEKDAY_SIZE)
+                weekdayFilterType = if (sortFilterEvent.weekdaySet.size == WEEKDAY_SIZE)
                     WeekdayFilterType.All
                 else WeekdayFilterType.Weekday(weekdaySet = sortFilterEvent.weekdaySet)
             }

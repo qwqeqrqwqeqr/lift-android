@@ -1,7 +1,7 @@
 package com.gradation.lift.feature.routine_detail.routine_list.data.state
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import com.gradation.lift.feature.routine_detail.routine_list.data.event.RoutineListInfoEvent
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.RoutineIdInfo
 
@@ -11,9 +11,10 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.Routine
  * @param openedRoutineList 현재 펼쳐진(상세 보기) 루틴들의 목록 (루틴리스트 아이디, 루틴 아이디) 형태
  * @since 2023-11-19 15:21:26
  */
-data class RoutineListInfoState(
-    val openedRoutineList: MutableState<List<RoutineIdInfo>> = mutableStateOf(emptyList())
-) {
+class RoutineListInfoState {
+
+    var openedRoutineList: SnapshotStateList<RoutineIdInfo> =
+        emptyList<RoutineIdInfo>().toMutableStateList()
 
     val openRoutineInfo: (RoutineIdInfo) -> Unit = {
         onRoutineListInfoEvent(RoutineListInfoEvent.OpenRoutineInfo(it))
@@ -26,12 +27,10 @@ data class RoutineListInfoState(
     private fun onRoutineListInfoEvent(routineListInfoEvent: RoutineListInfoEvent) {
         when (routineListInfoEvent) {
             is RoutineListInfoEvent.CloseRoutineInfo ->
-                openedRoutineList.value =
-                    openedRoutineList.value.minus(routineListInfoEvent.routineIdInfo)
+                openedRoutineList.remove(routineListInfoEvent.routineIdInfo)
 
             is RoutineListInfoEvent.OpenRoutineInfo ->
-                openedRoutineList.value =
-                    openedRoutineList.value.plus(routineListInfoEvent.routineIdInfo)
+                openedRoutineList.remove(routineListInfoEvent.routineIdInfo)
         }
     }
 }

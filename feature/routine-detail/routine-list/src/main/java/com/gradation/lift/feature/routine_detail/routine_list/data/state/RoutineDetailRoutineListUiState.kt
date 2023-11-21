@@ -30,7 +30,7 @@ fun routineDetailRoutineListUiState(
                 } else {
                     RoutineDetailRoutineListUiState.Success(
                         routineSetRoutine.data.let { routineSetRoutineList ->
-                            when (val labelFilterType = state.labelFilterType.value) {
+                            when (val labelFilterType = state.labelFilterType) {
                                 LabelFilterType.All -> {
                                     routineSetRoutineList
                                 }
@@ -42,7 +42,7 @@ fun routineDetailRoutineListUiState(
                                 }
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (val weekdayFilterType = state.weekdayFilterType.value) {
+                            when (val weekdayFilterType = state.weekdayFilterType) {
                                 WeekdayFilterType.All -> {
                                     filteredRoutineSetRoutine
                                 }
@@ -56,10 +56,10 @@ fun routineDetailRoutineListUiState(
                             }
                         }.let { filteredRoutineSetRoutine ->
                             filteredRoutineSetRoutine.filter {
-                                it.name.contains(state.searchTextFilter.value)
+                                it.name.contains(state.searchTextFilter)
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (state.sortType.value) {
+                            when (state.sortType) {
                                 SortType.Name -> filteredRoutineSetRoutine.sortedBy { it.name }
                                 SortType.Count -> filteredRoutineSetRoutine.sortedByDescending { it.count }
                             }
