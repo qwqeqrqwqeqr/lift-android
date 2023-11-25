@@ -9,6 +9,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.gradation.lift.designsystem.R
 
+/**
+ * [TEXT_NO1] 헤더/타이틀 Header/Title
+ * [TEXT_NO2] 팝업 타이틀 Title
+ * [TEXT_NO3] 라벨, 버튼, 탭 Title
+ * [TEXT_NO4] 팝업 본문 Body
+ * [TEXT_NO5] 인풋 고정 텍스트, 본문 텍스트 강조시, 토스트 Body
+ * [TEXT_NO6] 본문 Body
+ * [TEXT_NO7] 캡션 / 버튼 라벨 Caption
+ * [TEXT_NO8] 인증 Caption
+ * @since 2023-11-25 15:42:17
+ */
+
 private val pretendard = FontFamily(
     Font(R.font.pretendard_bold, FontWeight.Bold, FontStyle.Normal),
     Font(R.font.pretendard_black, FontWeight.Black, FontStyle.Normal),
@@ -20,6 +32,8 @@ private val pretendard = FontFamily(
     Font(R.font.pretendard_extra_bold, FontWeight.ExtraBold, FontStyle.Normal),
     Font(R.font.pretendard_extra_light, FontWeight.ExtraLight, FontStyle.Normal),
 )
+
+
 
 internal val TEXT_NO1 = TextStyle(
     fontSize = 22.sp,
@@ -56,6 +70,11 @@ internal val TEXT_NO7 = TextStyle(
     fontWeight = FontWeight.Normal,
     fontFamily = pretendard
 )
+internal val TEXT_NO8 = TextStyle(
+    fontSize = 12.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
+)
 
 data class LiftTypography(
     val no1: TextStyle = TEXT_NO1,
@@ -65,6 +84,7 @@ data class LiftTypography(
     val no5: TextStyle= TEXT_NO5,
     val no6: TextStyle= TEXT_NO6,
     val no7: TextStyle= TEXT_NO7,
+    val no8: TextStyle= TEXT_NO8,
 )
 
 
