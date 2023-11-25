@@ -7,17 +7,20 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortTyp
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 
 fun routineDetailRoutineListUiState(
     getRoutineSetRoutineUseCase: GetRoutineSetRoutineUseCase,
-    sortFilterState: StateFlow<SortFilterState>
+    sortFilterState: SortFilterState,
 ): Flow<RoutineDetailRoutineListUiState> {
+
     return combine(
         getRoutineSetRoutineUseCase(),
-        sortFilterState
-    ) { routineSetRoutine, state ->
+        sortFilterState.labelFilterType,
+        sortFilterState.weekdayFilterType,
+        sortFilterState.searchFilterText,
+        sortFilterState.sortType
+    ) { routineSetRoutine, labelFilterType, weekdayFilterType, searchFilterText, sortType ->
 
         when (routineSetRoutine) {
             is DataState.Fail -> {
@@ -30,7 +33,7 @@ fun routineDetailRoutineListUiState(
                 } else {
                     RoutineDetailRoutineListUiState.Success(
                         routineSetRoutine.data.let { routineSetRoutineList ->
-                            when (val labelFilterType = state.labelFilterType) {
+                            when (labelFilterType) {
                                 LabelFilterType.All -> {
                                     routineSetRoutineList
                                 }
@@ -42,7 +45,7 @@ fun routineDetailRoutineListUiState(
                                 }
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (val weekdayFilterType = state.weekdayFilterType) {
+                            when (weekdayFilterType) {
                                 WeekdayFilterType.All -> {
                                     filteredRoutineSetRoutine
                                 }
@@ -56,10 +59,10 @@ fun routineDetailRoutineListUiState(
                             }
                         }.let { filteredRoutineSetRoutine ->
                             filteredRoutineSetRoutine.filter {
-                                it.name.contains(state.searchTextFilter)
+                                it.name.contains(searchFilterText)
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (state.sortType) {
+                            when (sortType) {
                                 SortType.Name -> filteredRoutineSetRoutine.sortedBy { it.name }
                                 SortType.Count -> filteredRoutineSetRoutine.sortedByDescending { it.count }
                             }
@@ -76,6 +79,7 @@ sealed interface RoutineDetailRoutineListUiState {
 
     data class Success(val routineSetRoutineList: List<RoutineSetRoutine>) :
         RoutineDetailRoutineListUiState
+
     data class Fail(val message: String) : RoutineDetailRoutineListUiState
     data object Empty : RoutineDetailRoutineListUiState
     data object Loading : RoutineDetailRoutineListUiState

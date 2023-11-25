@@ -14,6 +14,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine_detail.routine_list.data.RoutineDetailRoutineListViewModel
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
+import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
@@ -26,9 +29,17 @@ fun RoutineDetailRoutineListRoute(
     viewModel: RoutineDetailRoutineListViewModel = hiltViewModel(),
 ) {
 
-    val sortFilterState: SortFilterState by viewModel.sortFilterState.collectAsStateWithLifecycle()
-    val routineListInfoState: RoutineListInfoState by viewModel.routineListInfoState.collectAsStateWithLifecycle()
+    val sortFilterState : SortFilterState = viewModel.sortFilterState
+    val routineListInfoState: RoutineListInfoState = viewModel.routineListInfoState
     val routineSetRoutineList: RoutineDetailRoutineListUiState by viewModel.routineSetRoutineList.collectAsStateWithLifecycle()
+
+
+
+    val labelFilterType: LabelFilterType by sortFilterState.labelFilterType.collectAsStateWithLifecycle()
+    val weekdayFilterType: WeekdayFilterType by sortFilterState.weekdayFilterType.collectAsStateWithLifecycle()
+    val searchFilterText: String by sortFilterState.searchFilterText.collectAsStateWithLifecycle()
+    val sortType: SortType by sortFilterState.sortType.collectAsStateWithLifecycle()
+
 
 
 
@@ -36,20 +47,30 @@ fun RoutineDetailRoutineListRoute(
 
     RoutineDetailRoutineListScreen(
         modifier,
-        sortFilterState,
         routineListInfoState,
         routineSetRoutineList,
+        sortFilterState,
+        labelFilterType,
+        weekdayFilterType,
+        searchFilterText,
+        sortType,
     )
 
 }
 
 
+
+
 @Composable
 fun RoutineDetailRoutineListScreen(
     modifier: Modifier = Modifier,
-    sortFilterState: SortFilterState,
     routineListInfoState: RoutineListInfoState,
     routineSetRoutineList: RoutineDetailRoutineListUiState,
+    sortFilterState: SortFilterState,
+    labelFilterType: LabelFilterType,
+    weekdayFilterType: WeekdayFilterType,
+    searchFilterText: String,
+    sortType: SortType
 ) {
     Scaffold(
         topBar = {
@@ -88,7 +109,7 @@ fun RoutineDetailRoutineListScreen(
                                     vertical = LiftTheme.space.verticalPaddingSpace
                                 )
                         ) {
-                            SearchView(modifier, sortFilterState)
+                            SearchView(modifier,sortFilterState,searchFilterText)
                             Text(
                                 text = buildAnnotatedString {
                                     append("총 ")
