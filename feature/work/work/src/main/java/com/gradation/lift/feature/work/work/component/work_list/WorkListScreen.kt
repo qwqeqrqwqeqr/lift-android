@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.canvas.LiftProgressBar
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.ToggleCheckbox
-import com.gradation.lift.ui.extensions.noRippleClickable
+import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme

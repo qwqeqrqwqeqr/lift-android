@@ -17,7 +17,7 @@ fun SearchView(
 
         LiftSearchTextField(
             modifier = modifier.fillMaxWidth(),
-            value = sortFilterState.searchTextFilter.value,
+            value = sortFilterState.searchTextFilter,
             onValueChange = { sortFilterState.updateSearchText },
             placeholder = {
                 Text(

@@ -39,7 +39,7 @@ import com.gradation.lift.designsystem.component.label.SundayRoutineLabel
 import com.gradation.lift.designsystem.component.label.ThursdayRoutineLabel
 import com.gradation.lift.designsystem.component.label.TuesdayRoutineLabel
 import com.gradation.lift.designsystem.component.label.WednesdayRoutineLabel
-import com.gradation.lift.ui.extensions.noRippleClickable
+import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.data.state.RoutineUiState
