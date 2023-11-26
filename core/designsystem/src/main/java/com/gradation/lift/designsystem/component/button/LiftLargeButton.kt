@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -32,12 +33,13 @@ fun LiftSolidLargeButton(
             containerColor = LiftTheme.colorScheme.no4,
             contentColor = LiftTheme.colorScheme.no5,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
+        contentPadding = PaddingValues(LiftTheme.space.space10)
 
-        ) {
+    ) {
         LiftButtonText(modifier, text)
     }
 }
+
 
 @Composable
 fun LiftDefaultLargeButton(
@@ -57,9 +59,9 @@ fun LiftDefaultLargeButton(
             containerColor = LiftTheme.colorScheme.no13,
             contentColor = LiftTheme.colorScheme.no5,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
+        contentPadding = PaddingValues(LiftTheme.space.space10)
 
-        ) {
+    ) {
         LiftButtonText(modifier, text)
     }
 }
@@ -84,12 +86,12 @@ fun LiftPrimaryLargeButton(
         enabled = enabled,
         shape = RoundedCornerShape(size = LiftTheme.space.space12),
         colors = ButtonDefaults.buttonColors(
-            containerColor = LiftTheme.colorScheme.no5,
+            containerColor = Color.Transparent,
             contentColor = LiftTheme.colorScheme.no4,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
+        contentPadding = PaddingValues(LiftTheme.space.space10)
 
-        ) {
+    ) {
         LiftButtonText(modifier, text)
     }
 }

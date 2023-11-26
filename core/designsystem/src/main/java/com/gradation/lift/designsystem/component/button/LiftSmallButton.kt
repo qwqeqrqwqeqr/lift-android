@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -32,9 +33,9 @@ fun LiftSolidSmallButton(
             containerColor = LiftTheme.colorScheme.no4,
             contentColor = LiftTheme.colorScheme.no5,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
+        contentPadding = PaddingValues(LiftTheme.space.space10)
 
-        ) {
+    ) {
         LiftButtonText(modifier, text)
     }
 }
@@ -57,9 +58,9 @@ fun LiftDefaultSmallButton(
             containerColor = LiftTheme.colorScheme.no13,
             contentColor = LiftTheme.colorScheme.no5,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
+        contentPadding = PaddingValues(LiftTheme.space.space10)
 
-        ) {
+    ) {
         LiftButtonText(modifier, text)
     }
 }
@@ -84,12 +85,11 @@ fun LiftPrimarySmallButton(
         enabled = enabled,
         shape = RoundedCornerShape(size = LiftTheme.space.space12),
         colors = ButtonDefaults.buttonColors(
-            containerColor = LiftTheme.colorScheme.no5,
+            containerColor = Color.Transparent,
             contentColor = LiftTheme.colorScheme.no4,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
-
-        ) {
+        contentPadding = PaddingValues(LiftTheme.space.space10)
+    ) {
         LiftButtonText(modifier, text)
     }
 }
@@ -113,9 +113,9 @@ fun LiftErrorSmallButton(
             containerColor = LiftTheme.colorScheme.no12,
             contentColor = LiftTheme.colorScheme.no5,
         ),
-        contentPadding = PaddingValues(LiftTheme.space.space10),
+        contentPadding = PaddingValues(LiftTheme.space.space10)
 
-        ) {
+    ) {
         LiftButtonText(modifier, text)
     }
 }
