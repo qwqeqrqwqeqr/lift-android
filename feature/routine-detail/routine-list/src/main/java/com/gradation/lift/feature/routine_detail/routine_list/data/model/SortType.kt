@@ -9,4 +9,10 @@ package com.gradation.lift.feature.routine_detail.routine_list.data.model
 internal sealed interface SortType {
     data object Name : SortType
     data object Count : SortType
+
+
+    fun getName(): String = when (val type = this) {
+        Count -> "사용순"
+        Name -> "기본(이름순)"
+    }
 }

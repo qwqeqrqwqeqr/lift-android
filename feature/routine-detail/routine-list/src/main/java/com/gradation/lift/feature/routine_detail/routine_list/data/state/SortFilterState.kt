@@ -5,7 +5,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFi
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.model.model.date.Weekday
-import com.gradation.lift.model.model.date.Weekday.Companion.WEEKDAY_SIZE
+import com.gradation.lift.model.model.date.getWeekdayEntries
 import com.gradation.lift.model.model.routine.Label
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -19,8 +19,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * @since 2023-11-18 17:25:09
  */
 internal data class SortFilterState(
-    var labelFilterType: MutableStateFlow<LabelFilterType> = MutableStateFlow(LabelFilterType.All),
-    var weekdayFilterType: MutableStateFlow<WeekdayFilterType> = MutableStateFlow(WeekdayFilterType.All),
+    var labelFilterType: MutableStateFlow<LabelFilterType> = MutableStateFlow(LabelFilterType(Label.entries.toSet())),
+    var weekdayFilterType: MutableStateFlow<WeekdayFilterType> = MutableStateFlow(
+        WeekdayFilterType(
+            getWeekdayEntries().toSet()
+        )
+    ),
     var searchFilterText: MutableStateFlow<String> = MutableStateFlow(""),
     var sortType: MutableStateFlow<SortType> = MutableStateFlow(SortType.Name)
 ) {
@@ -49,37 +53,19 @@ internal data class SortFilterState(
         onSortFilterEvent(SortFilterEvent.UpdateSearchFilterText(it))
     }
 
-    val getWeekdayFilterTypeNameList: List<String> = when (val type = weekdayFilterType.value) {
-        WeekdayFilterType.All -> emptyList()
-        is WeekdayFilterType.Weekday -> type.weekdaySet.sortedBy { it.getWeekdayNumber() }
-            .map { it.getWeekdayName() }
-    }
-    val getLabelFilterTypeIdList: List<Int> = when (val type = labelFilterType.value) {
-        LabelFilterType.All -> emptyList()
-        is LabelFilterType.Label -> type.labelSet.sortedBy { it.id }.map { it.id }
-    }
-
-    val getSortTypeName: String = when (val type = sortType.value) {
-        SortType.Count -> "사용순"
-        SortType.Name -> "기본(이름순)"
-    }
-
 
     private fun onSortFilterEvent(sortFilterEvent: SortFilterEvent) {
         when (sortFilterEvent) {
             SortFilterEvent.UpdateAllLabelFilter -> {
-                labelFilterType.value = LabelFilterType.All
+                labelFilterType.value = LabelFilterType(Label.entries.toSet())
             }
 
             SortFilterEvent.UpdateAllWeekdayFilter -> {
-                weekdayFilterType.value = WeekdayFilterType.All
+                weekdayFilterType.value = WeekdayFilterType(getWeekdayEntries().toSet())
             }
 
             is SortFilterEvent.UpdateLabelFilter -> {
-                labelFilterType.value =
-                    if (sortFilterEvent.labelSet.size == Label.entries.size)
-                        LabelFilterType.All
-                    else LabelFilterType.Label(labelSet = sortFilterEvent.labelSet)
+                labelFilterType.value = LabelFilterType(labelSet = sortFilterEvent.labelSet)
             }
 
             is SortFilterEvent.UpdateSearchFilterText -> {
@@ -91,9 +77,7 @@ internal data class SortFilterState(
             }
 
             is SortFilterEvent.UpdateWeekdayFilter -> {
-                weekdayFilterType.value = if (sortFilterEvent.weekdaySet.size == WEEKDAY_SIZE)
-                    WeekdayFilterType.All
-                else WeekdayFilterType.Weekday(weekdaySet = sortFilterEvent.weekdaySet)
+                weekdayFilterType.value = WeekdayFilterType(weekdaySet = sortFilterEvent.weekdaySet)
             }
         }
     }

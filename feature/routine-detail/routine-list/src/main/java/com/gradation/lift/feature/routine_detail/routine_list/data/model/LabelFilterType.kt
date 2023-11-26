@@ -1,12 +1,17 @@
 package com.gradation.lift.feature.routine_detail.routine_list.data.model
 
+import com.gradation.lift.model.model.routine.Label
+
 /**
- * [All] 모든 라벨 조회
- * [Label] 특정 라벨 조회
- * @since 2023-11-18 17:22:11
+ * @param labelSet 필터링 된 라벨 집합
+ * @since 2023-11-26 18:25:18
  */
-internal sealed interface LabelFilterType {
-    data object All : LabelFilterType
-    data class Label(val labelSet: Set<com.gradation.lift.model.model.routine.Label>) :
-        LabelFilterType
+data class LabelFilterType(val labelSet: Set<Label>) {
+
+    fun getIdList(): List<Int> =
+        this.labelSet.sortedBy { it.id }.map { it.id }
+
+    fun contains(label: Label): Boolean = labelSet.contains(label)
+
+    fun isCheckedAllLabel(): Boolean = labelSet.size == Label.entries.size
 }

@@ -2,9 +2,7 @@ package com.gradation.lift.feature.routine_detail.routine_list.data.state
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineUseCase
-import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
-import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -33,29 +31,13 @@ internal fun routineDetailRoutineListUiState(
                 } else {
                     RoutineDetailRoutineListUiState.Success(
                         routineSetRoutine.data.let { routineSetRoutineList ->
-                            when (labelFilterType) {
-                                LabelFilterType.All -> {
-                                    routineSetRoutineList
-                                }
-
-                                is LabelFilterType.Label -> {
-                                    routineSetRoutineList.filter {
-                                        it.label.intersect(labelFilterType.labelSet).isNotEmpty()
-                                    }
-                                }
+                            routineSetRoutineList.filter {
+                                it.label.intersect(labelFilterType.labelSet).isNotEmpty()
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            when (weekdayFilterType) {
-                                WeekdayFilterType.All -> {
-                                    filteredRoutineSetRoutine
-                                }
-
-                                is WeekdayFilterType.Weekday -> {
-                                    filteredRoutineSetRoutine.filter {
-                                        it.label.intersect(weekdayFilterType.weekdaySet)
-                                            .isNotEmpty()
-                                    }
-                                }
+                            filteredRoutineSetRoutine.filter {
+                                it.label.intersect(weekdayFilterType.weekdaySet)
+                                    .isNotEmpty()
                             }
                         }.let { filteredRoutineSetRoutine ->
                             filteredRoutineSetRoutine.filter {
