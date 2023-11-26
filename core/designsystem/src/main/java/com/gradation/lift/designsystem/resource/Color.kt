@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
  * [COLOR_NO34] :그림자
  *
  */
+
 internal val COLOR_NO1: Color = Color(0xFFF2F2F5)
 internal val COLOR_NO2: Color = Color(0xFF87878B)
 internal val COLOR_NO3: Color = Color(0xFF333333)
