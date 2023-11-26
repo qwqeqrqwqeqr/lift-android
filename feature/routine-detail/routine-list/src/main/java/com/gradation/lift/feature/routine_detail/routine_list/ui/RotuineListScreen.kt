@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_detail.routine_list
+package com.gradation.lift.feature.routine_detail.routine_list.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,60 +13,22 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.component.label.RoutineLabel
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.routine_detail.routine_list.data.RoutineDetailRoutineListViewModel
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
-import com.gradation.lift.feature.routine_detail.routine_list.ui.SearchView
+import com.gradation.lift.feature.routine_detail.routine_list.ui.component.SearchView
 
 
 @Composable
-fun RoutineDetailRoutineListRoute(
-    modifier: Modifier = Modifier,
-    viewModel: RoutineDetailRoutineListViewModel = hiltViewModel(),
-) {
-
-    val sortFilterState: SortFilterState = viewModel.sortFilterState
-    val routineListInfoState: RoutineListInfoState = viewModel.routineListInfoState
-    val routineSetRoutineList: RoutineDetailRoutineListUiState by viewModel.routineSetRoutineList.collectAsStateWithLifecycle()
-
-
-    val labelFilterType: LabelFilterType by sortFilterState.labelFilterType.collectAsStateWithLifecycle()
-    val weekdayFilterType: WeekdayFilterType by sortFilterState.weekdayFilterType.collectAsStateWithLifecycle()
-    val searchFilterText: String by sortFilterState.searchFilterText.collectAsStateWithLifecycle()
-    val sortType: SortType by sortFilterState.sortType.collectAsStateWithLifecycle()
-
-
-
-
-
-
-    RoutineDetailRoutineListScreen(
-        modifier,
-        routineListInfoState,
-        routineSetRoutineList,
-        sortFilterState,
-        labelFilterType,
-        weekdayFilterType,
-        searchFilterText,
-        sortType,
-    )
-
-}
-
-
-@Composable
-fun RoutineDetailRoutineListScreen(
+fun RoutineListScreen(
     modifier: Modifier = Modifier,
     routineListInfoState: RoutineListInfoState,
     routineSetRoutineList: RoutineDetailRoutineListUiState,

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_detail.routine_list.data
+package com.gradation.lift.feature.routine_detail.routine_list.data.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutineDetailRoutineListViewModel @Inject constructor(
+class RoutineListViewModel @Inject constructor(
     getRoutineSetRoutineUseCase: GetRoutineSetRoutineUseCase
 ) : ViewModel() {
 

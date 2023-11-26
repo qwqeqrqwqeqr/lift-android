@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_detail.routine_list.ui
+package com.gradation.lift.feature.routine_detail.routine_list.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
