@@ -49,6 +49,21 @@ data class SortFilterState(
         onSortFilterEvent(SortFilterEvent.UpdateSearchFilterText(it))
     }
 
+    val getWeekdayFilterTypeNameList: List<String> = when (val type = weekdayFilterType.value) {
+        WeekdayFilterType.All -> emptyList()
+        is WeekdayFilterType.Weekday -> type.weekdaySet.sortedBy { it.getWeekdayNumber() }
+            .map { it.getWeekdayName() }
+    }
+    val getLabelFilterTypeIdList: List<Int> = when (val type = labelFilterType.value) {
+        LabelFilterType.All -> emptyList()
+        is LabelFilterType.Label -> type.labelSet.sortedBy { it.id }.map { it.id }
+    }
+
+    val getSortTypeName: String = when (val type = sortType.value) {
+        SortType.Count -> "사용순"
+        SortType.Name -> "기본(이름순)"
+    }
+
 
     private fun onSortFilterEvent(sortFilterEvent: SortFilterEvent) {
         when (sortFilterEvent) {
