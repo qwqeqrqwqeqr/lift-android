@@ -73,9 +73,8 @@ sealed class Weekday {
         const val SATURDAY_NAME_VALUE = "토"
         const val SUNDAY_NAME_VALUE = "일"
         const val NONE_NAME_VALUE = ""
-
-        const val WEEKDAY_SIZE = 7
     }
+
 
 
     fun getWeekdayValue(): String = when (val weekday = this) {
@@ -141,6 +140,26 @@ fun LocalDate.toWeekday(): Weekday =
     }
 
 
-
-
-
+/**
+ * [Weekday]에 대한 entries를 구합니다.
+ * @param startMonday 월요일이 시작점인지에 대한 여부 (아닐 경우 일요일 시작)
+ * @since 2023-11-26 16:34:00
+ */
+fun getWeekdayEntries(startMonday: Boolean = true): List<Weekday> =
+    if (startMonday) listOf(
+        Weekday.Monday(),
+        Weekday.Tuesday(),
+        Weekday.Wednesday(),
+        Weekday.Thursday(),
+        Weekday.Friday(),
+        Weekday.Saturday(),
+        Weekday.Sunday()
+    ) else listOf(
+        Weekday.Sunday(),
+        Weekday.Monday(),
+        Weekday.Tuesday(),
+        Weekday.Wednesday(),
+        Weekday.Thursday(),
+        Weekday.Friday(),
+        Weekday.Saturday()
+    )
