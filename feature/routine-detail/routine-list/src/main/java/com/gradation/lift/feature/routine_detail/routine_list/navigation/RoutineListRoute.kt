@@ -11,13 +11,16 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortTyp
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.rememberRoutineListScreen
 import com.gradation.lift.feature.routine_detail.routine_list.ui.RoutineListScreen
 
 @Composable
-fun RoutineListRoute(
+internal fun RoutineListRoute(
     modifier: Modifier = Modifier,
     viewModel: RoutineListViewModel = hiltViewModel(),
+    routineListScreenState: RoutineListScreenState = rememberRoutineListScreen()
 ) {
 
     val sortFilterState: SortFilterState = viewModel.sortFilterState
@@ -37,6 +40,7 @@ fun RoutineListRoute(
 
     RoutineListScreen(
         modifier,
+        routineListScreenState,
         routineListInfoState,
         routineSetRoutineList,
         sortFilterState,

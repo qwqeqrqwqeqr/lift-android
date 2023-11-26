@@ -6,7 +6,7 @@ package com.gradation.lift.feature.routine_detail.routine_list.data.model
  * @param routineId 루틴 아이디
  * @since 2023-11-20 21:26:35
  */
-data class RoutineIdInfo(
+internal data class RoutineIdInfo(
     val routineListId: Int,
     val routineId: Int
 )

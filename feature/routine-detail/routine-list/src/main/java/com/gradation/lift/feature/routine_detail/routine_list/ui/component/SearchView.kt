@@ -10,7 +10,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFil
 
 
 @Composable
-fun SearchView(
+internal fun SearchView(
     modifier: Modifier = Modifier,
     sortFilterState: SortFilterState,
     searchFilterText: String,

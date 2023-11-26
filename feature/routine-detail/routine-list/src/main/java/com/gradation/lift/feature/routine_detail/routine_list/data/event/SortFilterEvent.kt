@@ -15,7 +15,7 @@ import com.gradation.lift.model.model.routine.Label
  * [UpdateSearchFilterText] 검색어를 업데이트 합니다
  * @since 2023-11-18 17:17:28
  */
-sealed interface SortFilterEvent {
+internal sealed interface SortFilterEvent {
 
     data object UpdateAllWeekdayFilter : SortFilterEvent
     data class UpdateWeekdayFilter(val weekdaySet: Set<Weekday>) : SortFilterEvent

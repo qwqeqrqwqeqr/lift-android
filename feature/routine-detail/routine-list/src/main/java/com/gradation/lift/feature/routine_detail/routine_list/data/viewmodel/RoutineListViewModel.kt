@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutineListViewModel @Inject constructor(
+internal class RoutineListViewModel @Inject constructor(
     getRoutineSetRoutineUseCase: GetRoutineSetRoutineUseCase
 ) : ViewModel() {
 

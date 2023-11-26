@@ -10,7 +10,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.Routine
  * [CloseRoutineInfo] 루틴 상세 관련 정보를 닫습니다.
  * @since 2023-11-20 21:20:42
  */
-sealed interface RoutineListInfoEvent {
+internal sealed interface RoutineListInfoEvent {
 
     data class OpenRoutineInfo(val routineIdInfo: RoutineIdInfo) : RoutineListInfoEvent
     data class CloseRoutineInfo(val routineIdInfo: RoutineIdInfo) : RoutineListInfoEvent

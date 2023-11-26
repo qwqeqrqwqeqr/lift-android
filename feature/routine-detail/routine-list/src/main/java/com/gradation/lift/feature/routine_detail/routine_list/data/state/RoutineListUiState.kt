@@ -9,7 +9,7 @@ import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
-fun routineDetailRoutineListUiState(
+internal fun routineDetailRoutineListUiState(
     getRoutineSetRoutineUseCase: GetRoutineSetRoutineUseCase,
     sortFilterState: SortFilterState,
 ): Flow<RoutineDetailRoutineListUiState> {

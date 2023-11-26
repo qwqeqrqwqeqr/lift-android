@@ -23,13 +23,15 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortTyp
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
 import com.gradation.lift.feature.routine_detail.routine_list.ui.component.SearchView
 
 
 @Composable
-fun RoutineListScreen(
+internal fun RoutineListScreen(
     modifier: Modifier = Modifier,
+    routineListScreenState: RoutineListScreenState,
     routineListInfoState: RoutineListInfoState,
     routineSetRoutineList: RoutineDetailRoutineListUiState,
     sortFilterState: SortFilterState,

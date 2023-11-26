@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * [sortType] 정렬 방식
  * @since 2023-11-18 17:25:09
  */
-data class SortFilterState(
+internal data class SortFilterState(
     var labelFilterType: MutableStateFlow<LabelFilterType> = MutableStateFlow(LabelFilterType.All),
     var weekdayFilterType: MutableStateFlow<WeekdayFilterType> = MutableStateFlow(WeekdayFilterType.All),
     var searchFilterText: MutableStateFlow<String> = MutableStateFlow(""),
