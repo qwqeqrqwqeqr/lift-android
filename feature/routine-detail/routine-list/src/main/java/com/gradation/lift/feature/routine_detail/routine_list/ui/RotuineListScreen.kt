@@ -26,6 +26,9 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.state.Routine
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
 import com.gradation.lift.feature.routine_detail.routine_list.ui.component.SearchView
+import com.gradation.lift.feature.routine_detail.routine_list.ui.component.bottomsheet.LabelFilterBottomSheet
+import com.gradation.lift.feature.routine_detail.routine_list.ui.component.bottomsheet.SortBottomSheet
+import com.gradation.lift.feature.routine_detail.routine_list.ui.component.bottomsheet.WeekdayFilterBottomSheet
 
 
 @Composable
@@ -40,6 +43,25 @@ internal fun RoutineListScreen(
     searchFilterText: String,
     sortType: SortType
 ) {
+    if (routineListScreenState.sortTypeBottomSheetView) {
+        SortBottomSheet(modifier, routineListScreenState, sortFilterState, sortType)
+    }
+    if (routineListScreenState.weekdayFilterTypeBottomSheetView) {
+        WeekdayFilterBottomSheet(
+            modifier,
+            routineListScreenState,
+            sortFilterState,
+            weekdayFilterType
+        )
+    }
+    if (routineListScreenState.labelFilterTypeBottomSheetView) {
+        LabelFilterBottomSheet(
+            modifier,
+            routineListScreenState,
+            sortFilterState,
+            labelFilterType
+        )
+    }
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -97,7 +119,11 @@ internal fun RoutineListScreen(
                                         start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp
                                     ),
                                     shape = RoundedCornerShape(6.dp),
-                                    onClick = { }) {
+                                    onClick = {
+                                        routineListScreenState.updateSortTypeBottomSheetView(
+                                            true
+                                        )
+                                    }) {
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -114,7 +140,7 @@ internal fun RoutineListScreen(
 
                                         )
                                         Text(
-                                            text = sortFilterState.getSortTypeName,
+                                            text = sortType.getName(),
                                             style = LiftTheme.typography.no8
                                         )
                                         Icon(
@@ -129,7 +155,11 @@ internal fun RoutineListScreen(
                                         start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp
                                     ),
                                     shape = RoundedCornerShape(6.dp),
-                                    onClick = { }) {
+                                    onClick = {
+                                        routineListScreenState.updateWeekdayFilterTypeBottomSheetView(
+                                            true
+                                        )
+                                    }) {
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -146,8 +176,8 @@ internal fun RoutineListScreen(
 
                                         )
                                         Text(
-                                            text = if (sortFilterState.getWeekdayFilterTypeNameList.isEmpty()) "전체"
-                                            else sortFilterState.getWeekdayFilterTypeNameList.joinToString { " " },
+                                            text = if (weekdayFilterType.isCheckedAllWeekday()) "전체"
+                                            else weekdayFilterType.getNameList().joinToString(","),
                                             style = LiftTheme.typography.no8
                                         )
                                         Icon(
@@ -163,7 +193,11 @@ internal fun RoutineListScreen(
                                         start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp
                                     ),
                                     shape = RoundedCornerShape(6.dp),
-                                    onClick = { }) {
+                                    onClick = {
+                                        routineListScreenState.updateLabelFilterTypeBottomSheetView(
+                                            true
+                                        )
+                                    }) {
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
                                         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -179,10 +213,10 @@ internal fun RoutineListScreen(
                                             color = LiftTheme.colorScheme.no4
 
                                         )
-                                        if (sortFilterState.getWeekdayFilterTypeNameList.isEmpty()) {
+                                        if (labelFilterType.isCheckedAllLabel()) {
                                             Text(
                                                 text = "전체",
-                                                style = LiftTheme.typography.no7
+                                                style = LiftTheme.typography.no8
                                             )
                                         } else {
                                             Row(
@@ -190,8 +224,11 @@ internal fun RoutineListScreen(
                                                     LiftTheme.space.space2
                                                 )
                                             ) {
-                                                sortFilterState.getLabelFilterTypeIdList.forEach {
-                                                    RoutineLabel(id = it)
+                                                labelFilterType.getIdList().forEach {
+                                                    RoutineLabel(
+                                                        modifier = modifier.size(LiftTheme.space.space12),
+                                                        id = it
+                                                    )
                                                 }
                                             }
                                         }
