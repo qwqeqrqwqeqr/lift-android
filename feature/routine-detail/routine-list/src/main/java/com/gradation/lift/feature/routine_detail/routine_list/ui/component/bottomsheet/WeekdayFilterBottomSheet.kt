@@ -29,6 +29,10 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.state.Routine
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
 import com.gradation.lift.model.model.date.Weekday
 
+/**
+ * 요일 필터 바텀 시트
+ * @since 2023-12-03 22:47:27
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun WeekdayFilterBottomSheet(

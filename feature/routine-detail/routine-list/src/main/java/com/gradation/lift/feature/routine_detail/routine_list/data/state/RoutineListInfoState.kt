@@ -14,7 +14,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.Routine
  */
 internal class RoutineListInfoState {
 
-    var openedRoutineList: SnapshotStateList<RoutineIdInfo> =
+    private var openedRoutineList: SnapshotStateList<RoutineIdInfo> =
         emptyList<RoutineIdInfo>().toMutableStateList()
 
     val openRoutineInfo: (RoutineIdInfo) -> Unit = {

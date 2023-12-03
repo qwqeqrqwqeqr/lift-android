@@ -41,6 +41,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.Routine
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.getWeekdayEntries
+import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
@@ -126,34 +127,13 @@ internal fun RoutineListView(
                             else {
                                 routineSetRoutine.weekday.forEach {
                                     when (it) {
-                                        is Weekday.Friday -> FridayRoutineLabel(
-                                            modifier
-                                        )
-
-                                        is Weekday.Monday -> MondayRoutineLabel(
-                                            modifier
-                                        )
-
-                                        is Weekday.Saturday -> SaturdayRoutineLabel(
-                                            modifier
-                                        )
-
-                                        is Weekday.Sunday -> SundayRoutineLabel(
-                                            modifier
-                                        )
-
-                                        is Weekday.Thursday -> ThursdayRoutineLabel(
-                                            modifier
-                                        )
-
-                                        is Weekday.Tuesday -> TuesdayRoutineLabel(
-                                            modifier
-                                        )
-
-                                        is Weekday.Wednesday -> WednesdayRoutineLabel(
-                                            modifier
-                                        )
-
+                                        is Weekday.Friday -> FridayRoutineLabel(modifier)
+                                        is Weekday.Monday -> MondayRoutineLabel(modifier)
+                                        is Weekday.Saturday -> SaturdayRoutineLabel(modifier)
+                                        is Weekday.Sunday -> SundayRoutineLabel(modifier)
+                                        is Weekday.Thursday -> ThursdayRoutineLabel(modifier)
+                                        is Weekday.Tuesday -> TuesdayRoutineLabel(modifier)
+                                        is Weekday.Wednesday -> WednesdayRoutineLabel(modifier)
                                         is Weekday.None -> {}
                                     }
                                 }
@@ -188,11 +168,7 @@ internal fun RoutineListView(
                                 textAlign = TextAlign.Left
                             )
 
-                            if (routineListInfoState.isContains(
-                                    routineSetRoutine.id,
-                                    routine.id
-                                )
-                            ) {
+                            if (routineListInfoState.isContains(routineSetRoutine.id, routine.id)) {
                                 Icon(
                                     modifier = modifier.noRippleClickable {
                                         routineListInfoState.closeRoutineInfo(
@@ -220,87 +196,10 @@ internal fun RoutineListView(
                                 )
                             }
                         }
-                        if (routineListInfoState.isContains(
-                                routineSetRoutine.id,
-                                routine.id
-                            )
-                        ) {
-                            Column(
-                                modifier = modifier.padding(
-                                    horizontal = LiftTheme.space.horizontalPaddingSpace,
-                                    vertical = LiftTheme.space.space16
-                                ),
-                                verticalArrangement = Arrangement.spacedBy(
-                                    LiftTheme.space.space8
-                                )
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(
-                                        24.dp
-                                    )
-                                ) {
-                                    Text(
-                                        text = "Set",
-                                        style = LiftTheme.typography.no3,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                    Text(
-                                        text = "Kg",
-                                        style = LiftTheme.typography.no3,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                    Text(
-                                        text = "Reps",
-                                        style = LiftTheme.typography.no3,
-                                        color = LiftTheme.colorScheme.no9,
-                                        textAlign = TextAlign.Center,
-                                        modifier = modifier.weight(1f)
-                                    )
-                                }
-                                routine.workSetList.forEachIndexed { index, workSet ->
-                                    Row(
-                                        modifier = modifier
-                                            .background(
-                                                color = LiftTheme.colorScheme.no1,
-                                                shape = RoundedCornerShape(size = 6.dp)
-                                            )
-                                            .padding(vertical = LiftTheme.space.space12),
-                                        horizontalArrangement = Arrangement.spacedBy(
-                                            24.dp
-                                        )
-                                    ) {
-                                        Text(
-                                            modifier = modifier.weight(1f),
-                                            text = "${index + 1}",
-                                            style = LiftTheme.typography.no3,
-                                            color = LiftTheme.colorScheme.no2,
-                                            textAlign = TextAlign.Center,
-                                        )
-                                        Text(
-                                            modifier = modifier.weight(1f),
-                                            text = workSet.weight.toText(),
-                                            style = LiftTheme.typography.no3,
-                                            color = LiftTheme.colorScheme.no2,
-                                            textAlign = TextAlign.Center,
-                                        )
-                                        Text(
-                                            modifier = modifier.weight(1f),
-                                            text = "${workSet.repetition}",
-                                            style = LiftTheme.typography.no3,
-                                            color = LiftTheme.colorScheme.no2,
-                                            textAlign = TextAlign.Center,
-                                        )
-                                    }
-                                }
-                            }
-                            HorizontalDivider(
-                                modifier = modifier,
-                                thickness = LiftTheme.space.space2,
-                                color = LiftTheme.colorScheme.no17,
+                        if (routineListInfoState.isContains(routineSetRoutine.id, routine.id)) {
+                            RoutineDetailView(
+                                modifier,
+                                routine,
                             )
                         }
                     }
@@ -308,4 +207,93 @@ internal fun RoutineListView(
             }
         }
     }
+}
+
+/**
+ * 루틴 상세정보를 펼쳤을 때 나타나는 뷰
+ * @since 2023-12-03 22:51:29
+ */
+@Composable
+internal fun RoutineDetailView(
+    modifier: Modifier = Modifier,
+    routine: Routine,
+) {
+
+    Column(
+        modifier = modifier.padding(
+            horizontal = LiftTheme.space.horizontalPaddingSpace,
+            vertical = LiftTheme.space.space16
+        ),
+        verticalArrangement = Arrangement.spacedBy(
+            LiftTheme.space.space8
+        )
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(
+                24.dp
+            )
+        ) {
+            Text(
+                text = "Set",
+                style = LiftTheme.typography.no3,
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Center,
+                modifier = modifier.weight(1f)
+            )
+            Text(
+                text = "Kg",
+                style = LiftTheme.typography.no3,
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Center,
+                modifier = modifier.weight(1f)
+            )
+            Text(
+                text = "Reps",
+                style = LiftTheme.typography.no3,
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Center,
+                modifier = modifier.weight(1f)
+            )
+        }
+        routine.workSetList.forEachIndexed { index, workSet ->
+            Row(
+                modifier = modifier
+                    .background(
+                        color = LiftTheme.colorScheme.no1,
+                        shape = RoundedCornerShape(size = 6.dp)
+                    )
+                    .padding(vertical = LiftTheme.space.space12),
+                horizontalArrangement = Arrangement.spacedBy(
+                    24.dp
+                )
+            ) {
+                Text(
+                    modifier = modifier.weight(1f),
+                    text = "${index + 1}",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no2,
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    modifier = modifier.weight(1f),
+                    text = workSet.weight.toText(),
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no2,
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    modifier = modifier.weight(1f),
+                    text = "${workSet.repetition}",
+                    style = LiftTheme.typography.no3,
+                    color = LiftTheme.colorScheme.no2,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+    }
+    HorizontalDivider(
+        modifier = modifier,
+        thickness = LiftTheme.space.space2,
+        color = LiftTheme.colorScheme.no17,
+    )
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
@@ -20,8 +19,6 @@ import com.gradation.lift.feature.routine_detail.routine_list.ui.component.botto
 import com.gradation.lift.feature.routine_detail.routine_list.ui.component.bottomsheet.SortBottomSheet
 import com.gradation.lift.feature.routine_detail.routine_list.ui.component.bottomsheet.WeekdayFilterBottomSheet
 
-
-@OptIn(ExperimentalGlideComposeApi::class, ExperimentalLayoutApi::class)
 @Composable
 internal fun RoutineListScreen(
     modifier: Modifier = Modifier,
@@ -69,15 +66,15 @@ internal fun RoutineListScreen(
         ) {
             when (routineSetRoutineListUiState) {
                 RoutineDetailRoutineListUiState.Empty -> {
-
+                    /*TODO Not Implement*/
                 }
 
                 is RoutineDetailRoutineListUiState.Fail -> {
-
+                    /*TODO Not Implement*/
                 }
 
                 RoutineDetailRoutineListUiState.Loading -> {
-
+                        /*TODO Not Implement*/
                 }
 
                 is RoutineDetailRoutineListUiState.Success -> {

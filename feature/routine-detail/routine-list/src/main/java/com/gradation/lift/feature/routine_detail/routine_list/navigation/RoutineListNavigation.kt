@@ -11,7 +11,6 @@ fun routineListScreen(
     navGraphBuilder: NavGraphBuilder,
 ) {
     navGraphBuilder.composable(ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
-
         RoutineListRoute()
     }
 }

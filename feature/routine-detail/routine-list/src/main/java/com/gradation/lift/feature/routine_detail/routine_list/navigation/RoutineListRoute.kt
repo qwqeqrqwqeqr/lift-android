@@ -34,10 +34,6 @@ internal fun RoutineListRoute(
     val sortType: SortType by sortFilterState.sortType.collectAsStateWithLifecycle()
 
 
-
-
-
-
     RoutineListScreen(
         modifier,
         routineListScreenState,

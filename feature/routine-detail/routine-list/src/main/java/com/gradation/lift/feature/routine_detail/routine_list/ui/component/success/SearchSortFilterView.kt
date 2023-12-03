@@ -35,6 +35,10 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.state.Routine
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
+/**
+ * 검색 및 정렬 화면 화면
+ * @since 2023-12-03 22:48:19
+ */
 @Composable
 internal fun SearchSortFilterView(
     modifier: Modifier = Modifier,

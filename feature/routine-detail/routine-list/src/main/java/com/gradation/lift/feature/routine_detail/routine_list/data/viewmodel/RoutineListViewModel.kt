@@ -18,7 +18,7 @@ internal class RoutineListViewModel @Inject constructor(
     getRoutineSetRoutineUseCase: GetRoutineSetRoutineUseCase
 ) : ViewModel() {
 
-    val sortFilterState = SortFilterState()
+    val sortFilterState: SortFilterState = SortFilterState()
     val routineListInfoState: RoutineListInfoState = RoutineListInfoState()
 
     val routineSetRoutineList: StateFlow<RoutineDetailRoutineListUiState> =
