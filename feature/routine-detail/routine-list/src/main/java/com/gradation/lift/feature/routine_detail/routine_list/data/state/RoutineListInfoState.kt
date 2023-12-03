@@ -9,7 +9,8 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.model.Routine
  * [RoutineListInfoState]
  * 루틴 리스트의 정보를 가지고 있는 상태
  * [openedRoutineList] 현재 펼쳐진(상세 보기) 루틴들의 목록 (루틴리스트 아이디, 루틴 아이디) 형태
- * @since 2023-11-19 15:21:26
+ * [isContains] 파라미터로 전달받은 아이디가 해당 리스트에 존재하는지 확인합니다.
+ * @since 2023-12-02 15:37:16
  */
 internal class RoutineListInfoState {
 
@@ -24,13 +25,18 @@ internal class RoutineListInfoState {
         onRoutineListInfoEvent(RoutineListInfoEvent.CloseRoutineInfo(it))
     }
 
+    val isContains: (Int, Int) -> Boolean = { routineListId, routineId ->
+        openedRoutineList.any { it.routineListId == routineListId && it.routineId == routineId }
+    }
+
     private fun onRoutineListInfoEvent(routineListInfoEvent: RoutineListInfoEvent) {
         when (routineListInfoEvent) {
             is RoutineListInfoEvent.CloseRoutineInfo ->
                 openedRoutineList.remove(routineListInfoEvent.routineIdInfo)
 
             is RoutineListInfoEvent.OpenRoutineInfo ->
-                openedRoutineList.remove(routineListInfoEvent.routineIdInfo)
+                openedRoutineList.add(routineListInfoEvent.routineIdInfo)
+
         }
     }
 }

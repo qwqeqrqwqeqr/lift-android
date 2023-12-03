@@ -78,7 +78,7 @@ internal fun WeekdayFilterBottomSheet(
                 }
                 IconButton(
                     modifier = modifier.size(16.dp),
-                    onClick = { routineListScreenState.updateSortTypeBottomSheetView(false) }) {
+                    onClick = { routineListScreenState.updateWeekdayFilterTypeBottomSheetView(false) }) {
                     Icon(
                         painter = painterResource(LiftIcon.Close),
                         contentDescription = "",
@@ -176,7 +176,7 @@ internal fun WeekdayButton(
                 sortFilterState.updateWeekdayFilter(setOf(weekday))
             } else {
                 if (weekdayFilterType.contains(weekday)) {
-                    if (weekdayFilterType.isCheckedOne()) {
+                    if (!weekdayFilterType.isCheckedOne()) {
                         sortFilterState.updateWeekdayFilter(
                             weekdayFilterType.weekdaySet.minus(weekday)
                         )

@@ -36,12 +36,12 @@ internal fun routineDetailRoutineListUiState(
                             }
                         }.let { filteredRoutineSetRoutine ->
                             filteredRoutineSetRoutine.filter {
-                                it.label.intersect(weekdayFilterType.weekdaySet)
-                                    .isNotEmpty()
+                                it.weekday.intersect(weekdayFilterType.weekdaySet).isNotEmpty()
                             }
                         }.let { filteredRoutineSetRoutine ->
-                            filteredRoutineSetRoutine.filter {
-                                it.name.contains(searchFilterText)
+                            filteredRoutineSetRoutine.filter { routine ->
+                                searchFilterText.isEmpty() ||
+                                        routine.name.contains(searchFilterText)
                             }
                         }.let { filteredRoutineSetRoutine ->
                             when (sortType) {
