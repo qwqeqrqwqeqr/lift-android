@@ -51,7 +51,8 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 internal fun RoutineListView(
     modifier: Modifier = Modifier,
     routineSetRoutineList: List<RoutineSetRoutine>,
-    routineListInfoState: RoutineListInfoState
+    routineListInfoState: RoutineListInfoState,
+    navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.padding(
@@ -67,7 +68,12 @@ internal fun RoutineListView(
                     .background(
                         LiftTheme.colorScheme.no5,
                         RoundedCornerShape(12.dp)
-                    ),
+                    )
+                    .noRippleClickable {
+                        navigateRoutineListToRoutineInRoutineDetailGraph(
+                            routineSetRoutine.id
+                        )
+                    },
             ) {
                 Row(
                     modifier = modifier

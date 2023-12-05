@@ -53,7 +53,7 @@ fun LiftNavHost(
         registerDetailGraphBuilder(navController, this)
         updateRoutineGraphBuilder(navController, this)
         workGraphBuilder(navController, this)
-        routineDetailGraphBuilder(navController,this)
+        routineDetailGraphBuilder(modifier,navController,this)
     }
 }
 

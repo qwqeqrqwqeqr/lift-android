@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.routine_detail.routine
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,6 +14,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun RoutineDetailRoutineRoute(
     modifier: Modifier = Modifier,
+    currentRoutineSetId: Int?,
+    popBackStack: () -> Unit,
+    navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
+    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
     viewModel: RoutineDetailRoutineViewModel = hiltViewModel(),
 ) {
 
@@ -21,6 +26,7 @@ fun RoutineDetailRoutineRoute(
         modifier,
     )
 
+    BackHandler(onBack = popBackStack)
 }
 
 
@@ -31,7 +37,7 @@ fun RoutineDetailRoutineScreen(
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "프로필 등록하기",
+                title = "루틴 상세",
                 onBackClickTopBar = {},
             )
         }

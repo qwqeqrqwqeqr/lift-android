@@ -32,7 +32,11 @@ fun NavController.navigateRoutineDetailGraphToWorkWorkRouter(routineSetId: Int) 
 }
 
 
-fun NavController.navigateRoutineListToRoutineInRoutineDetailGraph() {
+fun NavController.navigateRoutineListToRoutineInRoutineDetailGraph(routineSetId: Int) {
+    this.setValueSavedStateHandle(
+        SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY,
+        routineSetId
+    )
     this.navigate(Router.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME)
 }
 

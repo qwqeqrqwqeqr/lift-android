@@ -29,7 +29,9 @@ internal fun RoutineListScreen(
     labelFilterType: LabelFilterType,
     weekdayFilterType: WeekdayFilterType,
     searchFilterText: String,
-    sortType: SortType
+    sortType: SortType,
+    navigateRoutineDetailGraphToHomeGraph: () -> Unit,
+    navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit
 ) {
     if (routineListScreenState.sortTypeBottomSheetView) {
         SortBottomSheet(modifier, routineListScreenState, sortFilterState, sortType)
@@ -54,7 +56,7 @@ internal fun RoutineListScreen(
         topBar = {
             LiftBackTopBar(
                 title = "내 루틴",
-                onBackClickTopBar = {},
+                onBackClickTopBar = navigateRoutineDetailGraphToHomeGraph,
             )
         }
     ) { padding ->
@@ -74,7 +76,7 @@ internal fun RoutineListScreen(
                 }
 
                 RoutineDetailRoutineListUiState.Loading -> {
-                        /*TODO Not Implement*/
+                    /*TODO Not Implement*/
                 }
 
                 is RoutineDetailRoutineListUiState.Success -> {
@@ -92,7 +94,8 @@ internal fun RoutineListScreen(
                         RoutineListView(
                             modifier,
                             routineSetRoutineListUiState.routineSetRoutineList,
-                            routineListInfoState
+                            routineListInfoState,
+                            navigateRoutineListToRoutineInRoutineDetailGraph
                         )
                     }
                 }

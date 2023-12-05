@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.routine_detail.routine_list.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,6 +20,8 @@ import com.gradation.lift.feature.routine_detail.routine_list.ui.RoutineListScre
 @Composable
 internal fun RoutineListRoute(
     modifier: Modifier = Modifier,
+    navigateRoutineDetailGraphToHomeGraph: () -> Unit,
+    navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit,
     viewModel: RoutineListViewModel = hiltViewModel(),
     routineListScreenState: RoutineListScreenState = rememberRoutineListScreen()
 ) {
@@ -34,6 +37,8 @@ internal fun RoutineListRoute(
     val sortType: SortType by sortFilterState.sortType.collectAsStateWithLifecycle()
 
 
+    BackHandler(onBack = navigateRoutineDetailGraphToHomeGraph)
+
     RoutineListScreen(
         modifier,
         routineListScreenState,
@@ -44,6 +49,8 @@ internal fun RoutineListRoute(
         weekdayFilterType,
         searchFilterText,
         sortType,
+        navigateRoutineDetailGraphToHomeGraph,
+        navigateRoutineListToRoutineInRoutineDetailGraph
     )
 
 }
