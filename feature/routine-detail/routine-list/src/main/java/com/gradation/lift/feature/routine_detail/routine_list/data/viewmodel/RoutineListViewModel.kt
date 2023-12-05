@@ -3,7 +3,7 @@ package com.gradation.lift.feature.routine_detail.routine_list.data.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineUseCase
-import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.routineDetailRoutineListUiState
@@ -21,14 +21,14 @@ internal class RoutineListViewModel @Inject constructor(
     val sortFilterState: SortFilterState = SortFilterState()
     val routineListInfoState: RoutineListInfoState = RoutineListInfoState()
 
-    val routineSetRoutineList: StateFlow<RoutineDetailRoutineListUiState> =
+    val routineSetRoutineList: StateFlow<RoutineListUiState> =
         routineDetailRoutineListUiState(
             getRoutineSetRoutineUseCase,
             sortFilterState,
         ).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = RoutineDetailRoutineListUiState.Loading
+            initialValue = RoutineListUiState.Loading
         )
 
 }

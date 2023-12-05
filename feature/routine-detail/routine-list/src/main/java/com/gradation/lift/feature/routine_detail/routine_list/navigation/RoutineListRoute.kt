@@ -10,7 +10,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.data.viewmodel.Rou
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
-import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
@@ -29,7 +29,7 @@ internal fun RoutineListRoute(
 
     val sortFilterState: SortFilterState = viewModel.sortFilterState
     val routineListInfoState: RoutineListInfoState = viewModel.routineListInfoState
-    val routineSetRoutineList: RoutineDetailRoutineListUiState by viewModel.routineSetRoutineList.collectAsStateWithLifecycle()
+    val routineSetRoutineList: RoutineListUiState by viewModel.routineSetRoutineList.collectAsStateWithLifecycle()
 
 
     val labelFilterType: LabelFilterType by sortFilterState.labelFilterType.collectAsStateWithLifecycle()

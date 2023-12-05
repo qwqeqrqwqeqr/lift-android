@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.combine
 internal fun routineDetailRoutineListUiState(
     getRoutineSetRoutineUseCase: GetRoutineSetRoutineUseCase,
     sortFilterState: SortFilterState,
-): Flow<RoutineDetailRoutineListUiState> {
+): Flow<RoutineListUiState> {
 
     return combine(
         getRoutineSetRoutineUseCase(),
@@ -22,11 +22,11 @@ internal fun routineDetailRoutineListUiState(
 
         when (routineSetRoutine) {
             is DataState.Fail -> {
-                RoutineDetailRoutineListUiState.Fail(routineSetRoutine.message)
+                RoutineListUiState.Fail(routineSetRoutine.message)
             }
 
             is DataState.Success -> {
-                RoutineDetailRoutineListUiState.Success(
+                RoutineListUiState.Success(
                     routineSetRoutine.data.let { routineSetRoutineList ->
                         routineSetRoutineList.filter {
                             it.label.intersect(labelFilterType.labelSet).isNotEmpty()
@@ -53,11 +53,11 @@ internal fun routineDetailRoutineListUiState(
 }
 
 
-sealed interface RoutineDetailRoutineListUiState {
+sealed interface RoutineListUiState {
 
     data class Success(val routineSetRoutineList: List<RoutineSetRoutine>) :
-        RoutineDetailRoutineListUiState
+        RoutineListUiState
 
-    data class Fail(val message: String) : RoutineDetailRoutineListUiState
-    data object Loading : RoutineDetailRoutineListUiState
+    data class Fail(val message: String) : RoutineListUiState
+    data object Loading : RoutineListUiState
 }

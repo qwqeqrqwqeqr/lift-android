@@ -11,7 +11,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.WeekdayFilterType
-import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineDetailRoutineListUiState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListUiState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.SortFilterState
@@ -26,7 +26,7 @@ internal fun RoutineListScreen(
     modifier: Modifier = Modifier,
     routineListScreenState: RoutineListScreenState,
     routineListInfoState: RoutineListInfoState,
-    routineSetRoutineListUiState: RoutineDetailRoutineListUiState,
+    routineSetRoutineListUiState: RoutineListUiState,
     sortFilterState: SortFilterState,
     labelFilterType: LabelFilterType,
     weekdayFilterType: WeekdayFilterType,
@@ -70,15 +70,15 @@ internal fun RoutineListScreen(
                 .padding(padding)
         ) {
             when (routineSetRoutineListUiState) {
-                is RoutineDetailRoutineListUiState.Fail -> {
+                is RoutineListUiState.Fail -> {
                     Box(modifier = modifier.fillMaxSize())
                 }
 
-                RoutineDetailRoutineListUiState.Loading -> {
+                RoutineListUiState.Loading -> {
                     /*TODO Not Implement*/
                 }
 
-                is RoutineDetailRoutineListUiState.Success -> {
+                is RoutineListUiState.Success -> {
                     Column {
                         Column(modifier = modifier.weight(1f)) {
                             AnimatedVisibility(routineListScreenState.searchSortFilterView) {
