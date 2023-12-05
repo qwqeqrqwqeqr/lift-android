@@ -78,11 +78,18 @@ object LiftIcon {
     val LeftArrowCircle = R.drawable.left_arrow_circle
     val RightArrowCircle = R.drawable.right_arrow_circle
 
+    val CheckedRoutineLabel1 = R.drawable.checked_routine_label_1
+    val CheckedRoutineLabel2 = R.drawable.checked_routine_label_2
+    val CheckedRoutineLabel3 = R.drawable.checked_routine_label_3
+    val CheckedRoutineLabel4 = R.drawable.checked_routine_label_4
+    val CheckedRoutineLabel5 = R.drawable.checked_routine_label_5
+
     val RoutineLabel1 = R.drawable.routine_label_1
     val RoutineLabel2 = R.drawable.routine_label_2
     val RoutineLabel3 = R.drawable.routine_label_3
     val RoutineLabel4 = R.drawable.routine_label_4
     val RoutineLabel5 = R.drawable.routine_label_5
+
 
 }
 
