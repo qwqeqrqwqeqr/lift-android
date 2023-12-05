@@ -1,10 +1,12 @@
 package com.gradation.lift.feature.routine_detail.routine_list.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.button.LiftSolidLargeButton
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.LabelFilterType
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.SortType
@@ -31,6 +33,7 @@ internal fun RoutineListScreen(
     searchFilterText: String,
     sortType: SortType,
     navigateRoutineDetailGraphToHomeGraph: () -> Unit,
+    navigateRoutineDetailGraphToCreateRoutineGraph: () -> Unit,
     navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit
 ) {
     if (routineListScreenState.sortTypeBottomSheetView) {
@@ -67,12 +70,8 @@ internal fun RoutineListScreen(
                 .padding(padding)
         ) {
             when (routineSetRoutineListUiState) {
-                RoutineDetailRoutineListUiState.Empty -> {
-                    /*TODO Not Implement*/
-                }
-
                 is RoutineDetailRoutineListUiState.Fail -> {
-                    /*TODO Not Implement*/
+                    Box(modifier = modifier.fillMaxSize())
                 }
 
                 RoutineDetailRoutineListUiState.Loading -> {
@@ -81,22 +80,43 @@ internal fun RoutineListScreen(
 
                 is RoutineDetailRoutineListUiState.Success -> {
                     Column {
-                        SearchSortFilterView(
-                            modifier,
-                            sortFilterState,
-                            searchFilterText,
-                            routineSetRoutineListUiState.routineSetRoutineList,
-                            weekdayFilterType,
-                            labelFilterType,
-                            sortType,
-                            routineListScreenState
-                        )
-                        RoutineListView(
-                            modifier,
-                            routineSetRoutineListUiState.routineSetRoutineList,
-                            routineListInfoState,
-                            navigateRoutineListToRoutineInRoutineDetailGraph
-                        )
+                        Column(modifier = modifier.weight(1f)) {
+                            AnimatedVisibility(routineListScreenState.searchSortFilterView) {
+                                SearchSortFilterView(
+                                    modifier,
+                                    sortFilterState,
+                                    searchFilterText,
+                                    routineSetRoutineListUiState.routineSetRoutineList,
+                                    weekdayFilterType,
+                                    labelFilterType,
+                                    sortType,
+                                    routineListScreenState
+                                )
+                            }
+                            RoutineListView(
+                                modifier,
+                                routineSetRoutineListUiState.routineSetRoutineList,
+                                routineListInfoState,
+                                routineListScreenState,
+                                navigateRoutineListToRoutineInRoutineDetailGraph
+                            )
+                        }
+                        Column(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    start = LiftTheme.space.horizontalPaddingSpace,
+                                    end = LiftTheme.space.horizontalPaddingSpace,
+                                    bottom = LiftTheme.space.space8
+                                ),
+                            verticalArrangement = Arrangement.Bottom,
+                        ) {
+                            LiftSolidLargeButton(
+                                modifier = modifier.fillMaxWidth(),
+                                text = "루틴 추가하기",
+                                onClick = navigateRoutineDetailGraphToCreateRoutineGraph
+                            )
+                        }
                     }
                 }
             }

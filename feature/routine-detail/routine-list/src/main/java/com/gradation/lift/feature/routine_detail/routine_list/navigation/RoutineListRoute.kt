@@ -21,6 +21,7 @@ import com.gradation.lift.feature.routine_detail.routine_list.ui.RoutineListScre
 internal fun RoutineListRoute(
     modifier: Modifier = Modifier,
     navigateRoutineDetailGraphToHomeGraph: () -> Unit,
+    navigateRoutineDetailGraphToCreateRoutineGraph: () -> Unit,
     navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit,
     viewModel: RoutineListViewModel = hiltViewModel(),
     routineListScreenState: RoutineListScreenState = rememberRoutineListScreen()
@@ -50,6 +51,7 @@ internal fun RoutineListRoute(
         searchFilterText,
         sortType,
         navigateRoutineDetailGraphToHomeGraph,
+        navigateRoutineDetailGraphToCreateRoutineGraph,
         navigateRoutineListToRoutineInRoutineDetailGraph
     )
 

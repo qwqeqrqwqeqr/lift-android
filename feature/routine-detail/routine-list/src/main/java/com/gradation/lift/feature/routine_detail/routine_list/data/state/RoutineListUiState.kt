@@ -26,31 +26,27 @@ internal fun routineDetailRoutineListUiState(
             }
 
             is DataState.Success -> {
-                if (routineSetRoutine.data.isEmpty()) {
-                    RoutineDetailRoutineListUiState.Empty
-                } else {
-                    RoutineDetailRoutineListUiState.Success(
-                        routineSetRoutine.data.let { routineSetRoutineList ->
-                            routineSetRoutineList.filter {
-                                it.label.intersect(labelFilterType.labelSet).isNotEmpty()
-                            }
-                        }.let { filteredRoutineSetRoutine ->
-                            filteredRoutineSetRoutine.filter {
-                                it.weekday.intersect(weekdayFilterType.weekdaySet).isNotEmpty()
-                            }
-                        }.let { filteredRoutineSetRoutine ->
-                            filteredRoutineSetRoutine.filter { routine ->
-                                searchFilterText.isEmpty() ||
-                                        routine.name.contains(searchFilterText)
-                            }
-                        }.let { filteredRoutineSetRoutine ->
-                            when (sortType) {
-                                SortType.Name -> filteredRoutineSetRoutine.sortedBy { it.name }
-                                SortType.Count -> filteredRoutineSetRoutine.sortedByDescending { it.count }
-                            }
+                RoutineDetailRoutineListUiState.Success(
+                    routineSetRoutine.data.let { routineSetRoutineList ->
+                        routineSetRoutineList.filter {
+                            it.label.intersect(labelFilterType.labelSet).isNotEmpty()
                         }
-                    )
-                }
+                    }.let { filteredRoutineSetRoutine ->
+                        filteredRoutineSetRoutine.filter {
+                            it.weekday.intersect(weekdayFilterType.weekdaySet).isNotEmpty()
+                        }
+                    }.let { filteredRoutineSetRoutine ->
+                        filteredRoutineSetRoutine.filter { routine ->
+                            searchFilterText.isEmpty() ||
+                                    routine.name.contains(searchFilterText)
+                        }
+                    }.let { filteredRoutineSetRoutine ->
+                        when (sortType) {
+                            SortType.Name -> filteredRoutineSetRoutine.sortedBy { it.name }
+                            SortType.Count -> filteredRoutineSetRoutine.sortedByDescending { it.count }
+                        }
+                    }
+                )
             }
         }
     }
@@ -63,6 +59,5 @@ sealed interface RoutineDetailRoutineListUiState {
         RoutineDetailRoutineListUiState
 
     data class Fail(val message: String) : RoutineDetailRoutineListUiState
-    data object Empty : RoutineDetailRoutineListUiState
     data object Loading : RoutineDetailRoutineListUiState
 }

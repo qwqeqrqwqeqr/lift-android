@@ -15,6 +15,11 @@ fun NavController.navigateRoutineDetailGraphToHomeGraph() {
     }
 }
 
+fun NavController.navigateRoutineDetailGraphToCreateRoutineGraph() {
+    this.navigate(Router.CREATE_ROUTINE_GRAPH_NAME)
+}
+
+
 fun NavController.navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetId: Int) {
     this.setValueSavedStateHandle(
         SavedStateHandleKey.RoutineSet.UPDATE_ROUTINE_SET_ID_KEY,
@@ -40,11 +45,3 @@ fun NavController.navigateRoutineListToRoutineInRoutineDetailGraph(routineSetId:
     this.navigate(Router.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME)
 }
 
-
-fun NavController.navigateRoutineToRoutineListInRoutineDetailGraph() {
-    this.navigate(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
-        this.popUpTo(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
-}

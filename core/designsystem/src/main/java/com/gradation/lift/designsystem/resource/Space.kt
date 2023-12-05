@@ -30,6 +30,7 @@ data class LiftSpace(
     val space214: Dp = 214.dp,
 
 
+    val paddingSpace: Dp = 16.dp,
     val horizontalPaddingSpace: Dp = 16.dp,
     val verticalPaddingSpace: Dp = 16.dp,
 )

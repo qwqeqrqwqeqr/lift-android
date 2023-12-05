@@ -17,6 +17,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -39,6 +41,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routine_detail.routine_list.data.model.RoutineIdInfo
 import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListInfoState
+import com.gradation.lift.feature.routine_detail.routine_list.data.state.RoutineListScreenState
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.getWeekdayEntries
 import com.gradation.lift.model.model.routine.Routine
@@ -52,8 +55,19 @@ internal fun RoutineListView(
     modifier: Modifier = Modifier,
     routineSetRoutineList: List<RoutineSetRoutine>,
     routineListInfoState: RoutineListInfoState,
+    routineListScreenState: RoutineListScreenState,
     navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit
 ) {
+    LaunchedEffect(routineListScreenState.lazyListState) {
+        snapshotFlow { routineListScreenState.lazyListState.firstVisibleItemIndex }
+            .collect {
+                if (it > 0)
+                    routineListScreenState.updateSearchSortFilterView(false)
+                else
+                    routineListScreenState.updateSearchSortFilterView(true)
+            }
+    }
+
     LazyColumn(
         modifier = modifier.padding(
             vertical = LiftTheme.space.verticalPaddingSpace,

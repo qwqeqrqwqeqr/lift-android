@@ -21,6 +21,9 @@ internal fun Project.extensionAndroidCompose(
         }
 
         dependencies {
+            add("implementation", libs.findLibrary("androidx-compose-foundation").get())
+            add("implementation", libs.findLibrary("androidx-compose-foundation-layout").get())
+
             val bom = libs.findLibrary("androidx-compose-bom").get()
             add("implementation", platform(bom))
             add("androidTestImplementation", platform(bom))
@@ -53,18 +56,11 @@ internal fun Project.extensionAndroidCompose(
             add("implementation", libs.findLibrary("androidx-navigation-testing").get())
 
 
-            add("implementation", libs.findLibrary("androidx-compose-foundation").get())
-            add("implementation", libs.findLibrary("androidx-compose-foundation-layout").get())
+
             add("implementation", libs.findLibrary("androidx-compose-material-icons-core").get())
-            add(
-                "implementation",
-                libs.findLibrary("androidx-compose-material-icons-extended").get()
-            )
+            add("implementation", libs.findLibrary("androidx-compose-material-icons-extended").get())
             add("implementation", libs.findLibrary("androidx-compose-material3").get())
-            add(
-                "implementation",
-                libs.findLibrary("androidx-compose-material3-windowsizeclass").get()
-            )
+            add("implementation", libs.findLibrary("androidx-compose-material3-windowsizeclass").get())
 
 
             add("implementation", libs.findLibrary("androidx-compose-ui-test").get())

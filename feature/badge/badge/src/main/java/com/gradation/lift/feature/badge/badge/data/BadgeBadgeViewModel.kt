@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
 /**
  * @property sortType 뱃지 정렬 타입 (기본,이름순,최신순,오래된순)
  * @property filterType 뱃지 필터 타입 (전체,획득뱃지,미획득뱃지)

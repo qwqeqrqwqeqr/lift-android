@@ -7,6 +7,7 @@ androidxArchCore = "2.2.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxComposeBom = "2023.10.01"
 androidxComposeCompiler = "1.5.3"
+androidxComposeFoundation = "1.6.0-beta02"
 androidXComposeUiGraphics = "1.5.4"
 androidxComposeMaterial3 = "1.2.0-alpha10"
 androidxComposeRuntimeTracing = "1.0.0-alpha04"
@@ -96,8 +97,8 @@ androidx-tracing = { group = "androidx.tracing", name = "tracing-ktx", version.r
 
 
 #COMPOSE
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "androidxComposeFoundation"  }
 androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
