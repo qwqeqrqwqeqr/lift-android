@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.routine_detail.routine
+package com.gradation.lift.feature.routine_detail.routine.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -7,18 +7,13 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToWorkWorkRouter
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
 
-fun routineDetailRoutineScreen(
-    modifier: Modifier= Modifier,
+fun routineScreen(
+    modifier: Modifier = Modifier,
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    val currentRoutineSetId: Int? =
-        navController.getValueSavedStateHandle(DETAIL_ROUTINE_SET_ID_KEY)
-
     val popBackStack: () -> Unit = { navController.popBackStack() }
 
     val navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit =
@@ -27,9 +22,9 @@ fun routineDetailRoutineScreen(
         { navController.navigateRoutineDetailGraphToWorkWorkRouter(it) }
 
     navGraphBuilder.composable(ROUTINE_DETAIL_ROUTINE_ROUTER_NAME) {
-        RoutineDetailRoutineRoute(
+        RoutineRoute(
             modifier,
-            currentRoutineSetId,
+            navController,
             popBackStack,
             navigateRoutineDetailGraphToUpdateRoutineGraph,
             navigateRoutineDetailGraphToWorkWorkRouter
