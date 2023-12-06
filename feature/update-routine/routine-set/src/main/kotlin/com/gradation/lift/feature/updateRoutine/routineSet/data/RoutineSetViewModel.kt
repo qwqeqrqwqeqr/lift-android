@@ -15,15 +15,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * [UpdateRoutineRoutineSetViewModel]
- * @constructor deleteRoutineSetRoutineUseCase 루틴세트 삭제 유즈케이스
- * @constructor updateRoutineSetRoutineUseCase 루틴세트 수정 유즈케이스
- * @property updateRoutineState 루틴세트 업데이트(수정 또는 삭제)와 관련 되어있는 상태
- * @property onVisibleDeleteDialog 루틴세트 삭제에 대한 다이얼로그 온오프 여부
- * @since 2023-09-16 16:18:41
+ * [RoutineSetViewModel]
+ * @property updateRoutineState 루틴 삭제 및 수정에 대한 상태
+ * @property updateUpdateRoutineState 상태 업데이트 메서드
+ * @property deleteRoutineSetRoutine 루틴 수정
+ * @property updateRoutineSetRoutine 루틴 삭제
+ * @since 2023-12-06 11:45:01
  */
 @HiltViewModel
-class UpdateRoutineRoutineSetViewModel @Inject constructor(
+class RoutineSetViewModel @Inject constructor(
     private val deleteRoutineSetRoutineUseCase: DeleteRoutineSetRoutineUseCase,
     private val updateRoutineSetRoutineUseCase: UpdateRoutineSetRoutineUseCase
 ) : ViewModel() {
@@ -31,15 +31,7 @@ class UpdateRoutineRoutineSetViewModel @Inject constructor(
     var updateRoutineState: MutableStateFlow<UpdateRoutineState> =
         MutableStateFlow(UpdateRoutineState.None)
 
-    val onVisibleDeleteDialog: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
-    fun visibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = true }
-    fun invisibleDeleteDialog(): () -> Unit = { onVisibleDeleteDialog.value = false }
-
-
-    fun updateUpdateRoutineState(): (UpdateRoutineState) -> Unit = {
-        updateRoutineState.value = it
-    }
+    fun updateUpdateRoutineState(): (UpdateRoutineState) -> Unit = { updateRoutineState.value = it }
 
 
     fun deleteRoutineSetRoutine(): (Int) -> Unit = {
