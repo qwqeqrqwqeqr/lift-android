@@ -27,8 +27,11 @@ data class GetRoutineSetRoutineByRoutineSetIdResponseDto(
                 weekday = routineSetGroup.value.first().routineSetDto.weekday.split(",")
                     .map { weekday -> weekday.toWeekDay() }.filterNot { it is Weekday.None }.sortedBy { it.getWeekdayNumber() }.toSet(),
                 picture = Constants.DEFAULT_S3_URL + routineSetGroup.value.first().routineSetDto.picture,
-                label = routineSetGroup.value.first().routineSetDto.label.split(",")
-                    .map { label -> label.toLabel() }.toSet(),
+                label = routineSetGroup.value.first().routineSetDto.label.trim()
+                    .takeIf { it.isNotEmpty() }
+                    ?.split(",")
+                    ?.map { label -> label.toLabel() }
+                    ?.toSet() ?: emptySet(),
                 count = routineSetGroup.value.first().routineSetDto.count,
                 routine = routineSetGroup.value.map { routine ->
                     Routine(
