@@ -15,10 +15,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-internal data class CurrentRoutineSetRoutineState(
-    val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(
-        RoutineSetRoutine()
-    ),
+data class CurrentRoutineSetRoutineState(
+    val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(RoutineSetRoutine()),
     val viewModelScope: CoroutineScope
 ) {
     var routineSetNameValidator: StateFlow<Validator> =

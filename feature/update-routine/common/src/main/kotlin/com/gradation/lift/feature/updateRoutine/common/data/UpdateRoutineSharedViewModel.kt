@@ -27,7 +27,7 @@ class UpdateRoutineSharedViewModel @Inject constructor(
     getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
 ) : ViewModel() {
 
-    internal val currentRoutineSetRoutineState =
+    val currentRoutineSetRoutineState =
         CurrentRoutineSetRoutineState(viewModelScope = viewModelScope)
 
 

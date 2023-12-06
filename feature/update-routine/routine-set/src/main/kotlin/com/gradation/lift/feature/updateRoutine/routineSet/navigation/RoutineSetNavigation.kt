@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.updateRoutine.routineSet
+package com.gradation.lift.feature.updateRoutine.routineSet.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -16,15 +16,18 @@ fun routineSetScreen(
 ) {
     navGraphBuilder.composable(UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
 
+        val popBackStack: () -> Unit = { navController.popBackStack() }
+
         val navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit =
             { navController.navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph() }
 
         val navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit =
             { navController.navigateRoutineSetToProfilePictureInUpdateRoutineGraph() }
 
-        UpdateRoutineRoutineSetRoute(
+        RoutineSetRoute(
             modifier,
             navController,
+            popBackStack,
             navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
             navigateRoutineSetToProfilePictureInUpdateRoutineGraph
         )
