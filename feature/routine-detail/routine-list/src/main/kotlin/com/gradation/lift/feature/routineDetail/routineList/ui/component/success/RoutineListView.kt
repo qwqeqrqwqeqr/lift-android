@@ -83,13 +83,13 @@ internal fun RoutineListView(
                         LiftTheme.colorScheme.no5,
                         RoundedCornerShape(12.dp)
                     )
-                    .noRippleClickable {
-                        navigateRoutineListToRoutineInRoutineDetailGraph(routineSetRoutine.id)
-                    },
             ) {
                 Row(
                     modifier = modifier
                         .fillMaxWidth()
+                        .noRippleClickable {
+                            navigateRoutineListToRoutineInRoutineDetailGraph(routineSetRoutine.id)
+                        }
                         .padding(
                             vertical = LiftTheme.space.verticalPaddingSpace,
                             horizontal = LiftTheme.space.horizontalPaddingSpace
