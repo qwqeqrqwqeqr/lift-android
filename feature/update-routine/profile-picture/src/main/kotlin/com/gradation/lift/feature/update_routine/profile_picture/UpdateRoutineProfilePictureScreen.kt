@@ -29,9 +29,9 @@ import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_GRAPH_NAME
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun UpdateRoutineProfilePictureRoute(
+    modifier:Modifier=Modifier,
     navController: NavController,
     navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: UpdateRoutineProfilePictureViewModel = hiltViewModel(),
 ) {
     val updateRoutineBackStackEntry: NavBackStackEntry =

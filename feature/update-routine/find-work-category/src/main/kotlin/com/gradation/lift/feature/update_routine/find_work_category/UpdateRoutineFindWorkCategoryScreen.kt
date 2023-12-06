@@ -27,10 +27,10 @@ import com.gradation.lift.navigation.Router
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun UpdateRoutineFindWorkCategoryRoute(
+    modifier: Modifier= Modifier,
     navController: NavController,
     navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph: () -> Unit,
     navigateFindWorkCategoryToRoutineInUpdateRoutineGraph: () -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: UpdateRoutineFindWorkCategoryViewModel = hiltViewModel(),
 ) {
     val updateRoutineBackStackEntry: NavBackStackEntry =

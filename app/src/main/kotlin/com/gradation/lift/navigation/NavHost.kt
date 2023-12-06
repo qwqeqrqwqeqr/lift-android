@@ -51,7 +51,7 @@ fun LiftNavHost(
         newBadgeGraphBuilder(navController, this)
         notificationGraphBuilder(navController, this)
         registerDetailGraphBuilder(navController, this)
-        updateRoutineGraphBuilder(navController, this)
+        updateRoutineGraphBuilder(modifier,navController, this)
         workGraphBuilder(navController, this)
         routineDetailGraphBuilder(modifier,navController,this)
     }

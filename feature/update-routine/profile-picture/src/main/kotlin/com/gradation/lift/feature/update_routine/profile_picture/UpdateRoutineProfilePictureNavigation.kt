@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.update_routine.profile_picture
 
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -7,7 +8,8 @@ import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_PROFILE_PICTURE_ROUTE
 import com.gradation.lift.navigation.navigation.navigateProfilePictureToRoutineSetInUpdateRoutineGraph
 
 
-fun updateRoutineProfilePictureScreen(
+fun profilePictureScreen(
+    modifier:Modifier=Modifier,
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
@@ -17,6 +19,7 @@ fun updateRoutineProfilePictureScreen(
             { navController.navigateProfilePictureToRoutineSetInUpdateRoutineGraph() }
 
         UpdateRoutineProfilePictureRoute(
+            modifier=modifier,
             navController = navController,
             navigateProfilePictureToRoutineSetInUpdateRoutineGraph = navigateProfilePictureToRoutineSetInUpdateRoutineGraph
         )
