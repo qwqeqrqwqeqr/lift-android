@@ -4,8 +4,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
-import com.gradation.lift.feature.routine_detail.routine.navigation.routineScreen
-import com.gradation.lift.feature.routine_detail.routine_list.navigation.routineListScreen
+import com.gradation.lift.feature.routineDetail.routine.navigation.routineScreen
+import com.gradation.lift.feature.routineDetail.routineList.navigation.routineListScreen
 import com.gradation.lift.navigation.Router
 
 fun routineDetailGraphBuilder(
