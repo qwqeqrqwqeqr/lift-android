@@ -25,7 +25,7 @@ internal class RoutineListInfoState {
         onRoutineListInfoEvent(RoutineListInfoEvent.CloseRoutineInfo(it))
     }
 
-    val isContains: (Int, Int) -> Boolean = { routineListId, routineId ->
+    val isContains: (Int, Int?) -> Boolean = { routineListId, routineId ->
         openedRoutineList.any { it.routineListId == routineListId && it.routineId == routineId }
     }
 

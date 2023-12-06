@@ -5,7 +5,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -53,7 +52,7 @@ internal fun WorkRoutineSelectionRoute(
     val updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit =
         viewModel.selectedRoutineSetState.updateSelectedRoutineSetList()
 
-    val updateOpenedRoutineIdList: (Int, Boolean) -> Unit =
+    val updateOpenedRoutineIdList: (Int?, Boolean) -> Unit =
         viewModel.openedRoutineState.updateOpenedRoutineIdList()
 
 
@@ -96,7 +95,7 @@ internal fun WorkRoutineSelectionScreen(
     updateCurrentDate: (LocalDate) -> Unit,
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
     updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit,
-    updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
+    updateOpenedRoutineIdList: (Int?, Boolean) -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
     navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {

@@ -6,6 +6,8 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.routine.DeleteRoutineSetRoutineUseCase
 import com.gradation.lift.domain.usecase.routine.UpdateRoutineSetRoutineUseCase
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.UpdateRoutineState
+import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,9 +61,25 @@ class UpdateRoutineRoutineSetViewModel @Inject constructor(
     }
 
 
-    fun updateRoutineSetRoutine(): (UpdateRoutineSetRoutine) -> Unit = {
+    fun updateRoutineSetRoutine(): (RoutineSetRoutine) -> Unit = {
         viewModelScope.launch {
-            updateRoutineSetRoutineUseCase(it)
+            updateRoutineSetRoutineUseCase(
+                UpdateRoutineSetRoutine(
+                    id = it.id,
+                    name = it.name,
+                    description = it.description,
+                    weekday = it.weekday,
+                    label = it.label,
+                    picture = it.picture,
+                    routine = it.routine.map { routine ->
+                        UpdateRoutine(
+                            id = routine.id,
+                            workCategory = routine.workCategory.name,
+                            workSetList = routine.workSetList
+                        )
+                    },
+                )
+            )
                 .collect { deleteRoutineSetRoutineResult ->
                     when (deleteRoutineSetRoutineResult) {
                         is DataState.Fail -> {

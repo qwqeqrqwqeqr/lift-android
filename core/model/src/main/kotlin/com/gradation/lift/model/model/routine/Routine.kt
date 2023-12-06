@@ -12,7 +12,7 @@ import com.gradation.lift.model.model.work.WorkSet
  * @property workSetList  해당 운동의 무게 및 횟수 정보
  **/
 data class Routine(
-    val id: Int,
+    val id: Int?,
     val routineSetId: Int,
     val workCategory: WorkCategory,
     val workSetList: List<WorkSet>

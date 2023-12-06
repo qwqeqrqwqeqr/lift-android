@@ -18,9 +18,9 @@ data class RoutineSetRoutine(
     val id: Int = 0,
     val name: String = "",
     val description: String = "",
-    val weekday: Set<Weekday>,
+    val weekday: Set<Weekday> = emptySet(),
     val picture: String = "",
-    val label: Set<Label>,
+    val label: Set<Label> = emptySet(),
     val count: Int = 0,
     val routine: List<Routine> = emptyList()
 )

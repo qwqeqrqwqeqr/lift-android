@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.update
  * @since 2023-08-22 12:37:12
  */
 class OpenedRoutineState {
-    internal val openedRoutineIdList: MutableStateFlow<Set<Int>> = MutableStateFlow(emptySet())
-    fun updateOpenedRoutineIdList(): (Int, Boolean) -> Unit = { id, checked ->
+    internal val openedRoutineIdList: MutableStateFlow<Set<Int?>> = MutableStateFlow(emptySet())
+    fun updateOpenedRoutineIdList(): (Int?, Boolean) -> Unit = { id, checked ->
         if (checked) {
             openedRoutineIdList.update{ it.plusElement(id) }
         } else {

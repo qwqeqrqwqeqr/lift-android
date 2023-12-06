@@ -8,5 +8,5 @@ package com.gradation.lift.feature.routineDetail.routineList.data.model
  */
 internal data class RoutineIdInfo(
     val routineListId: Int,
-    val routineId: Int
+    val routineId: Int?
 )

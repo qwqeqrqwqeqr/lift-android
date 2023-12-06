@@ -68,8 +68,6 @@ fun UpdateRoutineRoutineSetRoute(
 
 
     val deleteRoutineSetRoutine: (Int) -> Unit = viewModel.deleteRoutineSetRoutine()
-    val updateRoutineSetRoutine: (UpdateRoutineSetRoutine) -> Unit =
-        viewModel.updateRoutineSetRoutine()
 
 
 

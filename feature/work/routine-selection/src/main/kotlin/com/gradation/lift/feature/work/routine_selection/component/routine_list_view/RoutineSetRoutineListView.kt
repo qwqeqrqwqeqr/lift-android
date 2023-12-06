@@ -42,7 +42,7 @@ fun RoutineSetRoutineListView(
     routineSetRoutineSelection: List<RoutineSetRoutineSelection>,
     updateRoutineSetRoutineList: (List<RoutineSetRoutine>) -> Unit,
     updateSelectedRoutineSetList: (RoutineSetRoutine, Boolean) -> Unit,
-    updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
+    updateOpenedRoutineIdList: (Int?, Boolean) -> Unit,
     navigateSelectionRoutineToWorkInWorkGraph: () -> Unit,
 ) {
     Surface(color = LiftTheme.colorScheme.no17) {

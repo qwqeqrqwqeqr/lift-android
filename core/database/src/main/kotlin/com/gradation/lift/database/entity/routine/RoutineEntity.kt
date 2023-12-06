@@ -23,7 +23,7 @@ data class RoutineEntity(
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: Int?,
 
     @ColumnInfo(name = "routine_set_id")
     var routineSetId: Int,

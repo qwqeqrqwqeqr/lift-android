@@ -27,7 +27,7 @@ import com.gradation.lift.model.utils.ModelDataGenerator
 fun RoutineListView(
     modifier: Modifier = Modifier,
     routine: RoutineSelection,
-    updateOpenedRoutineIdList: (Int, Boolean) -> Unit,
+    updateOpenedRoutineIdList: (Int?, Boolean) -> Unit,
 ) {
     HorizontalDivider(
         modifier = modifier,

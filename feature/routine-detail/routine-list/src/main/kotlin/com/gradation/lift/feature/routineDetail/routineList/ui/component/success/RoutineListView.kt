@@ -84,9 +84,7 @@ internal fun RoutineListView(
                         RoundedCornerShape(12.dp)
                     )
                     .noRippleClickable {
-                        navigateRoutineListToRoutineInRoutineDetailGraph(
-                            routineSetRoutine.id
-                        )
+                        navigateRoutineListToRoutineInRoutineDetailGraph(routineSetRoutine.id)
                     },
             ) {
                 Row(
