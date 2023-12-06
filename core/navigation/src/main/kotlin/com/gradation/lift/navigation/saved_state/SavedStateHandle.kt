@@ -14,7 +14,7 @@ fun <T> NavController.setValueSavedStateHandle(key: String, value: T) {
 fun <T> NavController.getValueSavedStateHandle(key: String): T? {
     return this.currentBackStack.value.mapNotNull {
         it.savedStateHandle.get<T>(key)
-    }.let { if (it.isNotEmpty()) it.first() else null }
+    }.let { if (it.isNotEmpty()) it.last() else null }
 }
 
 

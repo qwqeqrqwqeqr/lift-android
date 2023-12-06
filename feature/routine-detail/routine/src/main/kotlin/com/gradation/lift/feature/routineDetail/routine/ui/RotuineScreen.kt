@@ -19,7 +19,7 @@ import com.gradation.lift.feature.routineDetail.routine.ui.component.RoutineView
 fun RoutineScreen(
     modifier: Modifier = Modifier,
     routineUiState: RoutineUiState,
-    popBackStack: () -> Unit,
+    navigateRoutineDetailGraphToBack: () -> Unit,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
     navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit
 ) {
@@ -28,7 +28,7 @@ fun RoutineScreen(
         topBar = {
             LiftBackTopBar(
                 title = "루틴 상세",
-                onBackClickTopBar = popBackStack,
+                onBackClickTopBar = navigateRoutineDetailGraphToBack,
             )
         }
     ) { padding ->

@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -26,12 +25,12 @@ fun NavigationView(
         modifier = modifier
             .background(LiftTheme.colorScheme.no17)
             .padding(LiftTheme.space.paddingSpace),
-        horizontalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10),
         verticalAlignment = Alignment.Bottom
     ) {
         LiftOutlineButton(
             modifier = modifier.weight(1f),
-            shape = RoundedCornerShape(size = 12.dp),
+            shape = RoundedCornerShape(size = LiftTheme.space.space12),
             onClick = {
                 navigateRoutineDetailGraphToUpdateRoutineGraph(
                     routineSetRoutine.id

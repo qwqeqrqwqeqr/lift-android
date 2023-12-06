@@ -8,9 +8,24 @@ import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 fun NavController.navigateRoutineDetailGraphToHomeGraph() {
     this.navigate(Router.HOME_GRAPH_NAME) {
-        launchSingleTop = true
         popUpTo(this@navigateRoutineDetailGraphToHomeGraph.graph.id) {
             inclusive = true
+        }
+    }
+}
+
+fun NavController.navigateRoutineDetailGraphToBack(){
+    if (this.currentBackStack.value.any { it.destination.route == Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
+        this.navigate(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
+            this.popUpTo(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
+                inclusive = true
+            }
+        }
+    } else {
+        this.navigate(Router.HOME_GRAPH_NAME) {
+            this.popUpTo(Router.HOME_GRAPH_NAME) {
+                inclusive = true
+            }
         }
     }
 }

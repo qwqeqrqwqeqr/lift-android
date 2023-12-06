@@ -18,7 +18,7 @@ import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 fun RoutineRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    popBackStack: () -> Unit,
+    navigateRoutineDetailGraphToBack: () -> Unit,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
     navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
     viewModel: RoutineViewModel = hiltViewModel(),
@@ -31,11 +31,11 @@ fun RoutineRoute(
     RoutineScreen(
         modifier,
         routineUiState,
-        popBackStack,
+        navigateRoutineDetailGraphToBack,
         navigateRoutineDetailGraphToUpdateRoutineGraph,
         navigateRoutineDetailGraphToWorkWorkRouter
     )
 
     LaunchedEffect(true) { viewModel.setRoutineSetId(routineSetId) }
-    BackHandler(onBack = popBackStack)
+    BackHandler(onBack = navigateRoutineDetailGraphToBack)
 }
