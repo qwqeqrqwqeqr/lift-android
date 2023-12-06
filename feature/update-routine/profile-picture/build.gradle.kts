@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.update_routine.profile_picture"
+    namespace = "com.gradation.lift.feature.updateRoutine.profilePicture"
 
 }
 

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.update_routine.find_work_category"
+    namespace = "com.gradation.lift.feature.updateRoutine.findWorkCategory"
 
 }
 
