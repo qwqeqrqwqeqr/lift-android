@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.updateRoutine.routineSet.component
+package com.gradation.lift.feature.updateRoutine.routineSet.ui.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
