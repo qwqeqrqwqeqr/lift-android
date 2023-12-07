@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfilePictureInUpdateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateUpdateRoutineGraphToRoutineDetailGraph
+import com.gradation.lift.navigation.navigation.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter
 
 
 fun routineSetScreen(
@@ -24,12 +26,22 @@ fun routineSetScreen(
         val navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit =
             { navController.navigateRoutineSetToProfilePictureInUpdateRoutineGraph() }
 
+        val navigateUpdateRoutineGraphToRoutineDetailGraph: () -> Unit = {
+            navController.navigateUpdateRoutineGraphToRoutineDetailGraph()
+        }
+
+        val navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter: (Int) -> Unit = {
+            navController.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter(it)
+        }
+
         RoutineSetRoute(
             modifier,
             navController,
             popBackStack,
             navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
-            navigateRoutineSetToProfilePictureInUpdateRoutineGraph
+            navigateRoutineSetToProfilePictureInUpdateRoutineGraph,
+            navigateUpdateRoutineGraphToRoutineDetailGraph,
+            navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter
         )
     }
 }

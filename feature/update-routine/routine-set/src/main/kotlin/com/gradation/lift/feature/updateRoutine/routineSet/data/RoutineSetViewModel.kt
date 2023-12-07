@@ -45,7 +45,7 @@ class RoutineSetViewModel @Inject constructor(
                         }
 
                         is DataState.Success -> {
-                            updateRoutineState.value = UpdateRoutineState.Success
+                            updateRoutineState.value = UpdateRoutineState.Success(true)
                         }
                     }
                 }
@@ -80,7 +80,7 @@ class RoutineSetViewModel @Inject constructor(
                         }
 
                         is DataState.Success -> {
-                            updateRoutineState.value = UpdateRoutineState.Success
+                            updateRoutineState.value = UpdateRoutineState.Success(false)
                         }
                     }
                 }
