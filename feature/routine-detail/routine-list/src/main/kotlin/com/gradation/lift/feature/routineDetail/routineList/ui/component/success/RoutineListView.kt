@@ -73,6 +73,7 @@ internal fun RoutineListView(
             vertical = LiftTheme.space.verticalPaddingSpace,
             horizontal = LiftTheme.space.horizontalPaddingSpace
         ),
+        state = routineListScreenState.lazyListState,
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
     ) {
         items(routineSetRoutineList) { routineSetRoutine ->
