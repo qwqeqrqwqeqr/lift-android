@@ -24,6 +24,7 @@ data class LiftSpace(
     val space42: Dp = 42.dp,
     val space44: Dp = 44.dp,
     val space48: Dp = 48.dp,
+    val space52: Dp = 52.dp,
     val space56: Dp = 56.dp,
     val space64: Dp = 64.dp,
     val space72: Dp = 72.dp,
