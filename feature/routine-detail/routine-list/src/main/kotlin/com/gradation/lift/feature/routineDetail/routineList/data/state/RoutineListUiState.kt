@@ -55,11 +55,9 @@ internal fun routineDetailRoutineListUiState(
 }
 
 
-sealed interface RoutineListUiState {
+internal sealed interface RoutineListUiState {
 
-    data class Success(val routineSetRoutineList: List<RoutineSetRoutine>) :
-        RoutineListUiState
-
+    data class Success(val routineSetRoutineList: List<RoutineSetRoutine>) : RoutineListUiState
     data class Fail(val message: String) : RoutineListUiState
     data object Loading : RoutineListUiState
 }

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.updateRoutine.findWorkCategory
+package com.gradation.lift.feature.updateRoutine.findWorkCategory.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
@@ -17,13 +17,12 @@ fun findWorkCategoryScreen(
     val navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph: () -> Unit =
         { navController.navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph() }
 
-    val navigateFindWorkCategoryToRoutineInUpdateRoutineGraph: () -> Unit =
-        { navController.navigateFindWorkCategoryToRoutineInUpdateRoutineGraph() }
+    val navigateFindWorkCategoryToRoutineInUpdateRoutineGraph: (Int) -> Unit =
+        { navController.navigateFindWorkCategoryToRoutineInUpdateRoutineGraph(it) }
 
     navGraphBuilder.composable(UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
-        UpdateRoutineFindWorkCategoryRoute(
+        FindWorkCategoryRoute(
             modifier = modifier,
-            navController = navController,
             navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph = navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph,
             navigateFindWorkCategoryToRoutineInUpdateRoutineGraph = navigateFindWorkCategoryToRoutineInUpdateRoutineGraph
         )
