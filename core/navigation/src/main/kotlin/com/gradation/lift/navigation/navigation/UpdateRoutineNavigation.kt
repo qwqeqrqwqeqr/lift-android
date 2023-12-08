@@ -31,7 +31,11 @@ fun NavController.navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph() {
 }
 
 
-fun NavController.navigateFindWorkCategoryToRoutineInUpdateRoutineGraph() {
+fun NavController.navigateFindWorkCategoryToRoutineInUpdateRoutineGraph(workCategoryId: Int) {
+    this.setValueSavedStateHandle(
+        SavedStateHandleKey.RoutineSet.UPDATE_WORK_CATEGORY_ID_KEY,
+        workCategoryId
+    )
     this.navigate(UPDATE_ROUTINE_ROUTINE_ROUTER_NAME)
 }
 
