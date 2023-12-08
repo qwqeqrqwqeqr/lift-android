@@ -32,6 +32,16 @@ class DefaultWorkDataSource @Inject constructor(
         }
     }
 
+    override suspend fun getWorkCategoryById(workCategoryId: Int): Flow<NetworkResult<WorkCategory>> =
+        flow {
+            networkResultHandler { workService.getWorkCategoryById(workCategoryId) }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+                }
+            }
+        }
+
     override suspend fun getPopularWorkCategory(): Flow<NetworkResult<List<WorkCategory>>> = flow {
         networkResultHandler { workService.getPopularWorkCategory() }.collect { result ->
             when (result) {
@@ -41,14 +51,15 @@ class DefaultWorkDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getRecommendWorkCategory(): Flow<NetworkResult<List<WorkCategory>>>  = flow {
-        networkResultHandler { workService.getRecommendWorkCategory() }.collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
-                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+    override suspend fun getRecommendWorkCategory(): Flow<NetworkResult<List<WorkCategory>>> =
+        flow {
+            networkResultHandler { workService.getRecommendWorkCategory() }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+                }
             }
         }
-    }
 
     override suspend fun getWorkCategoryByWorkPart(workPart: String): Flow<NetworkResult<List<WorkCategory>>> =
         flow {

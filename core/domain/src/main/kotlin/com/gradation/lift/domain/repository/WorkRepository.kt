@@ -29,6 +29,14 @@ interface WorkRepository {
     fun getWorkCategory(): Flow<DataState<List<WorkCategory>>>
 
     /**
+     * [getWorkCategoryById]
+     * 모든 운동 카테고리를 불러옴
+     * @since 2023-12-08 12:25:30
+     */
+    fun getWorkCategoryById(workCategoryId: Int): Flow<DataState<WorkCategory>>
+
+
+    /**
      * [getWorkCategoryByWorkPart]
      * 운동 부위에 따른 운동 카테고리를 불러옴
      * @since 2023-08-28 20:03:42

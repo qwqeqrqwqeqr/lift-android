@@ -3,6 +3,7 @@ package com.gradation.lift.network.service
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.work.GetPopularWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetRecommendWorkCategoryResponseDto
+import com.gradation.lift.network.dto.work.GetWorkCategoryByIdResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
@@ -31,6 +32,17 @@ interface WorkService {
      */
     @GET("work/work-category")
     suspend fun getWorkCategory(): Response<APIResultWrapper<GetWorkCategoryResponseDto>>
+
+
+
+    /**
+     * [getWorkCategoryById]
+     * 모든 운동 카테고리 정보 불러오기
+     * @since 2023-12-08 12:14:55
+     */
+    @GET("work/work-category-by-id")
+    suspend fun getWorkCategoryById(@Query("work_category_id") workCategoryId: Int): Response<APIResultWrapper<GetWorkCategoryByIdResponseDto>>
+
 
 
     /**

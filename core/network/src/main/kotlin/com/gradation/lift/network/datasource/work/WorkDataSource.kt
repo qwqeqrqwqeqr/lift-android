@@ -14,6 +14,8 @@ interface WorkDataSource {
     suspend fun getWorkPart(): Flow<NetworkResult<List<WorkPart>>>
 
     suspend fun getWorkCategory(): Flow<NetworkResult<List<WorkCategory>>>
+    suspend fun getWorkCategoryById(workCategoryId:Int): Flow<NetworkResult<WorkCategory>>
+
 
     suspend fun getPopularWorkCategory(): Flow<NetworkResult<List<WorkCategory>>>
     suspend fun getRecommendWorkCategory(): Flow<NetworkResult<List<WorkCategory>>>
