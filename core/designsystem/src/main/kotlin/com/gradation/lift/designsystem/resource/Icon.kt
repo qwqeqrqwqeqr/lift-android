@@ -52,6 +52,8 @@ object LiftIcon {
     val EmptyNotice = R.drawable.empty_notice
     val Work = R.drawable.work
 
+    val Thumb = R.drawable.thumb
+    val Fire = R.drawable.fire
 
     val Search = R.drawable.search
     val Bang = R.drawable.bang

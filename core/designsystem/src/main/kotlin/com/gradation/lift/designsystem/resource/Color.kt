@@ -86,6 +86,11 @@ internal val ALL_BACKGROUND_COLOR: Color = Color(0xFFE4F2FF)
 internal val RECENT_LABEL_COLOR: Color = Color(0xFF32A836)
 internal val RECENT_BACKGROUND_COLOR: Color = Color(0xFFE4FFE5)
 
+internal val RECOMMEND_WORK_CATEGORY_LABEL_COLOR: Color = Color(0xFFFB9A3F)
+internal val RECOMMEND_WORK_CATEGORY_LABEL_BACKGROUND_COLOR: Color = Color(0xFFFFF1E4)
+internal val POPULAR_WORK_CATEGORY_LABEL_COLOR: Color = Color(0xFF0080FF)
+internal val POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR: Color = Color(0xFFD9ECFF)
+
 data class LiftColorScheme(
     val no1: Color,
     val no2: Color,
@@ -140,7 +145,13 @@ data class LiftColorScheme(
     val allBackgroundColor: Color,
     val recentLabelColor: Color,
     val recentBackgroundColor: Color,
-)
+
+    val recommendWorkCategoryLabelColor: Color,
+    val recommendWorkCategoryLabelBackgroundColor: Color,
+    val popularWorkCategoryLabelColor: Color,
+    val popularWorkCategoryLabelBackgroundColor: Color,
+
+    )
 
 fun liftLightColorScheme(
     no1: Color = COLOR_NO1,
@@ -196,6 +207,10 @@ fun liftLightColorScheme(
     allBackgroundColor: Color = ALL_BACKGROUND_COLOR,
     recentLabelColor: Color = RECENT_LABEL_COLOR,
     recentBackgroundColor: Color = RECENT_BACKGROUND_COLOR,
+    recommendWorkCategoryLabelColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_COLOR,
+    recommendWorkCategoryLabelBackgroundColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_BACKGROUND_COLOR,
+    popularWorkCategoryLabelColor: Color = POPULAR_WORK_CATEGORY_LABEL_COLOR,
+    popularWorkCategoryLabelBackgroundColor: Color = POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -250,7 +265,11 @@ fun liftLightColorScheme(
         allLabelColor,
         allBackgroundColor,
         recentLabelColor,
-        recentBackgroundColor
+        recentBackgroundColor,
+        recommendWorkCategoryLabelColor,
+        recommendWorkCategoryLabelBackgroundColor,
+        popularWorkCategoryLabelColor,
+        popularWorkCategoryLabelBackgroundColor
     )
 
 fun liftDarkColorScheme(
@@ -307,6 +326,10 @@ fun liftDarkColorScheme(
     allBackgroundColor: Color = ALL_BACKGROUND_COLOR,
     recentLabelColor: Color = RECENT_LABEL_COLOR,
     recentBackgroundColor: Color = RECENT_BACKGROUND_COLOR,
+    recommendWorkCategoryLabelColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_COLOR,
+    recommendWorkCategoryLabelBackgroundColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_BACKGROUND_COLOR,
+    popularWorkCategoryLabelColor: Color = POPULAR_WORK_CATEGORY_LABEL_COLOR,
+    popularWorkCategoryLabelBackgroundColor: Color = POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -361,7 +384,11 @@ fun liftDarkColorScheme(
         allLabelColor,
         allBackgroundColor,
         recentLabelColor,
-        recentBackgroundColor
+        recentBackgroundColor,
+        recommendWorkCategoryLabelColor,
+        recommendWorkCategoryLabelBackgroundColor,
+        popularWorkCategoryLabelColor,
+        popularWorkCategoryLabelBackgroundColor
     )
 
 val LocalLiftColorScheme = staticCompositionLocalOf { liftLightColorScheme() }
