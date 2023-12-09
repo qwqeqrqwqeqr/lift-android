@@ -28,14 +28,12 @@ internal fun NavigationView(
         modifier = modifier
             .background(LiftTheme.colorScheme.no5)
             .fillMaxWidth()
-            .padding(LiftTheme.space.paddingSpace)
-        ,
+            .padding(LiftTheme.space.paddingSpace),
         horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10),
         verticalAlignment = Alignment.Bottom
     ) {
         LiftOutlineButton(
             modifier = modifier.weight(1f),
-
             shape = RoundedCornerShape(size = LiftTheme.space.space12),
             onClick = { routineSetScreenState.updateDeleteDialogView(true) }
         ) {

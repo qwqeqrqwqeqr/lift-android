@@ -3,6 +3,7 @@ package com.gradation.lift.feature.routineDetail.routine.ui.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -16,14 +17,15 @@ import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
 @Composable
 fun NavigationView(
-    modifier:Modifier=Modifier,
+    modifier: Modifier = Modifier,
     routineSetRoutine: RoutineSetRoutine,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
     navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit
-){
+) {
     Row(
         modifier = modifier
-            .background(LiftTheme.colorScheme.no17)
+            .background(LiftTheme.colorScheme.no5)
+            .fillMaxWidth()
             .padding(LiftTheme.space.paddingSpace),
         horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10),
         verticalAlignment = Alignment.Bottom
@@ -32,9 +34,7 @@ fun NavigationView(
             modifier = modifier.weight(1f),
             shape = RoundedCornerShape(size = LiftTheme.space.space12),
             onClick = {
-                navigateRoutineDetailGraphToUpdateRoutineGraph(
-                    routineSetRoutine.id
-                )
+                navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetRoutine.id)
             },
         ) {
             Text(

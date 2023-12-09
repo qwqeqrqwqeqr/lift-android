@@ -45,8 +45,10 @@ internal fun RoutineSetRoute(
     }),
     routineSetScreenState: RoutineSetScreenState = rememberRoutineSetScreenState()
 ) {
-    with(navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY)) {
-        sharedViewModel.setRoutineSetId(this)
+    LaunchedEffect(Unit) {
+        with(navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY)) {
+            sharedViewModel.setRoutineSetId(this)
+        }
     }
 
     val currentRoutineSetRoutine: RoutineSetRoutine by sharedViewModel.currentRoutineSetRoutineState.currentRoutineSetRoutine.collectAsStateWithLifecycle()
