@@ -10,7 +10,7 @@ import com.gradation.lift.feature.updateRoutine.profilePicture.data.model.Routin
 sealed interface RoutineSetPictureUiState {
     data class Success(val routineSetPictureList: List<RoutineSetCategoryPicture>) :
         RoutineSetPictureUiState
-    object Loading : RoutineSetPictureUiState
-    object Fail : RoutineSetPictureUiState
+    data object Loading : RoutineSetPictureUiState
+    data object Fail : RoutineSetPictureUiState
 }
 

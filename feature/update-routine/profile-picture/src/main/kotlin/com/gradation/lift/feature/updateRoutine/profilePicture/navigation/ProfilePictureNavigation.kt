@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.update_routine.profile_picture
+package com.gradation.lift.feature.updateRoutine.profilePicture.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -18,7 +18,7 @@ fun profilePictureScreen(
         val navigateProfilePictureToRoutineSetInUpdateRoutineGraph: () -> Unit =
             { navController.navigateProfilePictureToRoutineSetInUpdateRoutineGraph() }
 
-        UpdateRoutineProfilePictureRoute(
+       ProfilePictureRoute(
             modifier=modifier,
             navController = navController,
             navigateProfilePictureToRoutineSetInUpdateRoutineGraph = navigateProfilePictureToRoutineSetInUpdateRoutineGraph

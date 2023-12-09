@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
- * [UpdateRoutineProfilePictureViewModel]
+ * [ProfilePictureViewModel]
  * @property routineSetPictureUiState 프로필 사진으로 설정할 사진 목록들에 대한 상태 목록을 성공적으로 불러올 시 [RoutineSetPictureUiState.Success] 반환
  * @since 2023-08-21 18:24:34
  */
 @HiltViewModel
-class UpdateRoutineProfilePictureViewModel @Inject constructor(
+class ProfilePictureViewModel @Inject constructor(
     getRoutineSetPictureUseCase: GetRoutineSetPictureUseCase,
 ) : ViewModel() {
 
