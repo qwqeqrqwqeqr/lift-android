@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.updateRoutine.routine
+package com.gradation.lift.feature.updateRoutine.routine.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -9,9 +9,8 @@ import com.gradation.lift.navigation.navigation.navigateRoutineToFindWorkCategor
 import com.gradation.lift.navigation.navigation.navigateRoutineToRoutineSetInUpdateRoutineGraph
 
 
-
 fun routineScreen(
-    modifier: Modifier= Modifier,
+    modifier: Modifier = Modifier,
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
@@ -23,12 +22,11 @@ fun routineScreen(
         { navController.navigateRoutineToRoutineSetInUpdateRoutineGraph() }
 
     navGraphBuilder.composable(UPDATE_ROUTINE_ROUTINE_ROUTER_NAME) {
-        UpdateRoutineRoutineRoute(
-            modifier=modifier,
-            navController = navController,
-            navigateRoutineToFindWorkCategoryInUpdateRoutineGraph = navigateRoutineToFindWorkCategoryInUpdateRoutineGraph,
-            navigateRoutineToRoutineSetInUpdateRoutineGraph = navigateRoutineToRoutineSetInUpdateRoutineGraph
-
+        RoutineRoute(
+            modifier,
+            navController,
+            navigateRoutineToFindWorkCategoryInUpdateRoutineGraph,
+            navigateRoutineToRoutineSetInUpdateRoutineGraph
         )
     }
 }
