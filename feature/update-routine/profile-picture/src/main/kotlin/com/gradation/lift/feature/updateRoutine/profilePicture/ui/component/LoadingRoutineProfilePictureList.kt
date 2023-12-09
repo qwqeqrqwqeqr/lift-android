@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.updateRoutine.profilePicture.component.routine_profile_list
+package com.gradation.lift.feature.updateRoutine.profilePicture.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,13 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun LoadingRoutineProfilePictureList(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .padding(LiftTheme.space.paddingSpace)
+            .background(LiftTheme.colorScheme.no5)
     ) {
         Box(
             modifier = modifier
