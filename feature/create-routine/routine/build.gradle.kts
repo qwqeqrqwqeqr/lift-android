@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.create_routine.routine"
+    namespace = "com.gradation.lift.feature.createRoutine.routine"
 
 }
 
@@ -22,6 +22,7 @@ dependencies {
     implementation(project(":core:ui"))
 
     implementation(project(":feature:create-routine:routine-set"))
+    implementation(project(":feature:create-routine:common"))
 
 
 

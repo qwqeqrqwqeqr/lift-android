@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.create_routine.profile_picture"
+    namespace = "com.gradation.lift.feature.createRoutine.profilePicture"
 
 }
 
@@ -25,6 +25,7 @@ dependencies {
 
 
     implementation(project(":feature:create-routine:routine-set"))
+    implementation(project(":feature:create-routine:common"))
 
 
 }

@@ -3,14 +3,14 @@ plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
     id("lift.android.hilt")
+    id("lift.android.image")
+
 }
 
 android {
-    namespace = "com.gradation.lift.feature.createRoutine.findWorkCategory"
+    namespace = "com.gradation.lift.feature.createRoutine.common"
+
 }
-
-
-
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
@@ -19,8 +19,4 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
-
-    implementation(project(":feature:create-routine:routine-set"))
-    implementation(project(":feature:create-routine:common"))
-
 }
