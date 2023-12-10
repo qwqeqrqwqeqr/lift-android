@@ -18,8 +18,8 @@ import com.gradation.lift.model.model.date.Weekday
 data class CreateRoutineSetRoutine(
     val name: String,
     val description: String,
-    val weekday: List<Weekday>,
-    val label: List<Label>,
+    val weekday: Set<Weekday>,
+    val label: Set<Label>,
     val picture : String,
     val routine : List<CreateRoutine>
 )

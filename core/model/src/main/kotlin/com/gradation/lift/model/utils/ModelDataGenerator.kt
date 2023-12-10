@@ -323,8 +323,8 @@ object ModelDataGenerator {
         val createRoutineSetRoutineModel = CreateRoutineSetRoutine(
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = listOf(Weekday.Monday(), Weekday.Tuesday()),
-            label = listOf(Label.LABEL1, Label.LABEL2),
+            weekday = setOf(Weekday.Monday(), Weekday.Tuesday()),
+            label = setOf(Label.LABEL1, Label.LABEL2),
             picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
             routine = listOf(createRoutineModel),
         )
