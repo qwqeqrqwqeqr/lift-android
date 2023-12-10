@@ -1,44 +1,51 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
-fun NavController.navigateCreateRoutineGraphToHomeGraph() {
-    this.navigate(HOME_GRAPH_NAME) {
-        launchSingleTop = true
-        popUpTo(this@navigateCreateRoutineGraphToHomeGraph.graph.id) {
-            inclusive = true
+fun NavController.navigateCreateRoutineGraphToRoutineDetailGraph() {
+    if (this.currentBackStack.value.any { it.destination.route == Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
+        this.navigate(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
+            this.popUpTo(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
+                inclusive = true
+            }
+        }
+    } else {
+        this.navigate(HOME_GRAPH_NAME) {
+            this.popUpTo(HOME_GRAPH_NAME) {
+                inclusive = true
+            }
         }
     }
-}
 
+}
 
 fun NavController.navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME)
 }
 
 fun NavController.navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph() {
-    this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-        this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
+    this.popBackStack()
 }
 
-fun NavController.navigateFindWorkCategoryToRoutineInCreateRoutineGraph() {
+fun NavController.navigateFindWorkCategoryToRoutineInCreateRoutineGraph(workCategoryId: Int) {
+    this.setValueSavedStateHandle(
+        SavedStateHandleKey.RoutineSet.CREATE_WORK_CATEGORY_ID_KEY,
+        workCategoryId
+    )
     this.navigate(CREATE_ROUTINE_ROUTINE_ROUTER_NAME)
+
 }
 
 fun NavController.navigateRoutineToFindWorkCategoryInCreateRoutineGraph() {
-    this.navigate(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
-        this.popUpTo(CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
+    this.popBackStack()
 }
 
 fun NavController.navigateRoutineToRoutineSetInCreateRoutineGraph() {
@@ -54,11 +61,7 @@ fun NavController.navigateRoutineSetToProfilePictureInCreateRoutineGraph() {
 }
 
 fun NavController.navigateProfilePictureToRoutineSetInCreateRoutineGraph() {
-    this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-        this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
+    this.popBackStack()
 }
 
 

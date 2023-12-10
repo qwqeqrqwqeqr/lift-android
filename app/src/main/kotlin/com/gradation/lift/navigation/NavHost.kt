@@ -36,7 +36,7 @@ fun LiftNavHost(
         modifier = modifier
     ) {
         badgeGraphBuilder(navController, this)
-        createRoutineGraphBuilder(navController, this)
+        createRoutineGraphBuilder(modifier,navController, this)
         homeGraphBuilder(navController, this)
         historyGraphBuilder(navController, this)
         loginGraphBuilder(
