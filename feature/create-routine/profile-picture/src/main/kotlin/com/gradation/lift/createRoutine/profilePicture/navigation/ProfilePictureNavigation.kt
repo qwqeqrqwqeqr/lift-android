@@ -1,12 +1,15 @@
-package com.gradation.lift.createRoutine.profilePicture
+package com.gradation.lift.createRoutine.profilePicture.navigation
 
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateProfilePictureToRoutineSetInCreateRoutineGraph
 
-fun createRoutineProfilePictureScreen(
+
+fun profilePictureScreen(
+    modifier:Modifier=Modifier,
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
@@ -15,9 +18,10 @@ fun createRoutineProfilePictureScreen(
         val navigateProfilePictureToRoutineSetInCreateRoutineGraph: () -> Unit =
             { navController.navigateProfilePictureToRoutineSetInCreateRoutineGraph() }
 
-        CreateRoutineProfilePictureRoute(
-            navController = navController,
-            navigateProfilePictureToRoutineSetInCreateRoutineGraph = navigateProfilePictureToRoutineSetInCreateRoutineGraph
+       ProfilePictureRoute(
+            modifier,
+            navController ,
+            navigateProfilePictureToRoutineSetInCreateRoutineGraph
         )
     }
 }

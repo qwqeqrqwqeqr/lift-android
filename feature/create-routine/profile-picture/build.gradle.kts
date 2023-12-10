@@ -24,7 +24,6 @@ dependencies {
 
 
 
-    implementation(project(":feature:create-routine:routine-set"))
     implementation(project(":feature:create-routine:common"))
 
 
