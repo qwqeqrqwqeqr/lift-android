@@ -119,7 +119,6 @@ internal fun RoutineListScreen(
                         }
                     }
                 }
-                else -> {}
             }
         }
     }

@@ -19,7 +19,7 @@ fun routineScreen(
     val navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit =
         { navController.navigateRoutineDetailGraphToUpdateRoutineGraph(it) }
     val navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit =
-        { navController.navigateRoutineDetailGraphToWorkWorkRouter(it) }
+        { navController.navigateRoutineDetailGraphToWorkWorkRouter(listOf(it)) }
 
 
     val navigateRoutineDetailGraphToBack: () -> Unit =

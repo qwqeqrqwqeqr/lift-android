@@ -43,12 +43,16 @@ fun NavController.navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetId: I
     this.navigate(Router.UPDATE_ROUTINE_GRAPH_NAME)
 }
 
-fun NavController.navigateRoutineDetailGraphToWorkWorkRouter(routineSetId: Int) {
+fun NavController.navigateRoutineDetailGraphToWorkWorkRouter(routineSetIdList: List<Int>) {
     this.setValueSavedStateHandle(
-        SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_ID_KEY,
-        routineSetId
+        SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_LIST_ID_KEY,
+        routineSetIdList
     )
-    this.navigate(Router.WORK_WORK_ROUTER_NAME)
+    this.navigate(Router.WORK_WORK_ROUTER_NAME) {
+        this.popUpTo(Router.WORK_WORK_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 

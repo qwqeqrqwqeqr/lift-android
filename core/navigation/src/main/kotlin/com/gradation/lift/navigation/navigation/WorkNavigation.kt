@@ -3,8 +3,9 @@ package com.gradation.lift.navigation.navigation
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.Router.WORK_COMPLETE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.WORK_ROUTINE_SELECTION_ROUTER_NAME
 import com.gradation.lift.navigation.Router.WORK_WORK_ROUTER_NAME
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
 fun NavController.navigateWorkGraphToHomeGraph() {
@@ -16,13 +17,18 @@ fun NavController.navigateWorkGraphToHomeGraph() {
     }
 }
 
-fun NavController.navigateSelectionRoutineToWorkInWorkGraph() {
+fun NavController.navigateRoutineSelectionToWorkInWorkGraph(routineSetIdList: List<Int>) {
+    this.setValueSavedStateHandle(
+        SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_LIST_ID_KEY,
+        routineSetIdList
+    )
     this.navigate(WORK_WORK_ROUTER_NAME) {
-        this.popUpTo(WORK_ROUTINE_SELECTION_ROUTER_NAME) {
+        this.popUpTo(WORK_WORK_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
+
 
 fun NavController.navigateWorkToCompleteInWorkGraph() {
     this.navigate(WORK_COMPLETE_ROUTER_NAME) {

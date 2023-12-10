@@ -74,7 +74,6 @@ object Router {
 
     const val WORK_GRAPH_NAME = "work_graph"
     const val WORK_ROUTINE_SELECTION_ROUTER_NAME = "work_routine_selection"
-    const val WORK_CHANGE_ORDER_ROUTER_NAME = "work_change_order"
     const val WORK_WORK_ROUTER_NAME = "work_work"
     const val WORK_COMPLETE_ROUTER_NAME = "work_complete"
 }
