@@ -1,16 +1,18 @@
 package com.gradation.lift.feature.createRoutine.routineSet.data.state
 
-
 /**
  * [CreateRoutineState]
- * 루틴 생성 상태
- * 루틴이 성공적으로 만들어 질 경우 [Success] 상태를 가짐
+ * 루틴 생성에 관련한 상태
+ * [Success] 상태일 경우 성공적으로 업데이트를 완료한 것이며,
+ * [Fail] 상태일 경우 업데이트 반영에 실패한 것을 의미함
  * 초기값은 [None]으로 설정되어 있음
- * [Fail] 상태는 에러메시지를 보유하고 있음 메시지는 Snackbar를 통해 호출됨
- * 2023-08-21 13:39:18
+ * @since 2023-12-10 13:57:53
  */
 sealed interface CreateRoutineState {
-    object Success : CreateRoutineState
-    object None : CreateRoutineState
-    data class Fail(val message:String) : CreateRoutineState
+
+
+    data object Success : CreateRoutineState
+    data class Fail(val message: String) : CreateRoutineState
+    data object None : CreateRoutineState
 }
+

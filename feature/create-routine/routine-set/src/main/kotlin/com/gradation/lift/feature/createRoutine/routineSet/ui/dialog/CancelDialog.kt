@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.createRoutine.routineSet.component
+package com.gradation.lift.feature.createRoutine.routineSet.ui.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,19 +11,21 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCancelButton
 import com.gradation.lift.designsystem.component.LiftDialog
+import com.gradation.lift.designsystem.component.LiftErrorButton
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-internal fun CompleteDialog(
+internal fun CancelDialog(
     modifier: Modifier = Modifier,
-    onClickDialogCompleteButton: () -> Unit,
+    onClickDialogSuspendButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,
 ) {
-    LiftDialog(onDismissRequest = {}) {
+    LiftDialog(onDismissRequest = onClickDialogDismissButton) {
         Column(
             modifier
                 .background(
@@ -44,9 +46,9 @@ internal fun CompleteDialog(
                 text = buildAnnotatedString {
                     append("루틴 제작을")
                     withStyle(
-                        style = SpanStyle(color = LiftTheme.colorScheme.no4),
+                        style = SpanStyle(color = LiftTheme.colorScheme.no12),
                     ) {
-                        append(" 완료")
+                        append(" 중단")
                     }
                     append("하실건가요?")
                 },
@@ -58,8 +60,8 @@ internal fun CompleteDialog(
                 modifier = modifier.padding(10.dp)
             )
             Text(
-                "루틴을 제작하고 \n" +
-                        "이전 화면으로 돌아갑니다.",
+                "이전 화면으로 돌아갈 시 \n" +
+                        "열심히 제작한 루틴이 삭제됩니다",
                 textAlign = TextAlign.Center,
                 style = LiftTheme.typography.no4,
                 color = LiftTheme.colorScheme.no9
@@ -84,12 +86,12 @@ internal fun CompleteDialog(
                     )
                 }
 
-                LiftButton(
+                LiftErrorButton(
                     modifier = modifier.weight(1f),
-                    onClick = onClickDialogCompleteButton,
+                    onClick = onClickDialogSuspendButton,
                 ) {
                     Text(
-                        text = "생성하기",
+                        text = "중단하기",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no5,
                     )
@@ -101,3 +103,13 @@ internal fun CompleteDialog(
     }
 }
 
+@Preview
+@Composable
+fun CompleteDialogPreview() {
+    LiftMaterialTheme {
+        CancelDialog(
+            onClickDialogSuspendButton = {},
+            onClickDialogDismissButton = {}
+        )
+    }
+}
