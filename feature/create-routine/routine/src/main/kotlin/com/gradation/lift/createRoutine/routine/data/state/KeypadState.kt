@@ -1,63 +1,126 @@
 package com.gradation.lift.createRoutine.routine.data.state
 
-import androidx.compose.runtime.MutableState
+import com.gradation.lift.createRoutine.routine.data.event.KeypadEvent
+import com.gradation.lift.createRoutine.routine.data.model.WorkSet
 import com.gradation.lift.ui.mapper.toRepetitionText
 import com.gradation.lift.ui.mapper.toWeightText
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * [KeypadState]
  * 키패드에 대한 정보를 나타내는 상태
- * @since 2023-10-12 00:23:41
+ * @since 2023-12-08 18:47:06
  */
-sealed class KeypadState {
-    object None : KeypadState()
-    data class Weight(var index: Int, var weight: MutableState<String>) : KeypadState() {
-        fun clearNumber() {
-            weight.value = ""
-        }
+class KeypadState {
 
-        fun appendNumber(value : String) {
-            weight.value += value
-        }
+    val keypadWorkSetState: MutableStateFlow<KeypadWorkSetState> =
+        MutableStateFlow(KeypadWorkSetState.None)
 
-        fun appendPoint(value : String) {
-            weight.value += value
-        }
+    val selectedIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    val selectedWorkSet: MutableStateFlow<WorkSet> = MutableStateFlow<WorkSet>(WorkSet())
 
-        fun plusNumber(value : String) {
-            weight.value = (weight.value.toFloat() + value.toFloat()).toString()
-        }
+    val init: (Int, WorkSet) -> Unit =
+        { index, workSet -> onKeypadEvent(KeypadEvent.Init(index, workSet)) }
+    val clear: () -> Unit = { onKeypadEvent(KeypadEvent.Clear) }
+    val appendNumber: (String) -> Unit = { onKeypadEvent(KeypadEvent.AppendNumber(it)) }
+    val appendPoint: (String) -> Unit = { onKeypadEvent(KeypadEvent.AppendPoint(it)) }
+    val plusNumber: (String) -> Unit = { onKeypadEvent(KeypadEvent.PlusNumber(it)) }
+    val minusNumber: (String) -> Unit = { onKeypadEvent(KeypadEvent.MinusNumber(it)) }
+    val done: () -> Unit = { onKeypadEvent(KeypadEvent.Done) }
+    val updateState: (KeypadWorkSetState) -> Unit = { onKeypadEvent(KeypadEvent.UpdateState(it)) }
 
-        fun minusNumber(value : String) {
-            weight.value = (weight.value.toFloat() - value.toFloat()).toString()
-        }
 
-        fun onDone() {
-            weight.value = (weight.value.toFloatOrNull()?.toWeightText() ?: "10").toString()
+    private fun onKeypadEvent(keypadEvent: KeypadEvent) {
+        when (keypadEvent) {
+            is KeypadEvent.AppendNumber -> {
+                when (keypadWorkSetState.value) {
+                    KeypadWorkSetState.None -> {}
+                    KeypadWorkSetState.Repetition ->
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(repetition = selectedWorkSet.value.repetition + keypadEvent.number)
+
+                    KeypadWorkSetState.Weight -> {
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(weight = selectedWorkSet.value.weight + keypadEvent.number)
+                    }
+                }
+            }
+
+            is KeypadEvent.AppendPoint -> {
+                when (keypadWorkSetState.value) {
+                    KeypadWorkSetState.None -> {}
+                    KeypadWorkSetState.Repetition -> {}
+                    KeypadWorkSetState.Weight -> {
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(weight = selectedWorkSet.value.weight + keypadEvent.point)
+                    }
+                }
+            }
+
+            KeypadEvent.Clear -> {
+                when (keypadWorkSetState.value) {
+                    KeypadWorkSetState.None -> {}
+                    KeypadWorkSetState.Repetition ->
+                        selectedWorkSet.value = selectedWorkSet.value.copy(repetition = "")
+
+                    KeypadWorkSetState.Weight ->
+                        selectedWorkSet.value = selectedWorkSet.value.copy(weight = "")
+
+                }
+            }
+
+            KeypadEvent.Done -> {
+                when (keypadWorkSetState.value) {
+                    KeypadWorkSetState.None -> {}
+                    KeypadWorkSetState.Repetition ->
+                        selectedWorkSet.value = selectedWorkSet.value.copy(
+                            repetition = selectedWorkSet.value.repetition.toIntOrNull()
+                                ?.toRepetitionText()?.toString() ?: "10"
+                        )
+
+                    KeypadWorkSetState.Weight ->
+                        selectedWorkSet.value = selectedWorkSet.value.copy(
+                            weight = selectedWorkSet.value.weight.toFloatOrNull()?.toWeightText()
+                                ?: "10"
+                        )
+
+                }
+            }
+
+            is KeypadEvent.MinusNumber -> {
+                when (keypadWorkSetState.value) {
+                    KeypadWorkSetState.None -> {}
+                    KeypadWorkSetState.Repetition ->
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(repetition = (selectedWorkSet.value.repetition.toInt() - keypadEvent.number.toInt()).toString())
+
+                    KeypadWorkSetState.Weight ->
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(weight = (selectedWorkSet.value.weight.toFloat() - keypadEvent.number.toFloat()).toString())
+                }
+            }
+
+            is KeypadEvent.PlusNumber -> {
+                when (keypadWorkSetState.value) {
+                    KeypadWorkSetState.None -> {}
+                    KeypadWorkSetState.Repetition ->
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(repetition = (selectedWorkSet.value.repetition.toInt() + keypadEvent.number.toInt()).toString())
+
+                    KeypadWorkSetState.Weight ->
+                        selectedWorkSet.value =
+                            selectedWorkSet.value.copy(weight = (selectedWorkSet.value.weight.toFloat() + keypadEvent.number.toFloat()).toString())
+                }
+            }
+
+            is KeypadEvent.UpdateState -> {
+                keypadWorkSetState.value = keypadEvent.state
+            }
+
+            is KeypadEvent.Init -> {
+                selectedIndex.value = keypadEvent.index
+                selectedWorkSet.value = keypadEvent.workSet
+            }
         }
     }
-
-    data class Repetition(var index: Int, var repetition: MutableState<String>) : KeypadState() {
-        fun clearNumber() {
-            repetition.value = ""
-        }
-
-        fun appendNumber(value : String) {
-            repetition.value += value
-        }
-
-        fun plusNumber(value : String) {
-            repetition.value = (repetition.value.toInt() + value.toInt()).toString()
-        }
-
-        fun minusNumber(value : String) {
-            repetition.value = (repetition.value.toInt() - value.toInt()).toString()
-        }
-
-        fun onDone() {
-            repetition.value =
-                (repetition.value.toIntOrNull()?.toRepetitionText()?.toString() ?: "10").toString()
-        }
-    }
-
 }

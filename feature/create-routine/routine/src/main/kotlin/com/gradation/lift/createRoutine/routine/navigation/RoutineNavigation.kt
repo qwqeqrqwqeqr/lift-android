@@ -1,5 +1,6 @@
-package com.gradation.lift.createRoutine.routine
+package com.gradation.lift.createRoutine.routine.navigation
 
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -8,7 +9,8 @@ import com.gradation.lift.navigation.navigation.navigateRoutineToFindWorkCategor
 import com.gradation.lift.navigation.navigation.navigateRoutineToRoutineSetInCreateRoutineGraph
 
 
-fun createRoutineRoutineScreen(
+fun routineScreen(
+    modifier: Modifier = Modifier,
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
@@ -20,11 +22,11 @@ fun createRoutineRoutineScreen(
         { navController.navigateRoutineToRoutineSetInCreateRoutineGraph() }
 
     navGraphBuilder.composable(CREATE_ROUTINE_ROUTINE_ROUTER_NAME) {
-        CreateRoutineRoutineRoute(
-            navController = navController,
-            navigateRoutineToFindWorkCategoryInCreateRoutineGraph = navigateRoutineToFindWorkCategoryInCreateRoutineGraph,
-            navigateRoutineToRoutineSetInCreateRoutineGraph = navigateRoutineToRoutineSetInCreateRoutineGraph
-
+        RoutineRoute(
+            modifier,
+            navController,
+            navigateRoutineToFindWorkCategoryInCreateRoutineGraph,
+            navigateRoutineToRoutineSetInCreateRoutineGraph
         )
     }
 }
