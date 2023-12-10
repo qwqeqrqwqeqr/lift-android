@@ -3,10 +3,11 @@ plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
     id("lift.android.hilt")
+    id("lift.android.image")
 }
 
 android {
-    namespace = "com.gradation.lift.feature.work.routine_selection"
+    namespace = "com.gradation.lift.feature.work.routineSelection"
 
 }
 
@@ -21,8 +22,6 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
-
-    implementation(project(":feature:work:work"))
     implementation(project(":feature:work:common"))
 
 }
