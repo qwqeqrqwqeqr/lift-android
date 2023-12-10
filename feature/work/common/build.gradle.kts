@@ -6,8 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.work.complete"
-
+    namespace = "com.gradation.lift.feature.work.common"
 }
 
 
@@ -20,8 +19,4 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
-
-    implementation(project(":feature:work:work"))
-    implementation(project(":feature:work:common"))
-
 }

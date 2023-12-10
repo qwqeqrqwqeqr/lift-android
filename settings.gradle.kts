@@ -55,6 +55,8 @@ include(":feature:register-detail:gender")
 include(":feature:register-detail:height-weight")
 include(":feature:register-detail:profile-picture")
 
+
+include(":feature:work:common")
 include(":feature:work:routine-selection")
 include(":feature:work:change-order")
 include(":feature:work:work")

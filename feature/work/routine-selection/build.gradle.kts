@@ -23,4 +23,6 @@ dependencies {
 
 
     implementation(project(":feature:work:work"))
+    implementation(project(":feature:work:common"))
+
 }
