@@ -21,7 +21,7 @@ import com.gradation.lift.feature.work.routineSelection.ui.RoutineSelectionScree
 internal fun RoutineSelectionRoute(
     modifier: Modifier = Modifier,
     navigateWorkGraphToHomeGraph: () -> Unit,
-    navigateRoutineSelectionToWorkInWorkGraph: (List<Int>) -> Unit,
+    navigateRoutineSelectionToWorkInWorkGraph: (IntArray) -> Unit,
     viewModel: RoutineSelectionViewModel = hiltViewModel(),
     routineListScreenState: RoutineListScreenState = rememberRoutineListScreen(),
 ) {

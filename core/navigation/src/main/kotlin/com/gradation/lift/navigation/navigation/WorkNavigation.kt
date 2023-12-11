@@ -17,7 +17,7 @@ fun NavController.navigateWorkGraphToHomeGraph() {
     }
 }
 
-fun NavController.navigateRoutineSelectionToWorkInWorkGraph(routineSetIdList: List<Int>) {
+fun NavController.navigateRoutineSelectionToWorkInWorkGraph(routineSetIdList: IntArray) {
     this.setValueSavedStateHandle(
         SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_LIST_ID_KEY,
         routineSetIdList

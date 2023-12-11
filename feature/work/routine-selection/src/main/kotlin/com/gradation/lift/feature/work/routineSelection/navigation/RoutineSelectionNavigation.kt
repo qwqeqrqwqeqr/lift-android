@@ -17,7 +17,7 @@ fun routineSelectionScreen(
     val navigateWorkGraphToHomeGraph: () -> Unit =
         { navController.navigateWorkGraphToHomeGraph() }
 
-    val navigateRoutineSelectionToWorkInWorkGraph : (List<Int>) -> Unit =
+    val navigateRoutineSelectionToWorkInWorkGraph : (IntArray) -> Unit =
         {navController.navigateRoutineSelectionToWorkInWorkGraph(it)}
 
 

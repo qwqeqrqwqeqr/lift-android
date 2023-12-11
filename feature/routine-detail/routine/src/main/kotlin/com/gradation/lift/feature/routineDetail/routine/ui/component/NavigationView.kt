@@ -20,7 +20,7 @@ fun NavigationView(
     modifier: Modifier = Modifier,
     routineSetRoutine: RoutineSetRoutine,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
-    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit
+    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -45,7 +45,9 @@ fun NavigationView(
         }
         LiftButton(
             modifier = modifier.weight(1f),
-            onClick = { navigateRoutineDetailGraphToWorkWorkRouter(routineSetRoutine.id) },
+            onClick = {
+                navigateRoutineDetailGraphToWorkWorkRouter(routineSetRoutine.id)
+            },
         ) {
             Text(
                 text = "운동 시작",

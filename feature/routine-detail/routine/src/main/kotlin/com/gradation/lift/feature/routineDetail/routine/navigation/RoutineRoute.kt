@@ -24,8 +24,6 @@ fun RoutineRoute(
     viewModel: RoutineViewModel = hiltViewModel(),
 ) {
     val routineSetId: Int? = navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY)
-
-
     val routineUiState: RoutineUiState by viewModel.routineSetRoutine.collectAsStateWithLifecycle()
 
     RoutineScreen(

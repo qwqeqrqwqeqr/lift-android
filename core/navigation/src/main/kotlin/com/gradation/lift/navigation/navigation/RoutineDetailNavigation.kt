@@ -43,7 +43,7 @@ fun NavController.navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetId: I
     this.navigate(Router.UPDATE_ROUTINE_GRAPH_NAME)
 }
 
-fun NavController.navigateRoutineDetailGraphToWorkWorkRouter(routineSetIdList: List<Int>) {
+fun NavController.navigateRoutineDetailGraphToWorkWorkRouter(routineSetIdList: IntArray) {
     this.setValueSavedStateHandle(
         SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_LIST_ID_KEY,
         routineSetIdList

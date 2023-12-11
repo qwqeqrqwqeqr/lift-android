@@ -33,7 +33,7 @@ internal fun RoutineSelectionScreen(
     searchFilterText: String,
     sortType: SortType,
     navigateWorkGraphToHomeGraph: () -> Unit,
-    navigateRoutineSelectionToWorkInWorkGraph: (List<Int>) -> Unit,
+    navigateRoutineSelectionToWorkInWorkGraph: (IntArray) -> Unit,
 ) {
     if (routineListScreenState.sortTypeBottomSheetView) {
         SortBottomSheet(modifier, routineListScreenState, sortFilterState, sortType)
@@ -114,7 +114,7 @@ internal fun RoutineSelectionScreen(
                                 text = "운동시작하기(${routineListInfoState.selectedRoutineList.toList().size}개)",
                                 onClick = {
                                     navigateRoutineSelectionToWorkInWorkGraph(
-                                        routineListInfoState.selectedRoutineList.toList()
+                                        routineListInfoState.selectedRoutineList.toIntArray()
                                     )
                                 },
                                 enabled = routineListInfoState.selectedRoutineList.toList()
