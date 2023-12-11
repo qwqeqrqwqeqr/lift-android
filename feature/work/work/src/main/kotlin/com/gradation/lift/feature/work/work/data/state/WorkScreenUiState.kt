@@ -11,11 +11,8 @@ package com.gradation.lift.feature.work.work.data.state
  */
 sealed interface WorkScreenUiState {
 
-    object RestScreenUi : WorkScreenUiState
-    object WorkScreenUi : WorkScreenUiState
+    data object RestScreenUi : WorkScreenUiState
+    data object WorkScreenUi : WorkScreenUiState
     data class ListScreenUi(val state: Boolean) : WorkScreenUiState
-
-
-
 
 }
