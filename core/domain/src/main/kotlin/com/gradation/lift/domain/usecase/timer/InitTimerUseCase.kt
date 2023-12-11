@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @since 2023-08-28 20:21:07
  */
 class InitTimerUseCase @Inject constructor() {
-    operator fun invoke(tick: Long = 1000L): Flow<Int> {
+    operator fun invoke(tick: Long = 200L): Flow<Int> {
         return (1..Int.MAX_VALUE).asFlow()
             .onEach { delay(tick) }
             .conflate()
