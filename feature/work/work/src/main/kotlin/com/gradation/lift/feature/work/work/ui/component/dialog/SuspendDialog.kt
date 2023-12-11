@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work.component.dialog
+package com.gradation.lift.feature.work.work.ui.component.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,20 +13,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCancelButton
 import com.gradation.lift.designsystem.component.LiftDialog
+import com.gradation.lift.designsystem.component.LiftErrorButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-internal fun CompleteDialog(
+internal fun SuspendDialog(
     modifier: Modifier = Modifier,
-    completeState : Boolean,
-    onClickDialogCompleteButton: () -> Unit,
+    onClickDialogSuspendButton: () -> Unit,
     onClickDialogDismissButton: () -> Unit,
 ) {
-    LiftDialog(onDismissRequest = {}) {
+    LiftDialog(onDismissRequest = onClickDialogDismissButton) {
         Column(
             modifier
                 .background(
@@ -43,56 +42,30 @@ internal fun CompleteDialog(
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
-            if(completeState){
             Text(
                 text = buildAnnotatedString {
                     append("운동을 ")
                     withStyle(
-                        style = SpanStyle(color = LiftTheme.colorScheme.no4),
+                        style = SpanStyle(color = LiftTheme.colorScheme.no12),
                     ) {
-                        append("완료")
+                        append("중단")
                     }
                     append("하실건가요?")
                 },
                 textAlign = TextAlign.Center,
                 style = LiftTheme.typography.no2,
                 color = LiftTheme.colorScheme.no3
-            )}
-            else{
-                Text(
-                    text = buildAnnotatedString {
-                        append("아직")
-                        withStyle(
-                            style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                        ) {
-                            append(" 완료")
-                        }
-                        append("하지 않은 운동이 존재합니다.")
-                    },
-                    textAlign = TextAlign.Center,
-                    style = LiftTheme.typography.no2,
-                    color = LiftTheme.colorScheme.no3
-                )
-            }
+            )
             Spacer(
                 modifier = modifier.padding(10.dp)
             )
-            if(completeState) {
-                Text(
-                    "완료한 운동 기록을 저장하고 \n 운동 결과 화면으로 이동합니다",
-                    textAlign = TextAlign.Center,
-                    style = LiftTheme.typography.no4,
-                    color = LiftTheme.colorScheme.no9
-                )
-            }
-            else{
-                Text(
-                    "그래도 완료할 경우, 세트를 \n마무리 하지 않은 운동들은 삭제됩니다.",
-                    textAlign = TextAlign.Center,
-                    style = LiftTheme.typography.no4,
-                    color = LiftTheme.colorScheme.no9
-                )
-            }
+            Text(
+                "운동을 중단할 경우 현재 운동 중인\n" +
+                        "기록이 삭제됩니다",
+                textAlign = TextAlign.Center,
+                style = LiftTheme.typography.no4,
+                color = LiftTheme.colorScheme.no9
+            )
             Spacer(
                 modifier = modifier.padding(10.dp)
             )
@@ -113,12 +86,12 @@ internal fun CompleteDialog(
                     )
                 }
 
-                LiftButton(
+                LiftErrorButton(
                     modifier = modifier.weight(1f),
-                    onClick = onClickDialogCompleteButton,
+                    onClick = onClickDialogSuspendButton,
                 ) {
                     Text(
-                        text = "완료",
+                        text = "중단",
                         style = LiftTheme.typography.no3,
                         color = LiftTheme.colorScheme.no5,
                     )
@@ -132,11 +105,10 @@ internal fun CompleteDialog(
 
 @Preview
 @Composable
-fun CompleteDialogPreview() {
+fun SuspendDialogPreview() {
     LiftMaterialTheme {
-        CompleteDialog(
-            completeState=false,
-            onClickDialogCompleteButton = {},
+        SuspendDialog(
+            onClickDialogSuspendButton = {},
             onClickDialogDismissButton = {}
         )
     }
