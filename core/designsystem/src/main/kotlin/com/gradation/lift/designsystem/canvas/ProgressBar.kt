@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -14,14 +13,17 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
 fun LiftProgressBar(
     modifier: Modifier = Modifier,
+    progressColor : Color,
+    backgroundColor: Color,
     progress: Int,
 ) {
-    Canvas(modifier = modifier.padding(16.dp)) {
+    Canvas(modifier = modifier.padding(LiftTheme.space.paddingSpace)) {
         drawPath(
             path = Path().apply {
                 moveTo(
@@ -34,7 +36,7 @@ fun LiftProgressBar(
                 close()
             },
             style = Stroke(width = 24.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
-            color = Color(0xFFF2F2F5)
+            color = backgroundColor
         )
 
         drawPath(
@@ -49,12 +51,7 @@ fun LiftProgressBar(
                 close()
             },
             style = Stroke(width = 24.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
-            brush = Brush.horizontalGradient(
-                colors = listOf(
-                    Color(0xFF0080FF),
-                    Color(0xffffffff)
-                ), startX = 0f, endX = size.width
-            )
+           color=progressColor,
         )
     }
 }
@@ -66,6 +63,8 @@ fun LiftProgressBarPreview() {
     LiftMaterialTheme {
         LiftProgressBar(
             modifier = Modifier.size(196.dp),
+            progressColor = Color.Blue,
+            backgroundColor = Color.White,
             progress = 10
         )
     }

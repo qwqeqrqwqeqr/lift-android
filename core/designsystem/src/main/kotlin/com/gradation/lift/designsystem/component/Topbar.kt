@@ -24,7 +24,7 @@ fun LiftBackTopBar(
 ) {
     TopAppBar(
         title = {
-            title?.let{ title->
+            title?.let { title ->
                 Text(
                     text = title,
                     color = LiftTheme.colorScheme.no9,
@@ -60,14 +60,14 @@ fun LiftBackTopBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiftCloseTopBar(
-    title: String?,
-    onCloseClickTopBar: () -> Unit,
     modifier: Modifier = Modifier,
+    title: String? = null,
+    onCloseClickTopBar: () -> Unit,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
         title = {
-            title?.let{ title->
+            title?.let { title ->
                 Text(
                     text = title,
                     color = LiftTheme.colorScheme.no9,
@@ -133,11 +133,13 @@ fun LiftTitleTopBar(
 fun LiftHomeTopBar(
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {},
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     TopAppBar(
-        modifier = modifier.statusBarsPadding().padding(end = 8.dp),
-        title={
+        modifier = modifier
+            .statusBarsPadding()
+            .padding(end = 8.dp),
+        title = {
             Icon(
                 painter = painterResource(R.drawable.logo_extension_kor),
                 contentDescription = "",
@@ -154,7 +156,7 @@ fun LiftHomeTopBar(
             actionIconContentColor = LiftTheme.colorScheme.no9,
         ),
         actions = actions,
-        scrollBehavior=scrollBehavior
+        scrollBehavior = scrollBehavior
     )
 }
 

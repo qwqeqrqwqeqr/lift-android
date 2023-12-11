@@ -140,7 +140,9 @@ fun BadgeInfoView(
             LiftProgressBar(
                 modifier = modifier
                     .weight(1f),
-                progress = badgeState.badgeProgress
+                progress = badgeState.badgeProgress,
+                progressColor = LiftTheme.colorScheme.no4,
+                backgroundColor = LiftTheme.colorScheme.no1
             )
             Text(
                 modifier = modifier.padding(start = 8.dp),

@@ -1,5 +1,6 @@
 package com.gradation.lift.designsystem.component
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import com.gradation.lift.designsystem.resource.LiftIcon
 
 
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun ToggleCheckbox(
     checked: Boolean,
@@ -49,6 +51,7 @@ fun ToggleCheckbox(
 }
 
 
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun ToggleVisible(
     checked: Boolean,

@@ -27,7 +27,7 @@ fun LiftProgressCircle(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .padding(top = 8.dp, start = 8.dp)
-            .size(196.dp),
+            .size(224.dp),
     ) {
         val canvasHeight = this.maxHeight
         val canvasWidth = this.maxWidth
@@ -42,7 +42,7 @@ fun LiftProgressCircle(
                 sweepAngle = maxProgress,
                 useCenter = false,
                 size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
-                style = Stroke(width = 48f, cap = StrokeCap.Round)
+                style = Stroke(width = 72f, cap = StrokeCap.Round)
             )
 
             drawArc(
@@ -51,7 +51,7 @@ fun LiftProgressCircle(
                 sweepAngle = progress / 100f * maxProgress,
                 useCenter = false,
                 size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
-                style = Stroke(width = 48f, cap = StrokeCap.Round)
+                style = Stroke(width = 72f, cap = StrokeCap.Round)
             )
         }
     }
