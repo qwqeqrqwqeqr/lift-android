@@ -1,25 +1,26 @@
-package com.gradation.lift.feature.work.complete.component
+package com.gradation.lift.feature.work.complete.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.model.model.history.CreateHistoryRoutine
 
 @Composable
 fun NavigationView(
     modifier: Modifier = Modifier,
-    createWorkHistory: () -> Unit,
+    historyWorkRestTime: WorkRestTime,
+    historyRoutineList: List<CreateHistoryRoutine>,
+    createHistory: (WorkRestTime, List<CreateHistoryRoutine>) -> Unit,
 ) {
-    Column(modifier.padding(start = 16.dp,end=16.dp, bottom = 16.dp )) {
-
+    Column {
         LiftButton(
             modifier = modifier.fillMaxWidth(),
-            onClick = createWorkHistory,
+            onClick = { createHistory(historyWorkRestTime, historyRoutineList) },
         ) {
             Text(
                 text = "완료",
@@ -28,5 +29,4 @@ fun NavigationView(
             )
         }
     }
-
 }

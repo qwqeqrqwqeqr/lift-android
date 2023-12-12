@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.complete.component
+package com.gradation.lift.feature.work.complete.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -18,16 +17,18 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.complete.data.state.CompleteScreenState
+import com.gradation.lift.feature.work.complete.data.state.HistoryInfoState
 
 @Composable
-fun CommentView(
+internal fun CommentView(
     modifier: Modifier = Modifier,
     comment: String,
     commentValidator: Validator,
-    updateComment: (String) -> Unit,
-    focusManager: FocusManager,
+    historyInfoState: HistoryInfoState,
+    completeScreenState: CompleteScreenState,
 ) {
-    Column(modifier.padding(horizontal =  16.dp)) {
+    Column(modifier.padding(horizontal = 16.dp)) {
 
         Text(
             text = "한 줄 메모",
@@ -39,7 +40,7 @@ fun CommentView(
         Spacer(modifier = modifier.padding(4.dp))
         LiftTextField(
             value = comment,
-            onValueChange = updateComment,
+            onValueChange = historyInfoState.updateComment,
             modifier = modifier.fillMaxWidth(),
             placeholder = {
                 Text(
@@ -53,7 +54,7 @@ fun CommentView(
                 keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(onDone = {
-                focusManager.clearFocus()
+                completeScreenState.focusManager.clearFocus()
             }),
         )
         if (!commentValidator.status) {

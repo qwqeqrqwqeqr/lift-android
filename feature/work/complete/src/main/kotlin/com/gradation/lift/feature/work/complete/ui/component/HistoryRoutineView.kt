@@ -1,13 +1,13 @@
-package com.gradation.lift.feature.work.complete.component
+package com.gradation.lift.feature.work.complete.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -21,7 +21,7 @@ fun HistoryRoutineView(
     modifier: Modifier = Modifier,
     historyRoutineList: List<CreateHistoryRoutine>,
 ) {
-    Column (modifier.padding(horizontal =  16.dp)){
+    Column(modifier.padding(horizontal = 16.dp)) {
 
         Text(
             text = "운동 기록",
@@ -34,14 +34,16 @@ fun HistoryRoutineView(
         historyRoutineList.forEach { historyRoutine ->
             Column(
                 modifier = modifier
-                    .background(LiftTheme.colorScheme.no5)
-                    .border(
-                        width = 1.dp,
-                        color = LiftTheme.colorScheme.no8,
-                        shape = RoundedCornerShape(16.dp)
+                    .shadow(
+                        elevation = LiftTheme.space.space8,
+                        ambientColor = LiftTheme.colorScheme.no34,
+                        spotColor = LiftTheme.colorScheme.no34,
+                        shape = RoundedCornerShape(size = LiftTheme.space.space12)
                     )
+                    .background(LiftTheme.colorScheme.no5)
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp, horizontal = 16.dp),
+                    .padding(LiftTheme.space.space12),
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
             ) {
                 Text(
                     text = historyRoutine.workCategory,

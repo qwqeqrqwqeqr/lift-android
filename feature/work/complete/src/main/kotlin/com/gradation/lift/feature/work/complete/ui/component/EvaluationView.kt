@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.complete.component
+package com.gradation.lift.feature.work.complete.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -11,12 +11,13 @@ import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.complete.data.state.HistoryInfoState
 
 @Composable
-fun EvaluationView(
+internal fun EvaluationView(
     modifier:Modifier=Modifier,
     score:Int,
-    updateScore: (Int)->Unit
+    historyInfoState: HistoryInfoState
 ){
     Column(modifier= modifier.fillMaxWidth().padding(horizontal =  16.dp)) {
         Text(
@@ -42,7 +43,7 @@ fun EvaluationView(
                     modifier = modifier
                         .size(36.dp)
                         .noRippleClickable
-                        { updateScore(it + 1) }
+                        { historyInfoState.updateScore(it + 1) }
 
                 )
             }
