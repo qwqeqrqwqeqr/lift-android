@@ -10,7 +10,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import javax.inject.Named
-import javax.inject.Singleton
 
 @Module
 @TestInstallIn(
@@ -18,24 +17,25 @@ import javax.inject.Singleton
     replaces = [DatabaseModule::class]
 )
 object TestDatabaseModule {
-
     @Named(TEST_DATABASE)
     @Provides
     fun provideInMemoryDatabase(
         @ApplicationContext context: Context,
-        weekdayTypeConverter: WeekdayTypeConverter,
+        listTypeConverter: ListTypeConverter,
+        genderTypeConverter: GenderTypeConverter,
         unitOfWeightTypeConverter: UnitOfWeightTypeConverter,
-        genderTypeConverter : GenderTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
+        localDateTypeConverter: LocalDateTypeConverter,
         localDateTimeTypeConverter: LocalDateTimeTypeConverter
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
-            .addTypeConverter(weekdayTypeConverter)
+            .addTypeConverter(listTypeConverter)
             .addTypeConverter(genderTypeConverter)
             .addTypeConverter(unitOfWeightTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
+            .addTypeConverter(localDateTypeConverter)
             .addTypeConverter(localDateTimeTypeConverter)
             .allowMainThreadQueries()
             .build()

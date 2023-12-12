@@ -68,7 +68,7 @@ class UserServiceTest {
         val response = userService.existUserDetail()
         val request = mockWebServer.takeRequest()
 
-        assertThat(request.path).isEqualTo("/user/exist-user-detail/")
+        assertThat(request.path).isEqualTo("/user/exist-user-detail")
         assertThat(request.method).isEqualTo(Constants.GET)
 
         assertThat(response.code()).isEqualTo(OK)
@@ -88,7 +88,7 @@ class UserServiceTest {
         val response = userService.getUserDetail()
         val request = mockWebServer.takeRequest()
 
-        assertThat(request.path).isEqualTo("/user/user-detail/")
+        assertThat(request.path).isEqualTo("/user/user-detail")
         assertThat(request.method).isEqualTo(Constants.GET)
 
         assertThat(response.code()).isEqualTo(OK)
@@ -109,7 +109,7 @@ class UserServiceTest {
         val response = userService.createUserDetail(createUserDetailRequestDto)
         val request = mockWebServer.takeRequest()
 
-        assertThat(request.path).isEqualTo("/user/user-detail/")
+        assertThat(request.path).isEqualTo("/user/user-detail")
         assertThat(request.method).isEqualTo(Constants.POST)
 
         assertThat(response.code()).isEqualTo(CREATED)
@@ -130,7 +130,7 @@ class UserServiceTest {
         val response = userService.updateUserDetail(updateUserDetailRequestDto)
         val request = mockWebServer.takeRequest()
 
-        assertThat(request.path).isEqualTo("/user/user-detail/")
+        assertThat(request.path).isEqualTo("/user/user-detail")
         assertThat(request.method).isEqualTo(Constants.PUT)
 
         assertThat(response.code()).isEqualTo(CREATED)

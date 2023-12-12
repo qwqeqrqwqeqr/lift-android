@@ -14,11 +14,12 @@ class CreateRoutineSetRoutineMapperTest {
 
     @Test
     fun createRoutineSetRoutineMapper() = runTest {
-
         with(createRoutineSetRoutineModel.toDto()) {
             Truth.assertThat(this.name).isEqualTo(createRoutineSetRoutineRequestDto.name)
-            Truth.assertThat(this.description).isEqualTo(createRoutineSetRoutineRequestDto.description)
+            Truth.assertThat(this.description)
+                .isEqualTo(createRoutineSetRoutineRequestDto.description)
             Truth.assertThat(this.weekday).isEqualTo(createRoutineSetRoutineRequestDto.weekday)
+            Truth.assertThat(this.label).isEqualTo(createRoutineSetRoutineRequestDto.label)
             Truth.assertThat(this.picture).isEqualTo(createRoutineSetRoutineRequestDto.picture)
             Truth.assertThat(this.routine)
                 .isEqualTo(createRoutineSetRoutineRequestDto.routine)

@@ -61,7 +61,7 @@ class CheckerServiceTest {
         val response = checkerService.checkDuplicateEmail(FAKE_STRING_DATA)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/checker/duplicate-email/?email=${FAKE_STRING_DATA}")
+        Truth.assertThat(request.path).isEqualTo("/checker/duplicate-email?email=${FAKE_STRING_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -84,7 +84,7 @@ class CheckerServiceTest {
 
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/checker/duplicate-name/?name=${FAKE_STRING_DATA}")
+        Truth.assertThat(request.path).isEqualTo("/checker/duplicate-name?name=${FAKE_STRING_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)

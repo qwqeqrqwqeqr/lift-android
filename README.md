@@ -1,5 +1,5 @@
 # 리프트
-<img src="./docs/lift_screen_1.jpg"/>
+<img src="./screenshot/lift_icon.png" style="width:10%;"/>
 
 ### 당신의 하루를 들어 올리세요 🔺 <br> lift your day 🚀
 <br>
@@ -15,18 +15,20 @@
 
 ## 소개
 <div>
-<img src="./docs/lift_screen_2.jpg" align=left" width="30%"/>
-<img src="./docs/lift_screen_3.jpg" align=left" width="30%"/>
-<img src="./docs/lift_screen_4.jpg" align=left" width="30%"/>	
+<img src="./screenshot/lift_design_1.jpg"/>
+<img src="./screenshot/lift_design_2.jpg"/>
+<img src="./screenshot/lift_design_3.jpg"/>
+<img src="./screenshot/lift_design_4.jpg"/>
+<img src="./screenshot/lift_design_5.jpg"/>
+<img src="./screenshot/lift_design_6.jpg"/>
 </div>
 
 <br>
 
 ## 개발
 <div>
-<img src="./docs/lift_screen_5.jpeg"/>
-<img src="./docs/lift_screen_6.jpeg"/>
-<img src="./docs/lift_screen_7.jpeg"/>
+<img src="./screenshot/lift_dev_1.jpeg"/>
+<img src="./screenshot/lift_dev_2.jpeg"/>
 </div>
 
 

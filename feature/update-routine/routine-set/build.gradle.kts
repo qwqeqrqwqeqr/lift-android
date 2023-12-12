@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.update_routine.routine_set"
+    namespace = "com.gradation.lift.feature.updateRoutine.routineSet"
 
 }
 
@@ -22,7 +22,8 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
-    implementation(project(":feature:update-routine:routine-selection"))
+    implementation(project(":feature:update-routine:common"))
+
 
 
 }

@@ -7,6 +7,7 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.data.utils.TestReturnState
+import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -19,7 +20,6 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
             TestReturnState.Success -> emit(NetworkResult.Success(data = getUserDetailResponseDto.toDomain()))
         }
     }
-
 
 
     override suspend fun createUserDetail(
@@ -36,9 +36,17 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
     ): Flow<NetworkResult<Unit>> = flow {
         when (testReturnState) {
             TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
-            TestReturnState.Success -> emit(NetworkResult.Success(data =Unit))
+            TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
         }
     }
+
+    override suspend fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<NetworkResult<Unit>> =
+        flow {
+            when (testReturnState) {
+                TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
+                TestReturnState.Success -> emit(NetworkResult.Success(data = Unit))
+            }
+        }
 
     override suspend fun existUserDetail(): Flow<NetworkResult<Boolean>> = flow {
         when (testReturnState) {
@@ -46,7 +54,6 @@ class FakeUserDataSource(private val testReturnState: TestReturnState = TestRetu
             TestReturnState.Success -> emit(NetworkResult.Success(data = existUserDetailResponseDto.result))
         }
     }
-
 
 
 }

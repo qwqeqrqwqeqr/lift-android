@@ -63,8 +63,10 @@ import org.junit.runners.Suite
     CreateRoutineSetRoutineMapperTest::class,
     CreateUserDetailMapperTest::class,
     CreateUserBadgeMapperTest::class,
+    ErrorMapperTest::class,
     SignInMapperTest::class,
     SignUpMapperTest::class,
-
+    UpdateRoutineSetCountMapperTest::class,
+    UpdateRoutineSetRoutineMapperTest::class
 )
 class NetworkTestSuit

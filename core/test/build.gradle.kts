@@ -4,6 +4,7 @@ plugins {
     id("lift.android.hilt")
     id("lift.android.kotlin")
     id("lift.android.test")
+    id("lift.android.work")
 }
 
 android {

@@ -1,47 +1,47 @@
 [versions]
 accompanist = "0.32.0"
-androidGradlePlugin = "8.1.1"
-androidxActivity = "1.6.1"
-androidxAppCompat = "1.5.1"
+androidGradlePlugin = "8.1.3"
+androidxActivity = "1.8.0"
+androidxAppCompat = "1.6.1"
 androidxArchCore = "2.2.0"
-androidxCoreSplashscreen = "1.0.0"
-androidxComposeBom = "2023.01.00"
-androidxComposeCompiler = "1.4.3"
-androidXComposeUiGraphics = "1.4.0"
-androidxComposeMaterial3 = "1.2.0-alpha02"
-androidxComposeRuntimeTracing = "1.0.0-alpha01"
-androidxCore = "1.9.0"
+androidxCoreSplashscreen = "1.0.1"
+androidxComposeBom = "2023.10.01"
+androidxComposeCompiler = "1.5.3"
+androidxComposeFoundation = "1.6.0-beta02"
+androidXComposeUiGraphics = "1.5.4"
+androidxComposeMaterial3 = "1.2.0-alpha10"
+androidxComposeRuntimeTracing = "1.0.0-alpha04"
+androidxCore = "1.12.0"
 androidxDataStore = "1.0.0"
-androidxEspresso = "3.5.0"
-androidxHiltNavigationCompose = "1.1.0-alpha01"
-androidxLifecycle = "2.6.0-alpha05"
-androidxNavigation = "2.5.3"
-androixPagingCompose = "1.0.0-alpha17"
+androidxEspresso = "3.5.1"
+androidxHiltNavigationCompose = "1.1.0"
+androidxLifecycle = "2.7.0-beta01"
+androidxNavigation = "2.7.5"
+androixPagingCompose = "3.3.0-alpha02"
 androidxTracing = "1.1.0"
 androidxTestCore = "1.4.0"
-androidxTestExt = "1.1.3"
+androidxTestExt = "1.1.5"
 androidxTestRules = "1.5.0"
-androidxTestRunner = "1.5.1"
+androidxTestRunner = "1.5.2"
 detekt = "1.22.0"
 firebaseAuth = "21.0.0"
-firebaseBom = "31.2.0"
-firebaseCrashlyticsPlugin = "2.9.8"
+firebaseBom = "32.5.0"
+firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
 gmsPlugin = "4.3.14"
-gmsAuth = "20.6.0"
+gmsAuth = "20.7.0"
 glide = "4.15.1"
 glideCompose = "1.0.0-alpha.1"
-hilt = "2.44.2"
-hiltWork = "1.0.0"
+hilt = "2.47"
+hiltWork = "1.1.0"
 jacoco = "0.8.7"
-junit4 = "4.12"
+junit4 = "4.13.2"
 kakao = "2.15.0"
-kapt = "1.8.20"
-kotlin = "1.8.10"
-kotlinxCoroutines = "1.6.4"
+kotlin = "1.9.10"
+kotlinxCoroutines = "1.7.1"
 kotlinxDatetime = "0.4.0"
-kotlinxSerializationJson = "1.4.1"
-ksp = "1.8.10-1.0.9"
+kotlinxSerializationJson ="1.6.0"
+ksp = "1.9.10-1.0.13"
 ktlintGradle = "11.3.1"
 mockitoCore = "4.5.1"
 moshi = "1.14.0"
@@ -50,14 +50,14 @@ okhttp = "4.10.0"
 parcelize = "1.9.0"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "0.8.0"
-room = "2.5.0"
+room = "2.6.0"
 robolectric = "4.9"
 timber = "5.0.1"
-truth = "1.0.1"
+truth = "1.1.3"
 versionCheck = "0.46.0"
-work = "2.8.0"
+work = "2.8.1"
 junit = "1.1.5"
-material = "1.8.0"
+material = "1.10.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -72,7 +72,6 @@ jacoco = { id = "org.gradle.jacoco", version.ref = "jacoco" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }
@@ -98,8 +97,8 @@ androidx-tracing = { group = "androidx.tracing", name = "tracing-ktx", version.r
 
 
 #COMPOSE
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "androidxComposeFoundation"  }
 androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
@@ -134,13 +133,15 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "androidxDataStore" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
 
+#GOOGLE
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "gmsPlugin" }
+google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
 
 #FIREBASE
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
-firebase-pref-ktx = { group = "com.google.firebase", name = "firebase-pref-ktx" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 firebase-config-ktx = { group = "com.google.firebase", name = "firebase-config-ktx" }
 
@@ -220,8 +221,5 @@ work-multiprocess = { group = "androidx.work", name = "work-multiprocess", versi
 
 #OAUTH
 kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
-google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
 naver-auth = { group = "com.navercorp.nid", name = "oauth", version.ref = "naver" }
 naver-auth-jdk8 = { group = "com.navercorp.nid", name = "oauth-jdk8", version.ref = "naver" }
-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }

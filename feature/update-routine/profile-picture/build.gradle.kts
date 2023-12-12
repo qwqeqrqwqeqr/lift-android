@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.update_routine.profile_picture"
+    namespace = "com.gradation.lift.feature.updateRoutine.profilePicture"
 
 }
 
@@ -22,6 +22,6 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
+    implementation(project(":feature:update-routine:common"))
 
-    implementation(project(":feature:update-routine:routine-selection"))
 }
