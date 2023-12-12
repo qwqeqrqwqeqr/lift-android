@@ -19,7 +19,6 @@ import com.gradation.lift.network.data.TestJsonDataGenerator.RoutineSetRoutine.r
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.service.RoutineService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineRequestDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.deleteRoutineSetRoutineResponseDto
@@ -77,7 +76,7 @@ class RoutineServiceTest {
             routineService.createRoutineSetRoutine(createRoutineSetRoutineRequestDto = createRoutineSetRoutineRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine")
         Truth.assertThat(request.method).isEqualTo(Constants.POST)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -99,7 +98,7 @@ class RoutineServiceTest {
             routineService.updateRoutineSetRoutine(updateRoutineSetRoutineRequestDto = updateRoutineSetRoutineRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine")
         Truth.assertThat(request.method).isEqualTo(Constants.PUT)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -121,7 +120,7 @@ class RoutineServiceTest {
             routineService.updateRoutineSetCount(updateRoutineSetCountRequestDto = updateRoutineSetCountRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set/count/")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set/count")
         Truth.assertThat(request.method).isEqualTo(Constants.PUT)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -144,7 +143,7 @@ class RoutineServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/routine/routine-set-routine/?routine_set_id=${FAKE_INT_DATA}")
+            .isEqualTo("/routine/routine-set-routine?routine_set_id=${FAKE_INT_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.DELETE)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -166,7 +165,7 @@ class RoutineServiceTest {
         val response = routineService.getRoutine()
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine/")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -188,7 +187,7 @@ class RoutineServiceTest {
         val response = routineService.getRoutineSetRoutine()
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine/")
+        Truth.assertThat(request.path).isEqualTo("/routine/routine-set-routine")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -211,7 +210,7 @@ class RoutineServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/routine/routine-set-routine/weekday/?weekday=Mon%2CTue")
+            .isEqualTo("/routine/routine-set-routine/weekday?weekday=Mon%2CTue")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -233,7 +232,7 @@ class RoutineServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/routine/routine-set-routine/label/?label=1%2C2")
+            .isEqualTo("/routine/routine-set-routine/label?label=1%2C2")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -255,7 +254,7 @@ class RoutineServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/routine/routine-set-routine/routine-set-id/?routine_set_id_list=12%2C13%2C14")
+            .isEqualTo("/routine/routine-set-routine/routine-set-id?routine_set_id_list=12%2C13%2C14")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)

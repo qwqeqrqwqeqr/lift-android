@@ -62,7 +62,7 @@ class PictureServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/picture/user-profile/")
+            .isEqualTo("/picture/user-profile")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -87,7 +87,7 @@ class PictureServiceTest {
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/picture/routine-set/")
+            .isEqualTo("/picture/routine-set")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)

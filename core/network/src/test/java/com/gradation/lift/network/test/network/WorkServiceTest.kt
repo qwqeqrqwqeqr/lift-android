@@ -64,7 +64,7 @@ class WorkServiceTest {
         val response = workService.getWorkPart()
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/work/work-part/")
+        Truth.assertThat(request.path).isEqualTo("/work/work-part")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -86,7 +86,7 @@ class WorkServiceTest {
         val response = workService.getWorkCategory()
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/work/work-category/")
+        Truth.assertThat(request.path).isEqualTo("/work/work-category")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
@@ -132,7 +132,7 @@ class WorkServiceTest {
         val response = workService.getWorkCategoryByWorkPart(FAKE_STRING_DATA)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/work/work-category-by-work-part/?work_part=${FAKE_STRING_DATA}")
+        Truth.assertThat(request.path).isEqualTo("/work/work-category-by-work-part?work_part=${FAKE_STRING_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
