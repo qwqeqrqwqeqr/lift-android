@@ -52,6 +52,10 @@ gradlePlugin {
             id = property("FIREBASE_PLUGIN_ID").toString()
             implementationClass = property("FIREBASE_PLUGIN_IMPL_CLASS").toString()
         }
+        register(property("GOOGLE_PLUGIN_ID").toString()) {
+            id = property("GOOGLE_PLUGIN_ID").toString()
+            implementationClass = property("GOOGLE_PLUGIN_IMPL_CLASS").toString()
+        }
         register(property("HILT_PLUGIN_ID").toString()) {
             id = property("HILT_PLUGIN_ID").toString()
             implementationClass = property("HILT_PLUGIN_IMPL_CLASS").toString()

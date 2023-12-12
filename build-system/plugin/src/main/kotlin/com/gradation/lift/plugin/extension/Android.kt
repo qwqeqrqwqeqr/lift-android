@@ -44,6 +44,11 @@ internal fun Project.extensionAndroid(
             )
             buildConfigField(
                 "String",
+                "GOOGLE_OAUTH_CLIENT_ID",
+                getKey("GOOGLE_OAUTH_CLIENT_ID", rootDir)
+            )
+            buildConfigField(
+                "String",
                 "LIFT_API_URL",
                 getKey("LIFT_API_URL", rootDir)
             )
