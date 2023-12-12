@@ -40,8 +40,9 @@ include(":feature:home")
 
 include(":feature:create-routine:routine-set")
 include(":feature:create-routine:find-work-category")
-include(":feature:create-routine:profile")
+include(":feature:create-routine:profile-picture")
 include(":feature:create-routine:routine")
+include(":feature:create-routine:common")
 
 include(":feature:login:sign-in")
 include(":feature:login:sign-up")
@@ -54,8 +55,9 @@ include(":feature:register-detail:gender")
 include(":feature:register-detail:height-weight")
 include(":feature:register-detail:profile-picture")
 
+
+include(":feature:work:common")
 include(":feature:work:routine-selection")
-include(":feature:work:change-order")
 include(":feature:work:work")
 include(":feature:work:complete")
 
@@ -80,7 +82,22 @@ include(":feature:my-info:update-profile")
 include(":feature:my-info:update")
 
 include(":feature:update-routine:routine-set")
-include(":feature:update-routine:routine-selection")
 include(":feature:update-routine:profile-picture")
 include(":feature:update-routine:routine")
 include(":feature:update-routine:find-work-category")
+include(":feature:update-routine:common")
+
+include(":feature:routine-detail:routine")
+include(":feature:routine-detail:routine-list")
+
+
+include(":feature:routine-detail:navigation")
+include(":feature:badge:navigation")
+include(":feature:create-routine:navigation")
+include(":feature:login:navigation")
+include(":feature:history:navigation")
+include(":feature:register-detail:navigation")
+include(":feature:work:navigation")
+include(":feature:notification:navigation")
+include(":feature:update-routine:navigation")
+include(":feature:my-info:navigation")

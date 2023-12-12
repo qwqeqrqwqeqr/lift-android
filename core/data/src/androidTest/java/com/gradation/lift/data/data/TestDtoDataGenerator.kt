@@ -10,6 +10,8 @@ import com.gradation.lift.data.data.TestDtoDataGenerator.WorkCategory.workCatego
 import com.gradation.lift.data.data.TestDtoDataGenerator.WorkCategory.workCategoryDto2
 import com.gradation.lift.data.data.TestDtoDataGenerator.WorkPart.workPartDto1
 import com.gradation.lift.data.data.TestDtoDataGenerator.WorkPart.workPartDto2
+import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.network.dto.auth.*
 import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
 import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
@@ -24,6 +26,7 @@ import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
@@ -261,23 +264,28 @@ object TestDtoDataGenerator {
             routineSetId = 1,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.MONDAY_VALUE,
-            picture = FAKE_URL_DATA
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
+            picture = FAKE_URL_DATA,
+            count = FAKE_INT_DATA
         )
         internal val routineSetDto2 = RoutineSetDto(
             routineSetId = 2,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.MONDAY_VALUE,
-            picture = FAKE_URL_DATA
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
+            picture = FAKE_URL_DATA,
+            count = FAKE_INT_DATA
         )
 
         val createRoutineSetRoutineRequestDto = CreateRoutineSetRoutineRequestDto(
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = listOf(Weekday.MONDAY_VALUE, Weekday.TUESDAY_VALUE),
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
             picture = FAKE_URL_DATA,
-            routine = listOf(createRoutineDto)
+            routine = listOf(createRoutineDto),
         )
 
         val createRoutineSetRoutineResponseDto =
@@ -313,6 +321,13 @@ object TestDtoDataGenerator {
             )
 
         val getRoutineSetRoutineByWeekdayResponseDto = GetRoutineSetRoutineByWeekdayResponseDto(
+            routineSetRoutine = listOf(
+                routineSetRoutineDto1,
+                routineSetRoutineDto2,
+            )
+        )
+
+        val getRoutineSetRoutineByLabelResponseDto = GetRoutineSetRoutineByLabelResponseDto(
             routineSetRoutine = listOf(
                 routineSetRoutineDto1,
                 routineSetRoutineDto2,

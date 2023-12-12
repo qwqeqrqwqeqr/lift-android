@@ -50,11 +50,7 @@ class HistoryDaoTest {
     }
 
     @Test
-    fun testInsertHistory() = runTest {
-        historyDao.insert(
-            historyEntity = historyEntity1,
-            historyRoutineEntity = historyRoutineEntity1
-        )
+    fun testInsertAllHistory() = runTest {
         historyDao.insertAll(
             historyEntity = historyEntityList,
             historyRoutineEntity = historyRoutineEntityList
@@ -64,19 +60,14 @@ class HistoryDaoTest {
             Truth.assertThat(this.size).isEqualTo(2)
             Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(setOf(1, 2))
         }
-
     }
 
     @Test
-    fun testDeleteHistory() = runTest {
+    fun testDeleteAllHistory() = runTest {
         historyDao.insertAll(
             historyEntity = historyEntityList,
             historyRoutineEntity = historyRoutineEntityList
         )
-        historyDao.deleteHistory(historyEntity1)
-        Truth.assertThat(historyDao.getAllHistory().first().size).isEqualTo(1)
-
-
         historyDao.deleteAllHistory()
         Truth.assertThat(historyDao.getAllHistory().first().size).isEqualTo(0)
     }
@@ -98,8 +89,6 @@ class HistoryDaoTest {
         ) {
             Truth.assertThat(this.size).isEqualTo(2)
         }
-
-
     }
 
 }

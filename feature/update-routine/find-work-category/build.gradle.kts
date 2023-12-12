@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.update_routine.find_work_category"
+    namespace = "com.gradation.lift.feature.updateRoutine.findWorkCategory"
 
 }
 
@@ -22,7 +22,5 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
-
-    implementation(project(":feature:update-routine:routine-selection"))
-
+    implementation(project(":feature:update-routine:common"))
 }

@@ -62,17 +62,6 @@ class WorkCategoryDaoTest {
 
     }
 
-    @Test
-    fun testUpdateWorkCategory() = runTest {
-        workCategoryDao.insertWorkCategory(workCategoryEntity1)
-        workCategoryDao.updateWorkCategory(workCategoryEntity1.copy(name = workCategoryEntity2.name))
-        with(workCategoryDao.getAllWorkCategory().first()){
-            Truth.assertThat(this.size).isEqualTo(1)
-            Truth.assertThat(this.first().name).isEqualTo(workCategoryEntity2.name)
-        }
-
-    }
-
 
     @Test
     fun testDeleteWorkCategory() = runTest {
@@ -94,14 +83,5 @@ class WorkCategoryDaoTest {
 
     }
 
-
-    @Test
-    fun testGetWorkCategoryByWorkPart() = runTest {
-        workCategoryDao.insertAllWorkCategory(workCategoryEntity1, workCategoryEntity2)
-        with(workCategoryDao.getWorkCategoryByWorkPart(workCategoryEntity1.workPart.name).first()) {
-            Truth.assertThat(this.workPart.name).isEqualTo(workCategoryEntity1.workPart.name)
-        }
-
-    }
 
 }

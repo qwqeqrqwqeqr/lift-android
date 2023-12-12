@@ -131,7 +131,7 @@ class RoutineDataSourceTest {
 
         TestCase.assertEquals(
             NetworkResult.Success(routineSetRoutineModelList),
-            dataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
+            dataSource.getRoutineSetRoutineByWeekday(setOf(Weekday.Monday(),Weekday.Tuesday())).first()
         )
 
         dataSource =
@@ -139,7 +139,7 @@ class RoutineDataSourceTest {
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            dataSource.getRoutineSetRoutineByWeekday(Weekday.Monday()).first()
+            dataSource.getRoutineSetRoutineByWeekday(setOf(Weekday.Monday(),Weekday.Tuesday())).first()
         )
     }
 

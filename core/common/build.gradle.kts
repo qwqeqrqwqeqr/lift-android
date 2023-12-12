@@ -2,8 +2,9 @@ plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
     id("lift.android.hilt")
-    id("lift.android.network")
     id("lift.android.test")
+    id("lift.android.network")
+    id("lift.android.work")
 }
 
 android {
@@ -11,4 +12,8 @@ android {
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
+}
+
+dependencies {
+    implementation(project(":core:test"))
 }

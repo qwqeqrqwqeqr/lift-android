@@ -1,6 +1,8 @@
 package com.gradation.lift.network.data
 
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.network.dto.auth.*
 import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
 import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
@@ -14,6 +16,7 @@ import com.gradation.lift.network.dto.user.*
 import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
@@ -95,6 +98,7 @@ object TestDtoDataGenerator {
             description = FAKE_STRING_DATA,
             hint = FAKE_STRING_DATA,
             url = FAKE_URL_DATA,
+            color = FAKE_COLOR_DATA
         )
         internal val userBadgeDto = UserBadgeDto(
             badge = badgeDto,
@@ -312,21 +316,26 @@ object TestDtoDataGenerator {
             routineSetId = 1,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.MONDAY_VALUE,
-            picture = FAKE_URL_DATA
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            picture = FAKE_URL_DATA,
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
+            count = FAKE_INT_DATA
         )
         internal val routineSetDto2 = RoutineSetDto(
             routineSetId = 2,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = Weekday.MONDAY_VALUE,
-            picture = FAKE_URL_DATA
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            picture = FAKE_URL_DATA,
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
+            count = FAKE_INT_DATA
         )
 
         val createRoutineSetRoutineRequestDto = CreateRoutineSetRoutineRequestDto(
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = listOf(Weekday.MONDAY_VALUE, Weekday.TUESDAY_VALUE),
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
             picture = FAKE_URL_DATA,
             routine = listOf(createRoutineDto)
         )
@@ -339,7 +348,8 @@ object TestDtoDataGenerator {
             id = FAKE_INT_DATA,
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            weekday = Weekday.MONDAY_VALUE,
+            weekday = "${Weekday.MONDAY_VALUE},${Weekday.TUESDAY_VALUE}",
+            label = "${Label.LABEL1.getId()},${Label.LABEL2.getId()}",
             picture = FAKE_URL_DATA,
             routine = listOf(updateRoutineDto)
         )
@@ -347,8 +357,17 @@ object TestDtoDataGenerator {
         val updateRoutineSetRoutineResponseDto =
             UpdateRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
 
+        val updateRoutineSetCountRequestDto = UpdateRoutineSetCountRequestDto(
+            id = FAKE_INT_DATA
+        )
+
+        val updateRoutineSetCountResponseDto =
+            UpdateRoutineSetCountResponseDto(result = FAKE_BOOLEAN_DATA)
+
+
         val deleteRoutineSetRoutineResponseDto =
             DeleteRoutineSetRoutineResponseDto(result = FAKE_BOOLEAN_DATA)
+
 
     }
 
@@ -386,11 +405,19 @@ object TestDtoDataGenerator {
             )
         )
 
+        val getRoutineSetRoutineByLabelResponseDto = GetRoutineSetRoutineByLabelResponseDto(
+            routineSetRoutine = listOf(
+                routineSetRoutineDto1,
+                routineSetRoutineDto2,
+            )
+        )
+
     }
 
 
     object Notification {
         internal val noticeDto = NoticeDto(
+            id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             date = "2023-08-31"

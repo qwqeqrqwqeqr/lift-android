@@ -68,7 +68,7 @@ class AuthServiceTest {
         val response = authService.signInDefault(signInDefaultRequestDto = signInDefaultRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/auth/sign-in/default/")
+        Truth.assertThat(request.path).isEqualTo("/auth/sign-in/default")
         Truth.assertThat(request.method).isEqualTo(Constants.POST)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -90,7 +90,7 @@ class AuthServiceTest {
         val response = authService.signInKakao(signInKakaoRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/auth/sign-in/kakao/")
+        Truth.assertThat(request.path).isEqualTo("/auth/sign-in/kakao")
         Truth.assertThat(request.method).isEqualTo(Constants.POST)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -111,7 +111,7 @@ class AuthServiceTest {
         val response = authService.signInNaver(signInNaverRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/auth/sign-in/naver/")
+        Truth.assertThat(request.path).isEqualTo("/auth/sign-in/naver")
         Truth.assertThat(request.method).isEqualTo(Constants.POST)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
@@ -134,7 +134,7 @@ class AuthServiceTest {
         val response = authService.signUpDefault(signUpDefaultRequestDto = signUpDefaultRequestDto)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/auth/sign-up/default/")
+        Truth.assertThat(request.path).isEqualTo("/auth/sign-up/default")
         Truth.assertThat(request.method).isEqualTo(Constants.POST)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)

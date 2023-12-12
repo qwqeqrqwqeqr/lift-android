@@ -12,25 +12,17 @@ class HiltPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             with(pluginManager) {
                 apply(libs.findPlugin("hilt").get().get().pluginId)
-                //TODO https://github.com/google/dagger/issues/2349
-                apply(libs.findPlugin("kapt").get().get().pluginId)
+                apply(libs.findPlugin("ksp").get().get().pluginId)
             }
 
             dependencies {
                 add("implementation", libs.findLibrary("hilt.android").get())
-                add("kapt", libs.findLibrary("hilt.compiler").get())
-
-
+                add("ksp", libs.findLibrary("hilt.compiler").get())
                 add("implementation", libs.findLibrary("hilt-android-testing").get())
                 add("implementation", libs.findLibrary("hilt-work").get())
                 add("implementation", libs.findLibrary("hilt-navigation-compose").get())
-                add("kaptTest", libs.findLibrary("hilt-compiler").get())
-                add("kaptAndroidTest", libs.findLibrary("hilt-compiler").get())
-
-
+                add("androidTestImplementation", libs.findLibrary("hilt-android-testing").get())
             }
-
         }
     }
-
 }

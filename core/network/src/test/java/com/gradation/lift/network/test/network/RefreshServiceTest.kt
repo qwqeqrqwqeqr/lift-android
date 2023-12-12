@@ -60,7 +60,7 @@ class RefreshServiceTest {
         val response = refreshService.refresh(refreshToken)
         val request = mockWebServer.takeRequest()
 
-        assertThat(request.path).isEqualTo("/auth/refresh/")
+        assertThat(request.path).isEqualTo("/auth/refresh")
         assertThat(request.method).isEqualTo(Constants.POST)
         assertThat(request.getHeader("Authorization")).isEqualTo(refreshToken)
 

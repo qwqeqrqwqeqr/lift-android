@@ -2,6 +2,7 @@ package com.gradation.lift.network.data
 
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
@@ -57,7 +58,8 @@ object TestJsonDataGenerator {
                     "name": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA",
                     "hint": "$FAKE_STRING_DATA",
-                    "url": "$FAKE_URL_DATA"
+                    "url": "$FAKE_URL_DATA",
+                    "color": "$FAKE_COLOR_DATA"
                   }
                 ]
               }
@@ -73,7 +75,8 @@ object TestJsonDataGenerator {
                     "name": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA",
                     "hint": "$FAKE_STRING_DATA",
-                    "url": "$FAKE_URL_DATA"
+                    "url": "$FAKE_URL_DATA",
+                    "color": "$FAKE_COLOR_DATA"
                   }
               }
             }
@@ -93,7 +96,8 @@ object TestJsonDataGenerator {
                      "name": "$FAKE_STRING_DATA",
                      "description": "$FAKE_STRING_DATA",
                      "hint": "$FAKE_STRING_DATA",
-                     "url": "$FAKE_URL_DATA"
+                     "url": "$FAKE_URL_DATA",
+                     "color": "$FAKE_COLOR_DATA"
                     },
                     "badge_time_stamp": "2023-08-31T00:00",
                     "main_flag": true
@@ -112,6 +116,7 @@ object TestJsonDataGenerator {
               "data": {
                 "notice": [
                   {
+                    "id": "$FAKE_INT_DATA",
                     "title": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA",
                     "date": "2023-08-31"
@@ -334,8 +339,10 @@ object TestJsonDataGenerator {
                   "routine_set_id": 1,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
-                  "weekday": "Mon",
-                  "picture": "$FAKE_URL_DATA"
+                  "weekday": "Mon,Tue",
+                  "label":"1,2",
+                  "picture": "$FAKE_URL_DATA",
+                  "count" : "$FAKE_INT_DATA"
                 }
               },
               {
@@ -371,8 +378,10 @@ object TestJsonDataGenerator {
                   "routine_set_id": 2,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
-                  "weekday": "Mon",
-                  "picture": "$FAKE_URL_DATA"
+                  "weekday": "Mon,Tue",
+                  "label":"1,2",
+                  "picture": "$FAKE_URL_DATA",
+                  "count" : "$FAKE_INT_DATA"
                 }
               }
             ]
