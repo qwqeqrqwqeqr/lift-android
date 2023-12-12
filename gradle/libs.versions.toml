@@ -133,13 +133,15 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "androidxDataStore" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
 
+#GOOGLE
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "gmsPlugin" }
+google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
 
 #FIREBASE
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
-firebase-pref-ktx = { group = "com.google.firebase", name = "firebase-pref-ktx" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 firebase-config-ktx = { group = "com.google.firebase", name = "firebase-config-ktx" }
 
@@ -219,8 +221,5 @@ work-multiprocess = { group = "androidx.work", name = "work-multiprocess", versi
 
 #OAUTH
 kakao-auth = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
-google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gmsAuth" }
 naver-auth = { group = "com.navercorp.nid", name = "oauth", version.ref = "naver" }
 naver-auth-jdk8 = { group = "com.navercorp.nid", name = "oauth-jdk8", version.ref = "naver" }
-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
