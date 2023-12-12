@@ -4,7 +4,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
-import com.gradation.lift.feature.work.work.data.model.WorkRestTime
+import com.gradation.lift.feature.work.common.data.WorkRestTime
 import com.gradation.lift.feature.work.work.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineIdInfo
 import kotlinx.coroutines.CoroutineScope
@@ -150,7 +150,6 @@ class WorkState(
     }
 
     companion object {
-        const val MIN_PROGRESS = 0
         const val MAX_PROGRESS = 100
     }
 }

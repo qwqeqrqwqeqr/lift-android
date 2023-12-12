@@ -10,6 +10,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
 import com.gradation.lift.feature.work.work.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.ui.component.dialog.AutoCompleteDialog
 import com.gradation.lift.feature.work.work.ui.component.dialog.CompleteDialog
@@ -25,9 +27,13 @@ import com.gradation.lift.feature.work.work.data.viewmodel.WorkViewModel
 import com.gradation.lift.feature.work.work.ui.list.ListScreen
 import com.gradation.lift.feature.work.work.ui.rest.RestScreen
 import com.gradation.lift.feature.work.work.ui.work.WorkScreen
+import com.gradation.lift.model.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,6 +44,9 @@ fun WorkRoute(
     navigateWorkToCompleteInWorkGraph: () -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
     viewModel: WorkViewModel = hiltViewModel(),
+    sharedViewModel: WorkSharedViewModel = hiltViewModel(
+        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+    ),
     workScreenState: WorkScreenState = rememberWorkScreenState(),
 ) {
 
@@ -65,7 +74,9 @@ fun WorkRoute(
     val nextWork: WorkRoutine? by viewModel.workState.nextWork.collectAsStateWithLifecycle()
     val workProgress: Int by viewModel.workState.workProgress.collectAsStateWithLifecycle()
 
-
+    val setHistoryRoutineList: (List<CreateHistoryRoutine>) -> Unit =
+        sharedViewModel.setHistoryRoutineList
+    val setHistoryWorkRestTime: (WorkRestTime) -> Unit = sharedViewModel.setHistoryWorkRestTime
 
     BackHandler(
         enabled = true,
@@ -84,7 +95,30 @@ fun WorkRoute(
                     modifier = modifier.fillMaxSize()
                 ) {
                     AutoCompleteDialog(
-                        onClickDialogCompleteButton = navigateWorkToCompleteInWorkGraph,
+                        onClickDialogCompleteButton = {
+                            setHistoryWorkRestTime(
+                                WorkRestTime(
+                                    workTime = workTime,
+                                    restTime = restTime,
+                                    totalTime = fromSecondOfDay(workTime.toSecondOfDay() + restTime.toSecondOfDay())
+                                )
+                            )
+                            setHistoryRoutineList(
+                                workState.currentWorkRoutineList.toList().map {
+                                    CreateHistoryRoutine(
+                                        workCategory = it.workCategory.name,
+                                        workSetList = it.workSetList.toList().map { workSet ->
+                                            WorkSet(
+                                                workSet.weight,
+                                                workSet.repetition
+                                            )
+                                        }
+                                    )
+                                }
+                            )
+                            workState.stopTime()
+                            navigateWorkToCompleteInWorkGraph()
+                        },
                         onClickDialogDismissButton = {
                             workScreenState.updateWorkDialogState(
                                 WorkDialogUiState.None
@@ -117,7 +151,36 @@ fun WorkRoute(
                 ) {
                     CompleteDialog(
                         completeState = workProgress == MAX_PROGRESS,
-                        onClickDialogCompleteButton = navigateWorkToCompleteInWorkGraph,
+                        onClickDialogCompleteButton = {
+                            setHistoryWorkRestTime(
+                                WorkRestTime(
+                                    workTime = workTime,
+                                    restTime = restTime,
+                                    totalTime = fromSecondOfDay(workTime.toSecondOfDay() + restTime.toSecondOfDay())
+                                )
+                            )
+                            setHistoryRoutineList(
+                                workState.currentWorkRoutineList.toList().map { workRoutine ->
+                                    CreateHistoryRoutine(
+                                        workCategory = workRoutine.workCategory.name,
+                                        workSetList = workRoutine.workSetList.toList()
+                                            .filter { workSet ->
+                                                workState.isChecked(
+                                                    workRoutine.key,
+                                                    workSet.key
+                                                )
+                                            }.map { workSet ->
+                                            WorkSet(
+                                                workSet.weight,
+                                                workSet.repetition
+                                            )
+                                        }
+                                    )
+                                }.filter { it.workSetList.isNotEmpty() }
+                            )
+                            workState.stopTime()
+                            navigateWorkToCompleteInWorkGraph()
+                        },
                         onClickDialogDismissButton = {
                             workScreenState.updateWorkDialogState(
                                 WorkDialogUiState.None
