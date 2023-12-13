@@ -9,6 +9,7 @@ data class LiftSpace(
     val space1: Dp = 1.dp,
     val space2: Dp = 2.dp,
     val space4: Dp = 4.dp,
+    val space5: Dp = 5.dp,
     val space6: Dp = 6.dp,
     val space8: Dp = 8.dp,
     val space10: Dp = 10.dp,

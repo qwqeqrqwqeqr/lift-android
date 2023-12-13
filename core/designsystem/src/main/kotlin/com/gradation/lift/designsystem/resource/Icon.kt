@@ -62,6 +62,9 @@ object LiftIcon {
     val LoginKakao = R.drawable.login_kakao
     val LoginNaver = R.drawable.login_naver
     val LoginGoogle = R.drawable.login_google
+    val Naver = R.drawable.naver
+    val Google = R.drawable.google
+    val Kakao = R.drawable.kakao
 
     val ArrowBack = R.drawable.arrow_back
 

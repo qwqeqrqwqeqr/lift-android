@@ -1,135 +1,80 @@
 package com.gradation.lift.designsystem.component.button
 
-import androidx.compose.foundation.border
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun LiftSolidSmallButton(
+fun LiftSmallButton(
     modifier: Modifier = Modifier,
     text: String,
-    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
-    Button(
-        onClick = onClick,
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+
+    val backgroundColor: Color by animateColorAsState(
+        if (isPressed) LiftTheme.colorScheme.no39
+        else LiftTheme.colorScheme.no1,
+        label = "contentColor"
+    )
+
+    val textColor: Color by animateColorAsState(
+        if (isPressed) LiftTheme.colorScheme.no36
+        else LiftTheme.colorScheme.no4,
+        label = "textColor"
+    )
+
+
+    Row(
         modifier = modifier
-            .height(LiftTheme.space.space48)
-            .width(LiftTheme.space.space120),
-        enabled = enabled,
-        shape = RoundedCornerShape(size = LiftTheme.space.space12),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = LiftTheme.colorScheme.no4,
-            contentColor = LiftTheme.colorScheme.no5,
-        ),
-        contentPadding = PaddingValues(LiftTheme.space.space10)
-
-    ) {
-        LiftButtonText(modifier, text)
-    }
-}
-
-@Composable
-fun LiftDefaultSmallButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier
-            .height(LiftTheme.space.space48)
-            .width(LiftTheme.space.space120),
-        enabled = enabled,
-        shape = RoundedCornerShape(size = LiftTheme.space.space12),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = LiftTheme.colorScheme.no13,
-            contentColor = LiftTheme.colorScheme.no5,
-        ),
-        contentPadding = PaddingValues(LiftTheme.space.space10)
-
-    ) {
-        LiftButtonText(modifier, text)
-    }
-}
-
-@Composable
-fun LiftPrimarySmallButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier
-            .height(LiftTheme.space.space48)
-            .border(
-                width = LiftTheme.space.space2,
-                color = LiftTheme.colorScheme.no4,
-                shape = RoundedCornerShape(size = LiftTheme.space.space12)
+            .height(LiftTheme.space.space28)
+            .background(backgroundColor, RoundedCornerShape(size = LiftTheme.space.space6))
+            .padding(
+                horizontal = LiftTheme.space.space6,
+                vertical = LiftTheme.space.space5
             )
-            .width(LiftTheme.space.space120),
-        enabled = enabled,
-        shape = RoundedCornerShape(size = LiftTheme.space.space12),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent,
-            contentColor = LiftTheme.colorScheme.no4,
-        ),
-        contentPadding = PaddingValues(LiftTheme.space.space10)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick,
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(
+            LiftTheme.space.space4,
+            Alignment.CenterHorizontally
+        )
     ) {
-        LiftButtonText(modifier, text)
+        Icon(
+            modifier = modifier.size(LiftTheme.space.space16),
+            painter = painterResource(id = LiftIcon.Plus),
+            contentDescription = "Plus",
+            tint = LiftTheme.colorScheme.no2
+        )
+        LiftSmallButtonText(
+            modifier = modifier,
+            text = text,
+            color = textColor,
+            textAlign = TextAlign.Center
+        )
     }
-}
-
-
-@Composable
-fun LiftErrorSmallButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier
-            .height(LiftTheme.space.space48)
-            .width(LiftTheme.space.space120),
-        enabled = enabled,
-        shape = RoundedCornerShape(size = LiftTheme.space.space12),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = LiftTheme.colorScheme.no12,
-            contentColor = LiftTheme.colorScheme.no5,
-        ),
-        contentPadding = PaddingValues(LiftTheme.space.space10)
-
-    ) {
-        LiftButtonText(modifier, text)
-    }
-}
-
-
-@Preview
-@Composable
-fun LiftSmallButtonPreview() {
-
-    Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)) {
-        LiftSolidSmallButton(text = "버튼", enabled = true, onClick = {})
-        LiftDefaultSmallButton(text = "버튼", enabled = true, onClick = {})
-        LiftPrimarySmallButton(text = "버튼", enabled = true, onClick = {})
-        LiftErrorSmallButton(text = "버튼", enabled = true, onClick = {})
-    }
-
 }
