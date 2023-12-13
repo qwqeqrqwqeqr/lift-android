@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftErrorButton
 import com.gradation.lift.designsystem.component.button.LiftGoogleLoginButton
@@ -19,11 +20,15 @@ import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSmallButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun Catalog(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -33,7 +38,78 @@ fun Catalog(
             .padding(LiftTheme.space.paddingSpace),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
     ) {
-
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            LiftText(
+                textStyle = LiftTextStyle.No1,
+                text = "No1",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No2,
+                text = "No2",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No3,
+                text = "No3",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No4,
+                text = "No4",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No5,
+                text = "No5",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No6,
+                text = "No6",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No7,
+                text = "No7",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No8,
+                text = "No8",
+                color = LiftTheme.colorScheme.no9,
+                textAlign = TextAlign.Left
+            )
+        }
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            LiftMultiStyleText(
+                modifier,
+                LiftTheme.colorScheme.no9,
+                LiftTextStyle.No3,
+                listOf(
+                    TextWithStyle(text = "텍스트"),
+                    TextWithStyle(
+                        text = "스타일",
+                        color = LiftTheme.colorScheme.no4,
+                        style = LiftTextStyle.No2
+                    )
+                ),
+                TextAlign.Start
+            )
+        }
         Column(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
@@ -83,7 +159,7 @@ fun Catalog(
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
             LiftNaverLoginButton(modifier) {}
-            LiftGoogleLoginButton(modifier ) {}
+            LiftGoogleLoginButton(modifier) {}
             LiftKakaoLoginButton(modifier) {}
         }
 
@@ -91,7 +167,7 @@ fun Catalog(
             modifier,
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
-            LiftSmallButton(modifier,"버튼") {}
+            LiftSmallButton(modifier, "버튼") {}
         }
     }
 }
