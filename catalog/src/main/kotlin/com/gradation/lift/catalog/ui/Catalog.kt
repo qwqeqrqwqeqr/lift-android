@@ -20,6 +20,7 @@ import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSmallButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.selctor.LiftPrimarySelector
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -164,10 +165,19 @@ fun Catalog(
         }
 
         Column(
-            modifier,
+            modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
             LiftSmallButton(modifier, "버튼") {}
+        }
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
+                LiftPrimarySelector(modifier.weight(1f), "선택", true) {}
+                LiftPrimarySelector(modifier.weight(1f), "비선택", false) {}
+            }
         }
     }
 }
