@@ -177,16 +177,21 @@ fun LiftPrimaryButton(
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
 
     val backgroundColor: Color by animateColorAsState(
-        if (!enabled) LiftTheme.colorScheme.no5
+        if (!enabled) LiftTheme.colorScheme.no1
         else if (isPressed) LiftTheme.colorScheme.no39
         else LiftTheme.colorScheme.no5,
         label = "contentColor"
     )
     val textColor: Color by animateColorAsState(
-        if (!enabled) LiftTheme.colorScheme.no4
+        if (!enabled) LiftTheme.colorScheme.no2
         else if (isPressed) LiftTheme.colorScheme.no4
         else LiftTheme.colorScheme.no4,
         label = "textColor"
+    )
+    val borderColor: Color by animateColorAsState(
+        if (!enabled) Color.Transparent
+        else LiftTheme.colorScheme.no4,
+        label = "borderColor"
     )
 
 
@@ -197,7 +202,7 @@ fun LiftPrimaryButton(
             .background(backgroundColor, RoundedCornerShape(size = LiftTheme.space.space12))
             .border(
                 width = LiftTheme.space.space2,
-                color = LiftTheme.colorScheme.no4,
+                color = borderColor,
                 shape = RoundedCornerShape(size = LiftTheme.space.space12)
             )
             .clickable(
