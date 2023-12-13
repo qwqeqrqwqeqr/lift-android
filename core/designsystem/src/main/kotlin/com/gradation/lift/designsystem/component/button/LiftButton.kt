@@ -183,16 +183,18 @@ fun LiftPrimaryButton(
         label = "contentColor"
     )
     val textColor: Color by animateColorAsState(
-        if (!enabled) LiftTheme.colorScheme.no2
+        if (!enabled) LiftTheme.colorScheme.no10
         else if (isPressed) LiftTheme.colorScheme.no4
         else LiftTheme.colorScheme.no4,
         label = "textColor"
     )
     val borderColor: Color by animateColorAsState(
-        if (!enabled) Color.Transparent
+        if (!enabled) LiftTheme.colorScheme.no10
         else LiftTheme.colorScheme.no4,
         label = "borderColor"
     )
+
+
 
 
     Row(

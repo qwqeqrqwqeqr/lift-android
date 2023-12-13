@@ -24,23 +24,23 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun LiftPrimarySelector(
     modifier: Modifier= Modifier,
     text: String,
-    isSelect: Boolean = true,
+    isSelected: Boolean = true,
     onSelectedChange: (Boolean) -> Unit,
 ){
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
     val backgroundColor: Color by animateColorAsState(
-      if (isSelect) LiftTheme.colorScheme.no5
+      if (isSelected) LiftTheme.colorScheme.no5
         else LiftTheme.colorScheme.no1,
         label = "contentColor"
     )
     val textColor: Color by animateColorAsState(
-      if (isSelect) LiftTheme.colorScheme.no4
+      if (isSelected) LiftTheme.colorScheme.no4
         else LiftTheme.colorScheme.no2,
         label = "textColor"
     )
     val borderColor : Color by animateColorAsState(
-        if (isSelect) LiftTheme.colorScheme.no4
+        if (isSelected) LiftTheme.colorScheme.no4
         else Color.Transparent,
         label = "borderColor"
     )
@@ -54,7 +54,7 @@ fun LiftPrimarySelector(
                 shape = RoundedCornerShape(size = LiftTheme.space.space12)
             )
             .toggleable(
-                value = isSelect,
+                value = isSelected,
                 onValueChange = onSelectedChange,
                 interactionSource = interactionSource,
                 indication = null,
