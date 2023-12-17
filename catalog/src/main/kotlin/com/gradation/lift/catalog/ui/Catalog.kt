@@ -20,6 +20,8 @@ import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSmallButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.progress.LiftProgressCircleLabel
+import com.gradation.lift.designsystem.component.progress.ProgressCircleState
 import com.gradation.lift.designsystem.component.selctor.LiftPrimarySelector
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
@@ -177,6 +179,19 @@ fun Catalog(
             Row(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
                 LiftPrimarySelector(modifier.weight(1f), "선택", true) {}
                 LiftPrimarySelector(modifier.weight(1f), "비선택", false) {}
+            }
+        }
+
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)) {
+                LiftProgressCircleLabel(modifier, ProgressCircleState.Done, 1)
+                LiftProgressCircleLabel(modifier, ProgressCircleState.Done, 2)
+                LiftProgressCircleLabel(modifier, ProgressCircleState.Current, 3)
+                LiftProgressCircleLabel(modifier, ProgressCircleState.None, 4)
+                LiftProgressCircleLabel(modifier, ProgressCircleState.None, 5)
             }
         }
     }
