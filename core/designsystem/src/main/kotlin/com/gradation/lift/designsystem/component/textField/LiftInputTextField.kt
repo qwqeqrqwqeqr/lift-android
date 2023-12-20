@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,6 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +56,7 @@ fun LiftDefaultInputTextField(
         keyboardActions = keyboardActions,
         isError = isError,
         isValid = isValid,
+        enabled=enabled,
         trailingIcon = @Composable {
             if (isValid) {
                 Icon(
@@ -91,8 +95,9 @@ fun LiftPasswordInputTextField(
 ) {
     var visualTransformation: Boolean by remember { mutableStateOf(true) }
     LiftBaseInputTextField(
-        modifier,
-        value,
+        modifier=modifier,
+        value=value,
+        enabled=enabled,
         placeHolderValue = placeHolderValue,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
@@ -143,7 +148,83 @@ fun LiftPasswordInputTextField(
 }
 
 
-
+@Composable
+fun LiftSearchInputTextField(
+    modifier: Modifier = Modifier,
+    value: String,
+    placeHolderValue: String = "",
+    onValueChange: (String) -> Unit,
+    onValueClear: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
+        keyboardType = KeyboardType.Text,
+        imeAction = ImeAction.Search
+    ),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+) {
+    LiftBaseInputTextField(
+        modifier = modifier,
+        value = value,
+        placeHolderValue = placeHolderValue,
+        onValueChange = onValueChange,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        enabled=enabled,
+        isError = false,
+        isValid = false,
+        trailingIcon = @Composable {
+            Row(
+                modifier = modifier.padding(end = LiftTheme.space.space16),
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (value.isNotEmpty() && enabled && onValueClear != null) {
+                    Icon(
+                        modifier = modifier
+                            .size(LiftTheme.space.space24)
+                            .clickable { onValueClear() },
+                        painter = painterResource(id = LiftIcon.Cancel),
+                        contentDescription = "Clear",
+                        tint = Color.Unspecified
+                    )
+                }
+                Icon(
+                    modifier = modifier
+                        .size(LiftTheme.space.space24),
+                    painter = painterResource(id = LiftIcon.Search),
+                    contentDescription = "VisualTransformation",
+                    tint = LiftTheme.colorScheme.no6
+                )
+            }
+        },
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = LiftTheme.colorScheme.no6,
+            focusedContainerColor = LiftTheme.colorScheme.no1,
+            focusedPlaceholderColor = LiftTheme.colorScheme.no6,
+            cursorColor = LiftTheme.colorScheme.no4,
+            focusedIndicatorColor =  Color.Transparent,
+            unfocusedTextColor = LiftTheme.colorScheme.no6,
+            unfocusedLabelColor = LiftTheme.colorScheme.no6,
+            unfocusedContainerColor = LiftTheme.colorScheme.no1,
+            unfocusedPlaceholderColor = LiftTheme.colorScheme.no6,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledTextColor = LiftTheme.colorScheme.no6,
+            disabledIndicatorColor = LiftTheme.colorScheme.no8,
+            disabledContainerColor = LiftTheme.colorScheme.no1,
+            disabledPlaceholderColor = LiftTheme.colorScheme.no6,
+            errorLabelColor = LiftTheme.colorScheme.no12,
+            errorTextColor = LiftTheme.colorScheme.no6,
+            errorIndicatorColor = LiftTheme.colorScheme.no12,
+            errorContainerColor = LiftTheme.colorScheme.no1,
+            errorSupportingTextColor = LiftTheme.colorScheme.no12,
+            errorCursorColor = LiftTheme.colorScheme.no12,
+            selectionColors = TextSelectionColors(
+                handleColor = Color.Transparent,
+                backgroundColor = LiftTheme.colorScheme.no6.copy(alpha = 0.2f),
+            )
+        ),
+    )
+}
 
 @Composable
 fun LiftBaseInputTextField(
@@ -158,6 +239,35 @@ fun LiftBaseInputTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
     isValid: Boolean = false,
+    colors: TextFieldColors = TextFieldDefaults.colors(
+        focusedTextColor = LiftTheme.colorScheme.no6,
+        focusedContainerColor = LiftTheme.colorScheme.no1,
+        focusedPlaceholderColor = LiftTheme.colorScheme.no6,
+        cursorColor = if (isValid) LiftTheme.colorScheme.no46 else LiftTheme.colorScheme.no4,
+        focusedIndicatorColor = if (isValid) LiftTheme.colorScheme.no46 else LiftTheme.colorScheme.no4,
+        unfocusedTextColor = LiftTheme.colorScheme.no6,
+        unfocusedLabelColor = LiftTheme.colorScheme.no6,
+        unfocusedContainerColor = LiftTheme.colorScheme.no1,
+        unfocusedPlaceholderColor = LiftTheme.colorScheme.no6,
+        unfocusedIndicatorColor = if (isValid) LiftTheme.colorScheme.no46 else Color.Transparent,
+        disabledTextColor = LiftTheme.colorScheme.no6,
+        disabledIndicatorColor = LiftTheme.colorScheme.no8,
+        disabledContainerColor = LiftTheme.colorScheme.no1,
+        disabledPlaceholderColor = LiftTheme.colorScheme.no6,
+        errorLabelColor = LiftTheme.colorScheme.no12,
+        errorTextColor = LiftTheme.colorScheme.no6,
+        errorIndicatorColor = LiftTheme.colorScheme.no12,
+        errorContainerColor = LiftTheme.colorScheme.no1,
+        errorSupportingTextColor = LiftTheme.colorScheme.no12,
+        errorCursorColor = LiftTheme.colorScheme.no12,
+        selectionColors = TextSelectionColors(
+            handleColor = Color.Transparent,
+            backgroundColor =
+            if (isValid) LiftTheme.colorScheme.no46.copy(alpha = 0.2f)
+            else if (isError) LiftTheme.colorScheme.no12.copy(alpha = 0.2f)
+            else LiftTheme.colorScheme.no4.copy(alpha = 0.2f),
+        )
+    ),
 ) {
 
     OutlinedTextField(
@@ -178,35 +288,7 @@ fun LiftBaseInputTextField(
                 textAlign = TextAlign.Start
             )
         },
-        colors = TextFieldDefaults.colors(
-            focusedTextColor = LiftTheme.colorScheme.no6,
-            focusedContainerColor = LiftTheme.colorScheme.no1,
-            focusedPlaceholderColor = LiftTheme.colorScheme.no6,
-            cursorColor = if (isValid) LiftTheme.colorScheme.no46 else LiftTheme.colorScheme.no4,
-            focusedIndicatorColor = if (isValid) LiftTheme.colorScheme.no46 else LiftTheme.colorScheme.no4,
-            unfocusedTextColor = LiftTheme.colorScheme.no6,
-            unfocusedLabelColor = LiftTheme.colorScheme.no6,
-            unfocusedContainerColor = LiftTheme.colorScheme.no1,
-            unfocusedPlaceholderColor = LiftTheme.colorScheme.no6,
-            unfocusedIndicatorColor = if (isValid) LiftTheme.colorScheme.no46 else Color.Transparent,
-            disabledTextColor = LiftTheme.colorScheme.no6,
-            disabledIndicatorColor = LiftTheme.colorScheme.no8,
-            disabledContainerColor = LiftTheme.colorScheme.no1,
-            disabledPlaceholderColor = LiftTheme.colorScheme.no6,
-            errorLabelColor = LiftTheme.colorScheme.no12,
-            errorTextColor = LiftTheme.colorScheme.no6,
-            errorIndicatorColor = LiftTheme.colorScheme.no12,
-            errorContainerColor = LiftTheme.colorScheme.no1,
-            errorSupportingTextColor = LiftTheme.colorScheme.no12,
-            errorCursorColor = LiftTheme.colorScheme.no12,
-            selectionColors = TextSelectionColors(
-                handleColor = Color.Transparent,
-                backgroundColor =
-                if (isValid) LiftTheme.colorScheme.no46.copy(alpha = 0.2f)
-                else if (isError) LiftTheme.colorScheme.no12.copy(alpha = 0.2f)
-                else LiftTheme.colorScheme.no4.copy(alpha = 0.2f),
-            )
-        ),
+        colors = colors,
         shape = RoundedCornerShape(LiftTheme.space.space12),
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
