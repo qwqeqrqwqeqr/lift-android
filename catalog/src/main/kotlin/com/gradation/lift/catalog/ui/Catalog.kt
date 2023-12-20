@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
@@ -27,6 +31,7 @@ import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
+import com.gradation.lift.designsystem.component.textField.TestTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
@@ -193,6 +198,50 @@ fun Catalog(
                 LiftProgressCircleLabel(modifier, ProgressCircleState.None, 4)
                 LiftProgressCircleLabel(modifier, ProgressCircleState.None, 5)
             }
+        }
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            var value: String by remember { mutableStateOf("") }
+            val onValueChange: (String) -> Unit = { value = it }
+            TestTextField(
+                modifier = modifier,
+                value = value,
+                onValueChange = onValueChange,
+                onValueClear = { value = "" },
+                placeHolderValue = "Place Holder"
+            )
+            var errorValue: String by remember { mutableStateOf("") }
+            val onErrorValueChange: (String) -> Unit = { errorValue = it }
+            TestTextField(
+                modifier = modifier,
+                value = errorValue,
+                onValueClear = { errorValue = "" },
+                onValueChange = onErrorValueChange,
+                placeHolderValue = "Place Holder",
+                isError = true,
+            )
+            var validValue: String by remember { mutableStateOf("") }
+            val onValidValueChange: (String) -> Unit = { validValue = it }
+            TestTextField(
+                modifier = modifier,
+                value = validValue,
+                onValueClear = { validValue = "" },
+                onValueChange = onValidValueChange,
+                placeHolderValue = "Place Holder",
+                isError = false,
+                isValid = true,
+            )
+            TestTextField(
+                modifier = modifier,
+                value = "텍스트 필드",
+                onValueChange = { },
+                placeHolderValue = "",
+                isError = false,
+                isValid = false,
+                enabled = false,
+            )
         }
     }
 }
