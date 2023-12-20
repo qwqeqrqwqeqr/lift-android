@@ -33,6 +33,7 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextField
 import com.gradation.lift.designsystem.component.textField.LiftPasswordInputTextField
+import com.gradation.lift.designsystem.component.textField.LiftSearchInputTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
@@ -252,6 +253,17 @@ fun Catalog(
                 onValueChange = onPasswordValueChange,
                 onValueClear = { passwordValue = "" },
                 placeHolderValue = "Place Holder"
+            )
+
+
+            var searchValue: String by remember { mutableStateOf("") }
+            val onSearchValueChange: (String) -> Unit = { searchValue = it }
+            LiftSearchInputTextField(
+                modifier = modifier,
+                value = searchValue,
+                onValueChange = onSearchValueChange,
+                onValueClear = { searchValue = "" },
+                placeHolderValue = "검색하실 단어를 입력해주세요"
             )
         }
 
