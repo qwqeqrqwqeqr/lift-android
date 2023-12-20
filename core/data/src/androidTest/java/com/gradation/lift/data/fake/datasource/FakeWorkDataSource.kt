@@ -28,6 +28,10 @@ class FakeWorkDataSource(private val testReturnState: TestReturnState = TestRetu
         }
     }
 
+    override suspend fun getWorkCategoryById(workCategoryId: Int): Flow<NetworkResult<WorkCategory>> = flow {
+
+    }
+
     override suspend fun getPopularWorkCategory(): Flow<NetworkResult<List<WorkCategory>>> = flow{
         when(testReturnState){
             TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))

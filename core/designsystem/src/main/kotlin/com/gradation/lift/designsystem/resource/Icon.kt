@@ -15,6 +15,7 @@ object LiftIcon {
 
     val CheckBoxChecked = R.drawable.checkbox_checked
     val CheckBoxUnChecked = R.drawable.checkbox_unchecked
+    val GreenCheck = R.drawable.green_check
 
     val EyeSelected = R.drawable.eye_selected
     val EyeUnSelected = R.drawable.eye_unselected
