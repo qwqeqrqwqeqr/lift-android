@@ -31,7 +31,8 @@ import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
-import com.gradation.lift.designsystem.component.textField.TestTextField
+import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextField
+import com.gradation.lift.designsystem.component.textField.LiftPasswordInputTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
@@ -205,7 +206,7 @@ fun Catalog(
         ) {
             var value: String by remember { mutableStateOf("") }
             val onValueChange: (String) -> Unit = { value = it }
-            TestTextField(
+            LiftDefaultInputTextField(
                 modifier = modifier,
                 value = value,
                 onValueChange = onValueChange,
@@ -214,7 +215,7 @@ fun Catalog(
             )
             var errorValue: String by remember { mutableStateOf("") }
             val onErrorValueChange: (String) -> Unit = { errorValue = it }
-            TestTextField(
+            LiftDefaultInputTextField(
                 modifier = modifier,
                 value = errorValue,
                 onValueClear = { errorValue = "" },
@@ -224,7 +225,7 @@ fun Catalog(
             )
             var validValue: String by remember { mutableStateOf("") }
             val onValidValueChange: (String) -> Unit = { validValue = it }
-            TestTextField(
+            LiftDefaultInputTextField(
                 modifier = modifier,
                 value = validValue,
                 onValueClear = { validValue = "" },
@@ -233,7 +234,7 @@ fun Catalog(
                 isError = false,
                 isValid = true,
             )
-            TestTextField(
+            LiftDefaultInputTextField(
                 modifier = modifier,
                 value = "텍스트 필드",
                 onValueChange = { },
@@ -242,6 +243,18 @@ fun Catalog(
                 isValid = false,
                 enabled = false,
             )
+
+            var passwordValue: String by remember { mutableStateOf("") }
+            val onPasswordValueChange: (String) -> Unit = { passwordValue = it }
+            LiftPasswordInputTextField(
+                modifier = modifier,
+                value = passwordValue,
+                onValueChange = onPasswordValueChange,
+                onValueClear = { passwordValue = "" },
+                placeHolderValue = "Place Holder"
+            )
         }
+
+
     }
 }
