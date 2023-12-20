@@ -77,6 +77,7 @@ internal val COLOR_NO42: Color = Color(0xFFE5E9F2)
 internal val COLOR_NO43: Color = Color(0xFFB2B8C9)
 internal val COLOR_NO44: Color = Color(0xFF00DC62)
 internal val COLOR_NO45: Color = Color(0xFF009341)
+internal val COLOR_NO46: Color = Color(0xFF4DC451)
 
 
 
@@ -151,6 +152,7 @@ data class LiftColorScheme(
     val no43: Color,
     val no44: Color,
     val no45: Color,
+    val no46: Color,
     val mondayLabelColor: Color,
     val mondayBackgroundColor: Color,
     val tuesdayLabelColor: Color,
@@ -223,6 +225,7 @@ fun liftLightColorScheme(
     no43: Color = COLOR_NO43,
     no44: Color = COLOR_NO44,
     no45: Color = COLOR_NO45,
+    no46: Color = COLOR_NO46,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -292,6 +295,7 @@ fun liftLightColorScheme(
         no43,
         no44,
         no45,
+        no46,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
@@ -362,6 +366,7 @@ fun liftDarkColorScheme(
     no43: Color = Color.Unspecified,
     no44: Color = Color.Unspecified,
     no45: Color = Color.Unspecified,
+    no46: Color = Color.Unspecified,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -431,6 +436,7 @@ fun liftDarkColorScheme(
         no43,
         no44,
         no45,
+        no46,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
