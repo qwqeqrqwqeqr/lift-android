@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,6 +25,10 @@ import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSmallButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
+import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
+import com.gradation.lift.designsystem.component.container.LiftSecondaryContainer
 import com.gradation.lift.designsystem.component.filter.LiftLabelFilterContainer
 import com.gradation.lift.designsystem.component.filter.LiftSortFilterContainer
 import com.gradation.lift.designsystem.component.filter.LiftWeekdayFilterContainer
@@ -294,7 +299,38 @@ fun Catalog(
         ) {
             LiftSortFilterContainer(modifier = modifier, sortType = "전체")
             LiftWeekdayFilterContainer(modifier = modifier, weekdayType = "월,화,수,목,금,토")
-            LiftLabelFilterContainer(modifier=modifier, labelType = setOf(1,2,3))
+            LiftLabelFilterContainer(modifier = modifier, labelType = setOf(1, 2, 3))
+        }
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            LiftDefaultContainer(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(LiftTheme.space.space120),
+                content = {}
+            )
+
+            LiftPrimaryContainer(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(LiftTheme.space.space120),
+                content = {}
+            )
+
+            LiftSecondaryContainer(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(LiftTheme.space.space120),
+                content = {}
+            )
+            LiftEmptyContainer(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(LiftTheme.space.space120),
+                content = {}
+            )
         }
     }
 }
