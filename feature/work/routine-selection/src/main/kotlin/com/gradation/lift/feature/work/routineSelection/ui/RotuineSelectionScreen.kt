@@ -6,7 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.button.LiftSolidLargeButton
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.routineSelection.data.model.LabelFilterType
 import com.gradation.lift.feature.work.routineSelection.data.model.SortType
@@ -109,7 +109,7 @@ internal fun RoutineSelectionScreen(
                                 ),
                             verticalArrangement = Arrangement.Bottom,
                         ) {
-                            LiftSolidLargeButton(
+                            LiftSolidButton(
                                 modifier = modifier.fillMaxWidth(),
                                 text = "운동시작하기(${routineListInfoState.selectedRoutineList.toList().size}개)",
                                 onClick = {
