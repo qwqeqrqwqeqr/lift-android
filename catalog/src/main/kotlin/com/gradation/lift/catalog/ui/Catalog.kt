@@ -45,6 +45,7 @@ import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextField
 import com.gradation.lift.designsystem.component.textField.LiftPasswordInputTextField
 import com.gradation.lift.designsystem.component.textField.LiftSearchInputTextField
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
@@ -305,6 +306,16 @@ fun Catalog(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
+            LiftTopBar(
+                modifier = modifier,
+                title = "타이틀",
+                onClick = {}
+            )
+        }
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
             LiftDefaultContainer(
                 modifier = modifier
                     .fillMaxWidth()
@@ -331,6 +342,8 @@ fun Catalog(
                     .height(LiftTheme.space.space120),
                 content = {}
             )
+
         }
+
     }
 }
