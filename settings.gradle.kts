@@ -19,6 +19,8 @@ dependencyResolutionManagement {
 rootProject.name = "lift"
 
 include(":app")
+include(":catalog")
+
 include(":core:database")
 include(":core:network")
 include(":core:datastore")

@@ -25,8 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.chart.chart.BarChart
-import com.gradation.lift.designsystem.chart.model.BarChartItem
+import com.gradation.lift.designsystem.component.chart.chart.BarChart
+import com.gradation.lift.designsystem.component.chart.model.BarChartItem
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.data.model.WorkFrequencyMonth

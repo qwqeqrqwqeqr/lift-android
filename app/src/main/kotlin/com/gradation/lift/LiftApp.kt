@@ -26,6 +26,7 @@ fun LiftApp(
         bottomBar = {
             if (appState.currentTopLevelDestination != null) {
                 BottomBar(
+                    modifier=modifier,
                     destinations = appState.topLevelDestinations,
                     onNavigateToDestination = appState::navigateToTopLevelDestination,
                     currentDestination = appState.currentDestination,

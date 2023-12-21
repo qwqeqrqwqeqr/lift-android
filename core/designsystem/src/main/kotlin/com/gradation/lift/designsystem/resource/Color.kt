@@ -66,7 +66,21 @@ internal val COLOR_NO31: Color = Color(0xFFF2F5FA)
 internal val COLOR_NO32: Color = Color(0xFFB7C4DA)
 internal val COLOR_NO33: Color = Color(0xFFD6DDE8)
 internal val COLOR_NO34: Color = Color(0x77000000)
-internal val COLOR_NO35: Color = Color(0x0D000000)
+internal val COLOR_NO35: Color = Color(0x1A000000)
+internal val COLOR_NO36: Color = Color(0xFF0066CC)
+internal val COLOR_NO37: Color = Color(0xFFFF7272)
+internal val COLOR_NO38: Color = Color(0xFFCC3F3F)
+internal val COLOR_NO39: Color = Color(0xFFD9D9D9)
+internal val COLOR_NO40: Color = Color(0xFFFEE500)
+internal val COLOR_NO41: Color = Color(0xFFCEBA00)
+internal val COLOR_NO42: Color = Color(0xFFE5E9F2)
+internal val COLOR_NO43: Color = Color(0xFFB2B8C9)
+internal val COLOR_NO44: Color = Color(0xFF00DC62)
+internal val COLOR_NO45: Color = Color(0xFF009341)
+internal val COLOR_NO46: Color = Color(0xFF4DC451)
+
+
+
 internal val MONDAY_LABEL_COLOR: Color = Color(0xFFFF9900)
 internal val MONDAY_BACKGROUND_COLOR: Color = Color(0xFFFFF6E9)
 internal val TUESDAY_LABEL_COLOR: Color = Color(0xFFFF6B00)
@@ -85,6 +99,7 @@ internal val ALL_LABEL_COLOR: Color = Color(0xFF0080FF)
 internal val ALL_BACKGROUND_COLOR: Color = Color(0xFFE4F2FF)
 internal val RECENT_LABEL_COLOR: Color = Color(0xFF32A836)
 internal val RECENT_BACKGROUND_COLOR: Color = Color(0xFFE4FFE5)
+
 
 internal val RECOMMEND_WORK_CATEGORY_LABEL_COLOR: Color = Color(0xFFFB9A3F)
 internal val RECOMMEND_WORK_CATEGORY_LABEL_BACKGROUND_COLOR: Color = Color(0xFFFFF1E4)
@@ -127,6 +142,17 @@ data class LiftColorScheme(
     val no33: Color,
     val no34: Color,
     val no35: Color,
+    val no36: Color,
+    val no37: Color,
+    val no38: Color,
+    val no39: Color,
+    val no40: Color,
+    val no41: Color,
+    val no42: Color,
+    val no43: Color,
+    val no44: Color,
+    val no45: Color,
+    val no46: Color,
     val mondayLabelColor: Color,
     val mondayBackgroundColor: Color,
     val tuesdayLabelColor: Color,
@@ -189,6 +215,17 @@ fun liftLightColorScheme(
     no33: Color = COLOR_NO33,
     no34: Color = COLOR_NO34,
     no35: Color = COLOR_NO35,
+    no36: Color = COLOR_NO36,
+    no37: Color = COLOR_NO37,
+    no38: Color = COLOR_NO38,
+    no39: Color = COLOR_NO39,
+    no40: Color = COLOR_NO40,
+    no41: Color = COLOR_NO41,
+    no42: Color = COLOR_NO42,
+    no43: Color = COLOR_NO43,
+    no44: Color = COLOR_NO44,
+    no45: Color = COLOR_NO45,
+    no46: Color = COLOR_NO46,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -248,6 +285,17 @@ fun liftLightColorScheme(
         no33,
         no34,
         no35,
+        no36,
+        no37,
+        no38,
+        no39,
+        no40,
+        no41,
+        no42,
+        no43,
+        no44,
+        no45,
+        no46,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
@@ -308,6 +356,17 @@ fun liftDarkColorScheme(
     no33: Color = Color.Unspecified,
     no34: Color = Color.Unspecified,
     no35: Color = Color.Unspecified,
+    no36: Color = Color.Unspecified,
+    no37: Color = Color.Unspecified,
+    no38: Color = Color.Unspecified,
+    no39: Color = Color.Unspecified,
+    no40: Color = Color.Unspecified,
+    no41: Color = Color.Unspecified,
+    no42: Color = Color.Unspecified,
+    no43: Color = Color.Unspecified,
+    no44: Color = Color.Unspecified,
+    no45: Color = Color.Unspecified,
+    no46: Color = Color.Unspecified,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -367,6 +426,17 @@ fun liftDarkColorScheme(
         no33,
         no34,
         no35,
+        no36,
+        no37,
+        no38,
+        no39,
+        no40,
+        no41,
+        no42,
+        no43,
+        no44,
+        no45,
+        no46,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,

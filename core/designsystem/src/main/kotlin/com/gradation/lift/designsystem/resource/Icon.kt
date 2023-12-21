@@ -15,9 +15,14 @@ object LiftIcon {
 
     val CheckBoxChecked = R.drawable.checkbox_checked
     val CheckBoxUnChecked = R.drawable.checkbox_unchecked
+    val GreenCheck = R.drawable.green_check
 
     val EyeSelected = R.drawable.eye_selected
     val EyeUnSelected = R.drawable.eye_unselected
+
+    val Sort = R.drawable.sort
+    val Calendar = R.drawable.calendar
+    val Label = R.drawable.label
 
     val Camera = R.drawable.camera
     val Cancel = R.drawable.cancel
@@ -62,6 +67,9 @@ object LiftIcon {
     val LoginKakao = R.drawable.login_kakao
     val LoginNaver = R.drawable.login_naver
     val LoginGoogle = R.drawable.login_google
+    val Naver = R.drawable.naver
+    val Google = R.drawable.google
+    val Kakao = R.drawable.kakao
 
     val ArrowBack = R.drawable.arrow_back
 
