@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.keypad
+package com.gradation.lift.designsystem.component.keypad
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gradation.lift.designsystem.component.LiftBottomSheet
+import com.gradation.lift.designsystem.component.bottomSheet.LiftBottomSheet
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 

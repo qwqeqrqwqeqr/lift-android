@@ -14,10 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.chart.chart.WorkHexagonChart
-import com.gradation.lift.designsystem.chart.model.WorkHexagonChartItem
-import com.gradation.lift.designsystem.component.LiftFilterChip
-import com.gradation.lift.designsystem.component.LiftOutlineFilterChip
+import com.gradation.lift.designsystem.component.chart.chart.WorkHexagonChart
+import com.gradation.lift.designsystem.component.chart.model.WorkHexagonChartItem
+import com.gradation.lift.designsystem.component.chip.LiftFilterChip
+import com.gradation.lift.designsystem.component.chip.LiftOutlineFilterChip
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetDate
 import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetType

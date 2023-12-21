@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component
+package com.gradation.lift.designsystem.component.bottomSheet
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.BottomSheetDefaults

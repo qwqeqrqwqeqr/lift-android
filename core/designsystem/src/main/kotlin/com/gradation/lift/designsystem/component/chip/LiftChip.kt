@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component
+package com.gradation.lift.designsystem.component.chip
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape

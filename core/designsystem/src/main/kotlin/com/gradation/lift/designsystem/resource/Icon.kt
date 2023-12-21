@@ -20,6 +20,10 @@ object LiftIcon {
     val EyeSelected = R.drawable.eye_selected
     val EyeUnSelected = R.drawable.eye_unselected
 
+    val Sort = R.drawable.sort
+    val Calendar = R.drawable.calendar
+    val Label = R.drawable.label
+
     val Camera = R.drawable.camera
     val Cancel = R.drawable.cancel
     val Gallery = R.drawable.gallery

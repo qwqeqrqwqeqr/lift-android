@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.chart.model
+package com.gradation.lift.designsystem.component.chart.model
 
 
 data class BarChartItem(

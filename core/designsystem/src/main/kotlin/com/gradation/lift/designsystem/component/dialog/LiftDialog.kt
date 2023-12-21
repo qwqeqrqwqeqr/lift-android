@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component
+package com.gradation.lift.designsystem.component.dialog
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Dialog

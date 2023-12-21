@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.keypad
+package com.gradation.lift.designsystem.component.keypad
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

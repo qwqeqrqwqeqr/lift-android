@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component.selctor
+package com.gradation.lift.designsystem.component.selector
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background

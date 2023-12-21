@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.chart.chart
+package com.gradation.lift.designsystem.component.chart.chart
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.chart.model.WorkHexagonChartItem
+import com.gradation.lift.designsystem.component.chart.model.WorkHexagonChartItem
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
