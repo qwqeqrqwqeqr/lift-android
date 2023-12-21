@@ -24,11 +24,15 @@ import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSmallButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.filter.LiftLabelFilterContainer
+import com.gradation.lift.designsystem.component.filter.LiftSortFilterContainer
+import com.gradation.lift.designsystem.component.filter.LiftWeekdayFilterContainer
 import com.gradation.lift.designsystem.component.label.RoutineLabel
 import com.gradation.lift.designsystem.component.progress.LiftProgressCircleLabel
 import com.gradation.lift.designsystem.component.progress.ProgressCircleState
-import com.gradation.lift.designsystem.component.selctor.LiftIconSelector
-import com.gradation.lift.designsystem.component.selctor.LiftPrimarySelector
+import com.gradation.lift.designsystem.component.selector.LiftIconSelector
+import com.gradation.lift.designsystem.component.selector.LiftPrimarySelector
+import com.gradation.lift.designsystem.component.snackbar.SnackbarComponent
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -278,6 +282,19 @@ fun Catalog(
             )
         }
 
-
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            SnackbarComponent(modifier, "인터넷이 불안정합니다.\n인터넷 연결상태를 확인해주세요") {}
+        }
+        Column(
+            modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+        ) {
+            LiftSortFilterContainer(modifier = modifier, sortType = "전체")
+            LiftWeekdayFilterContainer(modifier = modifier, weekdayType = "월,화,수,목,금,토")
+            LiftLabelFilterContainer(modifier=modifier, labelType = setOf(1,2,3))
+        }
     }
 }
