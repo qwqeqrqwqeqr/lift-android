@@ -1,15 +1,14 @@
 package com.gradation.lift.navigation
 
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
-import com.gradation.lift.designsystem.component.LiftNavigationBar
-import com.gradation.lift.designsystem.component.LiftNavigationBarItem
+import com.gradation.lift.designsystem.component.navigation.LiftNavigationBar
+import com.gradation.lift.designsystem.component.navigation.LiftNavigationBarItem
 
 
 @Composable
@@ -41,7 +40,7 @@ fun BottomBar(
                         tint = Color.Unspecified
                     )
                 },
-                label = { Text(stringResource(destination.displayName)) },
+                label = stringResource(destination.displayName),
             )
         }
     }
