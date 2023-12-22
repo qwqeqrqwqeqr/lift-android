@@ -23,11 +23,11 @@ fun loginSignInScreen(
             },
             navigateSignInToSignUp = { navController.navigateSignInToSignUp() },
             navigateLoginGraphToHomeGraph = { navController.navigateLoginGraphToHomeGraph() },
-            navigateLoginGraphToRegisterDetailGraph = { navController.navigateLoginGraphToRegisterDetailGraph() },
+            navigateLoginGraphToRegisterDetailGraph ={ navController.navigateLoginGraphToRegisterDetailGraph() },
             naverOAuthConnectState = naverOAuthConnectState,
             kakaoOAuthConnectState = kakaoOAuthConnectState,
-            connectOAuthFromNaver = { connectOAuthFromNaver() },
-            connectOAuthFromKakao = { connectOAuthFromKakao() }
+            connectOAuthFromNaver =  connectOAuthFromNaver,
+            connectOAuthFromKakao =  connectOAuthFromKakao
         )
     }
 

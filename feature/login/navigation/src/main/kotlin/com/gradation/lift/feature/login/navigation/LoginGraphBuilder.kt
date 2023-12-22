@@ -30,8 +30,8 @@ fun loginGraphBuilder(
             navGraphBuilder = this,
             naverOAuthConnectState =naverOAuthConnectState,
             kakaoOAuthConnectState =kakaoOAuthConnectState,
-            connectOAuthFromNaver = { connectOAuthFromNaver() },
-            connectOAuthFromKakao = { connectOAuthFromKakao() }
+            connectOAuthFromNaver =  connectOAuthFromNaver,
+            connectOAuthFromKakao =  connectOAuthFromKakao
         )
         loginSignUpScreen(navController, this)
         loginCompleteScreen(navController, this)

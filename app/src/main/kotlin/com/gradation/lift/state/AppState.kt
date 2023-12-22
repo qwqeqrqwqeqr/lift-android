@@ -60,7 +60,7 @@ class AppState(
         }
     }
 
-    fun connectOAuthFromNaver() {
+    val connectOAuthFromNaver: () -> Unit = {
         CoroutineScope(dispatcherProvider.default).launch {
             connectOAuthFromNaverUseCase().collect {
                 when (it) {
@@ -78,7 +78,7 @@ class AppState(
         }
     }
 
-    fun connectOAuthFromKakao() {
+    val connectOAuthFromKakao: () -> Unit = {
         CoroutineScope(dispatcherProvider.default).launch {
             connectOAuthFromKakaoUseCase().collect {
                 when (it) {

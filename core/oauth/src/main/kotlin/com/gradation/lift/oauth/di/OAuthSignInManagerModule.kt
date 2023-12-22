@@ -5,9 +5,9 @@ import com.gradation.lift.oauth.common.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * [provideOAuthConnectManager]
@@ -18,14 +18,14 @@ import dagger.hilt.android.scopes.ActivityScoped
  * @since 2023-08-16 11:00:55
  */
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 object OAuthSignInManagerModule {
 
 
-    @ActivityScoped
+    @Singleton
     @Provides
     fun provideOAuthConnectManager(
-        @ActivityContext context: Context,
+        @ApplicationContext context: Context,
     ): OAuthConnectionManager = DefaultOAuthConnectionManager(context)
 
 

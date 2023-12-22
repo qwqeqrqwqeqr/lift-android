@@ -8,7 +8,7 @@ package com.gradation.lift.oauth.common
  * @since 2023-08-27 13:09:35
  */
 sealed interface OAuthConnectState {
-    object None : OAuthConnectState
-    object Success : OAuthConnectState
+    data object None : OAuthConnectState
+    data object Success : OAuthConnectState
     data class Fail(val message: String) : OAuthConnectState
 }

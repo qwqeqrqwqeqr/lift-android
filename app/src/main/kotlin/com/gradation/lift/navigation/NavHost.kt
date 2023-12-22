@@ -44,8 +44,8 @@ fun LiftNavHost(
             navGraphBuilder = this,
             naverOAuthConnectState = naverOAuthConnectState,
             kakaoOAuthConnectState = kakaoOAuthConnectState,
-            connectOAuthFromNaver = { connectOAuthFromNaver() },
-            connectOAuthFromKakao = { connectOAuthFromKakao() }
+            connectOAuthFromNaver =  connectOAuthFromNaver,
+            connectOAuthFromKakao =  connectOAuthFromKakao
         )
         myInfoGraphBuilder(navController, this)
         newBadgeGraphBuilder(navController, this)
