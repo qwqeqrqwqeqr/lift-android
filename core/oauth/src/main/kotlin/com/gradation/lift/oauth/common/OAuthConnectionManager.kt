@@ -1,5 +1,6 @@
 package com.gradation.lift.oauth.common
 
+import android.content.Intent
 import com.gradation.lift.common.model.DataState
 import kotlinx.coroutines.flow.*
 
@@ -27,6 +28,13 @@ interface OAuthConnectionManager  {
      *  실패시 실패 관련 메시지 전달
      */
     fun connectNaver(): Flow<DataState<Unit>>
+
+
+    /**
+     *  [getGoogleClientIntent]
+     *  구글 인텐트 불러오기
+     */
+    fun getGoogleClientIntent(): Flow<Intent>
 
 }
 
