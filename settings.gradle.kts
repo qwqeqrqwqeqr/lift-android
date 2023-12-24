@@ -53,7 +53,6 @@ include(":feature:login:terms-of-use")
 include(":feature:login:terms-of-use-detail")
 include(":feature:login:verify-email")
 include(":feature:login:reset-password")
-include(":feature:login:find-email-password")
 include(":feature:login:complete")
 
 
