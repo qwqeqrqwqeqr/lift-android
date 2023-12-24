@@ -13,8 +13,13 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:oauth"))
 
-    implementation(project(":feature:login:complete"))
-    implementation(project(":feature:login:find-email-password"))
+
     implementation(project(":feature:login:sign-in"))
-    implementation(project(":feature:login:sign-up"))
+    implementation(project(":feature:login:reset-password"))
+    implementation(project(":feature:login:sign-in-default"))
+    implementation(project(":feature:login:sign-up-default"))
+    implementation(project(":feature:login:terms-of-use"))
+    implementation(project(":feature:login:terms-of-use-detail"))
+    implementation(project(":feature:login:verify-email"))
+    implementation(project(":feature:login:complete"))
 }
