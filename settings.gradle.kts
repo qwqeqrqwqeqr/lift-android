@@ -47,7 +47,6 @@ include(":feature:create-routine:routine")
 include(":feature:create-routine:common")
 
 include(":feature:login:sign-in")
-include(":feature:login:sign-up")
 include(":feature:login:sign-in-default")
 include(":feature:login:sign-up-default")
 include(":feature:login:terms-of-use")
