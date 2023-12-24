@@ -48,9 +48,13 @@ object Router {
 
     const val LOGIN_GRAPH_NAME = "login_graph"
     const val LOGIN_SIGN_IN_ROUTER_NAME = "login_sign_in"
-    const val LOGIN_SIGN_UP_ROUTER_NAME = "login_sign_up"
     const val LOGIN_COMPLETE_ROUTER_NAME = "login_complete"
-    const val LOGIN_FIND_EMAIL_PASSWORD_ROUTER_NAME = "login_find_email_password"
+    const val LOGIN_RESET_PASSWORD_ROUTER_NAME = "login_reset_password"
+    const val LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME = "login_sign_in_default"
+    const val LOGIN_SIGN_UP_DEFAULT_ROUTER_NAME = "login_sign_up_default"
+    const val LOGIN_TERMS_OF_USE_ROUTER_NAME = "login_terms_of_use"
+    const val LOGIN_TERMS_OF_USE_DETAIL_ROUTER_NAME = "login_terms_of_use_detail"
+    const val LOGIN_VERIFY_EMAIL_ROUTER_NAME = "login_verify_email"
 
     const val MY_INFO_GRAPH_NAME = "myinfo_graph"
     const val MY_INFO_MY_INFO_ROUTER_NAME = "myinfo_myinfo"
