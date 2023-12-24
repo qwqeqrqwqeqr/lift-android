@@ -19,8 +19,6 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
-import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
-import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.oauth.common.naverInitializer
 import com.gradation.lift.state.SplashState
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,13 +32,6 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
-
-
-    @Inject
-    lateinit var connectOAuthFromNaverUseCase: ConnectOAuthFromNaverUseCase
-
-    @Inject
-    lateinit var connectOAuthFromKakaoUseCase: ConnectOAuthFromKakaoUseCase
 
     @Inject
     lateinit var dispatcherProvider: DispatcherProvider
@@ -89,15 +80,11 @@ class MainActivity : ComponentActivity() {
                     windowSizeClass = calculateWindowSizeClass(this),
                     appState = rememberAppState(
                         rememberNavController(),
-                        connectOAuthFromNaverUseCase,
-                        connectOAuthFromKakaoUseCase,
                         dispatcherProvider
                     )
                 )
             }
         }
-
-
     }
 }
 

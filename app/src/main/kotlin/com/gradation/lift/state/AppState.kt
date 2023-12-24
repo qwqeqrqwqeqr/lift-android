@@ -6,31 +6,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.tracing.trace
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromKakaoUseCase
-import com.gradation.lift.domain.usecase.auth.ConnectOAuthFromNaverUseCase
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.*
-import com.gradation.lift.oauth.common.OAuthConnectState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
 @Stable
 class AppState(
     val navController: NavHostController,
-    var connectOAuthFromNaverUseCase: ConnectOAuthFromNaverUseCase,
-    var connectOAuthFromKakaoUseCase: ConnectOAuthFromKakaoUseCase,
     private var dispatcherProvider: DispatcherProvider,
 ) {
-
-
-    val naverOAuthConnectState: MutableStateFlow<OAuthConnectState> =
-        MutableStateFlow(OAuthConnectState.None)
-    val kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState> =
-        MutableStateFlow(OAuthConnectState.None)
-
 
     val currentDestination: NavDestination?
         @Composable get() = navController
@@ -60,55 +44,18 @@ class AppState(
         }
     }
 
-    val connectOAuthFromNaver: () -> Unit = {
-        CoroutineScope(dispatcherProvider.default).launch {
-            connectOAuthFromNaverUseCase().collect {
-                when (it) {
-                    is DataState.Fail -> {
-                        naverOAuthConnectState.value = OAuthConnectState.Fail(it.message)
-                    }
 
-                    is DataState.Success -> {
-                        naverOAuthConnectState.value = OAuthConnectState.Success
-
-                    }
-                }
-
-            }
-        }
-    }
-
-    val connectOAuthFromKakao: () -> Unit = {
-        CoroutineScope(dispatcherProvider.default).launch {
-            connectOAuthFromKakaoUseCase().collect {
-                when (it) {
-                    is DataState.Fail -> {
-                        kakaoOAuthConnectState.value = OAuthConnectState.Fail(it.message)
-                    }
-
-                    is DataState.Success -> {
-                        kakaoOAuthConnectState.value = OAuthConnectState.Success
-
-                    }
-                }
-            }
-        }
-    }
 }
 
 
 @Composable
 fun rememberAppState(
     navController: NavHostController,
-    connectOAuthFromNaverUseCase: ConnectOAuthFromNaverUseCase,
-    connectOAuthFromKakaoUseCase: ConnectOAuthFromKakaoUseCase,
     dispatcherProvider: DispatcherProvider,
 ): AppState {
     return remember(navController) {
         AppState(
             navController,
-            connectOAuthFromNaverUseCase,
-            connectOAuthFromKakaoUseCase,
             dispatcherProvider
         )
     }

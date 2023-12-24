@@ -40,27 +40,14 @@ fun LiftApp(
                 SplashState.Login -> LiftNavHost(
                     navController = appState.navController,
                     startDestination = LOGIN_GRAPH_NAME,
-                    naverOAuthConnectState = appState.naverOAuthConnectState,
-                    kakaoOAuthConnectState = appState.kakaoOAuthConnectState,
-
-                    connectOAuthFromNaver =  appState.connectOAuthFromNaver,
-                    connectOAuthFromKakao =  appState.connectOAuthFromKakao
                 )
                 SplashState.Main -> LiftNavHost(
                     navController = appState.navController,
                     startDestination = HOME_GRAPH_NAME,
-                    naverOAuthConnectState = appState.naverOAuthConnectState,
-                    kakaoOAuthConnectState = appState.kakaoOAuthConnectState,
-                    connectOAuthFromNaver = appState.connectOAuthFromNaver,
-                    connectOAuthFromKakao =  appState.connectOAuthFromKakao
                 )
                 SplashState.RegisterDetail -> LiftNavHost(
                     navController = appState.navController,
                     startDestination = REGISTER_DETAIL_GRAPH_NAME,
-                    naverOAuthConnectState = appState.naverOAuthConnectState,
-                    kakaoOAuthConnectState = appState.kakaoOAuthConnectState,
-                    connectOAuthFromNaver =  appState.connectOAuthFromNaver,
-                    connectOAuthFromKakao =  appState.connectOAuthFromKakao
                 )
             }
         }
