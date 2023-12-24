@@ -29,4 +29,6 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
     implementation(project(":core:oauth"))
+    implementation(project(":feature:login:common"))
+
 }
