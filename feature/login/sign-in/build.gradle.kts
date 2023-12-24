@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.login.sign_in"
+    namespace = "com.gradation.lift.feature.login.signIn"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
