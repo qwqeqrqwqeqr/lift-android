@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.login.termsOfUse"
+    namespace = "com.gradation.lift.feature.login.termsOfUseDetail"
     compileSdk = 33
 
     defaultConfig {
