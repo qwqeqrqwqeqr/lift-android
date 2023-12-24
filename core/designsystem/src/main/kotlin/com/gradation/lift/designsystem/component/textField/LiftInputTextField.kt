@@ -199,7 +199,7 @@ fun LiftSearchInputTextField(
         },
         colors = TextFieldDefaults.colors(
             focusedTextColor = LiftTheme.colorScheme.no6,
-            focusedContainerColor = LiftTheme.colorScheme.no1,
+            focusedContainerColor = LiftTheme.colorScheme.no5,
             focusedPlaceholderColor = LiftTheme.colorScheme.no6,
             cursorColor = LiftTheme.colorScheme.no4,
             focusedIndicatorColor =  Color.Transparent,
@@ -241,7 +241,7 @@ fun LiftBaseInputTextField(
     isValid: Boolean = false,
     colors: TextFieldColors = TextFieldDefaults.colors(
         focusedTextColor = LiftTheme.colorScheme.no6,
-        focusedContainerColor = LiftTheme.colorScheme.no1,
+        focusedContainerColor = LiftTheme.colorScheme.no5,
         focusedPlaceholderColor = LiftTheme.colorScheme.no6,
         cursorColor = if (isValid) LiftTheme.colorScheme.no46 else LiftTheme.colorScheme.no4,
         focusedIndicatorColor = if (isValid) LiftTheme.colorScheme.no46 else LiftTheme.colorScheme.no4,

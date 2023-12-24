@@ -32,8 +32,10 @@ data class LiftSpace(
     val space72: Dp = 72.dp,
     val space76: Dp = 76.dp,
     val space80: Dp = 80.dp,
+    val space84: Dp = 84.dp,
     val space96: Dp = 96.dp,
     val space120: Dp = 120.dp,
+    val space132: Dp = 132.dp,
     val space214: Dp = 214.dp,
 
 
