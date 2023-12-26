@@ -15,5 +15,7 @@ interface AuthDataSource {
     fun signUpDefault(signUpInfo: DefaultSignUpInfo) : Flow<NetworkResult<Boolean>>
     fun signInKakao(signInInfo: KakaoSignInInfo) : Flow<NetworkResult<Token>>
     fun signInNaver(signInInfo: NaverSignInInfo) : Flow<NetworkResult<Token>>
+    fun signInGoogle(signInInfo: GoogleSignInInfo) : Flow<NetworkResult<Token>>
+    fun checkUserExist(userId :String) : Flow<NetworkResult<Boolean>>
 
 }

@@ -46,6 +46,21 @@ interface AuthRepository {
     fun signInKakao(): Flow<DataState<Unit>>
 
     /**
+     * [signInGoogle]
+     * 카카오를 통한 로그인 시 사용
+     * 서버 내에 회원 정보 저장하며 로그인을 동시에 진행
+     * @since 2023-12-26 18:38:52
+     */
+    fun signInGoogle(): Flow<DataState<Unit>>
+
+    /**
+     * [checkExistUser]
+     * 서버에 사용자의 아이디가 존재하는 지 확인
+     * @since 2023-12-26 18:38:52
+     */
+    fun checkExistUser(userId:String): Flow<DataState<Boolean>>
+
+    /**
      * [getLoginMethod]
      * 현재 어떠한 방식으로 로그인 했는지 확인
      * @since 2023-08-16 11:39:55

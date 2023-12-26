@@ -4,7 +4,9 @@ import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.auth.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 /**
  * [AuthService]
@@ -60,5 +62,26 @@ interface AuthService {
     ): Response<APIResultWrapper<SignInNaverResponseDto>>
 
 
+    /**
+     * [signInGoogle]
+     * 구글 로그인
+     * 구글 로그인을 진행하고, 반환된 토큰은 서버에 저장한다.
+     * @since 2023-12-26 18:34:19
+     */
+    @POST("auth/sign-in/google")
+    suspend fun signInGoogle(
+        @Body signInGoogleRequestDto: SignInGoogleRequestDto,
+    ): Response<APIResultWrapper<SignInGoogleResponseDto>>
+
+
+
+    /**
+     * [checkExistUser]
+     * 사용자 아이디를 통해 서버에 사용자 계정이 존재하는지 확인한다.
+     * @param userId 확인 할 사용자의 아이디
+     * @since 2023-12-26 18:34:22
+     */
+    @DELETE("auth/exist/user")
+    suspend fun checkExistUser(@Query("user_id") userId: String): Response<APIResultWrapper<CheckExistUserResponseDto>>
 }
 

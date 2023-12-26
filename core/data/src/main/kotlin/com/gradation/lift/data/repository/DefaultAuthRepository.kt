@@ -1,6 +1,5 @@
 package com.gradation.lift.data.repository
 
-import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.mapper.toMessage
@@ -8,6 +7,7 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.*
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
 import kotlinx.coroutines.flow.*
@@ -18,6 +18,7 @@ class DefaultAuthRepository @Inject constructor(
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
     private val kakaoOauthManager: KakaoOauthManager,
     private val naverOauthManager: NaverOauthManager,
+    private val googleOauthManager: GoogleOauthManager,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Unit>> = flow {
         authDataSource.signInDefault(signInInfo).collect { result ->
@@ -112,6 +113,51 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun signInGoogle(): Flow<DataState<Unit>> = flow {
+        combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        GoogleSignInInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { googleSignInInfo ->
+            when (googleSignInInfo) {
+                is DataState.Fail -> emit(DataState.Fail(googleSignInInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signInGoogle(googleSignInInfo.data)
+                        .collect { signInGoogleResult ->
+                            when (signInGoogleResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signInGoogleResult.message))
+                                is NetworkResult.Success -> {
+                                    tokenDataStoreDataSource.setAccessToken(signInGoogleResult.data.accessToken)
+                                    tokenDataStoreDataSource.setRefreshToken(signInGoogleResult.data.refreshToken)
+                                    tokenDataStoreDataSource.setLoginMethod(LoginMethod.Google())
+                                    emit(DataState.Success(Unit))
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun checkExistUser(userId: String): Flow<DataState<Boolean>> = flow {
+        authDataSource.checkUserExist(userId).collect {
+            when (it) {
+                is NetworkResult.Fail -> emit(DataState.Fail(it.message))
+                is NetworkResult.Success -> emit(DataState.Success(it.data))
+            }
+        }
+
     }
 
     override fun getLoginMethod(): Flow<DataState<LoginMethod>> = flow {

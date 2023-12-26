@@ -1,9 +1,11 @@
 package com.gradation.lift.network.mapper
 
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
+import com.gradation.lift.model.model.auth.GoogleSignInInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
 import com.gradation.lift.model.model.auth.NaverSignInInfo
 import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
+import com.gradation.lift.network.dto.auth.SignInGoogleRequestDto
 import com.gradation.lift.network.dto.auth.SignInKakaoRequestDto
 import com.gradation.lift.network.dto.auth.SignInNaverRequestDto
 
@@ -22,6 +24,13 @@ fun KakaoSignInInfo.toDto(): SignInKakaoRequestDto =
 
 fun NaverSignInInfo.toDto(): SignInNaverRequestDto =
     SignInNaverRequestDto(
+        id = this.id,
+        email = this.email,
+    )
+
+
+fun GoogleSignInInfo.toDto(): SignInGoogleRequestDto =
+    SignInGoogleRequestDto(
         id = this.id,
         email = this.email,
     )

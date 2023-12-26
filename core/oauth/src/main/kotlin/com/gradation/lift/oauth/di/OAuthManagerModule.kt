@@ -1,6 +1,8 @@
 package com.gradation.lift.oauth.di
 
 import com.gradation.lift.oauth.common.*
+import com.gradation.lift.oauth.google.DefaultGoogleOauthManager
+import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.DefaultKakaoOauthManager
 import com.gradation.lift.oauth.naver.DefaultNaverOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
@@ -31,5 +33,9 @@ object OAuthManagerModule {
     fun provideNaverOauthManager(
     ): NaverOauthManager = DefaultNaverOauthManager()
 
+
+    @Provides
+    fun provideGoogleOauthManager(
+    ): GoogleOauthManager = DefaultGoogleOauthManager()
 
 }

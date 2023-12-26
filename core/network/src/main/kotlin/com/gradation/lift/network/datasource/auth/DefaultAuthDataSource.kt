@@ -68,5 +68,31 @@ class DefaultAuthDataSource @Inject constructor(
                 }
             }
         }
+
+    override fun signInGoogle(signInInfo: GoogleSignInInfo): Flow<NetworkResult<Token>> =
+        flow {
+            networkResultHandler {
+                authService.signInGoogle(
+                    signInInfo.toDto()
+                )
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+                }
+            }
+        }
+
+    override fun checkUserExist(userId: String): Flow<NetworkResult<Boolean>> =
+        flow {
+            networkResultHandler {
+                authService.checkExistUser(userId)
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                }
+            }
+        }
 }
 
