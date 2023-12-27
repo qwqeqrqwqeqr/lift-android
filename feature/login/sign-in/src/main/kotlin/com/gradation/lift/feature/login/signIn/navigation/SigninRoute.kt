@@ -12,7 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.feature.login.common.data.LoginMethodState
 import com.gradation.lift.feature.login.common.data.LoginSharedViewModel
-import com.gradation.lift.feature.login.signIn.SignInScreen
+import com.gradation.lift.feature.login.signIn.ui.SignInScreen
 import com.gradation.lift.feature.login.signIn.data.state.ConnectState
 import com.gradation.lift.feature.login.signIn.data.state.OAuthSignInState
 import com.gradation.lift.feature.login.signIn.data.state.SignInState
