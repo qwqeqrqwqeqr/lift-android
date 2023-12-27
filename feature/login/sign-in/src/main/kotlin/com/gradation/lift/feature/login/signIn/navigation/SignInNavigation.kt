@@ -16,13 +16,25 @@ fun signInScreen(
         { navController.navigateLoginGraphToHomeGraph() }
     val navigateLoginGraphToRegisterDetailGraph: () -> Unit =
         { navController.navigateLoginGraphToRegisterDetailGraph() }
+    val navigateSignInToSignInDefaultInLoginGraph: () -> Unit =
+        { navController.navigateSignInToSignInDefaultInLoginGraph() }
+    val navigateSignInToSignUpDefaultInLoginGraph: () -> Unit =
+        { navController.navigateSignInToSignUpDefaultInLoginGraph() }
+    val navigateSignInToTermsOfUseInLoginGraph: () -> Unit =
+        { navController.navigateSignInToTermsOfUseInLoginGraph() }
+
+
 
 
     navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
         SignInRoute(
-            modifier = modifier,
-            navigateLoginGraphToHomeGraph = navigateLoginGraphToHomeGraph,
-            navigateLoginGraphToRegisterDetailGraph = navigateLoginGraphToRegisterDetailGraph,
+            modifier,
+            navController,
+            navigateLoginGraphToHomeGraph,
+            navigateLoginGraphToRegisterDetailGraph,
+            navigateSignInToSignInDefaultInLoginGraph,
+            navigateSignInToSignUpDefaultInLoginGraph,
+            navigateSignInToTermsOfUseInLoginGraph,
         )
     }
 
