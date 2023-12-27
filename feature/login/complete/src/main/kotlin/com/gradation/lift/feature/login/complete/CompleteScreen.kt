@@ -13,27 +13,17 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.navigation.navigateCompleteToSignInInLoginGraph
 import com.gradation.lift.ui.utils.DevicePreview
 
-@Composable
-fun LoginCompleteRoute(
-    navigateSignUpToSignIn: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    LoginCompleteScreen(
-        modifier, navigateSignUpToSignIn
-    )
-}
-
 
 @Composable
-internal fun LoginCompleteScreen(
+internal fun CompleteScreen(
     modifier: Modifier = Modifier,
-    navigateSignUpToSignIn: () -> Unit,
+    navigateCompleteToSignInInLoginGraph: () -> Unit,
 ) {
     Surface(
         color = LiftTheme.colorScheme.no5,
@@ -66,7 +56,7 @@ internal fun LoginCompleteScreen(
             Spacer(modifier = modifier.padding(16.dp))
             LiftButton(
                 modifier = modifier.fillMaxWidth(),
-                onClick = navigateSignUpToSignIn,
+                onClick = navigateCompleteToSignInInLoginGraph,
             ) {
                 Text(
                     text = "시작하기",
@@ -81,9 +71,9 @@ internal fun LoginCompleteScreen(
 
 @DevicePreview
 @Composable
-internal fun LoginCompleteScreenPreview() {
+internal fun CompleteScreenPreview() {
     LiftMaterialTheme(isDarkTheme = false) {
-        LoginCompleteScreen(navigateSignUpToSignIn = {}
+        CompleteScreen(navigateCompleteToSignInInLoginGraph = {}
         )
     }
 }
