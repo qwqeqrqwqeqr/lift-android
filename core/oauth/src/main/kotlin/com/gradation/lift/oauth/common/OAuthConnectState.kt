@@ -11,4 +11,5 @@ sealed interface OAuthConnectState {
     data object None : OAuthConnectState
     data object Success : OAuthConnectState
     data class Fail(val message: String) : OAuthConnectState
+
 }

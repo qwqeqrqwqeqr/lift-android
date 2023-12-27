@@ -3,7 +3,6 @@ package com.gradation.lift.oauth.common
 import android.content.Context
 import android.content.Intent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.oauth.BuildConfig
@@ -65,16 +64,13 @@ class DefaultOAuthConnectionManager @Inject constructor(
             })
     }
 
-    override fun getGoogleClientIntent(): Flow<Intent> = flow {
-        run {
-            val googleSignInOptions: GoogleSignInOptions =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestServerAuthCode(BuildConfig.GOOGLE_OAUTH_CLIENT_ID)
-                    .requestEmail()
-                    .build()
-            val googleSignInClient: GoogleSignInClient =
-                GoogleSignIn.getClient(context, googleSignInOptions)
-            emit(googleSignInClient.signInIntent)
+    override fun getGoogleClientIntent(): Intent =
+        with(
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestServerAuthCode(BuildConfig.GOOGLE_OAUTH_CLIENT_ID)
+                .requestEmail()
+                .build()
+        ) {
+            GoogleSignIn.getClient(context, this).signInIntent
         }
-    }
 }

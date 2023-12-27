@@ -34,7 +34,7 @@ interface OAuthConnectionManager  {
      *  [getGoogleClientIntent]
      *  구글 인텐트 불러오기
      */
-    fun getGoogleClientIntent(): Flow<Intent>
+    fun getGoogleClientIntent(): Intent
 
 }
 

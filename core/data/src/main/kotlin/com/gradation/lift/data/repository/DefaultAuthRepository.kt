@@ -34,12 +34,12 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Unit>> = flow {
+    override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signUpDefault(signUpInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
-                    emit(DataState.Success(Unit))
+                    emit(DataState.Success(result.data))
                 }
             }
         }
@@ -72,6 +72,38 @@ class DefaultAuthRepository @Inject constructor(
                                     tokenDataStoreDataSource.setRefreshToken(signInNaverResult.data.refreshToken)
                                     tokenDataStoreDataSource.setLoginMethod(LoginMethod.Naver())
                                     emit(DataState.Success(Unit))
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun signUpNaver(): Flow<DataState<Boolean>> = flow {
+        combine(naverOauthManager.getUserId(), naverOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        NaverSignUpInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { naverSignUpInfo ->
+            when (naverSignUpInfo) {
+                is DataState.Fail -> emit(DataState.Fail(naverSignUpInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signUpNaver(naverSignUpInfo.data)
+                        .collect { signUpNaverResult ->
+                            when (signUpNaverResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signUpNaverResult.message))
+                                is NetworkResult.Success -> {
+                                    emit(DataState.Success(signUpNaverResult.data))
                                 }
                             }
                         }
@@ -115,6 +147,38 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
+    override fun signUpKakao(): Flow<DataState<Boolean>> = flow {
+        combine(kakaoOauthManager.getUserId(), kakaoOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        KakaoSignUpInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { kakaoSignUpInfo ->
+            when (kakaoSignUpInfo) {
+                is DataState.Fail -> emit(DataState.Fail(kakaoSignUpInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signUpKakao(kakaoSignUpInfo.data)
+                        .collect { signUpKakaoResult ->
+                            when (signUpKakaoResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signUpKakaoResult.message))
+                                is NetworkResult.Success -> {
+                                    emit(DataState.Success(signUpKakaoResult.data))
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
     override fun signInGoogle(): Flow<DataState<Unit>> = flow {
         combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
             when (id) {
@@ -143,6 +207,38 @@ class DefaultAuthRepository @Inject constructor(
                                     tokenDataStoreDataSource.setLoginMethod(LoginMethod.Google())
                                     emit(DataState.Success(Unit))
                                 }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun signUpGoogle(): Flow<DataState<Boolean>> = flow {
+        combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        GoogleSignUpInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { googleSignUpInfo ->
+            when (googleSignUpInfo) {
+                is DataState.Fail -> emit(DataState.Fail(googleSignUpInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signUpGoogle(googleSignUpInfo.data)
+                        .collect { signUpGoogleResult ->
+                            when (signUpGoogleResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signUpGoogleResult.message))
+                                is NetworkResult.Success ->
+                                    emit(DataState.Success(signUpGoogleResult.data))
+
                             }
                         }
                 }

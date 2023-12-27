@@ -55,6 +55,19 @@ class DefaultAuthDataSource @Inject constructor(
             }
         }
 
+    override fun signUpKakao(signUpInfo: KakaoSignUpInfo): Flow<NetworkResult<Boolean>> = flow {
+        networkResultHandler {
+            authService.signUpKakao(
+                signUpInfo.toDto()
+            )
+        }.collect { result ->
+            when (result) {
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+            }
+        }
+    }
+
     override fun signInNaver(signInInfo: NaverSignInInfo): Flow<NetworkResult<Token>> =
         flow {
             networkResultHandler {
@@ -69,6 +82,20 @@ class DefaultAuthDataSource @Inject constructor(
             }
         }
 
+    override fun signUpNaver(signUpInfo: NaverSignUpInfo): Flow<NetworkResult<Boolean>> = flow {
+        networkResultHandler {
+            authService.signUpNaver(
+                signUpInfo.toDto()
+            )
+        }.collect { result ->
+            when (result) {
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+            }
+        }
+    }
+
+
     override fun signInGoogle(signInInfo: GoogleSignInInfo): Flow<NetworkResult<Token>> =
         flow {
             networkResultHandler {
@@ -82,6 +109,20 @@ class DefaultAuthDataSource @Inject constructor(
                 }
             }
         }
+
+    override fun signUpGoogle(signUpInfo: GoogleSignUpInfo): Flow<NetworkResult<Boolean>> = flow {
+        networkResultHandler {
+            authService.signUpGoogle(
+                signUpInfo.toDto()
+            )
+        }.collect { result ->
+            when (result) {
+                is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+            }
+        }
+    }
+
 
     override fun checkUserExist(userId: String): Flow<NetworkResult<Boolean>> =
         flow {

@@ -38,6 +38,18 @@ interface AuthService {
         @Body signInDefaultRequestDto: SignInDefaultRequestDto,
     ): Response<APIResultWrapper<SignInDefaultResponseDto>>
 
+
+    /**
+     * [signUpKakao]
+     * 카카오 회원가입
+     * 카카오 회원가입을 진행합니다
+     * @since 2023-12-27 14:53:40
+     */
+    @POST("auth/sign-up/kakao")
+    suspend fun signUpKakao(
+        @Body signUpKakaoRequestDto: SignUpKakaoRequestDto,
+    ): Response<APIResultWrapper<SignUpKakaoResponseDto>>
+
     /**
      * [signInKakao]
      * 카카오 로그인
@@ -50,6 +62,19 @@ interface AuthService {
     ): Response<APIResultWrapper<SignInKakaoResponseDto>>
 
 
+
+    /**
+     * [signUpNaver]
+     * 네이버 회원가입
+     * 네이버 회원가입을 진행합니다
+     * @since 2023-12-27 14:53:40
+     */
+    @POST("auth/sign-up/naver")
+    suspend fun signUpNaver(
+        @Body signUpNaverRequestDto: SignUpNaverRequestDto,
+    ): Response<APIResultWrapper<SignUpNaverResponseDto>>
+
+
     /**
      * [signInNaver]
      * 네이버 로그인
@@ -60,6 +85,19 @@ interface AuthService {
     suspend fun signInNaver(
         @Body signInNaverRequestDto: SignInNaverRequestDto,
     ): Response<APIResultWrapper<SignInNaverResponseDto>>
+
+
+    /**
+     * [signUpGoogle]
+     * 구글 회원가입
+     * 구글 회원가입을 진행합니다
+     * @since 2023-12-27 14:53:40
+     */
+    @POST("auth/sign-up/google")
+    suspend fun signUpGoogle(
+        @Body signUpGoogleRequestDto: SignUpGoogleRequestDto,
+    ): Response<APIResultWrapper<SignUpGoogleResponseDto>>
+
 
 
     /**
