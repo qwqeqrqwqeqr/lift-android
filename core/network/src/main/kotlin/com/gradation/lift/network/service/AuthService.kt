@@ -4,7 +4,7 @@ import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.auth.*
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -119,7 +119,7 @@ interface AuthService {
      * @param userId 확인 할 사용자의 아이디
      * @since 2023-12-26 18:34:22
      */
-    @DELETE("auth/exist/user")
+    @GET("auth/exist/user")
     suspend fun checkExistUser(@Query("user_id") userId: String): Response<APIResultWrapper<CheckExistUserResponseDto>>
 }
 
