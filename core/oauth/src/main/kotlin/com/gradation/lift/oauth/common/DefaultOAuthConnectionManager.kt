@@ -1,11 +1,10 @@
 package com.gradation.lift.oauth.common
 
 import android.content.Context
-import android.content.Intent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.oauth.BuildConfig
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
@@ -43,7 +42,7 @@ class DefaultOAuthConnectionManager @Inject constructor(
         })
     }
 
-    override fun connectNaver(): Flow<DataState<Unit>> = flow {
+    override fun connectNaver(context: Context): Flow<DataState<Unit>> = flow {
 
         emit(
             suspendCancellableCoroutine { continuation ->
@@ -64,13 +63,13 @@ class DefaultOAuthConnectionManager @Inject constructor(
             })
     }
 
-    override fun getGoogleClientIntent(): Intent =
+    override fun getGoogleClient(): GoogleSignInClient {
         with(
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestServerAuthCode(BuildConfig.GOOGLE_OAUTH_CLIENT_ID)
                 .requestEmail()
                 .build()
         ) {
-            GoogleSignIn.getClient(context, this).signInIntent
+            return GoogleSignIn.getClient(context, this)
         }
+    }
 }
