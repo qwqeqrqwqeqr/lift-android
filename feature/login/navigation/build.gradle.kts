@@ -21,5 +21,4 @@ dependencies {
     implementation(project(":feature:login:terms-of-use"))
     implementation(project(":feature:login:terms-of-use-detail"))
     implementation(project(":feature:login:verify-email"))
-    implementation(project(":feature:login:complete"))
 }

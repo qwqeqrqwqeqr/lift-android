@@ -58,7 +58,7 @@ fun NavController.navigateSignInToSignUpDefaultInLoginGraph() {
  * @since 2023-12-24 20:34:57
  */
 fun NavController.navigateSignInToTermsOfUseInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME)
+    this.navigate(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME)
 }
 
 
@@ -111,14 +111,6 @@ fun NavController.navigateTermsOfUseToTermsOfUseDetailInLoginGraph() {
     this.navigate(Router.LOGIN_TERMS_OF_USE_DETAIL_ROUTER_NAME)
 }
 
-/**
- * [navigateTermsOfUseToCompleteInLoginGraph]
- * 회원가입 완료화면으로 이동
- * @since 2023-12-24 21:01:39
- */
-fun NavController.navigateTermsOfUseToCompleteInLoginGraph() {
-    this.navigate(Router.LOGIN_COMPLETE_ROUTER_NAME)
-}
 
 
 /**
@@ -148,19 +140,6 @@ fun NavController.navigateTermsOfUseDetailToTermsOfUseInLoginGraph() {
     }
 }
 
-
-/**
- * [navigateCompleteToSignInInLoginGraph]
- * 회원가입을 완료하여 초기 로그인화면으로 이동
- * @since 2023-12-24 21:04:00
- */
-fun NavController.navigateCompleteToSignInInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
-        popUpTo(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
-}
 
 
 
