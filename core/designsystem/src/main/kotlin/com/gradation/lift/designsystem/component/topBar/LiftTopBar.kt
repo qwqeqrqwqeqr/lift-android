@@ -40,7 +40,7 @@ fun LiftTopBar(
             }
         },
         modifier = modifier.padding(
-            top = LiftTheme.space.space40,
+            top = LiftTheme.space.space20,
             end = LiftTheme.space.space20,
             start = LiftTheme.space.space20,
         ),
