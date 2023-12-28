@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 /**
@@ -62,7 +63,6 @@ interface AuthService {
     ): Response<APIResultWrapper<SignInKakaoResponseDto>>
 
 
-
     /**
      * [signUpNaver]
      * 네이버 회원가입
@@ -99,7 +99,6 @@ interface AuthService {
     ): Response<APIResultWrapper<SignUpGoogleResponseDto>>
 
 
-
     /**
      * [signInGoogle]
      * 구글 로그인
@@ -112,7 +111,6 @@ interface AuthService {
     ): Response<APIResultWrapper<SignInGoogleResponseDto>>
 
 
-
     /**
      * [checkExistUser]
      * 사용자 아이디를 통해 서버에 사용자 계정이 존재하는지 확인한다.
@@ -121,5 +119,33 @@ interface AuthService {
      */
     @GET("auth/exist/user")
     suspend fun checkExistUser(@Query("user_id") userId: String): Response<APIResultWrapper<CheckExistUserResponseDto>>
+
+
+    /**
+     * [updateUserPassword]
+     * 사용자의 패스워드를 변경한다.
+     * @param updatePasswordRequestDto 사용자의 이메일과 변경할 패스워드
+     * @since 2023-12-28 14:44:59
+     */
+    @PUT("auth/password")
+    suspend fun updateUserPassword(@Body updatePasswordRequestDto: UpdatePasswordRequestDto): Response<APIResultWrapper<UpdatePasswordResponseDto>>
+
+
+    /**
+     * [createEmailAuthenticationCode]
+     * 이메일 인증을 위한 코드를 발급한다.
+     * @since 2023-12-28 14:51:16
+     */
+    @POST("auth/authentication-email/code")
+    suspend fun createEmailAuthenticationCode(@Body createEmailAuthenticationCodeRequestDto: CreateEmailAuthenticationCodeRequestDto): Response<APIResultWrapper<CreateEmailAuthenticationCodeResponseDto>>
+
+
+    /**
+     * [validateEmailAuthentication]
+     * 이메일과 코드를 바탕으로 유효성을 검증한다.
+     * @since 2023-12-28 14:51:20
+     */
+    @POST("auth/authentication-email/validation")
+    suspend fun validateEmailAuthentication(@Body validateEmailAuthenticationRequestDto: ValidateEmailAuthenticationRequestDto): Response<APIResultWrapper<ValidateEmailAuthenticationResponseDto>>
 }
 

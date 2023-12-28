@@ -280,4 +280,34 @@ class DefaultAuthRepository @Inject constructor(
             emit(DataState.Fail(error.toMessage()))
         }
     }
+
+    override fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<DataState<Boolean>> =
+        flow {
+            authDataSource.updateUserPassword(updatePasswordInfo).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+
+    override fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>> =
+        flow {
+            authDataSource.createEmailAuthenticationCode(emailAuthenticationInfo).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+
+    override fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>> =
+        flow {
+            authDataSource.validateEmailAuthentication(emailAuthenticationValidationInfo).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
 }

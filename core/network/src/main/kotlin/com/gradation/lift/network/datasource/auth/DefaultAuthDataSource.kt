@@ -135,5 +135,42 @@ class DefaultAuthDataSource @Inject constructor(
                 }
             }
         }
+
+    override fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<NetworkResult<Boolean>> =
+        flow {
+            networkResultHandler {
+                authService.updateUserPassword(updatePasswordInfo.toDto())
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                }
+            }
+        }
+
+    override fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<NetworkResult<Boolean>> =
+        flow {
+            networkResultHandler {
+                authService.createEmailAuthenticationCode(emailAuthenticationInfo.toDto())
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                }
+            }
+        }
+
+    override fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<NetworkResult<Boolean>> =
+        flow {
+            networkResultHandler {
+                authService.validateEmailAuthentication(emailAuthenticationValidationInfo.toDto())
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                }
+            }
+        }
+
 }
 

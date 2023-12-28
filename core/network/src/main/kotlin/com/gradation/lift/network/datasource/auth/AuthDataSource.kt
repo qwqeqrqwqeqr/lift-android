@@ -20,5 +20,7 @@ interface AuthDataSource {
     fun signInGoogle(signInInfo: GoogleSignInInfo): Flow<NetworkResult<Token>>
     fun signUpGoogle(signUpInfo: GoogleSignUpInfo): Flow<NetworkResult<Boolean>>
     fun checkUserExist(userId: String): Flow<NetworkResult<Boolean>>
-
+    fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<NetworkResult<Boolean>>
+    fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<NetworkResult<Boolean>>
+    fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<NetworkResult<Boolean>>
 }

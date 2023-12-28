@@ -3,7 +3,10 @@ package com.gradation.lift.domain.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationValidationInfo
 import com.gradation.lift.model.model.auth.LoginMethod
+import com.gradation.lift.model.model.auth.UpdatePasswordInfo
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -104,4 +107,26 @@ interface AuthRepository {
      * @since 2023-08-16 11:39:41
      */
     fun signOut(): Flow<DataState<Unit>>
+
+
+    /**
+     * [updateUserPassword]
+     * 사용자 패스워드 변경
+     * @since 2023-12-28 17:24:35
+     */
+    fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<DataState<Boolean>>
+
+    /**
+     * [createEmailAuthenticationCode]
+     * 이메일 인증코드 생
+     * @since 2023-12-28 17:24:35
+     */
+    fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>>
+
+    /**
+     * [validateEmailAuthentication]
+     * 이메일 인증코드를 통한 유효성 검증
+     * @since 2023-12-28 17:24:35
+     */
+    fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>>
 }
