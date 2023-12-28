@@ -11,7 +11,7 @@ interface TermsDataSource {
 
     suspend fun createUserTermsConsent(
         consent: Boolean,
-        marketingConsent: Boolean,
+        marketingConsent: Boolean
     ): Flow<NetworkResult<Boolean>>
 
     suspend fun getUserMarketingTermsConsent(): Flow<NetworkResult<Boolean>>
