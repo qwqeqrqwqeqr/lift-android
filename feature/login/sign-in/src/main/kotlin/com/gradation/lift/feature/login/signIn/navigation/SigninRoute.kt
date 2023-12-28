@@ -21,7 +21,6 @@ import com.gradation.lift.feature.login.signIn.data.state.rememberSignInScreenSt
 import com.gradation.lift.feature.login.signIn.data.viewmodel.SignInViewModel
 import com.gradation.lift.model.model.auth.LoginMethod
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.oauth.common.OAuthConnectState
 
 @Composable
 internal fun SignInRoute(
@@ -39,56 +38,14 @@ internal fun SignInRoute(
     signInScreenState: SignInScreenState = rememberSignInScreenState(),
 ) {
 
-    val naverOAuthConnectState: OAuthConnectState by viewModel.oAuthSignInState.naverOAuthConnectState.collectAsStateWithLifecycle()
-    val kakaoOAuthConnectState: OAuthConnectState by viewModel.oAuthSignInState.kakaoOAuthConnectState.collectAsStateWithLifecycle()
     val signInState: SignInState by viewModel.oAuthSignInState.oAuthSignInState.collectAsStateWithLifecycle()
     val connectState: ConnectState by viewModel.oAuthSignInState.connectState.collectAsStateWithLifecycle()
     val oAuthSignInState: OAuthSignInState = viewModel.oAuthSignInState
 
 
-    /**
-     *  각 상태에 따른 처리 로직
-     *  @since 2023-08-16 22:39:06
-     */
-    when (val naverConnectStateResult = naverOAuthConnectState) {
-        is OAuthConnectState.Fail -> {
-            LaunchedEffect(true) {
-                signInScreenState.snackbarHostState.showSnackbar(
-                    message = naverConnectStateResult.message, duration = SnackbarDuration.Short
-                )
-                viewModel.oAuthSignInState.updateOAuthSignInState(SignInState.None)
-            }
-        }
-
-        OAuthConnectState.None -> {}
-        OAuthConnectState.Success -> {
-            LaunchedEffect(true) {
-                viewModel.oAuthSignInState.updateConnectState(ConnectState.Success(LoginMethod.Naver()))
-            }
-        }
-    }
-    when (val kakaoConnectStateResult = kakaoOAuthConnectState) {
-        is OAuthConnectState.Fail -> {
-            LaunchedEffect(true) {
-                signInScreenState.snackbarHostState.showSnackbar(
-                    message = kakaoConnectStateResult.message, duration = SnackbarDuration.Short
-                )
-                viewModel.oAuthSignInState.updateOAuthSignInState(SignInState.None)
-            }
-        }
-
-        OAuthConnectState.None -> {}
-        OAuthConnectState.Success -> {
-            LaunchedEffect(true) {
-                viewModel.oAuthSignInState.updateConnectState(ConnectState.Success(LoginMethod.Kakao()))
-            }
-        }
-    }
-
-
     when (val connectStateResult: ConnectState = connectState) {
         is ConnectState.Fail -> {
-            LaunchedEffect(true) {
+            LaunchedEffect(connectStateResult.message) {
                 signInScreenState.snackbarHostState.showSnackbar(
                     message = connectStateResult.message, duration = SnackbarDuration.Short
                 )

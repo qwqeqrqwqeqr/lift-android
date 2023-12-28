@@ -9,14 +9,14 @@ import com.gradation.lift.domain.usecase.auth.SignInKakaoUseCase
 import com.gradation.lift.domain.usecase.auth.SignInNaverUseCase
 import com.gradation.lift.domain.usecase.user.ExistUserDetailUseCase
 import com.gradation.lift.model.model.auth.LoginMethod
-import com.gradation.lift.oauth.common.OAuthConnectState
 import com.gradation.lift.oauth.common.OAuthConnectionManager
 import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class OAuthSignInState(
@@ -30,43 +30,48 @@ class OAuthSignInState(
     private val naverOauthManager: NaverOauthManager,
     private val googleOauthManager: GoogleOauthManager,
     private val kakaoOauthManager: KakaoOauthManager,
-    val naverOAuthConnectState: MutableStateFlow<OAuthConnectState> =
-        MutableStateFlow(OAuthConnectState.None),
-    val kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState> =
-        MutableStateFlow(OAuthConnectState.None),
     var oAuthSignInState: MutableStateFlow<SignInState> = MutableStateFlow<SignInState>(SignInState.None),
     var connectState: MutableStateFlow<ConnectState> = MutableStateFlow<ConnectState>(ConnectState.None),
 ) {
 
     val updateOAuthSignInState: (SignInState) -> Unit = { oAuthSignInState.value = it }
     val updateConnectState: (ConnectState) -> Unit = { it ->
-
         if (it is ConnectState.Success) {
             viewModelScope.launch {
-                when (it.loginMethod) {
-                    is LoginMethod.Google -> googleOauthManager.getUserId()
-                    is LoginMethod.Kakao -> kakaoOauthManager.getUserId()
-                    else -> naverOauthManager.getUserId()
-                }.collect { getUserIdResult ->
-                    when (getUserIdResult) {
-                        is DataState.Fail -> ConnectState.Fail("연결을 실패하였습니다.")
+                combine(
+                    when (it.loginMethod) {
+                        is LoginMethod.Google -> googleOauthManager.getUserId()
+                        is LoginMethod.Kakao -> kakaoOauthManager.getUserId()
+                        else -> naverOauthManager.getUserId()
+                    }, when (it.loginMethod) {
+                        is LoginMethod.Google -> googleOauthManager.getUserEmail()
+                        is LoginMethod.Kakao -> kakaoOauthManager.getUserEmail()
+                        else -> naverOauthManager.getUserEmail()
+                    }
+                ) { id, email ->
+                    when (id) {
+                        is DataState.Fail -> connectState.value =ConnectState.Fail("연결을 실패하였습니다.")
                         is DataState.Success -> {
-                            checkExistUserUseCase(getUserIdResult.data).collect { checkExistUserResult ->
-                                when (checkExistUserResult) {
-                                    is DataState.Fail -> ConnectState.Fail("연결을 실패하였습니다.")
-                                    is DataState.Success -> {
-                                        connectState.value = ConnectState.Success(
-                                            loginMethod = it.loginMethod,
-                                            isSigned = checkExistUserResult.data
-                                        )
+                            when(email){
+                                is DataState.Fail ->connectState.value =ConnectState.Fail("연결을 실패하였습니다.")
+                                is DataState.Success -> {
+                                    checkExistUserUseCase(id.data,email.data).collect { checkExistUserResult ->
+                                        when (checkExistUserResult) {
+                                            is DataState.Fail -> ConnectState.Fail("연결을 실패하였습니다.")
+                                            is DataState.Success -> {
+                                                connectState.value = ConnectState.Success(
+                                                    loginMethod = it.loginMethod,
+                                                    isSigned = checkExistUserResult.data
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                             }
+
                         }
                     }
-                }
-
-
+                }.collect()
             }
         } else {
             connectState.value = it
@@ -76,15 +81,22 @@ class OAuthSignInState(
 
     val connectOAuthFromNaver: (Context) -> Unit = {
         viewModelScope.launch {
-            oAuthConnectionManager.connectNaver(it).collectLatest {
+            oAuthConnectionManager.connectNaver(it).collect {
                 when (it) {
                     is DataState.Fail -> {
-                        naverOAuthConnectState.value = OAuthConnectState.Fail(it.message)
+                        updateConnectState(
+                            ConnectState.Fail(
+                                it.message
+                            )
+                        )
                     }
 
                     is DataState.Success -> {
-                        naverOAuthConnectState.value = OAuthConnectState.Success
-                        connectState.value = ConnectState.Success(LoginMethod.Naver())
+                        updateConnectState(
+                            ConnectState.Success(
+                                LoginMethod.Naver()
+                            )
+                        )
                     }
                 }
 
@@ -94,15 +106,22 @@ class OAuthSignInState(
 
     val connectOAuthFromKakao: () -> Unit = {
         viewModelScope.launch {
-            oAuthConnectionManager.connectKakao().collectLatest {
+            oAuthConnectionManager.connectKakao().collect {
                 when (it) {
                     is DataState.Fail -> {
-                        kakaoOAuthConnectState.value = OAuthConnectState.Fail(it.message)
+                        updateConnectState(
+                            ConnectState.Fail(
+                                it.message
+                            )
+                        )
                     }
-
                     is DataState.Success -> {
-                        kakaoOAuthConnectState.value = OAuthConnectState.Success
-                        connectState.value = ConnectState.Success(LoginMethod.Kakao())
+                        updateConnectState(
+                            ConnectState.Success(
+                                LoginMethod.Kakao()
+                            )
+                        )
+
                     }
                 }
             }
