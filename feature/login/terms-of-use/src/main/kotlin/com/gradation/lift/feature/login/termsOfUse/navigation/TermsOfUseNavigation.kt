@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.navigation.navigateTermsOfUseToCompleteInLoginGraph
+import com.gradation.lift.navigation.navigation.navigateLoginGraphToRegisterDetailGraph
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseToSignInInLoginGraph
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseToTermsOfUseDetailInLoginGraph
 
@@ -17,8 +17,8 @@ fun termsOfUseScreen(
     val navigateTermsOfUseToTermsOfUseDetailInLoginGraph: () -> Unit =
         { navController.navigateTermsOfUseToTermsOfUseDetailInLoginGraph() }
 
-    val navigateTermsOfUseToCompleteInLoginGraph: () -> Unit =
-        { navController.navigateTermsOfUseToCompleteInLoginGraph() }
+    val navigateLoginGraphToRegisterDetailGraph: () -> Unit =
+        { navController.navigateLoginGraphToRegisterDetailGraph() }
 
     val navigateTermsOfUseToSignInInLoginGraph: () -> Unit =
         { navController.navigateTermsOfUseToSignInInLoginGraph() }
@@ -28,7 +28,7 @@ fun termsOfUseScreen(
             modifier,
             navController,
             navigateTermsOfUseToTermsOfUseDetailInLoginGraph,
-            navigateTermsOfUseToCompleteInLoginGraph,
+            navigateLoginGraphToRegisterDetailGraph,
             navigateTermsOfUseToSignInInLoginGraph
         )
     }

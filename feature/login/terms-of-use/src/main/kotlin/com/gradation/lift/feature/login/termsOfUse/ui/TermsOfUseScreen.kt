@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
@@ -27,7 +28,7 @@ import com.gradation.lift.feature.login.termsOfUse.ui.component.ConsentView
 fun TermsOfUseScreen(
     modifier: Modifier = Modifier,
     termsOfUseScreenState: TermsOfUseScreenState,
-    createUserTermsConsent: (Boolean, Boolean) -> Unit,
+    signUp: () -> Unit,
     updateTermsOfUseState: (TermsOfUseState) -> Unit,
     navigateTermsOfUseToSignInInLoginGraph: () -> Unit,
     navigateTermsOfUseToTermsOfUseDetailInLoginGraph: () -> Unit,
@@ -39,6 +40,12 @@ fun TermsOfUseScreen(
                 modifier = modifier,
                 title = "이용약관 동의",
                 onClick = navigateTermsOfUseToSignInInLoginGraph
+            )
+        },
+        snackbarHost = {
+            LiftSnackBar(
+                modifier = modifier,
+                snackbarHostState = termsOfUseScreenState.snackbarHostState
             )
         }
     ) { it ->
@@ -115,17 +122,13 @@ fun TermsOfUseScreen(
                 }
                 LiftSolidButton(
                     text = "회원가입",
-                    enabled = termsOfUseScreenState.termsOfUseConsent&&termsOfUseScreenState.privacyPolicyConsent
-                ) { createUserTermsConsent(true,termsOfUseScreenState.marketingConsent) }
+                    enabled = termsOfUseScreenState.termsOfUseConsent && termsOfUseScreenState.privacyPolicyConsent
+                ) { signUp() }
             }
         }
 
     }
 }
-
-
-
-
 
 
 @Composable
@@ -136,7 +139,7 @@ fun TermsOfUseScreenPreview(
     LiftMaterialTheme {
         TermsOfUseScreen(modifier,
             termsOfUseScreenState = rememberTermsOfUseScreenState(),
-            createUserTermsConsent = { _, _ -> },
+            signUp = { },
             updateTermsOfUseState = {},
             navigateTermsOfUseToSignInInLoginGraph = {},
             navigateTermsOfUseToTermsOfUseDetailInLoginGraph = {}

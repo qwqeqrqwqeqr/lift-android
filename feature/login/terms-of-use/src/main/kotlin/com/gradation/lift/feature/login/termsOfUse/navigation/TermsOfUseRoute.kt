@@ -15,6 +15,7 @@ import com.gradation.lift.feature.login.common.data.LoginMethodState
 import com.gradation.lift.feature.login.common.data.LoginSharedViewModel
 import com.gradation.lift.feature.login.common.data.TermsOfUseState
 import com.gradation.lift.feature.login.termsOfUse.data.TermsOfUseViewModel
+import com.gradation.lift.feature.login.termsOfUse.data.state.CreateUserTermsConsentState
 import com.gradation.lift.feature.login.termsOfUse.data.state.SignUpState
 import com.gradation.lift.feature.login.termsOfUse.data.state.TermsOfUseScreenState
 import com.gradation.lift.feature.login.termsOfUse.data.state.rememberTermsOfUseScreenState
@@ -26,7 +27,7 @@ fun TermsOfUseRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     navigateTermsOfUseToTermsOfUseDetailInLoginGraph: () -> Unit,
-    navigateTermsOfUseToCompleteInLoginGraph: () -> Unit,
+    navigateLoginGraphToRegisterDetailGraph: () -> Unit,
     navigateTermsOfUseToSignInInLoginGraph: () -> Unit,
     viewModel: TermsOfUseViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
@@ -37,18 +38,17 @@ fun TermsOfUseRoute(
 
     val currentLoginMethodState: LoginMethodState by sharedViewModel.currentLoginMethodState.collectAsStateWithLifecycle()
     val signUpState: SignUpState by viewModel.signUpState.collectAsStateWithLifecycle()
+    val createUserTermsConsentState: CreateUserTermsConsentState by viewModel.createUserTermsConsentState.collectAsStateWithLifecycle()
 
 
     val updateSignUpState: (SignUpState) -> Unit = viewModel.updateSignUpState
+    val updateCreateUserTermsConsentState: (CreateUserTermsConsentState) -> Unit =
+        viewModel.updateCreateUserTermsConsentState
     val updateTermsOfUseState: (TermsOfUseState) -> Unit = sharedViewModel.updateTermsOfUseState
 
-    val createUserTermsConsent: (Boolean, Boolean) -> Unit =
-        { consent, marketingConsent ->
-            viewModel.createUserTermsConsent(
-                consent, marketingConsent, currentLoginMethodState
-            )
-        }
-
+    val signUp: () -> Unit = { viewModel.signUp(currentLoginMethodState) }
+    val createUserTermsConsent: () -> Unit =
+        { viewModel.createUserTermsConsent(true, termsOfUseScreenState.marketingConsent) }
 
     when (val signUpStateResult = signUpState) {
         is SignUpState.Fail -> {
@@ -63,16 +63,40 @@ fun TermsOfUseRoute(
         SignUpState.None -> {}
         SignUpState.Success -> {
             updateSignUpState(SignUpState.None)
-            navigateTermsOfUseToCompleteInLoginGraph()
+            createUserTermsConsent()
         }
     }
+
+
+    when (val createUserTermsConsentStateResult = createUserTermsConsentState) {
+        is CreateUserTermsConsentState.Fail -> {
+            LaunchedEffect(true) {
+                termsOfUseScreenState.snackbarHostState.showSnackbar(
+                    message = createUserTermsConsentStateResult.message,
+                    duration = SnackbarDuration.Short
+                )
+                updateCreateUserTermsConsentState(CreateUserTermsConsentState.None)
+            }
+        }
+
+        CreateUserTermsConsentState.None -> {}
+        CreateUserTermsConsentState.Success -> {
+            updateCreateUserTermsConsentState(CreateUserTermsConsentState.None)
+            navigateLoginGraphToRegisterDetailGraph()
+        }
+    }
+
+
+
+
+
 
     BackHandler(onBack = navigateTermsOfUseToSignInInLoginGraph)
 
     TermsOfUseScreen(
         modifier,
         termsOfUseScreenState,
-        createUserTermsConsent,
+        signUp,
         updateTermsOfUseState,
         navigateTermsOfUseToSignInInLoginGraph,
         navigateTermsOfUseToTermsOfUseDetailInLoginGraph
