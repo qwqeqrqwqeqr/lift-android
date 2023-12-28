@@ -7,6 +7,7 @@ import com.gradation.lift.network.dto.terms.GetUserMarketingTermsConsentResponse
 import com.gradation.lift.network.dto.terms.UpdateUserMarketingTermsConsentRequestDto
 import com.gradation.lift.network.dto.terms.UpdateUserMarketingTermsConsentResponseDto
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -23,7 +24,7 @@ interface TermsService {
      * @since 2023-12-28 17:32:53
      */
     @POST("terms/consent/terms")
-    suspend fun createUserTermsConsent(createUserTermsConsentRequestDto: CreateUserTermsConsentRequestDto): Response<APIResultWrapper<CreateUserTermsConsentResponseDto>>
+    suspend fun createUserTermsConsent(@Body createUserTermsConsentRequestDto: CreateUserTermsConsentRequestDto): Response<APIResultWrapper<CreateUserTermsConsentResponseDto>>
 
     /**
      * [getUserMarketingTermsConsent]
@@ -34,12 +35,12 @@ interface TermsService {
     suspend fun getUserMarketingTermsConsent(): Response<APIResultWrapper<GetUserMarketingTermsConsentResponseDto>>
 
     /**
-     * [createUserTermsConsent]
+     * [updateUserMarketingTermsConsent]
      * 마케팅 이용약관 동의 여부 수정하기
      * @since 2023-12-28 17:32:53
      */
     @PUT("terms/consent/marketing-terms")
-    suspend fun updateUserMarketingTermsConsent(updateUserMarketingTermsConsentRequestDto: UpdateUserMarketingTermsConsentRequestDto): Response<APIResultWrapper<UpdateUserMarketingTermsConsentResponseDto>>
+    suspend fun updateUserMarketingTermsConsent(@Body updateUserMarketingTermsConsentRequestDto: UpdateUserMarketingTermsConsentRequestDto): Response<APIResultWrapper<UpdateUserMarketingTermsConsentResponseDto>>
 
 }
 
