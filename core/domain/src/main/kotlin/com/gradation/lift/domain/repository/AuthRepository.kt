@@ -84,7 +84,7 @@ interface AuthRepository {
      * 서버에 사용자의 아이디가 존재하는 지 확인
      * @since 2023-12-26 18:38:52
      */
-    fun checkExistUser(userId: String): Flow<DataState<Boolean>>
+    fun checkExistUser(userId: String, email: String): Flow<DataState<Boolean>>
 
     /**
      * [getLoginMethod]

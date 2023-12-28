@@ -129,10 +129,10 @@ class DefaultAuthDataSource @Inject constructor(
         }
 
 
-    override suspend fun checkUserExist(userId: String): Flow<NetworkResult<Boolean>> =
+    override suspend fun checkUserExist(userId: String,email:String): Flow<NetworkResult<Boolean>> =
         flow {
             networkResultHandler {
-                authService.checkExistUser(userId)
+                authService.checkExistUser(userId,email)
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))

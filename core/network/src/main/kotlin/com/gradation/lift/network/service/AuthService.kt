@@ -118,7 +118,10 @@ interface AuthService {
      * @since 2023-12-26 18:34:22
      */
     @GET("auth/exist/user")
-    suspend fun checkExistUser(@Query("user_id") userId: String): Response<APIResultWrapper<CheckExistUserResponseDto>>
+    suspend fun checkExistUser(
+        @Query("user_id") userId: String,
+        @Query("email") email: String,
+    ): Response<APIResultWrapper<CheckExistUserResponseDto>>
 
 
     /**

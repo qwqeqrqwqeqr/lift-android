@@ -246,8 +246,8 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun checkExistUser(userId: String): Flow<DataState<Boolean>> = flow {
-        authDataSource.checkUserExist(userId).collect {
+    override fun checkExistUser(userId: String, email: String): Flow<DataState<Boolean>> = flow {
+        authDataSource.checkUserExist(userId, email).collect {
             when (it) {
                 is NetworkResult.Fail -> emit(DataState.Fail(it.message))
                 is NetworkResult.Success -> emit(DataState.Success(it.data))
@@ -293,21 +293,23 @@ class DefaultAuthRepository @Inject constructor(
 
     override fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>> =
         flow {
-            authDataSource.createEmailAuthenticationCode(emailAuthenticationInfo).collect { result ->
-                when (result) {
-                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+            authDataSource.createEmailAuthenticationCode(emailAuthenticationInfo)
+                .collect { result ->
+                    when (result) {
+                        is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    }
                 }
-            }
         }
 
     override fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>> =
         flow {
-            authDataSource.validateEmailAuthentication(emailAuthenticationValidationInfo).collect { result ->
-                when (result) {
-                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+            authDataSource.validateEmailAuthentication(emailAuthenticationValidationInfo)
+                .collect { result ->
+                    when (result) {
+                        is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    }
                 }
-            }
         }
 }

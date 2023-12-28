@@ -8,6 +8,6 @@ import javax.inject.Inject
 class CheckExistUserUseCase @Inject constructor(
     private val authRepository: AuthRepository,
 ) {
-    operator fun invoke(userId: String): Flow<DataState<Boolean>> =
-        authRepository.checkExistUser(userId)
+    operator fun invoke(userId: String,email:String): Flow<DataState<Boolean>> =
+        authRepository.checkExistUser(userId, email)
 }
