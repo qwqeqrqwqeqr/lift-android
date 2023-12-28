@@ -20,4 +20,11 @@ class LoginSharedViewModel @Inject constructor(
     val updateCurrentLoginMethodState: (LoginMethodState) -> Unit = {
         currentLoginMethodState.value = it
     }
+
+    val termsOfUseState: MutableStateFlow<TermsOfUseState> =
+        MutableStateFlow(TermsOfUseState.TermsOfUse())
+
+    val updateTermsOfUseState: (TermsOfUseState) -> Unit = {
+        termsOfUseState.value = it
+    }
 }
