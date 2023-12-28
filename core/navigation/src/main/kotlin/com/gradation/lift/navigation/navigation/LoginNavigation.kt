@@ -141,7 +141,11 @@ fun NavController.navigateTermsOfUseToSignInInLoginGraph() {
  * @since 2023-12-24 20:34:57
  */
 fun NavController.navigateTermsOfUseDetailToTermsOfUseInLoginGraph() {
-    this.navigate(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME)
+    this.navigate(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME){
+        popUpTo(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 
