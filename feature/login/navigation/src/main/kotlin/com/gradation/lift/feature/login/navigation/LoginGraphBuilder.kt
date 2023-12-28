@@ -13,7 +13,7 @@ import com.gradation.lift.feature.login.termsOfUse.navigation.termsOfUseScreen
 import com.gradation.lift.feature.login.termsOfUseDetail.navigation.termsOfUseDetailScreen
 import com.gradation.lift.feature.login.verifyEmail.navigation.verifyEmailScreen
 import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
-import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
+import com.gradation.lift.navigation.Router.LOGIN_TERMS_OF_USE_ROUTER_NAME
 
 
 fun loginGraphBuilder(
@@ -23,7 +23,7 @@ fun loginGraphBuilder(
 ) {
     navGraphBuilder.navigation(
         route = LOGIN_GRAPH_NAME,
-        startDestination = LOGIN_SIGN_IN_ROUTER_NAME,
+        startDestination = LOGIN_TERMS_OF_USE_ROUTER_NAME,
     ) {
         completeScreen(modifier,navController, this)
         resetPasswordScreen(modifier,navController,this)

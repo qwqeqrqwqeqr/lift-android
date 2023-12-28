@@ -123,7 +123,7 @@ fun NavController.navigateTermsOfUseToCompleteInLoginGraph() {
 
 /**
  * [navigateTermsOfUseToSignInInLoginGraph]
- * 초기 로그인 화면으로 되돌어가기
+ * 초기 로그인 화면으로 되돌어가기(이전화면 이동)
  * @since 2023-12-24 21:01:03
  */
 fun NavController.navigateTermsOfUseToSignInInLoginGraph() {
