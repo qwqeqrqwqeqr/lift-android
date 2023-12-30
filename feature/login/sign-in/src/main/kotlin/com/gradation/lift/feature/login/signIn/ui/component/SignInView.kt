@@ -31,7 +31,7 @@ fun SignInView(
     modifier:Modifier= Modifier,
     oAuthSignInState: OAuthSignInState,
     navigateSignInToSignInDefaultInLoginGraph: () -> Unit,
-    navigateSignInToSignUpDefaultInLoginGraph: () -> Unit,
+    navigateSignInToSignUpCreateEmailDefaultInLoginGraph: () -> Unit,
 ){
     val launcher: ManagedActivityResultLauncher<Intent, ActivityResult> =
         rememberLauncherForActivityResult(
@@ -77,7 +77,7 @@ fun SignInView(
             )
             LiftText(
                 modifier = modifier.noRippleClickable {
-                    navigateSignInToSignUpDefaultInLoginGraph()
+                    navigateSignInToSignUpCreateEmailDefaultInLoginGraph()
                 },
                 textStyle = LiftTextStyle.No7,
                 text = "회원가입",

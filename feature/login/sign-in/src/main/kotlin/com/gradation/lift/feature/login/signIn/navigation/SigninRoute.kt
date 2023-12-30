@@ -29,7 +29,7 @@ internal fun SignInRoute(
     navigateLoginGraphToHomeGraph: () -> Unit,
     navigateLoginGraphToRegisterDetailGraph: () -> Unit,
     navigateSignInToSignInDefaultInLoginGraph: () -> Unit,
-    navigateSignInToSignUpDefaultInLoginGraph: () -> Unit,
+    navigateSignInToSignUpCreateEmailDefaultInLoginGraph: () -> Unit,
     navigateSignInToTermsOfUseInLoginGraph: () -> Unit,
     viewModel: SignInViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
@@ -118,6 +118,6 @@ internal fun SignInRoute(
         oAuthSignInState = oAuthSignInState,
         signInScreenState = signInScreenState,
         navigateSignInToSignInDefaultInLoginGraph=navigateSignInToSignInDefaultInLoginGraph,
-        navigateSignInToSignUpDefaultInLoginGraph=navigateSignInToSignUpDefaultInLoginGraph
+        navigateSignInToSignUpCreateEmailDefaultInLoginGraph=navigateSignInToSignUpCreateEmailDefaultInLoginGraph
     )
 }

@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.login.signInDefault.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,7 +35,7 @@ fun SignInDefaultRoute(
         is SignInState.Fail -> {
             LaunchedEffect(signInStateResult.message) {
                 signInScreenState.snackbarHostState.showSnackbar(
-                    message = signInStateResult.message, duration = SnackbarDuration.Short
+                    message = signInStateResult.message, duration = SnackbarDuration.Long
                 )
                 updateSignInState(SignInState.None)
             }
@@ -52,6 +53,7 @@ fun SignInDefaultRoute(
         }
     }
 
+    BackHandler(onBack = navigateSignInDefaultToSignInInLoginGraph)
 
 
 

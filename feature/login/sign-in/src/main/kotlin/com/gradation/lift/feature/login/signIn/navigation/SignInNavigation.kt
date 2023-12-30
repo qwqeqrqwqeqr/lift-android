@@ -18,8 +18,8 @@ fun signInScreen(
         { navController.navigateLoginGraphToRegisterDetailGraph() }
     val navigateSignInToSignInDefaultInLoginGraph: () -> Unit =
         { navController.navigateSignInToSignInDefaultInLoginGraph() }
-    val navigateSignInToSignUpDefaultInLoginGraph: () -> Unit =
-        { navController.navigateSignInToSignUpDefaultInLoginGraph() }
+    val navigateSignInToSignUpCreateEmailDefaultInLoginGraph: () -> Unit =
+        { navController.navigateSignInToSignUpCreateEmailDefaultInLoginGraph() }
     val navigateSignInToTermsOfUseInLoginGraph: () -> Unit =
         { navController.navigateSignInToTermsOfUseInLoginGraph() }
 
@@ -33,7 +33,7 @@ fun signInScreen(
             navigateLoginGraphToHomeGraph,
             navigateLoginGraphToRegisterDetailGraph,
             navigateSignInToSignInDefaultInLoginGraph,
-            navigateSignInToSignUpDefaultInLoginGraph,
+            navigateSignInToSignUpCreateEmailDefaultInLoginGraph,
             navigateSignInToTermsOfUseInLoginGraph,
         )
     }

@@ -19,7 +19,7 @@ internal fun SignInScreen(
     oAuthSignInState: OAuthSignInState,
     signInScreenState: SignInScreenState,
     navigateSignInToSignInDefaultInLoginGraph: () -> Unit,
-    navigateSignInToSignUpDefaultInLoginGraph: () -> Unit,
+    navigateSignInToSignUpCreateEmailDefaultInLoginGraph: () -> Unit,
 ) {
 
 
@@ -44,7 +44,7 @@ internal fun SignInScreen(
                 modifier,
                 oAuthSignInState,
                 navigateSignInToSignInDefaultInLoginGraph,
-                navigateSignInToSignUpDefaultInLoginGraph
+                navigateSignInToSignUpCreateEmailDefaultInLoginGraph
             )
         }
     }
