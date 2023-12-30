@@ -1,6 +1,9 @@
 package com.gradation.lift.designsystem.component.textField
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,7 +48,8 @@ fun LiftDefaultInputTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     isError: Boolean = false,
     isValid: Boolean = false,
-) {
+
+    ) {
 
     LiftBaseInputTextField(
         modifier = modifier,
@@ -56,7 +60,7 @@ fun LiftDefaultInputTextField(
         keyboardActions = keyboardActions,
         isError = isError,
         isValid = isValid,
-        enabled=enabled,
+        enabled = enabled,
         trailingIcon = @Composable {
             if (isValid) {
                 Icon(
@@ -92,12 +96,13 @@ fun LiftPasswordInputTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     isError: Boolean = false,
     isValid: Boolean = false,
-) {
+
+    ) {
     var visualTransformation: Boolean by remember { mutableStateOf(true) }
     LiftBaseInputTextField(
-        modifier=modifier,
-        value=value,
-        enabled=enabled,
+        modifier = modifier,
+        value = value,
+        enabled = enabled,
         placeHolderValue = placeHolderValue,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
@@ -161,7 +166,8 @@ fun LiftSearchInputTextField(
         imeAction = ImeAction.Search
     ),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-) {
+
+    ) {
     LiftBaseInputTextField(
         modifier = modifier,
         value = value,
@@ -169,7 +175,7 @@ fun LiftSearchInputTextField(
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        enabled=enabled,
+        enabled = enabled,
         isError = false,
         isValid = false,
         trailingIcon = @Composable {
@@ -202,7 +208,7 @@ fun LiftSearchInputTextField(
             focusedContainerColor = LiftTheme.colorScheme.no5,
             focusedPlaceholderColor = LiftTheme.colorScheme.no6,
             cursorColor = LiftTheme.colorScheme.no4,
-            focusedIndicatorColor =  Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
             unfocusedTextColor = LiftTheme.colorScheme.no6,
             unfocusedLabelColor = LiftTheme.colorScheme.no6,
             unfocusedContainerColor = LiftTheme.colorScheme.no1,
@@ -226,8 +232,64 @@ fun LiftSearchInputTextField(
     )
 }
 
+
 @Composable
-fun LiftBaseInputTextField(
+fun LiftAuthenticationInputTextField(
+    modifier: Modifier = Modifier,
+    value: String,
+    placeHolderValue: String = "",
+    onValueChange: (String) -> Unit,
+    enabled: Boolean = true,
+    authenticationMessage: String,
+    sendAuthenticationCode: () -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    isError: Boolean = false,
+    isValid: Boolean = false,
+
+    ) {
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+
+    val textColor: Color by animateColorAsState(
+        if (isPressed) LiftTheme.colorScheme.no4.copy(0.5f)
+        else if (!enabled) LiftTheme.colorScheme.no6
+        else LiftTheme.colorScheme.no4,
+        label = "labelColor"
+    )
+
+
+
+    LiftBaseInputTextField(
+        modifier = modifier,
+        value = value,
+        placeHolderValue = placeHolderValue,
+        onValueChange = onValueChange,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        isError = isError,
+        isValid = isValid,
+        enabled = enabled,
+        trailingIcon = @Composable {
+            LiftText(
+                modifier = modifier
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = { sendAuthenticationCode() },
+                    )
+                    .padding(end = LiftTheme.space.space16),
+                textStyle = LiftTextStyle.No8,
+                text = authenticationMessage,
+                color = textColor,
+                textAlign = TextAlign.Start
+            )
+        }
+    )
+}
+
+@Composable
+internal fun LiftBaseInputTextField(
     modifier: Modifier = Modifier,
     value: String,
     placeHolderValue: String = "",
@@ -239,6 +301,7 @@ fun LiftBaseInputTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
     isValid: Boolean = false,
+
     colors: TextFieldColors = TextFieldDefaults.colors(
         focusedTextColor = LiftTheme.colorScheme.no6,
         focusedContainerColor = LiftTheme.colorScheme.no5,
@@ -269,7 +332,6 @@ fun LiftBaseInputTextField(
         )
     ),
 ) {
-
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         value = value,
@@ -292,7 +354,7 @@ fun LiftBaseInputTextField(
         shape = RoundedCornerShape(LiftTheme.space.space12),
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
-        isError = isError
+        isError = isError,
     )
 
 }
