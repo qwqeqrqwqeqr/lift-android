@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.login.signUpDefault"
+    namespace = "com.gradation.lift.feature.login.signUpCreateEmail"
 }
 
 
