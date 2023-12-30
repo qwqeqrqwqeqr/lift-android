@@ -44,12 +44,12 @@ fun NavController.navigateSignInToSignInDefaultInLoginGraph() {
 }
 
 /**
- * [navigateSignInToSignUpDefaultInLoginGraph]
+ * [navigateSignInToSignUpCreateEmailDefaultInLoginGraph]
  * 일반 로그인으로 진행할 시에 필요한 회원가입을 위해 해당 목적지로 이동
  * @since 2023-12-24 20:37:12
  */
-fun NavController.navigateSignInToSignUpDefaultInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_UP_DEFAULT_ROUTER_NAME)
+fun NavController.navigateSignInToSignUpCreateEmailDefaultInLoginGraph() {
+    this.navigate(Router.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME)
 }
 
 /**
@@ -83,22 +83,35 @@ fun NavController.navigateSignInDefaultToSignInInLoginGraph() {
 
 
 /**
- * [navigateSignUpDefaultToTermsOfUseInLoginGraph]
- * 일반 회원가입을 진행하고 약관동의 화면으로 이동
- * @since 2023-12-24 20:34:57
+ * [navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph]
+ * 이메일 인증을 마치고 비밀번호 설정 화면으로 이동
+ * @since 2023-12-29 17:56:20
  */
-fun NavController.navigateSignUpDefaultToTermsOfUseInLoginGraph() {
+fun NavController.navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph() {
+    this.navigate(Router.LOGIN_SIGN_UP_CREATE_PASSWORD_ROUTER_NAME)
+}
+
+/**
+ * [navigateSignUpCreatePasswordToTermsOfUseInLoginGraph]
+ * 비밀번호 설정을 마치고 약관동의 화면으로 이동
+ * @since 2023-12-29 17:56:20
+ */
+fun NavController.navigateSignUpCreatePasswordToTermsOfUseInLoginGraph() {
     this.navigate(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME)
 }
 
 
 /**
- * [navigateSignUpDefaultToSignInInLoginGraph]
- * 이전 화면(로그인 화면) 이동
- * @since 2023-12-24 20:34:57
+ * [navigateSignUpToSignInInLoginGraph]
+ * 회원가입 절차를 취소하고 로그인화면으로 이동
+ * @since 2023-12-29 17:56:57
  */
-fun NavController.navigateSignUpDefaultToSignInInLoginGraph() {
-    this.popBackStack()
+fun NavController.navigateSignUpToSignInInLoginGraph() {
+    this.navigate(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+        popUpTo(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
 
