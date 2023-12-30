@@ -6,8 +6,8 @@ import com.gradation.lift.network.dto.auth.CreateEmailAuthenticationCodeRequestD
 import com.gradation.lift.network.dto.auth.ValidateEmailAuthenticationRequestDto
 
 fun EmailAuthenticationInfo.toDto(): CreateEmailAuthenticationCodeRequestDto =
-    CreateEmailAuthenticationCodeRequestDto(email)
+    CreateEmailAuthenticationCodeRequestDto(email,isSigned)
 
 
 fun EmailAuthenticationValidationInfo.toDto(): ValidateEmailAuthenticationRequestDto =
-    ValidateEmailAuthenticationRequestDto(email, authenticationCode)
+    ValidateEmailAuthenticationRequestDto(email, authenticationCode,isSigned)

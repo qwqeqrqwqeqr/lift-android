@@ -10,4 +10,6 @@ data class ValidateEmailAuthenticationRequestDto(
     val email : String,
     @Json(name = "code")
     val code : Int,
+    @Json(name = "is_signed")
+    val isSigned: Boolean
 )
