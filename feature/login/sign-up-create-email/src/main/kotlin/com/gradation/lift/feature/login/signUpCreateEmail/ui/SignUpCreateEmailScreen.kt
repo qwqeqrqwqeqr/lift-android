@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.core.text.isDigitsOnly
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
@@ -124,6 +125,7 @@ fun SignUpCreateEmailScreen(
                                 is EmailAuthenticationState.Fail -> "인증번호 전송"
                                 EmailAuthenticationState.None -> "인증번호 전송"
                                 is EmailAuthenticationState.Success -> "재전송"
+                                EmailAuthenticationState.Loading -> "전송중"
                             },
                             isError = !emailValidator.status,
                             keyboardActions = KeyboardActions(onDone = {
@@ -192,8 +194,14 @@ fun SignUpCreateEmailScreen(
                     AnimatedVisibility(
                         visible = signUpCreateEmailScreenState.authenticationButtonView
                     ) {
-                        LiftSolidButton(text = "인증확인") {
-                            validateEmailAuthentication(email, emailAuthenticationCode.toIntOrNull())
+                        LiftSolidButton(
+                            text = "인증 확인",
+                            enabled = emailAuthenticationCode.isNotEmpty() && emailAuthenticationCode.isDigitsOnly()
+                        ) {
+                            validateEmailAuthentication(
+                                email,
+                                emailAuthenticationCode.toIntOrNull()
+                            )
                         }
                     }
                 }

@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.feature.login.common.data.LoginMethodState
 import com.gradation.lift.feature.login.common.data.LoginSharedViewModel
 import com.gradation.lift.feature.login.signUpCreateEmail.data.CreateEmailState
 import com.gradation.lift.feature.login.signUpCreateEmail.data.EmailAuthenticationState
@@ -52,6 +53,9 @@ fun SignUpCreateEmailRoute(
     val updateEmailValidationState: (EmailValidationState) -> Unit =
         viewModel.updateEmailValidationState
 
+    val updateCurrentLoginMethodState: (LoginMethodState) -> Unit =
+        sharedViewModel.updateCurrentLoginMethodState
+
     val createEmailAuthenticationCode: (String) -> Unit = viewModel.createEmailAuthenticationCode
     val validateEmailAuthentication: (String, Int?) -> Unit = viewModel.validateEmailAuthentication
 
@@ -80,6 +84,8 @@ fun SignUpCreateEmailRoute(
                 signUpCreateEmailScreenState.updateAuthenticationButtonView(true)
             }
         }
+
+        EmailAuthenticationState.Loading -> {}
     }
 
     when (
@@ -103,6 +109,12 @@ fun SignUpCreateEmailRoute(
                     updateEmailValidationState(EmailValidationState.None)
                 }
             } else {
+                updateCurrentLoginMethodState(
+                    LoginMethodState.Default(
+                        email = email,
+                        password = ""
+                    )
+                )
                 navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph()
             }
         }

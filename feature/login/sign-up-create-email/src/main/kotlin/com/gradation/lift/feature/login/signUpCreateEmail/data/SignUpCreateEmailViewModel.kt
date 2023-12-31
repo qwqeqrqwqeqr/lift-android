@@ -42,11 +42,12 @@ class SignUpCreateEmailViewModel @Inject constructor(
                 emailAuthenticationState.value =
                     EmailAuthenticationState.Fail("이메일 형식이 올바르지 않습니다.")
                 createEmailState.emailValidator.value = Validator(false, "이메일 형식이 올바르지 않습니다.")
-            } else if(createEmailState.authenticationTimer.value.toSecondOfDay()>LocalTime(0,4,50).toSecondOfDay()){
+            } else if (createEmailState.authenticationTimer.value.toSecondOfDay() > LocalTime(0, 4, 50).toSecondOfDay()
+            ) {
                 emailValidationState.value =
                     EmailValidationState.Fail("이미 인증번호를 전송했습니다.\n잠시후에 다시 시도해주세요.")
-            }
-            else {
+            } else {
+                emailAuthenticationState.value = EmailAuthenticationState.Loading
                 createEmailAuthenticationCodeUseCase(
                     EmailAuthenticationInfo(
                         email,
