@@ -4,9 +4,8 @@ import android.util.Patterns
 import java.util.regex.Pattern
 
 
-val passwordPattern: Pattern = Pattern.compile("""^[a-zA-Z\\d`~!@#${'$'}%^&*()-_=+]{8,16}$""")
+val passwordPattern: Pattern = Pattern.compile("""^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@${'$'}%^&*-]).{2,}$""")
 val namePattern: Pattern = Pattern.compile("""^[가-힣]{2,5}$""")
-
 
 fun emailValidator(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 fun passwordValidator(password: String): Boolean = passwordPattern.matcher(password).matches()
