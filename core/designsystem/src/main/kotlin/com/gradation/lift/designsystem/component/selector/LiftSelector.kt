@@ -3,6 +3,7 @@ package com.gradation.lift.designsystem.component.selector
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -25,7 +26,7 @@ fun LiftPrimarySelector(
     modifier: Modifier = Modifier,
     text: String,
     isSelected: Boolean = true,
-    onSelectedChange: (Boolean) -> Unit,
+    onClick: () -> Unit,
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
@@ -53,11 +54,10 @@ fun LiftPrimarySelector(
                 color = borderColor,
                 shape = RoundedCornerShape(size = LiftTheme.space.space12)
             )
-            .toggleable(
-                value = isSelected,
-                onValueChange = onSelectedChange,
+            .clickable(
                 interactionSource = interactionSource,
                 indication = null,
+                onClick= onClick
             ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
