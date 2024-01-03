@@ -2,6 +2,7 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GENDER_ROUTER_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME
 import com.gradation.lift.navigation.Router.REGISTER_DETAIL_NAME_ROUTER_NAME
@@ -19,37 +20,51 @@ fun NavController.navigateRegisterDetailGraphToHomeGraph() {
 
 
 
-fun NavController.navigateNameToGenderInRegisterDetailGraph() {
-    this.navigate(REGISTER_DETAIL_GENDER_ROUTER_NAME)
-}
-
-fun NavController.navigateGenderToNameInRegisterDetailGraph() {
-    this.navigate(REGISTER_DETAIL_NAME_ROUTER_NAME) {
-        this.popUpTo(REGISTER_DETAIL_NAME_ROUTER_NAME) {
+fun NavController.navigateResisterDetailGraphToLoginGraph(){
+    this.navigate(LOGIN_GRAPH_NAME) {
+        launchSingleTop = true
+        popUpTo(this@navigateResisterDetailGraphToLoginGraph.graph.id) {
             inclusive = true
         }
     }
 }
 
-fun NavController.navigateGenderToHeightWeightInRegisterDetailGraph() {
-    this.navigate(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME)
-}
 
-fun NavController.navigateHeightWeightToGenderInRegisterDetailGraph() {
-    this.navigate(REGISTER_DETAIL_GENDER_ROUTER_NAME) {
-        this.popUpTo(REGISTER_DETAIL_GENDER_ROUTER_NAME) {
+
+fun NavController.navigateToNameInRegisterDetailGraph() {
+    navigate(REGISTER_DETAIL_NAME_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(REGISTER_DETAIL_NAME_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
 
-fun NavController.navigateHeightWeightToProfilePictureInRegisterDetailGraph() {
-    this.navigate(REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME)
+fun NavController.navigateToGenderInRegisterDetailGraph() {
+    navigate(REGISTER_DETAIL_GENDER_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(REGISTER_DETAIL_GENDER_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
 }
 
-fun NavController.navigateProfilePictureToHeightWeightInRegisterDetailGraph() {
-    this.navigate(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
-        this.popUpTo(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
+
+
+fun NavController.navigateToHeightWeightInRegisterDetailGraph() {
+    navigate(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
+
+
+fun NavController.navigateToProfilePictureInRegisterDetailGraph() {
+    navigate(REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME){
+        launchSingleTop=true
+        popUpTo(REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME) {
             inclusive = true
         }
     }

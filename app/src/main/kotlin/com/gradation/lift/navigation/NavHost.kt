@@ -37,7 +37,7 @@ fun LiftNavHost(
         myInfoGraphBuilder(navController, this)
         newBadgeGraphBuilder(navController, this)
         notificationGraphBuilder(navController, this)
-        registerDetailGraphBuilder(navController, this)
+        registerDetailGraphBuilder(modifier,navController, this)
         updateRoutineGraphBuilder(modifier,navController, this)
         workGraphBuilder(modifier,navController, this)
         routineDetailGraphBuilder(modifier,navController,this)
