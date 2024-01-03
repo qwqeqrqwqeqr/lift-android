@@ -2,6 +2,7 @@ package com.gradation.lift.feature.login.termsOfUse.navigation
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,6 +21,7 @@ import com.gradation.lift.feature.login.termsOfUse.data.state.SignUpState
 import com.gradation.lift.feature.login.termsOfUse.data.state.TermsOfUseScreenState
 import com.gradation.lift.feature.login.termsOfUse.data.state.rememberTermsOfUseScreenState
 import com.gradation.lift.feature.login.termsOfUse.ui.TermsOfUseScreen
+import com.gradation.lift.feature.login.termsOfUse.ui.component.dialog.CompleteDialog
 import com.gradation.lift.navigation.Router
 
 @Composable
@@ -48,7 +50,7 @@ fun TermsOfUseRoute(
 
     val signUp: () -> Unit = { viewModel.signUp(currentLoginMethodState) }
     val createUserTermsConsent: () -> Unit =
-        { viewModel.createUserTermsConsent(true, termsOfUseScreenState.marketingConsent) }
+        { viewModel.createUserTermsConsent(true, termsOfUseScreenState.marketingConsent.value) }
 
     when (val signUpStateResult = signUpState) {
         is SignUpState.Fail -> {
@@ -82,7 +84,7 @@ fun TermsOfUseRoute(
         CreateUserTermsConsentState.None -> {}
         CreateUserTermsConsentState.Success -> {
             updateCreateUserTermsConsentState(CreateUserTermsConsentState.None)
-            navigateLoginGraphToRegisterDetailGraph()
+            termsOfUseScreenState.updateCompleteDialogView(true)
         }
     }
 
@@ -92,7 +94,12 @@ fun TermsOfUseRoute(
 
 
     BackHandler(onBack = navigateTermsOfUseToSignInInLoginGraph)
-
+    AnimatedVisibility(visible = termsOfUseScreenState.completeDialogView.value) {
+        CompleteDialog(
+            modifier,
+            navigateLoginGraphToRegisterDetailGraph
+        )
+    }
     TermsOfUseScreen(
         modifier,
         termsOfUseScreenState,

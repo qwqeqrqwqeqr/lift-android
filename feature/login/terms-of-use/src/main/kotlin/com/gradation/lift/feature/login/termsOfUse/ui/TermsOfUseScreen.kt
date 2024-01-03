@@ -72,7 +72,7 @@ fun TermsOfUseScreen(
                     AllConsentView(
                         modifier = modifier,
                         contentText = "아래약관에 모두 동의합니다.",
-                        checked = termsOfUseScreenState.allConsent,
+                        checked = termsOfUseScreenState.allConsent.value,
                         onCheckedChange = termsOfUseScreenState.updateAllConsent
                     )
 
@@ -83,7 +83,7 @@ fun TermsOfUseScreen(
                         ConsentView(
                             modifier = modifier,
                             contentText = "이용약관 필수 동의",
-                            checked = termsOfUseScreenState.termsOfUseConsent,
+                            checked = termsOfUseScreenState.termsOfUseConsent.value,
                             onCheckedChange = termsOfUseScreenState.updateTermsOfUseConsent,
                             onClick = {
                                 updateTermsOfUseState(TermsOfUseState.TermsOfUse())
@@ -93,7 +93,7 @@ fun TermsOfUseScreen(
                         ConsentView(
                             modifier = modifier,
                             contentText = "개인정보 처리방침 필수 동의",
-                            checked = termsOfUseScreenState.privacyPolicyConsent,
+                            checked = termsOfUseScreenState.privacyPolicyConsent.value,
                             onCheckedChange = termsOfUseScreenState.updatePrivacyPolicyConsent,
                             onClick = {
                                 updateTermsOfUseState(TermsOfUseState.PrivacyPolicy())
@@ -103,7 +103,7 @@ fun TermsOfUseScreen(
                         ConsentView(
                             modifier = modifier,
                             contentText = "[선택] 마케팅 정보 수신 선택 동의",
-                            checked = termsOfUseScreenState.marketingConsent,
+                            checked = termsOfUseScreenState.marketingConsent.value,
                             onCheckedChange = termsOfUseScreenState.updateMarketingConsent,
                             onClick = {
                                 updateTermsOfUseState(TermsOfUseState.Marketing())
@@ -122,7 +122,7 @@ fun TermsOfUseScreen(
                 }
                 LiftSolidButton(
                     text = "회원가입",
-                    enabled = termsOfUseScreenState.termsOfUseConsent && termsOfUseScreenState.privacyPolicyConsent
+                    enabled = termsOfUseScreenState.termsOfUseConsent.value && termsOfUseScreenState.privacyPolicyConsent.value
                 ) { signUp() }
             }
         }
