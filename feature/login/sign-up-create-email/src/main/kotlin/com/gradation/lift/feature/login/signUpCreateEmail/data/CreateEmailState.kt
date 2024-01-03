@@ -2,6 +2,7 @@ package com.gradation.lift.feature.login.signUpCreateEmail.data
 
 import com.gradation.lift.common.utils.Validator
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -40,23 +41,27 @@ data class CreateEmailState(
     val updateEmailValidator: (Validator) -> Unit = { emailValidator.value = it }
     val updateAuthenticationValidator: (Validator) -> Unit = { authenticationValidator.value = it }
 
-    private val timerJob = viewModelScope.launch {
-        while (authenticationTimer.value.toSecondOfDay() > 0) {
-            delay(DELAY)
-            authenticationTimer.value =
-                LocalTime.fromSecondOfDay(authenticationTimer.value.toSecondOfDay() - 1)
-        }
-    }
+    private var timerJob: Job? =null
+
+
 
 
     val startTimer: () -> Unit = {
         authenticationTimer.value = LocalTime(0, 5, 0)
-        timerJob.start()
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch {
+            while (authenticationTimer.value.toSecondOfDay() > 0) {
+                delay(DELAY)
+                authenticationTimer.value =
+                    LocalTime.fromSecondOfDay(authenticationTimer.value.toSecondOfDay() - 1)
+            }
+        }
+        timerJob?.start()
     }
 
 
     val stopTimer: () -> Unit = {
-        timerJob.cancel()
+        timerJob?.cancel()
     }
 
     companion object {
