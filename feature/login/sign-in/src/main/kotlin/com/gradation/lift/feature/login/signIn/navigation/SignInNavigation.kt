@@ -7,10 +7,9 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.*
 
-fun signInScreen(
+fun NavGraphBuilder.signInScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
     val navigateLoginGraphToHomeGraph: () -> Unit =
         { navController.navigateLoginGraphToHomeGraph() }
@@ -26,7 +25,7 @@ fun signInScreen(
 
 
 
-    navGraphBuilder.composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+    composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
         SignInRoute(
             modifier,
             navController,

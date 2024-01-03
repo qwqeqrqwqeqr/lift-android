@@ -10,10 +10,9 @@ import com.gradation.lift.navigation.navigation.navigateLoginGraphToRegisterDeta
 import com.gradation.lift.navigation.navigation.navigateSignInDefaultToSignInInLoginGraph
 import com.gradation.lift.navigation.navigation.navigateSignInDefaultToVerifyEmailInLoginGraph
 
-fun signInDefaultScreen(
+fun NavGraphBuilder.signInDefaultScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
     val navigateSignInDefaultToSignInInLoginGraph: () -> Unit = {
         navController.navigateSignInDefaultToSignInInLoginGraph()
@@ -28,7 +27,7 @@ fun signInDefaultScreen(
         navController.navigateLoginGraphToRegisterDetailGraph()
     }
 
-    navGraphBuilder.composable(Router.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME) {
+    composable(Router.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME) {
         SignInDefaultRoute(
             modifier,
             navigateSignInDefaultToSignInInLoginGraph,

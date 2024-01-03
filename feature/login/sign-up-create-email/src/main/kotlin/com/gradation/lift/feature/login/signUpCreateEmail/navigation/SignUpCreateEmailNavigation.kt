@@ -8,10 +8,9 @@ import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph
 import com.gradation.lift.navigation.navigation.navigateSignUpToSignInInLoginGraph
 
-fun signUpCreateEmailScreen(
+fun NavGraphBuilder.signUpCreateEmailScreen(
     modifier: Modifier=Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
     val navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph: () -> Unit = {
         navController.navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph()
@@ -22,7 +21,7 @@ fun signUpCreateEmailScreen(
     }
 
 
-    navGraphBuilder.composable(Router.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME) {
+    composable(Router.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME) {
         SignUpCreateEmailRoute(
             modifier,
             navController,

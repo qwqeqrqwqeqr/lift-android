@@ -7,16 +7,15 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseDetailToTermsOfUseInLoginGraph
 
-fun termsOfUseDetailScreen(
+fun NavGraphBuilder.termsOfUseDetailScreen(
     modifier: Modifier=Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
 
     val navigateTermsOfUseDetailToTermsOfUseInLoginGraph:()-> Unit = {navController.navigateTermsOfUseDetailToTermsOfUseInLoginGraph()}
 
 
-    navGraphBuilder.composable(Router.LOGIN_TERMS_OF_USE_DETAIL_ROUTER_NAME) {
+    composable(Router.LOGIN_TERMS_OF_USE_DETAIL_ROUTER_NAME) {
         TermsOfUseDetailRoute(
             modifier,navController,navigateTermsOfUseDetailToTermsOfUseInLoginGraph
         )

@@ -6,14 +6,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Router
 
-fun resetPasswordScreen(
+fun NavGraphBuilder.resetPasswordScreen(
     modifier: Modifier=Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
 
 
-    navGraphBuilder.composable(Router.LOGIN_RESET_PASSWORD_ROUTER_NAME) {
+    composable(Router.LOGIN_RESET_PASSWORD_ROUTER_NAME) {
         ResetPasswordRoute()
     }
 

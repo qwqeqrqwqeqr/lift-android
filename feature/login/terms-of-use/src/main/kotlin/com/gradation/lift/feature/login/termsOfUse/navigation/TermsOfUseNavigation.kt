@@ -9,10 +9,9 @@ import com.gradation.lift.navigation.navigation.navigateLoginGraphToRegisterDeta
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseToSignInInLoginGraph
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseToTermsOfUseDetailInLoginGraph
 
-fun termsOfUseScreen(
+fun NavGraphBuilder.termsOfUseScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
     val navigateTermsOfUseToTermsOfUseDetailInLoginGraph: () -> Unit =
         { navController.navigateTermsOfUseToTermsOfUseDetailInLoginGraph() }
@@ -23,7 +22,7 @@ fun termsOfUseScreen(
     val navigateTermsOfUseToSignInInLoginGraph: () -> Unit =
         { navController.navigateTermsOfUseToSignInInLoginGraph() }
 
-    navGraphBuilder.composable(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME) {
+    composable(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME) {
         TermsOfUseRoute(
             modifier,
             navController,
