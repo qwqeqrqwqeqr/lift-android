@@ -1,6 +1,9 @@
 package com.gradation.lift.oauth.di
 
+import android.content.Context
 import com.gradation.lift.oauth.common.*
+import com.gradation.lift.oauth.google.DefaultGoogleOauthManager
+import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.DefaultKakaoOauthManager
 import com.gradation.lift.oauth.naver.DefaultNaverOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
@@ -8,7 +11,9 @@ import com.gradation.lift.oauth.naver.NaverOauthManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 /**
@@ -31,5 +36,11 @@ object OAuthManagerModule {
     fun provideNaverOauthManager(
     ): NaverOauthManager = DefaultNaverOauthManager()
 
+
+    @Singleton
+    @Provides
+    fun provideGoogleOauthManager(
+        @ApplicationContext context: Context,
+    ): GoogleOauthManager = DefaultGoogleOauthManager(context)
 
 }

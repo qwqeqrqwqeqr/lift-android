@@ -68,4 +68,9 @@ object ServiceModule {
     @Singleton
     fun provideBadgeService(@AuthRetrofit retrofit: Retrofit): BadgeService =
         retrofit.create(BadgeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideTermsService(@AuthRetrofit retrofit: Retrofit): TermsService =
+        retrofit.create(TermsService::class.java)
 }

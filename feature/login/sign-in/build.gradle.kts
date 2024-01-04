@@ -5,10 +5,12 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.hilt")
     id("lift.android.test")
+    id("lift.android.oauth")
+    id("lift.android.google")
 }
 
 android {
-    namespace = "com.gradation.lift.feature.login.sign_in"
+    namespace = "com.gradation.lift.feature.login.signIn"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
@@ -29,4 +31,6 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
     implementation(project(":core:oauth"))
+    implementation(project(":feature:login:common"))
+
 }

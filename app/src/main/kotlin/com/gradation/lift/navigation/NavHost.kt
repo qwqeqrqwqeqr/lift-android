@@ -16,8 +16,6 @@ import com.gradation.lift.feature.registerDetail.navigation.registerDetailGraphB
 import com.gradation.lift.feature.routineDetail.navigation.routineDetailGraphBuilder
 import com.gradation.lift.feature.work.navigation.workGraphBuilder
 import com.gradation.lift.notification.feature.navigation.notificationGraphBuilder
-import com.gradation.lift.oauth.common.OAuthConnectState
-import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @Composable
@@ -25,10 +23,6 @@ fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String,
-    naverOAuthConnectState: MutableStateFlow<OAuthConnectState>,
-    kakaoOAuthConnectState: MutableStateFlow<OAuthConnectState>,
-    connectOAuthFromNaver: () -> Unit,
-    connectOAuthFromKakao: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -39,18 +33,11 @@ fun LiftNavHost(
         createRoutineGraphBuilder(modifier,navController, this)
         homeGraphBuilder(navController, this)
         historyGraphBuilder(navController, this)
-        loginGraphBuilder(
-            navController = navController,
-            navGraphBuilder = this,
-            naverOAuthConnectState = naverOAuthConnectState,
-            kakaoOAuthConnectState = kakaoOAuthConnectState,
-            connectOAuthFromNaver = { connectOAuthFromNaver() },
-            connectOAuthFromKakao = { connectOAuthFromKakao() }
-        )
+        loginGraphBuilder(modifier,navController, this)
         myInfoGraphBuilder(navController, this)
         newBadgeGraphBuilder(navController, this)
         notificationGraphBuilder(navController, this)
-        registerDetailGraphBuilder(navController, this)
+        registerDetailGraphBuilder(modifier,navController, this)
         updateRoutineGraphBuilder(modifier,navController, this)
         workGraphBuilder(modifier,navController, this)
         routineDetailGraphBuilder(modifier,navController,this)

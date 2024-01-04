@@ -6,12 +6,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -57,15 +57,28 @@ fun LiftProgressCircleLabel(
 
     Box(
         modifier
+
             .size(LiftTheme.space.space32)
+            .let {
+                if (state == ProgressCircleState.Current)
+                    it.shadow(
+                        elevation = LiftTheme.space.space8,
+                        spotColor = LiftTheme.colorScheme.no4,
+                        ambientColor = LiftTheme.colorScheme.no4,
+                        shape = CircleShape
+                    )
+                else it
+            }
             .background(
                 backgroundColor, shape = CircleShape
             )
+
             .border(
                 width = 2.dp,
                 color = borderColor,
-                shape = RoundedCornerShape(size = 30.dp)
-            ),
+                shape = CircleShape
+            )
+           ,
         contentAlignment = Alignment.Center,
     ) {
         when (state) {
@@ -92,3 +105,5 @@ fun LiftProgressCircleLabel(
         }
     }
 }
+
+

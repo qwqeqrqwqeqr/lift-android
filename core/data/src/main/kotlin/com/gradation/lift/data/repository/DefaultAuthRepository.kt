@@ -1,6 +1,5 @@
 package com.gradation.lift.data.repository
 
-import android.util.Log
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.mapper.toMessage
@@ -8,6 +7,7 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.*
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
 import kotlinx.coroutines.flow.*
@@ -18,6 +18,7 @@ class DefaultAuthRepository @Inject constructor(
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
     private val kakaoOauthManager: KakaoOauthManager,
     private val naverOauthManager: NaverOauthManager,
+    private val googleOauthManager: GoogleOauthManager,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Unit>> = flow {
         authDataSource.signInDefault(signInInfo).collect { result ->
@@ -33,12 +34,12 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
-    override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Unit>> = flow {
+    override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signUpDefault(signUpInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
-                    emit(DataState.Success(Unit))
+                    emit(DataState.Success(result.data))
                 }
             }
         }
@@ -71,6 +72,38 @@ class DefaultAuthRepository @Inject constructor(
                                     tokenDataStoreDataSource.setRefreshToken(signInNaverResult.data.refreshToken)
                                     tokenDataStoreDataSource.setLoginMethod(LoginMethod.Naver())
                                     emit(DataState.Success(Unit))
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun signUpNaver(): Flow<DataState<Boolean>> = flow {
+        combine(naverOauthManager.getUserId(), naverOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        NaverSignUpInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { naverSignUpInfo ->
+            when (naverSignUpInfo) {
+                is DataState.Fail -> emit(DataState.Fail(naverSignUpInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signUpNaver(naverSignUpInfo.data)
+                        .collect { signUpNaverResult ->
+                            when (signUpNaverResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signUpNaverResult.message))
+                                is NetworkResult.Success -> {
+                                    emit(DataState.Success(signUpNaverResult.data))
                                 }
                             }
                         }
@@ -114,6 +147,115 @@ class DefaultAuthRepository @Inject constructor(
         }
     }
 
+    override fun signUpKakao(): Flow<DataState<Boolean>> = flow {
+        combine(kakaoOauthManager.getUserId(), kakaoOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        KakaoSignUpInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { kakaoSignUpInfo ->
+            when (kakaoSignUpInfo) {
+                is DataState.Fail -> emit(DataState.Fail(kakaoSignUpInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signUpKakao(kakaoSignUpInfo.data)
+                        .collect { signUpKakaoResult ->
+                            when (signUpKakaoResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signUpKakaoResult.message))
+                                is NetworkResult.Success -> {
+                                    emit(DataState.Success(signUpKakaoResult.data))
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun signInGoogle(): Flow<DataState<Unit>> = flow {
+        combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        GoogleSignInInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { googleSignInInfo ->
+            when (googleSignInInfo) {
+                is DataState.Fail -> emit(DataState.Fail(googleSignInInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signInGoogle(googleSignInInfo.data)
+                        .collect { signInGoogleResult ->
+                            when (signInGoogleResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signInGoogleResult.message))
+                                is NetworkResult.Success -> {
+                                    tokenDataStoreDataSource.setAccessToken(signInGoogleResult.data.accessToken)
+                                    tokenDataStoreDataSource.setRefreshToken(signInGoogleResult.data.refreshToken)
+                                    tokenDataStoreDataSource.setLoginMethod(LoginMethod.Google())
+                                    emit(DataState.Success(Unit))
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun signUpGoogle(): Flow<DataState<Boolean>> = flow {
+        combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
+            when (id) {
+                is DataState.Fail -> DataState.Fail(id.message)
+                is DataState.Success -> when (email) {
+                    is DataState.Fail -> DataState.Fail(email.message)
+                    is DataState.Success -> DataState.Success(
+                        GoogleSignUpInfo(
+                            id = id.data,
+                            email = email.data
+                        )
+                    )
+                }
+            }
+        }.collect { googleSignUpInfo ->
+            when (googleSignUpInfo) {
+                is DataState.Fail -> emit(DataState.Fail(googleSignUpInfo.message))
+                is DataState.Success -> {
+                    authDataSource.signUpGoogle(googleSignUpInfo.data)
+                        .collect { signUpGoogleResult ->
+                            when (signUpGoogleResult) {
+                                is NetworkResult.Fail -> emit(DataState.Fail(signUpGoogleResult.message))
+                                is NetworkResult.Success ->
+                                    emit(DataState.Success(signUpGoogleResult.data))
+
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    override fun checkExistUser(userId: String, email: String): Flow<DataState<Boolean>> = flow {
+        authDataSource.checkUserExist(userId, email).collect {
+            when (it) {
+                is NetworkResult.Fail -> emit(DataState.Fail(it.message))
+                is NetworkResult.Success -> emit(DataState.Success(it.data))
+            }
+        }
+
+    }
+
     override fun getLoginMethod(): Flow<DataState<LoginMethod>> = flow {
         tokenDataStoreDataSource.loginMethod
             .catch { it ->
@@ -138,4 +280,36 @@ class DefaultAuthRepository @Inject constructor(
             emit(DataState.Fail(error.toMessage()))
         }
     }
+
+    override fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<DataState<Boolean>> =
+        flow {
+            authDataSource.updateUserPassword(updatePasswordInfo).collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                }
+            }
+        }
+
+    override fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>> =
+        flow {
+            authDataSource.createEmailAuthenticationCode(emailAuthenticationInfo)
+                .collect { result ->
+                    when (result) {
+                        is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    }
+                }
+        }
+
+    override fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>> =
+        flow {
+            authDataSource.validateEmailAuthentication(emailAuthenticationValidationInfo)
+                .collect { result ->
+                    when (result) {
+                        is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    }
+                }
+        }
 }
