@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.theme.LiftTheme
+import androidx.compose.ui.text.style.TextDecoration
 
 @Composable
 fun LiftText(
@@ -14,13 +14,15 @@ fun LiftText(
     text: String,
     color: Color,
     textAlign: TextAlign,
+    textDecoration: TextDecoration = TextDecoration.None,
 ) {
     Text(
         modifier = modifier,
         text = text,
         color = color,
         textAlign = textAlign,
-        style = textStyle.toStyle()
+        style = textStyle.toStyle(),
+        textDecoration = textDecoration
     )
 }
 

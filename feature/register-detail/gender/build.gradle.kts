@@ -20,5 +20,5 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
-    implementation(project(":feature:register-detail:name"))
+    implementation(project(":feature:register-detail:common"))
 }

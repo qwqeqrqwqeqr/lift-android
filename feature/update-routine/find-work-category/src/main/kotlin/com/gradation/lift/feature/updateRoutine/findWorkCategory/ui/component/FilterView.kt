@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.component.LiftFilterChip
+import com.gradation.lift.designsystem.component.chip.LiftFilterChip
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.data.state.FilterState
 import com.gradation.lift.model.model.work.WorkPart

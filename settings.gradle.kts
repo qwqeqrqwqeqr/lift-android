@@ -19,6 +19,8 @@ dependencyResolutionManagement {
 rootProject.name = "lift"
 
 include(":app")
+include(":catalog")
+
 include(":core:database")
 include(":core:network")
 include(":core:datastore")
@@ -45,15 +47,23 @@ include(":feature:create-routine:routine")
 include(":feature:create-routine:common")
 
 include(":feature:login:sign-in")
-include(":feature:login:sign-up")
-include(":feature:login:find-email-password")
-include(":feature:login:complete")
+include(":feature:login:sign-in-default")
+include(":feature:login:sign-up-create-email")
+include(":feature:login:sign-up-create-password")
+include(":feature:login:terms-of-use")
+include(":feature:login:terms-of-use-detail")
+include(":feature:login:verify-email")
+include(":feature:login:reset-password")
+include(":feature:login:common")
+include(":feature:login:navigation")
 
 
 include(":feature:register-detail:name")
 include(":feature:register-detail:gender")
 include(":feature:register-detail:height-weight")
 include(":feature:register-detail:profile-picture")
+include(":feature:register-detail:common")
+include(":feature:register-detail:navigation")
 
 
 include(":feature:work:common")
@@ -94,9 +104,7 @@ include(":feature:routine-detail:routine-list")
 include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
-include(":feature:login:navigation")
 include(":feature:history:navigation")
-include(":feature:register-detail:navigation")
 include(":feature:work:navigation")
 include(":feature:notification:navigation")
 include(":feature:update-routine:navigation")

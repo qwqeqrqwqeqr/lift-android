@@ -15,6 +15,8 @@ import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
+import com.gradation.lift.network.datasource.terms.DefaultTermsDataSource
+import com.gradation.lift.network.datasource.terms.TermsDataSource
 import com.gradation.lift.network.datasource.user.DefaultUserDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.datasource.work.DefaultWorkDataSource
@@ -81,7 +83,8 @@ object DataSourceModule {
     fun provideNotificationDataSource(
         notificationService: NotificationService,
         networkResultHandler: NetworkResultHandler,
-    ): NotificationDataSource = DefaultNotificationDefaultDataSource(notificationService, networkResultHandler)
+    ): NotificationDataSource =
+        DefaultNotificationDefaultDataSource(notificationService, networkResultHandler)
 
 
     @Provides
@@ -89,6 +92,13 @@ object DataSourceModule {
         badgeService: BadgeService,
         networkResultHandler: NetworkResultHandler,
     ): BadgeDataSource = DefaultBadgeDataSource(badgeService, networkResultHandler)
+
+
+    @Provides
+    fun provideTermsDataSource(
+        termsService: TermsService,
+        networkResultHandler: NetworkResultHandler,
+    ): TermsDataSource = DefaultTermsDataSource(termsService, networkResultHandler)
 
 
 }

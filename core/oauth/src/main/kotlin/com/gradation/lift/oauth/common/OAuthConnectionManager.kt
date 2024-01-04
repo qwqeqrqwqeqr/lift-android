@@ -1,5 +1,7 @@
 package com.gradation.lift.oauth.common
 
+import android.content.Context
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.gradation.lift.common.model.DataState
 import kotlinx.coroutines.flow.*
 
@@ -26,7 +28,14 @@ interface OAuthConnectionManager  {
      *  네이버 로그인
      *  실패시 실패 관련 메시지 전달
      */
-    fun connectNaver(): Flow<DataState<Unit>>
+    fun connectNaver(context:Context): Flow<DataState<Unit>>
+
+
+    /**
+     *  [getGoogleClient]
+     *  구글 클라이언트 불러오기
+     */
+    fun getGoogleClient(): GoogleSignInClient
 
 }
 

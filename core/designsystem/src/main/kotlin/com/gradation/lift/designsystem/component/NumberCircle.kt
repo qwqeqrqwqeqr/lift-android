@@ -1,6 +1,5 @@
-package com.gradation.lift.designsystem.canvas
+package com.gradation.lift.designsystem.component
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box

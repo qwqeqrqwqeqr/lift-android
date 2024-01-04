@@ -3,8 +3,8 @@ package com.gradation.lift.feature.updateRoutine.routine.ui.component
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.keypad.RepetitionKeypadContainer
-import com.gradation.lift.designsystem.keypad.WeightKeypadContainer
+import com.gradation.lift.designsystem.component.keypad.RepetitionKeypadContainer
+import com.gradation.lift.designsystem.component.keypad.WeightKeypadContainer
 import com.gradation.lift.feature.updateRoutine.routine.data.state.KeypadState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.KeypadWorkSetState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.WorkSetState

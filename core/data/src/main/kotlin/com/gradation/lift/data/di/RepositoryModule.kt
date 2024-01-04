@@ -13,8 +13,10 @@ import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.datasource.notification.NotificationDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
+import com.gradation.lift.network.datasource.terms.TermsDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.datasource.work.WorkDataSource
+import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
 import dagger.Module
@@ -87,6 +89,7 @@ object RepositoryModule {
     ): BadgeRepository = DefaultBadgeRepository(
         badgeDataSource = badgeDataSource,
     )
+
     @ViewModelScoped
     @Provides
     fun provideNotificationRepository(
@@ -102,11 +105,21 @@ object RepositoryModule {
         tokenDataStoreDataSource: TokenDataStoreDataSource,
         kakaoOauthManager: KakaoOauthManager,
         naverOauthManager: NaverOauthManager,
+        googleOauthManager: GoogleOauthManager,
     ): AuthRepository = DefaultAuthRepository(
         authDataSource = authDataSource,
         tokenDataStoreDataSource = tokenDataStoreDataSource,
         kakaoOauthManager = kakaoOauthManager,
-        naverOauthManager = naverOauthManager
+        naverOauthManager = naverOauthManager,
+        googleOauthManager = googleOauthManager
+    )
+
+    @ViewModelScoped
+    @Provides
+    fun provideTermsRepository(
+        termsDataSource: TermsDataSource,
+    ): TermsRepository = DefaultTermsRepository(
+        termsDataSource = termsDataSource,
     )
 
 

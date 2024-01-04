@@ -3,7 +3,10 @@ package com.gradation.lift.domain.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationValidationInfo
 import com.gradation.lift.model.model.auth.LoginMethod
+import com.gradation.lift.model.model.auth.UpdatePasswordInfo
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -27,7 +30,7 @@ interface AuthRepository {
      * @param signUpInfo 회원가입 시에 필요한 데이터로 서버에 전달됨
      * @since 2023-08-16 11:40:15
      */
-    fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Unit>>
+    fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>>
 
     /**
      * [signInNaver]
@@ -38,12 +41,50 @@ interface AuthRepository {
     fun signInNaver(): Flow<DataState<Unit>>
 
     /**
+     * [signUpNaver]
+     * 네이버를 통한 회원가입
+     * @since 2023-12-27 15:04:45
+     */
+    fun signUpNaver(): Flow<DataState<Boolean>>
+
+    /**
      * [signInKakao]
      * 카카오를 통한 로그인 시 사용
      * 서버 내에 회원 정보 저장하며 로그인을 동시에 진행
      * @since 2023-08-16 11:40:03
      */
     fun signInKakao(): Flow<DataState<Unit>>
+
+
+    /**
+     * [signUpKakao]
+     * 카카오를 통한 회원가입
+     * @since 2023-12-27 15:04:45
+     */
+    fun signUpKakao(): Flow<DataState<Boolean>>
+
+
+    /**
+     * [signInGoogle]
+     * 카카오를 통한 로그인 시 사용
+     * 서버 내에 회원 정보 저장하며 로그인을 동시에 진행
+     * @since 2023-12-26 18:38:52
+     */
+    fun signInGoogle(): Flow<DataState<Unit>>
+
+    /**
+     * [signUpGoogle]
+     * 구글을 통한 회원가입
+     * @since 2023-12-27 15:04:45
+     */
+    fun signUpGoogle(): Flow<DataState<Boolean>>
+
+    /**
+     * [checkExistUser]
+     * 서버에 사용자의 아이디가 존재하는 지 확인
+     * @since 2023-12-26 18:38:52
+     */
+    fun checkExistUser(userId: String, email: String): Flow<DataState<Boolean>>
 
     /**
      * [getLoginMethod]
@@ -66,4 +107,26 @@ interface AuthRepository {
      * @since 2023-08-16 11:39:41
      */
     fun signOut(): Flow<DataState<Unit>>
+
+
+    /**
+     * [updateUserPassword]
+     * 사용자 패스워드 변경
+     * @since 2023-12-28 17:24:35
+     */
+    fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<DataState<Boolean>>
+
+    /**
+     * [createEmailAuthenticationCode]
+     * 이메일 인증코드 생
+     * @since 2023-12-28 17:24:35
+     */
+    fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>>
+
+    /**
+     * [validateEmailAuthentication]
+     * 이메일 인증코드를 통한 유효성 검증
+     * @since 2023-12-28 17:24:35
+     */
+    fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>>
 }
