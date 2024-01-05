@@ -18,21 +18,24 @@ import androidx.compose.ui.text.style.TextDecoration
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftGoogleLoginButton
 import com.gradation.lift.designsystem.component.button.LiftKakaoLoginButton
+import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.signIn.data.state.ConnectState
 import com.gradation.lift.feature.login.signIn.data.state.OAuthSignInState
+import com.gradation.lift.feature.login.signIn.data.state.SignInScreenState
 import com.gradation.lift.model.model.auth.LoginMethod
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 @Composable
 fun SignInView(
-    modifier:Modifier= Modifier,
+    modifier: Modifier = Modifier,
     oAuthSignInState: OAuthSignInState,
     navigateSignInToSignInDefaultInLoginGraph: () -> Unit,
     navigateSignInToSignUpCreateEmailDefaultInLoginGraph: () -> Unit,
-){
+    signInScreenState: SignInScreenState,
+) {
     val launcher: ManagedActivityResultLauncher<Intent, ActivityResult> =
         rememberLauncherForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -62,6 +65,7 @@ fun SignInView(
                     oAuthSignInState.getGoogleClient().signInIntent
                 )
             }
+            LiftNaverLoginButton { oAuthSignInState.connectOAuthFromNaver(signInScreenState.context) }
             LiftKakaoLoginButton { oAuthSignInState.connectOAuthFromKakao() }
             LiftDefaultButton(text = "이메일로 시작하기") { navigateSignInToSignInDefaultInLoginGraph() }
         }
