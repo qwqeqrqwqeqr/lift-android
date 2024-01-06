@@ -4,7 +4,7 @@ import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.network.common.Constants
 import kotlinx.serialization.SerialName
-SerialName(
+
 
 import kotlinx.serialization.Serializable
 

@@ -3,7 +3,7 @@ package com.gradation.lift.network.dto.badge
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
 import kotlinx.serialization.SerialName
-SerialName(
+
 
 import kotlinx.serialization.Serializable
 

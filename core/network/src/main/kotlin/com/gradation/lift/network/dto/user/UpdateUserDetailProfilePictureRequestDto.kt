@@ -1,7 +1,6 @@
 package com.gradation.lift.network.dto.user
 
 import kotlinx.serialization.SerialName
-SerialName(
 
 import kotlinx.serialization.Serializable
 

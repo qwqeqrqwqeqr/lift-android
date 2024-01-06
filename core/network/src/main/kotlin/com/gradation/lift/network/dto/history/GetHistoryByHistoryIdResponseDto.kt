@@ -6,7 +6,7 @@ import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.model.model.work.WorkSet
 import kotlinx.serialization.SerialName
-SerialName(
+
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 import kotlinx.datetime.LocalDateTime.Companion.parse
 

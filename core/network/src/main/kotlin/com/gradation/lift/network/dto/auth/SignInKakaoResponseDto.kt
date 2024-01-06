@@ -2,7 +2,7 @@ package com.gradation.lift.network.dto.auth
 
 import com.gradation.lift.model.model.auth.Token
 import kotlinx.serialization.SerialName
-SerialName(
+
 
 
 import kotlinx.serialization.Serializable

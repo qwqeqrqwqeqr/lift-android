@@ -1,9 +1,6 @@
 package com.gradation.lift.network.dto.terms
 
 import kotlinx.serialization.SerialName
-SerialName(
-
-
 import kotlinx.serialization.Serializable
 
 @Serializable
