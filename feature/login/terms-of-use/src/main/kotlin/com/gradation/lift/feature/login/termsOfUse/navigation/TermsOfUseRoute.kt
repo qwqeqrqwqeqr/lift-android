@@ -50,7 +50,7 @@ fun TermsOfUseRoute(
 
     val signUp: () -> Unit = { viewModel.signUp(currentLoginMethodState) }
     val createUserTermsConsent: () -> Unit =
-        { viewModel.createUserTermsConsent(true, termsOfUseScreenState.marketingConsent.value) }
+        { viewModel.createUserTermsConsent(consent = true, marketingConsent = false) }
 
     when (val signUpStateResult = signUpState) {
         is SignUpState.Fail -> {
