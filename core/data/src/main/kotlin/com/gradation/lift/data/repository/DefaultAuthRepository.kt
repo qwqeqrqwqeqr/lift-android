@@ -286,7 +286,12 @@ class DefaultAuthRepository @Inject constructor(
             authDataSource.updateUserPassword(updatePasswordInfo).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    is NetworkResult.Success -> emit(
+                        DataState.Success(
+                            data = result.data,
+                            message = result.message
+                        )
+                    )
                 }
             }
         }
