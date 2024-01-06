@@ -1,24 +1,25 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.di.annotation.AuthHttpClient
+import com.gradation.lift.network.di.annotation.AuthNetworkInterceptor
 import com.gradation.lift.network.di.annotation.AuthRetrofit
 import com.gradation.lift.network.di.annotation.DefaultHttpClient
 import com.gradation.lift.network.di.annotation.DefaultRetrofit
+import com.gradation.lift.network.di.annotation.RetryNetworkInterceptor
 import com.gradation.lift.network.interceptor.AuthAuthenticator
-import com.gradation.lift.network.interceptor.AuthInterceptor
-import com.gradation.lift.network.interceptor.RetryInterceptor
 import com.gradation.lift.network.service.*
-import com.squareup.moshi.Moshi
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -30,15 +31,17 @@ object NetworkModule {
     @DefaultHttpClient
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient {
+    fun provideHttpClient(
+        @RetryNetworkInterceptor retryInterceptor: Interceptor,
+    ): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-            .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-            .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
+            .connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+            .readTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+            .writeTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
-            .addInterceptor(RetryInterceptor())
+            .addInterceptor(retryInterceptor)
             .build()
     }
 
@@ -46,26 +49,20 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthHttpClient(
-        tokenDataStoreDataSource: TokenDataStoreDataSource,
-        moshi: Moshi,
+        @RetryNetworkInterceptor retryInterceptor: Interceptor,
+        @AuthNetworkInterceptor authInterceptor: Interceptor,
+        authAuthenticator: AuthAuthenticator,
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-            .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-            .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
+            .connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+            .readTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+            .writeTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
-            .addInterceptor(
-                AuthInterceptor(tokenDataStoreDataSource = tokenDataStoreDataSource)
-            )
-            .addInterceptor(RetryInterceptor())
-            .authenticator(
-                AuthAuthenticator(
-                    tokenDataStoreDataSource = tokenDataStoreDataSource,
-                    moshi = moshi
-                )
-            )
+            .addInterceptor(authInterceptor)
+            .addInterceptor(retryInterceptor)
+            .authenticator(authAuthenticator)
             .build()
     }
 
@@ -75,12 +72,16 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(
         @DefaultHttpClient okHttpClient: OkHttpClient,
-        moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.DEFAULT_API_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(
+                with(Json {
+                    ignoreUnknownKeys = true // 느슨한 직렬화 처리
+                    coerceInputValues = true //null 일 경우 기본값 대입
+                }) { asConverterFactory("application/json".toMediaType()) }
+            )
             .build()
     }
 
@@ -89,14 +90,16 @@ object NetworkModule {
     @Singleton
     fun provideAuthRetrofit(
         @AuthHttpClient okHttpClient: OkHttpClient,
-        moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.DEFAULT_API_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(
+                with(Json {
+                    ignoreUnknownKeys = true // 느슨한 직렬화 처리
+                    coerceInputValues = true //null 일 경우 기본값 대입
+                }) { asConverterFactory("application/json".toMediaType()) }
+            )
             .build()
     }
-
-
 }

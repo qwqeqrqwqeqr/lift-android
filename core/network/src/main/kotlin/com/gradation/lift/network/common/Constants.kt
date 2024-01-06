@@ -4,8 +4,8 @@ import com.gradation.lift.network.BuildConfig
 
 
 object Constants {
-    const val DEFAULT_TIMEOUT = 30000
-    const val NETWORK_RETRY_DELAY = 500L
+    const val DEFAULT_TIMEOUT = 10000L
+    const val NETWORK_RETRY_DELAY = 1000L
     const val DEFAULT_API_URL = BuildConfig.LIFT_API_URL
     const val DEFAULT_S3_URL = BuildConfig.LIFT_S3_URL
 

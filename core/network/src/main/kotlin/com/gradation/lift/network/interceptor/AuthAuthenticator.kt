@@ -8,13 +8,14 @@ import com.gradation.lift.network.common.Constants.DEFAULT_API_URL
 import com.gradation.lift.network.common.Constants.UNAUTHORIZATION
 import com.gradation.lift.network.dto.auth.RefreshResponseDto
 import com.gradation.lift.network.service.RefreshService
-import com.squareup.moshi.Moshi
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
 /**
@@ -24,14 +25,13 @@ import javax.inject.Inject
  */
 class AuthAuthenticator @Inject constructor(
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
-    private val moshi: Moshi,
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
 
         var isRefreshed = false
         if (response.code == UNAUTHORIZATION) {
             runBlocking {
-                val result = refresh(tokenDataStoreDataSource, moshi)
+                val result = refresh(tokenDataStoreDataSource)
                 if (result.isSuccessful) {
                     tokenDataStoreDataSource.setAccessToken(result.body()?.data?.accessToken.toString())
                     isRefreshed = true
@@ -65,7 +65,6 @@ class AuthAuthenticator @Inject constructor(
      */
     private suspend fun refresh(
         tokenDataStoreDataSource: TokenDataStoreDataSource,
-        moshi: Moshi,
     ): retrofit2.Response<APIResultWrapper<RefreshResponseDto>> {
         val retrofit = Retrofit.Builder().baseUrl(DEFAULT_API_URL)
             .client(OkHttpClient.Builder()
@@ -73,7 +72,12 @@ class AuthAuthenticator @Inject constructor(
                     this.level = HttpLoggingInterceptor.Level.BASIC
                 }).build()
             )
-            .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
+            .addConverterFactory(
+                with(Json {
+                    ignoreUnknownKeys = true
+                    coerceInputValues = true
+                }) { asConverterFactory("application/json".toMediaType()) }
+            ).build()
         val service = retrofit.create(RefreshService::class.java)
         return service.refresh(
             Authorization = "${BEARER}${tokenDataStoreDataSource.refreshToken.first()}"
