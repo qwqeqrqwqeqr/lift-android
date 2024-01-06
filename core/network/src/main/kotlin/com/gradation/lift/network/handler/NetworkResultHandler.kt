@@ -23,7 +23,12 @@ class NetworkResultHandler @Inject constructor(
     suspend operator fun <T : Any> invoke(call: suspend () -> Response<APIResultWrapper<T>>): Flow<NetworkResult<T>> =
         flowOf(call.invoke()).transform { response ->
             if (response.isSuccessful) {
-                emit(NetworkResult.Success(data = response.body()?.data!!))
+                emit(
+                    NetworkResult.Success(
+                        data = response.body()?.data!!,
+                        message = response.body()?.message
+                    )
+                )
             } else {
                 emit(
                     NetworkResult.Fail(

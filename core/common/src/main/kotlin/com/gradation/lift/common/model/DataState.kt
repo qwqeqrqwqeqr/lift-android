@@ -7,7 +7,7 @@ package com.gradation.lift.common.model
  * @since 2023-08-28 22:48:35
  */
 sealed interface DataState<out T> {
-    data class Success<out T>(val data: T) : DataState<T>
+    data class Success<out T>(val data: T, val message: String? = null) : DataState<T>
     data class Fail(val message: String) : DataState<Nothing>
 }
 
