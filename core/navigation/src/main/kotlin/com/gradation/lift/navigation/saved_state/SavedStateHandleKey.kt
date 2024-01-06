@@ -13,4 +13,8 @@ object SavedStateHandleKey {
         const val UPDATE_WORK_CATEGORY_ID_KEY ="UPDATE_WORK_CATEGORY_ID_KEY"
         const val CREATE_WORK_CATEGORY_ID_KEY =" CREATE_WORK_CATEGORY_ID_KEY"
     }
+
+    object Login{
+        const val RESET_PASSWORD_EMAIL_KEY ="RESET_PASSWORD_EMAIL_KEY"
+    }
 }

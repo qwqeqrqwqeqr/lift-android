@@ -152,10 +152,10 @@ fun NavController.navigateTermsOfUseDetailToTermsOfUseInLoginGraph() {
 /**
  * [navigateVerifyEmailToSignInDefaultInLoginGraph]
  * 이메일 인증을 완료한 뒤, 비밀번호 재설정 화면으로 이동
- * @since 2023-12-24 20:34:57
+2024-01-06 23:44:15 * @since
  */
-fun NavController.navigateVerifyEmailToResetPasswordInLoginGraph() {
-    this.navigate(Route.LOGIN_RESET_PASSWORD_ROUTER_NAME)
+fun NavController.navigateVerifyEmailToResetPasswordInLoginGraph(email: String) {
+    this.navigate("${Route.LOGIN_RESET_PASSWORD_ROUTER_NAME}/$email")
 }
 
 /**
