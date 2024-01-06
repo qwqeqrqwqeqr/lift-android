@@ -81,6 +81,7 @@ internal val COLOR_NO46: Color = Color(0xFF4DC451)
 
 
 
+
 internal val MONDAY_LABEL_COLOR: Color = Color(0xFFFF9900)
 internal val MONDAY_BACKGROUND_COLOR: Color = Color(0xFFFFF6E9)
 internal val TUESDAY_LABEL_COLOR: Color = Color(0xFFFF6B00)

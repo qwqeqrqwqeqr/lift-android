@@ -1,46 +1,71 @@
 package com.gradation.lift.navigation
 
-import androidx.compose.material3.Icon
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
-import com.gradation.lift.designsystem.component.navigation.LiftNavigationBar
-import com.gradation.lift.designsystem.component.navigation.LiftNavigationBarItem
+import com.gradation.lift.designsystem.component.navigation.LiftNavigationItem
+import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
 fun BottomBar(
-    modifier:Modifier=Modifier,
+    modifier: Modifier = Modifier,
     destinations: List<TopLevelNavDestination>,
     onNavigateToDestination: (TopLevelNavDestination) -> Unit,
     currentDestination: NavDestination?,
 ) {
-    LiftNavigationBar(
-        modifier = modifier,
+    Row(
+        modifier
+            .height(LiftTheme.space.space60)
+            .fillMaxWidth()
+            .shadow(
+                elevation = LiftTheme.space.space6,
+                spotColor = LiftTheme.colorScheme.no11,
+                ambientColor = LiftTheme.colorScheme.no11,
+                shape = RoundedCornerShape(
+                    topStart = LiftTheme.space.space14,
+                    topEnd = LiftTheme.space.space14
+                )
+            )
+            .background(
+                color = LiftTheme.colorScheme.no5,
+                shape = RoundedCornerShape(
+                    topStart = LiftTheme.space.space14,
+                    topEnd = LiftTheme.space.space14
+                )
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         destinations.forEach { destination ->
-            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
-            LiftNavigationBarItem(
-                selected = selected,
+            val interactionSource: MutableInteractionSource =
+                remember { MutableInteractionSource() }
+            val isSelected: Boolean = currentDestination?.route == destination.route
+            val contentColor: Color by animateColorAsState(
+                if (isSelected) LiftTheme.colorScheme.no4
+                else LiftTheme.colorScheme.no13,
+                label = "contentColor"
+            )
+            LiftNavigationItem(
+                modifier = modifier.weight(1f),
+                interactionSource = interactionSource,
                 onClick = { onNavigateToDestination(destination) },
-                unSelectedIcon = {
-                    Icon(
-                        painter = painterResource(id = destination.unselectedIcon),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                },
-                selectedIcon = {
-                    Icon(
-                        painter = painterResource(id = destination.selectedIcon),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                },
-                label = stringResource(destination.displayName),
+                icon = destination.icon,
+                text = destination.displayName,
+                color = contentColor
             )
         }
     }

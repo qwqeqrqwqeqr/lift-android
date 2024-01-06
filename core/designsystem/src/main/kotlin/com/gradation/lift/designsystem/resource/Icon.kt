@@ -4,14 +4,9 @@ import com.gradation.lift.designsystem.R
 
 
 object LiftIcon {
-    val HomeSelected = R.drawable.home_selected
-    val HomeUnSelected = R.drawable.home_unselected
-    val RoutineSelected = R.drawable.routine_selected
-    val RoutineUnSelected = R.drawable.routine_unselected
-    val HistorySelected = R.drawable.history_selected
-    val HistoryUnSelected = R.drawable.history_unselected
-    val MyInfoSelected = R.drawable.my_info_selected
-    val MyInfoUnSelected = R.drawable.my_info_unselected
+    val Home = R.drawable.home
+    val History = R.drawable.history
+    val MyInfo = R.drawable.my_info
 
     val CheckBoxChecked = R.drawable.checkbox_checked
     val CheckBoxUnChecked = R.drawable.checkbox_unchecked

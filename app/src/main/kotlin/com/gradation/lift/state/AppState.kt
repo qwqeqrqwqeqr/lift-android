@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.tracing.trace
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.navigation.Router
 import com.gradation.lift.navigation.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.*
 
@@ -20,21 +19,16 @@ class AppState(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-
-    val currentTopLevelDestination
-        @Composable get() = when (currentDestination?.route) {
-            Router.HOME_HOME_ROUTER_NAME -> TopLevelNavDestination.Home
-            Router.HISTORY_HISTORY_ROUTER_NAME -> TopLevelNavDestination.History
-            Router.MY_INFO_MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
-            else -> null
-        }
-
+    val isShowBottomBar: Boolean
+        @Composable get() = currentDestination?.let { destination ->
+            (destination.route in topLevelDestinations.map { it.route })
+        } ?: false
 
     val topLevelDestinations: List<TopLevelNavDestination> =
         TopLevelNavDestination.values().asList()
 
 
-    fun navigateToTopLevelDestination(topLevelDestination: TopLevelNavDestination) {
+    fun navigateToTopLevelDestination(): (TopLevelNavDestination) -> Unit = { topLevelDestination ->
         trace("Navigation: ${topLevelDestination.name}") {
             when (topLevelDestination) {
                 TopLevelNavDestination.Home -> navController.navigateHomeGraph()
@@ -53,10 +47,12 @@ fun rememberAppState(
     navController: NavHostController,
     dispatcherProvider: DispatcherProvider,
 ): AppState {
+
+
     return remember(navController) {
         AppState(
             navController,
-            dispatcherProvider
+            dispatcherProvider,
         )
     }
 }
