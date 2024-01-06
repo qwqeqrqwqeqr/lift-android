@@ -1,11 +1,13 @@
 package com.gradation.lift.network.dto.user
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreateUserDetailRequestDto(
-    @Json(name = "user_detail")
+    @SerialName("user_detail")
     val userDetailDto: UserDetailDto
 )

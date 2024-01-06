@@ -1,15 +1,16 @@
 package com.gradation.lift.network.dto.auth
 
 import com.gradation.lift.model.model.auth.Token
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
+import kotlinx.serialization.Serializable
 
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class SignInDefaultResponseDto(
-    @Json(name = "access_token")
+    @SerialName("access_token")
     val accessToken: String,
-    @Json(name = "refresh_token")
+    @SerialName("refresh_token")
     val refreshToken: String,
 ) {
     fun toDomain(): Token = Token(

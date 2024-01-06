@@ -1,15 +1,17 @@
 package com.gradation.lift.network.dto.picture
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RoutineSetPictureDto(
-    @Json(name = "id")
+    @SerialName("id")
     val id : Int,
-    @Json(name = "category")
+    @SerialName("category")
     val category :String,
-    @Json(name = "url")
+    @SerialName("url")
     val url :String,
 )

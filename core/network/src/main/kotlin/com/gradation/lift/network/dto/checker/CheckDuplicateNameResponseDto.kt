@@ -1,12 +1,14 @@
 package com.gradation.lift.network.dto.checker
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CheckDuplicateNameResponseDto(
-    @Json(name = "result")
+    @SerialName("result")
     val result: Boolean,
 
 )

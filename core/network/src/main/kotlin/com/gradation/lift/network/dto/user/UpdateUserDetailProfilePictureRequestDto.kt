@@ -1,10 +1,12 @@
 package com.gradation.lift.network.dto.user
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UpdateUserDetailProfilePictureRequestDto(
-    @Json(name = "profile_picture")
+    @SerialName("profile_picture")
     val profilePicture: String
 )

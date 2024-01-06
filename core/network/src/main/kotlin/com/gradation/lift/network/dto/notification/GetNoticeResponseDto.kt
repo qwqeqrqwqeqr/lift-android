@@ -1,13 +1,14 @@
 package com.gradation.lift.network.dto.notification
 
 import com.gradation.lift.model.model.notification.Notice
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-import kotlinx.datetime.LocalDate.Companion.parse
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+import kotlinx.datetime.LocalDate.Companion.parse
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetNoticeResponseDto(
-    @Json(name = "notice")
+    @SerialName("notice")
     val notice: List<NoticeDto>
 ) {
     fun toDomain(): List<Notice> = notice.map {

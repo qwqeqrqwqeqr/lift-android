@@ -1,17 +1,19 @@
 package com.gradation.lift.network.dto.notification
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NoticeDto(
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int,
-    @Json(name = "title")
+    @SerialName("title")
     val title: String,
-    @Json(name = "description")
+    @SerialName("description")
     val description: String,
-    @Json(name = "date")
+    @SerialName("date")
     val date: String
 )
 

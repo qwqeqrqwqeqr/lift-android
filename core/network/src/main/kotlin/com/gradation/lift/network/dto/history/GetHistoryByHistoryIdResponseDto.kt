@@ -5,14 +5,16 @@ import com.gradation.lift.model.model.history.HistoryRoutine
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.model.model.work.WorkSet
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 import kotlinx.datetime.LocalDateTime.Companion.parse
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetHistoryByHistoryIdResponseDto(
-    @Json(name = "history")
+    @SerialName("history")
     val history: List<HistoryDto>
 ){
     fun toDomain(): List<History> = this.history.groupBy { it.historyId }.map {

@@ -3,13 +3,15 @@ package com.gradation.lift.network.dto.badge
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.network.common.Constants
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 import kotlinx.datetime.LocalDateTime
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetUserBadgeResponseDto(
-    @Json(name = "user_badge")
+    @SerialName("user_badge")
     val userBadge: List<UserBadgeDto>
 ){
     fun toDomain(): List<UserBadge> = userBadge.map {

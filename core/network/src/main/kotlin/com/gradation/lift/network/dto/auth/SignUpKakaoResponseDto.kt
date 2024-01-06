@@ -1,11 +1,12 @@
 package com.gradation.lift.network.dto.auth
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SignUpKakaoResponseDto(
-    @Json(name = "result")
+    @SerialName("result")
     val result: Boolean,
 )

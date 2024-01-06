@@ -1,10 +1,12 @@
 package com.gradation.lift.network.dto.badge
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreateUserBadgeRequestDto(
-    @Json(name = "user_badge")
+    @SerialName("user_badge")
     val createUserBadgeDto: CreateUserBadgeDto
 )

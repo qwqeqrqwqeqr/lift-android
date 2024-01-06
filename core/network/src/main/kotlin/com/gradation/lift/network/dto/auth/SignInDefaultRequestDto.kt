@@ -1,13 +1,14 @@
 package com.gradation.lift.network.dto.auth
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
+import kotlinx.serialization.Serializable
 
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class SignInDefaultRequestDto(
-    @Json(name = "id")
+    @SerialName("id")
     val id : String,
-    @Json(name = "password")
+    @SerialName("password")
     val password : String,
 )

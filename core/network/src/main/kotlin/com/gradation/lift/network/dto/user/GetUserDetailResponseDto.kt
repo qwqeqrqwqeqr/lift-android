@@ -4,13 +4,15 @@ import com.gradation.lift.model.model.common.toUnitOfWeight
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.model.user.toGender
 import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+SerialName(
 
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetUserDetailResponseDto(
-    @Json(name = "user_detail")
+    @SerialName("user_detail")
     val userDetailDto: UserDetailDto,
 ) {
     fun toDomain() = UserDetail(
