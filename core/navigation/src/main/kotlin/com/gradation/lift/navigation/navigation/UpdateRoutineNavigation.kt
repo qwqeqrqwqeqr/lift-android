@@ -1,13 +1,13 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
-import com.gradation.lift.navigation.Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME
-import com.gradation.lift.navigation.Router.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
-import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
+import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME
+import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 

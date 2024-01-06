@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToBack
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToWorkWorkRouter

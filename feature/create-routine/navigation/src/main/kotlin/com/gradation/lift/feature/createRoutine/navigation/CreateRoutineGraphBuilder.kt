@@ -8,8 +8,8 @@ import com.gradation.lift.createRoutine.profilePicture.navigation.profilePicture
 import com.gradation.lift.createRoutine.routine.navigation.routineScreen
 import com.gradation.lift.feature.createRoutine.findWorkCategory.navigation.findWorkCategoryScreen
 import com.gradation.lift.feature.createRoutine.routineSet.navigation.routineSetScreen
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 
 
 fun createRoutineGraphBuilder(

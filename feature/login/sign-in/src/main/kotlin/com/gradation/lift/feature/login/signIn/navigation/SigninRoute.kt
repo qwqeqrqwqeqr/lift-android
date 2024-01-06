@@ -20,7 +20,7 @@ import com.gradation.lift.feature.login.signIn.data.state.SignInScreenState
 import com.gradation.lift.feature.login.signIn.data.state.rememberSignInScreenState
 import com.gradation.lift.feature.login.signIn.data.viewmodel.SignInViewModel
 import com.gradation.lift.model.model.auth.LoginMethod
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @Composable
 internal fun SignInRoute(
@@ -33,7 +33,7 @@ internal fun SignInRoute(
     navigateSignInToTermsOfUseInLoginGraph: () -> Unit,
     viewModel: SignInViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.LOGIN_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.LOGIN_GRAPH_NAME) }
     ),
     signInScreenState: SignInScreenState = rememberSignInScreenState(),
 ) {

@@ -3,7 +3,7 @@ package com.gradation.lift.feature.home
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router.HOME_HOME_ROUTER_NAME
+import com.gradation.lift.navigation.Route.HOME_HOME_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph

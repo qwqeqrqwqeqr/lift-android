@@ -7,8 +7,8 @@ import androidx.navigation.compose.navigation
 import com.gradation.lift.feature.work.complete.navigation.completeScreen
 import com.gradation.lift.feature.work.routineSelection.navigation.routineSelectionScreen
 import com.gradation.lift.feature.work.work.navigation.workScreen
-import com.gradation.lift.navigation.Router.WORK_GRAPH_NAME
-import com.gradation.lift.navigation.Router.WORK_ROUTINE_SELECTION_ROUTER_NAME
+import com.gradation.lift.navigation.Route.WORK_GRAPH_NAME
+import com.gradation.lift.navigation.Route.WORK_ROUTINE_SELECTION_ROUTER_NAME
 
 
 fun workGraphBuilder(

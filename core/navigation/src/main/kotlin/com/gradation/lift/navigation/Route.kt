@@ -1,7 +1,7 @@
 package com.gradation.lift.navigation
 
 /**
- * [Router]
+ * [Route]
  * 네비게이션 라우터 경로
  * graph 의 경우 접두어로 _graph 사용할 것
  * 현재 사용하는 그래프는 하단과 같음
@@ -18,7 +18,7 @@ package com.gradation.lift.navigation
  * [WORK_GRAPH_NAME]
  * @since 2023-10-18 12:43:52
  * */
-object Router {
+object Route {
 
 
     const val BADGE_GRAPH_NAME = "badge_graph"

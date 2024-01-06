@@ -20,7 +20,7 @@ import com.gradation.lift.feature.createRoutine.routineSet.data.RoutineSetViewMo
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.CreateRoutineState
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.rememberRoutineSetScreenState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable

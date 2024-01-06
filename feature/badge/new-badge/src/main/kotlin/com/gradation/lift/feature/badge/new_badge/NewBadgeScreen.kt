@@ -46,7 +46,7 @@ import com.gradation.lift.feature.badge.new_badge.data.NewBadgeViewModel
 import com.gradation.lift.feature.home.data.HomeViewModel
 import com.gradation.lift.feature.home.data.state.BadgeConditionState
 import com.gradation.lift.model.model.badge.Badge
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -57,7 +57,7 @@ fun NewBadgeRoute(
     viewModel: NewBadgeViewModel = hiltViewModel(),
 ) {
     val homeBackStackEntry: NavBackStackEntry =
-        remember { navController.getBackStackEntry(Router.HOME_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.HOME_GRAPH_NAME) }
     val sharedViewModel: HomeViewModel = hiltViewModel(homeBackStackEntry)
 
     val badgeConditionState: BadgeConditionState by sharedViewModel.badgeConditionState.collectAsStateWithLifecycle()

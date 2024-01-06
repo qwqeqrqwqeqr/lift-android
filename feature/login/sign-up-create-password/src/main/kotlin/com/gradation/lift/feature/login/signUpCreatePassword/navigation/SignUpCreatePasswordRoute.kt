@@ -19,7 +19,7 @@ import com.gradation.lift.feature.login.signUpCreatePassword.data.SignUpCreatePa
 import com.gradation.lift.feature.login.signUpCreatePassword.data.rememberSignUpCreatePasswordScreenState
 import com.gradation.lift.feature.login.signUpCreatePassword.ui.SignUpCreatePasswordScreen
 import com.gradation.lift.feature.login.signUpCreatePassword.ui.dialog.CancelDialog
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @Composable
 fun SignUpCreatePasswordRoute(
@@ -29,7 +29,7 @@ fun SignUpCreatePasswordRoute(
     navigateSignUpToSignInInLoginGraph: () -> Unit,
     viewModel: SignUpCreatePasswordViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.LOGIN_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.LOGIN_GRAPH_NAME) }
     ),
     createPasswordState: CreatePasswordState = viewModel.createPasswordState,
     signUpCreatePasswordScreenState: SignUpCreatePasswordScreenState = rememberSignUpCreatePasswordScreenState(),

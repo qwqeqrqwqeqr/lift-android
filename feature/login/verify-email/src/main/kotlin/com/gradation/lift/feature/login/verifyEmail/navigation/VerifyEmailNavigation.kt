@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 fun NavGraphBuilder.verifyEmailScreen(
     modifier: Modifier=Modifier,
@@ -12,7 +12,7 @@ fun NavGraphBuilder.verifyEmailScreen(
 ) {
 
 
-    composable(Router.LOGIN_VERIFY_EMAIL_ROUTER_NAME) {
+    composable(Route.LOGIN_VERIFY_EMAIL_ROUTER_NAME) {
         VerifyEmailRoute()
     }
 

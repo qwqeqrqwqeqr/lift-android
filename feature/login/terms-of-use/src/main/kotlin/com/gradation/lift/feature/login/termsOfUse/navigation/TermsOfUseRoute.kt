@@ -22,7 +22,7 @@ import com.gradation.lift.feature.login.termsOfUse.data.state.TermsOfUseScreenSt
 import com.gradation.lift.feature.login.termsOfUse.data.state.rememberTermsOfUseScreenState
 import com.gradation.lift.feature.login.termsOfUse.ui.TermsOfUseScreen
 import com.gradation.lift.feature.login.termsOfUse.ui.component.dialog.CompleteDialog
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @Composable
 fun TermsOfUseRoute(
@@ -33,7 +33,7 @@ fun TermsOfUseRoute(
     navigateTermsOfUseToSignInInLoginGraph: () -> Unit,
     viewModel: TermsOfUseViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.LOGIN_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.LOGIN_GRAPH_NAME) }
     ),
     termsOfUseScreenState: TermsOfUseScreenState = rememberTermsOfUseScreenState(),
 ) {

@@ -18,7 +18,7 @@ import com.gradation.lift.createRoutine.routine.data.state.KeypadState
 import com.gradation.lift.createRoutine.routine.data.state.KeypadWorkSetState
 import com.gradation.lift.createRoutine.routine.data.state.WorkCategoryUiState
 import com.gradation.lift.createRoutine.routine.data.state.WorkSetState
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
@@ -31,7 +31,7 @@ fun RoutineRoute(
     navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
     viewModel: RoutineViewModel = hiltViewModel(),
     sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.CREATE_ROUTINE_GRAPH_NAME) })
+        remember { navController.getBackStackEntry(Route.CREATE_ROUTINE_GRAPH_NAME) })
 ) {
     LaunchedEffect(Unit) {
         with(navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.CREATE_WORK_CATEGORY_ID_KEY)) {

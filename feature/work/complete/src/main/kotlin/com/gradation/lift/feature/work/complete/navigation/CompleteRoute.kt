@@ -20,7 +20,7 @@ import com.gradation.lift.feature.work.complete.data.state.HistoryInfoState
 import com.gradation.lift.feature.work.complete.data.state.rememberCompleteScreenState
 import com.gradation.lift.feature.work.complete.ui.CompleteScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -31,7 +31,7 @@ internal fun CompleteRoute(
     navigateWorkGraphToHomeGraph: () -> Unit,
     viewModel: CompleteViewModel = hiltViewModel(),
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.WORK_GRAPH_NAME) }
     ),
     completeScreenState: CompleteScreenState = rememberCompleteScreenState(),
 ) {

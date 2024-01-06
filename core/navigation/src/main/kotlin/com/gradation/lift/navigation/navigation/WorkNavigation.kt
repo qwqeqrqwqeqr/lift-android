@@ -1,15 +1,15 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.Router.WORK_COMPLETE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.WORK_WORK_ROUTER_NAME
+import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.WORK_COMPLETE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.WORK_WORK_ROUTER_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
 fun NavController.navigateWorkGraphToHomeGraph() {
-    this.navigate(Router.HOME_GRAPH_NAME) {
+    this.navigate(Route.HOME_GRAPH_NAME) {
         launchSingleTop = true
         popUpTo(this@navigateWorkGraphToHomeGraph.graph.id) {
             inclusive = true

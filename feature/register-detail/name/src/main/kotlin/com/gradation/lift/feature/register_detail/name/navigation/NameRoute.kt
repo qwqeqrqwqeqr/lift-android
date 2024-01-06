@@ -17,7 +17,7 @@ import com.gradation.lift.feature.register_detail.name.data.NameScreenState
 import com.gradation.lift.feature.register_detail.name.data.NameViewModel
 import com.gradation.lift.feature.register_detail.name.data.rememberNameScreenState
 import com.gradation.lift.feature.register_detail.name.ui.NameScreen
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -30,7 +30,7 @@ fun NameRoute(
     viewModel: NameViewModel = hiltViewModel(),
     sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
-            Router.REGISTER_DETAIL_GRAPH_NAME
+            Route.REGISTER_DETAIL_GRAPH_NAME
         )
     }),
     nameScreenState: NameScreenState = rememberNameScreenState(),

@@ -15,7 +15,7 @@ import com.gradation.lift.feature.registerDetail.common.ui.dialog.CancelDialog
 import com.gradation.lift.feature.register_detail.gender.data.GenderViewModel
 import com.gradation.lift.feature.register_detail.gender.ui.GenderScreen
 import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -28,7 +28,7 @@ fun GenderRoute(
     viewModel: GenderViewModel = hiltViewModel(),
     sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
-            Router.REGISTER_DETAIL_GRAPH_NAME
+            Route.REGISTER_DETAIL_GRAPH_NAME
         )
     }),
 ) {

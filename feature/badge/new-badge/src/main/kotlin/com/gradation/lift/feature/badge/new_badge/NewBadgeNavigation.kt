@@ -3,7 +3,7 @@ package com.gradation.lift.feature.badge.new_badge
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateNewBadgeGraphToHomeGraph
 
 fun newBadgeScreen(
@@ -12,7 +12,7 @@ fun newBadgeScreen(
 ) {
     val navigateNewBadgeGraphToHomeGraph: () -> Unit = { navController.navigateNewBadgeGraphToHomeGraph() }
 
-    navGraphBuilder.composable(Router.NEW_BADGE_NEW_BADGE_ROUTER_NAME) {
+    navGraphBuilder.composable(Route.NEW_BADGE_NEW_BADGE_ROUTER_NAME) {
 
         NewBadgeRoute(
             navigateNewBadgeGraphToHomeGraph=navigateNewBadgeGraphToHomeGraph,

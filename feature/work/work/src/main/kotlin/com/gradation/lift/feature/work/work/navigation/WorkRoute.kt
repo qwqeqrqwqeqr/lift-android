@@ -29,7 +29,7 @@ import com.gradation.lift.feature.work.work.ui.rest.RestScreen
 import com.gradation.lift.feature.work.work.ui.work.WorkScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.work.WorkSet
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 import kotlinx.datetime.LocalTime
@@ -45,7 +45,7 @@ fun WorkRoute(
     navigateWorkGraphToHomeGraph: () -> Unit,
     viewModel: WorkViewModel = hiltViewModel(),
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.WORK_GRAPH_NAME) }
     ),
     workScreenState: WorkScreenState = rememberWorkScreenState(),
 ) {

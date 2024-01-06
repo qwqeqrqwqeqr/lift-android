@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router.WORK_WORK_ROUTER_NAME
+import com.gradation.lift.navigation.Route.WORK_WORK_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateWorkGraphToHomeGraph
 import com.gradation.lift.navigation.navigation.navigateWorkToCompleteInWorkGraph
 

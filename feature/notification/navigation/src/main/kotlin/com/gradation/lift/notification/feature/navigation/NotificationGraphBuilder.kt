@@ -6,7 +6,7 @@ import androidx.navigation.compose.navigation
 import com.gradation.lift.feature.notification.notice_detail.notificationNoticeDetailScreen
 import com.gradation.lift.feature.notification.notification.notificationNotificationScreen
 import com.gradation.lift.feature.notification.push_detail.notificationPushDetailScreen
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 
 fun notificationGraphBuilder(
@@ -14,8 +14,8 @@ fun notificationGraphBuilder(
     navGraphBuilder: NavGraphBuilder,
 ) {
     navGraphBuilder.navigation(
-        route = Router.NOTIFICATION_GRAPH_NAME,
-        startDestination = Router.NOTIFICATION_NOTIFICATION_ROUTER_NAME,
+        route = Route.NOTIFICATION_GRAPH_NAME,
+        startDestination = Route.NOTIFICATION_NOTIFICATION_ROUTER_NAME,
     ) {
         notificationNotificationScreen(navController, this)
         notificationPushDetailScreen(navController, this)

@@ -23,8 +23,8 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.notification.notification.data.TabDestination
-import com.gradation.lift.navigation.Router.HOME_HOME_ROUTER_NAME
-import com.gradation.lift.navigation.Router.MY_INFO_MY_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.Route.HOME_HOME_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_MY_INFO_ROUTER_NAME
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

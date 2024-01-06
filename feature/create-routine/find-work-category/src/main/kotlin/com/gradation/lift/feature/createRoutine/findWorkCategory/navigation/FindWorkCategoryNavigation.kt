@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateFindWorkCategoryToRoutineInCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph
 

@@ -3,7 +3,7 @@ package com.gradation.lift.feature.my_info.my_info
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToLoginGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToNotificationGraph
@@ -25,7 +25,7 @@ fun myInfoMyInfoScreen(
 
     val versionName =navController.context.packageManager.getPackageInfo(navController.context.packageName, 0).versionName
 
-    navGraphBuilder.composable(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
+    navGraphBuilder.composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoMyInfoRoute(
             versionName=versionName,
             navigateMyInfoGraphToLoginGraph=navigateMyInfoGraphToLoginGraph,

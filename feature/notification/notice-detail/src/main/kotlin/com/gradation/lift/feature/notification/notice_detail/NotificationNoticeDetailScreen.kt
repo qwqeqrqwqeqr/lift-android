@@ -29,7 +29,7 @@ import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.notification.notice.data.NotificationNoticeViewModel
 import com.gradation.lift.model.model.notification.Notice
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -40,7 +40,7 @@ fun NotificationNoticeDetailRoute(
     viewModel: NotificationNoticeDetailViewModel = hiltViewModel(),
 ) {
     val backStackEntry: NavBackStackEntry =
-        remember { navController.getBackStackEntry(Router.NOTIFICATION_NOTIFICATION_ROUTER_NAME) }
+        remember { navController.getBackStackEntry(Route.NOTIFICATION_NOTIFICATION_ROUTER_NAME) }
     val sharedViewModel: NotificationNoticeViewModel = hiltViewModel(backStackEntry)
 
     val selectedNotice: Notice by sharedViewModel.selectedNotice.collectAsStateWithLifecycle()

@@ -1,19 +1,19 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
-import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
+import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 fun NavController.navigateCreateRoutineGraphToRoutineDetailGraph() {
-    if (this.currentBackStack.value.any { it.destination.route == Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
-        this.navigate(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
-            this.popUpTo(Router.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
+    if (this.currentBackStack.value.any { it.destination.route == Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
+        this.navigate(Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
+            this.popUpTo(Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
                 inclusive = true
             }
         }

@@ -12,8 +12,8 @@ import com.gradation.lift.feature.login.signUpCreatePassword.navigation.signUpCr
 import com.gradation.lift.feature.login.termsOfUse.navigation.termsOfUseScreen
 import com.gradation.lift.feature.login.termsOfUseDetail.navigation.termsOfUseDetailScreen
 import com.gradation.lift.feature.login.verifyEmail.navigation.verifyEmailScreen
-import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
-import com.gradation.lift.navigation.Router.LOGIN_SIGN_IN_ROUTER_NAME
+import com.gradation.lift.navigation.Route.LOGIN_GRAPH_NAME
+import com.gradation.lift.navigation.Route.LOGIN_SIGN_IN_ROUTER_NAME
 
 
 fun loginGraphBuilder(

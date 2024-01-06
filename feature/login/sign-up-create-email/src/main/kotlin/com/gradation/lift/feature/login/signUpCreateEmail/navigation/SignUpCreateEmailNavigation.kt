@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph
 import com.gradation.lift.navigation.navigation.navigateSignUpToSignInInLoginGraph
 
@@ -21,7 +21,7 @@ fun NavGraphBuilder.signUpCreateEmailScreen(
     }
 
 
-    composable(Router.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME) {
+    composable(Route.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME) {
         SignUpCreateEmailRoute(
             modifier,
             navController,

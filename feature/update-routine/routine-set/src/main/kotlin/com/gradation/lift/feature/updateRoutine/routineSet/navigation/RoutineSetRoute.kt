@@ -22,7 +22,7 @@ import com.gradation.lift.feature.updateRoutine.routineSet.data.RoutineSetViewMo
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.UpdateRoutineState
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.rememberRoutineSetScreenState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.navigation.Router.UPDATE_ROUTINE_GRAPH_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 

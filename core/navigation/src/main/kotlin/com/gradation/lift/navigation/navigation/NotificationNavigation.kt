@@ -1,7 +1,7 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 fun NavController.navigateNotificationGraphToPreGraph() {
     this.popBackStack()
@@ -9,15 +9,15 @@ fun NavController.navigateNotificationGraphToPreGraph() {
 
 
 fun NavController.navigatePreGraphToNotificationGraph() {
-    this.navigate(Router.NOTIFICATION_NOTIFICATION_ROUTER_NAME)
+    this.navigate(Route.NOTIFICATION_NOTIFICATION_ROUTER_NAME)
 }
 
 fun NavController.navigateNotificationToNoticeDetailInNotificationGraph() {
-    this.navigate(Router.NOTIFICATION_NOTICE_DETAIL_ROUTER_NAME)
+    this.navigate(Route.NOTIFICATION_NOTICE_DETAIL_ROUTER_NAME)
 }
 
 fun NavController.navigateNotificationToPushDetailInNotificationGraph() {
-    this.navigate(Router.NOTIFICATION_PUSH_DETAIL_ROUTER_NAME)
+    this.navigate(Route.NOTIFICATION_PUSH_DETAIL_ROUTER_NAME)
 }
 
 
