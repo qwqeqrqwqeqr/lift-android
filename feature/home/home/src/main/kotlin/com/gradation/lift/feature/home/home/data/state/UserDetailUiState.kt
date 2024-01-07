@@ -10,5 +10,5 @@ import com.gradation.lift.model.model.user.UserDetail
 sealed interface UserDetailUiState {
     data class Success(val userDetail: UserDetail) : UserDetailUiState
     data class Fail(val message: String) : UserDetailUiState
-    object Loading : UserDetailUiState
+    data object Loading : UserDetailUiState
 }
