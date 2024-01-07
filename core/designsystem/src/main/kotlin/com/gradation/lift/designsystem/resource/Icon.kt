@@ -58,6 +58,7 @@ object LiftIcon {
     val Search = R.drawable.search
     val Bang = R.drawable.bang
 
+    val Glitter = R.drawable.glitter
 
     val LoginKakao = R.drawable.login_kakao
     val LoginNaver = R.drawable.login_naver
