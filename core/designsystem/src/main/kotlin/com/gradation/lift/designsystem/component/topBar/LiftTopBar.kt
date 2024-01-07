@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiftTopBar(
