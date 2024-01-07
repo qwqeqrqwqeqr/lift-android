@@ -24,6 +24,10 @@ fun loginGraphBuilder(
     navGraphBuilder.navigation(
         route = LOGIN_GRAPH_NAME,
         startDestination = LOGIN_SIGN_IN_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         resetPasswordScreen(modifier, navController)
         signInScreen(modifier, navController)

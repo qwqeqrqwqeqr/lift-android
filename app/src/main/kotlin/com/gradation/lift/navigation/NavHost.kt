@@ -1,12 +1,13 @@
 package com.gradation.lift.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.gradation.ift.feature.updateRoutine.navigation.updateRoutineGraphBuilder
 import com.gradation.lift.feature.badge.navigation.badgeGraphBuilder
-import com.gradation.lift.feature.badge.navigation.newBadgeGraphBuilder
 import com.gradation.lift.feature.createRoutine.navigation.createRoutineGraphBuilder
 import com.gradation.lift.feature.history.navigation.historyGraphBuilder
 import com.gradation.lift.feature.home.navigation.homeGraphBuilder
@@ -27,20 +28,23 @@ fun LiftNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None },
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
     ) {
         badgeGraphBuilder(navController, this)
-        createRoutineGraphBuilder(modifier,navController, this)
-        homeGraphBuilder(navController, this)
+        createRoutineGraphBuilder(modifier, navController, this)
+        homeGraphBuilder(modifier, navController, this)
         historyGraphBuilder(navController, this)
-        loginGraphBuilder(modifier,navController, this)
+        loginGraphBuilder(modifier, navController, this)
         myInfoGraphBuilder(navController, this)
-        newBadgeGraphBuilder(navController, this)
         notificationGraphBuilder(navController, this)
-        registerDetailGraphBuilder(modifier,navController, this)
-        updateRoutineGraphBuilder(modifier,navController, this)
-        workGraphBuilder(modifier,navController, this)
-        routineDetailGraphBuilder(modifier,navController,this)
+        registerDetailGraphBuilder(modifier, navController, this)
+        updateRoutineGraphBuilder(modifier, navController, this)
+        workGraphBuilder(modifier, navController, this)
+        routineDetailGraphBuilder(modifier, navController, this)
     }
 }
 

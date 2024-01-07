@@ -16,6 +16,10 @@ fun myInfoGraphBuilder(
     navGraphBuilder.navigation(
         route = MY_INFO_GRAPH_NAME,
         startDestination = MY_INFO_MY_INFO_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         myInfoMyInfoScreen(navController, this)
         myInfoUpdateScreen(navController, this)

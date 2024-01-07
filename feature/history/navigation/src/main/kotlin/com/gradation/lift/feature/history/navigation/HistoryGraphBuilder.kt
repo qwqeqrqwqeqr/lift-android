@@ -15,6 +15,10 @@ fun historyGraphBuilder(
     navGraphBuilder.navigation(
         route = HISTORY_GRAPH_NAME,
         startDestination = HISTORY_HISTORY_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         historyHistoryScreen(navController, this)
     }

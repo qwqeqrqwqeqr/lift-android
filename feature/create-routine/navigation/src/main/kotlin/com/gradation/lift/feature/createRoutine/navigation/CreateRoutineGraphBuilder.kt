@@ -20,6 +20,10 @@ fun createRoutineGraphBuilder(
     navGraphBuilder.navigation(
         route = CREATE_ROUTINE_GRAPH_NAME,
         startDestination = CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         routineSetScreen(modifier,navController, this)
         findWorkCategoryScreen(modifier,navController, this)

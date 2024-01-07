@@ -19,6 +19,10 @@ fun workGraphBuilder(
     navGraphBuilder.navigation(
         route = WORK_GRAPH_NAME,
         startDestination = WORK_ROUTINE_SELECTION_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         routineSelectionScreen(modifier,navController, this)
         workScreen(modifier,navController, this)

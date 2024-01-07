@@ -15,6 +15,10 @@ fun badgeGraphBuilder(
     navGraphBuilder.navigation(
         route = BADGE_GRAPH_NAME,
         startDestination = BADGE_BADGE_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         badgeBadgeScreen(navController, this)
         badgeSettingScreen(navController, this)

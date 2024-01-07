@@ -19,6 +19,10 @@ fun registerDetailGraphBuilder(
     navGraphBuilder.navigation(
         route = REGISTER_DETAIL_GRAPH_NAME,
         startDestination = REGISTER_DETAIL_NAME_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         nameScreen(modifier,navController)
         genderScreen(modifier,navController)

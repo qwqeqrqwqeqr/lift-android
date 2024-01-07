@@ -20,6 +20,10 @@ fun updateRoutineGraphBuilder(
     navGraphBuilder.navigation(
         route = UPDATE_ROUTINE_GRAPH_NAME,
         startDestination = UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         routineSetScreen(modifier,navController, this)
         profilePictureScreen(modifier,navController, this)

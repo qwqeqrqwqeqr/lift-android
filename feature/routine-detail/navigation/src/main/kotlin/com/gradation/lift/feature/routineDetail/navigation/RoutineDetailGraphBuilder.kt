@@ -16,6 +16,10 @@ fun routineDetailGraphBuilder(
     navGraphBuilder.navigation(
         route = Route.ROUTINE_DETAIL_GRAPH_NAME,
         startDestination = Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         routineScreen(modifier, navController, this)
         routineListScreen(modifier, navController, this)

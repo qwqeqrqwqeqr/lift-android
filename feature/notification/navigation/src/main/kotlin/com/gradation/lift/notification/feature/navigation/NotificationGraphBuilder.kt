@@ -16,6 +16,10 @@ fun notificationGraphBuilder(
     navGraphBuilder.navigation(
         route = Route.NOTIFICATION_GRAPH_NAME,
         startDestination = Route.NOTIFICATION_NOTIFICATION_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         notificationNotificationScreen(navController, this)
         notificationPushDetailScreen(navController, this)
