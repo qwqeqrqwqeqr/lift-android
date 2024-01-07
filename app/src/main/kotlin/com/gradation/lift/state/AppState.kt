@@ -1,24 +1,24 @@
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.tracing.trace
-import com.gradation.lift.common.common.DispatcherProvider
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.*
 
 @Stable
 class AppState(
     val navController: NavHostController,
-    private var dispatcherProvider: DispatcherProvider,
+    val currentDestination: NavDestination?,
 ) {
-
-    val currentDestination: NavDestination?
-        @Composable get() = navController
-            .currentBackStackEntryAsState().value?.destination
-
     val isShowBottomBar: Boolean
         @Composable get() = currentDestination?.let { destination ->
             (destination.route in topLevelDestinations.map { it.route })
@@ -45,14 +45,23 @@ class AppState(
 @Composable
 fun rememberAppState(
     navController: NavHostController,
-    dispatcherProvider: DispatcherProvider,
+    systemUiController: SystemUiController,
 ): AppState {
 
+    val currentDestination: NavDestination? =
+        navController.currentBackStackEntryAsState().value?.destination
+    val systemBarsColor: Color by animateColorAsState(
+        targetValue = when (currentDestination?.route) {
+            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no31
+            else -> LiftTheme.colorScheme.no5
+        }, label = "systemBarsColor"
+    )
 
-    return remember(navController) {
+    systemUiController.setSystemBarsColor(color = systemBarsColor)
+    return remember(navController, currentDestination) {
         AppState(
             navController,
-            dispatcherProvider,
+            currentDestination,
         )
     }
 }

@@ -79,8 +79,8 @@ class MainActivity : ComponentActivity() {
                     splashState = splashState,
                     windowSizeClass = calculateWindowSizeClass(this),
                     appState = rememberAppState(
-                        rememberNavController(),
-                        dispatcherProvider
+                        navController = rememberNavController(),
+                        systemUiController = rememberSystemUiController(),
                     )
                 )
             }
