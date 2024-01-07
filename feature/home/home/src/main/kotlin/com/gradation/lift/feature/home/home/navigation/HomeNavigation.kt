@@ -16,6 +16,8 @@ import com.gradation.lift.navigation.navigation.navigateHomeToBadgeInHomeGraph
 
 
 fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavController) {
+
+
     val navigateMainGraphToCreateRoutineGraph: () -> Unit =
         { navController.navigateHomeGraphToCreateRoutineGraph() }
     val navigateMainGraphToWorkGraph: () -> Unit = { navController.navigateHomeGraphToWorkGraph() }

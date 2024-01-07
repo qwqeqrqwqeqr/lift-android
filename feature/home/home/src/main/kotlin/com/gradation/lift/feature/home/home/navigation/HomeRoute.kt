@@ -1,8 +1,6 @@
 package com.gradation.lift.feature.home.home.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,8 +12,10 @@ import androidx.navigation.NavController
 import com.gradation.lift.feature.home.common.data.BadgeConditionState
 import com.gradation.lift.feature.home.common.data.HomeSharedViewModel
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
+import com.gradation.lift.feature.home.home.data.state.HomeScreenState
 import com.gradation.lift.feature.home.home.data.state.RoutineUiState
 import com.gradation.lift.feature.home.home.data.state.UserDetailUiState
+import com.gradation.lift.feature.home.home.data.state.rememberHomeScreenState
 import com.gradation.lift.feature.home.home.data.viewModel.HomeViewModel
 import com.gradation.lift.feature.home.home.ui.HomeScreen
 import com.gradation.lift.navigation.Route
@@ -35,6 +35,7 @@ internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: HomeSharedViewModel =
         hiltViewModel(remember { navController.getBackStackEntry(Route.HOME_GRAPH_NAME) }),
+    homeScreenState: HomeScreenState = rememberHomeScreenState(),
 ) {
 
     val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
@@ -42,13 +43,11 @@ internal fun HomeRoute(
     val routineUiState: RoutineUiState by viewModel.routineUiState.collectAsStateWithLifecycle()
     val badgeConditionState: BadgeConditionState by sharedViewModel.badgeConditionState.collectAsStateWithLifecycle()
 
-    val scrollState: ScrollState = rememberScrollState()
 
     when (badgeConditionState) {
         is BadgeConditionState.Success -> LaunchedEffect(true) {
             navigateHomeToBadgeInHomeGraph()
         }
-
         BadgeConditionState.None -> {}
     }
 
@@ -65,6 +64,6 @@ internal fun HomeRoute(
         navigateHomeGraphToRoutineDetailGraph,
         navigateHomeGraphToRoutineDetailRoutineRouter,
         navigateHomeGraphToBadgeSettingRouter,
-        scrollState
+        homeScreenState
     )
 }
