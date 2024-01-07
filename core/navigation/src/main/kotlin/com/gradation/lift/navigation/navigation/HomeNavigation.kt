@@ -36,9 +36,21 @@ fun NavController.navigateHomeGraphToBadgeSettingRouter() {
     this.navigate(Route.BADGE_SETTING_ROUTER_NAME)
 }
 
-fun NavController.navigateHomeGraphToNewBadgeGraph() {
-    this.navigate(Route.NEW_BADGE_GRAPH_NAME)
+fun NavController.navigateHomeToBadgeInHomeGraph() {
+    this.navigate(Route.HOME_BADGE_ROUTER_NAME)
 }
+
+
+fun NavController.navigateBadgeToHomeInHomeGraph() {
+    this.navigate(HOME_GRAPH_NAME) {
+        launchSingleTop = true
+        popUpTo(this@navigateBadgeToHomeInHomeGraph.graph.id) {
+            inclusive = true
+        }
+    }
+}
+
+
 
 fun NavController.navigateHomeGraphToNotificationGraph() {
     this.navigate(Route.NOTIFICATION_GRAPH_NAME)

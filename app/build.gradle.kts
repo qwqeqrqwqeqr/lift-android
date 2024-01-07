@@ -44,6 +44,6 @@ dependencies {
     implementation(project(":feature:notification:navigation"))
     implementation(project(":feature:update-routine:navigation"))
     implementation(project(":feature:my-info:navigation"))
+    implementation(project(":feature:home:navigation"))
 
-    implementation(project(":feature:home"))
 }

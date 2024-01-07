@@ -37,7 +37,10 @@ include(":core:work")
 include(":core:oauth")
 
 
-include(":feature:home")
+include(":feature:home:home")
+include(":feature:home:badge")
+include(":feature:home:common")
+include(":feature:home:navigation")
 
 
 include(":feature:create-routine:routine-set")
@@ -73,7 +76,6 @@ include(":feature:work:complete")
 
 include(":feature:badge:badge")
 include(":feature:badge:setting")
-include(":feature:badge:new-badge")
 
 
 include(":feature:notification:notification")
@@ -100,7 +102,6 @@ include(":feature:update-routine:common")
 include(":feature:routine-detail:routine")
 include(":feature:routine-detail:routine-list")
 
-
 include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
@@ -109,3 +110,4 @@ include(":feature:work:navigation")
 include(":feature:notification:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
+
