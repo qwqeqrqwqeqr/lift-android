@@ -9,30 +9,32 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.center
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
+import com.gradation.lift.feature.home.home.data.state.HomeScreenState
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -41,9 +43,10 @@ fun BadgeView(
     modifier: Modifier = Modifier,
     badgeUiState: BadgeUiState,
     navigateHomeGraphToBadgeGraph: () -> Unit,
-    navigateHomeGraphToBadgeSettingRouter: () -> Unit
+    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
+    homeScreenState: HomeScreenState,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)) {
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -51,38 +54,38 @@ fun BadgeView(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
             ) {
                 Icon(
                     painter = painterResource(LiftIcon.Badge),
                     contentDescription = "badge",
                     tint = Color.Unspecified,
                 )
-                Text(
+                LiftText(
+                    textStyle = LiftTextStyle.No1,
                     text = "내 뱃지",
-                    color = LiftTheme.colorScheme.no9,
-                    style = LiftTheme.typography.no1
+                    color = LiftTheme.colorScheme.no3,
+                    textAlign = TextAlign.Start
                 )
             }
 
             Row(
                 modifier = modifier.noRippleClickable { navigateHomeGraphToBadgeGraph() },
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(2.dp)
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
             ) {
 
-                Text(
-
+                LiftText(
+                    textStyle = LiftTextStyle.No6,
                     text = "전체보기",
                     color = LiftTheme.colorScheme.no2,
-                    style = LiftTheme.typography.no6
+                    textAlign = TextAlign.Start
                 )
                 Icon(
                     modifier = modifier
-                        .width(8.dp)
-                        .height(8.dp),
+                        .size(LiftTheme.space.space8),
                     painter = painterResource(LiftIcon.ChevronRightSharp),
-                    contentDescription = "badgeAll",
+                    contentDescription = "selectAllBadge",
                     tint = LiftTheme.colorScheme.no2,
                 )
             }
@@ -90,109 +93,147 @@ fun BadgeView(
 
         Column {
             when (badgeUiState) {
-                is BadgeUiState.Fail -> {
-                    Spacer(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .height(96.dp)
-                    )
-                }
+                is BadgeUiState.Fail -> Spacer(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(LiftTheme.space.space96)
+                )
 
-                BadgeUiState.Loading -> {
+                BadgeUiState.Loading ->
                     Spacer(
                         modifier = modifier
                             .fillMaxWidth()
-                            .height(96.dp)
-                            .background(SkeletonBrush(), RoundedCornerShape(12.dp))
+                            .height(LiftTheme.space.space96)
+                            .background(
+                                SkeletonBrush(),
+                                RoundedCornerShape(LiftTheme.space.space12)
+                            )
                     )
-                }
+
 
                 is BadgeUiState.Success -> {
                     val badgeBackgroundColor = LiftTheme.colorScheme.no33
                     Column(
                         modifier = modifier
                             .fillMaxWidth()
+                            .height(LiftTheme.space.space72)
                             .drawBehind {
                                 drawPath(
                                     path = Path().apply {
-                                        moveTo(
-                                            0f,
-                                            size.height
-                                        )
+                                        moveTo(0f, size.height)
+                                        lineTo(size.width, size.height)
                                         lineTo(
-                                            size.width,
-                                            size.height
+                                            size.width - size.width / 50,
+                                            size.height - size.center.y / 2
                                         )
-                                        lineTo(size.width - size.width / 30, size.height / 2)
-                                        lineTo(size.width / 30, size.height / 2)
+                                        lineTo(size.width / 50, size.height - size.center.y / 2)
                                         close()
                                     }, style = Fill, color = badgeBackgroundColor
                                 )
-                            }
+                                drawPath(
+                                    path = Path().apply {
+                                        moveTo(size.width / 50, 0f)
+                                        lineTo(size.width - size.width / 50, 0f)
+                                        lineTo(
+                                            size.width - size.width / 50,
+                                            size.height - size.center.y / 2
+                                        )
+                                        lineTo(size.width / 50, size.height - size.center.y / 2)
+                                        close()
+                                    }, style = Fill,
+                                    brush = Brush.linearGradient(
+                                        start = Offset(y = 0f, x = center.x),
+                                        end = Offset(y = size.height, x = center.x),
+                                        colors = listOf(
+                                            Color.Transparent,
+                                            homeScreenState.backgroundBadgeEffectColor,
+                                            homeScreenState.backgroundBadgeEffectColor
+                                        )
+                                    )
+                                )
+                            },
+                        verticalArrangement = Arrangement.Bottom
                     ) {
                         Row(
                             modifier = modifier,
-                            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+                            verticalAlignment = Alignment.Bottom
                         ) {
                             badgeUiState.userBadge.forEach {
                                 GlideImage(
                                     modifier = modifier
-                                        .size(52.dp)
-                                        .offset(y = (-6).dp),
+                                        .size(LiftTheme.space.space52)
+                                        .offset(y = -LiftTheme.space.space8)
+                                        .weight(1f),
                                     model = it.badge.url,
-                                    contentDescription = "Badge"
+                                    contentDescription = "${it.badge.url}Badge"
                                 )
                             }
 
                             if (badgeUiState.userBadge.size < 5) {
                                 Box(
                                     modifier = modifier
-                                        .size(52.dp)
-                                        .offset(y = (-6).dp)
-                                        .background(
-                                            LiftTheme.colorScheme.no5,
-                                            CircleShape
-                                        )
-                                        .noRippleClickable { navigateHomeGraphToBadgeSettingRouter() },
+                                        .size(LiftTheme.space.space52)
+                                        .offset(y = -LiftTheme.space.space8)
+                                        .background(LiftTheme.colorScheme.no5, CircleShape)
+                                        .noRippleClickable { navigateHomeGraphToBadgeSettingRouter() }
+                                        .weight(1f),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Icon(
-                                        modifier = modifier.size(22.dp),
+                                        modifier = modifier.size(LiftTheme.space.space24),
                                         painter = painterResource(id = LiftIcon.Plus),
                                         contentDescription = "addBadge",
                                         tint = LiftTheme.colorScheme.no32
                                     )
                                 }
                             }
-                            repeat(4 - badgeUiState.userBadge.size) {
-                                Spacer(modifier = modifier.size(52.dp))
+                            repeat(5 - badgeUiState.userBadge.size) {
+                                Spacer(
+                                    modifier = modifier
+                                        .size(LiftTheme.space.space52)
+                                        .weight(1f)
+                                )
                             }
                         }
                     }
+
+
                     Row(
                         modifier = modifier
                             .fillMaxWidth()
+                            .height(LiftTheme.space.space32)
                             .background(
                                 LiftTheme.colorScheme.no5,
-                                RoundedCornerShape(0.dp, 0.dp, 12.dp, 12.dp)
-                            )
-                            .padding(vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                                RoundedCornerShape(
+                                    LiftTheme.space.space0,
+                                    LiftTheme.space.space0,
+                                    LiftTheme.space.space12,
+                                    LiftTheme.space.space12
+                                )
+                            ),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         badgeUiState.userBadge.forEach {
                             Box(
-                                modifier = modifier.width(52.dp),
+                                modifier = modifier
+                                    .size(LiftTheme.space.space52)
+                                    .weight(1f),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text(
+                                LiftText(
+                                    textStyle = LiftTextStyle.No8,
                                     text = it.badge.name,
-                                    style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold),
-                                    color = Color(android.graphics.Color.parseColor(it.badge.color))
+                                    color = Color(android.graphics.Color.parseColor(it.badge.color)),
+                                    textAlign = TextAlign.Center
                                 )
                             }
                         }
                         repeat(5 - badgeUiState.userBadge.size) {
-                            Spacer(modifier = modifier.width(52.dp))
+                            Spacer(
+                                modifier = modifier
+                                    .size(LiftTheme.space.space52)
+                                    .weight(1f)
+                            )
                         }
                     }
                 }
