@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.dp
 
 
 data class LiftSpace(
+    val space0: Dp = 0.dp,
     val space1: Dp = 1.dp,
     val space2: Dp = 2.dp,
     val space4: Dp = 4.dp,
@@ -38,6 +39,7 @@ data class LiftSpace(
     val space108: Dp = 108.dp,
     val space120: Dp = 120.dp,
     val space132: Dp = 132.dp,
+    val space148: Dp = 148.dp,
     val space214: Dp = 214.dp,
 
 
