@@ -5,16 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
 fun SkeletonBrush(showShimmer: Boolean = true,targetValue:Float = 100f): Brush {
     return if (showShimmer) {
         val shimmerColors = listOf(
-            LiftTheme.colorScheme.no7.copy(alpha = 0.6f),
-            LiftTheme.colorScheme.no7.copy(alpha = 0.2f),
-            LiftTheme.colorScheme.no7.copy(alpha = 0.6f),
+            Color.LightGray.copy(alpha = 0.6f),
+            Color.LightGray.copy(alpha = 0.2f),
+            Color.LightGray.copy(alpha = 0.6f),
         )
 
         val skeletonTransition = rememberInfiniteTransition(label = "skeletonTransition")

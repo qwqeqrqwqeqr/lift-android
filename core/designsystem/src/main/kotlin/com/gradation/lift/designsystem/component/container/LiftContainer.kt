@@ -15,10 +15,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun LiftDefaultContainer(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit,
     horizontalPadding: Dp = LiftTheme.space.paddingSpace,
     verticalPadding: Dp = LiftTheme.space.paddingSpace,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -41,11 +41,10 @@ fun LiftDefaultContainer(
 @Composable
 fun LiftPrimaryContainer(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit,
     horizontalPadding: Dp = LiftTheme.space.paddingSpace,
     verticalPadding: Dp = LiftTheme.space.paddingSpace,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
-
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -61,10 +60,10 @@ fun LiftPrimaryContainer(
 @Composable
 fun LiftSecondaryContainer(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit,
     horizontalPadding: Dp = LiftTheme.space.paddingSpace,
     verticalPadding: Dp = LiftTheme.space.paddingSpace,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    content: @Composable BoxScope.() -> Unit,
 
 ) {
     Box(
@@ -82,10 +81,10 @@ fun LiftSecondaryContainer(
 @Composable
 fun LiftEmptyContainer(
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit,
     horizontalPadding: Dp = LiftTheme.space.paddingSpace,
     verticalPadding: Dp = LiftTheme.space.paddingSpace,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
