@@ -1,6 +1,7 @@
 package com.gradation.lift.designsystem.component.bottomSheet
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -19,7 +20,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun LiftBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
-    shape: Shape = BottomSheetDefaults.ExpandedShape,
+    shape: Shape = RoundedCornerShape(
+        topStart = LiftTheme.space.space16,
+        topEnd = LiftTheme.space.space16
+    ),
     containerColor: Color = LiftTheme.colorScheme.no5,
     contentColor: Color = LiftTheme.colorScheme.no9,
     tonalElevation: Dp = BottomSheetDefaults.Elevation,
@@ -30,13 +34,13 @@ fun LiftBottomSheet(
 ) {
     ModalBottomSheet(
         modifier = modifier,
-        sheetState=sheetState,
+        sheetState = sheetState,
         shape = shape,
         containerColor = containerColor,
         contentColor = contentColor,
         tonalElevation = tonalElevation,
-        scrimColor=scrimColor,
-        dragHandle=dragHandle,
+        scrimColor = scrimColor,
+        dragHandle = dragHandle,
         onDismissRequest = onDismissRequest,
         content = content
     )

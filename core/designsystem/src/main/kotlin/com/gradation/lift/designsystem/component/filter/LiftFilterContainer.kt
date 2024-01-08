@@ -24,6 +24,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun LiftLabelFilterContainer(
     modifier: Modifier = Modifier,
     labelType: Set<Int>,
+    selectedAll: Boolean,
 ) {
     LiftBaseFilterContainer(modifier = modifier) {
         Row(
@@ -42,12 +43,21 @@ fun LiftLabelFilterContainer(
                 color = LiftTheme.colorScheme.no2,
                 textAlign = TextAlign.Start
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
-            ) {
-                labelType.forEach {
-                    RoutineLabel(modifier = modifier.size(LiftTheme.space.space12), id = it)
+            if(selectedAll){
+                LiftText(
+                    textStyle = LiftTextStyle.No5,
+                    text = "전체",
+                    color = LiftTheme.colorScheme.no4,
+                    textAlign = TextAlign.Start
+                )
+            }else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
+                ) {
+                    labelType.forEach {
+                        RoutineLabel(modifier = modifier.size(LiftTheme.space.space12), id = it)
+                    }
                 }
             }
         }

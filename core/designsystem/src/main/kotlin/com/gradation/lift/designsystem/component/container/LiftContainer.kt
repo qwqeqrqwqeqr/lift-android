@@ -15,8 +15,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 @Composable
 fun LiftDefaultContainer(
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = LiftTheme.space.paddingSpace,
-    verticalPadding: Dp = LiftTheme.space.paddingSpace,
+    verticalPadding: Dp = LiftTheme.space.space0,
+    horizontalPadding: Dp = LiftTheme.space.space0,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 ) {
@@ -65,7 +65,7 @@ fun LiftSecondaryContainer(
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 
-) {
+    ) {
     Box(
         modifier = modifier
             .background(
