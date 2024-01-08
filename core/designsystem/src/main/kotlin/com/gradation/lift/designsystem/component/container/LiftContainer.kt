@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.Dp
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -41,8 +40,8 @@ fun LiftDefaultContainer(
 @Composable
 fun LiftPrimaryContainer(
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = LiftTheme.space.paddingSpace,
-    verticalPadding: Dp = LiftTheme.space.paddingSpace,
+    verticalPadding: Dp = LiftTheme.space.space0,
+    horizontalPadding: Dp = LiftTheme.space.space0,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 ) {
@@ -60,8 +59,8 @@ fun LiftPrimaryContainer(
 @Composable
 fun LiftSecondaryContainer(
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = LiftTheme.space.paddingSpace,
-    verticalPadding: Dp = LiftTheme.space.paddingSpace,
+    verticalPadding: Dp = LiftTheme.space.space0,
+    horizontalPadding: Dp = LiftTheme.space.space0,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 
@@ -81,14 +80,17 @@ fun LiftSecondaryContainer(
 @Composable
 fun LiftEmptyContainer(
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = LiftTheme.space.paddingSpace,
-    verticalPadding: Dp = LiftTheme.space.paddingSpace,
+    verticalPadding: Dp = LiftTheme.space.space0,
+    horizontalPadding: Dp = LiftTheme.space.space0,
     shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
-            .clip(shape = shape)
+            .background(
+                color = LiftTheme.colorScheme.no5,
+                shape = shape
+            )
             .padding(horizontal = horizontalPadding, vertical = verticalPadding),
         content = content
     )
