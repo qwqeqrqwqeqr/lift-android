@@ -8,10 +8,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
@@ -122,16 +124,13 @@ internal fun RoutineSelectionScreen(
                                 )
                             }
                     }
-                    Column(
+                    LiftDefaultContainer(
                         modifier = modifier
-                            .fillMaxWidth()
                             .background(LiftTheme.colorScheme.no5)
-                            .padding(
-                                horizontal = LiftTheme.space.space20,
-                                vertical = LiftTheme.space.space10
-                            ),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .fillMaxWidth(),
+                        shape = RectangleShape,
+                        verticalPadding = LiftTheme.space.space10,
+                        horizontalPadding = LiftTheme.space.space20
                     ) {
                         LiftSolidButton(
                             modifier = modifier.fillMaxWidth(),

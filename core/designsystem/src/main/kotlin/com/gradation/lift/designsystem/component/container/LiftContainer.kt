@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -16,7 +17,7 @@ fun LiftDefaultContainer(
     modifier: Modifier = Modifier,
     verticalPadding: Dp = LiftTheme.space.space0,
     horizontalPadding: Dp = LiftTheme.space.space0,
-    shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -42,7 +43,7 @@ fun LiftPrimaryContainer(
     modifier: Modifier = Modifier,
     verticalPadding: Dp = LiftTheme.space.space0,
     horizontalPadding: Dp = LiftTheme.space.space0,
-    shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -61,7 +62,7 @@ fun LiftSecondaryContainer(
     modifier: Modifier = Modifier,
     verticalPadding: Dp = LiftTheme.space.space0,
     horizontalPadding: Dp = LiftTheme.space.space0,
-    shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 
     ) {
@@ -82,7 +83,7 @@ fun LiftEmptyContainer(
     modifier: Modifier = Modifier,
     verticalPadding: Dp = LiftTheme.space.space0,
     horizontalPadding: Dp = LiftTheme.space.space0,
-    shape: RoundedCornerShape = RoundedCornerShape(size = LiftTheme.space.space12),
+    shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(

@@ -300,7 +300,7 @@ fun Catalog(
         ) {
             LiftSortFilterContainer(modifier = modifier, sortType = "전체")
             LiftWeekdayFilterContainer(modifier = modifier, weekdayType = "월,화,수,목,금,토")
-            LiftLabelFilterContainer(modifier = modifier, labelType = setOf(1, 2, 3))
+            LiftLabelFilterContainer(modifier = modifier, labelType = setOf(1, 2, 3), false)
         }
         Column(
             modifier.fillMaxWidth(),
@@ -319,9 +319,8 @@ fun Catalog(
             LiftDefaultContainer(
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(LiftTheme.space.space120),
-                content = {}
-            )
+                    .height(LiftTheme.space.space120)
+            ) {}
 
             LiftPrimaryContainer(
                 modifier = modifier
