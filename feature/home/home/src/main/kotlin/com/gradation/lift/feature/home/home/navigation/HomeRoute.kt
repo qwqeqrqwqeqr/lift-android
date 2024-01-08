@@ -12,9 +12,11 @@ import androidx.navigation.NavController
 import com.gradation.lift.feature.home.common.data.BadgeConditionState
 import com.gradation.lift.feature.home.common.data.HomeSharedViewModel
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
+import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
 import com.gradation.lift.feature.home.home.data.state.HomeScreenState
 import com.gradation.lift.feature.home.home.data.state.RoutineUiState
 import com.gradation.lift.feature.home.home.data.state.UserDetailUiState
+import com.gradation.lift.feature.home.home.data.state.rememberHomeAnimationState
 import com.gradation.lift.feature.home.home.data.state.rememberHomeScreenState
 import com.gradation.lift.feature.home.home.data.viewModel.HomeViewModel
 import com.gradation.lift.feature.home.home.ui.HomeScreen
@@ -28,7 +30,6 @@ internal fun HomeRoute(
     navigateMainGraphToWorkGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
     navigateHomeToBadgeInHomeGraph: () -> Unit,
-    navigateHomeGraphToNotificationGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
@@ -36,6 +37,7 @@ internal fun HomeRoute(
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: HomeSharedViewModel =
         hiltViewModel(remember { navController.getBackStackEntry(Route.HOME_GRAPH_NAME) }),
     homeScreenState: HomeScreenState = rememberHomeScreenState(),
+    homeAnimationState: HomeAnimationState = rememberHomeAnimationState(),
 ) {
 
     val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
@@ -48,6 +50,7 @@ internal fun HomeRoute(
         is BadgeConditionState.Success -> LaunchedEffect(true) {
             navigateHomeToBadgeInHomeGraph()
         }
+
         BadgeConditionState.None -> {}
     }
 
@@ -60,10 +63,10 @@ internal fun HomeRoute(
         navigateMainGraphToCreateRoutineGraph,
         navigateMainGraphToWorkGraph,
         navigateHomeGraphToBadgeGraph,
-        navigateHomeGraphToNotificationGraph,
         navigateHomeGraphToRoutineDetailGraph,
         navigateHomeGraphToRoutineDetailRoutineRouter,
         navigateHomeGraphToBadgeSettingRouter,
-        homeScreenState
+        homeScreenState,
+        homeAnimationState
     )
 }

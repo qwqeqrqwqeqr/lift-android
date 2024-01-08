@@ -1,46 +1,31 @@
 package com.gradation.lift.feature.home.home.data.state
 
-import androidx.compose.animation.animateColor
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.setValue
 
 @Composable
 fun rememberHomeScreenState(
-    scrollState: ScrollState = rememberScrollState(),
+    lazyListState: LazyListState = rememberLazyListState(),
 ): HomeScreenState {
 
-    val backgroundBadgeEffectTransition = rememberInfiniteTransition(label = "backgroundBadgeEffectTransition")
-    val backgroundBadgeEffectColor: Color by backgroundBadgeEffectTransition.animateColor(
-        initialValue = Color(0x33CFD6E3),
-        targetValue = Color(0xAACFD6E3),
-        animationSpec = infiniteRepeatable(
-            animation = tween(4000), repeatMode = RepeatMode.Reverse
-        ), label = "backgroundBadgeEffectColor"
-    )
 
-    return remember(scrollState,backgroundBadgeEffectColor) {
-        HomeScreenState(scrollState,backgroundBadgeEffectColor)
+    return remember(lazyListState,) {
+        HomeScreenState(lazyListState)
     }
-
-
-
 
 
 }
 
-
 data class HomeScreenState(
-    val scrollState: ScrollState,
-    val backgroundBadgeEffectColor: Color
-) {
+    val lazyListState: LazyListState,
 
+) {
+    var visibleBannerView: Boolean by mutableStateOf(true)
+    val updateVisibleBannerView: (Boolean) -> Unit = { visibleBannerView = it }
 }
 

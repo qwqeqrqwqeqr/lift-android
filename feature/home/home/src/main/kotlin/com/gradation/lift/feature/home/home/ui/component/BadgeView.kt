@@ -34,7 +34,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
-import com.gradation.lift.feature.home.home.data.state.HomeScreenState
+import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -44,7 +44,7 @@ fun BadgeView(
     badgeUiState: BadgeUiState,
     navigateHomeGraphToBadgeGraph: () -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
-    homeScreenState: HomeScreenState,
+    homeAnimationState: HomeAnimationState,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)) {
         Row(
@@ -146,8 +146,8 @@ fun BadgeView(
                                         end = Offset(y = size.height, x = center.x),
                                         colors = listOf(
                                             Color.Transparent,
-                                            homeScreenState.backgroundBadgeEffectColor,
-                                            homeScreenState.backgroundBadgeEffectColor
+                                            homeAnimationState.backgroundBadgeEffectColor,
+                                            homeAnimationState.backgroundBadgeEffectColor
                                         )
                                     )
                                 )

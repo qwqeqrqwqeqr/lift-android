@@ -8,7 +8,6 @@ import com.gradation.lift.navigation.Route.HOME_HOME_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph
-import com.gradation.lift.navigation.navigation.navigateHomeGraphToNotificationGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailRoutineRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToWorkGraph
@@ -25,8 +24,6 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
         { navController.navigateHomeGraphToBadgeGraph() }
     val navigateHomeToBadgeInHomeGraph: () -> Unit =
         { navController.navigateHomeToBadgeInHomeGraph() }
-    val navigateHomeGraphToNotificationGraph: () -> Unit =
-        { navController.navigateHomeGraphToNotificationGraph() }
     val navigateHomeGraphToRoutineDetailGraph: () -> Unit =
         { navController.navigateHomeGraphToRoutineDetailGraph() }
     val navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit =
@@ -42,7 +39,6 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
             navigateMainGraphToWorkGraph = navigateMainGraphToWorkGraph,
             navigateHomeGraphToBadgeGraph = navigateHomeGraphToBadgeGraph,
             navigateHomeToBadgeInHomeGraph = navigateHomeToBadgeInHomeGraph,
-            navigateHomeGraphToNotificationGraph = navigateHomeGraphToNotificationGraph,
             navigateHomeGraphToRoutineDetailGraph = navigateHomeGraphToRoutineDetailGraph,
             navigateHomeGraphToRoutineDetailRoutineRouter = navigateHomeGraphToRoutineDetailRoutineRouter,
             navigateHomeGraphToBadgeSettingRouter = navigateHomeGraphToBadgeSettingRouter

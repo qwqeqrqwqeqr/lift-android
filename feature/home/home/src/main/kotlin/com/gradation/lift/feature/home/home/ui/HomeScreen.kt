@@ -1,26 +1,34 @@
 package com.gradation.lift.feature.home.home.ui
 
-import androidx.compose.foundation.ScrollState
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.ui.component.BadgeView
 import com.gradation.lift.feature.home.home.ui.component.BannerView
-import com.gradation.lift.feature.home.home.ui.component.RoutineView
 import com.gradation.lift.feature.home.home.ui.component.TopBar
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
+import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
+import com.gradation.lift.feature.home.home.data.state.HomeScreenState
 import com.gradation.lift.feature.home.home.data.state.RoutineUiState
 import com.gradation.lift.feature.home.home.data.state.UserDetailUiState
+import com.gradation.lift.feature.home.home.ui.component.routineList.emptyRoutineListView
+import com.gradation.lift.feature.home.home.ui.component.routineList.failRoutineListView
+import com.gradation.lift.feature.home.home.ui.component.routineList.loadingRoutineListView
+import com.gradation.lift.feature.home.home.ui.component.routineList.successRoutineListView
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 
 @Composable
@@ -32,27 +40,52 @@ internal fun HomeScreen(
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateMainGraphToWorkGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
-    navigateHomeGraphToNotificationGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
-    scrollState: ScrollState,
+    homeScreenState: HomeScreenState,
+    homeAnimationState: HomeAnimationState,
 ) {
+    LaunchedEffect(homeScreenState.lazyListState) {
+        snapshotFlow { homeScreenState.lazyListState.firstVisibleItemIndex }
+            .collect { it ->
+                if (it > 0) {
+                    homeScreenState.updateVisibleBannerView(false)
+                } else {
+                    homeScreenState.updateVisibleBannerView(true)
+                }
+            }
+    }
+
+
+
     Scaffold(
         modifier = modifier,
-        topBar = { TopBar(modifier, userDetailUiState, navigateHomeGraphToNotificationGraph) },
+        topBar = {
+            AnimatedVisibility(
+                visible = homeScreenState.visibleBannerView,
+                enter = expandVertically(spring(stiffness = 100f)),
+                exit = shrinkVertically(spring(stiffness = 100f))
+            ) {
+                TopBar(modifier, userDetailUiState)
+            }
+        },
         floatingActionButton = {
             Box(
                 modifier = modifier
-
+                    .offset(y = -LiftTheme.space.space60)
                     .border(
                         width = LiftTheme.space.space2,
                         color = LiftTheme.colorScheme.no5,
-                        shape = RoundedCornerShape(size = LiftTheme.space.space40)
+                        shape = CircleShape
                     )
-                    .background(LiftTheme.colorScheme.no4, RoundedCornerShape(size = LiftTheme.space.space40))
+                    .background(
+                        LiftTheme.colorScheme.no4,
+                        CircleShape
+                    )
                     .size(LiftTheme.space.space72)
-                    .noRippleClickable { navigateMainGraphToWorkGraph() },
+                    .noRippleClickable { navigateMainGraphToWorkGraph() }
+                    ,
                 contentAlignment = Alignment.Center
 
             ) {
@@ -66,32 +99,67 @@ internal fun HomeScreen(
                 )
             }
         },
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.EndOverlay
     ) {
-        Surface(
-            modifier = modifier.fillMaxSize(),
-            color = LiftTheme.colorScheme.no31
+        LazyColumn(
+            state = homeScreenState.lazyListState,
+            modifier = modifier
+                .fillMaxSize()
+                .background(LiftTheme.colorScheme.no31)
+                .padding(it)
+                .padding(
+                    start = LiftTheme.space.space20,
+                    end = LiftTheme.space.space20,
+                    bottom = LiftTheme.space.space60
+                ),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
         ) {
-            Column(
-                modifier = modifier
-                    .verticalScroll(scrollState)
-                    .padding(it)
-                    .padding(LiftTheme.space.space16), verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space36)
-            ) {
-                BannerView(modifier)
+            item { BannerView(modifier) }
+
+            item {
                 BadgeView(
                     modifier,
                     badgeUiState,
                     navigateHomeGraphToBadgeGraph,
-                    navigateHomeGraphToBadgeSettingRouter
+                    navigateHomeGraphToBadgeSettingRouter,
+                    homeAnimationState
                 )
-                RoutineView(
-                    modifier,
-                    routineUiState,
-                    navigateMainGraphToCreateRoutineGraph,
-                    navigateHomeGraphToRoutineDetailGraph,
-                    navigateHomeGraphToRoutineDetailRoutineRouter
-                )
+            }
+
+
+            when (routineUiState) {
+                is RoutineUiState.Fail -> {
+                    failRoutineListView(
+                        modifier,
+                        navigateHomeGraphToRoutineDetailGraph
+                    )
+                }
+
+                RoutineUiState.Empty -> {
+                    emptyRoutineListView(
+                        modifier,
+                        navigateHomeGraphToRoutineDetailGraph,
+                        navigateMainGraphToCreateRoutineGraph
+                    )
+                }
+
+                RoutineUiState.Loading -> {
+                    loadingRoutineListView(
+                        modifier,
+                        navigateHomeGraphToRoutineDetailGraph
+                    )
+                }
+
+                is RoutineUiState.Success -> {
+                    successRoutineListView(
+                        modifier,
+                        routineUiState.routineList,
+                        navigateHomeGraphToRoutineDetailGraph,
+                        navigateMainGraphToCreateRoutineGraph,
+                        navigateHomeGraphToRoutineDetailRoutineRouter,
+                    )
+
+                }
             }
         }
     }
