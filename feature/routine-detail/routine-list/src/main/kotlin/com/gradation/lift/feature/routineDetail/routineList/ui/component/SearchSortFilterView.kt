@@ -42,8 +42,7 @@ internal fun SearchSortFilterView(
     labelFilterType: LabelFilterType,
     sortType: SortType,
     routineListScreenState: RoutineListScreenState,
-
-    ) {
+) {
     Column(
         modifier = modifier.padding(
             horizontal = LiftTheme.space.space20,
@@ -96,8 +95,7 @@ internal fun SortFilterView(
     labelFilterType: LabelFilterType,
     sortType: SortType,
     routineListScreenState: RoutineListScreenState,
-
-    ) {
+) {
     Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
         LiftMultiStyleText(
             defaultColor = LiftTheme.colorScheme.no9,
