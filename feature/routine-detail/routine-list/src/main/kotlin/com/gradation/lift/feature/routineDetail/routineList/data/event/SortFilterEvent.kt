@@ -23,4 +23,5 @@ internal sealed interface SortFilterEvent {
     data class UpdateLabelFilter(val labelSet: Set<Label>) : SortFilterEvent
     data class UpdateSortType(val sortType: SortType) : SortFilterEvent
     data class UpdateSearchFilterText(val searchFilterText: String) : SortFilterEvent
+    data object ClearSearchFilterText : SortFilterEvent
 }
