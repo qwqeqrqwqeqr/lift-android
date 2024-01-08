@@ -35,7 +35,7 @@ internal fun SortBottomSheet(
     modifier: Modifier = Modifier,
     routineListScreenState: RoutineListScreenState,
     sortFilterState: SortFilterState,
-    sortType: SortType
+    sortType: SortType,
 ) {
     LiftBottomSheet(
         modifier = modifier,
@@ -72,7 +72,7 @@ internal fun SortBottomSheet(
                     modifier = modifier
                         .size(LiftTheme.space.space10)
                         .noRippleClickable {
-                            routineListScreenState.updateLabelFilterTypeBottomSheetView(false)
+                            routineListScreenState.updateSortTypeBottomSheetView(false)
                         },
                     painter = painterResource(LiftIcon.Close),
                     contentDescription = "",
@@ -87,13 +87,13 @@ internal fun SortBottomSheet(
                     modifier.fillMaxWidth(),
                     SortType.Name.getName(),
                     sortType is SortType.Name
-                ) { sortFilterState.updateSortType(SortType.Name)  }
+                ) { sortFilterState.updateSortType(SortType.Name) }
 
                 LiftDefaultSelector(
                     modifier.fillMaxWidth(),
                     SortType.Count.getName(),
                     sortType is SortType.Count
-                ) { sortFilterState.updateSortType(SortType.Count)  }
+                ) { sortFilterState.updateSortType(SortType.Count) }
             }
         }
     }

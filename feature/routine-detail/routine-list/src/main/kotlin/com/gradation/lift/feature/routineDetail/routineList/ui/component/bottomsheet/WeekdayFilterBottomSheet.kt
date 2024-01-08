@@ -73,7 +73,7 @@ internal fun WeekdayFilterBottomSheet(
                     modifier = modifier
                         .size(LiftTheme.space.space10)
                         .noRippleClickable {
-                            routineListScreenState.updateLabelFilterTypeBottomSheetView(false)
+                            routineListScreenState.updateWeekdayFilterTypeBottomSheetView(false)
                         },
                     painter = painterResource(LiftIcon.Close),
                     contentDescription = "",

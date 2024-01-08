@@ -29,8 +29,8 @@ internal fun routineDetailRoutineListUiState(
                 RoutineListUiState.Success(
                     routineSetRoutine.data.let { routineSetRoutineList ->
                         routineSetRoutineList.filter {
-                            it.label.intersect(labelFilterType.labelSet)
-                                .isNotEmpty() || it.label.isEmpty()
+                            it.label.intersect(labelFilterType.labelSet).isNotEmpty() ||
+                                    (it.label.isEmpty() && labelFilterType.isCheckedAllLabel())
                         }
                     }.let { filteredRoutineSetRoutine ->
                         filteredRoutineSetRoutine.filter {
@@ -40,7 +40,11 @@ internal fun routineDetailRoutineListUiState(
                         filteredRoutineSetRoutine.filter { routine ->
                             searchFilterText.isEmpty() ||
                                     routine.name.contains(searchFilterText)
-                                    || routine.routine.any { it.workCategory.name.contains(searchFilterText)  }
+                                    || routine.routine.any {
+                                it.workCategory.name.contains(
+                                    searchFilterText
+                                )
+                            }
                         }
                     }.let { filteredRoutineSetRoutine ->
                         when (sortType) {
