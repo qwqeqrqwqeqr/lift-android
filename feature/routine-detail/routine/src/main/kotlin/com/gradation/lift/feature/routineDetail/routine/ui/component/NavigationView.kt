@@ -4,14 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftOutlineButton
+import androidx.compose.ui.graphics.RectangleShape
+import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
@@ -22,37 +21,26 @@ fun NavigationView(
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
     navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
 ) {
-    Row(
-        modifier = modifier
-            .background(LiftTheme.colorScheme.no5)
-            .fillMaxWidth()
-            .padding(LiftTheme.space.paddingSpace),
-        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10),
-        verticalAlignment = Alignment.Bottom
+    LiftDefaultContainer(
+        modifier = modifier.background(LiftTheme.colorScheme.no5).fillMaxWidth(),
+        shape = RectangleShape,
+        verticalPadding = LiftTheme.space.space10,
+        horizontalPadding = LiftTheme.space.space20
     ) {
-        LiftOutlineButton(
-            modifier = modifier.weight(1f),
-            shape = RoundedCornerShape(size = LiftTheme.space.space12),
-            onClick = {
-                navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetRoutine.id)
-            },
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10),
+            verticalAlignment = Alignment.Bottom
         ) {
-            Text(
+            LiftPrimaryButton(
+                modifier = modifier.weight(1f),
                 text = "루틴 수정",
-                style = LiftTheme.typography.no3,
-                color = LiftTheme.colorScheme.no4,
+                onClick = { navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetRoutine.id) }
             )
-        }
-        LiftButton(
-            modifier = modifier.weight(1f),
-            onClick = {
-                navigateRoutineDetailGraphToWorkWorkRouter(routineSetRoutine.id)
-            },
-        ) {
-            Text(
+            LiftSolidButton(
+                modifier = modifier.weight(1f),
                 text = "운동 시작",
-                style = LiftTheme.typography.no3,
-                color = LiftTheme.colorScheme.no5,
+                onClick = { navigateRoutineDetailGraphToWorkWorkRouter(routineSetRoutine.id) }
             )
         }
     }
