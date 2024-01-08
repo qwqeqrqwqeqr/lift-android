@@ -52,7 +52,9 @@ internal data class SortFilterState(
     val updateSearchFilterText: (String) -> Unit = {
         onSortFilterEvent(SortFilterEvent.UpdateSearchFilterText(it))
     }
-
+    val clearSearchFilterText: () -> Unit = {
+        onSortFilterEvent(SortFilterEvent.ClearSearchFilterText)
+    }
 
     private fun onSortFilterEvent(sortFilterEvent: SortFilterEvent) {
         when (sortFilterEvent) {
@@ -70,6 +72,10 @@ internal data class SortFilterState(
 
             is SortFilterEvent.UpdateSearchFilterText -> {
                 searchFilterText.value = sortFilterEvent.searchFilterText
+            }
+
+            is SortFilterEvent.ClearSearchFilterText -> {
+                searchFilterText.value = ""
             }
 
             is SortFilterEvent.UpdateSortType -> {

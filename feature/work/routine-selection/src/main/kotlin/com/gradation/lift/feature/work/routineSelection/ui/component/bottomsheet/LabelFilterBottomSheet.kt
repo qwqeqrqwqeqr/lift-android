@@ -1,6 +1,5 @@
 package com.gradation.lift.feature.work.routineSelection.ui.component.bottomsheet
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,30 +8,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.LiftButton
+import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.bottomSheet.LiftBottomSheet
 import com.gradation.lift.designsystem.component.label.RoutineLabel
+import com.gradation.lift.designsystem.component.selector.LiftDefaultSelector
+import com.gradation.lift.designsystem.component.selector.LiftIconSelector
+import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.routineSelection.data.model.LabelFilterType
 import com.gradation.lift.feature.work.routineSelection.data.state.RoutineListScreenState
 import com.gradation.lift.feature.work.routineSelection.data.state.SortFilterState
 import com.gradation.lift.model.model.routine.Label
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 /**
  * 라벨 필터링 바텀 시트
- * @since 2023-12-03 22:47:07
+ * @since 2024-01-08 19:56:23
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,9 +47,9 @@ internal fun LabelFilterBottomSheet(
     ) {
         Column(
             modifier = modifier
-                .padding(horizontal = 24.dp, vertical = 24.dp)
+                .padding(LiftTheme.space.space20)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(32.dp)
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space28)
         ) {
             Row(
                 modifier = modifier.fillMaxWidth(),
@@ -60,55 +58,40 @@ internal fun LabelFilterBottomSheet(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
                 ) {
-                    Image(
-                        modifier = modifier.size(24.dp),
-                        painter = painterResource(id = R.drawable.search_3d),
-                        contentDescription = "filterSearch"
+                    LiftMultiStyleText(
+                        defaultColor = LiftTheme.colorScheme.no9,
+                        defaultTextStyle = LiftTextStyle.No2,
+                        textAlign = TextAlign.Start,
+                        textWithStyleList = listOf(
+                            TextWithStyle("어떻게 "),
+                            TextWithStyle("분류", color = LiftTheme.colorScheme.no4),
+                            TextWithStyle("할까요?"),
+                        )
                     )
-                    Text(
-                        text = buildAnnotatedString {
-                            append("어떻게 ")
-                            withStyle(
-                                style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                            ) {
-                                append("분류")
-                            }
-                            append("할까요?")
+                }
+                Icon(
+                    modifier = modifier
+                        .size(LiftTheme.space.space10)
+                        .noRippleClickable {
+                            routineListScreenState.updateLabelFilterTypeBottomSheetView(false)
                         },
-                        style = LiftTheme.typography.no2,
-                        color = LiftTheme.colorScheme.no9
-                    )
-                }
-                IconButton(
-                    modifier = modifier.size(16.dp),
-                    onClick = { routineListScreenState.updateLabelFilterTypeBottomSheetView(false) }) {
-                    Icon(
-                        painter = painterResource(LiftIcon.Close),
-                        contentDescription = "",
-                        tint = LiftTheme.colorScheme.no9,
-                    )
-                }
+                    painter = painterResource(LiftIcon.Close),
+                    contentDescription = "",
+                    tint = LiftTheme.colorScheme.no9,
+                )
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
-                    LiftButton(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        onClick = { sortFilterState.updateAllLabelFilter() },
-                        containerColor = if (labelFilterType.isCheckedAllLabel()) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no1,
-                        contentColor = if (labelFilterType.isCheckedAllLabel()) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9
-                    ) {
-                        Text(
-                            text = "전체",
-                            style = if (labelFilterType.isCheckedAllLabel()) LiftTheme.typography.no3 else LiftTheme.typography.no4,
-                        )
-                    }
+                    LiftDefaultSelector(
+                        modifier.weight(1f),
+                        "전체",
+                        labelFilterType.isCheckedAllLabel()
+                    ) { sortFilterState.updateAllLabelFilter() }
                     LabelButton(
                         modifier.weight(1f),
                         labelFilterType,
@@ -156,30 +139,27 @@ internal fun LabelButton(
     modifier: Modifier = Modifier,
     labelFilterType: LabelFilterType,
     sortFilterState: SortFilterState,
-    label: Label
+    label: Label,
 ) {
-    LiftButton(
-        modifier = modifier.fillMaxWidth(),
-        onClick = {
-            if (labelFilterType.isCheckedAllLabel()) {
-                sortFilterState.updateLabelFilter(setOf(label))
-            } else {
-                if (labelFilterType.contains(label)) {
-                    if (labelFilterType.labelSet.size != 1) {
-                        sortFilterState.updateLabelFilter(
-                            labelFilterType.labelSet.minus(label)
-                        )
-                    }
-                } else {
+    LiftIconSelector(
+        modifier = modifier,
+        icon = { RoutineLabel(id = label.id) },
+        isSelected = labelFilterType.contains(label) && !labelFilterType.isCheckedAllLabel()
+    ) {
+        if (labelFilterType.isCheckedAllLabel()) {
+            sortFilterState.updateLabelFilter(setOf(label))
+        } else {
+            if (labelFilterType.contains(label)) {
+                if (labelFilterType.labelSet.size != 1) {
                     sortFilterState.updateLabelFilter(
-                        labelFilterType.labelSet.plus(label)
+                        labelFilterType.labelSet.minus(label)
                     )
                 }
+            } else {
+                sortFilterState.updateLabelFilter(
+                    labelFilterType.labelSet.plus(label)
+                )
             }
-        },
-        containerColor = if (labelFilterType.contains(label) && !labelFilterType.isCheckedAllLabel()) LiftTheme.colorScheme.no4
-        else LiftTheme.colorScheme.no1
-    ) {
-        RoutineLabel(id = label.id)
+        }
     }
 }
