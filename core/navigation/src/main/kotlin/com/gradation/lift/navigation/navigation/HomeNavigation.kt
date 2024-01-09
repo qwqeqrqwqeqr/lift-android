@@ -52,9 +52,6 @@ fun NavController.navigateBadgeToHomeInHomeGraph() {
 
 
 
-fun NavController.navigateHomeGraphToNotificationGraph() {
-    this.navigate(Route.NOTIFICATION_GRAPH_NAME)
-}
 
 
 
@@ -72,12 +69,20 @@ fun NavHostController.navigateHomeGraph() {
 fun NavController.navigateMyInfoGraph() {
     this.navigate(Route.MY_INFO_GRAPH_NAME) {
         launchSingleTop = true
+        popUpTo(currentDestination!!.id) {
+            saveState = true
+            inclusive = true
+        }
     }
 }
 
 fun NavHostController.navigateHistoryGraph() {
     this.navigate(HISTORY_GRAPH_NAME) {
         launchSingleTop = true
+        popUpTo(currentDestination!!.id) {
+            saveState = true
+            inclusive = true
+        }
     }
 }
 

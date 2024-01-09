@@ -1,9 +1,7 @@
 package com.gradation.lift
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.IsSignedUseCase
 import com.gradation.lift.domain.usecase.setting.GetAutoLoginSettingUseCase
@@ -49,11 +47,7 @@ class MainActivityViewModel @Inject constructor(
         initialValue = SplashState.Loading
     )
 
-    fun setDefaultSystemUiController(systemUiController: SystemUiController) {
-        systemUiController.setStatusBarColor(Color.White)
-        systemUiController.setNavigationBarColor(Color.White)
-        systemUiController.setSystemBarsColor(Color.White)
-    }
+
 
 }
 

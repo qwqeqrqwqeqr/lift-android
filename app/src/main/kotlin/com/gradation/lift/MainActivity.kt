@@ -1,6 +1,5 @@
 package com.gradation.lift
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -37,7 +36,6 @@ class MainActivity : ComponentActivity() {
     lateinit var dispatcherProvider: DispatcherProvider
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,8 +70,6 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            val systemUiController = rememberSystemUiController()
-            viewModel.setDefaultSystemUiController(systemUiController)
             LiftMaterialTheme() {
                 LiftApp(
                     splashState = splashState,

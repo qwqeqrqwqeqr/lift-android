@@ -50,14 +50,25 @@ fun rememberAppState(
 
     val currentDestination: NavDestination? =
         navController.currentBackStackEntryAsState().value?.destination
-    val systemBarsColor: Color by animateColorAsState(
+
+    val statusBarColor: Color by animateColorAsState(
         targetValue = when (currentDestination?.route) {
             Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no31
             else -> LiftTheme.colorScheme.no5
-        }, label = "systemBarsColor"
+        }, label = "statusBarColor"
     )
 
-    systemUiController.setSystemBarsColor(color = systemBarsColor)
+    val navigationBarColor: Color by  animateColorAsState(
+        targetValue = when (currentDestination?.route) {
+            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no5
+            else -> LiftTheme.colorScheme.no5
+        }, label = "navigationBarColor"
+    )
+
+
+    systemUiController.setStatusBarColor(color = statusBarColor)
+    systemUiController.setNavigationBarColor(color = navigationBarColor)
+
     return remember(navController, currentDestination) {
         AppState(
             navController,
