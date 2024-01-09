@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.routineDetail.routineList.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -51,7 +52,9 @@ import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 
-@OptIn(ExperimentalGlideComposeApi::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalLayoutApi::class,
+    ExperimentalFoundationApi::class
+)
 @Composable
 internal fun RoutineListView(
     modifier: Modifier = Modifier,
@@ -80,7 +83,7 @@ internal fun RoutineListView(
     ) {
         item { Spacer(modifier = modifier.padding(LiftTheme.space.space4)) }
         items(routineSetRoutineList) { routineSetRoutine ->
-            LiftDefaultContainer(modifier = modifier.fillMaxWidth()) {
+            LiftDefaultContainer(modifier = modifier.fillMaxWidth().animateItemPlacement()) {
                 Column {
                     Row(
                         modifier = modifier
