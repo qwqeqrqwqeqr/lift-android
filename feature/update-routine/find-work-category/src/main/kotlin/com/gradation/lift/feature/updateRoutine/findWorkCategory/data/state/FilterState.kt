@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * 운동을 조회할 때에 대한 필터를 모아둔 상태
  * [workPartFilter] 운동 부위 필터
  * [searchFilterText] 검색어 필터
- * @since 2023-12-07 11:17:38
+ * @since 2024-01-09 18:16:45
  */
 internal data class FilterState(
     var workPartFilter: MutableStateFlow<Set<WorkPart>> = MutableStateFlow(emptySet()),
@@ -23,6 +23,9 @@ internal data class FilterState(
     val updateSearchText: (String) -> Unit = {
         onFilterEvent(FilterEvent.UpdateSearchText(it))
     }
+    val clearSearchText: () -> Unit  ={
+        onFilterEvent(FilterEvent.ClearSearchText)
+    }
 
 
     private fun onFilterEvent(filterEvent: FilterEvent) {
@@ -33,6 +36,9 @@ internal data class FilterState(
 
             is FilterEvent.UpdateWorkPartFilter -> {
                 workPartFilter.value = filterEvent.workPartFilter
+            }
+            is FilterEvent.ClearSearchText ->{
+                searchFilterText.value = ""
             }
         }
     }

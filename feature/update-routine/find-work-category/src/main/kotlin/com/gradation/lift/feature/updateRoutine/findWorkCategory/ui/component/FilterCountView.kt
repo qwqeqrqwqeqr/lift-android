@@ -1,9 +1,10 @@
 package com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -17,10 +18,10 @@ fun FilterCountView(
     modifier: Modifier = Modifier,
     workCategoryList: List<TagWorkCategory>,
 ) {
-
     Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = LiftTheme.space.space20),
     ) {
         Text(
             text = buildAnnotatedString {
