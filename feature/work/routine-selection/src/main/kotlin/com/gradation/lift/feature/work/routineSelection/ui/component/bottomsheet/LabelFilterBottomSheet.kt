@@ -154,6 +154,8 @@ internal fun LabelButton(
                     sortFilterState.updateLabelFilter(
                         labelFilterType.labelSet.minus(label)
                     )
+                }else{
+                    sortFilterState.updateAllLabelFilter()
                 }
             } else {
                 sortFilterState.updateLabelFilter(

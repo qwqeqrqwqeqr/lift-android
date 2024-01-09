@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.work.routineSelection.ui.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -238,7 +239,7 @@ internal fun RoutineListView(
                                     )
                                 }
                             }
-                            if (routineListInfoState.isOpened(routineSetRoutine.id, routine.id)) {
+                            AnimatedVisibility (routineListInfoState.isOpened(routineSetRoutine.id, routine.id)) {
                                 RoutineDetailView(
                                     modifier,
                                     routine,
@@ -341,9 +342,4 @@ internal fun RoutineDetailView(
             }
         }
     }
-    HorizontalDivider(
-        modifier = modifier,
-        thickness = LiftTheme.space.space2,
-        color = LiftTheme.colorScheme.no17,
-    )
 }

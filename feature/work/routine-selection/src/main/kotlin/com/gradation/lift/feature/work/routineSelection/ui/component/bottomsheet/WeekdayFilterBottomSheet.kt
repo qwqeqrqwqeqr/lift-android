@@ -167,6 +167,8 @@ internal fun WeekdayButton(
                     sortFilterState.updateWeekdayFilter(
                         weekdayFilterType.weekdaySet.minus(weekday)
                     )
+                }else{
+                    sortFilterState.updateAllWeekdayFilter()
                 }
             } else {
                 sortFilterState.updateWeekdayFilter(
