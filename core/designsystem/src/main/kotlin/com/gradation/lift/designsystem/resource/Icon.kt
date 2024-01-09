@@ -18,6 +18,8 @@ object LiftIcon {
     val Sort = R.drawable.sort
     val Calendar = R.drawable.calendar
     val Label = R.drawable.label
+    val Add = R.drawable.add
+    val Order = R.drawable.order
 
     val Camera = R.drawable.camera
     val Cancel = R.drawable.cancel
@@ -34,7 +36,6 @@ object LiftIcon {
     val Check = R.drawable.check
     val MiniStar = R.drawable.mini_star
 
-    val Order = R.drawable.order
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
     val Muscle = R.drawable.muscle
