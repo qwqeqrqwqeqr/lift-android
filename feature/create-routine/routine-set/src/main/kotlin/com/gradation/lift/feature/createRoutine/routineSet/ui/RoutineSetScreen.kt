@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.createRoutine.routineSet.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,8 @@ import com.gradation.lift.feature.createRoutine.routineSet.ui.component.EmptyRou
 import com.gradation.lift.feature.createRoutine.routineSet.ui.component.NavigationView
 import com.gradation.lift.feature.createRoutine.routineSet.ui.component.RoutineSetView
 import com.gradation.lift.feature.createRoutine.routineSet.ui.component.RoutineView
+import com.gradation.lift.feature.createRoutine.routineSet.ui.dialog.CancelDialog
+import com.gradation.lift.feature.createRoutine.routineSet.ui.dialog.CompleteDialog
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 
 
@@ -28,12 +31,26 @@ internal fun RoutineSetScreen(
     routineSetDescriptionValidator: Validator,
     updateCondition: Boolean,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
+    createRoutineSetRoutine: (RoutineSetRoutine) -> Unit,
     navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
     navigateRoutineSetToProfilePictureInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToRoutineDetailGraph: () -> Unit,
     routineSetScreenState: RoutineSetScreenState,
 ) {
-
+    AnimatedVisibility(routineSetScreenState.completeDialogView) {
+        CompleteDialog(
+            modifier = modifier,
+            onClickDialogCompleteButton = { createRoutineSetRoutine(currentRoutineSetRoutine) },
+            onClickDialogDismissButton = { routineSetScreenState.updateCompleteDialogView(false) },
+        )
+    }
+    AnimatedVisibility(routineSetScreenState.cancelDialogView) {
+        CancelDialog(
+            modifier = modifier,
+            onClickDialogSuspendButton = navigateCreateRoutineGraphToRoutineDetailGraph,
+            onClickDialogDismissButton = { routineSetScreenState.updateCancelDialogView(false) },
+        )
+    }
     Scaffold(
         topBar = {
             LiftTopBar(
@@ -87,7 +104,6 @@ internal fun RoutineSetScreen(
                 NavigationView(
                     modifier,
                     updateCondition,
-                    currentRoutineSetRoutineState,
                     routineSetScreenState
                 )
             }

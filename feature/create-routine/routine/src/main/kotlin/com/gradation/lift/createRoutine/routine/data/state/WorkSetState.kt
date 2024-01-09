@@ -25,7 +25,7 @@ class WorkSetState {
         when (workSetEvent) {
             WorkSetEvent.AddWorkSet -> {
                 workSetList.add(
-                    if (workSetList.isEmpty()) WorkSet(1, "30", "10")
+                    if (workSetList.isEmpty()) WorkSet(1, "", "")
                     else workSetList.last().let { it.copy(setNumber = it.setNumber + 1) }
                 )
             }

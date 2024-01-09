@@ -1,23 +1,15 @@
 package com.gradation.lift.createRoutine.routine.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.resource.LiftIcon
+import androidx.compose.ui.graphics.RectangleShape
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.createRoutine.routine.data.state.WorkSetState
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkSet
@@ -30,14 +22,21 @@ fun NavigationView(
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
 ) {
-    Column(
+
+    LiftDefaultContainer(
         modifier = modifier
             .background(LiftTheme.colorScheme.no5)
-            .fillMaxWidth()
-            .padding(LiftTheme.space.paddingSpace),
+            .fillMaxWidth(),
+        shape = RectangleShape,
+        verticalPadding = LiftTheme.space.space10,
+        horizontalPadding = LiftTheme.space.space20
     ) {
-        LiftButton(
-            modifier = modifier.fillMaxWidth(),
+        LiftSolidButton(
+            modifier = modifier,
+            enabled = workSetState.workSetList.isNotEmpty()
+                    && workSetState.workSetList.none() { it.weight.isEmpty() }
+                    && workSetState.workSetList.none() { it.repetition.isEmpty() },
+            text = "등록하기",
             onClick = {
                 currentRoutineSetRoutineState.appendRoutine(
                     Routine(
@@ -53,22 +52,7 @@ fun NavigationView(
                     )
                 )
                 navigateRoutineToRoutineSetInCreateRoutineGraph()
-            },
-            enabled = workSetState.workSetList.isNotEmpty()
-        ) {
-            Text(
-                text = "등록하기",
-                style = LiftTheme.typography.no3,
-                color = LiftTheme.colorScheme.no5,
-            )
-            Spacer(modifier = modifier.padding(2.dp))
-            Icon(
-                painterResource(id = LiftIcon.ChevronRight),
-                contentDescription = "CreateRoutine",
-                modifier = modifier
-                    .fillMaxHeight()
-                    .width(LiftTheme.space.space8)
-            )
-        }
+            }
+        )
     }
 }

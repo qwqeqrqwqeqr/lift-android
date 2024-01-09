@@ -56,7 +56,7 @@ data class CurrentRoutineSetRoutineState(
             routineSetDescriptionValidator,
             currentRoutineSetRoutine
         ) { e1, e2, e3 ->
-            e1.status && e2.status && e3.routine.isNotEmpty()
+            e1.status && e2.status && e3.routine.isNotEmpty() && e3.name.isNotEmpty() && e3.picture.isNotEmpty()
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),

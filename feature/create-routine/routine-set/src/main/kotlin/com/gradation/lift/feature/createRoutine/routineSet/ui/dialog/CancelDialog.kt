@@ -53,7 +53,7 @@ internal fun CancelDialog(
             ) {
                 LiftText(
                     textStyle = LiftTextStyle.No4,
-                    text = "이전 화면으로 돌아갈 시 \n열심히 제작한 루틴이 삭제됩니다",
+                    text = "이전 화면으로 돌아갈 시 \n열심히 제작한 루틴이 삭제됩니다.",
                     color = LiftTheme.colorScheme.no9,
                     textAlign = TextAlign.Start
                 )

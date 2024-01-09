@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.dialog.LiftDialog
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
@@ -65,7 +66,7 @@ internal fun CompleteDialog(
                     onClick = onClickDialogDismissButton,
                     text = "취소"
                 )
-                LiftDefaultButton(
+                LiftSolidButton(
                     modifier = modifier.weight(1f),
                     onClick = onClickDialogCompleteButton,
                     text = "생성"

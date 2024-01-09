@@ -8,14 +8,12 @@ import androidx.compose.ui.graphics.RectangleShape
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.RoutineSetScreenState
 
 @Composable
 internal fun NavigationView(
     modifier: Modifier = Modifier,
     updateCondition: Boolean,
-    currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     routineSetScreenState: RoutineSetScreenState,
 ) {
     LiftDefaultContainer(
@@ -28,7 +26,7 @@ internal fun NavigationView(
     ) {
         LiftSolidButton(
             modifier = modifier,
-            enabled = updateCondition && currentRoutineSetRoutineState.currentRoutineSetRoutine.value.name.isNotEmpty(),
+            enabled = updateCondition,
             text = "생성하기",
             onClick = { routineSetScreenState.updateCompleteDialogView(true) }
         )

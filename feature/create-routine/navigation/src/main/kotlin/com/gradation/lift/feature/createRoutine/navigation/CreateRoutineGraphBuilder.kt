@@ -1,5 +1,7 @@
 package com.gradation.lift.feature.createRoutine.navigation
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,10 +22,10 @@ fun createRoutineGraphBuilder(
     navGraphBuilder.navigation(
         route = CREATE_ROUTINE_GRAPH_NAME,
         startDestination = CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME,
-        popEnterTransition = null,
-        popExitTransition = null,
-        enterTransition = null,
-        exitTransition = null,
+        enterTransition = { fadeIn() },
+        exitTransition = { fadeOut() },
+        popEnterTransition = { fadeIn() },
+        popExitTransition = { fadeOut() }
     ) {
         routineSetScreen(modifier,navController, this)
         findWorkCategoryScreen(modifier,navController, this)
