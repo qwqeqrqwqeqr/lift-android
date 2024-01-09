@@ -1,6 +1,9 @@
 package com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -18,9 +21,12 @@ internal fun FilterView(
     filterState: FilterState,
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+        modifier = modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
     ) {
         item {
+            Spacer(modifier = modifier.width(LiftTheme.space.space20))
             LiftDefaultChip(
                 modifier = modifier,
                 text = "전체",
@@ -39,7 +45,7 @@ internal fun FilterView(
                             filterState.updateWorkPartFilter(setOf(it))
                         } else if (workPartFilter.size > 1) {
                             filterState.updateWorkPartFilter(workPartFilter.minus(it))
-                        } else  {
+                        } else {
                             filterState.updateWorkPartFilter(workPartList.toSet())
                         }
                     } else {

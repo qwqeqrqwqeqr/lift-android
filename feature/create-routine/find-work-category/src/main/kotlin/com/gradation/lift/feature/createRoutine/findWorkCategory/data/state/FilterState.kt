@@ -23,7 +23,9 @@ internal data class FilterState(
     val updateSearchText: (String) -> Unit = {
         onFilterEvent(FilterEvent.UpdateSearchText(it))
     }
-
+    val clearSearchText: () -> Unit  ={
+        onFilterEvent(FilterEvent.ClearSearchText)
+    }
 
     private fun onFilterEvent(filterEvent: FilterEvent) {
         when (filterEvent) {
@@ -33,6 +35,9 @@ internal data class FilterState(
 
             is FilterEvent.UpdateWorkPartFilter -> {
                 workPartFilter.value = filterEvent.workPartFilter
+            }
+            is FilterEvent.ClearSearchText ->{
+                searchFilterText.value = ""
             }
         }
     }
