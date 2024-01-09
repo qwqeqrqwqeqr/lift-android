@@ -37,7 +37,6 @@ internal class RoutineSetScreenState constructor(
     val updateCancelDialogView: (Boolean) -> Unit =
         { cancelDialogView = it }
 
-
     var completeDialogView: Boolean by mutableStateOf(false)
     val updateCompleteDialogView: (Boolean) -> Unit =
         { completeDialogView = it }

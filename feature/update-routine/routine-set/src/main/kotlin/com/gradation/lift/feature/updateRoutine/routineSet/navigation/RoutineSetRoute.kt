@@ -2,8 +2,11 @@ package com.gradation.lift.feature.updateRoutine.routineSet.navigation
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
 import com.gradation.lift.feature.updateRoutine.common.data.UpdateRoutineSharedViewModel
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
@@ -21,6 +25,7 @@ import com.gradation.lift.feature.updateRoutine.routineSet.data.state.RoutineSet
 import com.gradation.lift.feature.updateRoutine.routineSet.data.RoutineSetViewModel
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.UpdateRoutineState
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.rememberRoutineSetScreenState
+import com.gradation.lift.feature.updateRoutine.routineSet.ui.dialog.DeleteDialog
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
@@ -86,6 +91,18 @@ internal fun RoutineSetRoute(
 
     BackHandler(onBack = popBackStack)
 
+    AnimatedVisibility (routineSetScreenState.deleteDialogView) {
+        Surface(
+            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
+            modifier = modifier.fillMaxSize()
+        ) {
+            DeleteDialog(
+                modifier = modifier,
+                onClickDialogDeleteButton = { deleteRoutineSetRoutine(currentRoutineSetRoutine.id) },
+                onClickDialogDismissButton = { routineSetScreenState.updateDeleteDialogView(false) },
+            )
+        }
+    }
 
     RoutineSetScreen(
         modifier,
@@ -95,7 +112,6 @@ internal fun RoutineSetRoute(
         updateCondition,
         currentRoutineSetRoutineState,
         routineUiState,
-        deleteRoutineSetRoutine,
         updateRoutineSetRoutine,
         popBackStack,
         navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,

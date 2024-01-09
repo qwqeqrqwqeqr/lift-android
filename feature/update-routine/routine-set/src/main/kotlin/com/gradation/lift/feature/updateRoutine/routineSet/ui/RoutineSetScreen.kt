@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gradation.lift.common.utils.Validator
@@ -16,7 +15,6 @@ import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
-import com.gradation.lift.feature.updateRoutine.routineSet.ui.dialog.DeleteDialog
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.RoutineSetScreenState
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.EmptyRoutineView
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.NavigationView
@@ -34,25 +32,13 @@ internal fun RoutineSetScreen(
     updateCondition: Boolean,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     routineUiState: RoutineUiState,
-    deleteRoutineSetRoutine: (Int) -> Unit,
+
     updateRoutineSetRoutine: (RoutineSetRoutine) -> Unit,
     popBackStack: () -> Unit,
     navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit,
     routineSetScreenState: RoutineSetScreenState,
 ) {
-    if (routineSetScreenState.deleteDialogView) {
-        Surface(
-            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
-            modifier = modifier.fillMaxSize()
-        ) {
-            DeleteDialog(
-                modifier = modifier,
-                onClickDialogDeleteButton = { deleteRoutineSetRoutine(currentRoutineSetRoutine.id) },
-                onClickDialogDismissButton = { routineSetScreenState.updateDeleteDialogView(false) },
-            )
-        }
-    }
     Scaffold(
         topBar = {
             LiftTopBar(

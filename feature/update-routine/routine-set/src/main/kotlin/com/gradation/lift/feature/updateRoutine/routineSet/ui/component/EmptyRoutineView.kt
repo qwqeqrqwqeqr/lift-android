@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +20,7 @@ import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 
 @Composable
@@ -52,9 +52,12 @@ fun EmptyRoutineView(
             verticalPadding = LiftTheme.space.space36,
         ) {
             Column(
-                modifier=modifier.fillMaxWidth(),
+                modifier = modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8,Alignment.CenterVertically)
+                verticalArrangement = Arrangement.spacedBy(
+                    LiftTheme.space.space8,
+                    Alignment.CenterVertically
+                )
             ) {
                 Box(
                     modifier = modifier
@@ -65,14 +68,16 @@ fun EmptyRoutineView(
                         .size(LiftTheme.space.space42),
                     contentAlignment = Alignment.Center
                 ) {
-                    IconButton(onClick = navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph) {
-                        Icon(
-                            modifier = modifier.size(LiftTheme.space.space16),
-                            painter = painterResource(id = LiftIcon.Plus),
-                            contentDescription = "",
-                            tint = LiftTheme.colorScheme.no5
-                        )
-                    }
+                    Icon(
+                        modifier = modifier
+                            .size(LiftTheme.space.space16)
+                            .noRippleClickable {
+                                navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph()
+                            },
+                        painter = painterResource(id = LiftIcon.Plus),
+                        contentDescription = "Add",
+                        tint = LiftTheme.colorScheme.no5
+                    )
                 }
                 LiftText(
                     textStyle = LiftTextStyle.No4,

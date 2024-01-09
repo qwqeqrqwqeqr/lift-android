@@ -10,7 +10,14 @@ internal sealed interface CurrentRoutineSetRoutineEvent {
     data class UpdateRoutineSetWeekday(val weekday: Set<Weekday>) : CurrentRoutineSetRoutineEvent
     data class UpdateRoutineSetProfilePicture(val profilePicture: String) :
         CurrentRoutineSetRoutineEvent
+
     data class UpdateRoutineSetLabel(val label: Set<Label>) : CurrentRoutineSetRoutineEvent
     data class RemoveRoutine(val routine: Routine) : CurrentRoutineSetRoutineEvent
     data class AppendRoutine(val routine: Routine) : CurrentRoutineSetRoutineEvent
+
+    data object ClearRoutineSetName : CurrentRoutineSetRoutineEvent
+
+    data object ClearRoutineSetDescription : CurrentRoutineSetRoutineEvent
+
+
 }

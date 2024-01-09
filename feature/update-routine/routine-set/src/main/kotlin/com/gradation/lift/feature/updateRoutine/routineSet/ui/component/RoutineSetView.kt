@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.common.utils.Validator
@@ -65,7 +64,7 @@ internal fun RoutineSetView(
                 modifier = modifier
                     .background(
                         color = LiftTheme.colorScheme.no1,
-                        shape = RoundedCornerShape(size = 12.dp)
+                        shape = RoundedCornerShape(size = LiftTheme.space.space12)
                     )
                     .align(Alignment.CenterHorizontally),
                 contentAlignment = Alignment.Center

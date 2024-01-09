@@ -2,7 +2,10 @@ package com.gradation.lift.feature.createRoutine.routineSet.navigation
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.createRoutine.common.data.CreateRoutineSharedViewModel
 import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.createRoutine.routineSet.ui.RoutineSetScreen
@@ -19,6 +23,8 @@ import com.gradation.lift.feature.createRoutine.routineSet.data.state.RoutineSet
 import com.gradation.lift.feature.createRoutine.routineSet.data.RoutineSetViewModel
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.CreateRoutineState
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.rememberRoutineSetScreenState
+import com.gradation.lift.feature.createRoutine.routineSet.ui.dialog.CancelDialog
+import com.gradation.lift.feature.createRoutine.routineSet.ui.dialog.CompleteDialog
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME
 
@@ -77,6 +83,30 @@ internal fun RoutineSetRoute(
         }
     })
 
+    AnimatedVisibility (routineSetScreenState.completeDialogView) {
+        Surface(
+            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
+            modifier = modifier.fillMaxSize()
+        ) {
+            CompleteDialog(
+                modifier = modifier,
+                onClickDialogCompleteButton = { createRoutineSetRoutine(currentRoutineSetRoutine) },
+                onClickDialogDismissButton = { routineSetScreenState.updateCompleteDialogView(false) },
+            )
+        }
+    }
+    AnimatedVisibility (routineSetScreenState.cancelDialogView) {
+        Surface(
+            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
+            modifier = modifier.fillMaxSize()
+        ) {
+            CancelDialog(
+                modifier = modifier,
+                onClickDialogSuspendButton = navigateCreateRoutineGraphToRoutineDetailGraph,
+                onClickDialogDismissButton = { routineSetScreenState.updateCancelDialogView(false) },
+            )
+        }
+    }
 
     RoutineSetScreen(
         modifier,
@@ -85,7 +115,6 @@ internal fun RoutineSetRoute(
         routineSetDescriptionValidator,
         updateCondition,
         currentRoutineSetRoutineState,
-        createRoutineSetRoutine,
         navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
         navigateRoutineSetToProfilePictureInCreateRoutineGraph,
         navigateCreateRoutineGraphToRoutineDetailGraph,

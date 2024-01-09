@@ -58,7 +58,7 @@ internal fun RoutineListView(
                         LiftText(
                             textStyle = LiftTextStyle.No3,
                             text = routine.workCategory.name,
-                            color = LiftTheme.colorScheme.no10,
+                            color = LiftTheme.colorScheme.no9,
                             textAlign = TextAlign.Left
                         )
                         Icon(
@@ -87,21 +87,21 @@ internal fun RoutineListView(
                                 modifier = modifier.weight(1f),
                                 textStyle = LiftTextStyle.No3,
                                 text = "Set",
-                                color = LiftTheme.colorScheme.no10,
+                                color = LiftTheme.colorScheme.no9,
                                 textAlign = TextAlign.Center
                             )
                             LiftText(
                                 modifier = modifier.weight(1f),
                                 textStyle = LiftTextStyle.No3,
                                 text = "Kg",
-                                color = LiftTheme.colorScheme.no10,
+                                color = LiftTheme.colorScheme.no9,
                                 textAlign = TextAlign.Center
                             )
                             LiftText(
                                 modifier = modifier.weight(1f),
                                 textStyle = LiftTextStyle.No3,
                                 text = "Reps",
-                                color = LiftTheme.colorScheme.no10,
+                                color = LiftTheme.colorScheme.no9,
                                 textAlign = TextAlign.Center
                             )
                         }
