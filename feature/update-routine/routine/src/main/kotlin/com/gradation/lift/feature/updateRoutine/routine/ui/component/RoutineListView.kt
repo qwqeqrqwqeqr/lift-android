@@ -1,37 +1,40 @@
 package com.gradation.lift.feature.updateRoutine.routine.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
+import com.gradation.lift.designsystem.component.filter.LiftAddContainer
 import com.gradation.lift.designsystem.component.keypad.LiftKeypadTextField
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.routine.data.state.KeypadState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.KeypadWorkSetState
+import com.gradation.lift.feature.updateRoutine.routine.data.state.RoutineScreenState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.WorkSetState
 import com.gradation.lift.ui.modifier.noRippleClickable
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RoutineListView(
+internal fun RoutineListView(
     modifier: Modifier = Modifier,
     keypadWorkSetState: KeypadWorkSetState,
     workSetState: WorkSetState,
     keypadState: KeypadState,
+    routineScreenState: RoutineScreenState,
 ) {
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -44,124 +47,114 @@ fun RoutineListView(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = CenterVertically
         ) {
-            Text(
+            LiftText(
+                textStyle = LiftTextStyle.No3,
                 text = "루틴 만들기",
-                style = LiftTheme.typography.no3,
                 color = LiftTheme.colorScheme.no3,
+                textAlign = TextAlign.Start
             )
-            LiftOutlineButton(
+            LiftAddContainer(
                 modifier = modifier
-                    .height(LiftTheme.space.space32),
-                contentPadding = PaddingValues(
-                    start = LiftTheme.space.space16,
-                    top = 0.dp,
-                    end = LiftTheme.space.space16,
-                    bottom = 0.dp
-                ),
-                onClick = workSetState.addWorkSet,
-            ) {
-                Text(
-                    text = "추가",
-                    style = LiftTheme.typography.no5,
-                    color = LiftTheme.colorScheme.no4,
-                )
-                Spacer(modifier = modifier.padding(2.dp))
-                Icon(
-                    painterResource(id = LiftIcon.Plus),
-                    contentDescription = null,
-                )
-            }
+                    .noRippleClickable { workSetState.addWorkSet() }
+            )
+
         }
         Column(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space6)
         ) {
             Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(24.dp),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(end = LiftTheme.space.space12),
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space24),
                 verticalAlignment = CenterVertically
             ) {
-                Text(
+                LiftText(
                     modifier = modifier.weight(2f),
+                    textStyle = LiftTextStyle.No3,
                     text = "Set",
-                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Center
                 )
-                Text(
+                LiftText(
+                    modifier = modifier.weight(3f),
+                    textStyle = LiftTextStyle.No3,
                     text = "Kg",
-                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
-                    modifier = modifier.weight(3f)
+                    textAlign = TextAlign.Center
                 )
-                Text(
+                LiftText(
+                    modifier = modifier.weight(3f),
+                    textStyle = LiftTextStyle.No3,
                     text = "Reps",
-                    style = LiftTheme.typography.no3,
                     color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center,
-                    modifier = modifier.weight(3f)
+                    textAlign = TextAlign.Center
                 )
                 Spacer(
-                    modifier = modifier.weight(1f)
+                    modifier = modifier
+                        .weight(1f)
                 )
             }
             LazyColumn(
                 modifier = modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space6)
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space6),
+                state = routineScreenState.lazyListState
             ) {
                 itemsIndexed(workSetState.workSetList) { index, workSet ->
-                    Row(
+                    LiftPrimaryContainer(
                         modifier = modifier
-                            .background(
-                                LiftTheme.colorScheme.no1,
-                                RoundedCornerShape(LiftTheme.space.space8)
-                            )
-                            .padding(vertical = LiftTheme.space.space8)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(24.dp),
-                        verticalAlignment = CenterVertically
+                            .fillMaxWidth()
+                            .animateItemPlacement(),
+                        verticalPadding = LiftTheme.space.space8,
+                        shape = RoundedCornerShape(size = LiftTheme.space.space8)
                     ) {
-                        Text(
-                            modifier = modifier.weight(2f),
-                            text = "${workSet.setNumber}",
-                            style = LiftTheme.typography.no3,
-                            color = LiftTheme.colorScheme.no2,
-                            textAlign = TextAlign.Center,
-                        )
-                        LiftKeypadTextField(
+                        Row(
                             modifier = modifier
-                                .weight(3f)
-                                .noRippleClickable {
-                                    keypadState.updateState(KeypadWorkSetState.Weight)
-                                    keypadState.init(index, workSet)
-                                },
-                            value = workSet.weight,
-                            focused = keypadWorkSetState is KeypadWorkSetState.Weight && keypadState.selectedIndex.value == index
-                        )
-                        LiftKeypadTextField(
-                            modifier = modifier
-                                .weight(3f)
-                                .noRippleClickable {
-                                    keypadState.updateState(KeypadWorkSetState.Repetition)
-                                    keypadState.init(index, workSet)
-                                },
-                            value = workSet.repetition,
-                            focused = keypadWorkSetState is KeypadWorkSetState.Repetition && keypadState.selectedIndex.value == index
-                        )
-
-                        IconButton(
-                            onClick = { workSetState.removeWorkSet(workSet) },
-                            modifier = modifier
-                                .size(LiftTheme.space.space24)
-                                .weight(1f)
+                                .fillMaxWidth()
+                                .padding(end = LiftTheme.space.space12),
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space24),
+                            verticalAlignment = CenterVertically
                         ) {
+                            LiftText(
+                                modifier = modifier.weight(2f),
+                                text = "${workSet.setNumber}",
+                                textStyle = LiftTextStyle.No3,
+                                color = LiftTheme.colorScheme.no2,
+                                textAlign = TextAlign.Center,
+                            )
+                            LiftKeypadTextField(
+                                modifier = modifier
+                                    .weight(3f)
+                                    .noRippleClickable {
+                                        keypadState.updateState(KeypadWorkSetState.Weight)
+                                        keypadState.init(index, workSet)
+                                    },
+                                value = workSet.weight,
+                                focused = keypadWorkSetState is KeypadWorkSetState.Weight && keypadState.selectedIndex.value == index
+                            )
+                            LiftKeypadTextField(
+                                modifier = modifier
+                                    .weight(3f)
+                                    .noRippleClickable {
+                                        keypadState.updateState(KeypadWorkSetState.Repetition)
+                                        keypadState.init(index, workSet)
+                                    },
+                                value = workSet.repetition,
+                                focused = keypadWorkSetState is KeypadWorkSetState.Repetition && keypadState.selectedIndex.value == index
+                            )
+
                             Icon(
-                                painter = painterResource(LiftIcon.Trash),
-                                contentDescription = "",
+                                modifier = modifier
+                                    .weight(1f)
+                                    .size(LiftTheme.space.space24)
+                                    .noRippleClickable { workSetState.removeWorkSet(workSet) },
+                                painter = painterResource(LiftIcon.Cancel),
+                                contentDescription = "Remove",
                                 tint = Color.Unspecified,
                             )
                         }
+
                     }
                 }
             }

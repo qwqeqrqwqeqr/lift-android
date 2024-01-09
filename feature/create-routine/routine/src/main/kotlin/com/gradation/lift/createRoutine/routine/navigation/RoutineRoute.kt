@@ -27,7 +27,7 @@ import com.gradation.lift.navigation.Route
 internal fun RoutineRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    workCategoryId: Int,
+    workCategoryId: Int?,
     navigateRoutineToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
     navigateRoutineToRoutineSetInCreateRoutineGraph: () -> Unit,
     viewModel: RoutineViewModel = hiltViewModel(),

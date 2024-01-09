@@ -17,29 +17,28 @@ import com.gradation.lift.feature.updateRoutine.routine.ui.RoutineScreen
 import com.gradation.lift.feature.updateRoutine.routine.data.RoutineViewModel
 import com.gradation.lift.feature.updateRoutine.routine.data.state.KeypadState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.KeypadWorkSetState
+import com.gradation.lift.feature.updateRoutine.routine.data.state.RoutineScreenState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.updateRoutine.routine.data.state.WorkSetState
+import com.gradation.lift.feature.updateRoutine.routine.data.state.rememberRoutineScreenState
 import com.gradation.lift.navigation.Route
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
 @Composable
 @SuppressLint("UnrememberedGetBackStackEntry")
-fun RoutineRoute(
+internal fun RoutineRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
+    workCategoryId: Int?,
     navigateRoutineToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateRoutineToRoutineSetInUpdateRoutineGraph: () -> Unit,
     viewModel: RoutineViewModel = hiltViewModel(),
     sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Route.UPDATE_ROUTINE_GRAPH_NAME) })
-) {
-    LaunchedEffect(Unit) {
-        with(navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.UPDATE_WORK_CATEGORY_ID_KEY)) {
-            viewModel.setWorkCategoryId(this)
-        }
-    }
+        remember { navController.getBackStackEntry(Route.UPDATE_ROUTINE_GRAPH_NAME) }),
+    routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
 
+    ) {
+
+    LaunchedEffect(Unit) { viewModel.setWorkCategoryId(workCategoryId) }
     val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
 
 
@@ -61,7 +60,8 @@ fun RoutineRoute(
         keypadState,
         currentRoutineSetRoutineState,
         navigateRoutineToFindWorkCategoryInUpdateRoutineGraph,
-        navigateRoutineToRoutineSetInUpdateRoutineGraph
+        navigateRoutineToRoutineSetInUpdateRoutineGraph,
+        routineScreenState
     )
 
 

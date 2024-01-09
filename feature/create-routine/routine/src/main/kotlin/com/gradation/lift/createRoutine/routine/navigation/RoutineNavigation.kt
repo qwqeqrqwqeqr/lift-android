@@ -39,7 +39,7 @@ fun routineScreen(
         popExitTransition = { fadeOut() }
     ) { navBackstackEntry ->
 
-        val workCategoryId: Int = navBackstackEntry.arguments?.getInt(CREATE_WORK_CATEGORY_ID_KEY) ?: 0
+        val workCategoryId: Int? = navBackstackEntry.arguments?.getInt(CREATE_WORK_CATEGORY_ID_KEY)
 
 
         RoutineRoute(

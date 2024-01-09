@@ -1,9 +1,8 @@
 package com.gradation.lift.feature.updateRoutine.routine.data.state
 
+import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.feature.updateRoutine.routine.data.event.KeypadEvent
 import com.gradation.lift.feature.updateRoutine.routine.data.model.WorkSet
-import com.gradation.lift.ui.mapper.toRepetitionText
-import com.gradation.lift.ui.mapper.toWeightText
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -74,14 +73,15 @@ class KeypadState {
                     KeypadWorkSetState.None -> {}
                     KeypadWorkSetState.Repetition ->
                         selectedWorkSet.value = selectedWorkSet.value.copy(
-                            repetition = selectedWorkSet.value.repetition.toIntOrNull()
-                                ?.toRepetitionText()?.toString() ?: "10"
+                            repetition =
+                            if (decimalNumberValidator(selectedWorkSet.value.repetition))
+                                selectedWorkSet.value.repetition else ""
                         )
 
                     KeypadWorkSetState.Weight ->
                         selectedWorkSet.value = selectedWorkSet.value.copy(
-                            weight = selectedWorkSet.value.weight.toFloatOrNull()?.toWeightText()
-                                ?: "10"
+                            weight = if (decimalNumberValidator(selectedWorkSet.value.weight))
+                                selectedWorkSet.value.weight else ""
                         )
 
                 }

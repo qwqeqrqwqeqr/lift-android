@@ -32,9 +32,11 @@ internal fun RoutineScreen(
 ) {
     when (workCategoryUiState) {
         is WorkCategoryUiState.Fail -> {
+            Spacer(modifier = modifier.fillMaxSize().background(LiftTheme.colorScheme.no17))
         }
 
         WorkCategoryUiState.Loading -> {
+            Spacer(modifier = modifier.fillMaxSize().background(LiftTheme.colorScheme.no17))
         }
 
         is WorkCategoryUiState.Success -> {
