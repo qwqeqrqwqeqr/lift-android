@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.routineDetail.routineList.ui.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -216,7 +217,7 @@ internal fun RoutineListView(
                                     )
                                 }
                             }
-                            if (routineListInfoState.isContains(routineSetRoutine.id, routine.id)) {
+                            AnimatedVisibility (routineListInfoState.isContains(routineSetRoutine.id, routine.id)) {
                                 RoutineDetailView(
                                     modifier,
                                     routine,
@@ -298,7 +299,7 @@ internal fun RoutineDetailView(
                             modifier = modifier.align(Alignment.Center),
                             textStyle = LiftTextStyle.No3,
                             text = workSet.weight.toText(),
-                            color = LiftTheme.colorScheme.no9,
+                            color = LiftTheme.colorScheme.no2,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -311,7 +312,7 @@ internal fun RoutineDetailView(
                             modifier = modifier.align(Alignment.Center),
                             textStyle = LiftTextStyle.No3,
                             text = "${workSet.repetition}",
-                            color = LiftTheme.colorScheme.no9,
+                            color = LiftTheme.colorScheme.no2,
                             textAlign = TextAlign.Center
                         )
                     }
@@ -319,9 +320,4 @@ internal fun RoutineDetailView(
             }
         }
     }
-    HorizontalDivider(
-        modifier = modifier,
-        thickness = LiftTheme.space.space2,
-        color = LiftTheme.colorScheme.no17,
-    )
 }
