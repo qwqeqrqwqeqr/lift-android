@@ -2,15 +2,13 @@ package com.gradation.lift.feature.history.daily_log.component.history_view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.chip.LiftOutlineFilterChip
-import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.model.model.history.History
 
 @Composable
@@ -25,13 +23,11 @@ fun HistoryTimesListView(
         horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
     ) {
         itemsIndexed(selectedHistoryList) { index, item ->
-            LiftOutlineFilterChip(
-                modifier = modifier.padding(vertical = 4.dp),
+            LiftDefaultChip(
+                modifier = modifier,
                 text = "${index + 1}회",
-                selected = item == selectedHistory,
+                isSelected = item == selectedHistory,
                 onClick = { updateSelectedHistoryIndex(index) },
-                selectedTextStyle = LiftTheme.typography.no3,
-                unselectedTextStyle = LiftTheme.typography.no4,
             )
         }
     }

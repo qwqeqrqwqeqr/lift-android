@@ -1,123 +1,65 @@
 package com.gradation.lift.designsystem.component.chip
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LiftFilterChip(
+fun LiftDefaultChip(
     modifier: Modifier = Modifier,
     text: String,
-    selected: Boolean,
+    isSelected: Boolean = true,
     onClick: () -> Unit
 ) {
-    FilterChip(
-        modifier = modifier,
-        shape = RoundedCornerShape(6.dp),
-        border = FilterChipDefaults.filterChipBorder(
-            borderColor = Color.Transparent,
-            borderWidth = 0.dp
-        ),
-        colors = FilterChipDefaults.filterChipColors(
-            containerColor = LiftTheme.colorScheme.no1,
-            labelColor = LiftTheme.colorScheme.no9,
-            iconColor = LiftTheme.colorScheme.no9,
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
-            selectedContainerColor = LiftTheme.colorScheme.no4,
-            selectedLabelColor = LiftTheme.colorScheme.no5,
-            selectedLeadingIconColor = LiftTheme.colorScheme.no5,
-            selectedTrailingIconColor = LiftTheme.colorScheme.no5,
-        ),
-        selected = selected,
-        onClick = onClick,
-        label = {
-            Text(
-                text = text,
-                style = (if (selected) LiftTheme.typography.no3 else LiftTheme.typography.no4)
-            )
-        }
+    val backgroundColor: Color by animateColorAsState(
+        if (isSelected) LiftTheme.colorScheme.no4
+        else LiftTheme.colorScheme.no1,
+        label = "contentColor"
     )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun LiftOutlineFilterChip(
-    modifier: Modifier = Modifier,
-    text: String,
-    selected: Boolean,
-    selectedTextStyle : androidx.compose.ui.text.TextStyle = LiftTheme.typography.no5,
-    unselectedTextStyle : androidx.compose.ui.text.TextStyle = LiftTheme.typography.no6,
-    onClick: () -> Unit
-) {
-    FilterChip(
-        modifier = modifier,
-        shape = RoundedCornerShape(6.dp),
-        border = FilterChipDefaults.filterChipBorder(
-            borderWidth = 0.dp,
-            borderColor = Color.Transparent,
-            selectedBorderColor = LiftTheme.colorScheme.no4,
-            selectedBorderWidth = 2.dp
-        ),
-        colors = FilterChipDefaults.filterChipColors(
-            containerColor = LiftTheme.colorScheme.no1,
-            labelColor = LiftTheme.colorScheme.no9,
-            iconColor = LiftTheme.colorScheme.no9,
-
-            selectedContainerColor = LiftTheme.colorScheme.no5,
-            selectedLabelColor = LiftTheme.colorScheme.no4,
-            selectedLeadingIconColor = LiftTheme.colorScheme.no5,
-            selectedTrailingIconColor = LiftTheme.colorScheme.no5,
-        ),
-        selected = selected,
-        onClick = onClick,
-        label = {
-            Text(
-                text = text,
-                style = (if (selected) selectedTextStyle else unselectedTextStyle)
-            )
-        }
+    val textColor: Color by animateColorAsState(
+        if (isSelected) LiftTheme.colorScheme.no5
+        else LiftTheme.colorScheme.no9,
+        label = "textColor"
     )
-}
 
-
-@Composable
-@Preview
-fun LiftFilterChipPreview() {
-
-    LiftMaterialTheme {
-        Column {
-            LiftFilterChip(
-                text = "리프트",
-                selected = true,
-                onClick = {}
-            )
-            LiftFilterChip(
-                text = "리프트",
-                selected = false,
-                onClick = {}
-            )
-            LiftOutlineFilterChip(
-                text = "리프트",
-                selected = true,
-                onClick = {}
-            )
-            LiftOutlineFilterChip(
-                text = "리프트",
-                selected = false,
-                onClick = {}
-            )
-        }
-
+    Row(
+        modifier = modifier
+            .background(backgroundColor, RoundedCornerShape(size = LiftTheme.space.space6))
+            .height(LiftTheme.space.space36)
+            .width(LiftTheme.space.space56)
+            .clickable(
+                onClick = onClick,
+                interactionSource = interactionSource,
+                indication = null,
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ){
+        LiftText(
+            modifier = modifier,
+            text = text,
+            color = textColor,
+            textAlign = TextAlign.Center,
+            textStyle = if(isSelected) LiftTextStyle.No3 else  LiftTextStyle.No4
+        )
     }
 }
+

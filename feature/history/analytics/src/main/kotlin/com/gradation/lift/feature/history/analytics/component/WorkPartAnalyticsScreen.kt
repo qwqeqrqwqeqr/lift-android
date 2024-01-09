@@ -16,8 +16,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.chart.chart.WorkHexagonChart
 import com.gradation.lift.designsystem.component.chart.model.WorkHexagonChartItem
-import com.gradation.lift.designsystem.component.chip.LiftFilterChip
-import com.gradation.lift.designsystem.component.chip.LiftOutlineFilterChip
+import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetDate
 import com.gradation.lift.feature.history.analytics.data.model.WorkPartAnalyticsTargetType
@@ -91,30 +90,30 @@ fun WorkFrequencyAnalyticsScreen(
             modifier = modifier.fillMaxWidth()
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                LiftFilterChip(
+                LiftDefaultChip(
                     modifier = modifier,
                     text = "이번주",
-                    selected = (workPartAnalyticsTargetDate is WorkPartAnalyticsTargetDate.Week),
+                    isSelected = (workPartAnalyticsTargetDate is WorkPartAnalyticsTargetDate.Week),
                     onClick = {
                         updateWorkPartAnalyticsTargetDate(
                             WorkPartAnalyticsTargetDate.Week
                         )
                     }
                 )
-                LiftFilterChip(
+                LiftDefaultChip(
                     modifier = modifier,
                     text = "이번달",
-                    selected = (workPartAnalyticsTargetDate is WorkPartAnalyticsTargetDate.Month),
+                    isSelected = (workPartAnalyticsTargetDate is WorkPartAnalyticsTargetDate.Month),
                     onClick = {
                         updateWorkPartAnalyticsTargetDate(
                             WorkPartAnalyticsTargetDate.Month
                         )
                     }
                 )
-                LiftFilterChip(
+                LiftDefaultChip(
                     modifier = modifier,
                     text = "올해",
-                    selected = (workPartAnalyticsTargetDate is WorkPartAnalyticsTargetDate.Year),
+                    isSelected = (workPartAnalyticsTargetDate is WorkPartAnalyticsTargetDate.Year),
                     onClick = {
                         updateWorkPartAnalyticsTargetDate(
                             WorkPartAnalyticsTargetDate.Year
@@ -184,38 +183,38 @@ fun WorkFrequencyAnalyticsScreen(
             modifier = modifier.fillMaxWidth()
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                LiftOutlineFilterChip(
+                LiftDefaultChip(
                     modifier = modifier,
                     text = "전체",
-                    selected = (workPartAnalyticsTargetType is WorkPartAnalyticsTargetType.All),
+                    isSelected = (workPartAnalyticsTargetType is WorkPartAnalyticsTargetType.All),
                     onClick = {
                         updateWorkPartAnalyticsTargetType(
                             WorkPartAnalyticsTargetType.All
                         )
                     }
                 )
-                LiftOutlineFilterChip(
+                LiftDefaultChip(
                     modifier = modifier,
                     text = when (workPartAnalyticsTargetDate) {
                         WorkPartAnalyticsTargetDate.Month -> "이번달"
                         WorkPartAnalyticsTargetDate.Week -> "이번주"
                         WorkPartAnalyticsTargetDate.Year -> "올해"
                     },
-                    selected = (workPartAnalyticsTargetType is WorkPartAnalyticsTargetType.Current),
+                    isSelected = (workPartAnalyticsTargetType is WorkPartAnalyticsTargetType.Current),
                     onClick = {
                         updateWorkPartAnalyticsTargetType(
                             WorkPartAnalyticsTargetType.Current
                         )
                     }
                 )
-                LiftOutlineFilterChip(
+                LiftDefaultChip(
                     modifier = modifier,
                     text = when (workPartAnalyticsTargetDate) {
                         WorkPartAnalyticsTargetDate.Month -> "지난달"
                         WorkPartAnalyticsTargetDate.Week -> "지난주"
                         WorkPartAnalyticsTargetDate.Year -> "작년"
                     },
-                    selected = (workPartAnalyticsTargetType is WorkPartAnalyticsTargetType.Pre),
+                    isSelected = (workPartAnalyticsTargetType is WorkPartAnalyticsTargetType.Pre),
                     onClick = {
                         updateWorkPartAnalyticsTargetType(
                             WorkPartAnalyticsTargetType.Pre
