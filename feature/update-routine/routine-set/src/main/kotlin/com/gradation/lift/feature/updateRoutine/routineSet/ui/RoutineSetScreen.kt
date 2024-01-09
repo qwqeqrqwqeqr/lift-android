@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.updateRoutine.routineSet.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
@@ -54,9 +55,10 @@ internal fun RoutineSetScreen(
     }
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
                 title = "루틴 수정",
-                onBackClickTopBar = popBackStack,
+                backgroundColor = LiftTheme.colorScheme.no5,
+                onClick = popBackStack,
             )
         }
     ) { padding ->
@@ -88,7 +90,8 @@ internal fun RoutineSetScreen(
                     Column(
                         modifier = modifier
                             .verticalScroll(routineSetScreenState.scrollState)
-                            .weight(1f)
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
                     ) {
                         RoutineSetView(
                             modifier,

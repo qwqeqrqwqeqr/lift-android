@@ -29,7 +29,6 @@ fun routineSetScreen(
         val navigateUpdateRoutineGraphToRoutineDetailGraph: () -> Unit = {
             navController.navigateUpdateRoutineGraphToRoutineDetailGraph()
         }
-
         val navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter: (Int) -> Unit = {
             navController.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter(it)
         }

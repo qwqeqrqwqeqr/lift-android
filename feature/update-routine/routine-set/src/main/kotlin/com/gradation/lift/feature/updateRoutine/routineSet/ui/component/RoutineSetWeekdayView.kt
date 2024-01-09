@@ -30,14 +30,25 @@ internal fun RoutineSetWeekdayView(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
+        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
     ) {
-        LiftText(
-            textStyle = LiftTextStyle.No3,
-            text = "루틴 요일",
-            color = LiftTheme.colorScheme.no3,
-            textAlign = TextAlign.Start
-        )
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
+        ) {
+            LiftText(
+                textStyle = LiftTextStyle.No3,
+                text = "루틴 요일",
+                color = LiftTheme.colorScheme.no3,
+                textAlign = TextAlign.Start
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No6,
+                text = "어떤 요일에 운동 하실건가요?",
+                color = LiftTheme.colorScheme.no2,
+                textAlign = TextAlign.Start
+            )
+        }
         LazyRow(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
@@ -113,5 +124,6 @@ internal fun RoutineSetWeekdayView(
                 }
             }
         }
+
     }
 }

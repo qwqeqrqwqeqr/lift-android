@@ -1,5 +1,7 @@
 package com.gradation.ift.feature.updateRoutine.navigation
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,10 +22,10 @@ fun updateRoutineGraphBuilder(
     navGraphBuilder.navigation(
         route = UPDATE_ROUTINE_GRAPH_NAME,
         startDestination = UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME,
-        popEnterTransition = null,
-        popExitTransition = null,
-        enterTransition = null,
-        exitTransition = null,
+        enterTransition = { fadeIn() },
+        exitTransition = { fadeOut() },
+        popEnterTransition = { fadeIn() },
+        popExitTransition = { fadeOut() }
     ) {
         routineSetScreen(modifier,navController, this)
         profilePictureScreen(modifier,navController, this)
