@@ -18,8 +18,9 @@ fun NavGraphBuilder.changeOrderScreen(
 
     composable(UPDATE_ROUTINE_CHANGE_ORDER_ROUTER_NAME) {
         ChangeOrderRoute(
-            modifier = modifier,
-            navigateChangeOrderToRoutineSetInUpdateRoutineGraph = navigateChangeOrderToRoutineSetInUpdateRoutineGraph,
+            modifier,
+            navController,
+            navigateChangeOrderToRoutineSetInUpdateRoutineGraph,
         )
     }
 

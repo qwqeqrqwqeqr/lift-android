@@ -76,6 +76,11 @@ data class CurrentRoutineSetRoutineState(
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutine(index,routine))
     }
 
+    val moveRoutine: (Int,Int) -> Unit = {from,to ->
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.MoveRoutine(from,to))
+    }
+
+
     val updateRoutineSetName: (String) -> Unit = {
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutineSetName(it))
     }
