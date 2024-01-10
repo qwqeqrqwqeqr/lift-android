@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.history.history
+package com.gradation.lift.feature.navigation
 
 import org.junit.Test
 
