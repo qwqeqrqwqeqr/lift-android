@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.createRoutine.profilePicture.navigation.profilePictureScreen
-import com.gradation.lift.createRoutine.createWorkSet.navigation.createWorkSetScreen
+import com.gradation.lift.feature.createRoutine.createWorkSet.navigation.createWorkSetScreen
 import com.gradation.lift.feature.createRoutine.findWorkCategory.navigation.findWorkCategoryScreen
 import com.gradation.lift.feature.createRoutine.routineSet.navigation.routineSetScreen
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME

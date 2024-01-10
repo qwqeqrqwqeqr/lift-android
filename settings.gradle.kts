@@ -46,6 +46,7 @@ include(":feature:create-routine:routine-set")
 include(":feature:create-routine:find-work-category")
 include(":feature:create-routine:profile-picture")
 include(":feature:create-routine:create-work-set")
+include(":feature:create-routine:update-work-set")
 include(":feature:create-routine:common")
 
 include(":feature:login:sign-in")
@@ -109,4 +110,3 @@ include(":feature:work:navigation")
 include(":feature:notification:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
-
