@@ -18,7 +18,7 @@ import com.gradation.lift.model.model.work.WorkPart
 internal fun FindWorkCategoryRoute(
     modifier: Modifier = Modifier,
     navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph: () -> Unit,
-    navigateFindWorkCategoryToRoutineInCreateRoutineGraph: (Int) -> Unit,
+    navigateFindWorkCategoryToCreateWorkSetInCreateRoutineGraph: (Int) -> Unit,
     viewModel: FindWorkCategoryViewModel = hiltViewModel(),
     findWorkCategoryScreenState: FindWorkCategoryScreenState = rememberFindWorkCategoryScreenState(),
 ) {
@@ -40,7 +40,7 @@ internal fun FindWorkCategoryRoute(
         workCategoryUiState,
         filterState,
         navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph,
-        navigateFindWorkCategoryToRoutineInCreateRoutineGraph,
+        navigateFindWorkCategoryToCreateWorkSetInCreateRoutineGraph,
         findWorkCategoryScreenState
     )
 

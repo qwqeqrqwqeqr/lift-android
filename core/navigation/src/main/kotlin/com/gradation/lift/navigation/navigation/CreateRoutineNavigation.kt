@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
-import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 
@@ -33,15 +33,15 @@ fun NavController.navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph() {
     this.popBackStack()
 }
 
-fun NavController.navigateFindWorkCategoryToRoutineInCreateRoutineGraph(workCategoryId: Int) {
-    this.navigate("$CREATE_ROUTINE_ROUTINE_ROUTER_NAME/${workCategoryId}")
+fun NavController.navigateFindWorkCategoryToCreateWorkSetInCreateRoutineGraph(workCategoryId: Int) {
+    this.navigate("$CREATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME/${workCategoryId}")
 }
 
-fun NavController.navigateRoutineToFindWorkCategoryInCreateRoutineGraph() {
+fun NavController.navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph() {
     this.popBackStack()
 }
 
-fun NavController.navigateRoutineToRoutineSetInCreateRoutineGraph() {
+fun NavController.navigateCreateWorkSetToRoutineSetInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
             inclusive = true

@@ -27,7 +27,7 @@ import com.gradation.lift.feature.updateRoutine.findWorkCategory.data.state.Find
 internal fun WorkCategoryView(
     modifier: Modifier = Modifier,
     workCategoryList: List<TagWorkCategory>,
-    navigateFindWorkCategoryToRoutineInUpdateRoutineGraph: (Int) -> Unit,
+    navigateFindWorkCategoryToCreateWorkSetInUpdateRoutineGraph: (Int) -> Unit,
     findWorkCategoryScreenState: FindWorkCategoryScreenState,
 ) {
     LaunchedEffect(findWorkCategoryScreenState.lazyListState) {
@@ -58,7 +58,7 @@ internal fun WorkCategoryView(
                     modifier = modifier
                         .fillMaxWidth()
                         .noRippleClickable {
-                            navigateFindWorkCategoryToRoutineInUpdateRoutineGraph(
+                            navigateFindWorkCategoryToCreateWorkSetInUpdateRoutineGraph(
                                 workCategory.workCategory.id
                             )
                         }
