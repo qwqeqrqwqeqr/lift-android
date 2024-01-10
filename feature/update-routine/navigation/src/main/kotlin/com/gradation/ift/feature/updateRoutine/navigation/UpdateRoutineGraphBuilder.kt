@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
+import com.gradation.lift.feature.updateRoutine.createWorkSet.navigation.createWorkSetScreen
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.navigation.findWorkCategoryScreen
-import com.gradation.lift.feature.updateRoutine.routine.navigation.routineScreen
 import com.gradation.lift.feature.updateRoutine.routineSet.navigation.routineSetScreen
 import com.gradation.lift.feature.updateRoutine.profilePicture.navigation.profilePictureScreen
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
@@ -30,7 +30,7 @@ fun updateRoutineGraphBuilder(
         routineSetScreen(modifier,navController, this)
         profilePictureScreen(modifier,navController, this)
         findWorkCategoryScreen(modifier,navController, this)
-        routineScreen(modifier,navController,this)
+        createWorkSetScreen(modifier,navController,this)
     }
 }
 
