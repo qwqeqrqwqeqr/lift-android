@@ -40,6 +40,7 @@ object Route {
     const val UPDATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME = "update_routine_update_work_set"
     const val UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME = "update_routine_profile_picture"
     const val UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "update_routine_find_work_category"
+    const val UPDATE_ROUTINE_CHANGE_ORDER_ROUTER_NAME = "update_routine_change_order"
 
     const val HISTORY_GRAPH_NAME = "history_graph"
     const val HISTORY_HISTORY_ROUTER_NAME = "history_history"

@@ -59,6 +59,14 @@ fun NavController.navigateUpdateWorkSetToRoutineSetInUpdateRoutineGraph() {
 }
 
 
+fun NavController.navigateRoutineSetToChangeOrderInUpdateRoutineGraph() {
+    this.navigate(Route.UPDATE_ROUTINE_CHANGE_ORDER_ROUTER_NAME)
+}
+
+fun NavController.navigateChangeOrderToRoutineSetInUpdateRoutineGraph() {
+    this.popBackStack()
+}
+
 
 fun NavController.navigateUpdateRoutineGraphToRoutineDetailGraph() {
 
