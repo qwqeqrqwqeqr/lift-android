@@ -43,6 +43,7 @@ internal fun RoutineSetRoute(
     navigateUpdateRoutineGraphToRoutineDetailGraph: () -> Unit,
     navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter: (Int) -> Unit,
     navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph: (Int) -> Unit,
+    navigateRoutineSetToChangeOrderInUpdateRoutineGraph:()-> Unit,
     viewModel: RoutineSetViewModel = hiltViewModel(),
     sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
@@ -118,6 +119,7 @@ internal fun RoutineSetRoute(
         navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
         navigateRoutineSetToProfilePictureInUpdateRoutineGraph,
         navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph,
+        navigateRoutineSetToChangeOrderInUpdateRoutineGraph,
         routineSetScreenState
     )
 }

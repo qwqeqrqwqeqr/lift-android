@@ -17,4 +17,5 @@ dependencies {
     implementation(project(":feature:update-routine:create-work-set"))
     implementation(project(":feature:update-routine:update-work-set"))
     implementation(project(":feature:update-routine:routine-set"))
+    implementation(project(":feature:update-routine:change-order"))
 }

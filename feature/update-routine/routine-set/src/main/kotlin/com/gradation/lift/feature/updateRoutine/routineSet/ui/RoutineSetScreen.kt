@@ -38,6 +38,7 @@ internal fun RoutineSetScreen(
     navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit,
     navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph: (Int) -> Unit,
+    navigateRoutineSetToChangeOrderInUpdateRoutineGraph:() -> Unit,
     routineSetScreenState: RoutineSetScreenState,
 ) {
     Scaffold(
@@ -100,7 +101,8 @@ internal fun RoutineSetScreen(
                                 currentRoutineSetRoutine,
                                 currentRoutineSetRoutineState,
                                 navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
-                                navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph
+                                navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph,
+                                navigateRoutineSetToChangeOrderInUpdateRoutineGraph
                             )
                     }
                     Column {
