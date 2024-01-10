@@ -1,14 +1,19 @@
 package com.gradation.lift.feature.createRotuine.updateWorkSet.data.state
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.event.WorkSetEvent
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.model.WorkSet
+import com.gradation.lift.model.model.work.WorkCategory
 
 class WorkSetState {
     var workSetList: SnapshotStateList<WorkSet> =
         emptyList<WorkSet>().toMutableStateList()
 
+    var workCategory: WorkCategory? by mutableStateOf(null)
 
     val addWorkSet: () -> Unit = {
         onWorkSetEvent(WorkSetEvent.AddWorkSet)

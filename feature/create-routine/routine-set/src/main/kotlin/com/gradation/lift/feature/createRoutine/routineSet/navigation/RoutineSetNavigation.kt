@@ -8,6 +8,7 @@ import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAM
 import com.gradation.lift.navigation.navigation.navigateCreateRoutineGraphToRoutineDetailGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfilePictureInCreateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph
 
 
 fun routineSetScreen(
@@ -27,12 +28,17 @@ fun routineSetScreen(
             navController.navigateCreateRoutineGraphToRoutineDetailGraph()
         }
 
+        val navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph: (Int) -> Unit = {
+            navController.navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph(it)
+        }
+
         RoutineSetRoute(
             modifier,
             navController,
             navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
             navigateRoutineSetToProfilePictureInCreateRoutineGraph,
-            navigateCreateRoutineGraphToRoutineDetailGraph
+            navigateCreateRoutineGraphToRoutineDetailGraph,
+            navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph
         )
     }
 }

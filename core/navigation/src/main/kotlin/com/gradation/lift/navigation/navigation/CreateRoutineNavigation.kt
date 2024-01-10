@@ -6,6 +6,7 @@ import com.gradation.lift.navigation.Route.CREATE_ROUTINE_FIND_WORK_CATEGORY_ROU
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 
 fun NavController.navigateCreateRoutineGraphToRoutineDetailGraph() {
@@ -49,6 +50,9 @@ fun NavController.navigateCreateWorkSetToRoutineSetInCreateRoutineGraph() {
     }
 }
 
+
+
+
 fun NavController.navigateRoutineSetToProfilePictureInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME)
 }
@@ -57,6 +61,14 @@ fun NavController.navigateProfilePictureToRoutineSetInCreateRoutineGraph() {
     this.popBackStack()
 }
 
+
+fun NavController.navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph(routineIndex: Int) {
+    this.navigate("$CREATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME/${routineIndex}")
+}
+
+fun NavController.navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph() {
+    this.popBackStack()
+}
 
 
 

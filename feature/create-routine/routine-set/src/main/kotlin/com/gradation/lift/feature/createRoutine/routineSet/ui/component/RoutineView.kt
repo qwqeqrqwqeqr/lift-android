@@ -25,6 +25,7 @@ internal fun RoutineView(
     currentRoutineSetRoutine: RoutineSetRoutine,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
+    navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph: (Int) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -56,6 +57,7 @@ internal fun RoutineView(
             modifier,
             currentRoutineSetRoutine,
             currentRoutineSetRoutineState,
+            navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph,
         )
     }
 }

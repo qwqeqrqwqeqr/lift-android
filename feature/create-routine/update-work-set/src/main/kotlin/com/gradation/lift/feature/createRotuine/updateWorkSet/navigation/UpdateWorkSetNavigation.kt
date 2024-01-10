@@ -8,45 +8,40 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.gradation.lift.navigation.Route.CREATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph
-import com.gradation.lift.navigation.navigation.navigateCreateWorkSetToRoutineSetInCreateRoutineGraph
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.RoutineSet.CREATE_WORK_CATEGORY_ID_KEY
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME
+import com.gradation.lift.navigation.navigation.navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.CreateRoutine.CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY
 
 
-fun updateWorkSetScreen(
+fun NavGraphBuilder.updateWorkSetScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
 
-    val navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit =
-        { navController.navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph() }
+    val navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit =
+        { navController.navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph() }
 
-    val navigateCreateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit =
-        { navController.navigateCreateWorkSetToRoutineSetInCreateRoutineGraph() }
 
-    navGraphBuilder.composable(
-        route="${CREATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME}/{${CREATE_WORK_CATEGORY_ID_KEY}}",
+    composable(
+        route = "${CREATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME}/{${CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY}}",
         arguments = listOf(
-            navArgument(CREATE_WORK_CATEGORY_ID_KEY) {
+            navArgument(CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY) {
                 type = NavType.IntType
             },
         ),
-        enterTransition = { fadeIn()},
+        enterTransition = { fadeIn() },
         exitTransition = { fadeOut() },
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() }
     ) { navBackstackEntry ->
 
-        val workCategoryId: Int? = navBackstackEntry.arguments?.getInt(CREATE_WORK_CATEGORY_ID_KEY)
+        val routineIndex: Int? = navBackstackEntry.arguments?.getInt(CREATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME)
 
         UpdateWorkSetRoute(
             modifier,
             navController,
-            workCategoryId,
-            navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph,
-            navigateCreateWorkSetToRoutineSetInCreateRoutineGraph
+            routineIndex,
+            navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph,
         )
     }
 }

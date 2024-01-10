@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.createRoutine.profilePicture.navigation.profilePictureScreen
+import com.gradation.lift.feature.createRotuine.updateWorkSet.navigation.updateWorkSetScreen
 import com.gradation.lift.feature.createRoutine.createWorkSet.navigation.createWorkSetScreen
 import com.gradation.lift.feature.createRoutine.findWorkCategory.navigation.findWorkCategoryScreen
 import com.gradation.lift.feature.createRoutine.routineSet.navigation.routineSetScreen
@@ -27,11 +28,11 @@ fun createRoutineGraphBuilder(
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() }
     ) {
-        routineSetScreen(modifier,navController, this)
-        findWorkCategoryScreen(modifier,navController, this)
-        profilePictureScreen(modifier,navController, this)
-
-        createWorkSetScreen(modifier,navController, this)
+        routineSetScreen(modifier, navController, this)
+        findWorkCategoryScreen(modifier, navController, this)
+        profilePictureScreen(modifier, navController, this)
+        createWorkSetScreen(modifier, navController, this)
+        updateWorkSetScreen(modifier, navController)
     }
 }
 

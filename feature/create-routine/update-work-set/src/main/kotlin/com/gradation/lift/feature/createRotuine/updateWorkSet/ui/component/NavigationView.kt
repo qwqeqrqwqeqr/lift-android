@@ -11,16 +11,14 @@ import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkSet
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.model.model.routine.Routine
-import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkSet
 
 @Composable
 fun NavigationView(
     modifier: Modifier = Modifier,
-    workCategory: WorkCategory,
     workSetState: WorkSetState,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
-    navigateCreateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
+    navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
 ) {
 
     LiftDefaultContainer(
@@ -38,11 +36,11 @@ fun NavigationView(
                     && workSetState.workSetList.none() { it.repetition.isEmpty() },
             text = "등록하기",
             onClick = {
-                currentRoutineSetRoutineState.appendRoutine(
+                currentRoutineSetRoutineState.updateRoutine(
                     Routine(
                         id = null,
                         routineSetId = 0,
-                        workCategory = workCategory,
+                        workCategory = workSetState.workCategory!!,
                         workSetList = workSetState.workSetList.map {
                             WorkSet(
                                 weight = it.weight.toFloat(),
@@ -51,7 +49,7 @@ fun NavigationView(
                         }
                     )
                 )
-                navigateCreateWorkSetToRoutineSetInCreateRoutineGraph()
+                navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph()
             }
         )
     }

@@ -31,6 +31,7 @@ internal fun RoutineListView(
     modifier: Modifier = Modifier,
     routineSetRoutine: RoutineSetRoutine,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
+    navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph: (Int) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -39,9 +40,11 @@ internal fun RoutineListView(
             .padding(LiftTheme.space.paddingSpace),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
     ) {
-        routineSetRoutine.routine.forEach { routine ->
+        routineSetRoutine.routine.forEachIndexed { index, routine ->
             LiftDefaultContainer(
-                modifier = modifier,
+                modifier = modifier.noRippleClickable {
+                    navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph(index)
+                },
                 shape = RoundedCornerShape(size = LiftTheme.space.space12),
                 horizontalPadding = LiftTheme.space.space16,
                 verticalPadding = LiftTheme.space.space16

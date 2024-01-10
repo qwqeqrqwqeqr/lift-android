@@ -16,7 +16,6 @@ import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutine
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.KeypadState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.KeypadWorkSetState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.RoutineScreenState
-import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.rememberRoutineScreenState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.ui.UpdateWorkSetScreen
@@ -27,35 +26,38 @@ import com.gradation.lift.navigation.Route
 internal fun UpdateWorkSetRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    workCategoryId: Int?,
-    navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
-    navigateCreateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
+    routineIndex: Int?,
+    navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
     viewModel: UpdateWorkSetViewModel = hiltViewModel(),
     sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(Route.CREATE_ROUTINE_GRAPH_NAME) }),
     routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
 ) {
-    LaunchedEffect(Unit) { viewModel.setWorkCategoryId(workCategoryId) }
+
+    LaunchedEffect(Unit) {
+        viewModel.setRoutine(
+            sharedViewModel.currentRoutineSetRoutineState.currentRoutineSetRoutine.value.routine[routineIndex!!]
+        )
+    }
+
+
     val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
 
 
-    val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
     val workSetState: WorkSetState = viewModel.workSetState
     val keypadState: KeypadState = viewModel.keypadState
     val currentRoutineSetRoutineState: CurrentRoutineSetRoutineState =
         sharedViewModel.currentRoutineSetRoutineState
 
-    BackHandler(onBack = navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph)
+    BackHandler(onBack = navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph)
 
     UpdateWorkSetScreen(
         modifier,
         keypadWorkSetState,
-        workCategoryUiState,
         workSetState,
         keypadState,
         currentRoutineSetRoutineState,
-        navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph,
-        navigateCreateWorkSetToRoutineSetInCreateRoutineGraph,
+        navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph,
         routineScreenState
     )
 

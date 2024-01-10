@@ -92,11 +92,11 @@ class KeypadState {
                     KeypadWorkSetState.None -> {}
                     KeypadWorkSetState.Repetition ->
                         selectedWorkSet.value =
-                            selectedWorkSet.value.copy(repetition = (selectedWorkSet.value.repetition.toInt() - keypadEvent.number.toInt()).toString())
+                            selectedWorkSet.value.copy(repetition = (selectedWorkSet.value.repetition.let { if(it=="") 0 else it.toInt() } - keypadEvent.number.toInt()).toString())
 
                     KeypadWorkSetState.Weight ->
                         selectedWorkSet.value =
-                            selectedWorkSet.value.copy(weight = (selectedWorkSet.value.weight.toFloat() - keypadEvent.number.toFloat()).toString())
+                            selectedWorkSet.value.copy(weight = (selectedWorkSet.value.weight.let { if(it=="") 0f else it.toFloat() } - keypadEvent.number.toFloat()).toString())
                 }
             }
 
@@ -105,11 +105,11 @@ class KeypadState {
                     KeypadWorkSetState.None -> {}
                     KeypadWorkSetState.Repetition ->
                         selectedWorkSet.value =
-                            selectedWorkSet.value.copy(repetition = (selectedWorkSet.value.repetition.toInt() + keypadEvent.number.toInt()).toString())
+                            selectedWorkSet.value.copy(repetition = (selectedWorkSet.value.repetition.let { if(it=="") 0 else it.toInt() } + keypadEvent.number.toInt()).toString())
 
                     KeypadWorkSetState.Weight ->
                         selectedWorkSet.value =
-                            selectedWorkSet.value.copy(weight = (selectedWorkSet.value.weight.toFloat() + keypadEvent.number.toFloat()).toString())
+                            selectedWorkSet.value.copy(weight = (selectedWorkSet.value.weight.let { if(it=="") 0f else it.toFloat() } + keypadEvent.number.toFloat()).toString())
                 }
             }
 
