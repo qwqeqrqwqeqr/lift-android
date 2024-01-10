@@ -14,6 +14,6 @@ dependencies {
 
     implementation(project(":feature:create-routine:find-work-category"))
     implementation(project(":feature:create-routine:profile-picture"))
-    implementation(project(":feature:create-routine:routine"))
+    implementation(project(":feature:create-routine:create-work-set"))
     implementation(project(":feature:create-routine:routine-set"))
 }

@@ -27,7 +27,7 @@ internal fun FindWorkCategoryScreen(
     workCategoryUiState: WorkCategoryUiState,
     filterState: FilterState,
     navigateFindWorkCategoryToRoutineSetInUpdateRoutineGraph: () -> Unit,
-    navigateFindWorkCategoryToRoutineInUpdateRoutineGraph: (Int) -> Unit,
+    navigateFindWorkCategoryToCreateWorkSetInUpdateRoutineGraph: (Int) -> Unit,
     findWorkCategoryScreenState: FindWorkCategoryScreenState,
 ) {
     Scaffold(
@@ -74,7 +74,7 @@ internal fun FindWorkCategoryScreen(
                     WorkCategoryView(
                         modifier,
                         workCategoryUiState.workCategoryList,
-                        navigateFindWorkCategoryToRoutineInUpdateRoutineGraph,
+                        navigateFindWorkCategoryToCreateWorkSetInUpdateRoutineGraph,
                         findWorkCategoryScreenState,
                     )
                 }
