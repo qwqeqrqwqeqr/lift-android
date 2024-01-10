@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import java.util.Collections
 
 data class CurrentRoutineSetRoutineState(
     val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(
@@ -172,6 +173,16 @@ data class CurrentRoutineSetRoutineState(
                     routine = with(currentRoutineSetRoutine.value.routine) {
                         val mutableList = this.toMutableList()
                         mutableList[currentRoutineSetRoutineEvent.index] = currentRoutineSetRoutineEvent.routine
+                        mutableList.toList()
+                    }
+                )
+            }
+
+            is CurrentRoutineSetRoutineEvent.MoveRoutine -> {
+                currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
+                    routine = with(currentRoutineSetRoutine.value.routine) {
+                        val mutableList = this.toMutableList()
+                        Collections.swap(mutableList,currentRoutineSetRoutineEvent.from,currentRoutineSetRoutineEvent.to)
                         mutableList.toList()
                     }
                 )
