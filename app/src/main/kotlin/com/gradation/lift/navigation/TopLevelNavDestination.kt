@@ -12,10 +12,15 @@ enum class TopLevelNavDestination(
         icon = LiftIcon.Home,
         route = Route.HOME_HOME_ROUTER_NAME
     ),
-    History(
-        displayName = "기록",
-        icon = LiftIcon.History,
-        route = Route.HISTORY_HISTORY_ROUTER_NAME
+    DailyLog(
+        displayName = "운동일지",
+        icon = LiftIcon.DailyLog,
+        route = Route.DAILY_LOG_DAILY_LOG_ROUTER_NAME
+    ),
+    Analytics(
+        displayName = "운동분석",
+        icon = LiftIcon.Analytics,
+        route = Route.ANALYTICS_ANALYTICS_ROUTER_NAME
     ),
     MyInfo(
         displayName = "내정보",

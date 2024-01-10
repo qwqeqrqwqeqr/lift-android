@@ -85,14 +85,15 @@ include(":feature:notification:notice-detail")
 include(":feature:notification:push")
 include(":feature:notification:push-detail")
 
-
-include(":feature:history:history")
-include(":feature:history:analytics")
-include(":feature:history:daily-log")
-
 include(":feature:my-info:my-info")
 include(":feature:my-info:update-profile")
 include(":feature:my-info:update")
+
+include(":feature:daily-log:daily-log")
+include(":feature:daily-log:navigation")
+
+include(":feature:analytics:analytics")
+include(":feature:analytics:navigation")
 
 include(":feature:update-routine:routine-set")
 include(":feature:update-routine:profile-picture")
@@ -108,8 +109,9 @@ include(":feature:routine-detail:routine-list")
 include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
-include(":feature:history:navigation")
 include(":feature:work:navigation")
 include(":feature:notification:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
+
+

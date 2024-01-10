@@ -32,13 +32,12 @@ class AppState(
         trace("Navigation: ${topLevelDestination.name}") {
             when (topLevelDestination) {
                 TopLevelNavDestination.Home -> navController.navigateHomeGraph()
-                TopLevelNavDestination.History -> navController.navigateHistoryGraph()
                 TopLevelNavDestination.MyInfo -> navController.navigateMyInfoGraph()
+                TopLevelNavDestination.DailyLog -> navController.navigateDailyLogGraph()
+                TopLevelNavDestination.Analytics -> navController.navigateAnalyticsGraph()
             }
         }
     }
-
-
 }
 
 
@@ -58,7 +57,7 @@ fun rememberAppState(
         }, label = "statusBarColor"
     )
 
-    val navigationBarColor: Color by  animateColorAsState(
+    val navigationBarColor: Color by animateColorAsState(
         targetValue = when (currentDestination?.route) {
             Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no5
             else -> LiftTheme.colorScheme.no5
