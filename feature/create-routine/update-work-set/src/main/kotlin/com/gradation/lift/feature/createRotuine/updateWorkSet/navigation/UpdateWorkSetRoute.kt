@@ -53,6 +53,7 @@ internal fun UpdateWorkSetRoute(
 
     UpdateWorkSetScreen(
         modifier,
+        routineIndex,
         keypadWorkSetState,
         workSetState,
         keypadState,

@@ -27,9 +27,9 @@ fun createWorkSetScreen(
         { navController.navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph() }
 
     navGraphBuilder.composable(
-        route = "${UPDATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME}/{${SavedStateHandleKey.RoutineSet.UPDATE_WORK_CATEGORY_ID_KEY}}",
+        route = "${UPDATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME}/{${SavedStateHandleKey.UpdateRoutine.UPDATE_WORK_CATEGORY_ID_KEY}}",
         arguments = listOf(
-            navArgument(SavedStateHandleKey.RoutineSet.UPDATE_WORK_CATEGORY_ID_KEY) {
+            navArgument(SavedStateHandleKey.UpdateRoutine.UPDATE_WORK_CATEGORY_ID_KEY) {
                 type = NavType.IntType
             },
         ),
@@ -40,7 +40,7 @@ fun createWorkSetScreen(
     ) { navBackstackEntry ->
 
         val workCategoryId: Int? =
-            navBackstackEntry.arguments?.getInt(SavedStateHandleKey.RoutineSet.UPDATE_WORK_CATEGORY_ID_KEY)
+            navBackstackEntry.arguments?.getInt(SavedStateHandleKey.UpdateRoutine.UPDATE_WORK_CATEGORY_ID_KEY)
 
         CreateWorkSetRoute(
             modifier,

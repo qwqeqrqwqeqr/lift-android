@@ -35,7 +35,7 @@ fun NavGraphBuilder.updateWorkSetScreen(
         popExitTransition = { fadeOut() }
     ) { navBackstackEntry ->
 
-        val routineIndex: Int? = navBackstackEntry.arguments?.getInt(CREATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME)
+        val routineIndex: Int? = navBackstackEntry.arguments?.getInt(CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY)
 
         UpdateWorkSetRoute(
             modifier,

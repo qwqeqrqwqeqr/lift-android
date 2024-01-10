@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.util.fastForEachIndexed
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
@@ -31,6 +32,7 @@ internal fun RoutineListView(
     modifier: Modifier = Modifier,
     routineSetRoutine: RoutineSetRoutine,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
+    navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph:(Int) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -39,9 +41,11 @@ internal fun RoutineListView(
             .padding(LiftTheme.space.space20),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
     ) {
-        routineSetRoutine.routine.forEach { routine ->
+        routineSetRoutine.routine.fastForEachIndexed { index, routine ->
             LiftDefaultContainer(
-                modifier = modifier,
+                modifier = modifier.noRippleClickable {
+                    navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph(index)
+                },
                 shape = RoundedCornerShape(size = LiftTheme.space.space12),
                 horizontalPadding = LiftTheme.space.space16,
                 verticalPadding = LiftTheme.space.space16

@@ -1,6 +1,7 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
@@ -48,6 +49,17 @@ fun NavController.navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph() {
     }
 }
 
+
+fun NavController.navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph(routineIndex: Int) {
+    this.navigate("${Route.UPDATE_ROUTINE_UPDATE_WORK_SET_ROUTER_NAME}/${routineIndex}")
+}
+
+fun NavController.navigateUpdateWorkSetToRoutineSetInUpdateRoutineGraph() {
+    this.popBackStack()
+}
+
+
+
 fun NavController.navigateUpdateRoutineGraphToRoutineDetailGraph() {
 
     if (this.currentBackStack.value.any { it.destination.route == ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
@@ -63,8 +75,6 @@ fun NavController.navigateUpdateRoutineGraphToRoutineDetailGraph() {
             }
         }
     }
-
-
 }
 
 fun NavController.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter(routineSetId: Int) {

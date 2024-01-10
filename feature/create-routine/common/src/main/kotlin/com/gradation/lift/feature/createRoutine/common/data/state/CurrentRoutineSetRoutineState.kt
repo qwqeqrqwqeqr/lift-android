@@ -72,8 +72,8 @@ data class CurrentRoutineSetRoutineState(
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.RemoveRoutine(it))
     }
 
-    val updateRoutine: (Routine) -> Unit = {
-        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutine(it))
+    val updateRoutine: (Int,Routine) -> Unit = {index,routine->
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutine(index,routine))
     }
 
     val updateRoutineSetName: (String) -> Unit = {
@@ -130,8 +130,7 @@ data class CurrentRoutineSetRoutineState(
                 currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
                     routine = with(currentRoutineSetRoutine.value.routine) {
                         val mutableList = this.toMutableList()
-                        val index = mutableList.indexOf(find { it -> currentRoutineSetRoutineEvent.routine.id == it.id })
-                        mutableList[index] = currentRoutineSetRoutineEvent.routine
+                        mutableList[currentRoutineSetRoutineEvent.index] = currentRoutineSetRoutineEvent.routine
                         mutableList.toList()
                     }
                 )

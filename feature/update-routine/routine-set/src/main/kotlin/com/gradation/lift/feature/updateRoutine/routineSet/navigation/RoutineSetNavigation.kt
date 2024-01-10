@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfilePictureInUpdateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateUpdateRoutineGraphToRoutineDetailGraph
 import com.gradation.lift.navigation.navigation.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter
 
@@ -33,6 +34,11 @@ fun routineSetScreen(
             navController.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter(it)
         }
 
+
+        val navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph:(Int) -> Unit ={
+            navController.navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph(it)
+        }
+
         RoutineSetRoute(
             modifier,
             navController,
@@ -40,7 +46,8 @@ fun routineSetScreen(
             navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
             navigateRoutineSetToProfilePictureInUpdateRoutineGraph,
             navigateUpdateRoutineGraphToRoutineDetailGraph,
-            navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter
+            navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter,
+            navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph
         )
     }
 }

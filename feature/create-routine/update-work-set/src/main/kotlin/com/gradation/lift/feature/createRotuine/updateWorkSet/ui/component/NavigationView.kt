@@ -16,6 +16,7 @@ import com.gradation.lift.model.model.work.WorkSet
 @Composable
 fun NavigationView(
     modifier: Modifier = Modifier,
+    routineIndex: Int?,
     workSetState: WorkSetState,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
@@ -37,6 +38,7 @@ fun NavigationView(
             text = "등록하기",
             onClick = {
                 currentRoutineSetRoutineState.updateRoutine(
+                    routineIndex!!,
                     Routine(
                         id = null,
                         routineSetId = 0,

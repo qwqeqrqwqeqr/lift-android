@@ -14,7 +14,7 @@ internal sealed interface CurrentRoutineSetRoutineEvent {
     data class UpdateRoutineSetLabel(val label: Set<Label>) : CurrentRoutineSetRoutineEvent
     data class RemoveRoutine(val routine: Routine) : CurrentRoutineSetRoutineEvent
     data class AppendRoutine(val routine: Routine) : CurrentRoutineSetRoutineEvent
-    data class UpdateRoutine(val routine: Routine) : CurrentRoutineSetRoutineEvent
+    data class UpdateRoutine(val index:Int,val routine: Routine) : CurrentRoutineSetRoutineEvent
 
     data object ClearRoutineSetName : CurrentRoutineSetRoutineEvent
 

@@ -20,6 +20,7 @@ import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 @Composable
 internal fun UpdateWorkSetScreen(
     modifier: Modifier = Modifier,
+    routineIndex: Int?,
     keypadWorkSetState: KeypadWorkSetState,
     workSetState: WorkSetState,
     keypadState: KeypadState,
@@ -56,6 +57,7 @@ internal fun UpdateWorkSetScreen(
             }
             NavigationView(
                 modifier,
+                routineIndex,
                 workSetState,
                 currentRoutineSetRoutineState,
                 navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph
