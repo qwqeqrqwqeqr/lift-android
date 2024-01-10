@@ -4,7 +4,6 @@ import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.common.utils.routineSetDescriptionValidator
 import com.gradation.lift.common.utils.routineSetNameValidator
 import com.gradation.lift.model.model.date.Weekday
-import com.gradation.lift.model.model.date.getWeekdayEntries
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -15,11 +14,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import java.util.Collections
 
 data class CurrentRoutineSetRoutineState(
-    val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(
-        RoutineSetRoutine(weekday = getWeekdayEntries().toSet())
-    ),
+    val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(RoutineSetRoutine()),
     val viewModelScope: CoroutineScope,
 ) {
     var routineSetNameValidator: StateFlow<Validator> =
@@ -74,6 +72,10 @@ data class CurrentRoutineSetRoutineState(
 
     val updateRoutine: (Int,Routine) -> Unit = {index,routine->
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutine(index,routine))
+    }
+
+    val moveRoutine: (Int,Int) -> Unit = {from,to ->
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.MoveRoutine(from,to))
     }
 
     val updateRoutineSetName: (String) -> Unit = {
@@ -177,6 +179,16 @@ data class CurrentRoutineSetRoutineState(
             CurrentRoutineSetRoutineEvent.ClearRoutineSetName -> {
                 currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
                     name = ""
+                )
+            }
+
+            is CurrentRoutineSetRoutineEvent.MoveRoutine -> {
+                currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
+                    routine = with(currentRoutineSetRoutine.value.routine) {
+                        val mutableList = this.toMutableList()
+                        Collections.swap(mutableList,currentRoutineSetRoutineEvent.from,currentRoutineSetRoutineEvent.to)
+                        mutableList.toList()
+                    }
                 )
             }
         }

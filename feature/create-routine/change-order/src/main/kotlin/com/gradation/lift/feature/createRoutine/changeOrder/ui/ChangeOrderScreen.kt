@@ -1,6 +1,5 @@
-package com.gradation.lift.feature.updateRoutine.changeOrder.ui
+package com.gradation.lift.feature.createRoutine.changeOrder.ui
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.scrollBy
@@ -38,20 +37,19 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
+import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.state.rememberDragDropListState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ChangeOrderScreen(
     modifier: Modifier,
     currentRoutineSetRoutine: RoutineSetRoutine,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
-    navigateChangeOrderToRoutineSetInUpdateRoutineGraph: () -> Unit,
+    navigateChangeOrderToRoutineSetInCreateRoutineGraph: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
@@ -64,7 +62,7 @@ internal fun ChangeOrderScreen(
             LiftTopBar(
                 title = "순서 변경",
                 backgroundColor = LiftTheme.colorScheme.no5,
-                onClick = navigateChangeOrderToRoutineSetInUpdateRoutineGraph,
+                onClick = navigateChangeOrderToRoutineSetInCreateRoutineGraph,
             )
         }
     ) { padding ->
@@ -245,7 +243,7 @@ internal fun ChangeOrderScreen(
                 LiftSolidButton(
                     modifier = modifier,
                     text = "확인",
-                    onClick = navigateChangeOrderToRoutineSetInUpdateRoutineGraph
+                    onClick = navigateChangeOrderToRoutineSetInCreateRoutineGraph
                 )
             }
         }

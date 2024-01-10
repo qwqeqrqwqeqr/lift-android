@@ -26,6 +26,7 @@ internal fun RoutineView(
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
     navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph: (Int) -> Unit,
+    navigateRoutineSetToChangeOrderInCreateRoutineGraph: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -49,7 +50,7 @@ internal fun RoutineView(
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                LiftChangeOrderContainer(modifier)
+                LiftChangeOrderContainer(modifier.noRippleClickable { navigateRoutineSetToChangeOrderInCreateRoutineGraph() })
                 LiftAddContainer(modifier.noRippleClickable { navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph() })
             }
         }
@@ -58,6 +59,7 @@ internal fun RoutineView(
             currentRoutineSetRoutine,
             currentRoutineSetRoutineState,
             navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph,
-        )
+
+            )
     }
 }

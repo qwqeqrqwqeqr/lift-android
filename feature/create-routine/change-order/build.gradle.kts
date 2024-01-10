@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.createRoutine.routineSet"
+    namespace = "com.gradation.lift.feature.createRoutine.changeOrder"
 
 }
 dependencies {
@@ -19,5 +19,7 @@ dependencies {
     implementation(project(":core:test"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
+
     implementation(project(":feature:create-routine:common"))
+    implementation(project(mapOf("path" to ":feature:update-routine:common")))
 }

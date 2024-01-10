@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateCreateRoutineGraphToRoutineDetailGraph
+import com.gradation.lift.navigation.navigation.navigateRoutineSetToChangeOrderInCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToProfilePictureInCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph
@@ -32,13 +33,18 @@ fun routineSetScreen(
             navController.navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph(it)
         }
 
+        val navigateRoutineSetToChangeOrderInCreateRoutineGraph:()-> Unit= {
+            navController.navigateRoutineSetToChangeOrderInCreateRoutineGraph()
+        }
+
         RoutineSetRoute(
             modifier,
             navController,
             navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
             navigateRoutineSetToProfilePictureInCreateRoutineGraph,
             navigateCreateRoutineGraphToRoutineDetailGraph,
-            navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph
+            navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph,
+            navigateRoutineSetToChangeOrderInCreateRoutineGraph
         )
     }
 }

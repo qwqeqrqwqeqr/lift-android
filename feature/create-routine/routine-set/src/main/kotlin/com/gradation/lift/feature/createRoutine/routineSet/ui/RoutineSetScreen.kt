@@ -36,6 +36,7 @@ internal fun RoutineSetScreen(
     navigateRoutineSetToProfilePictureInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToRoutineDetailGraph: () -> Unit,
     navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph: (Int) -> Unit,
+    navigateRoutineSetToChangeOrderInCreateRoutineGraph:()->Unit,
     routineSetScreenState: RoutineSetScreenState,
 ) {
     AnimatedVisibility(routineSetScreenState.completeDialogView) {
@@ -99,7 +100,8 @@ internal fun RoutineSetScreen(
                         currentRoutineSetRoutine,
                         currentRoutineSetRoutineState,
                         navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
-                        navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph
+                        navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph,
+                        navigateRoutineSetToChangeOrderInCreateRoutineGraph
                     )
             }
             Column {

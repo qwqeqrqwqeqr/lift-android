@@ -42,6 +42,16 @@ fun NavController.navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph() 
     this.popBackStack()
 }
 
+fun NavController.navigateRoutineSetToChangeOrderInCreateRoutineGraph() {
+    this.navigate(Route.CREATE_ROUTINE_CHANGE_ORDER_ROUTER_NAME)
+}
+
+fun NavController.navigateChangeOrderToRoutineSetInCreateRoutineGraph() {
+    this.popBackStack()
+}
+
+
+
 fun NavController.navigateCreateWorkSetToRoutineSetInCreateRoutineGraph() {
     this.navigate(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
         this.popUpTo(CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {

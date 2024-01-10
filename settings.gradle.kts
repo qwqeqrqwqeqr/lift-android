@@ -47,6 +47,7 @@ include(":feature:create-routine:find-work-category")
 include(":feature:create-routine:profile-picture")
 include(":feature:create-routine:create-work-set")
 include(":feature:create-routine:update-work-set")
+include(":feature:create-routine:change-order")
 include(":feature:create-routine:common")
 
 include(":feature:login:sign-in")
