@@ -22,9 +22,9 @@ data class GetHistoryByHistoryIdResponseDto(
             historyId = it.value.first().historyId,
             comment = it.value.first().comment,
             score = it.value.first().score,
-            restTime = fromSecondOfDay(it.value.first().restTime),
-            workTime = fromSecondOfDay(it.value.first().workTime),
-            totalTime = fromSecondOfDay(it.value.first().totalTime),
+            restTime = fromSecondOfDay(it.value.first().restTime.toInt()),
+            workTime = fromSecondOfDay(it.value.first().workTime.toInt()),
+            totalTime = fromSecondOfDay(it.value.first().totalTime.toInt()),
             historyTimeStamp = parse(it.value.first().historyTimeStamp),
             historyRoutine = it.value.map { history ->
                 HistoryRoutine(

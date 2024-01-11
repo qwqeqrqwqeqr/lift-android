@@ -6,6 +6,6 @@ interface HistoryUiState {
 
     data class Success(val historyList: List<History>) : HistoryUiState
     data class Fail(val message: String) : HistoryUiState
-    object None : HistoryUiState
+    object Loading : HistoryUiState
     object Empty : HistoryUiState
 }

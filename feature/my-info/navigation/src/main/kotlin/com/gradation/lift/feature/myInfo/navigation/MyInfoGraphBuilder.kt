@@ -1,5 +1,7 @@
 package com.gradation.lift.feature.myInfo.navigation
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
@@ -16,10 +18,10 @@ fun myInfoGraphBuilder(
     navGraphBuilder.navigation(
         route = MY_INFO_GRAPH_NAME,
         startDestination = MY_INFO_MY_INFO_ROUTER_NAME,
-        popEnterTransition = null,
-        popExitTransition = null,
-        enterTransition = null,
-        exitTransition = null,
+        popEnterTransition = { fadeIn() },
+        popExitTransition = { fadeOut() },
+        enterTransition = { fadeIn() },
+        exitTransition = { fadeOut() },
     ) {
         myInfoMyInfoScreen(navController, this)
         myInfoUpdateScreen(navController, this)

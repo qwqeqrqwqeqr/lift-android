@@ -40,8 +40,6 @@ fun CalenderView(
     minusMonthSelectedDate: () -> Unit,
 ) {
     Column {
-
-
         Image(
             painter = painterResource(id = R.drawable.calender),
             contentDescription = "calendar",

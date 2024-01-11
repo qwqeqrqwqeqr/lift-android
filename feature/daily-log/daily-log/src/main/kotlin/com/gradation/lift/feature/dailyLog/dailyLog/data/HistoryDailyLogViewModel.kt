@@ -53,7 +53,7 @@ class HistoryDailyLogViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = HistoryUiState.None
+        initialValue = HistoryUiState.Loading
     )
     private val selectedHistoryIndex = MutableStateFlow(0)
 

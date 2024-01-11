@@ -13,19 +13,14 @@ data class HistoryDto(
     val comment : String?,
     @SerialName("score")
     val score :Int,
-
     @SerialName("work_time")
-    val workTime : Int,
-
+    val workTime : Float,
     @SerialName("rest_time")
-    val restTime : Int,
-
+    val restTime : Float,
     @SerialName("total_time")
-    val totalTime : Int,
-
+    val totalTime : Float,
     @SerialName("history_time_stamp")
     val historyTimeStamp :String,
-
     @SerialName("history_routine")
     val historyRoutine : HistoryRoutineDto,
 )

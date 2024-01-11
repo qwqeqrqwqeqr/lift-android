@@ -7,7 +7,6 @@ import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.model.model.work.WorkSet
 import kotlinx.serialization.SerialName
 
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
@@ -24,9 +23,9 @@ data class GetHistoryResponseDto(
             historyId = it.value.first().historyId,
             comment = it.value.first().comment,
             score = it.value.first().score,
-            workTime = LocalTime.fromSecondOfDay(it.value.first().workTime),
-            restTime = LocalTime.fromSecondOfDay(it.value.first().restTime),
-            totalTime = LocalTime.fromSecondOfDay(it.value.first().totalTime),
+            workTime = LocalTime.fromSecondOfDay(it.value.first().workTime.toInt()),
+            restTime = LocalTime.fromSecondOfDay(it.value.first().restTime.toInt()),
+            totalTime = LocalTime.fromSecondOfDay(it.value.first().totalTime.toInt()),
             historyTimeStamp = LocalDateTime.parse(it.value.first().historyTimeStamp),
             historyRoutine = it.value.map { history ->
                 HistoryRoutine(
