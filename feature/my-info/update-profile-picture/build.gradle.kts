@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.my_info.update_profile"
+    namespace = "com.gradation.lift.my_info.updateProfilePicture"
 }
 
 dependencies {

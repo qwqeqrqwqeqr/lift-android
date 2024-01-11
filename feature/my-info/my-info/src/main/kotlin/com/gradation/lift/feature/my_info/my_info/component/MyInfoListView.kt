@@ -109,76 +109,76 @@ fun MyInfoListView(
                 tint = LiftTheme.colorScheme.no2
             )
         }
-        HorizontalDivider(
-            modifier = modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = LiftTheme.colorScheme.no17
-        )
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    modifier = modifier.width(24.dp),
-                    painter = painterResource(id = LiftIcon.Chat),
-                    contentDescription = "chat",
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                Column {
-                    Text(
-                        text = "고객센터",
-                        color = LiftTheme.colorScheme.no11,
-                        style = LiftTheme.typography.no3
-                    )
-                }
-            }
-            Icon(
-                modifier = modifier,
-                painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                contentDescription = "kettlebell",
-                tint = LiftTheme.colorScheme.no2
-            )
-        }
-        HorizontalDivider(
-            modifier = modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = LiftTheme.colorScheme.no17
-        )
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    modifier = modifier.width(24.dp),
-                    painter = painterResource(id = LiftIcon.TermsPolicies),
-                    contentDescription = "terms_policies",
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                Column {
-                    Text(
-                        text = "약관 및 정책",
-                        color = LiftTheme.colorScheme.no11,
-                        style = LiftTheme.typography.no3
-                    )
-                }
-            }
-            Icon(
-                modifier = modifier,
-                painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                contentDescription = "kettlebell",
-                tint = LiftTheme.colorScheme.no2
-            )
-        }
+//        HorizontalDivider(
+//            modifier = modifier.fillMaxWidth(),
+//            thickness = 1.dp,
+//            color = LiftTheme.colorScheme.no17
+//        )
+//        Row(
+//            modifier = Modifier
+//                .padding(16.dp)
+//                .fillMaxWidth(),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(
+//                    modifier = modifier.width(24.dp),
+//                    painter = painterResource(id = LiftIcon.Chat),
+//                    contentDescription = "chat",
+//                    tint = Color.Unspecified
+//                )
+//                Spacer(modifier = modifier.padding(8.dp))
+//                Column {
+//                    Text(
+//                        text = "고객센터",
+//                        color = LiftTheme.colorScheme.no11,
+//                        style = LiftTheme.typography.no3
+//                    )
+//                }
+//            }
+//            Icon(
+//                modifier = modifier,
+//                painter = painterResource(id = LiftIcon.ChevronRightLarge),
+//                contentDescription = "kettlebell",
+//                tint = LiftTheme.colorScheme.no2
+//            )
+//        }
+//        HorizontalDivider(
+//            modifier = modifier.fillMaxWidth(),
+//            thickness = 1.dp,
+//            color = LiftTheme.colorScheme.no17
+//        )
+//        Row(
+//            modifier = Modifier
+//                .padding(16.dp)
+//                .fillMaxWidth(),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(
+//                    modifier = modifier.width(24.dp),
+//                    painter = painterResource(id = LiftIcon.TermsPolicies),
+//                    contentDescription = "terms_policies",
+//                    tint = Color.Unspecified
+//                )
+//                Spacer(modifier = modifier.padding(8.dp))
+//                Column {
+//                    Text(
+//                        text = "약관 및 정책",
+//                        color = LiftTheme.colorScheme.no11,
+//                        style = LiftTheme.typography.no3
+//                    )
+//                }
+//            }
+//            Icon(
+//                modifier = modifier,
+//                painter = painterResource(id = LiftIcon.ChevronRightLarge),
+//                contentDescription = "kettlebell",
+//                tint = LiftTheme.colorScheme.no2
+//            )
+//        }
         HorizontalDivider(
             modifier = modifier.fillMaxWidth(),
             thickness = 1.dp,

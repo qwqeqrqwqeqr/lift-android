@@ -14,5 +14,5 @@ dependencies {
 
     implementation(project(":feature:my-info:my-info"))
     implementation(project(":feature:my-info:update"))
-    implementation(project(":feature:my-info:update-profile"))
+    implementation(project(":feature:my-info:update-profile-picture"))
 }
