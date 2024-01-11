@@ -78,15 +78,12 @@ include(":feature:work:complete")
 include(":feature:badge:badge")
 include(":feature:badge:setting")
 
-
-include(":feature:notification:notification")
-include(":feature:notification:notice")
-include(":feature:notification:notice-detail")
-include(":feature:notification:push")
-include(":feature:notification:push-detail")
+include(":feature:notice:notice")
+include(":feature:notice:notice-detail")
+include(":feature:notice:navigation")
 
 include(":feature:my-info:my-info")
-include(":feature:my-info:update-profile")
+include(":feature:my-info:update-profile-picture")
 include(":feature:my-info:update")
 
 include(":feature:daily-log:daily-log")
@@ -110,7 +107,6 @@ include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
 include(":feature:work:navigation")
-include(":feature:notification:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
 

@@ -26,4 +26,9 @@ object SavedStateHandleKey {
         const val UPDATE_WORK_CATEGORY_ID_KEY ="UPDATE_WORK_CATEGORY_ID_KEY"
         const val UPDATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY ="CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY"
     }
+
+    object Notice{
+        const val NOTICE_ID_KEY ="NOTICE_ID_KEY"
+
+    }
 }

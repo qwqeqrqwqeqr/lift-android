@@ -40,7 +40,7 @@ dependencies {
     implementation(project(":feature:login:navigation"))
     implementation(project(":feature:work:navigation"))
     implementation(project(":feature:badge:navigation"))
-    implementation(project(":feature:notification:navigation"))
+    implementation(project(":feature:notice:navigation"))
     implementation(project(":feature:update-routine:navigation"))
     implementation(project(":feature:my-info:navigation"))
     implementation(project(":feature:home:navigation"))

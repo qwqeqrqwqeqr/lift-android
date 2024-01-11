@@ -13,7 +13,7 @@ package com.gradation.lift.navigation
  * [HOME_GRAPH_NAME]
  * [LOGIN_GRAPH_NAME]
  * [MY_INFO_GRAPH_NAME]
- * [NOTIFICATION_GRAPH_NAME]
+ * [NOTICE_GRAPH_NAME]
  * [REGISTER_DETAIL_GRAPH_NAME]
  * [ROUTINE_DETAIL_GRAPH_NAME]
  * [WORK_GRAPH_NAME]
@@ -70,10 +70,9 @@ object Route {
     const val MY_INFO_UPDATE_ROUTER_NAME = "myinfo_update"
     const val MY_INFO_UPDATE_PROFILE_ROUTER_NAME = "myinfo_update_profile"
 
-    const val NOTIFICATION_GRAPH_NAME = "notification_graph"
-    const val NOTIFICATION_NOTIFICATION_ROUTER_NAME = "notification_notification"
-    const val NOTIFICATION_NOTICE_DETAIL_ROUTER_NAME = "notification_notice_detail"
-    const val NOTIFICATION_PUSH_DETAIL_ROUTER_NAME = "notification_push_detail"
+    const val NOTICE_GRAPH_NAME = "notice_graph"
+    const val NOTICE_NOTICE_ROUTER_NAME = "notice_notice"
+    const val NOTICE_NOTICE_DETAIL_ROUTER_NAME = "notice_notice_detail"
 
     const val REGISTER_DETAIL_GRAPH_NAME = "register_detail_graph"
     const val REGISTER_DETAIL_GENDER_ROUTER_NAME = "register_detail_gender"

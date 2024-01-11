@@ -15,7 +15,7 @@ fun NavController.navigateMyInfoGraphToLoginGraph() {
 
 
 fun NavController.navigateMyInfoGraphToNotificationGraph() {
-    this.navigate(Route.NOTIFICATION_GRAPH_NAME)
+    this.navigate(Route.NOTICE_GRAPH_NAME)
 }
 
 fun NavController.navigateMyInfoGraphToBadgeGraph() {
