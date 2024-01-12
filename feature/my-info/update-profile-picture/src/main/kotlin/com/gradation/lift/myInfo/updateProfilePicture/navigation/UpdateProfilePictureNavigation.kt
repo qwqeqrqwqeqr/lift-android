@@ -1,18 +1,19 @@
-package com.gradation.lift.myInfo.updateProfilePicture
+package com.gradation.lift.myInfo.updateProfilePicture.navigation
 
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route
 
-fun myInfoUpdateProfileScreen(
+fun NavGraphBuilder.updateProfilePicture(
+    modifier: Modifier=Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.composable(Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME) {
+    composable(Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME) {
 
         val navigateUpdateProfileToMyInfoInMyInfoGraph:() -> Unit = {  }
-        MyInfoUpdateProfileRoute(
+        UpdateProfilePictureRoute(
             navigateUpdateProfileToMyInfoInMyInfoGraph=navigateUpdateProfileToMyInfoInMyInfoGraph
         )
     }

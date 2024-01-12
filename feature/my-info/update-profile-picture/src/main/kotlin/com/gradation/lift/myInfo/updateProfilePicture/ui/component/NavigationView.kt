@@ -1,4 +1,4 @@
-package com.gradation.lift.myInfo.updateProfilePicture.component
+package com.gradation.lift.myInfo.updateProfilePicture.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text

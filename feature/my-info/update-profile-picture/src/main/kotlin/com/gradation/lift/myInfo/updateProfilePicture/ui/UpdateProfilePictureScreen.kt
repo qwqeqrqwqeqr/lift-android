@@ -1,94 +1,30 @@
-package com.gradation.lift.myInfo.updateProfilePicture
+package com.gradation.lift.myInfo.updateProfilePicture.ui
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.picture.UserProfilePicture
-import com.gradation.lift.myInfo.updateProfilePicture.component.HeaderView
-import com.gradation.lift.myInfo.updateProfilePicture.component.NavigationView
-import com.gradation.lift.myInfo.updateProfilePicture.component.ProfilePictureView
-import com.gradation.lift.myInfo.updateProfilePicture.component.SelectedProfilePictureView
-import com.gradation.lift.myInfo.updateProfilePicture.data.MyInfoUpdateProfileViewModel
-import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateUserDetailState
+import com.gradation.lift.myInfo.updateProfilePicture.ui.component.HeaderView
+import com.gradation.lift.myInfo.updateProfilePicture.ui.component.NavigationView
+import com.gradation.lift.myInfo.updateProfilePicture.ui.component.ProfilePictureView
+import com.gradation.lift.myInfo.updateProfilePicture.ui.component.SelectedProfilePictureView
+
 
 @Composable
-fun MyInfoUpdateProfileRoute(
-    modifier: Modifier = Modifier,
-    navigateUpdateProfileToMyInfoInMyInfoGraph: () -> Unit,
-    viewModel: MyInfoUpdateProfileViewModel = hiltViewModel(),
-) {
-
-    val updateUserDetailState: UpdateUserDetailState by viewModel.updateUserDetailState.collectAsStateWithLifecycle()
-    val selectedProfilePicture: String by viewModel.selectedProfilePicture.collectAsStateWithLifecycle()
-    val profilePictureList: List<UserProfilePicture> by viewModel.profilePictureList.collectAsStateWithLifecycle()
-    val updateCondition: Boolean by viewModel.updateCondition.collectAsStateWithLifecycle()
-
-
-    val updateUserProfilePicture: () -> Unit = viewModel.updateUserProfilePicture()
-    val updateSelectedProfile: (String) -> Unit = viewModel.updateSelectedProfile()
-    val updateUpdateUserDetailState: (UpdateUserDetailState) -> Unit =
-        viewModel.updateUpdateUserDetailState()
-
-    val snackbarHostState: SnackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
-
-
-    BackHandler(onBack = { navigateUpdateProfileToMyInfoInMyInfoGraph() })
-
-    when (val updateUserDetailStateResult: UpdateUserDetailState = updateUserDetailState) {
-        is UpdateUserDetailState.Fail -> {
-            LaunchedEffect(true) {
-                snackbarHostState.showSnackbar(
-                    message = updateUserDetailStateResult.message, duration = SnackbarDuration.Short
-                )
-                updateUpdateUserDetailState(UpdateUserDetailState.None)
-            }
-        }
-
-        UpdateUserDetailState.None -> {}
-        UpdateUserDetailState.Success -> {
-            LaunchedEffect(true) {
-                navigateUpdateProfileToMyInfoInMyInfoGraph()
-            }
-        }
-    }
-
-    MyInfoUpdateProfileScreen(
-        modifier,
-        selectedProfilePicture,
-        profilePictureList,
-        updateCondition,
-        updateUserProfilePicture,
-        updateSelectedProfile,
-        navigateUpdateProfileToMyInfoInMyInfoGraph,
-        snackbarHostState
-    )
-
-
-}
-
-@Composable
-fun MyInfoUpdateProfileScreen(
+fun UpdateProfilePictureScreen(
     modifier: Modifier = Modifier,
     selectedProfilePicture: String,
     profilePictureList: List<UserProfilePicture>,
@@ -154,7 +90,7 @@ fun MyInfoUpdateProfileScreen(
 @Preview
 fun MyInfoUpdateProfileScreenPreview() {
     LiftMaterialTheme {
-        MyInfoUpdateProfileScreen(
+        UpdateProfilePictureScreen(
             selectedProfilePicture = "",
             profilePictureList = listOf(),
             updateCondition = true,

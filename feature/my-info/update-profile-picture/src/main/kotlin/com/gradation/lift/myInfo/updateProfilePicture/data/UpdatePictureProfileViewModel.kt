@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * [MyInfoUpdateProfileViewModel]
+ * [UpdatePictureProfileViewModel]
  * @property userDetail 프로필 사진을 업데이트 하기 위한 사용자의 아이디 등 사용자를 판별할 수 있는 정보
  * @property updateUserDetailState 프로필 업데이트 상태 (해당 상태가 [DataState.Success] 일경우 프로필이 업데이트 됨
  * @property selectedProfilePicture 현재 선택 된 프로필 사진
@@ -28,7 +28,7 @@ import javax.inject.Inject
  * @since 2023-08-25 16:57:07
  */
 @HiltViewModel
-class MyInfoUpdateProfileViewModel @Inject constructor(
+class UpdatePictureProfileViewModel @Inject constructor(
     getUserProfilePictureUseCase: GetUserProfilePictureUseCase,
     getUserDetailUseCase: GetUserDetailUseCase,
     private val updateUserDetailUseCase: UpdateUserDetailUseCase
