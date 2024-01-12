@@ -4,216 +4,92 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.myInfo.myInfo.data.model.MyInfoContent
+import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoScreenState
 
 @Composable
 fun MyInfoListView(
     modifier: Modifier = Modifier,
-    versionName: String,
-    navigateMyInfoToUpdateInMyInfoGraph: () -> Unit,
-    navigateMyInfoGraphToNotificationGraph: () -> Unit
+    navigateMyInfoGraphToNoticeGraph: () -> Unit,
+    myInfoScreenState: MyInfoScreenState,
 ) {
+    val myInfoContentList = listOf(
+        MyInfoContent(
+            LiftIcon.Speaker,
+            "공지사항",
+            navigateMyInfoGraphToNoticeGraph
+        ),
+        MyInfoContent(
+            LiftIcon.LiftSmallLogo,
+            "현재 버전 ${myInfoScreenState.versionName}",
+            null,
+        )
+    )
+
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(
-                LiftTheme.colorScheme.no5,
-                shape = RoundedCornerShape(18.dp, 18.dp, 18.dp, 18.dp)
-            )
+            .background(LiftTheme.colorScheme.no5)
     ) {
-        Row(
-            modifier = modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .noRippleClickable { navigateMyInfoToUpdateInMyInfoGraph() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    modifier = modifier.width(24.dp),
-                    painter = painterResource(id = LiftIcon.Kettlebell),
-                    contentDescription = "kettlebell",
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                Column {
-                    Text(
-                        text = "내 정보 수정",
-                        color = LiftTheme.colorScheme.no11,
-                        style = LiftTheme.typography.no3
+        myInfoContentList.forEach {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = LiftTheme.space.space16,
+                        horizontal = LiftTheme.space.space20
                     )
-                    Text(
-                        text = "기존에 설정한 정보를 변경합니다.",
-                        color = LiftTheme.colorScheme.no2,
-                        style = LiftTheme.typography.no6
+                    .noRippleClickable {
+                        it.navigate?.let { navigate -> navigate() }
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    modifier = modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
+                ) {
+                    Icon(
+                        modifier = modifier.size(LiftTheme.space.space24),
+                        painter = painterResource(id = it.icon),
+                        contentDescription = "${it.icon}",
+                        tint = Color.Unspecified
                     )
-                }
-            }
-            Icon(
-                modifier = modifier,
-                painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                contentDescription = "kettlebell",
-                tint = LiftTheme.colorScheme.no2
-            )
-        }
-        HorizontalDivider(
-            modifier = modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = LiftTheme.colorScheme.no17
-        )
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .noRippleClickable { navigateMyInfoGraphToNotificationGraph() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    modifier = modifier.width(24.dp),
-                    painter = painterResource(id = LiftIcon.Speaker),
-                    contentDescription = "speaker",
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                Column {
-                    Text(
-                        text = "공지사항",
-                        color = LiftTheme.colorScheme.no11,
-                        style = LiftTheme.typography.no3
+                    LiftText(
+                        modifier = modifier,
+                        textStyle = LiftTextStyle.No3,
+                        text = it.content,
+                        color = LiftTheme.colorScheme.no3,
+                        textAlign = TextAlign.Start
                     )
                 }
-            }
-            Icon(
-                modifier = modifier,
-                painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                contentDescription = "kettlebell",
-                tint = LiftTheme.colorScheme.no2
-            )
-        }
-//        HorizontalDivider(
-//            modifier = modifier.fillMaxWidth(),
-//            thickness = 1.dp,
-//            color = LiftTheme.colorScheme.no17
-//        )
-//        Row(
-//            modifier = Modifier
-//                .padding(16.dp)
-//                .fillMaxWidth(),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Icon(
-//                    modifier = modifier.width(24.dp),
-//                    painter = painterResource(id = LiftIcon.Chat),
-//                    contentDescription = "chat",
-//                    tint = Color.Unspecified
-//                )
-//                Spacer(modifier = modifier.padding(8.dp))
-//                Column {
-//                    Text(
-//                        text = "고객센터",
-//                        color = LiftTheme.colorScheme.no11,
-//                        style = LiftTheme.typography.no3
-//                    )
-//                }
-//            }
-//            Icon(
-//                modifier = modifier,
-//                painter = painterResource(id = LiftIcon.ChevronRightLarge),
-//                contentDescription = "kettlebell",
-//                tint = LiftTheme.colorScheme.no2
-//            )
-//        }
-//        HorizontalDivider(
-//            modifier = modifier.fillMaxWidth(),
-//            thickness = 1.dp,
-//            color = LiftTheme.colorScheme.no17
-//        )
-//        Row(
-//            modifier = Modifier
-//                .padding(16.dp)
-//                .fillMaxWidth(),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Icon(
-//                    modifier = modifier.width(24.dp),
-//                    painter = painterResource(id = LiftIcon.TermsPolicies),
-//                    contentDescription = "terms_policies",
-//                    tint = Color.Unspecified
-//                )
-//                Spacer(modifier = modifier.padding(8.dp))
-//                Column {
-//                    Text(
-//                        text = "약관 및 정책",
-//                        color = LiftTheme.colorScheme.no11,
-//                        style = LiftTheme.typography.no3
-//                    )
-//                }
-//            }
-//            Icon(
-//                modifier = modifier,
-//                painter = painterResource(id = LiftIcon.ChevronRightLarge),
-//                contentDescription = "kettlebell",
-//                tint = LiftTheme.colorScheme.no2
-//            )
-//        }
-        HorizontalDivider(
-            modifier = modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = LiftTheme.colorScheme.no17
-        )
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-
-                Icon(
-                    modifier = modifier.width(24.dp),
-                    painter = painterResource(id = LiftIcon.LiftSmallLogo),
-                    contentDescription = "lift",
-                    tint = Color.Unspecified
-                )
-                Spacer(modifier = modifier.padding(8.dp))
-                Row {
-                    Text(
-                        text = "현재 버전",
-                        color = LiftTheme.colorScheme.no11,
-                        style = LiftTheme.typography.no3
+                if (it.navigate != null) {
+                    Icon(
+                        modifier = modifier,
+                        painter = painterResource(id = LiftIcon.ChevronRightLarge),
+                        contentDescription = "chevronRightLarge",
+                        tint = LiftTheme.colorScheme.no2
                     )
-                    Text(
-                        text = " $versionName",
-                        color = LiftTheme.colorScheme.no11,
-                        style = LiftTheme.typography.no4
-                    )
-
                 }
             }
         }
     }
 }
+
+
