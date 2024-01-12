@@ -67,8 +67,10 @@ object Route {
 
     const val MY_INFO_GRAPH_NAME = "myinfo_graph"
     const val MY_INFO_MY_INFO_ROUTER_NAME = "myinfo_myinfo"
-    const val MY_INFO_UPDATE_ROUTER_NAME = "myinfo_update"
-    const val MY_INFO_UPDATE_PROFILE_ROUTER_NAME = "myinfo_update_profile"
+    const val MY_INFO_PROFILE_ROUTER_NAME = "myinfo_profile"
+    const val MY_INFO_UPDATE_INFO_ROUTER_NAME = "myinfo_update_info"
+    const val MY_INFO_UPDATE_NAME_ROUTER_NAME = "myinfo_update_name"
+    const val MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME = "myinfo_update_profile_picture"
 
     const val NOTICE_GRAPH_NAME = "notice_graph"
     const val NOTICE_NOTICE_ROUTER_NAME = "notice_notice"

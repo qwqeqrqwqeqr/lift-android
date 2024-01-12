@@ -22,7 +22,7 @@ fun ProfileView(
     badgeCount:Int,
     workCount: Int,
     signOut: () -> Unit,
-    navigateMyInfoToUpdateProfileInMyInfoGraph: () -> Unit,
+    navigateProfileToUpdateProfilePictureInMyInfoGraph: () -> Unit,
     navigateMyInfoGraphToNotificationGraph: () -> Unit,
     navigateMyInfoGraphToBadgeGraph: () -> Unit,
 ) {
@@ -48,7 +48,7 @@ fun ProfileView(
                     modifier = modifier,
                     userDetail = userDetailUiState.userDetail,
                     signOut = signOut,
-                    navigateMyInfoToUpdateProfileInMyInfoGraph = navigateMyInfoToUpdateProfileInMyInfoGraph
+                    navigateProfileToUpdateProfilePictureInMyInfoGraph = navigateProfileToUpdateProfilePictureInMyInfoGraph
                 )
             }
         }

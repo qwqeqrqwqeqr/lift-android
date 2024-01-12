@@ -3,7 +3,11 @@ package com.gradation.lift.navigation.navigation
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
 
-
+/**
+ * [navigateMyInfoGraphToLoginGraph]
+ * 로그아웃 수행시 사용
+ * @since 2024-01-12 13:05:32
+ */
 fun NavController.navigateMyInfoGraphToLoginGraph() {
     this.navigate(Route.LOGIN_GRAPH_NAME) {
         launchSingleTop = true
@@ -13,39 +17,100 @@ fun NavController.navigateMyInfoGraphToLoginGraph() {
     }
 }
 
-
-fun NavController.navigateMyInfoGraphToNotificationGraph() {
+/**
+ * [navigateMyInfoGraphToLoginGraph]
+ * 공지사항 화면으로 이동
+ * @since 2024-01-12 13:05:32
+ */
+fun NavController.navigateMyInfoGraphToNoticeGraph() {
     this.navigate(Route.NOTICE_GRAPH_NAME)
 }
 
-fun NavController.navigateMyInfoGraphToBadgeGraph() {
-    this.navigate(Route.BADGE_GRAPH_NAME)
+/**
+ * [navigateMyInfoToProfileInMyInfoGraph]
+ * 내정보 화면에서 내 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateMyInfoToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME)
+}
+
+/**
+ * [navigateMyInfoToProfileInMyInfoGraph]
+ * 내 프로필 화면에서 내정보 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToMyInfoInMyInfoGraph() {
+    this.popBackStack()
 }
 
 
-fun NavController.navigateMyInfoToUpdateProfileInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_UPDATE_PROFILE_ROUTER_NAME)
+/**
+ * [navigateProfileToUpdateNameInMyInfoGraph]
+ * 프로필 화면에서 이름 수정 화면 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToUpdateNameInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_UPDATE_NAME_ROUTER_NAME)
 }
 
-fun NavController.navigateMyInfoToUpdateInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_UPDATE_ROUTER_NAME)
-}
-
-
-fun NavController.navigateUpdateProfileToMyInfoInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
-        this.popUpTo(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 이름 수정 후 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateUpdateNameToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        this.popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
 
-fun NavController.navigateUpdateToMyInfoInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
-        this.popUpTo(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
+/**
+ * [navigateProfileToUpdateInfoInMyInfoGraph]
+ * 프로필 화면에서 기본 정보 수정 화면 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToUpdateInfoInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_UPDATE_INFO_ROUTER_NAME)
+}
+
+/**
+ * [navigateUpdateInfoToProfileInMyInfoGraph]
+ * 정보 수정 후 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateUpdateInfoToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        this.popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
+
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 프로필 화면에서 사진 수정 화면 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToUpdateProfilePictureInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME)
+}
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 사진 수정 후 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateUpdateProfilePictureToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        this.popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
+
 
 

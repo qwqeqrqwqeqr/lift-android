@@ -1,18 +1,18 @@
-package com.gradation.lift.feature.my_info.update
+package com.gradation.lift.feature.myInfo.updateInfo
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.gradation.lift.feature.my_info.update.MyInfoUpdateRoute
 import com.gradation.lift.navigation.Route
-import com.gradation.lift.navigation.navigation.navigateUpdateToMyInfoInMyInfoGraph
 
 fun myInfoUpdateScreen(
     navController: NavController,
     navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.composable(Route.MY_INFO_UPDATE_ROUTER_NAME) {
+    navGraphBuilder.composable(Route.MY_INFO_UPDATE_INFO_ROUTER_NAME) {
 
-        val navigateUpdateToMyInfoInMyInfoGraph:() -> Unit = { navController.navigateUpdateToMyInfoInMyInfoGraph() }
+        val navigateUpdateToMyInfoInMyInfoGraph:() -> Unit = { }
 
 
         MyInfoUpdateRoute(
