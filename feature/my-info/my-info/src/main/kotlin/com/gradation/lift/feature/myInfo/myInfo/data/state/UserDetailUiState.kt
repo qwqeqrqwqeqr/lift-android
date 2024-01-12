@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info.data.state
+package com.gradation.lift.feature.myInfo.myInfo.data.state
 
 import com.gradation.lift.model.model.user.UserDetail
 

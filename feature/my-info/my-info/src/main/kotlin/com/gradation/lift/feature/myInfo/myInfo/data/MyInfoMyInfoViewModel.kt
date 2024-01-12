@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info.data
+package com.gradation.lift.feature.myInfo.myInfo.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,8 +7,8 @@ import com.gradation.lift.domain.usecase.auth.SignOutUseCase
 import com.gradation.lift.domain.usecase.badge.GetUserBadgeUseCase
 import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
-import com.gradation.lift.feature.my_info.my_info.data.state.SignOutState
-import com.gradation.lift.feature.my_info.my_info.data.state.UserDetailUiState
+import com.gradation.lift.feature.myInfo.myInfo.data.state.SignOutState
+import com.gradation.lift.feature.myInfo.myInfo.data.state.UserDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

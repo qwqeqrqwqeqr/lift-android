@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info
+package com.gradation.lift.feature.myInfo.myInfo
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info.component
+package com.gradation.lift.feature.myInfo.myInfo.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.my_info.my_info.component.profile_detail_view.LoadingProfileDetailView
-import com.gradation.lift.feature.my_info.my_info.component.profile_detail_view.ProfileDetailView
-import com.gradation.lift.feature.my_info.my_info.data.state.UserDetailUiState
+import com.gradation.lift.feature.myInfo.myInfo.component.profile_detail_view.LoadingProfileDetailView
+import com.gradation.lift.feature.myInfo.myInfo.component.profile_detail_view.ProfileDetailView
+import com.gradation.lift.feature.myInfo.myInfo.data.state.UserDetailUiState
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable

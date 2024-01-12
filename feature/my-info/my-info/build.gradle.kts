@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.gradation.lift.feature.my_info.my_info"
+    namespace = "com.gradation.lift.feature.myInfo.myInfo"
 }
 
 dependencies {

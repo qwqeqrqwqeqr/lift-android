@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.my_info
+package com.gradation.lift.feature.myInfo.myInfo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,11 +21,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.my_info.my_info.component.MyInfoListView
-import com.gradation.lift.feature.my_info.my_info.component.ProfileView
-import com.gradation.lift.feature.my_info.my_info.data.MyInfoMyInfoViewModel
-import com.gradation.lift.feature.my_info.my_info.data.state.SignOutState
-import com.gradation.lift.feature.my_info.my_info.data.state.UserDetailUiState
+import com.gradation.lift.feature.myInfo.myInfo.component.MyInfoListView
+import com.gradation.lift.feature.myInfo.myInfo.component.ProfileView
+import com.gradation.lift.feature.myInfo.myInfo.data.MyInfoMyInfoViewModel
+import com.gradation.lift.feature.myInfo.myInfo.data.state.SignOutState
+import com.gradation.lift.feature.myInfo.myInfo.data.state.UserDetailUiState
 import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
 
 @Composable
