@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -155,14 +156,13 @@ fun BadgeView(
                         verticalArrangement = Arrangement.Bottom
                     ) {
                         Row(
-                            modifier = modifier,
+                            modifier = modifier.offset(y = -LiftTheme.space.space8),
                             verticalAlignment = Alignment.Bottom
                         ) {
                             badgeUiState.userBadge.forEach {
                                 GlideImage(
                                     modifier = modifier
                                         .size(LiftTheme.space.space52)
-                                        .offset(y = -LiftTheme.space.space8)
                                         .weight(1f),
                                     model = it.badge.url,
                                     contentDescription = "${it.badge.url}Badge"
@@ -173,7 +173,7 @@ fun BadgeView(
                                 Box(
                                     modifier = modifier
                                         .size(LiftTheme.space.space52)
-                                        .offset(y = -LiftTheme.space.space8)
+                                        .padding(horizontal = LiftTheme.space.space8)
                                         .background(LiftTheme.colorScheme.no5, CircleShape)
                                         .noRippleClickable { navigateHomeGraphToBadgeSettingRouter() }
                                         .weight(1f),
@@ -187,7 +187,7 @@ fun BadgeView(
                                     )
                                 }
                             }
-                            repeat(5 - badgeUiState.userBadge.size) {
+                            repeat(4 - badgeUiState.userBadge.size) {
                                 Spacer(
                                     modifier = modifier
                                         .size(LiftTheme.space.space52)
