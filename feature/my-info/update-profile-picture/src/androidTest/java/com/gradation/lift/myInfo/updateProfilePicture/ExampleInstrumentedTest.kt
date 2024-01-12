@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile
+package com.gradation.lift.myInfo.updateProfilePicture
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

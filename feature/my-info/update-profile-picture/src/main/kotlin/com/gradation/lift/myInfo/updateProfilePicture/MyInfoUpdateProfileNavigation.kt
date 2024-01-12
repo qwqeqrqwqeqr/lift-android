@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile
+package com.gradation.lift.myInfo.updateProfilePicture
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

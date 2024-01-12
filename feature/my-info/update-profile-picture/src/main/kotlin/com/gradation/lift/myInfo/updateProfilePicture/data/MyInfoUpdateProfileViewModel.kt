@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile.data
+package com.gradation.lift.myInfo.updateProfilePicture.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
 import com.gradation.lift.domain.usecase.user.UpdateUserDetailUseCase
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.my_info.update_profile.data.state.UpdateUserDetailState
+import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateUserDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

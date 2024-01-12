@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile.data.state
+package com.gradation.lift.myInfo.updateProfilePicture.data.state
 
 /**
 * [UpdateUserDetailState]

@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile
+package com.gradation.lift.myInfo.updateProfilePicture
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -25,12 +25,12 @@ import com.gradation.lift.designsystem.component.LiftErrorSnackBar
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.picture.UserProfilePicture
-import com.gradation.lift.my_info.update_profile.component.HeaderView
-import com.gradation.lift.my_info.update_profile.component.NavigationView
-import com.gradation.lift.my_info.update_profile.component.ProfilePictureView
-import com.gradation.lift.my_info.update_profile.component.SelectedProfilePictureView
-import com.gradation.lift.my_info.update_profile.data.MyInfoUpdateProfileViewModel
-import com.gradation.lift.my_info.update_profile.data.state.UpdateUserDetailState
+import com.gradation.lift.myInfo.updateProfilePicture.component.HeaderView
+import com.gradation.lift.myInfo.updateProfilePicture.component.NavigationView
+import com.gradation.lift.myInfo.updateProfilePicture.component.ProfilePictureView
+import com.gradation.lift.myInfo.updateProfilePicture.component.SelectedProfilePictureView
+import com.gradation.lift.myInfo.updateProfilePicture.data.MyInfoUpdateProfileViewModel
+import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateUserDetailState
 
 @Composable
 fun MyInfoUpdateProfileRoute(

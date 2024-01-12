@@ -1,4 +1,4 @@
-package com.gradation.lift.my_info.update_profile.component
+package com.gradation.lift.myInfo.updateProfilePicture.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
