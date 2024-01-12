@@ -9,7 +9,7 @@ import com.gradation.lift.network.data.TestDtoDataGenerator
 import com.gradation.lift.network.data.TestJsonDataGenerator
 import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.service.NotificationService
+import com.gradation.lift.network.service.NoticeService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -22,12 +22,12 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
-class NotificationServiceTest {
+class NoticeServiceTest {
 
 
     private lateinit var retrofit: TestRetrofit
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var notificationService: NotificationService
+    private lateinit var noticeService: NoticeService
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -38,7 +38,7 @@ class NotificationServiceTest {
             start()
         }
         retrofit = TestRetrofit(mockWebServer = mockWebServer)
-        notificationService = TestServiceModule.testNotificationService(retrofit)
+        noticeService = TestServiceModule.testNotificationService(retrofit)
     }
 
     @After
@@ -56,7 +56,7 @@ class NotificationServiceTest {
                 .setResponseCode(Constants.OK)
         )
 
-        with(notificationService.getNotice()) {
+        with(noticeService.getNotice()) {
             Truth.assertThat(code()).isEqualTo(Constants.OK)
             Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
             Truth.assertThat(body()!!.data)
@@ -64,7 +64,7 @@ class NotificationServiceTest {
         }
 
         with(mockWebServer.takeRequest()) {
-            Truth.assertThat(path).isEqualTo("/notification/notice")
+            Truth.assertThat(path).isEqualTo("/notice/notice")
             Truth.assertThat(method).isEqualTo(Constants.GET)
         }
     }

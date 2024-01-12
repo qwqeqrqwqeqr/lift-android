@@ -9,8 +9,8 @@ import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
 import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.datasource.notification.DefaultNotificationDefaultDataSource
-import com.gradation.lift.network.datasource.notification.NotificationDataSource
+import com.gradation.lift.network.datasource.notice.DefaultNoticeDefaultDataSource
+import com.gradation.lift.network.datasource.notice.NoticeDataSource
 import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
@@ -80,11 +80,11 @@ object DataSourceModule {
 
 
     @Provides
-    fun provideNotificationDataSource(
-        notificationService: NotificationService,
+    fun provideNoticeDataSource(
+        noticeService: NoticeService,
         networkResultHandler: NetworkResultHandler,
-    ): NotificationDataSource =
-        DefaultNotificationDefaultDataSource(notificationService, networkResultHandler)
+    ): NoticeDataSource =
+        DefaultNoticeDefaultDataSource(noticeService, networkResultHandler)
 
 
     @Provides

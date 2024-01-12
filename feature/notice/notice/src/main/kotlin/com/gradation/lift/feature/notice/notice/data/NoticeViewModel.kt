@@ -3,7 +3,7 @@ package com.gradation.lift.feature.notice.notice.data
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.notification.GetNoticeUseCase
+import com.gradation.lift.domain.usecase.notice.GetNoticeUseCase
 import com.gradation.lift.model.model.notification.Notice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

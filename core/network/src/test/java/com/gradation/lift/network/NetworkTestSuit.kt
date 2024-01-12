@@ -20,7 +20,7 @@ import com.gradation.lift.network.test.datasource.AuthDataSourceTest
 import com.gradation.lift.network.test.datasource.BadgeDataSourceTest
 import com.gradation.lift.network.test.datasource.CheckerDataSourceTest
 import com.gradation.lift.network.test.datasource.HistoryDataSourceTest
-import com.gradation.lift.network.test.datasource.NotificationDataSourceTest
+import com.gradation.lift.network.test.datasource.NoticeDataSourceTest
 import com.gradation.lift.network.test.datasource.PictureDataSourceTest
 import com.gradation.lift.network.test.datasource.RoutineDataSourceTest
 import com.gradation.lift.network.test.datasource.UserDataSourceTest
@@ -43,7 +43,7 @@ import org.junit.runners.Suite
     RoutineDataSourceTest::class,
     UserDataSourceTest::class,
     WorkDataSourceTest::class,
-    NotificationDataSourceTest::class,
+    NoticeDataSourceTest::class,
     BadgeDataSourceTest::class,
 
 
@@ -55,7 +55,7 @@ import org.junit.runners.Suite
     RefreshServiceTest::class,
     PictureServiceTest::class,
     HistoryServiceTest::class,
-    NotificationServiceTest::class,
+    NoticeServiceTest::class,
     BadgeServiceTest::class,
 
 

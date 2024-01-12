@@ -8,13 +8,13 @@ import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestJsonDataGenerator.Notification.noticeResponseJson
-import com.gradation.lift.network.datasource.notification.DefaultNotificationDefaultDataSource
-import com.gradation.lift.network.datasource.notification.NotificationDataSource
+import com.gradation.lift.network.datasource.notice.DefaultNoticeDefaultDataSource
+import com.gradation.lift.network.datasource.notice.NoticeDataSource
 import com.gradation.lift.network.di.TestDispatcher
 import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
-import com.gradation.lift.network.service.NotificationService
+import com.gradation.lift.network.service.NoticeService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -29,12 +29,12 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 
-class NotificationDataSourceTest {
+class NoticeDataSourceTest {
 
     private lateinit var retrofit: TestRetrofit
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var notificationService: NotificationService
-    private lateinit var notificationDataSource: NotificationDataSource
+    private lateinit var noticeService: NoticeService
+    private lateinit var noticeDataSource: NoticeDataSource
     private lateinit var networkResultHandler: NetworkResultHandler
 
     private val dispatcher: DispatcherProvider = TestDispatcher.testDispatchers()
@@ -49,11 +49,11 @@ class NotificationDataSourceTest {
             start()
         }
         retrofit = TestRetrofit(mockWebServer = mockWebServer)
-        notificationService = TestServiceModule.testNotificationService(retrofit)
+        noticeService = TestServiceModule.testNotificationService(retrofit)
         networkResultHandler =
             NetworkResultHandler(dispatcherProvider = dispatcher)
-        notificationDataSource = DefaultNotificationDefaultDataSource(
-            notificationService, networkResultHandler
+        noticeDataSource = DefaultNoticeDefaultDataSource(
+            noticeService, networkResultHandler
         )
     }
 
@@ -72,7 +72,7 @@ class NotificationDataSourceTest {
                 .setResponseCode(Constants.OK)
         )
 
-        with(notificationDataSource.getNotice().first()) {
+        with(noticeDataSource.getNotice().first()) {
             Truth.assertThat(
                 NetworkResult.Success(listOf(ModelDataGenerator.Notification.noticeModel))
             ).isEqualTo(this)

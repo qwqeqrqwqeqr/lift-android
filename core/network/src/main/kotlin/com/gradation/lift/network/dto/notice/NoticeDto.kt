@@ -1,4 +1,4 @@
-package com.gradation.lift.network.dto.notification
+package com.gradation.lift.network.dto.notice
 
 import kotlinx.serialization.SerialName
 
