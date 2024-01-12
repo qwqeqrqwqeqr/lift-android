@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.my_info.update
+package com.gradation.lift.feature.myInfo.updateInfo.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * [MyInfoUpdateViewModel]
+ * [UpdateInfoViewModel]
  * @property userDetailUiState 상세정보 수정 Ui 상태
  * @property updateUserDetailState 프로필 업데이트 상태 (해당 상태가 [DataState.Success] 일경우 프로필이 업데이트 됨
  * @property updateCondition 업데이트 조건
@@ -56,7 +56,7 @@ import javax.inject.Inject
  */
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
-class MyInfoUpdateViewModel @Inject constructor(
+class UpdateInfoViewModel @Inject constructor(
     getUserDetailUseCase: GetUserDetailUseCase,
     private val checkerDuplicateNameUseCase: CheckerDuplicateNameUseCase,
     private val updateUserDetailUseCase: UpdateUserDetailUseCase
