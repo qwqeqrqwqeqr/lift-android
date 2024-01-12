@@ -5,7 +5,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route
-import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToLoginGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToNoticeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoToProfileInMyInfoGraph
 
@@ -15,8 +14,7 @@ fun NavGraphBuilder.myInfoScreen(
 ) {
 
 
-    val navigateMyInfoGraphToLoginGraph: () -> Unit =
-        { navController.navigateMyInfoGraphToLoginGraph() }
+
 
 
     val navigateMyInfoGraphToNoticeGraph: () -> Unit =
@@ -31,7 +29,6 @@ fun NavGraphBuilder.myInfoScreen(
     composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoRoute(
             modifier,
-            navigateMyInfoGraphToLoginGraph,
             navigateMyInfoGraphToNoticeGraph,
             navigateMyInfoToProfileInMyInfoGraph
         )

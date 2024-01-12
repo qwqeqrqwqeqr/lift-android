@@ -18,7 +18,7 @@ fun NavController.navigateMyInfoGraphToLoginGraph() {
 }
 
 /**
- * [navigateMyInfoGraphToLoginGraph]
+ * [navigateMyInfoGraphToNoticeGraph]
  * 공지사항 화면으로 이동
  * @since 2024-01-12 13:05:32
  */
@@ -36,7 +36,7 @@ fun NavController.navigateMyInfoToProfileInMyInfoGraph() {
 }
 
 /**
- * [navigateMyInfoToProfileInMyInfoGraph]
+ * [navigateProfileToMyInfoInMyInfoGraph]
  * 내 프로필 화면에서 내정보 화면으로 이동
  * @since 2024-01-12 13:08:02
  */
@@ -55,7 +55,7 @@ fun NavController.navigateProfileToUpdateNameInMyInfoGraph() {
 }
 
 /**
- * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * [navigateUpdateNameToProfileInMyInfoGraph]
  * 이름 수정 후 프로필 화면으로 이동
  * @since 2024-01-12 13:08:02
  */
@@ -100,7 +100,7 @@ fun NavController.navigateProfileToUpdateProfilePictureInMyInfoGraph() {
 }
 
 /**
- * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * [navigateUpdateProfilePictureToProfileInMyInfoGraph]
  * 사진 수정 후 프로필 화면으로 이동
  * @since 2024-01-12 13:08:02
  */

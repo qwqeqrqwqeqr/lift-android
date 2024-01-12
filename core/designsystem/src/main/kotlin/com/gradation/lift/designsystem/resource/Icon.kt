@@ -6,7 +6,7 @@ import com.gradation.lift.designsystem.R
 object LiftIcon {
     val Home = R.drawable.home
     val DailyLog = R.drawable.history
-    val Analytics = R.drawable.log
+    val Analytics = R.drawable.analytics_image
     val MyInfo = R.drawable.my_info
 
     val CheckBoxChecked = R.drawable.checkbox_checked

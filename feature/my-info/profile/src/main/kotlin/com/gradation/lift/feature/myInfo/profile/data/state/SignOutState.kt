@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.myInfo.myInfo.data.state
+package com.gradation.lift.feature.myInfo.profile.data.state
 
 
 

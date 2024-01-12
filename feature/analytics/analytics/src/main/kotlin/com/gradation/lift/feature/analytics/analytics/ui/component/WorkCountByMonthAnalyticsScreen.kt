@@ -49,7 +49,7 @@ fun WorkCountByMonthAnalyticsScreen(
     ) {
         Spacer(modifier = modifier.padding(16.dp))
         Image(
-            painter = painterResource(id = R.drawable.analytics),
+            painter = painterResource(id = R.drawable.analytics_image),
             contentDescription = "analytics",
             modifier = modifier
                 .size(60.dp)
