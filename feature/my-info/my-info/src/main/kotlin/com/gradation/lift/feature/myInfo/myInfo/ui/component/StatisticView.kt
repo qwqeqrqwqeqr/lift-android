@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.myInfo.myInfo.component
+package com.gradation.lift.feature.myInfo.myInfo.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

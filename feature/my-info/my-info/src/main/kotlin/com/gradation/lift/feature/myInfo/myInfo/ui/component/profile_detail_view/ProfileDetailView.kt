@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.myInfo.myInfo.component.profile_detail_view
+package com.gradation.lift.feature.myInfo.myInfo.ui.component.profile_detail_view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 
 /**
- * [MyInfoMyInfoViewModel]
+ * [MyInfoViewModel]
  * @property badgeCount 사용자가 획득한 뱃지 개수
  * @property workCount 사용자의 운동 총 횟수
  * @property userDetailUiState 사용자 상세정보 상태
@@ -28,10 +28,10 @@ import javax.inject.Inject
  * @since 2023-09-01 14:12:22s
  */
 @HiltViewModel
-class MyInfoMyInfoViewModel @Inject constructor(
+class MyInfoViewModel @Inject constructor(
     getUserDetailUseCase: GetUserDetailUseCase,
     getHistoryUseCase: GetHistoryUseCase,
-    private val getUserBadgeUseCase: GetUserBadgeUseCase,
+    getUserBadgeUseCase: GetUserBadgeUseCase,
     private val signOutUseCase: SignOutUseCase,
 ) : ViewModel() {
 
@@ -77,13 +77,14 @@ class MyInfoMyInfoViewModel @Inject constructor(
         signOutState.value = it
     }
 
-    fun signOut(): ()-> Unit = {
+    fun signOut(): () -> Unit = {
         viewModelScope.launch {
             signOutUseCase().collect {
                 when (it) {
                     is DataState.Fail -> {
-                        signOutState.value =SignOutState.Fail("로그아웃을 실패하였습니다.")
+                        signOutState.value = SignOutState.Fail("로그아웃을 실패하였습니다.")
                     }
+
                     is DataState.Success -> {
                         signOutState.value = SignOutState.Success
                     }
