@@ -39,7 +39,7 @@ fun LiftNavHost(
         createRoutineGraphBuilder(modifier, navController, this)
         homeGraphBuilder(modifier, navController, this)
         loginGraphBuilder(modifier, navController, this)
-        myInfoGraphBuilder(navController, this)
+        myInfoGraphBuilder(modifier, navController)
         noticeGraphBuilder(modifier, navController)
         registerDetailGraphBuilder(modifier, navController, this)
         updateRoutineGraphBuilder(modifier, navController, this)
