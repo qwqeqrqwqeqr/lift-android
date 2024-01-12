@@ -3,10 +3,11 @@ plugins {
     id("lift.android.library")
     id("lift.android.kotlin")
     id("lift.android.hilt")
+    id("lift.android.image")
 }
 
 android {
-    namespace = "com.gradation.lift.feature.my_info.update"
+    namespace = "com.gradation.lift.feature.myInfo.updateInfo"
 }
 
 dependencies {
