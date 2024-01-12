@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.auth.SignOutUseCase
-import com.gradation.lift.domain.usecase.badge.GetUserBadgeUseCase
-import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
+import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoState
 import com.gradation.lift.feature.myInfo.myInfo.data.state.SignOutState
-import com.gradation.lift.feature.myInfo.myInfo.data.state.UserDetailUiState
+import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,59 +20,38 @@ import javax.inject.Inject
 
 /**
  * [MyInfoViewModel]
- * @property badgeCount 사용자가 획득한 뱃지 개수
- * @property workCount 사용자의 운동 총 횟수
  * @property userDetailUiState 사용자 상세정보 상태
  * @property signOutState 사용자의 로그아웃을 관측하기 위한 상태
- * @since 2023-09-01 14:12:22s
+ * @since 2024-01-12 13:57:57
  */
 @HiltViewModel
 class MyInfoViewModel @Inject constructor(
     getUserDetailUseCase: GetUserDetailUseCase,
-    getHistoryUseCase: GetHistoryUseCase,
-    getUserBadgeUseCase: GetUserBadgeUseCase,
     private val signOutUseCase: SignOutUseCase,
 ) : ViewModel() {
 
 
-    internal val badgeCount: StateFlow<Int> = getUserBadgeUseCase().map {
+    internal val myInfoUiState: StateFlow<MyInfoUiState> = getUserDetailUseCase().map {
         when (it) {
-            is DataState.Fail -> 0
-            is DataState.Success -> it.data.count()
+            is DataState.Fail -> MyInfoUiState.Fail(it.message)
+            is DataState.Success -> MyInfoUiState.Success(
+                it.data.let {
+                    MyInfoState(
+                        name = it.name,
+                        profilePicture = it.profilePicture
+                    )
+                }
+            )
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = 0
+        initialValue = MyInfoUiState.Loading
     )
 
-    internal val workCount: StateFlow<Int> = getHistoryUseCase().map {
-        when (it) {
-            is DataState.Fail -> 0
-            is DataState.Success -> it.data.count()
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = 0
-    )
+    internal val signOutState: MutableStateFlow<SignOutState> = MutableStateFlow(SignOutState.None)
 
-    internal val userDetailUiState: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
-        when (it) {
-            is DataState.Fail -> UserDetailUiState.Fail(it.message)
-            is DataState.Success -> UserDetailUiState.Success(it.data)
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = UserDetailUiState.Loading
-    )
-
-    internal val signOutState: MutableStateFlow<SignOutState> =
-        MutableStateFlow(SignOutState.None)
-
-
-    internal fun updateUpdateUserDetailState(): (SignOutState) -> Unit = {
+    internal fun updateSignOutState(): (SignOutState) -> Unit = {
         signOutState.value = it
     }
 

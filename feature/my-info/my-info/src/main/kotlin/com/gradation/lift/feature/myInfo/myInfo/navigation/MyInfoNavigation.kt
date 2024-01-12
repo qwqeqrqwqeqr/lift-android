@@ -6,27 +6,34 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToLoginGraph
-import com.gradation.lift.navigation.navigation.navigateProfileToUpdateProfilePictureInMyInfoGraph
+import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToNoticeGraph
+import com.gradation.lift.navigation.navigation.navigateMyInfoToProfileInMyInfoGraph
 
 fun NavGraphBuilder.myInfoScreen(
-    modifier: Modifier=Modifier,
+    modifier: Modifier = Modifier,
     navController: NavController,
 ) {
 
 
     val navigateMyInfoGraphToLoginGraph: () -> Unit =
         { navController.navigateMyInfoGraphToLoginGraph() }
-    val navigateProfileToUpdateProfilePictureInMyInfoGraph: () -> Unit =
-        { navController.navigateProfileToUpdateProfilePictureInMyInfoGraph() }
-    val navigateMyInfoToUpdateInMyInfoGraph: () -> Unit =
-        { }
 
-    val versionName = navController.context.packageManager.getPackageInfo(
-        navController.context.packageName,
-        0
-    ).versionName
+
+    val navigateMyInfoGraphToNoticeGraph: () -> Unit =
+        { navController.navigateMyInfoGraphToNoticeGraph() }
+
+
+    val navigateMyInfoToProfileInMyInfoGraph: () -> Unit =
+        { navController.navigateMyInfoToProfileInMyInfoGraph() }
+
+
 
     composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
-
+        MyInfoRoute(
+            modifier,
+            navigateMyInfoGraphToLoginGraph,
+            navigateMyInfoGraphToNoticeGraph,
+            navigateMyInfoToProfileInMyInfoGraph
+        )
     }
 }
