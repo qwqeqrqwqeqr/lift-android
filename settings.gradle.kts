@@ -83,8 +83,10 @@ include(":feature:notice:notice-detail")
 include(":feature:notice:navigation")
 
 include(":feature:my-info:my-info")
+include(":feature:my-info:profile")
 include(":feature:my-info:update-profile-picture")
-include(":feature:my-info:update")
+include(":feature:my-info:update-name")
+include(":feature:my-info:update-info")
 
 include(":feature:daily-log:daily-log")
 include(":feature:daily-log:navigation")
@@ -109,5 +111,6 @@ include(":feature:create-routine:navigation")
 include(":feature:work:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
+
 
 
