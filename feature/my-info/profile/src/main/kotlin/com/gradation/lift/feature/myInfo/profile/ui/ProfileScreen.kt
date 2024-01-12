@@ -13,6 +13,8 @@ import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.myInfo.profile.data.state.ProfileScreenState
 import com.gradation.lift.feature.myInfo.profile.data.state.ProfileUiState
+import com.gradation.lift.feature.myInfo.profile.ui.component.ProfileContentListView
+import com.gradation.lift.feature.myInfo.profile.ui.component.ProfilePictureView
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 
@@ -51,15 +53,49 @@ internal fun ProfileScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(LiftTheme.colorScheme.no5)
-                .padding(it)
-                .padding(
-                    start = LiftTheme.space.space20,
-                    end = LiftTheme.space.space20,
-                    top = LiftTheme.space.space48
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+                .background(LiftTheme.colorScheme.no17)
+                .padding(it),
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+            ) {
+            Column(
+                modifier = modifier
+                    .background(LiftTheme.colorScheme.no5)
+                    .padding(top = LiftTheme.space.space48),
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                when (profileUiState) {
+                    is ProfileUiState.Fail -> {
+                        Spacer(
+                            modifier = modifier
+                                .fillMaxSize()
+                                .background(LiftTheme.colorScheme.no5)
+                        )
+                    }
+
+                    ProfileUiState.Loading -> {
+                        Spacer(
+                            modifier = modifier
+                                .fillMaxSize()
+                                .background(LiftTheme.colorScheme.no5)
+                        )
+                    }
+                    is ProfileUiState.Success -> {
+                        ProfilePictureView(
+                            modifier,
+                            navigateProfileToUpdateProfilePictureInMyInfoGraph,
+                            profileUiState.profileState
+                        )
+                        ProfileContentListView(
+                            modifier,
+                            navigateProfileToUpdateNameInMyInfoGraph,
+                            navigateProfileToUpdateInfoInMyInfoGraph,
+                            profileUiState.profileState
+                        )
+                    }
+                }
+            }
         }
     }
 }

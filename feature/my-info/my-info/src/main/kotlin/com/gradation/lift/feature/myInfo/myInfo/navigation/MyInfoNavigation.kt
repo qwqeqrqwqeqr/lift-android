@@ -12,19 +12,11 @@ fun NavGraphBuilder.myInfoScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
 ) {
-
-
-
-
-
     val navigateMyInfoGraphToNoticeGraph: () -> Unit =
         { navController.navigateMyInfoGraphToNoticeGraph() }
 
-
     val navigateMyInfoToProfileInMyInfoGraph: () -> Unit =
         { navController.navigateMyInfoToProfileInMyInfoGraph() }
-
-
 
     composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoRoute(
