@@ -27,10 +27,13 @@ class ProfileViewModel @Inject constructor(
         when (it) {
             is DataState.Fail -> ProfileUiState.Fail(it.message)
             is DataState.Success -> ProfileUiState.Success(
-                it.data.let {
+                it.data.let { userDetail ->
                     ProfileState(
-                        name = it.name,
-                        profilePicture = it.profilePicture
+                        name = userDetail.name,
+                        profilePicture = userDetail.profilePicture,
+                        height = userDetail.height,
+                        weight = userDetail.weight,
+                        gender = userDetail.gender
                     )
                 }
             )

@@ -19,14 +19,14 @@ fun NavGraphBuilder.profileScreen(
     val navigateProfileToMyInfoInMyInfoGraph: () -> Unit =
         { navController.navigateProfileToMyInfoInMyInfoGraph() }
 
-    val navigateProfileToUpdateNameInMyInfoGraph: () -> Unit =
-        { navController.navigateProfileToUpdateNameInMyInfoGraph() }
+    val navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit =
+        { navController.navigateProfileToUpdateNameInMyInfoGraph(it) }
 
-    val navigateProfileToUpdateInfoInMyInfoGraph: () -> Unit =
-        { navController.navigateProfileToUpdateInfoInMyInfoGraph() }
+    val navigateProfileToUpdateInfoInMyInfoGraph: (String,Float,Float) -> Unit =
+        { gender,height,weight -> navController.navigateProfileToUpdateInfoInMyInfoGraph(gender, height, weight) }
 
-    val navigateProfileToUpdateProfilePictureInMyInfoGraph: () -> Unit =
-        { navController.navigateProfileToUpdateProfilePictureInMyInfoGraph() }
+    val navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit =
+        { navController.navigateProfileToUpdateProfilePictureInMyInfoGraph(it) }
 
     val navigateMyInfoGraphToLoginGraph: () -> Unit =
         { navController.navigateMyInfoGraphToLoginGraph() }

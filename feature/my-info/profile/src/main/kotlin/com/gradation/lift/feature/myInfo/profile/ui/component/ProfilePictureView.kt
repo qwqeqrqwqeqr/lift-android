@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.myInfo.profile.ui.component
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -21,7 +22,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 @Composable
 fun ProfilePictureView(
     modifier: Modifier = Modifier,
-    navigateProfileToUpdateProfilePictureInMyInfoGraph: () -> Unit,
+    navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit,
     profileState: ProfileState,
 ) {
     Box(
@@ -42,7 +43,12 @@ fun ProfilePictureView(
                 .size(LiftTheme.space.space32)
                 .background(LiftTheme.colorScheme.no1, CircleShape)
                 .align(Alignment.BottomEnd)
-                .noRippleClickable { navigateProfileToUpdateProfilePictureInMyInfoGraph() }
+                .noRippleClickable {
+                    navigateProfileToUpdateProfilePictureInMyInfoGraph(
+                        Uri.encode(profileState.profilePicture)
+                    )
+
+                }
         ) {
             Icon(
                 modifier = modifier

@@ -21,9 +21,9 @@ import com.gradation.lift.feature.myInfo.profile.ui.dialog.SignOutDialog
 fun ProfileRoute(
     modifier: Modifier = Modifier,
     navigateProfileToMyInfoInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateNameInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateInfoInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateProfilePictureInMyInfoGraph: () -> Unit,
+    navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit,
+    navigateProfileToUpdateInfoInMyInfoGraph: (String,Float,Float) -> Unit,
+    navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel(),
     profileScreenState: ProfileScreenState = rememberProfileScreenState(),

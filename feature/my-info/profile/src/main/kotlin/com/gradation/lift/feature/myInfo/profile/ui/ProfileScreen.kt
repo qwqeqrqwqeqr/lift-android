@@ -22,9 +22,9 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 internal fun ProfileScreen(
     modifier: Modifier = Modifier,
     navigateProfileToMyInfoInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateNameInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateInfoInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateProfilePictureInMyInfoGraph: () -> Unit,
+    navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit,
+    navigateProfileToUpdateInfoInMyInfoGraph: (String,Float,Float) -> Unit,
+    navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit,
     profileUiState: ProfileUiState,
     profileScreenState: ProfileScreenState,
 ) {

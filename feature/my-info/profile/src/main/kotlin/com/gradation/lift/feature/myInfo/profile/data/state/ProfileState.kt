@@ -1,5 +1,7 @@
 package com.gradation.lift.feature.myInfo.profile.data.state
 
+import com.gradation.lift.model.model.user.Gender
+
 
 /**
  * [ProfileState]
@@ -9,4 +11,7 @@ package com.gradation.lift.feature.myInfo.profile.data.state
 data class ProfileState(
     val name: String,
     val profilePicture: String,
+    val height: Float,
+    val weight: Float,
+    val gender: Gender,
 )

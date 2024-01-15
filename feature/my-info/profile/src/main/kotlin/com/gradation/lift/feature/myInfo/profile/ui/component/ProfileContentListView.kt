@@ -23,8 +23,8 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 @Composable
 fun ProfileContentListView(
     modifier: Modifier = Modifier,
-    navigateProfileToUpdateNameInMyInfoGraph: () -> Unit,
-    navigateProfileToUpdateInfoInMyInfoGraph: () -> Unit,
+    navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit,
+    navigateProfileToUpdateInfoInMyInfoGraph: (String, Float, Float) -> Unit,
     profileState: ProfileState,
 ) {
     Column(
@@ -35,14 +35,18 @@ fun ProfileContentListView(
         listOf(
             ProfileContent(
                 profileState.name,
-                "닉네임 변경",
-                navigateProfileToUpdateNameInMyInfoGraph
-            ),
+                "닉네임 변경"
+            ) { navigateProfileToUpdateNameInMyInfoGraph(profileState.name) },
             ProfileContent(
                 "내 정보 수정",
-                "키 몸무게 및 성별 변경",
-                navigateProfileToUpdateInfoInMyInfoGraph
-            ),
+                "키 몸무게 및 성별 변경"
+            ) {
+                navigateProfileToUpdateInfoInMyInfoGraph(
+                    profileState.gender.getGenderValue(),
+                    profileState.height,
+                    profileState.weight
+                )
+            },
         ).forEach {
             Row(
                 modifier = modifier
