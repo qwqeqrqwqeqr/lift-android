@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.feature.notice.notice.navigation.noticeScreen
-import com.gradation.lift.feature.notice.noticeDetail.noticeDetailScreen
+import com.gradation.lift.feature.notice.noticeDetail.navigation.noticeDetailScreen
 import com.gradation.lift.navigation.Route
 
 
