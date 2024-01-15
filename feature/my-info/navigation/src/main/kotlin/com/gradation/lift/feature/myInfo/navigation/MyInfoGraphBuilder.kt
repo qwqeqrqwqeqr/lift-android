@@ -12,7 +12,7 @@ import com.gradation.lift.feature.myInfo.updateInfo.navigation.updateInfoScreen
 import com.gradation.lift.feature.myInfo.updateName.navigation.updateNameScreen
 import com.gradation.lift.myInfo.updateProfilePicture.navigation.updateProfilePicture
 import com.gradation.lift.navigation.Route.MY_INFO_GRAPH_NAME
-import com.gradation.lift.navigation.Route.MY_INFO_PROFILE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_MY_INFO_ROUTER_NAME
 
 fun NavGraphBuilder.myInfoGraphBuilder(
     modifier: Modifier = Modifier,
@@ -20,7 +20,7 @@ fun NavGraphBuilder.myInfoGraphBuilder(
 ) {
     navigation(
         route = MY_INFO_GRAPH_NAME,
-        startDestination = MY_INFO_PROFILE_ROUTER_NAME,
+        startDestination = MY_INFO_MY_INFO_ROUTER_NAME,
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() },
         enterTransition = { fadeIn() },

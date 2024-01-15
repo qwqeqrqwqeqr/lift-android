@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.register_detail.name.ui.component
+package com.gradation.lift.feature.myInfo.updateName.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,15 +15,16 @@ import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.register_detail.name.data.NameScreenState
+import com.gradation.lift.feature.myInfo.updateName.data.state.UpdateNameScreenState
 
 @Composable
 fun NameTextFieldView(
     modifier: Modifier = Modifier,
-    name: String,
+    nameText: String,
     nameValidator: Validator,
     updateNameText: (String) -> Unit,
-    nameScreenState: NameScreenState,
+    clearNameText: () -> Unit,
+    updateNameScreenState: UpdateNameScreenState,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -37,7 +38,7 @@ fun NameTextFieldView(
             textAlign = TextAlign.Start
         )
         LiftDefaultInputTextField(
-            value = name,
+            value = nameText,
             onValueChange = updateNameText,
             modifier = modifier,
             placeHolderValue = "닉네임을 입력해주세요",
@@ -45,9 +46,10 @@ fun NameTextFieldView(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done
             ),
+            onValueClear = clearNameText,
             isError = !nameValidator.status,
             keyboardActions = KeyboardActions(
-                onDone = { nameScreenState.focusManager.clearFocus() },
+                onDone = { updateNameScreenState.focusManager.clearFocus() },
             )
         )
         LiftText(
