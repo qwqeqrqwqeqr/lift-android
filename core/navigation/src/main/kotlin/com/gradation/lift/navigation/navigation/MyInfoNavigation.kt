@@ -2,6 +2,9 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_NAME_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME
 
 /**
  * [navigateMyInfoGraphToLoginGraph]
@@ -50,8 +53,8 @@ fun NavController.navigateProfileToMyInfoInMyInfoGraph() {
  * 프로필 화면에서 이름 수정 화면 이동
  * @since 2024-01-12 13:08:02
  */
-fun NavController.navigateProfileToUpdateNameInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_UPDATE_NAME_ROUTER_NAME)
+fun NavController.navigateProfileToUpdateNameInMyInfoGraph(name: String) {
+    this.navigate("$MY_INFO_UPDATE_NAME_ROUTER_NAME/${name}")
 }
 
 /**
@@ -72,8 +75,12 @@ fun NavController.navigateUpdateNameToProfileInMyInfoGraph() {
  * 프로필 화면에서 기본 정보 수정 화면 이동
  * @since 2024-01-12 13:08:02
  */
-fun NavController.navigateProfileToUpdateInfoInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_UPDATE_INFO_ROUTER_NAME)
+fun NavController.navigateProfileToUpdateInfoInMyInfoGraph(
+    gender: String,
+    height: Float,
+    weight: Float,
+) {
+    this.navigate("$MY_INFO_UPDATE_INFO_ROUTER_NAME/$gender/$height/$weight")
 }
 
 /**
@@ -95,9 +102,10 @@ fun NavController.navigateUpdateInfoToProfileInMyInfoGraph() {
  * 프로필 화면에서 사진 수정 화면 이동
  * @since 2024-01-12 13:08:02
  */
-fun NavController.navigateProfileToUpdateProfilePictureInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME)
+fun NavController.navigateProfileToUpdateProfilePictureInMyInfoGraph(profilePicture: String) {
+    this.navigate("$MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME/$profilePicture")
 }
+
 
 /**
  * [navigateUpdateProfilePictureToProfileInMyInfoGraph]
@@ -105,8 +113,8 @@ fun NavController.navigateProfileToUpdateProfilePictureInMyInfoGraph() {
  * @since 2024-01-12 13:08:02
  */
 fun NavController.navigateUpdateProfilePictureToProfileInMyInfoGraph() {
-    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
-        this.popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+    navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
             inclusive = true
         }
     }
