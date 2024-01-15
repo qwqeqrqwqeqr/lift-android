@@ -8,7 +8,6 @@ import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailNameRequestDto
-import com.gradation.lift.network.dto.user.UpdateUserDetailProfilePictureRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.mapper.toDto
@@ -81,11 +80,7 @@ class DefaultUserDataSource @Inject constructor(
     override suspend fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<NetworkResult<Unit>> =
         flow {
             networkResultHandler {
-                userService.updateUserDetailProfilePicture(
-                    updateUserDetailProfilePictureRequestDto = UpdateUserDetailProfilePictureRequestDto(
-                        userDetailProfilePicture.profilePicture
-                    )
-                )
+                userService.updateUserDetailProfilePicture(userDetailProfilePicture.toDto())
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
