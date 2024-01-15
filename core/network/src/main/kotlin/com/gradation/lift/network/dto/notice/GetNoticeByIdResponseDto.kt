@@ -16,6 +16,7 @@ data class GetNoticeByIdResponseDto(
             id = notice.id,
             title = notice.title,
             description = notice.description,
+            category = notice.category,
             date = parse(notice.date),
         )
 

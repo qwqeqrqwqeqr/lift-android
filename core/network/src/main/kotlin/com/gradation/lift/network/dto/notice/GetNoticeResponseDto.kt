@@ -16,6 +16,7 @@ data class GetNoticeResponseDto(
             id = it.id,
             title = it.title,
             description = it.description,
+            category = it.category,
             date = parse(it.date),
         )
     }

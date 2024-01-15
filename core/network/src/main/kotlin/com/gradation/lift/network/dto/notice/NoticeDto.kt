@@ -13,6 +13,8 @@ data class NoticeDto(
     val title: String,
     @SerialName("description")
     val description: String,
+    @SerialName("category")
+    val category: String,
     @SerialName("date")
     val date: String
 )
