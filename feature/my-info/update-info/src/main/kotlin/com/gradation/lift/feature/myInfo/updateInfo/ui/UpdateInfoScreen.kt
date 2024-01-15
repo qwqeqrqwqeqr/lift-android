@@ -1,119 +1,105 @@
 package com.gradation.lift.feature.myInfo.updateInfo.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusManager
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftErrorSnackBar
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.my_info.update.data.component.GenderSelectionView
-import com.gradation.lift.feature.my_info.update.data.component.HeightTextFieldView
-import com.gradation.lift.feature.my_info.update.data.component.NameTextFieldView
-import com.gradation.lift.feature.my_info.update.data.component.UpdateView
-import com.gradation.lift.feature.my_info.update.data.component.WeightTextFieldView
-import com.gradation.lift.feature.my_info.update.data.state.UserDetailUiState
+import com.gradation.lift.feature.myInfo.updateInfo.data.state.UpdateInfoScreenState
+import com.gradation.lift.feature.myInfo.updateInfo.ui.component.GenderSelectionView
+import com.gradation.lift.feature.myInfo.updateInfo.ui.component.HeightTextFieldView
+import com.gradation.lift.feature.myInfo.updateInfo.ui.component.WeightTextFieldView
 import com.gradation.lift.model.model.user.Gender
 
 
 @Composable
 fun UpdateInfoScreen(
-    modifier: Modifier = Modifier,
-    userDetailUiState: UserDetailUiState,
-    nameText: String,
-    nameValidator: Validator,
+    modifier: Modifier,
     gender: Gender,
     heightText: String,
     weightText: String,
     heightValidator: Validator,
     weightValidator: Validator,
-    updateCondition: Boolean,
-    updateNameText: (String) -> Unit,
+    isChangedInfo: Boolean,
     updateHeightText: (String) -> Unit,
     updateWeightText: (String) -> Unit,
-    updateMale: () -> Unit,
-    updateFemale: () -> Unit,
-    updateUserDetail: () -> Unit,
+    updateGender: (Gender) -> Unit,
+    updateUserDetailInfo: () -> Unit,
     navigateUpdateToMyInfoInMyInfoGraph: () -> Unit,
-    snackbarHostState: SnackbarHostState,
-    focusManager: FocusManager
+    updateInfoScreenState: UpdateInfoScreenState,
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
-            LiftBackTopBar(
-                title = "내정보 수정",
-                onBackClickTopBar = navigateUpdateToMyInfoInMyInfoGraph
+            LiftTopBar(
+                modifier = modifier,
+                title = "내 정보 수정",
+                onClick = navigateUpdateToMyInfoInMyInfoGraph
             )
         },
         snackbarHost = {
-            LiftErrorSnackBar(
+            LiftSnackBar(
                 modifier = modifier,
-                snackbarHostState = snackbarHostState
+                snackbarHostState = updateInfoScreenState.snackbarHostState
             )
         }
     ) { padding ->
-        Surface(
+        Column(
             modifier = modifier
+                .fillMaxSize()
+                .background(LiftTheme.colorScheme.no5)
                 .padding(padding)
-                .fillMaxSize(),
-            color = LiftTheme.colorScheme.no5,
+                .padding(
+                    start = LiftTheme.space.space20,
+                    end = LiftTheme.space.space20,
+                    top = LiftTheme.space.space48
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space36)
         ) {
-            when(userDetailUiState){
-                UserDetailUiState.None -> {}
-                UserDetailUiState.Success -> {
-                    Column(modifier = modifier.padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        Column(modifier=modifier.weight(1f)) {
-                            NameTextFieldView(modifier, nameText, nameValidator, updateNameText, focusManager)
-                            GenderSelectionView(modifier, gender, updateFemale, updateMale)
-                            HeightTextFieldView(modifier, heightText, heightValidator, updateHeightText, focusManager)
-                            WeightTextFieldView(modifier, weightText, weightValidator, updateWeightText, focusManager)
-                        }
-                        UpdateView(modifier, updateCondition, updateUserDetail)
-                    }
-                }
+            Column(
+                modifier = modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+            ) {
+                GenderSelectionView(modifier, gender, updateGender)
+                Spacer(modifier = modifier.height(LiftTheme.space.space8))
+                HeightTextFieldView(
+                    modifier,
+                    heightText,
+                    heightValidator,
+                    updateHeightText,
+                    updateInfoScreenState
+                )
+                WeightTextFieldView(
+                    modifier,
+                    weightText,
+                    weightValidator,
+                    updateWeightText,
+                    updateInfoScreenState
+                )
             }
-
+            LiftSolidButton(
+                text = "저장하기",
+                enabled = (isChangedInfo &&
+                        heightText.isNotEmpty() &&
+                        weightText.isNotEmpty() &&
+                        heightValidator.status &&
+                        weightValidator.status),
+                onClick = updateUserDetailInfo
+            )
         }
-
     }
 }
 
-
-@Composable
-@Preview
-fun UpdateInfoScreenPreview() {
-    LiftMaterialTheme {
-        UpdateInfoScreen(
-            userDetailUiState = UserDetailUiState.Success,
-            nameText = "",
-            nameValidator = Validator(false, ""),
-            gender = Gender.Male(),
-            heightText = "",
-            weightText = "",
-            heightValidator = Validator(false, ""),
-            weightValidator = Validator(false, ""),
-            updateCondition = false,
-            updateNameText = {},
-            updateHeightText = {},
-            updateWeightText = {},
-            updateMale = { },
-            updateFemale = { },
-            updateUserDetail = { },
-            navigateUpdateToMyInfoInMyInfoGraph = { },
-            snackbarHostState = SnackbarHostState(),
-            focusManager = LocalFocusManager.current
-        )
-    }
-}
