@@ -39,7 +39,7 @@ fun NameTextFieldView(
         LiftDefaultInputTextField(
             value = name,
             onValueChange = updateNameText,
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier,
             placeHolderValue = "닉네임을 입력해주세요",
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text,

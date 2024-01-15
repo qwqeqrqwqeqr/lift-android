@@ -107,7 +107,12 @@ class DefaultUserDataSource @Inject constructor(
             }.collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
-                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                    is NetworkResult.Success -> emit(
+                        NetworkResult.Success(
+                            data = result.data.result,
+                            message = result.message
+                        )
+                    )
                 }
             }
         }
