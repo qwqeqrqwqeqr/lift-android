@@ -1,26 +1,21 @@
 package com.gradation.lift.myInfo.updateProfilePicture.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftErrorSnackBar
-import com.gradation.lift.designsystem.theme.LiftMaterialTheme
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.picture.UserProfilePicture
-import com.gradation.lift.myInfo.updateProfilePicture.ui.component.HeaderView
-import com.gradation.lift.myInfo.updateProfilePicture.ui.component.NavigationView
-import com.gradation.lift.myInfo.updateProfilePicture.ui.component.ProfilePictureView
-import com.gradation.lift.myInfo.updateProfilePicture.ui.component.SelectedProfilePictureView
+import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateProfilePictureScreenState
 
 
 @Composable
@@ -28,76 +23,59 @@ fun UpdateProfilePictureScreen(
     modifier: Modifier = Modifier,
     selectedProfilePicture: String,
     profilePictureList: List<UserProfilePicture>,
-    updateCondition: Boolean,
     updateUserProfilePicture: () -> Unit,
-    updateSelectedProfile: (String) -> Unit,
+    updateSelectedProfilePicture: (String) -> Unit,
     navigateUpdateProfileToMyInfoInMyInfoGraph: () -> Unit,
-    snackbarHostState: SnackbarHostState
-
+    updateProfilePictureScreenState: UpdateProfilePictureScreenState,
 ) {
     Scaffold(
         topBar = {
             LiftBackTopBar(
-                title = "프로필사진 변경",
+                title = "프로필 사진 변경",
                 onBackClickTopBar = navigateUpdateProfileToMyInfoInMyInfoGraph
             )
         },
         snackbarHost = {
-            LiftErrorSnackBar(
+            LiftSnackBar(
                 modifier = modifier,
-                snackbarHostState = snackbarHostState
+                snackbarHostState = updateProfilePictureScreenState.snackbarHostState
             )
         }
     ) { padding ->
-        Surface(
+        Column(
             modifier = modifier
+                .fillMaxSize()
+                .background(LiftTheme.colorScheme.no5)
                 .padding(padding)
-                .fillMaxSize(),
-            color = LiftTheme.colorScheme.no5,
+                .padding(
+                    start = LiftTheme.space.space20,
+                    end = LiftTheme.space.space20,
+                    top = LiftTheme.space.space48
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
-                modifier = modifier
-                    .padding(16.dp)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
+                modifier = modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space36)
             ) {
-                Column(modifier = modifier.weight(1f)) {
-                    Spacer(modifier = modifier.padding(32.dp))
-                    HeaderView(modifier)
-                    Spacer(modifier = modifier.padding(16.dp))
+                Column(
+                    modifier = modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space32)
+                ) {
                     SelectedProfilePictureView(modifier, selectedProfilePicture)
-                    Spacer(modifier = modifier.padding(13.dp))
                     ProfilePictureView(
                         modifier,
                         selectedProfilePicture,
                         profilePictureList,
-                        updateSelectedProfile
+                        updateSelectedProfilePicture
                     )
                 }
-
-
-                NavigationView(
-                    modifier,
-                    updateCondition,
-                    updateUserProfilePicture
+                LiftSolidButton(
+                    text = "저장하기",
+                    onClick = updateUserProfilePicture
                 )
             }
         }
     }
 }
 
-@Composable
-@Preview
-fun MyInfoUpdateProfileScreenPreview() {
-    LiftMaterialTheme {
-        UpdateProfilePictureScreen(
-            selectedProfilePicture = "",
-            profilePictureList = listOf(),
-            updateCondition = true,
-            updateUserProfilePicture = {},
-            updateSelectedProfile = {},
-            navigateUpdateProfileToMyInfoInMyInfoGraph = {},
-            snackbarHostState = SnackbarHostState()
-        )
-    }
-}
