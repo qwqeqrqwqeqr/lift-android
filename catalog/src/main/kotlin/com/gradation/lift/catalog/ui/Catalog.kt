@@ -292,7 +292,8 @@ fun Catalog(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
-            SnackbarComponent(modifier, "인터넷이 불안정합니다.\n인터넷 연결상태를 확인해주세요") {}
+            SnackbarComponent(modifier, message="인터넷이 불안정합니다.\n인터넷 연결상태를 확인해주세요", actionLabel =null) {}
+            SnackbarComponent(modifier, message="적용을 완료하였습니다.", actionLabel = "되돌리기") {}
         }
         Column(
             modifier.fillMaxWidth(),

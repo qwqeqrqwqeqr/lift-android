@@ -35,8 +35,8 @@ fun NavigationView(
         LiftSolidButton(
             modifier = modifier,
             enabled = workSetState.workSetList.isNotEmpty()
-                    && workSetState.workSetList.none() { it.weight.isEmpty() }
-                    && workSetState.workSetList.none() { it.repetition.isEmpty() },
+                    && workSetState.workSetList.none() { it.weight.isEmpty()|| it.weight.toFloatOrNull() ==0f }
+                    && workSetState.workSetList.none() { it.repetition.isEmpty() || it.weight.toIntOrNull() ==0 },
             text = "등록하기",
             onClick = {
                 if (routineUiState is RoutineUiState.Success) {
