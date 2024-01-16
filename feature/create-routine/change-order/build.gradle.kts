@@ -21,5 +21,4 @@ dependencies {
     implementation(project(":core:ui"))
 
     implementation(project(":feature:create-routine:common"))
-    implementation(project(mapOf("path" to ":feature:update-routine:common")))
 }

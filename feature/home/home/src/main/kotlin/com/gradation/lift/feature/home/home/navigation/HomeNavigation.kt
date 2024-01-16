@@ -10,7 +10,7 @@ import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingR
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailRoutineRouter
-import com.gradation.lift.navigation.navigation.navigateHomeGraphToWorkGraph
+import com.gradation.lift.navigation.navigation.navigateHomeGraphToWorkReadyGraph
 import com.gradation.lift.navigation.navigation.navigateHomeToBadgeInHomeGraph
 
 
@@ -19,7 +19,7 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
 
     val navigateMainGraphToCreateRoutineGraph: () -> Unit =
         { navController.navigateHomeGraphToCreateRoutineGraph() }
-    val navigateMainGraphToWorkGraph: () -> Unit = { navController.navigateHomeGraphToWorkGraph() }
+    val navigateHomeGraphToWorkReadyGraph: () -> Unit = { navController.navigateHomeGraphToWorkReadyGraph() }
     val navigateHomeGraphToBadgeGraph: () -> Unit =
         { navController.navigateHomeGraphToBadgeGraph() }
     val navigateHomeToBadgeInHomeGraph: () -> Unit =
@@ -36,7 +36,7 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
             modifier=modifier,
             navController=navController,
             navigateMainGraphToCreateRoutineGraph = navigateMainGraphToCreateRoutineGraph,
-            navigateMainGraphToWorkGraph = navigateMainGraphToWorkGraph,
+            navigateHomeGraphToWorkReadyGraph = navigateHomeGraphToWorkReadyGraph,
             navigateHomeGraphToBadgeGraph = navigateHomeGraphToBadgeGraph,
             navigateHomeToBadgeInHomeGraph = navigateHomeToBadgeInHomeGraph,
             navigateHomeGraphToRoutineDetailGraph = navigateHomeGraphToRoutineDetailGraph,

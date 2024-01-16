@@ -71,9 +71,17 @@ include(":feature:register-detail:navigation")
 
 
 include(":feature:work:common")
-include(":feature:work:routine-selection")
 include(":feature:work:work")
 include(":feature:work:complete")
+include(":feature:work:navigation")
+
+
+include(":feature:work-ready:ready")
+include(":feature:work-ready:common")
+include(":feature:work-ready:navigation")
+include(":feature:work-ready:routine-selection")
+include(":feature:work-ready:find-work-category")
+include(":feature:work-ready:create-work-set")
 
 include(":feature:badge:badge")
 include(":feature:badge:setting")
@@ -108,9 +116,6 @@ include(":feature:routine-detail:routine-list")
 include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
-include(":feature:work:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
-
-
 

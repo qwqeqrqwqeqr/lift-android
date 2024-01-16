@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToBack
 import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToUpdateRoutineGraph
-import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToWorkWorkRouter
+import com.gradation.lift.navigation.navigation.navigateRoutineDetailGraphToWorkReadyReadyRoute
 
 
 fun routineScreen(
@@ -18,8 +18,8 @@ fun routineScreen(
 
     val navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit =
         { navController.navigateRoutineDetailGraphToUpdateRoutineGraph(it) }
-    val navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit = {
-        navController.navigateRoutineDetailGraphToWorkWorkRouter(listOf(it).toIntArray())
+    val navigateRoutineDetailGraphToWorkReadyReadyRoute: (String) -> Unit = {
+        navController.navigateRoutineDetailGraphToWorkReadyReadyRoute(it)
     }
 
 
@@ -32,7 +32,7 @@ fun routineScreen(
             navController,
             navigateRoutineDetailGraphToBack,
             navigateRoutineDetailGraphToUpdateRoutineGraph,
-            navigateRoutineDetailGraphToWorkWorkRouter
+            navigateRoutineDetailGraphToWorkReadyReadyRoute
         )
     }
 }

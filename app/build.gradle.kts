@@ -46,5 +46,6 @@ dependencies {
     implementation(project(":feature:home:navigation"))
     implementation(project(":feature:daily-log:navigation"))
     implementation(project(":feature:analytics:navigation"))
+    implementation(project(":feature:work-ready:navigation"))
 
 }

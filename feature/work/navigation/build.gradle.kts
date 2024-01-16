@@ -13,6 +13,5 @@ dependencies {
     implementation(project(":core:navigation"))
 
     implementation(project(":feature:work:complete"))
-    implementation(project(":feature:work:routine-selection"))
     implementation(project(":feature:work:work"))
 }

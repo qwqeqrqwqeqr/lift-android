@@ -20,7 +20,7 @@ fun RoutineRoute(
     navController: NavController,
     navigateRoutineDetailGraphToBack: () -> Unit,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
-    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
+    navigateRoutineDetailGraphToWorkReadyReadyRoute: (String) -> Unit,
     viewModel: RoutineViewModel = hiltViewModel(),
 ) {
     val routineSetId: Int? = navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY)
@@ -31,7 +31,7 @@ fun RoutineRoute(
         routineUiState,
         navigateRoutineDetailGraphToBack,
         navigateRoutineDetailGraphToUpdateRoutineGraph,
-        navigateRoutineDetailGraphToWorkWorkRouter
+        navigateRoutineDetailGraphToWorkReadyReadyRoute
     )
 
     LaunchedEffect(true) { viewModel.setRoutineSetId(routineSetId) }

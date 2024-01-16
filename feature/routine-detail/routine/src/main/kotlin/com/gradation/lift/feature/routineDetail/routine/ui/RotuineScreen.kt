@@ -21,7 +21,7 @@ fun RoutineScreen(
     routineUiState: RoutineUiState,
     navigateRoutineDetailGraphToBack: () -> Unit,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
-    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
+    navigateRoutineDetailGraphToWorkReadyReadyRoute: (String) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -66,7 +66,7 @@ fun RoutineScreen(
                         modifier,
                         routineUiState.routineSetRoutine,
                         navigateRoutineDetailGraphToUpdateRoutineGraph,
-                        navigateRoutineDetailGraphToWorkWorkRouter
+                        navigateRoutineDetailGraphToWorkReadyReadyRoute
                     )
                 }
             }

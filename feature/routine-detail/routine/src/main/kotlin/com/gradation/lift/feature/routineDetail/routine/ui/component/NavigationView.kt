@@ -19,7 +19,7 @@ fun NavigationView(
     modifier: Modifier = Modifier,
     routineSetRoutine: RoutineSetRoutine,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
-    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit,
+    navigateRoutineDetailGraphToWorkReadyReadyRoute: (String) -> Unit,
 ) {
     LiftDefaultContainer(
         modifier = modifier.background(LiftTheme.colorScheme.no5).fillMaxWidth(),
@@ -40,7 +40,7 @@ fun NavigationView(
             LiftSolidButton(
                 modifier = modifier.weight(1f),
                 text = "운동 시작",
-                onClick = { navigateRoutineDetailGraphToWorkWorkRouter(routineSetRoutine.id) }
+                onClick = { navigateRoutineDetailGraphToWorkReadyReadyRoute(routineSetRoutine.id.toString()) }
             )
         }
     }

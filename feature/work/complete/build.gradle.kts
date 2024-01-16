@@ -21,7 +21,5 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
 
-    implementation(project(":feature:work:work"))
     implementation(project(":feature:work:common"))
-
 }

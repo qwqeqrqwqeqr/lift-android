@@ -18,6 +18,7 @@ import com.gradation.lift.feature.notice.navigation.noticeGraphBuilder
 import com.gradation.lift.feature.registerDetail.navigation.registerDetailGraphBuilder
 import com.gradation.lift.feature.routineDetail.navigation.routineDetailGraphBuilder
 import com.gradation.lift.feature.work.navigation.workGraphBuilder
+import com.gradation.lift.feature.workReady.navigation.workReadyGraphBuilder
 
 
 @Composable
@@ -43,7 +44,8 @@ fun LiftNavHost(
         noticeGraphBuilder(modifier, navController)
         registerDetailGraphBuilder(modifier, navController, this)
         updateRoutineGraphBuilder(modifier, navController, this)
-        workGraphBuilder(modifier, navController, this)
+        workGraphBuilder(modifier, navController)
+        workReadyGraphBuilder(modifier, navController)
         routineDetailGraphBuilder(modifier, navController, this)
         dailyLogGraphBuilder(modifier, navController)
         analyticsGraphBuilder(modifier, navController)
