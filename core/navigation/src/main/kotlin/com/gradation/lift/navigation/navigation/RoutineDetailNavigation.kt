@@ -2,6 +2,7 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.WORK_READY_READY_ROUTER_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
@@ -43,16 +44,12 @@ fun NavController.navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetId: I
     this.navigate(Route.UPDATE_ROUTINE_GRAPH_NAME)
 }
 
-fun NavController.navigateRoutineDetailGraphToWorkWorkRouter(routineSetIdList: IntArray) {
+fun NavController.navigateRoutineDetailGraphToWorkReadyReadyRoute(routineSetIdList: String) {
     this.setValueSavedStateHandle(
-        SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_LIST_ID_KEY,
+        SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY,
         routineSetIdList
     )
-    this.navigate(Route.WORK_WORK_ROUTER_NAME) {
-        this.popUpTo(Route.WORK_WORK_ROUTER_NAME) {
-            inclusive = true
-        }
-    }
+    this.navigate(WORK_READY_READY_ROUTER_NAME)
 }
 
 

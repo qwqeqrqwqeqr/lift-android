@@ -87,7 +87,12 @@ object Route {
     const val ROUTINE_DETAIL_ROUTINE_ROUTER_NAME = "routine_detail_routine"
 
     const val WORK_GRAPH_NAME = "work_graph"
-    const val WORK_ROUTINE_SELECTION_ROUTER_NAME = "work_routine_selection"
     const val WORK_WORK_ROUTER_NAME = "work_work"
     const val WORK_COMPLETE_ROUTER_NAME = "work_complete"
+
+    const val WORK_READY_GRAPH_NAME = "work_ready_graph"
+    const val WORK_READY_ROUTINE_SELECTION_ROUTER_NAME = "work_ready_routine_selection"
+    const val WORK_READY_READY_ROUTER_NAME = "work_ready_ready"
+    const val WORK_READY_FIND_WORK_CATEGORY_ROUTER_NAME = "work_ready_find_work_category"
+    const val WORK_READY_CREATE_WORK_SET_ROUTER_NAME = "work_ready_create_work_set"
 }

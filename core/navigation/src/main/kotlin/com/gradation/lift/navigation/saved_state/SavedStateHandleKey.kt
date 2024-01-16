@@ -7,7 +7,6 @@ package com.gradation.lift.navigation.saved_state
  */
 object SavedStateHandleKey {
     object RoutineSet {
-        const val WORK_ROUTINE_SET_LIST_ID_KEY = "WORK_ROUTINE_SET_LIST_ID_KEY"
         const val DETAIL_ROUTINE_SET_ID_KEY = "DETAIL_ROUTINE_SET_ID_KEY"
         const val UPDATE_ROUTINE_SET_ID_KEY = "UPDATE_ROUTINE_SET_ID_KEY"
     }
@@ -39,5 +38,10 @@ object SavedStateHandleKey {
         const val USER_HEIGHT_KEY = "MY_INFO_USER_HEIGHT_KEY"
         const val USER_WEIGHT_KEY = "MY_INFO_USER_WEIGHT_KEY"
         const val USER_NAME_KEY = "MY_INFO_USER_NAME_KEY_KEY"
+    }
+
+    object Work{
+        const val WORK_ROUTINE_SET_ID_LIST_KEY = "WORK_ROUTINE_SET_ID_LIST_KEY"
+        const val WORK_READY_WORK_CATEGORY_ID_KEY = "WORK_READY_WORK_CATEGORY_ID_KEY"
     }
 }
