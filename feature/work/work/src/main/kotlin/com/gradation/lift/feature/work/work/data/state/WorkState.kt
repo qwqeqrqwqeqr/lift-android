@@ -4,8 +4,8 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
-import com.gradation.lift.feature.work.common.data.WorkRestTime
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineIdInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -31,9 +31,9 @@ class WorkState(
 
     var currentWorkRoutineList: SnapshotStateList<WorkRoutine> =
         emptyList<WorkRoutine>().toMutableStateList()
-    private val currentWorkRoutineListNumber: MutableStateFlow<Int> = MutableStateFlow(1)
+    private val currentWorkRoutineListNumber: MutableStateFlow<Int> = MutableStateFlow(0)
 
-    private var checkWorkSetList: SnapshotStateList<WorkRoutineIdInfo> =
+    private var checkedWorkSetList: SnapshotStateList<WorkRoutineIdInfo> =
         emptyList<WorkRoutineIdInfo>().toMutableStateList()
 
 
@@ -55,14 +55,14 @@ class WorkState(
     private val currentWorkRoutineListFlow: Flow<List<WorkRoutine>> =
         snapshotFlow { currentWorkRoutineList.toList() }
     private val checkWorkSetListFlow: Flow<List<WorkRoutineIdInfo>> =
-        snapshotFlow { checkWorkSetList.toList() }
+        snapshotFlow { checkedWorkSetList.toList() }
 
 
     val currentWork: StateFlow<WorkRoutine?> = combine(
         currentWorkRoutineListFlow,
         currentWorkRoutineListNumber
     ) { currentWorkRoutineList, currentWorkRoutineListNumber ->
-        currentWorkRoutineList.find { currentWorkRoutineListNumber == it.key }
+        currentWorkRoutineList.find { currentWorkRoutineListNumber == it.id }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -72,7 +72,7 @@ class WorkState(
         currentWorkRoutineListFlow,
         currentWorkRoutineListNumber
     ) { currentWorkRoutineList, currentWorkRoutineListNumber ->
-        currentWorkRoutineList.find { currentWorkRoutineListNumber - 1 == it.key }
+        currentWorkRoutineList.find { currentWorkRoutineListNumber - 1 == it.id }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -83,7 +83,7 @@ class WorkState(
         currentWorkRoutineListFlow,
         currentWorkRoutineListNumber
     ) { currentWorkRoutineList, currentWorkRoutineListNumber ->
-        currentWorkRoutineList.find { currentWorkRoutineListNumber + 1 == it.key }
+        currentWorkRoutineList.find { currentWorkRoutineListNumber + 1 == it.id }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -93,13 +93,13 @@ class WorkState(
 
     val updateWorkFlag: (Boolean) -> Unit = { isWorkFlag.value = it }
     val stopTime: () -> Unit = { timerJob.cancel() }
-    val checkWorkSet: (WorkRoutineIdInfo) -> Unit = { checkWorkSetList.add(it) }
-    val uncheckWorkSet: (WorkRoutineIdInfo) -> Unit = { checkWorkSetList.remove(it) }
+    val checkWorkSet: (WorkRoutineIdInfo) -> Unit = { checkedWorkSetList.add(it) }
+    val uncheckWorkSet: (WorkRoutineIdInfo) -> Unit = { checkedWorkSetList.remove(it) }
     val isChecked: (Int, Int) -> Boolean =
-        { number, set -> checkWorkSetList.any { it.workRoutineNumber == number && it.workSetNumber == set } }
+        { routineId, workSetIndex -> checkedWorkSetList.any { it.workRoutineId == routineId && it.workSetIndex == workSetIndex } }
 
     val isAllChecked: (WorkRoutine) -> Boolean = { workRoutine ->
-        checkWorkSetList.count { it.workRoutineNumber == workRoutine.key } == workRoutine.workSetList.size
+        checkedWorkSetList.count { it.workRoutineId == workRoutine.id } == workRoutine.workSetList.size
     }
 
     val workProgress: StateFlow<Int> = combine(
@@ -122,11 +122,11 @@ class WorkState(
         { currentWorkRoutineListNumber.value = currentWorkRoutineListNumber.value - 1 }
 
 
-    val removeWorkRoutineWorkSet: (Int, Int,WorkRoutineIdInfo) -> Unit = { workRoutineIndex, workSetIndex,workRoutineIdInfo ->
-        checkWorkSetList.remove(workRoutineIdInfo)
-
-        currentWorkRoutineList[workRoutineIndex].workSetList.removeAt(workSetIndex)
-    }
+    val removeWorkRoutineWorkSet: (Int, Int, WorkRoutineIdInfo) -> Unit =
+        { workRoutineIndex, workSetIndex, workRoutineIdInfo ->
+            checkedWorkSetList.remove(workRoutineIdInfo)
+            currentWorkRoutineList[workRoutineIndex].workSetList.removeAt(workSetIndex)
+        }
 
 
     fun startTimer() {

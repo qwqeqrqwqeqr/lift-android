@@ -7,8 +7,7 @@ import kotlinx.coroutines.flow.update
 
 
 @Composable
-fun rememberWorkScreenState(): WorkScreenState =
-    remember()
+fun rememberWorkScreenState(): WorkScreenState = remember()
     {
         WorkScreenState()
     }

@@ -1,5 +1,8 @@
 package com.gradation.lift.feature.work.work.ui.list
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +44,14 @@ fun ListScreen(
     workState: WorkState,
     workScreenState: WorkScreenState,
 ) {
+    val progress: Int by animateIntAsState(
+        targetValue = workProgress,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessVeryLow,
+        ),
+        label = "workProgressAnimation"
+    )
     Scaffold(
         topBar = {
             LiftBackTopBar(
@@ -94,7 +106,7 @@ fun ListScreen(
                         .weight(5f),
                     backgroundColor = LiftTheme.colorScheme.no1,
                     progressColor = LiftTheme.colorScheme.no4,
-                    progress = workProgress
+                    progress = progress
                 )
                 Text(
                     modifier = modifier.weight(1f),
@@ -210,7 +222,7 @@ fun ListScreen(
                                     modifier = modifier.weight(1f)
                                 )
                             }
-                            workRoutine.workSetList.forEachIndexed { index, workSet ->
+                            workRoutine.workSetList.forEachIndexed { workSetIndex, workSet ->
                                 Row(
                                     modifier = modifier
                                         .background(
@@ -225,28 +237,29 @@ fun ListScreen(
                                 ) {
                                     Text(
                                         modifier = modifier.weight(1f),
-                                        text = "${index + 1}",
+                                        text = "${workSetIndex + 1}",
                                         style = LiftTheme.typography.no3,
                                         color = LiftTheme.colorScheme.no2,
                                         textAlign = TextAlign.Center,
                                     )
                                     Text(
                                         modifier = modifier.weight(1f),
-                                        text = workSet.weight.toText(),
+                                        text = workSet.weight.toFloatOrNull()?.toText()
+                                            ?: workSet.weight,
                                         style = LiftTheme.typography.no3,
                                         color = LiftTheme.colorScheme.no2,
                                         textAlign = TextAlign.Center,
                                     )
                                     Text(
                                         modifier = modifier.weight(1f),
-                                        text = "${workSet.repetition}",
+                                        text = workSet.repetition,
                                         style = LiftTheme.typography.no3,
                                         color = LiftTheme.colorScheme.no2,
                                         textAlign = TextAlign.Center,
                                     )
                                     if (workState.isChecked(
-                                            workRoutine.key,
-                                            workSet.key
+                                            workRoutine.id,
+                                            workSetIndex
                                         )
                                     ) {
                                         Icon(
@@ -256,8 +269,8 @@ fun ListScreen(
                                                 .noRippleClickable {
                                                     workState.uncheckWorkSet(
                                                         WorkRoutineIdInfo(
-                                                            workRoutine.key,
-                                                            workSet.key
+                                                            workRoutine.id,
+                                                            workSetIndex
                                                         )
                                                     )
                                                 },
@@ -273,8 +286,8 @@ fun ListScreen(
                                                 .noRippleClickable {
                                                     workState.checkWorkSet(
                                                         WorkRoutineIdInfo(
-                                                            workRoutine.key,
-                                                            workSet.key
+                                                            workRoutine.id,
+                                                            workSetIndex
                                                         )
                                                     )
                                                 },
