@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
 import com.gradation.lift.feature.work.complete.data.CompleteViewModel
 import com.gradation.lift.feature.work.complete.data.state.CompleteScreenState

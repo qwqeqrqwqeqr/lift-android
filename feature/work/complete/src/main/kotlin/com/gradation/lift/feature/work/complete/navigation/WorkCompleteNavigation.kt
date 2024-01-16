@@ -9,15 +9,14 @@ import com.gradation.lift.navigation.navigation.navigateWorkGraphToHomeGraph
 
 
 
-fun completeScreen(
+fun NavGraphBuilder.completeScreen(
     modifier:Modifier= Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
 
     val navigateWorkGraphToHomeGraph: () -> Unit = { navController.navigateWorkGraphToHomeGraph() }
 
-    navGraphBuilder.composable(WORK_COMPLETE_ROUTER_NAME) {
+    composable(WORK_COMPLETE_ROUTER_NAME) {
         CompleteRoute(
             modifier,
             navController,
