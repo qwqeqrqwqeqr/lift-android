@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.routineSelection
+package com.gradation.lift.feature.workReady.common
 
 import org.junit.Test
 
