@@ -182,6 +182,32 @@ fun LiftAddContainer(
 }
 
 @Composable
+fun LiftAddWorkSetContainer(
+    modifier: Modifier = Modifier,
+) {
+    LiftBaseFilterContainer(modifier = modifier) {
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                modifier=modifier.size(LiftTheme.space.space12),
+                painter = painterResource(id = LiftIcon.Plus),
+                contentDescription = "Plus",
+                tint = LiftTheme.colorScheme.no2
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No5,
+                text = "운동추가",
+                color = LiftTheme.colorScheme.no4,
+                textAlign = TextAlign.Start
+            )
+        }
+    }
+}
+
+@Composable
 fun LiftBaseFilterContainer(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,

@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun LiftText(
@@ -15,6 +16,7 @@ fun LiftText(
     color: Color,
     textAlign: TextAlign,
     textDecoration: TextDecoration = TextDecoration.None,
+    overflow: TextOverflow = TextOverflow.Clip
 ) {
     Text(
         modifier = modifier,
@@ -22,7 +24,8 @@ fun LiftText(
         color = color,
         textAlign = textAlign,
         style = textStyle.toStyle(),
-        textDecoration = textDecoration
+        textDecoration = textDecoration,
+        overflow=overflow
     )
 }
 

@@ -27,11 +27,14 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
+enum class SnackBarCategory { Warn,Info }
 
 @Composable
 fun LiftSnackBar(
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState,
+    snackbarCategory: SnackBarCategory= SnackBarCategory.Warn,
+    onClick: (() -> Unit)? = null,
 ) {
     SnackbarHost(
         modifier = modifier.padding(LiftTheme.space.space12),
@@ -39,8 +42,11 @@ fun LiftSnackBar(
         snackbar = { data ->
             SnackbarComponent(
                 modifier = modifier,
-                data.visuals.message
-            ) { data.dismiss() }
+                message = data.visuals.message,
+                actionLabel = data.visuals.actionLabel,
+                snackbarCategory=snackbarCategory,
+                onClick = onClick ?: { data.dismiss() },
+            )
         }
     )
 }
@@ -49,7 +55,9 @@ fun LiftSnackBar(
 fun SnackbarComponent(
     modifier: Modifier = Modifier,
     message: String,
-    dismiss: () -> Unit,
+    actionLabel: String?,
+    snackbarCategory: SnackBarCategory= SnackBarCategory.Warn,
+    onClick: () -> Unit,
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     Card(
@@ -78,7 +86,10 @@ fun SnackbarComponent(
                 Icon(
                     painter = painterResource(LiftIcon.Warn),
                     contentDescription = "Info",
-                    tint = LiftTheme.colorScheme.no12,
+                    tint = when(snackbarCategory){
+                        SnackBarCategory.Warn -> LiftTheme.colorScheme.no12
+                        SnackBarCategory.Info -> LiftTheme.colorScheme.no4
+                    }
                 )
                 LiftText(
                     textStyle = LiftTextStyle.No5,
@@ -96,7 +107,7 @@ fun SnackbarComponent(
                     .clickable(
                         indication = null,
                         interactionSource = interactionSource,
-                        onClick = dismiss,
+                        onClick = onClick,
                     )
                     .padding(
                         horizontal = LiftTheme.space.space8,
@@ -107,7 +118,7 @@ fun SnackbarComponent(
             ) {
                 LiftText(
                     textStyle = LiftTextStyle.No5,
-                    text = "확인",
+                    text = actionLabel?: "확인",
                     color = LiftTheme.colorScheme.no5,
                     textAlign = TextAlign.Center
                 )
