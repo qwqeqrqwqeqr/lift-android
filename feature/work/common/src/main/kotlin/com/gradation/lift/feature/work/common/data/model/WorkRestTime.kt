@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.common.data
+package com.gradation.lift.feature.work.common.data.model
 
 import kotlinx.datetime.LocalTime
 
