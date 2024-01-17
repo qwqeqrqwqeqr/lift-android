@@ -21,6 +21,10 @@ interface UserService {
     suspend fun getUserDetail(): Response<APIResultWrapper<GetUserDetailResponseDto>>
 
 
+    @GET("user/authentication-method")
+    suspend fun getUserAuthenticationMethod(): Response<APIResultWrapper<GetUserAuthenticationMethodResponseDto>>
+
+
     /**
      * [createUserDetail]
      * 사용자 상세정보 생성하기
@@ -28,7 +32,7 @@ interface UserService {
      */
     @POST("user/user-detail")
     suspend fun createUserDetail(
-        @Body createUserDetailRequestDto: CreateUserDetailRequestDto
+        @Body createUserDetailRequestDto: CreateUserDetailRequestDto,
     ): Response<APIResultWrapper<CreateUserDetailResponseDto>>
 
     /**
@@ -47,6 +51,26 @@ interface UserService {
     @PUT("user/user-detail/profile-picture")
     suspend fun updateUserDetailProfilePicture(@Body updateUserDetailProfilePictureRequestDto: UpdateUserDetailProfilePictureRequestDto):
             Response<APIResultWrapper<UpdateUserDetailProfilePictureResponseDto>>
+
+
+    /**
+     * [updateUserDetailName]
+     * 사용자 이름 업데이트하기
+     * @since 2024-01-11 17:19:34
+     */
+    @PUT("user/user-detail/name")
+    suspend fun updateUserDetailName(@Body updateUserDetailNameRequestDto: UpdateUserDetailNameRequestDto):
+            Response<APIResultWrapper<UpdateUserDetailNameResponseDto>>
+
+
+    /**
+     * [updateUserDetailInfo]
+     * 사용자 정보(성별,키,몸무게) 업데이트하기
+     * @since 2024-01-11 17:19:37
+     */
+    @PUT("user/user-detail/info")
+    suspend fun updateUserDetailInfo(@Body updateUserDetailInfoRequestDto: UpdateUserDetailInfoRequestDto):
+            Response<APIResultWrapper<UpdateUserDetailInfoResponseDto>>
 
 
     /**

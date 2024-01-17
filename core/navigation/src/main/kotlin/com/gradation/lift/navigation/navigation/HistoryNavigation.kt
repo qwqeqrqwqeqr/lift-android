@@ -1,9 +1,9 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 
 fun NavController.navigateHistoryGraphToWorkGraph() {
-    this.navigate(Router.WORK_GRAPH_NAME)
+    this.navigate(Route.WORK_GRAPH_NAME)
 }

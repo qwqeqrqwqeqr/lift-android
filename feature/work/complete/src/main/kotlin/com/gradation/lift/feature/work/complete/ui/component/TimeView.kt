@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.ui.mapper.toText
 
 @Composable

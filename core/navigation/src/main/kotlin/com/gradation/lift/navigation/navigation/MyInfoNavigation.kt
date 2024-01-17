@@ -1,11 +1,18 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_NAME_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME
 
-
+/**
+ * [navigateMyInfoGraphToLoginGraph]
+ * 로그아웃 수행시 사용
+ * @since 2024-01-12 13:05:32
+ */
 fun NavController.navigateMyInfoGraphToLoginGraph() {
-    this.navigate(Router.LOGIN_GRAPH_NAME) {
+    this.navigate(Route.LOGIN_GRAPH_NAME) {
         launchSingleTop = true
         popUpTo(this@navigateMyInfoGraphToLoginGraph.graph.id) {
             inclusive = true
@@ -13,39 +20,105 @@ fun NavController.navigateMyInfoGraphToLoginGraph() {
     }
 }
 
-
-fun NavController.navigateMyInfoGraphToNotificationGraph() {
-    this.navigate(Router.NOTIFICATION_GRAPH_NAME)
+/**
+ * [navigateMyInfoGraphToNoticeGraph]
+ * 공지사항 화면으로 이동
+ * @since 2024-01-12 13:05:32
+ */
+fun NavController.navigateMyInfoGraphToNoticeGraph() {
+    this.navigate(Route.NOTICE_GRAPH_NAME)
 }
 
-fun NavController.navigateMyInfoGraphToBadgeGraph() {
-    this.navigate(Router.BADGE_GRAPH_NAME)
+/**
+ * [navigateMyInfoToProfileInMyInfoGraph]
+ * 내정보 화면에서 내 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateMyInfoToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME)
+}
+
+/**
+ * [navigateProfileToMyInfoInMyInfoGraph]
+ * 내 프로필 화면에서 내정보 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToMyInfoInMyInfoGraph() {
+    this.popBackStack()
 }
 
 
-fun NavController.navigateMyInfoToUpdateProfileInMyInfoGraph() {
-    this.navigate(Router.MY_INFO_UPDATE_PROFILE_ROUTER_NAME)
+/**
+ * [navigateProfileToUpdateNameInMyInfoGraph]
+ * 프로필 화면에서 이름 수정 화면 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToUpdateNameInMyInfoGraph(name: String) {
+    this.navigate("$MY_INFO_UPDATE_NAME_ROUTER_NAME/${name}")
 }
 
-fun NavController.navigateMyInfoToUpdateInMyInfoGraph() {
-    this.navigate(Router.MY_INFO_UPDATE_ROUTER_NAME)
-}
-
-
-fun NavController.navigateUpdateProfileToMyInfoInMyInfoGraph() {
-    this.navigate(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
-        this.popUpTo(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
+/**
+ * [navigateUpdateNameToProfileInMyInfoGraph]
+ * 이름 수정 후 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateUpdateNameToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        this.popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
 
-fun NavController.navigateUpdateToMyInfoInMyInfoGraph() {
-    this.navigate(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
-        this.popUpTo(Router.MY_INFO_MY_INFO_ROUTER_NAME) {
+/**
+ * [navigateProfileToUpdateInfoInMyInfoGraph]
+ * 프로필 화면에서 기본 정보 수정 화면 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToUpdateInfoInMyInfoGraph(
+    gender: String,
+    height: Float,
+    weight: Float,
+) {
+    this.navigate("$MY_INFO_UPDATE_INFO_ROUTER_NAME/$gender/$height/$weight")
+}
+
+/**
+ * [navigateUpdateInfoToProfileInMyInfoGraph]
+ * 정보 수정 후 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateUpdateInfoToProfileInMyInfoGraph() {
+    this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        this.popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
+
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 프로필 화면에서 사진 수정 화면 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateProfileToUpdateProfilePictureInMyInfoGraph(profilePicture: String) {
+    this.navigate("$MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME/$profilePicture")
+}
+
+
+/**
+ * [navigateUpdateProfilePictureToProfileInMyInfoGraph]
+ * 사진 수정 후 프로필 화면으로 이동
+ * @since 2024-01-12 13:08:02
+ */
+fun NavController.navigateUpdateProfilePictureToProfileInMyInfoGraph() {
+    navigate(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+        popUpTo(Route.MY_INFO_PROFILE_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
+
 
 

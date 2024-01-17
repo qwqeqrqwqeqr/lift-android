@@ -1,8 +1,9 @@
 package com.gradation.lift.network.dto.user
 
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UpdateUserDetailProfilePictureResponseDto(
     val result: Boolean
 )

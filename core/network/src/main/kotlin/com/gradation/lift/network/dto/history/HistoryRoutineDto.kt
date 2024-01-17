@@ -1,20 +1,22 @@
 package com.gradation.lift.network.dto.history
 
 import com.gradation.lift.network.dto.work.WorkCategoryDto
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class  HistoryRoutineDto(
-    @Json(name = "history_routine_id")
+    @SerialName("history_routine_id")
     val historyRoutineId :Int,
-    @Json(name = "history_id")
+    @SerialName("history_id")
     val historyId :Int,
-    @Json(name = "work_category")
+    @SerialName("work_category")
     val workCategory: WorkCategoryDto,
-    @Json(name = "work_weight_list")
+    @SerialName("work_weight_list")
     val workWeightList: List<Float>,
-    @Json(name = "work_repetition_list")
+    @SerialName("work_repetition_list")
     val workRepetitionList: List<Int>,
 )

@@ -10,9 +10,8 @@ class RoomPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
-            with(pluginManager){
-                apply(libs.findPlugin("ksp").get().get().pluginId)
+            with(pluginManager) {
+                apply("com.google.devtools.ksp")
             }
 
 

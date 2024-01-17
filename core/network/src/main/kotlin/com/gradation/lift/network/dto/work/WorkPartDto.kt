@@ -1,14 +1,15 @@
 package com.gradation.lift.network.dto.work
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class WorkPartDto(
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int,
-    @Json(name = "name")
+    @SerialName("name")
     val name: String
 )
 

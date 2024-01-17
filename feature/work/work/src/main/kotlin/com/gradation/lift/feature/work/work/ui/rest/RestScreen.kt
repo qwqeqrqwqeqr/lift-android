@@ -16,7 +16,7 @@ import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.component.LiftOutlineButton
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState

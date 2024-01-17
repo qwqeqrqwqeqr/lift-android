@@ -20,7 +20,7 @@ import com.gradation.lift.feature.createRoutine.routineSet.data.RoutineSetViewMo
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.CreateRoutineState
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.rememberRoutineSetScreenState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.navigation.Router.CREATE_ROUTINE_GRAPH_NAME
+import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -30,6 +30,8 @@ internal fun RoutineSetRoute(
     navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
     navigateRoutineSetToProfilePictureInCreateRoutineGraph: () -> Unit,
     navigateCreateRoutineGraphToRoutineDetailGraph: () -> Unit,
+    navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph:(Int)-> Unit,
+    navigateRoutineSetToChangeOrderInCreateRoutineGraph:()->Unit,
     viewModel: RoutineSetViewModel = hiltViewModel(),
     sharedViewModel: CreateRoutineSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
@@ -78,6 +80,7 @@ internal fun RoutineSetRoute(
     })
 
 
+
     RoutineSetScreen(
         modifier,
         currentRoutineSetRoutine,
@@ -89,6 +92,8 @@ internal fun RoutineSetRoute(
         navigateRoutineSetToFindWorkCategoryInCreateRoutineGraph,
         navigateRoutineSetToProfilePictureInCreateRoutineGraph,
         navigateCreateRoutineGraphToRoutineDetailGraph,
+        navigateRoutineSetToUpdateWorkSetInCreateRoutineGraph,
+        navigateRoutineSetToChangeOrderInCreateRoutineGraph,
         routineSetScreenState
     )
 }

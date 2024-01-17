@@ -25,6 +25,7 @@ class DefaultWorkDataSource @Inject constructor(
         workDao.deleteWork(work.toEntity())
     }
 
+
     override suspend fun deleteAllWork() {
         workDao.deleteAllWork()
     }

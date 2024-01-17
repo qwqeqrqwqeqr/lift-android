@@ -1,12 +1,12 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
-import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
-import com.gradation.lift.navigation.Router.LOGIN_GRAPH_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_GENDER_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_NAME_ROUTER_NAME
-import com.gradation.lift.navigation.Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.Route.LOGIN_GRAPH_NAME
+import com.gradation.lift.navigation.Route.REGISTER_DETAIL_GENDER_ROUTER_NAME
+import com.gradation.lift.navigation.Route.REGISTER_DETAIL_HEIGHT_WEIGHT_ROUTER_NAME
+import com.gradation.lift.navigation.Route.REGISTER_DETAIL_NAME_ROUTER_NAME
+import com.gradation.lift.navigation.Route.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME
 
 
 fun NavController.navigateRegisterDetailGraphToHomeGraph() {

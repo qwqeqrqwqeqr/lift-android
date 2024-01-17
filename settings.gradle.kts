@@ -37,13 +37,17 @@ include(":core:work")
 include(":core:oauth")
 
 
-include(":feature:home")
-
+include(":feature:home:home")
+include(":feature:home:badge")
+include(":feature:home:common")
+include(":feature:home:navigation")
 
 include(":feature:create-routine:routine-set")
 include(":feature:create-routine:find-work-category")
 include(":feature:create-routine:profile-picture")
-include(":feature:create-routine:routine")
+include(":feature:create-routine:create-work-set")
+include(":feature:create-routine:update-work-set")
+include(":feature:create-routine:change-order")
 include(":feature:create-routine:common")
 
 include(":feature:login:sign-in")
@@ -67,45 +71,51 @@ include(":feature:register-detail:navigation")
 
 
 include(":feature:work:common")
-include(":feature:work:routine-selection")
 include(":feature:work:work")
 include(":feature:work:complete")
+include(":feature:work:navigation")
+
+
+include(":feature:work-ready:ready")
+include(":feature:work-ready:common")
+include(":feature:work-ready:navigation")
+include(":feature:work-ready:routine-selection")
+include(":feature:work-ready:find-work-category")
+include(":feature:work-ready:create-work-set")
 
 include(":feature:badge:badge")
 include(":feature:badge:setting")
-include(":feature:badge:new-badge")
 
-
-include(":feature:notification:notification")
-include(":feature:notification:notice")
-include(":feature:notification:notice-detail")
-include(":feature:notification:push")
-include(":feature:notification:push-detail")
-
-
-include(":feature:history:history")
-include(":feature:history:analytics")
-include(":feature:history:daily-log")
+include(":feature:notice:notice")
+include(":feature:notice:notice-detail")
+include(":feature:notice:navigation")
 
 include(":feature:my-info:my-info")
-include(":feature:my-info:update-profile")
-include(":feature:my-info:update")
+include(":feature:my-info:profile")
+include(":feature:my-info:update-profile-picture")
+include(":feature:my-info:update-name")
+include(":feature:my-info:update-info")
+
+include(":feature:daily-log:daily-log")
+include(":feature:daily-log:navigation")
+
+include(":feature:analytics:analytics")
+include(":feature:analytics:navigation")
 
 include(":feature:update-routine:routine-set")
 include(":feature:update-routine:profile-picture")
-include(":feature:update-routine:routine")
+include(":feature:update-routine:create-work-set")
+include(":feature:update-routine:update-work-set")
 include(":feature:update-routine:find-work-category")
+include(":feature:update-routine:change-order")
 include(":feature:update-routine:common")
 
 include(":feature:routine-detail:routine")
 include(":feature:routine-detail:routine-list")
 
-
 include(":feature:routine-detail:navigation")
 include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
-include(":feature:history:navigation")
-include(":feature:work:navigation")
-include(":feature:notification:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
+

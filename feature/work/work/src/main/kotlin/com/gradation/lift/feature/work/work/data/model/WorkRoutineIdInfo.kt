@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.work.work.data.model
 
 data class WorkRoutineIdInfo(
-    val workRoutineNumber: Int,
-    val workSetNumber: Int
+    val workRoutineId: Int,
+    val workSetIndex: Int
 )

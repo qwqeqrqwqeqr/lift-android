@@ -1,5 +1,7 @@
 package com.gradation.lift.model.model.work
 
+import java.util.UUID
+
 /**
  * [WorkRoutine]
  * 현재 운동 중인 운동에 대한 정보를 나타내는 모델
@@ -9,7 +11,7 @@ package com.gradation.lift.model.model.work
  * @property workSetList 해당 운동의 무게 및 횟수 정보
  */
 data class WorkRoutine(
-    val workId: Int,
+    val workId: UUID,
     val workCategory: WorkCategory,
     val workSetList: List<WorkSet>
 )

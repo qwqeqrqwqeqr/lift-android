@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,8 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
@@ -76,6 +79,9 @@ fun LiftDefaultButton(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
+    height: Dp = LiftTheme.space.space48,
+    width: Dp = Dp.Unspecified,
+    shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     onClick: () -> Unit,
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
@@ -97,9 +103,9 @@ fun LiftDefaultButton(
 
     Row(
         modifier = modifier
-            .height(LiftTheme.space.space48)
-            .fillMaxWidth()
-            .background(backgroundColor, RoundedCornerShape(size = LiftTheme.space.space12))
+            .height(height)
+            .let { if (width == Dp.Unspecified) it.fillMaxWidth() else it.width(width) }
+            .background(backgroundColor, shape)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,

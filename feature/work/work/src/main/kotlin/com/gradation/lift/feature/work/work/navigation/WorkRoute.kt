@@ -10,9 +10,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.ui.component.dialog.AutoCompleteDialog
 import com.gradation.lift.feature.work.work.ui.component.dialog.CompleteDialog
 import com.gradation.lift.feature.work.work.ui.component.dialog.SuspendDialog
@@ -21,7 +21,6 @@ import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import com.gradation.lift.feature.work.work.data.state.WorkState.Companion.MAX_PROGRESS
-import com.gradation.lift.feature.work.work.data.state.WorkUiState
 import com.gradation.lift.feature.work.work.data.state.rememberWorkScreenState
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkViewModel
 import com.gradation.lift.feature.work.work.ui.list.ListScreen
@@ -29,14 +28,12 @@ import com.gradation.lift.feature.work.work.ui.rest.RestScreen
 import com.gradation.lift.feature.work.work.ui.work.WorkScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.work.WorkSet
-import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
+import com.gradation.lift.navigation.Route
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 
-@SuppressLint("UnrememberedGetBackStackEntry")
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun WorkRoute(
     modifier: Modifier = Modifier,
@@ -45,27 +42,14 @@ fun WorkRoute(
     navigateWorkGraphToHomeGraph: () -> Unit,
     viewModel: WorkViewModel = hiltViewModel(),
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.WORK_GRAPH_NAME) }
     ),
     workScreenState: WorkScreenState = rememberWorkScreenState(),
 ) {
-
-    LaunchedEffect(true) {
-        with(
-            navController.getValueSavedStateHandle<IntArray>(
-                SavedStateHandleKey.RoutineSet.WORK_ROUTINE_SET_LIST_ID_KEY
-            )
-        ) {
-            viewModel.setRoutineSetIdList(this)
-        }
-    }
-
-
     val workScreenUiState: WorkScreenUiState by workScreenState.workScreenUiState.collectAsStateWithLifecycle()
     val workDialogUiState: WorkDialogUiState by workScreenState.workDialogUiState.collectAsStateWithLifecycle()
     val autoCompleteState: Boolean by workScreenState.autoCompleteState.collectAsStateWithLifecycle()
 
-    val workUiState: WorkUiState by viewModel.workUiState.collectAsStateWithLifecycle()
     val workState: WorkState = viewModel.workState
     val workTime: LocalTime by viewModel.workState.workTime.collectAsStateWithLifecycle()
     val restTime: LocalTime by viewModel.workState.restTime.collectAsStateWithLifecycle()
@@ -87,6 +71,7 @@ fun WorkRoute(
         workScreenState.offAutoCompleteState()
         workScreenState.updateWorkDialogState(WorkDialogUiState.CompleteDialogUi)
     }
+
     Box {
         when (workDialogUiState) {
             WorkDialogUiState.AutoCompleteDialogUi -> {
@@ -109,8 +94,8 @@ fun WorkRoute(
                                         workCategory = it.workCategory.name,
                                         workSetList = it.workSetList.toList().map { workSet ->
                                             WorkSet(
-                                                workSet.weight,
-                                                workSet.repetition
+                                                workSet.weight.toFloat(),
+                                                workSet.repetition.toInt()
                                             )
                                         }
                                     )
@@ -164,15 +149,15 @@ fun WorkRoute(
                                     CreateHistoryRoutine(
                                         workCategory = workRoutine.workCategory.name,
                                         workSetList = workRoutine.workSetList.toList()
-                                            .filter { workSet ->
+                                            .filterIndexed { index, _ ->
                                                 workState.isChecked(
-                                                    workRoutine.key,
-                                                    workSet.key
+                                                    workRoutine.id,
+                                                    index
                                                 )
                                             }.map { workSet ->
                                             WorkSet(
-                                                workSet.weight,
-                                                workSet.repetition
+                                                workSet.weight.toFloat(),
+                                                workSet.repetition.toInt()
                                             )
                                         }
                                     )
@@ -192,6 +177,7 @@ fun WorkRoute(
 
             WorkDialogUiState.None -> {}
         }
+
         when (workScreenUiState) {
             is WorkScreenUiState.ListScreenUi -> ListScreen(
                 modifier,

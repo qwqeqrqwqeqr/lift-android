@@ -44,7 +44,8 @@ internal fun SignInScreen(
                 modifier,
                 oAuthSignInState,
                 navigateSignInToSignInDefaultInLoginGraph,
-                navigateSignInToSignUpCreateEmailDefaultInLoginGraph
+                navigateSignInToSignUpCreateEmailDefaultInLoginGraph,
+                signInScreenState
             )
         }
     }

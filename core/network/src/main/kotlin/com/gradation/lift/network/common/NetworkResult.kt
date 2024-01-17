@@ -9,6 +9,6 @@ package com.gradation.lift.network.common
  *  @since 2023-08-28 22:06:10
  */
 sealed class NetworkResult<out T : Any> {
-    data class Success<out T : Any>(val data: T) : NetworkResult<T>()
+    data class Success<out T : Any>(val data: T, val message: String? = null) : NetworkResult<T>()
     data class Fail(val message: String) : NetworkResult<Nothing>()
 }

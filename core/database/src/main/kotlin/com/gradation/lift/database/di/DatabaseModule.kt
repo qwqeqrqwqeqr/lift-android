@@ -36,6 +36,7 @@ object DatabaseModule {
             .addTypeConverter(genderTypeConverter)
             .addTypeConverter(unitOfWeightTypeConverter)
             .addTypeConverter(localDateTypeConverter)
+            .fallbackToDestructiveMigration()
             .build()
 }
 

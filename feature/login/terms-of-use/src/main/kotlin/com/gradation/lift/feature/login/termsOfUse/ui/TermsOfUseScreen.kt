@@ -100,17 +100,6 @@ fun TermsOfUseScreen(
                                 navigateTermsOfUseToTermsOfUseDetailInLoginGraph()
                             }
                         )
-                        ConsentView(
-                            modifier = modifier,
-                            contentText = "[선택] 마케팅 정보 수신 선택 동의",
-                            checked = termsOfUseScreenState.marketingConsent.value,
-                            onCheckedChange = termsOfUseScreenState.updateMarketingConsent,
-                            onClick = {
-                                updateTermsOfUseState(TermsOfUseState.Marketing())
-                                navigateTermsOfUseToTermsOfUseDetailInLoginGraph()
-                            }
-                        )
-
                         LiftText(
                             modifier = modifier,
                             textStyle = LiftTextStyle.No7,

@@ -1,62 +1,77 @@
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.tracing.trace
-import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.navigation.Router
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.*
 
 @Stable
 class AppState(
     val navController: NavHostController,
-    private var dispatcherProvider: DispatcherProvider,
+    val currentDestination: NavDestination?,
 ) {
-
-    val currentDestination: NavDestination?
-        @Composable get() = navController
-            .currentBackStackEntryAsState().value?.destination
-
-
-    val currentTopLevelDestination
-        @Composable get() = when (currentDestination?.route) {
-            Router.HOME_HOME_ROUTER_NAME -> TopLevelNavDestination.Home
-            Router.HISTORY_HISTORY_ROUTER_NAME -> TopLevelNavDestination.History
-            Router.MY_INFO_MY_INFO_ROUTER_NAME -> TopLevelNavDestination.MyInfo
-            else -> null
-        }
-
+    val isShowBottomBar: Boolean
+        @Composable get() = currentDestination?.let { destination ->
+            (destination.route in topLevelDestinations.map { it.route })
+        } ?: false
 
     val topLevelDestinations: List<TopLevelNavDestination> =
         TopLevelNavDestination.values().asList()
 
 
-    fun navigateToTopLevelDestination(topLevelDestination: TopLevelNavDestination) {
+    fun navigateToTopLevelDestination(): (TopLevelNavDestination) -> Unit = { topLevelDestination ->
         trace("Navigation: ${topLevelDestination.name}") {
             when (topLevelDestination) {
                 TopLevelNavDestination.Home -> navController.navigateHomeGraph()
-                TopLevelNavDestination.History -> navController.navigateHistoryGraph()
                 TopLevelNavDestination.MyInfo -> navController.navigateMyInfoGraph()
+                TopLevelNavDestination.DailyLog -> navController.navigateDailyLogGraph()
+                TopLevelNavDestination.Analytics -> navController.navigateAnalyticsGraph()
             }
         }
     }
-
-
 }
 
 
 @Composable
 fun rememberAppState(
     navController: NavHostController,
-    dispatcherProvider: DispatcherProvider,
+    systemUiController: SystemUiController,
 ): AppState {
-    return remember(navController) {
+
+    val currentDestination: NavDestination? =
+        navController.currentBackStackEntryAsState().value?.destination
+
+    val statusBarColor: Color by animateColorAsState(
+        targetValue = when (currentDestination?.route) {
+            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no31
+            else -> LiftTheme.colorScheme.no5
+        }, label = "statusBarColor"
+    )
+
+    val navigationBarColor: Color by animateColorAsState(
+        targetValue = when (currentDestination?.route) {
+            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no5
+            else -> LiftTheme.colorScheme.no5
+        }, label = "navigationBarColor"
+    )
+
+
+    systemUiController.setStatusBarColor(color = statusBarColor)
+    systemUiController.setNavigationBarColor(color = navigationBarColor)
+
+    return remember(navController, currentDestination) {
         AppState(
             navController,
-            dispatcherProvider
+            currentDestination,
         )
     }
 }

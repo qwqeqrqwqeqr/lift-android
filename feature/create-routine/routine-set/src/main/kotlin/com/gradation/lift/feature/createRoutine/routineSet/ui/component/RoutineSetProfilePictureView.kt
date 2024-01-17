@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.component.text.LiftText
@@ -32,23 +31,20 @@ fun RoutineSetProfilePictureView(
     currentRoutineSetRoutine: RoutineSetRoutine,
     navigateRoutineSetToProfilePictureInCreateRoutineGraph: () -> Unit,
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16),
-    ) {
+    Column(modifier=modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)) {
         LiftText(
             textStyle = LiftTextStyle.No3,
             text = "루틴 프로필",
             color = LiftTheme.colorScheme.no3,
             textAlign = TextAlign.Start
         )
-
         if (currentRoutineSetRoutine.picture.isEmpty())
             Box(
                 modifier = modifier
                     .background(
                         color = LiftTheme.colorScheme.no1,
-                        shape = RoundedCornerShape(size = 12.dp)
+                        shape = RoundedCornerShape(size = LiftTheme.space.space12)
                     )
                     .size(LiftTheme.space.space96)
                     .align(Alignment.CenterHorizontally)
@@ -70,7 +66,7 @@ fun RoutineSetProfilePictureView(
                 modifier = modifier
                     .background(
                         color = LiftTheme.colorScheme.no1,
-                        shape = RoundedCornerShape(size = 12.dp)
+                        shape = RoundedCornerShape(size = LiftTheme.space.space12)
                     )
                     .align(Alignment.CenterHorizontally),
                 contentAlignment = Alignment.Center
@@ -101,6 +97,5 @@ fun RoutineSetProfilePictureView(
                 }
 
             }
-
     }
 }

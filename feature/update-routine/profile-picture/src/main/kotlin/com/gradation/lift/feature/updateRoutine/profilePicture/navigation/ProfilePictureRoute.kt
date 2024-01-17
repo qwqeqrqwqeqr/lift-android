@@ -15,7 +15,7 @@ import com.gradation.lift.feature.updateRoutine.profilePicture.ui.ProfilePicture
 import com.gradation.lift.feature.updateRoutine.profilePicture.data.state.RoutineSetPictureUiState
 import com.gradation.lift.feature.updateRoutine.profilePicture.data.viewmodel.ProfilePictureViewModel
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -26,7 +26,7 @@ fun ProfilePictureRoute(
     viewModel: ProfilePictureViewModel = hiltViewModel(),
     sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
-            Router.UPDATE_ROUTINE_GRAPH_NAME
+            Route.UPDATE_ROUTINE_GRAPH_NAME
         )
     }),
 ) {

@@ -1,6 +1,7 @@
 package com.gradation.lift.model.model.work
 
 import kotlinx.datetime.LocalTime
+import java.util.UUID
 
 
 /**
@@ -13,9 +14,9 @@ import kotlinx.datetime.LocalTime
  * @property routine 현재 진행중인 운동들을 모아둔 리스트
  */
 data class Work(
-    val id: Int,
-    val workTime : LocalTime,
-    val restTime: LocalTime,
-    val totalTime: LocalTime,
+    val id: UUID,
+    val workTime : LocalTime= LocalTime(0,0,0),
+    val restTime: LocalTime=LocalTime(0,0,0),
+    val totalTime: LocalTime=LocalTime(0,0,0),
     val routine: List<WorkRoutine>
 )

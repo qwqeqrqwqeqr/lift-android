@@ -11,10 +11,9 @@ class HiltPlugin : Plugin<Project> {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             with(pluginManager) {
-                apply(libs.findPlugin("hilt").get().get().pluginId)
-                apply(libs.findPlugin("ksp").get().get().pluginId)
+                apply("com.google.devtools.ksp")
+                apply("dagger.hilt.android.plugin")
             }
-
             dependencies {
                 add("implementation", libs.findLibrary("hilt.android").get())
                 add("ksp", libs.findLibrary("hilt.compiler").get())

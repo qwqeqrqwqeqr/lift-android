@@ -7,7 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routineDetail.routine.data.RoutineUiState
 import com.gradation.lift.feature.routineDetail.routine.ui.component.NavigationView
@@ -21,34 +21,33 @@ fun RoutineScreen(
     routineUiState: RoutineUiState,
     navigateRoutineDetailGraphToBack: () -> Unit,
     navigateRoutineDetailGraphToUpdateRoutineGraph: (Int) -> Unit,
-    navigateRoutineDetailGraphToWorkWorkRouter: (Int) -> Unit
+    navigateRoutineDetailGraphToWorkReadyReadyRoute: (String) -> Unit,
 ) {
-
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
+                modifier = modifier,
                 title = "루틴 상세",
-                onBackClickTopBar = navigateRoutineDetailGraphToBack,
+                backgroundColor = LiftTheme.colorScheme.no5,
+                onClick = navigateRoutineDetailGraphToBack
             )
         }
     ) { padding ->
         when (routineUiState) {
             is RoutineUiState.Fail -> {
-                Box(
+                Spacer(
                     modifier = modifier
                         .fillMaxSize()
                         .background(LiftTheme.colorScheme.no17)
-                ) {
-                }
+                )
             }
 
             RoutineUiState.Loading -> {
-                Box(
+                Spacer(
                     modifier = modifier
                         .fillMaxSize()
                         .background(LiftTheme.colorScheme.no17)
-                ) {
-                }
+                )
             }
 
             is RoutineUiState.Success -> {
@@ -67,7 +66,7 @@ fun RoutineScreen(
                         modifier,
                         routineUiState.routineSetRoutine,
                         navigateRoutineDetailGraphToUpdateRoutineGraph,
-                        navigateRoutineDetailGraphToWorkWorkRouter
+                        navigateRoutineDetailGraphToWorkReadyReadyRoute
                     )
                 }
             }

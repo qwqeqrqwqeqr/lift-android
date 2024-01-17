@@ -1,8 +1,8 @@
 package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.*
-import com.gradation.lift.navigation.Router
-import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 
 
 /**
@@ -13,7 +13,7 @@ import com.gradation.lift.navigation.Router.HOME_GRAPH_NAME
 fun NavController.navigateLoginGraphToHomeGraph() {
     this.navigate(HOME_GRAPH_NAME) {
         launchSingleTop = true
-        popUpTo(Router.LOGIN_GRAPH_NAME) {
+        popUpTo(Route.LOGIN_GRAPH_NAME) {
             inclusive = true
         }
     }
@@ -25,9 +25,9 @@ fun NavController.navigateLoginGraphToHomeGraph() {
  * @since 2023-12-24 20:37:08
  */
 fun NavController.navigateLoginGraphToRegisterDetailGraph() {
-    this.navigate(Router.REGISTER_DETAIL_GRAPH_NAME) {
+    this.navigate(Route.REGISTER_DETAIL_GRAPH_NAME) {
         launchSingleTop = true
-        popUpTo(Router.LOGIN_GRAPH_NAME) {
+        popUpTo(Route.LOGIN_GRAPH_NAME) {
             inclusive = true
         }
     }
@@ -40,7 +40,7 @@ fun NavController.navigateLoginGraphToRegisterDetailGraph() {
  * @since 2023-12-24 20:37:12
  */
 fun NavController.navigateSignInToSignInDefaultInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME)
+    this.navigate(Route.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME)
 }
 
 /**
@@ -49,7 +49,7 @@ fun NavController.navigateSignInToSignInDefaultInLoginGraph() {
  * @since 2023-12-24 20:37:12
  */
 fun NavController.navigateSignInToSignUpCreateEmailDefaultInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME)
+    this.navigate(Route.LOGIN_SIGN_UP_CREATE_EMAIL_ROUTER_NAME)
 }
 
 /**
@@ -58,7 +58,7 @@ fun NavController.navigateSignInToSignUpCreateEmailDefaultInLoginGraph() {
  * @since 2023-12-24 20:34:57
  */
 fun NavController.navigateSignInToTermsOfUseInLoginGraph() {
-    this.navigate(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME)
+    this.navigate(Route.LOGIN_TERMS_OF_USE_ROUTER_NAME)
 }
 
 
@@ -68,7 +68,7 @@ fun NavController.navigateSignInToTermsOfUseInLoginGraph() {
  * @since 2023-12-24 20:34:57
  */
 fun NavController.navigateSignInDefaultToVerifyEmailInLoginGraph() {
-    this.navigate(Router.LOGIN_VERIFY_EMAIL_ROUTER_NAME)
+    this.navigate(Route.LOGIN_VERIFY_EMAIL_ROUTER_NAME)
 }
 
 
@@ -88,7 +88,7 @@ fun NavController.navigateSignInDefaultToSignInInLoginGraph() {
  * @since 2023-12-29 17:56:20
  */
 fun NavController.navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_UP_CREATE_PASSWORD_ROUTER_NAME)
+    this.navigate(Route.LOGIN_SIGN_UP_CREATE_PASSWORD_ROUTER_NAME)
 }
 
 /**
@@ -97,7 +97,7 @@ fun NavController.navigateSignUpCreateEmailToSignUpCreatePasswordInLoginGraph() 
  * @since 2023-12-29 17:56:20
  */
 fun NavController.navigateSignUpCreatePasswordToTermsOfUseInLoginGraph() {
-    this.navigate(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME)
+    this.navigate(Route.LOGIN_TERMS_OF_USE_ROUTER_NAME)
 }
 
 
@@ -107,8 +107,8 @@ fun NavController.navigateSignUpCreatePasswordToTermsOfUseInLoginGraph() {
  * @since 2023-12-29 17:56:57
  */
 fun NavController.navigateSignUpToSignInInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
-        popUpTo(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+    this.navigate(Route.LOGIN_SIGN_IN_ROUTER_NAME) {
+        popUpTo(Route.LOGIN_SIGN_IN_ROUTER_NAME) {
             inclusive = true
         }
     }
@@ -121,7 +121,7 @@ fun NavController.navigateSignUpToSignInInLoginGraph() {
  * @since 2023-12-24 20:34:57
  */
 fun NavController.navigateTermsOfUseToTermsOfUseDetailInLoginGraph() {
-    this.navigate(Router.LOGIN_TERMS_OF_USE_DETAIL_ROUTER_NAME)
+    this.navigate(Route.LOGIN_TERMS_OF_USE_DETAIL_ROUTER_NAME)
 }
 
 
@@ -131,8 +131,8 @@ fun NavController.navigateTermsOfUseToTermsOfUseDetailInLoginGraph() {
  * @since 2023-12-24 21:01:03
  */
 fun NavController.navigateTermsOfUseToSignInInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
-        popUpTo(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+    this.navigate(Route.LOGIN_SIGN_IN_ROUTER_NAME) {
+        popUpTo(Route.LOGIN_SIGN_IN_ROUTER_NAME) {
             inclusive = true
         }
     }
@@ -152,10 +152,10 @@ fun NavController.navigateTermsOfUseDetailToTermsOfUseInLoginGraph() {
 /**
  * [navigateVerifyEmailToSignInDefaultInLoginGraph]
  * 이메일 인증을 완료한 뒤, 비밀번호 재설정 화면으로 이동
- * @since 2023-12-24 20:34:57
+2024-01-06 23:44:15 * @since
  */
-fun NavController.navigateVerifyEmailToResetPasswordInLoginGraph() {
-    this.navigate(Router.LOGIN_RESET_PASSWORD_ROUTER_NAME)
+fun NavController.navigateVerifyEmailToResetPasswordInLoginGraph(email: String) {
+    this.navigate("${Route.LOGIN_RESET_PASSWORD_ROUTER_NAME}/$email")
 }
 
 /**
@@ -174,8 +174,8 @@ fun NavController.navigateVerifyEmailToSignInDefaultInLoginGraph() {
  * @since 2023-12-24 21:06:58
  */
 fun NavController.navigateResetPasswordToSignInDefaultInLoginGraph() {
-    this.navigate(Router.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME) {
-        popUpTo(Router.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME) {
+    this.navigate(Route.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME) {
+        popUpTo(Route.LOGIN_SIGN_IN_DEFAULT_ROUTER_NAME) {
             inclusive = true
         }
     }

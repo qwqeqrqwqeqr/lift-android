@@ -1,11 +1,10 @@
 package com.gradation.lift.network.dto.terms
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GetUserMarketingTermsConsentResponseDto(
-    @Json(name = "result")
+    @SerialName("result")
     val result: Boolean,
 )

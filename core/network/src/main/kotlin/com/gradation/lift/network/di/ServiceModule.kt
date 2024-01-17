@@ -61,8 +61,8 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideNotificationService(@AuthRetrofit retrofit: Retrofit): NotificationService =
-        retrofit.create(NotificationService::class.java)
+    fun provideNoticeService(@AuthRetrofit retrofit: Retrofit): NoticeService =
+        retrofit.create(NoticeService::class.java)
 
     @Provides
     @Singleton

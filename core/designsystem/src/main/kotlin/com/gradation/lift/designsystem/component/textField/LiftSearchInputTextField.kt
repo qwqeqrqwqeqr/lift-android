@@ -1,6 +1,8 @@
 package com.gradation.lift.designsystem.component.textField
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -11,6 +13,7 @@ import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,9 +36,10 @@ fun LiftSearchInputTextField(
         keyboardType = KeyboardType.Text,
         imeAction = ImeAction.Search
     ),
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default) {
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
-    ) {
+
     LiftBaseInputTextField(
         modifier = modifier,
         value = value,
@@ -49,19 +53,23 @@ fun LiftSearchInputTextField(
         trailingIcon = @Composable {
             Row(
                 modifier = modifier.padding(end = LiftTheme.space.space16),
-                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if (value.isNotEmpty() && enabled && onValueClear != null) {
-                    Icon(
-                        modifier = modifier
-                            .size(LiftTheme.space.space24)
-                            .clickable { onValueClear() },
-                        painter = painterResource(id = LiftIcon.Cancel),
-                        contentDescription = "Clear",
-                        tint = Color.Unspecified
-                    )
-                }
+                 AnimatedVisibility(visible = value.isNotEmpty() && enabled && onValueClear != null) {
+                        Icon(
+                            modifier = modifier
+                                .size(LiftTheme.space.space24)
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null,
+                                    onClick = onValueClear!!,
+                                ),
+                            painter = painterResource(id = LiftIcon.Cancel),
+                            contentDescription = "Clear",
+                            tint = Color.Unspecified
+                        )
+                    }
                 Icon(
                     modifier = modifier
                         .size(LiftTheme.space.space24),
@@ -73,7 +81,7 @@ fun LiftSearchInputTextField(
         },
         colors = TextFieldDefaults.colors(
             focusedTextColor = LiftTheme.colorScheme.no6,
-            focusedContainerColor = LiftTheme.colorScheme.no5,
+            focusedContainerColor = LiftTheme.colorScheme.no1,
             focusedPlaceholderColor = LiftTheme.colorScheme.no6,
             cursorColor = LiftTheme.colorScheme.no4,
             focusedIndicatorColor = Color.Transparent,

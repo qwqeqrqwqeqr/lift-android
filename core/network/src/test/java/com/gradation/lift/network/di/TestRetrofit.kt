@@ -2,12 +2,12 @@ package com.gradation.lift.network.di
 
 
 import com.gradation.lift.network.common.Constants
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 
@@ -24,9 +24,10 @@ class TestRetrofit(
                     .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS).build()
             )
             .addConverterFactory(
-                MoshiConverterFactory.create(
-                    Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-                )
+                with(Json {
+                    ignoreUnknownKeys = true // 느슨한 직렬화 처리
+                    coerceInputValues = true //null 일 경우 기본값 대입
+                }) { asConverterFactory("application/json".toMediaType()) }
             )
             .build()
     }

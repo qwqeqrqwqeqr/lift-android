@@ -8,7 +8,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -128,40 +127,6 @@ fun LiftTitleTopBar(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun LiftHomeTopBar(
-    modifier: Modifier = Modifier,
-    actions: @Composable RowScope.() -> Unit = {},
-    scrollBehavior: TopAppBarScrollBehavior? = null,
-) {
-    TopAppBar(
-        modifier = modifier
-            .statusBarsPadding()
-            .padding(end = 8.dp),
-        title = {
-            Icon(
-                painter = painterResource(R.drawable.logo_extension_kor),
-                contentDescription = "",
-                tint = Color.Unspecified,
-                modifier = modifier.size(72.dp)
-            )
-        },
-
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = LiftTheme.colorScheme.no31,
-            scrolledContainerColor = LiftTheme.colorScheme.no5,
-            navigationIconContentColor = LiftTheme.colorScheme.no9,
-            titleContentColor = LiftTheme.colorScheme.no9,
-            actionIconContentColor = LiftTheme.colorScheme.no9,
-        ),
-        actions = actions,
-        scrollBehavior = scrollBehavior
-    )
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun LiftBackTopBarPreview() {
@@ -180,10 +145,7 @@ fun LiftBackTopBarPreview() {
             LiftTitleTopBar(
                 title = "리프트",
             )
-
             Spacer(modifier = Modifier.padding(48.dp))
-            LiftHomeTopBar()
-
         }
     }
 }

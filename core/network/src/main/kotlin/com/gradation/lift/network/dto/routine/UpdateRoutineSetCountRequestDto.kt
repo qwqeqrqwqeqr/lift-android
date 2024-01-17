@@ -1,11 +1,13 @@
 package com.gradation.lift.network.dto.routine
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UpdateRoutineSetCountRequestDto(
-    @Json(name = "routine_set_id")
+    @SerialName("routine_set_id")
     val id: Int,
 )

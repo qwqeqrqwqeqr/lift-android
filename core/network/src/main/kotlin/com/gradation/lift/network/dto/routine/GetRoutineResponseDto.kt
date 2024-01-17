@@ -4,12 +4,13 @@ import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.model.model.work.WorkSet
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetRoutineResponseDto(
-    @Json(name = "routine")
+    @SerialName("routine")
     val routine: List<RoutineDto>,
 ) {
     fun toDomain(): List<Routine> = this.routine.map {

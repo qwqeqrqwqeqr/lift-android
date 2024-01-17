@@ -84,6 +84,12 @@ interface WorkRepository {
      * 2023-08-28 20:06:05
      */
     fun deleteWork(work: Work): Flow<DataState<Unit>>
+    /**
+     * [deleteAllWork]
+     * 모든 운동을 삭제함
+     * @since 2024-01-16 22:22:09
+     */
+    fun deleteAllWork(): Flow<DataState<Unit>>
 
     /**
      * [existWork]

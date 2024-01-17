@@ -1,5 +1,9 @@
 package com.gradation.lift.feature.work.work.ui.component.common
 
+import androidx.compose.animation.core.Spring.DampingRatioNoBouncy
+import androidx.compose.animation.core.Spring.StiffnessVeryLow
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.progress.LiftProgressCircle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalTime
@@ -30,16 +35,24 @@ fun WorkProgressCircle(
     modifier: Modifier = Modifier,
     workState: WorkState,
     currentWork: WorkRoutine?,
-    workProgress:Int,
+    workProgress: Int,
     workTime: LocalTime,
 ) {
+    val progress: Int by animateIntAsState(
+        targetValue = workProgress,
+        animationSpec = spring(
+            dampingRatio = DampingRatioNoBouncy,
+            stiffness = StiffnessVeryLow,
+        ),
+        label = "workProgressAnimation"
+    )
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxWidth()
     ) {
         LiftProgressCircle(
             modifier = modifier.align(Alignment.Center),
-            progress = workProgress,
+            progress = progress,
         )
         Column(
             modifier = modifier,

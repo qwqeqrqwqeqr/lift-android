@@ -1,6 +1,8 @@
 package com.gradation.lift.designsystem.component.textField
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -38,6 +40,8 @@ fun LiftPasswordInputTextField(
 
     ) {
     var visualTransformation: Boolean by remember { mutableStateOf(true) }
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+
     LiftBaseInputTextField(
         modifier = modifier,
         value = value,
@@ -50,7 +54,7 @@ fun LiftPasswordInputTextField(
         isError = isError,
         isValid = isValid,
         trailingIcon = @Composable {
-            if (isValid) {
+            AnimatedVisibility(visible = isValid) {
                 Icon(
                     modifier = modifier.size(LiftTheme.space.space24),
                     painter = painterResource(id = LiftIcon.GreenCheck),
@@ -58,7 +62,7 @@ fun LiftPasswordInputTextField(
                     tint = Color.Unspecified
                 )
             }
-            if (!isValid && value.isNotEmpty() && enabled && onValueClear != null) {
+            AnimatedVisibility (!isValid && value.isNotEmpty() && enabled && onValueClear != null) {
                 Row(
                     modifier = modifier.padding(end = LiftTheme.space.space16),
                     horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
@@ -67,7 +71,11 @@ fun LiftPasswordInputTextField(
                     Icon(
                         modifier = modifier
                             .size(LiftTheme.space.space24)
-                            .clickable { visualTransformation = !visualTransformation },
+                            .clickable(
+                                interactionSource = interactionSource,
+                                indication = null,
+                                onClick = { visualTransformation = !visualTransformation },
+                            ),
                         painter = if (visualTransformation) painterResource(id = LiftIcon.EyeSelected) else painterResource(
                             id = LiftIcon.EyeUnSelected
                         ),
@@ -78,7 +86,11 @@ fun LiftPasswordInputTextField(
                     Icon(
                         modifier = modifier
                             .size(LiftTheme.space.space24)
-                            .clickable { onValueClear() },
+                            .clickable(
+                                interactionSource = interactionSource,
+                                indication = null,
+                                onClick = onValueClear!!,
+                            ),
                         painter = painterResource(id = LiftIcon.Cancel),
                         contentDescription = "Clear",
                         tint = Color.Unspecified

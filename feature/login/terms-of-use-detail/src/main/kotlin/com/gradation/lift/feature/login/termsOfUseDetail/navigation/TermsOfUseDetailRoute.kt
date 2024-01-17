@@ -15,7 +15,7 @@ import com.gradation.lift.feature.login.termsOfUseDetail.data.TermsOfUseDetailSc
 import com.gradation.lift.feature.login.termsOfUseDetail.data.TermsOfUseDetailViewModel
 import com.gradation.lift.feature.login.termsOfUseDetail.data.rememberTermsOfUseDetailScreenState
 import com.gradation.lift.feature.login.termsOfUseDetail.ui.TermsOfUseDetailScreen
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @Composable
 fun TermsOfUseDetailRoute(
@@ -24,7 +24,7 @@ fun TermsOfUseDetailRoute(
     navigateTermsOfUseDetailToTermsOfUseInLoginGraph: () -> Unit,
     viewModel: TermsOfUseDetailViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.LOGIN_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.LOGIN_GRAPH_NAME) }
     ),
     termsOfUseDetailScreenState: TermsOfUseDetailScreenState = rememberTermsOfUseDetailScreenState(),
 ) {

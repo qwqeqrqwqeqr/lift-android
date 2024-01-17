@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.work.common.data
 
 import androidx.lifecycle.ViewModel
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

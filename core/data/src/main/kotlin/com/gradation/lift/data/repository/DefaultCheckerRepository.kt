@@ -15,7 +15,12 @@ class DefaultCheckerRepository @Inject constructor(
         checkerDataSource.checkDuplicateEmail(email).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Success -> emit(
+                    DataState.Success(
+                        data = result.data,
+                        message = result.message
+                    )
+                )
             }
         }
 
@@ -26,7 +31,12 @@ class DefaultCheckerRepository @Inject constructor(
         checkerDataSource.checkDuplicateName(name).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Success -> emit(
+                    DataState.Success(
+                        data = result.data,
+                        message = result.message
+                    )
+                )
             }
         }
     }

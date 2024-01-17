@@ -1,21 +1,21 @@
 package com.gradation.lift.network.dto.user
 
-import com.gradation.lift.network.dto.work.WorkPartDto
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UserDetailDto(
-    @Json(name = "name")
+    @SerialName("name")
     val name: String,
-    @Json(name = "gender")
+    @SerialName("gender")
     val gender: String,
-    @Json(name = "height")
+    @SerialName("height")
     val height: Float,
-    @Json(name = "weight")
+    @SerialName("weight")
     val weight: Float,
-    @Json(name = "profile_picture")
+    @SerialName("profile_picture")
     val profilePicture: String,
-    @Json(name = "unit_of_weight")
+    @SerialName("unit_of_weight")
     val unitOfWeight: String,
 )

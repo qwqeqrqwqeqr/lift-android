@@ -4,7 +4,6 @@ plugins {
     id("lift.android.kotlin")
     id("lift.android.hilt")
     id("lift.android.image")
-
 }
 
 android {

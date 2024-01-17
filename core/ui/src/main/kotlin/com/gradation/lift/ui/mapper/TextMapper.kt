@@ -51,3 +51,5 @@ fun Int.toRepetitionText(): Int = if (this in 1..100) this else 10
  * @since 2023-09-05 20:59:43
  */
 fun LocalDate.toDayMonthText(): String = "${this.monthNumber}월 ${this.dayOfMonth}일"
+
+fun LocalDate.toDateText():String = "${year.toString().subSequence(2, 4)}.${DecimalFormat("00").format(monthNumber)}.${dayOfMonth}"

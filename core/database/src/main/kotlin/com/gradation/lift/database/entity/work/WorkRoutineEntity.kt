@@ -4,9 +4,9 @@ import androidx.room.*
 import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
 import com.gradation.lift.database.util.Constants.Entity.WORK_ROUTINE_TABLE_NAME
 import com.gradation.lift.database.util.WorkSetListTypeConverter
-import com.gradation.lift.model.model.work.Work
 import com.gradation.lift.model.model.work.WorkRoutine
 import com.gradation.lift.model.model.work.WorkSet
+import java.util.UUID
 
 @Entity(
     tableName = WORK_ROUTINE_TABLE_NAME,
@@ -26,7 +26,7 @@ data class WorkRoutineEntity(
     val id: Int = 0,
 
     @ColumnInfo(name = "work_id")
-    val workId: Int,
+    val workId: UUID,
 
     @Embedded(prefix = "work_category_")
     val workCategory: WorkCategoryEntity,

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetNowUseCase
 import com.gradation.lift.domain.usecase.history.CreateHistoryUseCase
-import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.complete.data.state.CreateWorkHistoryState
 import com.gradation.lift.feature.work.complete.data.state.HistoryInfoState
 import com.gradation.lift.model.model.history.CreateHistory

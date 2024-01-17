@@ -1,11 +1,13 @@
 package com.gradation.lift.network.dto.history
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreateHistoryResponseDto(
-    @Json(name = "result")
+    @SerialName("result")
     val result: Boolean,
 )

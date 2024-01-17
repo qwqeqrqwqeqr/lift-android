@@ -11,8 +11,9 @@ class KotlinPlugin : Plugin<Project> {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             with(pluginManager) {
-                apply(libs.findPlugin("kotlin-serialization").get().get().pluginId)
-                apply(libs.findPlugin("ksp").get().get().pluginId)
+                apply("org.jetbrains.kotlin.android")
+                apply("kotlin-parcelize")
+                apply("org.jetbrains.kotlin.plugin.serialization")
             }
 
             dependencies {

@@ -75,7 +75,7 @@ class DefaultWorkRepository @Inject constructor(
     }
 
     override fun getWork(): Flow<DataState<Work>> = flow {
-        workDao.getAllWork().map {
+        workDao.getAllWork().collect {
             if (it.keys.size != 1) {
                 emit(DataState.Fail("운동 불러오기를 실패하였습니다."))
             } else {
@@ -97,6 +97,7 @@ class DefaultWorkRepository @Inject constructor(
             workEntity = work.toEntity(),
             workRoutineEntity = work.routine.map { it.toEntity() }
         )
+        emit(DataState.Success(Unit))
     }
 
 
@@ -106,16 +107,24 @@ class DefaultWorkRepository @Inject constructor(
         work.routine.map {
             workDao.updateWorkRoutine(it.toEntity())
         }
-
-
         emit(DataState.Success(Unit))
     }
+
+
+
 
 
     override fun deleteWork(work: Work): Flow<DataState<Unit>> = flow {
         workDao.deleteWork(work.toEntity())
         emit(DataState.Success(Unit))
     }
+
+    override fun deleteAllWork(): Flow<DataState<Unit>> = flow{
+        workDao.deleteAllWork()
+        emit(DataState.Success(Unit))
+    }
+
+
 
     override fun existWork(): Flow<DataState<Boolean>> = flow {
         workDao.existWork().map { emit(DataState.Success(it)) }
