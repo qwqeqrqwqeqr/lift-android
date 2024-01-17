@@ -32,7 +32,7 @@ class CheckerDataSourceTest {
         dataSource =
             FakeCheckerDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            NetworkResult.Success(FAKE_BOOLEAN_DATA)
+            NetworkResult.Success(FAKE_BOOLEAN_DATA, message = null)
         ).isEqualTo(
             dataSource.checkDuplicateEmail(FAKE_STRING_DATA).first()
         )
@@ -51,7 +51,7 @@ class CheckerDataSourceTest {
         dataSource =
             FakeCheckerDataSource(testReturnState = TestReturnState.Success)
         Truth.assertThat(
-            NetworkResult.Success(FAKE_BOOLEAN_DATA)
+            NetworkResult.Success(FAKE_BOOLEAN_DATA, message = null)
         ).isEqualTo(
             dataSource.checkDuplicateName(FAKE_STRING_DATA).first()
         )

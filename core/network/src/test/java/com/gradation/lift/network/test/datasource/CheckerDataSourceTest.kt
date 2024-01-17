@@ -76,7 +76,7 @@ class CheckerDataSourceTest {
 
         with(checkerDataSource.checkDuplicateEmail(FAKE_STRING_DATA).first()) {
             Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA)
+                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA, message = "")
             ).isEqualTo(this)
         }
     }
@@ -95,7 +95,7 @@ class CheckerDataSourceTest {
 
         with(checkerDataSource.checkDuplicateName(FAKE_STRING_DATA).first()) {
             Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA)
+                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA, message = "")
             ).isEqualTo(this)
         }
     }

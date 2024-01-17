@@ -360,6 +360,7 @@ object ModelDataGenerator {
         val noticeModel = Notice(
             id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
+            category ="update",
             description = FAKE_STRING_DATA,
             date = LocalDate(2023, 8, 31)
         )
