@@ -3,7 +3,7 @@ package com.gradation.lift.feature.badge.badge
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateBadgeGraphToHomeGraph
 import com.gradation.lift.navigation.navigation.navigateBadgeGraphToMyInfoGraph
 import com.gradation.lift.navigation.navigation.navigateBadgeToSettingInBadgeGraph
@@ -14,7 +14,7 @@ fun badgeBadgeScreen(
 ) {
     val navigateBadgeGraphToPreGraph: () -> Unit = {
         when (navController.previousBackStackEntry?.destination?.route.toString()) {
-            Router.MY_INFO_MY_INFO_ROUTER_NAME -> navController.navigateBadgeGraphToMyInfoGraph()
+            Route.MY_INFO_MY_INFO_ROUTER_NAME -> navController.navigateBadgeGraphToMyInfoGraph()
             else -> navController.navigateBadgeGraphToHomeGraph()
         }
     }
@@ -24,7 +24,7 @@ fun badgeBadgeScreen(
 
 
 
-    navGraphBuilder.composable(Router.BADGE_BADGE_ROUTER_NAME) {
+    navGraphBuilder.composable(Route.BADGE_BADGE_ROUTER_NAME) {
 
         BadgeBadgeRoute(
             navigateBadgeGraphToPreGraph=navigateBadgeGraphToPreGraph,

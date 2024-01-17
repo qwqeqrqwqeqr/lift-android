@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineIdInfo
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import com.gradation.lift.ui.mapper.toText
@@ -68,7 +68,7 @@ fun WorkSetListView(
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space6)
         ) {
             currentWork?.let { work ->
-                itemsIndexed(work.workSetList) { index,workSet ->
+                itemsIndexed(work.workSetList) { workSetIndex,workSet ->
                     Row(
                         modifier = modifier
                             .background(LiftTheme.colorScheme.no1, RoundedCornerShape(LiftTheme.space.space8))
@@ -77,11 +77,11 @@ fun WorkSetListView(
                         horizontalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
                         Text(
-                            text = "${index+1}",
+                            text = "${workSetIndex+1}",
                             style = LiftTheme.typography.no2,
                             color = if (workState.isChecked(
-                                    work.key,
-                                    workSet.key
+                                    work.id,
+                                    workSetIndex
                                 )
                             ) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
                             textAlign = TextAlign.Center,
@@ -90,11 +90,11 @@ fun WorkSetListView(
                                 .align(Alignment.CenterVertically)
                         )
                         Text(
-                            text = workSet.weight.toText(),
+                            text = workSet.weight.toFloatOrNull()?.toText() ?: workSet.weight,
                             style = LiftTheme.typography.no2,
                             color = if (workState.isChecked(
-                                    work.key,
-                                    workSet.key
+                                    work.id,
+                                    workSetIndex
                                 )
                             ) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
                             textAlign = TextAlign.Center,
@@ -104,11 +104,11 @@ fun WorkSetListView(
                         )
 
                         Text(
-                            text = "${workSet.repetition}",
+                            text = workSet.repetition,
                             style = LiftTheme.typography.no2,
                             color = if (workState.isChecked(
-                                    work.key,
-                                    workSet.key
+                                    work.id,
+                                    workSetIndex
                                 )
                             ) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
                             textAlign = TextAlign.Center,
@@ -116,10 +116,7 @@ fun WorkSetListView(
                                 .weight(1f)
                                 .align(Alignment.CenterVertically)
                         )
-                        if (workState.isChecked(
-                                work.key,
-                                workSet.key
-                            )
+                        if (workState.isChecked(work.id, workSetIndex)
                         ) {
                             Icon(
                                 modifier = modifier
@@ -128,8 +125,8 @@ fun WorkSetListView(
                                     .noRippleClickable {
                                         workState.uncheckWorkSet(
                                             WorkRoutineIdInfo(
-                                                work.key,
-                                                workSet.key
+                                                work.id,
+                                                workSetIndex
                                             )
                                         )
                                     },
@@ -145,8 +142,8 @@ fun WorkSetListView(
                                     .noRippleClickable {
                                         workState.checkWorkSet(
                                             WorkRoutineIdInfo(
-                                                work.key,
-                                                workSet.key
+                                                work.id,
+                                                workSetIndex
                                             )
                                         )
                                     },

@@ -26,6 +26,7 @@ import com.gradation.lift.designsystem.component.textField.LiftPasswordInputText
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.login.signInDefault.data.SignInScreenState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 @Composable
 fun SignInDefaultScreen(
@@ -134,19 +135,18 @@ fun SignInDefaultScreen(
                     LiftSolidButton(text = "로그인") {
                         signIn(signInScreenState.email, signInScreenState.password)
                     }
-                    /**
-                     * TODO 해당 기능 구현 시 주석 해제 할 것
-                     *      LiftText(
-                     *                         modifier = modifier
-                     *                             .noRippleClickable {
-                     *                                 navigateSignInDefaultToVerifyEmailInLoginGraph()
-                     *                             },
-                     *                         textStyle = LiftTextStyle.No7,
-                     *                         text = "비밀번호를 잊으셨나요?",
-                     *                         color = LiftTheme.colorScheme.no4,
-                     *                         textAlign = TextAlign.Center
-                     *                     )
-                     */
+
+                    LiftText(
+                        modifier = modifier
+                            .noRippleClickable {
+                                navigateSignInDefaultToVerifyEmailInLoginGraph()
+                            },
+                        textStyle = LiftTextStyle.No7,
+                        text = "비밀번호를 잊으셨나요?",
+                        color = LiftTheme.colorScheme.no4,
+                        textAlign = TextAlign.Center
+                    )
+
                 }
             }
         }

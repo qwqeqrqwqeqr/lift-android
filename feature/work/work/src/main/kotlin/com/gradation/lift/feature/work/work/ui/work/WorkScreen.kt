@@ -14,9 +14,11 @@ import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCloseTopBar
 import com.gradation.lift.designsystem.component.LiftOutlineButton
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
@@ -65,7 +67,7 @@ fun WorkScreen(
                     .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
             ) {
-                WorkProgressCircle(modifier, workState, currentWork, workProgress,workTime)
+                WorkProgressCircle(modifier, workState, currentWork, workProgress, workTime)
                 WorkSetListView(modifier, currentWork, workState)
             }
             Column(
@@ -102,11 +104,11 @@ fun WorkScreen(
                                     color = LiftTheme.colorScheme.no9,
                                     style = LiftTheme.typography.no2,
                                 )
-                                Text(
+                                LiftText(
                                     modifier = modifier.align(Alignment.Start),
+                                    textStyle = LiftTextStyle.No6,
                                     text = it.workCategory.name,
                                     color = LiftTheme.colorScheme.no9,
-                                    style = LiftTheme.typography.no6,
                                     textAlign = TextAlign.Left,
                                     overflow = Ellipsis
                                 )
@@ -125,11 +127,11 @@ fun WorkScreen(
                                     color = LiftTheme.colorScheme.no9,
                                     style = LiftTheme.typography.no2,
                                 )
-                                Text(
+                                LiftText(
                                     modifier = modifier.align(Alignment.End),
+                                    textStyle = LiftTextStyle.No6,
                                     text = it.workCategory.name,
                                     color = LiftTheme.colorScheme.no9,
-                                    style = LiftTheme.typography.no6,
                                     textAlign = TextAlign.Left,
                                     overflow = Ellipsis
                                 )

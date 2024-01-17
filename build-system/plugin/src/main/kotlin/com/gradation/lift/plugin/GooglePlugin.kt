@@ -13,6 +13,7 @@ class GooglePlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
                 add("implementation", libs.findLibrary("google-services").get())
+                add("implementation", libs.findLibrary("google-play-core").get())
             }
         }
     }

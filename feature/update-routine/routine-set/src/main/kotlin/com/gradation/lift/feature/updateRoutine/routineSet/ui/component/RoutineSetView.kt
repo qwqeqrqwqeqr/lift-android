@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.common.utils.Validator
@@ -38,87 +37,96 @@ internal fun RoutineSetView(
     routineSetDescriptionValidator: Validator,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit,
-    routineSetScreenState: RoutineSetScreenState
+    routineSetScreenState: RoutineSetScreenState,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .background(LiftTheme.colorScheme.no5)
-            .padding(LiftTheme.space.paddingSpace),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
+            .padding(
+                top = LiftTheme.space.space16,
+                end = LiftTheme.space.space20,
+                start = LiftTheme.space.space20
+            ),
+        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
     ) {
-        LiftText(
-            textStyle = LiftTextStyle.No3,
-            text = "루틴 프로필",
-            color = LiftTheme.colorScheme.no3,
-            textAlign = TextAlign.Start
-        )
+        Column(modifier=modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)) {
 
-        Box(
-            modifier = modifier
-                .background(
-                    color = LiftTheme.colorScheme.no1,
-                    shape = RoundedCornerShape(size = 12.dp)
-                )
-                .align(Alignment.CenterHorizontally),
-            contentAlignment = Alignment.Center
-        ) {
-            GlideImage(
-                modifier = modifier.size(LiftTheme.space.space96),
-                model = currentRoutineSetRoutine.picture,
-                contentDescription = "RoutineProfilePicture"
+            LiftText(
+                textStyle = LiftTextStyle.No3,
+                text = "루틴 프로필",
+                color = LiftTheme.colorScheme.no3,
+                textAlign = TextAlign.Start
             )
+
             Box(
                 modifier = modifier
-                    .offset(x = LiftTheme.space.space8, y = LiftTheme.space.space8)
-                    .size(LiftTheme.space.space32)
-                    .background(LiftTheme.colorScheme.no1, CircleShape)
-                    .align(Alignment.BottomEnd)
-                    .noRippleClickable {
-                        navigateRoutineSetToProfilePictureInUpdateRoutineGraph()
-                    }
+                    .background(
+                        color = LiftTheme.colorScheme.no1,
+                        shape = RoundedCornerShape(size = LiftTheme.space.space12)
+                    )
+                    .align(Alignment.CenterHorizontally),
+                contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    modifier = modifier
-                        .align(Alignment.Center)
-                        .size(LiftTheme.space.space16),
-                    painter = painterResource(id = LiftIcon.Pencil),
-                    contentDescription = "RoutineProfilePictureEdit",
-                    tint = LiftTheme.colorScheme.no6
+                GlideImage(
+                    modifier = modifier.size(LiftTheme.space.space96),
+                    model = currentRoutineSetRoutine.picture,
+                    contentDescription = "RoutineProfilePicture"
                 )
-            }
+                Box(
+                    modifier = modifier
+                        .offset(x = LiftTheme.space.space8, y = LiftTheme.space.space8)
+                        .size(LiftTheme.space.space32)
+                        .background(LiftTheme.colorScheme.no1, CircleShape)
+                        .align(Alignment.BottomEnd)
+                        .noRippleClickable {
+                            navigateRoutineSetToProfilePictureInUpdateRoutineGraph()
+                        }
+                ) {
+                    Icon(
+                        modifier = modifier
+                            .align(Alignment.Center)
+                            .size(LiftTheme.space.space16),
+                        painter = painterResource(id = LiftIcon.Pencil),
+                        contentDescription = "RoutineProfilePictureEdit",
+                        tint = LiftTheme.colorScheme.no6
+                    )
+                }
 
+            }
         }
 
-
-        RoutineSetNameView(
-            modifier,
-            routineSetNameValidator,
-            currentRoutineSetRoutine,
-            currentRoutineSetRoutineState,
-            routineSetScreenState
-        )
-        RoutineSetDescriptionView(
-            modifier,
-            routineSetDescriptionValidator,
-            currentRoutineSetRoutine,
-            currentRoutineSetRoutineState,
-            routineSetScreenState
-        )
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
+        ) {
+            RoutineSetNameView(
+                modifier,
+                routineSetNameValidator,
+                currentRoutineSetRoutine,
+                currentRoutineSetRoutineState,
+                routineSetScreenState
+            )
+            RoutineSetDescriptionView(
+                modifier,
+                routineSetDescriptionValidator,
+                currentRoutineSetRoutine,
+                currentRoutineSetRoutineState,
+                routineSetScreenState
+            )
+        }
 
         RoutineSetWeekdayView(
             modifier,
             currentRoutineSetRoutine,
             currentRoutineSetRoutineState
         )
-
         RoutineSetLabelView(
             modifier,
             currentRoutineSetRoutine,
             currentRoutineSetRoutineState
         )
-
-
     }
 }
 

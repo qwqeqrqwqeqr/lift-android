@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateRegisterDetailGraphToHomeGraph
 import com.gradation.lift.navigation.navigation.navigateResisterDetailGraphToLoginGraph
 import com.gradation.lift.navigation.navigation.navigateToGenderInRegisterDetailGraph
@@ -29,7 +29,7 @@ fun NavGraphBuilder.profilePictureScreen(
     val navigateToHeightWeightInRegisterDetailGraph: () -> Unit =
         { navController.navigateToHeightWeightInRegisterDetailGraph() }
 
-    composable(Router.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME) {
+    composable(Route.REGISTER_DETAIL_PROFILE_PICTURE_ROUTER_NAME) {
         RegisterDetailProfilePictureRoute(
             modifier,
             navController,

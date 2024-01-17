@@ -10,15 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftErrorButton
@@ -36,8 +33,6 @@ import com.gradation.lift.designsystem.component.filter.LiftLabelFilterContainer
 import com.gradation.lift.designsystem.component.filter.LiftSortFilterContainer
 import com.gradation.lift.designsystem.component.filter.LiftWeekdayFilterContainer
 import com.gradation.lift.designsystem.component.label.RoutineLabel
-import com.gradation.lift.designsystem.component.navigation.LiftNavigationBar
-import com.gradation.lift.designsystem.component.navigation.LiftNavigationBarItem
 import com.gradation.lift.designsystem.component.progress.LiftProgressCircleLabel
 import com.gradation.lift.designsystem.component.progress.ProgressCircleState
 import com.gradation.lift.designsystem.component.selector.LiftIconSelector
@@ -51,7 +46,6 @@ import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextF
 import com.gradation.lift.designsystem.component.textField.LiftPasswordInputTextField
 import com.gradation.lift.designsystem.component.textField.LiftSearchInputTextField
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
@@ -298,7 +292,8 @@ fun Catalog(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
-            SnackbarComponent(modifier, "인터넷이 불안정합니다.\n인터넷 연결상태를 확인해주세요") {}
+            SnackbarComponent(modifier, message="인터넷이 불안정합니다.\n인터넷 연결상태를 확인해주세요", actionLabel =null) {}
+            SnackbarComponent(modifier, message="적용을 완료하였습니다.", actionLabel = "되돌리기") {}
         }
         Column(
             modifier.fillMaxWidth(),
@@ -306,7 +301,7 @@ fun Catalog(
         ) {
             LiftSortFilterContainer(modifier = modifier, sortType = "전체")
             LiftWeekdayFilterContainer(modifier = modifier, weekdayType = "월,화,수,목,금,토")
-            LiftLabelFilterContainer(modifier = modifier, labelType = setOf(1, 2, 3))
+            LiftLabelFilterContainer(modifier = modifier, labelType = setOf(1, 2, 3), false)
         }
         Column(
             modifier.fillMaxWidth(),
@@ -325,9 +320,8 @@ fun Catalog(
             LiftDefaultContainer(
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(LiftTheme.space.space120),
-                content = {}
-            )
+                    .height(LiftTheme.space.space120)
+            ) {}
 
             LiftPrimaryContainer(
                 modifier = modifier
@@ -350,30 +344,6 @@ fun Catalog(
             )
 
         }
-        Column(
-            modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
-        ) {
-            LiftNavigationBar(modifier = modifier) {
-                LiftNavigationBarItem(
-                    selected = false,
-                    onClick = { },
-                    unSelectedIcon = {
-                        Icon(
-                            painter = painterResource(id = LiftIcon.HomeUnSelected),
-                            contentDescription = null,
-                            tint = Color.Unspecified
-                        )
-                    },
-                    selectedIcon = {
-                        Icon(
-                            painter = painterResource(id = LiftIcon.HomeSelected),
-                            contentDescription = null,
-                            tint = Color.Unspecified
-                        )
-                    },
-                    label = "홈")
-            }
-        }
+
     }
 }

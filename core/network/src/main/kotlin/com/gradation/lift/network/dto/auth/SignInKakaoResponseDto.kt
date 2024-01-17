@@ -1,15 +1,17 @@
 package com.gradation.lift.network.dto.auth
 
 import com.gradation.lift.model.model.auth.Token
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SignInKakaoResponseDto(
-    @Json(name = "access_token")
+    @SerialName("access_token")
     val accessToken: String,
-    @Json(name = "refresh_token")
+    @SerialName("refresh_token")
     val refreshToken: String,
 ){
     fun toDomain(): Token = Token(

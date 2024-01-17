@@ -1,11 +1,13 @@
 package com.gradation.lift.designsystem.component.textField
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -25,8 +27,8 @@ fun LiftDefaultInputTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     isError: Boolean = false,
     isValid: Boolean = false,
-
-    ) {
+) {
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
     LiftBaseInputTextField(
         modifier = modifier,
@@ -51,7 +53,11 @@ fun LiftDefaultInputTextField(
                 Icon(
                     modifier = modifier
                         .size(LiftTheme.space.space24)
-                        .clickable { onValueClear() },
+                        .clickable(
+                            interactionSource=interactionSource,
+                            indication=null,
+                            onClick = onValueClear,
+                        ),
                     painter = painterResource(id = LiftIcon.Cancel),
                     contentDescription = "Clear",
                     tint = Color.Unspecified

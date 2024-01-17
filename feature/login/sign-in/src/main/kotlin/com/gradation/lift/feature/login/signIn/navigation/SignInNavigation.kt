@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.*
 
 fun NavGraphBuilder.signInScreen(
@@ -25,7 +25,7 @@ fun NavGraphBuilder.signInScreen(
 
 
 
-    composable(Router.LOGIN_SIGN_IN_ROUTER_NAME) {
+    composable(Route.LOGIN_SIGN_IN_ROUTER_NAME) {
         SignInRoute(
             modifier,
             navController,

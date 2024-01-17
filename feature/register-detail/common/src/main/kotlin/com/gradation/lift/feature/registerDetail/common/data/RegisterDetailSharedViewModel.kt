@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
@@ -47,7 +48,7 @@ import javax.inject.Inject
 class RegisterDetailSharedViewModel @Inject constructor(
     private val createUserDetailUseCase: CreateUserDetailUseCase,
     private val checkerDuplicateNameUseCase: CheckerDuplicateNameUseCase,
-    private val signOutUseCase: SignOutUseCase
+    private val signOutUseCase: SignOutUseCase,
 ) : ViewModel() {
 
     val currentRegisterProgressNumber: MutableStateFlow<Int> = MutableStateFlow(1)
@@ -67,8 +68,10 @@ class RegisterDetailSharedViewModel @Inject constructor(
 
 
     var nameValidator: StateFlow<Validator> =
-        name.debounce(1000).distinctUntilChanged().flatMapLatest { name ->
-            checkDuplicateName(name)
+        name.flatMapLatest { name ->
+            if (name.isEmpty()) flowOf(Validator(true, ""))
+            else if (!nameValidator(name)) flowOf(Validator(false, "2~8 자리의 한글만 사용 가능해요"))
+            else checkDuplicateName(name)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -115,22 +118,12 @@ class RegisterDetailSharedViewModel @Inject constructor(
 
 
     private fun checkDuplicateName(name: String): Flow<Validator> {
-        return checkerDuplicateNameUseCase(name).map {
-            if (name.isEmpty()) {
-                Validator(true, "")
-            } else {
-                when (it) {
-                    is DataState.Fail -> Validator(true, "")
-                    is DataState.Success -> if (it.data) {
-                        Validator(false, "이미 사용중인 닉네임이에요")
-                    } else {
-                        if (nameValidator(name)) {
-                            Validator(true, "")
-                        } else {
-                            Validator(false, "2~8 자리의 한글만 사용 가능해요")
-                        }
-                    }
-                }
+        return checkerDuplicateNameUseCase(name).debounce(1000).distinctUntilChanged().map {
+            when (it) {
+                is DataState.Fail -> Validator(false, "")
+                is DataState.Success ->
+                    if (it.data) Validator(false, "이미 사용중인 닉네임이에요")
+                    else Validator(true, "")
             }
         }
     }

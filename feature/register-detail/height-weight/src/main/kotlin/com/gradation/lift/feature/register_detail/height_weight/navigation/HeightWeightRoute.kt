@@ -17,7 +17,7 @@ import com.gradation.lift.feature.register_detail.height_weight.data.HeightWeigh
 import com.gradation.lift.feature.register_detail.height_weight.data.HeightWeightViewModel
 import com.gradation.lift.feature.register_detail.height_weight.data.rememberHeightWeightScreenState
 import com.gradation.lift.feature.register_detail.height_weight.ui.HeightWeightScreen
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -31,7 +31,7 @@ internal fun HeightWeightRoute(
     viewModel: HeightWeightViewModel = hiltViewModel(),
     sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
-            Router.REGISTER_DETAIL_GRAPH_NAME
+            Route.REGISTER_DETAIL_GRAPH_NAME
         )
     }),
     heightWeightScreenState: HeightWeightScreenState = rememberHeightWeightScreenState(),

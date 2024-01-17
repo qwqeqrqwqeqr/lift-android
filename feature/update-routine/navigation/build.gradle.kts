@@ -14,6 +14,8 @@ dependencies {
 
     implementation(project(":feature:update-routine:find-work-category"))
     implementation(project(":feature:update-routine:profile-picture"))
-    implementation(project(":feature:update-routine:routine"))
+    implementation(project(":feature:update-routine:create-work-set"))
+    implementation(project(":feature:update-routine:update-work-set"))
     implementation(project(":feature:update-routine:routine-set"))
+    implementation(project(":feature:update-routine:change-order"))
 }

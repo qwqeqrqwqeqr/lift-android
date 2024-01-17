@@ -44,8 +44,8 @@ import com.gradation.lift.network.dto.badge.GetUserBadgeByMainFlagResponseDto
 import com.gradation.lift.network.dto.badge.GetUserBadgeConditionResponseDto
 import com.gradation.lift.network.dto.badge.GetUserBadgeResponseDto
 import com.gradation.lift.network.dto.badge.UserBadgeDto
-import com.gradation.lift.network.dto.notification.GetNoticeResponseDto
-import com.gradation.lift.network.dto.notification.NoticeDto
+import com.gradation.lift.network.dto.notice.GetNoticeResponseDto
+import com.gradation.lift.network.dto.notice.NoticeDto
 
 object TestDtoDataGenerator {
 
@@ -152,9 +152,9 @@ object TestDtoDataGenerator {
             historyId = 1,
             comment = "보람찬 하루",
             score = 5,
-            workTime = 1200,
-            restTime = 600,
-            totalTime = 1800,
+            workTime = 1200f,
+            restTime = 600f,
+            totalTime = 1800f,
             historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = historyRoutineDto1
         )
@@ -162,9 +162,9 @@ object TestDtoDataGenerator {
             historyId = 2,
             comment = "행복한 하루",
             score = 2,
-            workTime = 1200,
-            restTime = 600,
-            totalTime = 1800,
+            workTime = 1200f,
+            restTime = 600f,
+            totalTime = 1800f,
             historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = historyRoutineDto2
         )
@@ -420,6 +420,7 @@ object TestDtoDataGenerator {
             id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
+            category ="update",
             date = "2023-08-31"
         )
 

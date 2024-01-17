@@ -1,6 +1,11 @@
 package com.gradation.lift.feature.routineDetail.routineList.navigation
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -16,6 +21,9 @@ import com.gradation.lift.feature.routineDetail.routineList.data.state.RoutineLi
 import com.gradation.lift.feature.routineDetail.routineList.data.state.SortFilterState
 import com.gradation.lift.feature.routineDetail.routineList.data.state.rememberRoutineListScreen
 import com.gradation.lift.feature.routineDetail.routineList.ui.RoutineListScreen
+import com.gradation.lift.feature.routineDetail.routineList.ui.component.bottomsheet.LabelFilterBottomSheet
+import com.gradation.lift.feature.routineDetail.routineList.ui.component.bottomsheet.SortBottomSheet
+import com.gradation.lift.feature.routineDetail.routineList.ui.component.bottomsheet.WeekdayFilterBottomSheet
 
 @Composable
 internal fun RoutineListRoute(
@@ -24,7 +32,7 @@ internal fun RoutineListRoute(
     navigateRoutineDetailGraphToCreateRoutineGraph: () -> Unit,
     navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit,
     viewModel: RoutineListViewModel = hiltViewModel(),
-    routineListScreenState: RoutineListScreenState = rememberRoutineListScreen()
+    routineListScreenState: RoutineListScreenState = rememberRoutineListScreen(),
 ) {
 
     val sortFilterState: SortFilterState = viewModel.sortFilterState
@@ -39,6 +47,38 @@ internal fun RoutineListRoute(
 
 
     BackHandler(onBack = navigateRoutineDetailGraphToHomeGraph)
+
+    AnimatedVisibility(
+        routineListScreenState.sortTypeBottomSheetView,
+        enter = fadeIn() + expandVertically(),
+        exit = shrinkVertically() + fadeOut()
+    ) {
+        SortBottomSheet(modifier, routineListScreenState, sortFilterState, sortType)
+    }
+    AnimatedVisibility(
+        routineListScreenState.weekdayFilterTypeBottomSheetView,
+        enter = fadeIn() + expandVertically(),
+        exit = shrinkVertically() + fadeOut()
+    ) {
+        WeekdayFilterBottomSheet(
+            modifier,
+            routineListScreenState,
+            sortFilterState,
+            weekdayFilterType
+        )
+    }
+    AnimatedVisibility(
+        routineListScreenState.labelFilterTypeBottomSheetView,
+        enter = fadeIn() + expandVertically(),
+        exit = shrinkVertically() + fadeOut()
+    ) {
+        LabelFilterBottomSheet(
+            modifier,
+            routineListScreenState,
+            sortFilterState,
+            labelFilterType
+        )
+    }
 
     RoutineListScreen(
         modifier,

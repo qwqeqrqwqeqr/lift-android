@@ -10,7 +10,7 @@ import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.badge.BadgeDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.datasource.notification.NotificationDataSource
+import com.gradation.lift.network.datasource.notice.NoticeDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.datasource.terms.TermsDataSource
@@ -92,10 +92,10 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
-    fun provideNotificationRepository(
-        notificationDataSource: NotificationDataSource,
-    ): NotificationRepository = DefaultNotificationRepository(
-        notificationDataSource = notificationDataSource,
+    fun provideNoticeRepository(
+        noticeDataSource: NoticeDataSource,
+    ): NoticeRepository = DefaultNoticeRepository(
+        noticeDataSource = noticeDataSource,
     )
 
     @ViewModelScoped

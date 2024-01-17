@@ -1,21 +1,20 @@
 package com.gradation.lift.feature.updateRoutine.routineSet.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
-import com.gradation.lift.feature.updateRoutine.routineSet.ui.dialog.DeleteDialog
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.RoutineSetScreenState
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.EmptyRoutineView
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.NavigationView
@@ -33,30 +32,21 @@ internal fun RoutineSetScreen(
     updateCondition: Boolean,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     routineUiState: RoutineUiState,
-    deleteRoutineSetRoutine: (Int) -> Unit,
+
     updateRoutineSetRoutine: (RoutineSetRoutine) -> Unit,
     popBackStack: () -> Unit,
     navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateRoutineSetToProfilePictureInUpdateRoutineGraph: () -> Unit,
+    navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph: (Int) -> Unit,
+    navigateRoutineSetToChangeOrderInUpdateRoutineGraph:() -> Unit,
     routineSetScreenState: RoutineSetScreenState,
 ) {
-    if (routineSetScreenState.deleteDialogView) {
-        Surface(
-            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
-            modifier = modifier.fillMaxSize()
-        ) {
-            DeleteDialog(
-                modifier = modifier,
-                onClickDialogDeleteButton = { deleteRoutineSetRoutine(currentRoutineSetRoutine.id) },
-                onClickDialogDismissButton = { routineSetScreenState.updateDeleteDialogView(false) },
-            )
-        }
-    }
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
                 title = "루틴 수정",
-                onBackClickTopBar = popBackStack,
+                backgroundColor = LiftTheme.colorScheme.no5,
+                onClick = popBackStack,
             )
         }
     ) { padding ->
@@ -88,7 +78,8 @@ internal fun RoutineSetScreen(
                     Column(
                         modifier = modifier
                             .verticalScroll(routineSetScreenState.scrollState)
-                            .weight(1f)
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
                     ) {
                         RoutineSetView(
                             modifier,
@@ -109,7 +100,9 @@ internal fun RoutineSetScreen(
                                 modifier,
                                 currentRoutineSetRoutine,
                                 currentRoutineSetRoutineState,
-                                navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph
+                                navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph,
+                                navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph,
+                                navigateRoutineSetToChangeOrderInUpdateRoutineGraph
                             )
                     }
                     Column {
@@ -118,7 +111,7 @@ internal fun RoutineSetScreen(
                             updateCondition,
                             currentRoutineSetRoutine,
                             updateRoutineSetRoutine,
-                            routineSetScreenState
+                            routineSetScreenState,
                         )
                     }
                 }

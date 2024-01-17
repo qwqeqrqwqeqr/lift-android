@@ -4,14 +4,13 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSetIdUseCase
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
-import com.gradation.lift.feature.work.work.data.model.WorkRoutine
-import com.gradation.lift.feature.work.work.data.model.WorkRoutineWorkSet
+import com.gradation.lift.domain.usecase.work.GetWorkUseCase
+import com.gradation.lift.feature.work.common.data.model.WorkRoutine
+import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
 import com.gradation.lift.feature.work.work.data.state.WorkState
-import com.gradation.lift.feature.work.work.data.state.WorkUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -20,57 +19,35 @@ import javax.inject.Inject
 @HiltViewModel
 class WorkViewModel @Inject constructor(
     initTimerUseCase: InitTimerUseCase,
-    getRoutineSetRoutineByRoutineSetIdUseCase: GetRoutineSetRoutineByRoutineSetIdUseCase,
+    private val getWorkUseCase: GetWorkUseCase,
 ) : ViewModel() {
-
 
     val workState = WorkState(initTimerUseCase, viewModelScope)
 
-
-    private var routineSetIdList: MutableStateFlow<List<Int>> = MutableStateFlow(emptyList())
-    val setRoutineSetIdList: (IntArray?) -> Unit = {
-        routineSetIdList.value = it?.toList() ?: emptyList()
-    }
-
-
-    val workUiState: StateFlow<WorkUiState> =
-        routineSetIdList.flatMapLatest {
-            getRoutineSetRoutineByRoutineSetIdUseCase(it.toSet())
-        }.map { routineSetRoutine ->
-            when (routineSetRoutine) {
-                is DataState.Fail -> WorkUiState.Fail("운동목록 불러오기를 실패하였습니다.")
-                is DataState.Success -> with(routineSetRoutine.data) {
-                    if (this.isEmpty()) WorkUiState.Fail(
-                        "운동목록 불러오기를 실패하였습니다."
-                    )
-                    else {
-                        workState.currentWorkRoutineList.clear()
-                        workState.currentWorkRoutineList.addAll(
-                            this.flatMap { it.routine }.mapIndexed { workRoutineIndex, routine ->
-                                WorkRoutine(
-                                    key = workRoutineIndex + 1,
-                                    workCategory = routine.workCategory,
-                                    workSetList = routine.workSetList.mapIndexed { workSetIndex, workSet ->
-                                        WorkRoutineWorkSet(
-                                            key = workSetIndex + 1,
-                                            weight = workSet.weight,
-                                            repetition = workSet.repetition
-                                        )
-                                    }.toMutableStateList()
-                                )
-                            }
-                        )
+    init {
+        viewModelScope.launch {
+            getWorkUseCase().collect {
+                when (it) {
+                    is DataState.Fail -> workState.currentWorkRoutineList.addAll(emptyList())
+                    is DataState.Success -> {
+                        workState.currentWorkRoutineList.addAll(it.data.routine.mapIndexed { index, workRoutine ->
+                            WorkRoutine(
+                                index,
+                                workRoutine.workCategory,
+                                workRoutine.workSetList.map { workSet ->
+                                    WorkRoutineWorkSet(
+                                        weight = workSet.weight.toString(),
+                                        repetition = workSet.repetition.toString()
+                                    )
+                                }.toMutableStateList()
+                            )
+                        })
                         workState.startTimer()
-                        WorkUiState.Success(this)
                     }
                 }
             }
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = WorkUiState.Loading
-        )
-
+        }
+    }
 }
 
 

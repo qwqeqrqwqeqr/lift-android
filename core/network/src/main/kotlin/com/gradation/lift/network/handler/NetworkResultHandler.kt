@@ -3,7 +3,6 @@ package com.gradation.lift.network.handler
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.mapper.toMessage
 import kotlinx.coroutines.flow.*
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -24,7 +23,12 @@ class NetworkResultHandler @Inject constructor(
     suspend operator fun <T : Any> invoke(call: suspend () -> Response<APIResultWrapper<T>>): Flow<NetworkResult<T>> =
         flowOf(call.invoke()).transform { response ->
             if (response.isSuccessful) {
-                emit(NetworkResult.Success(data = response.body()?.data!!))
+                emit(
+                    NetworkResult.Success(
+                        data = response.body()?.data!!,
+                        message = response.body()?.message
+                    )
+                )
             } else {
                 emit(
                     NetworkResult.Fail(
@@ -38,13 +42,14 @@ class NetworkResultHandler @Inject constructor(
             .flowOn(dispatcherProvider.io)
             .catch { error ->
                 if (error is SocketTimeoutException) {
-                    emit(NetworkResult.Fail(message = error.toMessage()))
+                    emit(NetworkResult.Fail(message = "네트워크 시간이 만료되었습니다.\n 잠시후에 다시 시도해주세요"))
                 }
             }
             .catch { error ->
                 if (error is HttpException) {
-                    emit(NetworkResult.Fail(message = error.toMessage()))
+                    emit(NetworkResult.Fail(message = "네트워크 연결을 실패하였습니다."))
                 }
             }
+
 
 }

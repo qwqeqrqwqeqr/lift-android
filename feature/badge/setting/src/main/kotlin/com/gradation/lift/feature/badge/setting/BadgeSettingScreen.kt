@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.designsystem.component.LiftBackTopBar
-import com.gradation.lift.designsystem.component.LiftInfoSnackBar
+import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.setting.component.fail.FailBadgeListView
 import com.gradation.lift.feature.badge.setting.component.fail.FailMainBadgeView
@@ -100,7 +100,7 @@ fun BadgeSettingScreen(
             )
         },
         snackbarHost = {
-            LiftInfoSnackBar(
+            LiftSnackBar(
                 modifier = modifier,
                 snackbarHostState = snackbarHostState
             )

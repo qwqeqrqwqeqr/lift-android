@@ -21,7 +21,7 @@ import com.gradation.lift.feature.register_detail.profile_picture.data.ProfilePi
 import com.gradation.lift.feature.register_detail.profile_picture.data.rememberProfilePictureScreenState
 import com.gradation.lift.feature.register_detail.profile_picture.ui.ProfilePictureScreen
 import com.gradation.lift.model.model.picture.UserProfilePicture
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -36,7 +36,7 @@ internal fun RegisterDetailProfilePictureRoute(
     viewModel: ProfilePictureViewModel = hiltViewModel(),
     sharedViewModel: RegisterDetailSharedViewModel = hiltViewModel(remember {
         navController.getBackStackEntry(
-            Router.REGISTER_DETAIL_GRAPH_NAME
+            Route.REGISTER_DETAIL_GRAPH_NAME
         )
     }),
     profilePictureScreenState: ProfilePictureScreenState = rememberProfilePictureScreenState(),

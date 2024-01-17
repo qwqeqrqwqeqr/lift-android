@@ -5,6 +5,6 @@ import com.gradation.lift.model.model.notification.Notice
 
 
 fun Notice.toEntity() = NoticeEntity(
-    id, title, description, date
+    id, title, description,category, date
 )
 

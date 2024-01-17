@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.feature.badge.badge.badgeBadgeScreen
 import com.gradation.lift.feature.badge.setting.badgeSettingScreen
-import com.gradation.lift.navigation.Router.BADGE_BADGE_ROUTER_NAME
-import com.gradation.lift.navigation.Router.BADGE_GRAPH_NAME
+import com.gradation.lift.navigation.Route.BADGE_BADGE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.BADGE_GRAPH_NAME
 
 fun badgeGraphBuilder(
     navController: NavController,
@@ -15,6 +15,10 @@ fun badgeGraphBuilder(
     navGraphBuilder.navigation(
         route = BADGE_GRAPH_NAME,
         startDestination = BADGE_BADGE_ROUTER_NAME,
+        popEnterTransition = null,
+        popExitTransition = null,
+        enterTransition = null,
+        exitTransition = null,
     ) {
         badgeBadgeScreen(navController, this)
         badgeSettingScreen(navController, this)

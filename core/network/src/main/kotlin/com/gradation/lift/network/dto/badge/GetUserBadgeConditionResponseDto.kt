@@ -3,13 +3,15 @@ package com.gradation.lift.network.dto.badge
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.network.common.Constants
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 
 data class GetUserBadgeConditionResponseDto(
-    @Json(name = "badge")
+    @SerialName("badge")
     val badge: BadgeDto? = null
 ) {
     fun toDomain(): BadgeCondition =

@@ -14,15 +14,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import java.util.Collections
 
 data class CurrentRoutineSetRoutineState(
-    val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(RoutineSetRoutine()),
-    val viewModelScope: CoroutineScope
+    val currentRoutineSetRoutine: MutableStateFlow<RoutineSetRoutine> = MutableStateFlow(
+        RoutineSetRoutine()
+    ),
+    val viewModelScope: CoroutineScope,
 ) {
     var routineSetNameValidator: StateFlow<Validator> =
         currentRoutineSetRoutine.map { it ->
             if (it.name.isBlank()) {
-                Validator(false, "")
+                Validator(true, "")
             } else if (!routineSetNameValidator(it.name)) {
                 Validator(false, "1 - 10자 사이의 글자로 입력해주세요.")
             } else {
@@ -31,7 +34,7 @@ data class CurrentRoutineSetRoutineState(
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Validator()
+            initialValue = Validator(true, "")
         )
 
     var routineSetDescriptionValidator: StateFlow<Validator> =
@@ -44,7 +47,7 @@ data class CurrentRoutineSetRoutineState(
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Validator()
+            initialValue = Validator(true, "")
         )
 
     var updateCondition: StateFlow<Boolean> =
@@ -69,12 +72,29 @@ data class CurrentRoutineSetRoutineState(
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.RemoveRoutine(it))
     }
 
+    val updateRoutine: (Int,Routine) -> Unit = {index,routine ->
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutine(index,routine))
+    }
+
+    val moveRoutine: (Int,Int) -> Unit = {from,to ->
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.MoveRoutine(from,to))
+    }
+
+
     val updateRoutineSetName: (String) -> Unit = {
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutineSetName(it))
     }
 
+    val clearRoutineSetName: () -> Unit = {
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.ClearRoutineSetName)
+    }
+
     val updateRoutineSetDescription: (String) -> Unit = {
         onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.UpdateRoutineSetDescription(it))
+    }
+
+    val clearRoutineSetDescription: () -> Unit = {
+        onCurrentRoutineSetRoutineEvent(CurrentRoutineSetRoutineEvent.ClearRoutineSetDescription)
     }
 
     val updateRoutineSetWeekday: (Set<Weekday>) -> Unit = {
@@ -138,6 +158,38 @@ data class CurrentRoutineSetRoutineState(
             is CurrentRoutineSetRoutineEvent.UpdateRoutineSetWeekday -> {
                 currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
                     weekday = currentRoutineSetRoutineEvent.weekday
+                )
+            }
+
+            CurrentRoutineSetRoutineEvent.ClearRoutineSetDescription -> {
+                currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
+                    description = ""
+                )
+            }
+
+            CurrentRoutineSetRoutineEvent.ClearRoutineSetName -> {
+                currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
+                    name = ""
+                )
+            }
+
+            is CurrentRoutineSetRoutineEvent.UpdateRoutine -> {
+                currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
+                    routine = with(currentRoutineSetRoutine.value.routine) {
+                        val mutableList = this.toMutableList()
+                        mutableList[currentRoutineSetRoutineEvent.index] = currentRoutineSetRoutineEvent.routine
+                        mutableList.toList()
+                    }
+                )
+            }
+
+            is CurrentRoutineSetRoutineEvent.MoveRoutine -> {
+                currentRoutineSetRoutine.value = currentRoutineSetRoutine.value.copy(
+                    routine = with(currentRoutineSetRoutine.value.routine) {
+                        val mutableList = this.toMutableList()
+                        Collections.swap(mutableList,currentRoutineSetRoutineEvent.from,currentRoutineSetRoutineEvent.to)
+                        mutableList.toList()
+                    }
                 )
             }
         }

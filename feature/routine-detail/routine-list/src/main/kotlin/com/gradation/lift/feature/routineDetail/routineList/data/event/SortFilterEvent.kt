@@ -13,7 +13,8 @@ import com.gradation.lift.model.model.routine.Label
  * [UpdateLabelFilter] 특정 라벨만 조회하도록 필터를 업데이트합니다.
  * [UpdateSortType] 정렬 방식을 업데이트합니다.
  * [UpdateSearchFilterText] 검색어를 업데이트 합니다
- * @since 2023-11-18 17:17:28
+ * [ClearSearchFilterText] 검색어를 삭제합니다.
+ * @since 2024-01-08 19:51:40
  */
 internal sealed interface SortFilterEvent {
 
@@ -23,4 +24,5 @@ internal sealed interface SortFilterEvent {
     data class UpdateLabelFilter(val labelSet: Set<Label>) : SortFilterEvent
     data class UpdateSortType(val sortType: SortType) : SortFilterEvent
     data class UpdateSearchFilterText(val searchFilterText: String) : SortFilterEvent
+    data object ClearSearchFilterText : SortFilterEvent
 }

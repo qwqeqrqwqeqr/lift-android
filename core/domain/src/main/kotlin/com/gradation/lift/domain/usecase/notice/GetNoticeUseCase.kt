@@ -1,0 +1,14 @@
+package com.gradation.lift.domain.usecase.notice
+
+import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.repository.NoticeRepository
+import com.gradation.lift.model.model.notification.Notice
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+
+class GetNoticeUseCase @Inject constructor(
+    private val noticeRepository: NoticeRepository
+) {
+    operator fun invoke(): Flow<DataState<List<Notice>>> =
+        noticeRepository.getNotice()
+}

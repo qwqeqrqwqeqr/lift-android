@@ -50,12 +50,16 @@ class OAuthSignInState(
                     }
                 ) { id, email ->
                     when (id) {
-                        is DataState.Fail -> connectState.value =ConnectState.Fail("연결을 실패하였습니다.")
+                        is DataState.Fail -> connectState.value = ConnectState.Fail("아이디를 불러올 수 없습니다.")
                         is DataState.Success -> {
-                            when(email){
-                                is DataState.Fail ->connectState.value =ConnectState.Fail("연결을 실패하였습니다.")
+                            when (email) {
+                                is DataState.Fail -> connectState.value = ConnectState.Fail("이메일을 불러올 수 없습니다.")
+
                                 is DataState.Success -> {
-                                    checkExistUserUseCase(id.data,email.data).collect { checkExistUserResult ->
+                                    checkExistUserUseCase(
+                                        id.data,
+                                        email.data
+                                    ).collect { checkExistUserResult ->
                                         when (checkExistUserResult) {
                                             is DataState.Fail -> ConnectState.Fail("연결을 실패하였습니다.")
                                             is DataState.Success -> {
@@ -81,22 +85,15 @@ class OAuthSignInState(
 
     val connectOAuthFromNaver: (Context) -> Unit = {
         viewModelScope.launch {
+            naverOauthManager.signOut()
             oAuthConnectionManager.connectNaver(it).collect {
                 when (it) {
                     is DataState.Fail -> {
-                        updateConnectState(
-                            ConnectState.Fail(
-                                it.message
-                            )
-                        )
+                        updateConnectState(ConnectState.Fail(it.message))
                     }
 
                     is DataState.Success -> {
-                        updateConnectState(
-                            ConnectState.Success(
-                                LoginMethod.Naver()
-                            )
-                        )
+                        updateConnectState(ConnectState.Success(LoginMethod.Naver()))
                     }
                 }
 
@@ -109,12 +106,9 @@ class OAuthSignInState(
             oAuthConnectionManager.connectKakao().collect {
                 when (it) {
                     is DataState.Fail -> {
-                        updateConnectState(
-                            ConnectState.Fail(
-                                it.message
-                            )
-                        )
+                        updateConnectState(ConnectState.Fail(it.message))
                     }
+
                     is DataState.Success -> {
                         updateConnectState(
                             ConnectState.Success(
@@ -144,9 +138,9 @@ class OAuthSignInState(
                     is DataState.Success -> {
                         existUserDetail().collect { existUserDetailResult ->
                             when (existUserDetailResult) {
-                                is DataState.Fail -> {
-                                    oAuthSignInState.value = SignInState.Fail("로그인에 실패하였습니다.")
-                                }
+                                is DataState.Fail -> oAuthSignInState.value =
+                                    SignInState.Fail("로그인에 실패하였습니다.")
+
 
                                 is DataState.Success -> oAuthSignInState.value =
                                     SignInState.Success(existUserDetailResult.data)
@@ -165,21 +159,19 @@ class OAuthSignInState(
         viewModelScope.launch {
             signInKakaoUseCase().collect { signInResult ->
                 when (signInResult) {
-                    is DataState.Fail -> {
-                        oAuthSignInState.value = SignInState.Fail(signInResult.message)
-                    }
+                    is DataState.Fail -> oAuthSignInState.value =
+                        SignInState.Fail(signInResult.message)
+
 
                     is DataState.Success -> {
                         existUserDetail().collect { existUserDetailResult ->
                             when (existUserDetailResult) {
-                                is DataState.Fail -> {
-                                    oAuthSignInState.value = SignInState.Fail("로그인에 실패하였습니다.")
-                                }
+                                is DataState.Fail -> oAuthSignInState.value =
+                                    SignInState.Fail("로그인에 실패하였습니다.")
+
 
                                 is DataState.Success -> oAuthSignInState.value =
-                                    SignInState.Success(
-                                        existUserDetailResult.data
-                                    )
+                                    SignInState.Success(existUserDetailResult.data)
                             }
                         }
                     }
@@ -195,9 +187,9 @@ class OAuthSignInState(
         viewModelScope.launch {
             signInGoogleUseCase().collect { signInResult ->
                 when (signInResult) {
-                    is DataState.Fail -> {
+                    is DataState.Fail ->
                         oAuthSignInState.value = SignInState.Fail(signInResult.message)
-                    }
+
 
                     is DataState.Success -> {
                         existUserDetail().collect { existUserDetailResult ->

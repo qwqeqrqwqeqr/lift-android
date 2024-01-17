@@ -33,7 +33,6 @@ class RoutineSetViewModel @Inject constructor(
 
     fun updateUpdateRoutineState(): (UpdateRoutineState) -> Unit = { updateRoutineState.value = it }
 
-
     fun deleteRoutineSetRoutine(): (Int) -> Unit = {
         viewModelScope.launch {
             deleteRoutineSetRoutineUseCase(it)

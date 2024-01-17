@@ -4,14 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftOutlineButton
+import androidx.compose.ui.graphics.RectangleShape
+import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.RoutineSetScreenState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
@@ -22,36 +20,28 @@ internal fun NavigationView(
     updateCondition: Boolean,
     currentRoutineSetRoutine: RoutineSetRoutine,
     updateRoutineSetRoutine: (RoutineSetRoutine) -> Unit,
-    routineSetScreenState: RoutineSetScreenState
+    routineSetScreenState: RoutineSetScreenState,
 ) {
-    Row(
+    LiftDefaultContainer(
         modifier = modifier
             .background(LiftTheme.colorScheme.no5)
-            .fillMaxWidth()
-            .padding(LiftTheme.space.paddingSpace),
-        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10),
-        verticalAlignment = Alignment.Bottom
+            .fillMaxWidth(),
+        shape = RectangleShape,
+        verticalPadding = LiftTheme.space.space10,
+        horizontalPadding = LiftTheme.space.space20
     ) {
-        LiftOutlineButton(
-            modifier = modifier.weight(1f),
-            shape = RoundedCornerShape(size = LiftTheme.space.space12),
-            onClick = { routineSetScreenState.updateDeleteDialogView(true) }
-        ) {
-            Text(
+        Row(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space10)) {
+            LiftPrimaryButton(
+                modifier = modifier.weight(1f),
                 text = "삭제",
-                style = LiftTheme.typography.no3,
-                color = LiftTheme.colorScheme.no4,
+                onClick = { routineSetScreenState.updateDeleteDialogView(true) }
             )
-        }
-        LiftButton(
-            modifier = modifier.weight(1f),
-            enabled = updateCondition,
-            onClick = { updateRoutineSetRoutine(currentRoutineSetRoutine) }
-        ) {
-            Text(
+
+            LiftSolidButton(
+                modifier = modifier.weight(1f),
+                enabled = updateCondition && currentRoutineSetRoutine.name.isNotEmpty(),
                 text = "저장",
-                style = LiftTheme.typography.no3,
-                color = LiftTheme.colorScheme.no5,
+                onClick = { updateRoutineSetRoutine(currentRoutineSetRoutine) }
             )
         }
     }

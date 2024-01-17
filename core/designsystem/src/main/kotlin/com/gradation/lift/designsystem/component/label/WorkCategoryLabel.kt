@@ -21,7 +21,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 
 @Composable
-fun RecommendWorkCategoryLabel(modifier: Modifier = Modifier) {
+fun PopularWorkCategoryLabel(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .width(LiftTheme.space.space48)
@@ -37,12 +37,12 @@ fun RecommendWorkCategoryLabel(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = painterResource(LiftIcon.Thumb),
+            painter = painterResource(LiftIcon.Fire),
             contentDescription = "",
             tint = LiftTheme.colorScheme.recommendWorkCategoryLabelColor,
         )
         Text(
-            text = "추천",
+            text = "인기",
             color = LiftTheme.colorScheme.recommendWorkCategoryLabelColor,
             style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
         )
@@ -51,7 +51,7 @@ fun RecommendWorkCategoryLabel(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun PopularWorkCategoryLabel(modifier: Modifier = Modifier) {
+fun RecommendWorkCategoryLabel(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .width(LiftTheme.space.space48)
@@ -67,12 +67,12 @@ fun PopularWorkCategoryLabel(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = painterResource(LiftIcon.Fire),
+            painter = painterResource(LiftIcon.Thumb),
             contentDescription = "",
             tint = LiftTheme.colorScheme.popularWorkCategoryLabelColor,
         )
         Text(
-            text = "인기",
+            text = "추천",
             color = LiftTheme.colorScheme.popularWorkCategoryLabelColor,
             style = LiftTheme.typography.no7.copy(fontWeight = FontWeight.Bold)
         )

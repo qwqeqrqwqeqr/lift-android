@@ -24,6 +24,9 @@ data class NoticeEntity(
     @ColumnInfo(name = "description")
     val description: String,
 
+    @ColumnInfo(name = "category")
+    val category: String,
+
     @TypeConverters(LocalDateTypeConverter::class)
     @ColumnInfo(name = "date")
     val date: LocalDate,
@@ -32,6 +35,6 @@ data class NoticeEntity(
     val checked: Boolean = false
 ) {
     fun toDomain() = Notice(
-        id, title, description, date
+        id, title, description, category,date
     )
 }

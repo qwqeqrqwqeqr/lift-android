@@ -27,8 +27,12 @@ internal fun RoutineSetView(
         modifier = modifier
             .fillMaxWidth()
             .background(LiftTheme.colorScheme.no5)
-            .padding(LiftTheme.space.paddingSpace),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
+            .padding(
+                top = LiftTheme.space.space16,
+                end = LiftTheme.space.space20,
+                start = LiftTheme.space.space20
+            ),
+        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
     ) {
         RoutineSetProfilePictureView(
             modifier,
@@ -36,21 +40,25 @@ internal fun RoutineSetView(
             navigateRoutineSetToProfilePictureInCreateRoutineGraph
         )
 
-
-        RoutineSetNameView(
-            modifier,
-            routineSetNameValidator,
-            currentRoutineSetRoutine,
-            currentRoutineSetRoutineState,
-            routineSetScreenState
-        )
-        RoutineSetDescriptionView(
-            modifier,
-            routineSetDescriptionValidator,
-            currentRoutineSetRoutine,
-            currentRoutineSetRoutineState,
-            routineSetScreenState
-        )
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
+        ) {
+            RoutineSetNameView(
+                modifier,
+                routineSetNameValidator,
+                currentRoutineSetRoutine,
+                currentRoutineSetRoutineState,
+                routineSetScreenState
+            )
+            RoutineSetDescriptionView(
+                modifier,
+                routineSetDescriptionValidator,
+                currentRoutineSetRoutine,
+                currentRoutineSetRoutineState,
+                routineSetScreenState
+            )
+        }
 
         RoutineSetWeekdayView(
             modifier,

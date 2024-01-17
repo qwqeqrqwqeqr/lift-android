@@ -5,14 +5,15 @@ import com.gradation.lift.database.util.Constants.Entity.WORK_TABLE_NAME
 import com.gradation.lift.database.util.LocalTimeTypeConverter
 import com.gradation.lift.model.model.work.Work
 import kotlinx.datetime.LocalTime
+import java.util.UUID
 
 @Entity(
     tableName = WORK_TABLE_NAME
 )
 data class WorkEntity(
-    @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
+    @PrimaryKey
+    val id: UUID,
 
     @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "work_time")

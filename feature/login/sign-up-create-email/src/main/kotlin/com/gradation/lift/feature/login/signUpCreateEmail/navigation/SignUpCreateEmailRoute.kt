@@ -21,7 +21,7 @@ import com.gradation.lift.feature.login.signUpCreateEmail.data.SignUpCreateEmail
 import com.gradation.lift.feature.login.signUpCreateEmail.data.SignUpCreateEmailViewModel
 import com.gradation.lift.feature.login.signUpCreateEmail.data.rememberSignUpCreateEmailScreenState
 import com.gradation.lift.feature.login.signUpCreateEmail.ui.SignUpCreateEmailScreen
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import kotlinx.datetime.LocalTime
 
 @Composable
@@ -32,7 +32,7 @@ fun SignUpCreateEmailRoute(
     navigateSignUpToSignInInLoginGraph: () -> Unit,
     viewModel: SignUpCreateEmailViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: LoginSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.LOGIN_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.LOGIN_GRAPH_NAME) }
     ),
     signUpCreateEmailScreenState: SignUpCreateEmailScreenState = rememberSignUpCreateEmailScreenState(),
     createEmailState: CreateEmailState = viewModel.createEmailState,

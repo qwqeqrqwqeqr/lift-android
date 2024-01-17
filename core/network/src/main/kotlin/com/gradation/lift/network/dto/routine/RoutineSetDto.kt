@@ -1,24 +1,26 @@
 package com.gradation.lift.network.dto.routine
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RoutineSetDto(
-    @Json(name = "routine_set_id")
+    @SerialName("routine_set_id")
     val routineSetId: Int,
-    @Json(name = "name")
+    @SerialName("name")
     val name: String,
-    @Json(name = "description")
+    @SerialName("description")
     val description: String,
-    @Json(name = "weekday")
+    @SerialName("weekday")
     val weekday: String,
-    @Json(name = "picture")
+    @SerialName("picture")
     val picture: String,
-    @Json(name = "label")
+    @SerialName("label")
     val label: String,
-    @Json(name = "count")
+    @SerialName("count")
     val count: Int
 
 )

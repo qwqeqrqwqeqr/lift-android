@@ -6,9 +6,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.component.LiftErrorSnackBar
+import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.complete.data.state.CompleteScreenState
 import com.gradation.lift.feature.work.complete.data.state.HistoryInfoState
 import com.gradation.lift.feature.work.complete.ui.component.CommentView
@@ -34,7 +34,7 @@ internal fun CompleteScreen(
 ) {
     Scaffold(
         snackbarHost = {
-            LiftErrorSnackBar(
+            LiftSnackBar(
                 modifier = modifier,
                 snackbarHostState = completeScreenState.snackbarHostState
             )

@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.feature.work.common.data.WorkRestTime
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
 import com.gradation.lift.feature.work.complete.data.CompleteViewModel
 import com.gradation.lift.feature.work.complete.data.state.CompleteScreenState
@@ -20,7 +20,7 @@ import com.gradation.lift.feature.work.complete.data.state.HistoryInfoState
 import com.gradation.lift.feature.work.complete.data.state.rememberCompleteScreenState
 import com.gradation.lift.feature.work.complete.ui.CompleteScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 
 
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -31,7 +31,7 @@ internal fun CompleteRoute(
     navigateWorkGraphToHomeGraph: () -> Unit,
     viewModel: CompleteViewModel = hiltViewModel(),
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Router.WORK_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(Route.WORK_GRAPH_NAME) }
     ),
     completeScreenState: CompleteScreenState = rememberCompleteScreenState(),
 ) {

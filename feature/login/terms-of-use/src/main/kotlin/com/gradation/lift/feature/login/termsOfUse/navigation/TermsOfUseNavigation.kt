@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateLoginGraphToRegisterDetailGraph
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseToSignInInLoginGraph
 import com.gradation.lift.navigation.navigation.navigateTermsOfUseToTermsOfUseDetailInLoginGraph
@@ -22,7 +22,7 @@ fun NavGraphBuilder.termsOfUseScreen(
     val navigateTermsOfUseToSignInInLoginGraph: () -> Unit =
         { navController.navigateTermsOfUseToSignInInLoginGraph() }
 
-    composable(Router.LOGIN_TERMS_OF_USE_ROUTER_NAME) {
+    composable(Route.LOGIN_TERMS_OF_USE_ROUTER_NAME) {
         TermsOfUseRoute(
             modifier,
             navController,

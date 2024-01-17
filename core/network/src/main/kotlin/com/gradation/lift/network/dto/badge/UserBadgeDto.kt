@@ -1,14 +1,16 @@
 package com.gradation.lift.network.dto.badge
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UserBadgeDto(
-    @Json(name = "badge")
+    @SerialName("badge")
     val badge: BadgeDto,
-    @Json(name = "badge_time_stamp")
+    @SerialName("badge_time_stamp")
     val badgeTimeStamp: String,
-    @Json(name = "main_flag")
+    @SerialName("main_flag")
     val mainFlag: Boolean
 )

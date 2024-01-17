@@ -7,7 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gradation.lift.feature.createRoutine.findWorkCategory.data.state.FilterState
+import com.gradation.lift.feature.createRoutine.findWorkCategory.data.state.FindWorkCategoryScreenState
 import com.gradation.lift.feature.createRoutine.findWorkCategory.data.state.WorkCategoryUiState
+import com.gradation.lift.feature.createRoutine.findWorkCategory.data.state.rememberFindWorkCategoryScreenState
 import com.gradation.lift.feature.createRoutine.findWorkCategory.data.viewmodel.FindWorkCategoryViewModel
 import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.FindWorkCategoryScreen
 import com.gradation.lift.model.model.work.WorkPart
@@ -16,8 +18,9 @@ import com.gradation.lift.model.model.work.WorkPart
 internal fun FindWorkCategoryRoute(
     modifier: Modifier = Modifier,
     navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph: () -> Unit,
-    navigateFindWorkCategoryToRoutineInCreateRoutineGraph: (Int) -> Unit,
+    navigateFindWorkCategoryToCreateWorkSetInCreateRoutineGraph: (Int) -> Unit,
     viewModel: FindWorkCategoryViewModel = hiltViewModel(),
+    findWorkCategoryScreenState: FindWorkCategoryScreenState = rememberFindWorkCategoryScreenState(),
 ) {
 
 
@@ -37,7 +40,8 @@ internal fun FindWorkCategoryRoute(
         workCategoryUiState,
         filterState,
         navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph,
-        navigateFindWorkCategoryToRoutineInCreateRoutineGraph
+        navigateFindWorkCategoryToCreateWorkSetInCreateRoutineGraph,
+        findWorkCategoryScreenState
     )
 
     BackHandler(onBack = navigateFindWorkCategoryToRoutineSetInCreateRoutineGraph)

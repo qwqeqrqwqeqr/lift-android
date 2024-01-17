@@ -2,13 +2,15 @@ package com.gradation.lift.network.dto.picture
 
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.network.common.Constants.DEFAULT_S3_URL
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
 
 
-@JsonClass(generateAdapter = true)
+
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GetUserProfilePictureResponseDto(
-    @Json(name = "user_profile_picture")
+    @SerialName("user_profile_picture")
     val userProfilePicture : List<UserProfilePictureDto>
 ){
     fun toDomain() = this.userProfilePicture.map {

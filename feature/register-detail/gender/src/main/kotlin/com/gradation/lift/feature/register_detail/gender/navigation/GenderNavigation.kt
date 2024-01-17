@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.gradation.lift.navigation.Router
+import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateResisterDetailGraphToLoginGraph
 import com.gradation.lift.navigation.navigation.navigateToHeightWeightInRegisterDetailGraph
 import com.gradation.lift.navigation.navigation.navigateToNameInRegisterDetailGraph
@@ -21,7 +21,7 @@ fun NavGraphBuilder.genderScreen(
         { navController.navigateResisterDetailGraphToLoginGraph() }
 
 
-    composable(Router.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
+    composable(Route.REGISTER_DETAIL_GENDER_ROUTER_NAME) {
         GenderRoute(
             modifier,
             navController,
