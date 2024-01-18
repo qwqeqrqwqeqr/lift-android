@@ -38,9 +38,6 @@ object NetworkModule {
             .connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
             .addInterceptor(retryInterceptor)
             .build()
     }
@@ -57,9 +54,6 @@ object NetworkModule {
             .connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
             .readTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
             .writeTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
             .addInterceptor(authInterceptor)
             .addInterceptor(retryInterceptor)
             .authenticator(authAuthenticator)
