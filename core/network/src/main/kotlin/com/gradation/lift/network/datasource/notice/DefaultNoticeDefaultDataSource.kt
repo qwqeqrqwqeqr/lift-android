@@ -1,16 +1,19 @@
 package com.gradation.lift.network.datasource.notice
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.notification.Notice
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.NoticeService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultNoticeDefaultDataSource @Inject constructor(
     private val noticeService: NoticeService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider,
 ) : NoticeDataSource {
     override suspend fun getNotice(): Flow<NetworkResult<List<Notice>>> =
         flow {
@@ -22,7 +25,7 @@ class DefaultNoticeDefaultDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun getNoticeById(noticeId: Int): Flow<NetworkResult<Notice>> =
         flow {
@@ -34,5 +37,5 @@ class DefaultNoticeDefaultDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 }

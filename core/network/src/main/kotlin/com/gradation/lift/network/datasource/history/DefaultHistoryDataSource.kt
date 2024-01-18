@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource.history
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.NetworkResult
@@ -8,11 +9,13 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.HistoryService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultHistoryDataSource @Inject constructor(
     private val historyService: HistoryService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider,
 ) : HistoryDataSource {
     override suspend fun getHistory(): Flow<NetworkResult<List<History>>> = flow {
         networkResultHandler {
@@ -24,7 +27,7 @@ class DefaultHistoryDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<NetworkResult<List<History>>> =
         flow {
@@ -37,7 +40,7 @@ class DefaultHistoryDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun createHistory(createHistory: CreateHistory): Flow<NetworkResult<Unit>> =
         flow {
@@ -52,7 +55,7 @@ class DefaultHistoryDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun deleteHistory(historyId: Int): Flow<NetworkResult<Unit>> = flow {
         networkResultHandler {
@@ -64,6 +67,5 @@ class DefaultHistoryDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
             }
         }
-    }
-
+    }.flowOn(dispatcherProvider.default)
 }
