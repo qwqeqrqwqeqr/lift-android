@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.model.auth.LoginMethod
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 class DefaultUserRepository @Inject constructor(
     private val userDataSource: UserDataSource,
+    private val dispatcherProvider: DispatcherProvider
 ) : UserRepository {
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
@@ -25,7 +27,7 @@ class DefaultUserRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getUserAuthenticationMethod(): Flow<DataState<LoginMethod>> = flow {
         userDataSource.getUserAuthenticationMethod()
@@ -35,7 +37,7 @@ class DefaultUserRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Unit>> = flow {
         userDataSource.createUserDetail(
@@ -47,7 +49,7 @@ class DefaultUserRepository @Inject constructor(
             }
         }
 
-    }
+    }.flowOn(dispatcherProvider.default)
 
 
     override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Unit>> = flow {
@@ -60,7 +62,7 @@ class DefaultUserRepository @Inject constructor(
             }
         }
 
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<DataState<Unit>> =
         flow {
@@ -72,7 +74,7 @@ class DefaultUserRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun updateUserDetailName(userDetailName: UserDetailName): Flow<DataState<Boolean>> =
         flow {
@@ -86,7 +88,7 @@ class DefaultUserRepository @Inject constructor(
                         message = result.message))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun updateUserDetailInfo(userDetailInfo: UserDetailInfo): Flow<DataState<Boolean>> =
         flow {
@@ -98,7 +100,7 @@ class DefaultUserRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
@@ -109,6 +111,6 @@ class DefaultUserRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
 }

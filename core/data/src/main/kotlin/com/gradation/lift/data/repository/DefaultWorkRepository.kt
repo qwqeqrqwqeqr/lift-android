@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.database.dao.WorkDao
 import com.gradation.lift.database.mapper.toEntity
@@ -16,8 +17,7 @@ import javax.inject.Inject
 class DefaultWorkRepository @Inject constructor(
     private val workDataSource: WorkDataSource,
     private val workDao: WorkDao,
-
-    ) : WorkRepository {
+    private val dispatcherProvider: DispatcherProvider) : WorkRepository {
     override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
         workDataSource.getWorkPart().collect { result ->
             when (result) {
@@ -25,7 +25,7 @@ class DefaultWorkRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
 
     override fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
@@ -35,7 +35,7 @@ class DefaultWorkRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getWorkCategoryById(workCategoryId: Int): Flow<DataState<WorkCategory>> =  flow {
         workDataSource.getWorkCategoryById(workCategoryId).collect { result ->
@@ -44,7 +44,7 @@ class DefaultWorkRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>> =
         flow {
@@ -54,7 +54,7 @@ class DefaultWorkRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun getPopularWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
         workDataSource.getPopularWorkCategory().collect { result ->
@@ -63,7 +63,7 @@ class DefaultWorkRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getRecommendWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
         workDataSource.getRecommendWorkCategory().collect { result ->
@@ -72,7 +72,7 @@ class DefaultWorkRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getWork(): Flow<DataState<Work>> = flow {
         workDao.getAllWork().collect {
@@ -90,7 +90,7 @@ class DefaultWorkRepository @Inject constructor(
         }
     }.catch {
         emit(DataState.Fail("운동 불러오기를 실패하였습니다."))
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun createWork(work: Work): Flow<DataState<Unit>> = flow {
         workDao.insert(
@@ -98,7 +98,7 @@ class DefaultWorkRepository @Inject constructor(
             workRoutineEntity = work.routine.map { it.toEntity() }
         )
         emit(DataState.Success(Unit))
-    }
+    }.flowOn(dispatcherProvider.default)
 
 
     override fun updateWork(work: Work): Flow<DataState<Unit>> = flow {
@@ -108,7 +108,7 @@ class DefaultWorkRepository @Inject constructor(
             workDao.updateWorkRoutine(it.toEntity())
         }
         emit(DataState.Success(Unit))
-    }
+    }.flowOn(dispatcherProvider.default)
 
 
 
@@ -117,17 +117,17 @@ class DefaultWorkRepository @Inject constructor(
     override fun deleteWork(work: Work): Flow<DataState<Unit>> = flow {
         workDao.deleteWork(work.toEntity())
         emit(DataState.Success(Unit))
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun deleteAllWork(): Flow<DataState<Unit>> = flow{
         workDao.deleteAllWork()
         emit(DataState.Success(Unit))
-    }
+    }.flowOn(dispatcherProvider.default)
 
 
 
     override fun existWork(): Flow<DataState<Boolean>> = flow {
         workDao.existWork().map { emit(DataState.Success(it)) }
-    }
+    }.flowOn(dispatcherProvider.default)
 }
 

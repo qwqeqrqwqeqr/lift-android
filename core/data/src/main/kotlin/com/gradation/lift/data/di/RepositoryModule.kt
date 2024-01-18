@@ -1,5 +1,6 @@
 package com.gradation.lift.data.di
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.data.repository.*
 import com.gradation.lift.database.dao.WorkDao
 import com.gradation.lift.datastore.datasource.SettingDataStoreDataSource
@@ -35,67 +36,86 @@ object RepositoryModule {
     fun provideWorkRepository(
         workDataSource: WorkDataSource,
         workDao: WorkDao,
-    ): WorkRepository = DefaultWorkRepository(workDataSource = workDataSource, workDao = workDao)
+        dispatcherProvider: DispatcherProvider,
+    ): WorkRepository = DefaultWorkRepository(
+        workDataSource = workDataSource,
+        workDao = workDao,
+        dispatcherProvider
+    )
 
 
     @ViewModelScoped
     @Provides
     fun provideRoutineRepository(
         routineDataSource: RoutineDataSource,
+        dispatcherProvider: DispatcherProvider,
     ): RoutineRepository =
-        DefaultRoutineRepository(routineDataSource = routineDataSource)
+        DefaultRoutineRepository(routineDataSource = routineDataSource, dispatcherProvider)
 
 
     @ViewModelScoped
     @Provides
     fun provideCheckerRepository(
         checkerDataSource: CheckerDataSource,
-    ): CheckerRepository = DefaultCheckerRepository(checkerDataSource = checkerDataSource)
+        dispatcherProvider: DispatcherProvider,
+    ): CheckerRepository =
+        DefaultCheckerRepository(checkerDataSource = checkerDataSource, dispatcherProvider)
 
 
     @ViewModelScoped
     @Provides
     fun provideSettingRepository(
         settingDataStoreDataSource: SettingDataStoreDataSource,
+        dispatcherProvider: DispatcherProvider,
     ): SettingRepository =
-        DefaultSettingRepository(settingDataStoreDataSource = settingDataStoreDataSource)
+        DefaultSettingRepository(
+            settingDataStoreDataSource = settingDataStoreDataSource,
+            dispatcherProvider
+        )
 
     @ViewModelScoped
     @Provides
     fun provideHistoryRepository(
         historyDataSource: HistoryDataSource,
-    ): HistoryRepository = DefaultHistoryRepository(historyDataSource = historyDataSource)
+        dispatcherProvider: DispatcherProvider,
+    ): HistoryRepository =
+        DefaultHistoryRepository(historyDataSource = historyDataSource, dispatcherProvider)
 
 
     @ViewModelScoped
     @Provides
     fun providePictureRepository(
         pictureDataSource: PictureDataSource,
-    ): PictureRepository = DefaultPictureRepository(pictureDataSource = pictureDataSource)
+        dispatcherProvider: DispatcherProvider,
+    ): PictureRepository =
+        DefaultPictureRepository(pictureDataSource = pictureDataSource, dispatcherProvider)
 
 
     @ViewModelScoped
     @Provides
     fun provideUserRepository(
         userDataSource: UserDataSource,
+        dispatcherProvider: DispatcherProvider,
     ): UserRepository = DefaultUserRepository(
-        userDataSource = userDataSource,
+        userDataSource = userDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideBadgeRepository(
         badgeDataSource: BadgeDataSource,
+        dispatcherProvider: DispatcherProvider,
     ): BadgeRepository = DefaultBadgeRepository(
-        badgeDataSource = badgeDataSource,
+        badgeDataSource = badgeDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideNoticeRepository(
         noticeDataSource: NoticeDataSource,
+        dispatcherProvider: DispatcherProvider,
     ): NoticeRepository = DefaultNoticeRepository(
-        noticeDataSource = noticeDataSource,
+        noticeDataSource = noticeDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
@@ -106,20 +126,23 @@ object RepositoryModule {
         kakaoOauthManager: KakaoOauthManager,
         naverOauthManager: NaverOauthManager,
         googleOauthManager: GoogleOauthManager,
+        dispatcherProvider: DispatcherProvider,
     ): AuthRepository = DefaultAuthRepository(
         authDataSource = authDataSource,
         tokenDataStoreDataSource = tokenDataStoreDataSource,
         kakaoOauthManager = kakaoOauthManager,
         naverOauthManager = naverOauthManager,
-        googleOauthManager = googleOauthManager
+        googleOauthManager = googleOauthManager,
+        dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideTermsRepository(
         termsDataSource: TermsDataSource,
+        dispatcherProvider: DispatcherProvider,
     ): TermsRepository = DefaultTermsRepository(
-        termsDataSource = termsDataSource,
+        termsDataSource = termsDataSource, dispatcherProvider
     )
 
 

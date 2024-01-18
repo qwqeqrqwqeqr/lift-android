@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.NoticeRepository
 import com.gradation.lift.model.model.notification.Notice
@@ -11,6 +12,7 @@ import javax.inject.Inject
 
 class DefaultNoticeRepository @Inject constructor(
     private val noticeDataSource: NoticeDataSource,
+    private val dispatcherProvider: DispatcherProvider
 ) : NoticeRepository {
     override fun getNotice(): Flow<DataState<List<Notice>>> = flow {
         noticeDataSource.getNotice().collect { result ->
@@ -19,7 +21,7 @@ class DefaultNoticeRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getNoticeById(noticeId: Int): Flow<DataState<Notice>> = flow {
         noticeDataSource.getNoticeById(noticeId).collect { result ->
@@ -28,6 +30,6 @@ class DefaultNoticeRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
 }
