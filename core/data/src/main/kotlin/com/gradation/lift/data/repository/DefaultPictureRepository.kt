@@ -17,7 +17,7 @@ class DefaultPictureRepository @Inject constructor(
 ) : PictureRepository {
 
     override fun getUserProfilePicture(): Flow<DataState<List<UserProfilePicture>>> = flow {
-        pictureDataSource.getUserProfilePicture().collect { result ->
+        pictureDataSource.getUserProfilePicture().distinctUntilChanged().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -26,7 +26,7 @@ class DefaultPictureRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getRoutineSetPicture(): Flow<DataState<List<RoutineSetPicture>>> = flow {
-        pictureDataSource.getRoutineSetPicture().collect { result ->
+        pictureDataSource.getRoutineSetPicture().distinctUntilChanged().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

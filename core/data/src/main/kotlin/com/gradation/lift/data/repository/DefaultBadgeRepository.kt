@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import android.util.Log
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.BadgeRepository

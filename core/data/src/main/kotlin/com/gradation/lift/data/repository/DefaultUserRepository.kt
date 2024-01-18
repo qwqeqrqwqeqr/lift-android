@@ -21,7 +21,7 @@ class DefaultUserRepository @Inject constructor(
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
         userDataSource.getUserDetail()
-            .collect { result ->
+            .distinctUntilChanged().collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -31,7 +31,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun getUserAuthenticationMethod(): Flow<DataState<LoginMethod>> = flow {
         userDataSource.getUserAuthenticationMethod()
-            .collect { result ->
+            .distinctUntilChanged().collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))

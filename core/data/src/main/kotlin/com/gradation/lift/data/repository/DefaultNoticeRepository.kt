@@ -15,7 +15,7 @@ class DefaultNoticeRepository @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : NoticeRepository {
     override fun getNotice(): Flow<DataState<List<Notice>>> = flow {
-        noticeDataSource.getNotice().collect { result ->
+        noticeDataSource.getNotice().distinctUntilChanged().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -24,7 +24,7 @@ class DefaultNoticeRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getNoticeById(noticeId: Int): Flow<DataState<Notice>> = flow {
-        noticeDataSource.getNoticeById(noticeId).collect { result ->
+        noticeDataSource.getNoticeById(noticeId).collectLatest { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
