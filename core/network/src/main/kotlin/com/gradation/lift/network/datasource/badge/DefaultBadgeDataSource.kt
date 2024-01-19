@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource.badge
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.model.model.badge.CreateUserBadge
@@ -12,11 +13,13 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.BadgeService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultBadgeDataSource @Inject constructor(
     private val badgeService: BadgeService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider,
 ) : BadgeDataSource {
     override suspend fun getBadge(): Flow<NetworkResult<List<Badge>>> =
         flow {
@@ -28,7 +31,7 @@ class DefaultBadgeDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun getUserBadge(): Flow<NetworkResult<List<UserBadge>>> =
         flow {
@@ -40,7 +43,7 @@ class DefaultBadgeDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun createUserBadge(createUserBadge: CreateUserBadge): Flow<NetworkResult<Unit>> =
         flow {
@@ -54,7 +57,7 @@ class DefaultBadgeDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun getUserBadgeByMainFlag(): Flow<NetworkResult<List<UserBadge>>> =
         flow {
@@ -66,7 +69,7 @@ class DefaultBadgeDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun getUserBadgeByCondition(): Flow<NetworkResult<BadgeCondition>> =
         flow {
@@ -78,7 +81,7 @@ class DefaultBadgeDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateUserBadgeMainFlag(updateUserBadgeMainFlag: UpdateUserBadgeMainFlag): Flow<NetworkResult<Unit>> =
         flow {
@@ -90,7 +93,7 @@ class DefaultBadgeDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
 }

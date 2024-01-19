@@ -13,3 +13,9 @@ annotation class AuthNetworkInterceptor
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class RetryNetworkInterceptor
+
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class NetworkConnectivityInterceptor
+

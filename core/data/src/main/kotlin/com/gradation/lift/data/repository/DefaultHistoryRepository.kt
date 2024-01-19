@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.model.history.CreateHistory
@@ -7,29 +8,33 @@ import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultHistoryRepository@Inject constructor(
     private val historyDataSource: HistoryDataSource,
+    private val dispatcherProvider: DispatcherProvider
 ) : HistoryRepository {
     override fun getHistory(): Flow<DataState<List<History>>> = flow{
-       historyDataSource.getHistory().collect{ result ->
+       historyDataSource.getHistory().distinctUntilChanged().collect{ result ->
            when(result){
                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                is NetworkResult.Success -> emit(DataState.Success(result.data))
            }
        }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<DataState<List<History>>>  = flow{
-        historyDataSource.getHistoryByHistoryId(historyIdList).collect{ result ->
+        historyDataSource.getHistoryByHistoryId(historyIdList).collectLatest{ result ->
             when(result){
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun createHistory(createHistory: CreateHistory): Flow<DataState<Unit>>  = flow{
         historyDataSource.createHistory(createHistory).collect{ result ->
@@ -38,7 +43,7 @@ class DefaultHistoryRepository@Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun deleteHistory(historyId: Int): Flow<DataState<Unit>> = flow{
         historyDataSource.deleteHistory(historyId
@@ -48,5 +53,5 @@ class DefaultHistoryRepository@Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 }

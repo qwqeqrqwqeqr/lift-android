@@ -1,5 +1,6 @@
 package com.gradation.lift.network.di
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.datasource.*
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
@@ -36,69 +37,85 @@ object DataSourceModule {
     fun provideWorkDataSource(
         workService: WorkService,
         networkResultHandler: NetworkResultHandler,
-    ): WorkDataSource = DefaultWorkDataSource(workService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): WorkDataSource = DefaultWorkDataSource(workService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun provideRoutineDataSource(
         routineService: RoutineService,
         networkResultHandler: NetworkResultHandler,
-    ): RoutineDataSource = DefaultRoutineDataSource(routineService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): RoutineDataSource =
+        DefaultRoutineDataSource(routineService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun provideCheckerDataSource(
         checkerService: CheckerService,
         networkResultHandler: NetworkResultHandler,
-    ): CheckerDataSource = DefaultCheckerDataSource(checkerService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): CheckerDataSource =
+        DefaultCheckerDataSource(checkerService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun providePictureDataSource(
         pictureService: PictureService,
         networkResultHandler: NetworkResultHandler,
-    ): PictureDataSource = DefaultPictureDataSource(pictureService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): PictureDataSource =
+        DefaultPictureDataSource(pictureService, networkResultHandler, dispatcherProvider)
 
     @Provides
     fun provideUserDataSource(
         userService: UserService,
         networkResultHandler: NetworkResultHandler,
-    ): UserDataSource = DefaultUserDataSource(userService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): UserDataSource = DefaultUserDataSource(userService, networkResultHandler, dispatcherProvider)
 
     @Provides
     fun provideHistoryDataSource(
         historyService: HistoryService,
         networkResultHandler: NetworkResultHandler,
-    ): HistoryDataSource = DefaultHistoryDataSource(historyService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): HistoryDataSource =
+        DefaultHistoryDataSource(historyService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun provideAuthDataSource(
         authService: AuthService,
         networkResultHandler: NetworkResultHandler,
-    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun provideNoticeDataSource(
         noticeService: NoticeService,
         networkResultHandler: NetworkResultHandler,
+        dispatcherProvider: DispatcherProvider,
     ): NoticeDataSource =
-        DefaultNoticeDefaultDataSource(noticeService, networkResultHandler)
+        DefaultNoticeDefaultDataSource(noticeService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun provideBadgeDataSource(
         badgeService: BadgeService,
         networkResultHandler: NetworkResultHandler,
-    ): BadgeDataSource = DefaultBadgeDataSource(badgeService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): BadgeDataSource =
+        DefaultBadgeDataSource(badgeService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
     fun provideTermsDataSource(
         termsService: TermsService,
         networkResultHandler: NetworkResultHandler,
-    ): TermsDataSource = DefaultTermsDataSource(termsService, networkResultHandler)
+        dispatcherProvider: DispatcherProvider,
+    ): TermsDataSource =
+        DefaultTermsDataSource(termsService, networkResultHandler, dispatcherProvider)
 
 
 }

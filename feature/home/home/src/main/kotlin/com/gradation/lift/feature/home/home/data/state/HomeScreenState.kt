@@ -27,5 +27,10 @@ data class HomeScreenState(
 ) {
     var visibleBannerView: Boolean by mutableStateOf(true)
     val updateVisibleBannerView: (Boolean) -> Unit = { visibleBannerView = it }
+
+
+    var workBottomSheetView: Boolean by mutableStateOf(false)
+    val updateWorkBottomSheetView: (Boolean) -> Unit =
+        { workBottomSheetView = it }
 }
 

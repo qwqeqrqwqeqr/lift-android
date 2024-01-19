@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource.routine
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
@@ -13,11 +14,13 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.RoutineService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultRoutineDataSource @Inject constructor(
     private val routineService: RoutineService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider,
 ) : RoutineDataSource {
 
     override suspend fun createRoutineSetRoutine(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>> =
@@ -33,7 +36,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun deleteRoutineSetRoutine(routineSetId: Int): Flow<NetworkResult<Unit>> =
         flow {
@@ -46,7 +49,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<NetworkResult<Unit>> =
@@ -62,7 +65,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<NetworkResult<Unit>> =
         flow {
@@ -73,7 +76,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>> = flow {
@@ -84,7 +87,7 @@ class DefaultRoutineDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun getRoutineSetRoutine(): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
@@ -95,7 +98,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
@@ -113,7 +116,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {
@@ -124,7 +127,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
@@ -140,7 +143,7 @@ class DefaultRoutineDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
 }

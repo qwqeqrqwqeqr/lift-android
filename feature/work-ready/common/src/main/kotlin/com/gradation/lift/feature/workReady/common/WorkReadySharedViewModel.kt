@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.workReady.common
 
+import android.util.Log
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,7 +22,7 @@ class WorkReadySharedViewModel @Inject constructor(
 
     val initRoutineList: (List<Int>) -> Unit = {
         viewModelScope.launch {
-            if (workRoutineState.currentWorkRoutine.isEmpty()) {
+            if (workRoutineState.currentWorkRoutine.isEmpty() && it.isNotEmpty()) {
                 getRoutineSetRoutineByRoutineSetIdUseCase(it.toSet()).map { routineSetRoutine ->
                     when (routineSetRoutine) {
                         is DataState.Fail -> emptyList()
@@ -39,7 +40,11 @@ class WorkReadySharedViewModel @Inject constructor(
                                 )
                             }
                     }
-                }.collect { workRoutineList -> workRoutineList.forEach { workRoutineState.appendRoutine(it) } }
+                }.collect { workRoutineList ->
+                    workRoutineList.forEach {
+                        workRoutineState.appendRoutine(it)
+                    }
+                }
             }
         }
     }

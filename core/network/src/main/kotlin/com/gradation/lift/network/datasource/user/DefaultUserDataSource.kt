@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource.user
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.auth.LoginMethod
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.model.user.UserDetailInfo
@@ -14,11 +15,13 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultUserDataSource @Inject constructor(
     private val userService: UserService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider
 ) : UserDataSource {
 
     override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
@@ -30,7 +33,7 @@ class DefaultUserDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun getUserAuthenticationMethod(): Flow<NetworkResult<LoginMethod>> = flow {
         networkResultHandler {
@@ -41,7 +44,7 @@ class DefaultUserDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun createUserDetail(
         userDetail: UserDetail,
@@ -58,7 +61,7 @@ class DefaultUserDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateUserDetail(
         userDetail: UserDetail,
@@ -75,7 +78,7 @@ class DefaultUserDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<NetworkResult<Unit>> =
         flow {
@@ -87,7 +90,7 @@ class DefaultUserDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun existUserDetail(): Flow<NetworkResult<Boolean>> = flow {
         networkResultHandler {
@@ -98,7 +101,7 @@ class DefaultUserDataSource @Inject constructor(
                 is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateUserDetailName(userDetailName: UserDetailName): Flow<NetworkResult<Boolean>> =
         flow {
@@ -115,7 +118,7 @@ class DefaultUserDataSource @Inject constructor(
                     )
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateUserDetailInfo(userDetailInfo: UserDetailInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -127,7 +130,7 @@ class DefaultUserDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 }
 

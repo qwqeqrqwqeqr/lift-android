@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.model.date.Weekday
@@ -12,12 +13,16 @@ import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 
 class DefaultRoutineRepository @Inject constructor(
     private val routineDataSource: RoutineDataSource,
+    private val dispatcherProvider: DispatcherProvider
 ) : RoutineRepository {
 
 
@@ -29,7 +34,7 @@ class DefaultRoutineRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<DataState<Unit>> =
         flow {
@@ -39,7 +44,7 @@ class DefaultRoutineRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<DataState<Unit>> =
         flow {
@@ -49,7 +54,7 @@ class DefaultRoutineRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun deleteRoutineSetRoutine(routineSetId: Int): Flow<DataState<Unit>> = flow {
         routineDataSource.deleteRoutineSetRoutine(routineSetId).collect { result ->
@@ -58,57 +63,57 @@ class DefaultRoutineRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getRoutine(): Flow<DataState<List<Routine>>> = flow {
-        routineDataSource.getRoutine().collect { result ->
+        routineDataSource.getRoutine().distinctUntilChanged().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>> = flow {
-        routineDataSource.getRoutineSetRoutine().collect { result ->
+        routineDataSource.getRoutineSetRoutine().distinctUntilChanged().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
-            routineDataSource.getRoutineSetRoutineByWeekday(weekday).collect { result ->
+            routineDataSource.getRoutineSetRoutineByWeekday(weekday).collectLatest { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
-            routineDataSource.getRoutineSetRoutineByLabel(label).collect { result ->
+            routineDataSource.getRoutineSetRoutineByLabel(label).collectLatest { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
             routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList)
-                .collect { result ->
+                .collectLatest { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                         is NetworkResult.Success -> emit(DataState.Success(result.data))
                     }
                 }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
 }

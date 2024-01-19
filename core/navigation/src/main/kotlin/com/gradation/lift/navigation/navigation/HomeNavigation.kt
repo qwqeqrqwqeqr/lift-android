@@ -10,8 +10,11 @@ import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.RoutineSet.
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
-fun NavController.navigateHomeGraphToWorkReadyGraph() {
-    this.navigate(Route.WORK_READY_GRAPH_NAME)
+fun NavController.navigateHomeGraphToWorkReadyReadyRouter() {
+    this.navigate(Route.WORK_READY_READY_ROUTER_NAME)
+}
+fun NavController.navigateHomeGraphToWorkReadyRoutineSelectionRouter() {
+    this.navigate(Route.WORK_READY_ROUTINE_SELECTION_ROUTER_NAME)
 }
 
 fun NavController.navigateHomeGraphToCreateRoutineGraph() {
