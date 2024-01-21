@@ -55,7 +55,7 @@ class UserDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         userDataSource = DefaultUserDataSource(
             userService = userService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler,dispatcher
         )
     }
 
