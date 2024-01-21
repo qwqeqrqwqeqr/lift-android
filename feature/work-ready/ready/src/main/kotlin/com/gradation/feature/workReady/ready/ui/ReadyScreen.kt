@@ -1,5 +1,10 @@
 package com.gradation.feature.workReady.ready.ui
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.scrollBy
@@ -27,10 +32,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
@@ -54,6 +62,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
+import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.ui.state.rememberDragDropListState
 import kotlinx.coroutines.Job
@@ -383,52 +392,177 @@ internal fun ReadyScreen(
                 verticalPadding = LiftTheme.space.space10,
                 horizontalPadding = LiftTheme.space.space20
             ) {
-                Row(
+                Column(
                     modifier = modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                 ) {
-                    LiftDefaultButton(
-                        modifier = modifier.weight(1f),
-                        text = "삭제",
-                        enabled = workRoutineInfoState.isNotEmptySelectedRoutineList(),
-                        onClick = {
-                            workRoutineInfoState.selectedRoutineList.toList().apply {
-                                workRoutineState.removeRoutines(this)
-                                readyScreenState.updateSnackBarState(SnackBarState.RemoveUndo(this.size))
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                    ) {
+                        Row(
+                            modifier = modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                            verticalAlignment = Alignment.CenterVertically,
 
+                            ) {
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                                verticalAlignment = Alignment.CenterVertically,
+
+                                ) {
+                                androidx.compose.material.Icon(
+                                    modifier = modifier.size(LiftTheme.space.space24),
+                                    imageVector = ImageVector.vectorResource(id = LiftIcon.Weight),
+                                    contentDescription = "Weight",
+                                    tint = Color.Unspecified
+                                )
+                                LiftText(
+                                    textStyle = LiftTextStyle.No3,
+                                    text = "총 무게",
+                                    color = LiftTheme.colorScheme.no3,
+                                    textAlign = TextAlign.Start
+                                )
                             }
-                            workRoutineInfoState.clearSelectedRoutineList()
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space1),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                AnimatedContent(
+                                    targetState = currentWorkRoutine.flatMap { it.workSetList }.mapNotNull { it.weight.toFloatOrNull() }
+                                        .sum(),
+                                    transitionSpec = {
+                                        slideIntoContainer(
+                                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                                            animationSpec = tween(durationMillis = 300)
+                                        ) togetherWith ExitTransition.None
+                                    }, label = ""
+                                ) { value ->
+                                    LiftText(
+                                        textStyle = LiftTextStyle.No2,
+                                        text = value.toText(),
+                                        color = LiftTheme.colorScheme.no4,
+                                        textAlign = TextAlign.Start
+                                    )
+                                }
+                                LiftText(
+                                    textStyle = LiftTextStyle.No2,
+                                    text = "kg",
+                                    color = LiftTheme.colorScheme.no4,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+
+
                         }
-                    )
-                    LiftSolidButton(
-                        modifier = modifier.weight(1f),
-                        enabled =
-                        (
-                                currentWorkRoutine.isNotEmpty() &&
-                                        currentWorkRoutine.flatMap { it.workSetList }
-                                            .none { workSet ->
-                                                workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
-                                                    workSet.weight
-                                                )
-                                            }
-                                        &&
-                                        currentWorkRoutine.flatMap { it.workSetList }
-                                            .none { workSet ->
-                                                workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
-                                                    workSet.repetition
-                                                )
-                                            }
-                                ),
-                        text = "운동 시작하기",
-                        onClick = {
-                            createWork(currentWorkRoutine.toList())
-                            navigateWorkReadyGraphToWorkGraph()
+                        Row(
+                            modifier = modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                            verticalAlignment = Alignment.CenterVertically,
+
+                            ) {
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                androidx.compose.material.Icon(
+                                    modifier = modifier.size(LiftTheme.space.space24),
+                                    imageVector = ImageVector.vectorResource(id = LiftIcon.Set),
+                                    contentDescription = "Set",
+                                    tint = Color.Unspecified
+
+                                )
+                                LiftText(
+                                    textStyle = LiftTextStyle.No3,
+                                    text = "총 세트",
+                                    color = LiftTheme.colorScheme.no3,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space1),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                AnimatedContent(
+                                    targetState = currentWorkRoutine.sumOf { it.workSetList.size },
+                                    transitionSpec = {
+                                        slideIntoContainer(
+                                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                                            animationSpec = tween(durationMillis = 300)
+                                        ) togetherWith ExitTransition.None
+                                    }, label = ""
+                                ) { value ->
+                                    LiftText(
+                                        textStyle = LiftTextStyle.No2,
+                                        text = "$value",
+                                        color = LiftTheme.colorScheme.no4,
+                                        textAlign = TextAlign.Start
+                                    )
+                                }
+                                LiftText(
+                                    textStyle = LiftTextStyle.No2,
+                                    text = "set",
+                                    color = LiftTheme.colorScheme.no4,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
                         }
-                    )
+                    }
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LiftDefaultButton(
+                            modifier = modifier.weight(1f),
+                            text = "삭제",
+                            enabled = workRoutineInfoState.isNotEmptySelectedRoutineList(),
+                            onClick = {
+                                workRoutineInfoState.selectedRoutineList.toList().apply {
+                                    workRoutineState.removeRoutines(this)
+                                    readyScreenState.updateSnackBarState(
+                                        SnackBarState.RemoveUndo(
+                                            this.size
+                                        )
+                                    )
+
+                                }
+                                workRoutineInfoState.clearSelectedRoutineList()
+                            }
+                        )
+                        LiftSolidButton(
+                            modifier = modifier.weight(1f),
+                            enabled =
+                            (
+                                    currentWorkRoutine.isNotEmpty() &&
+                                            currentWorkRoutine.flatMap { it.workSetList }
+                                                .none { workSet ->
+                                                    workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
+                                                        workSet.weight
+                                                    )
+                                                }
+                                            &&
+                                            currentWorkRoutine.flatMap { it.workSetList }
+                                                .none { workSet ->
+                                                    workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
+                                                        workSet.repetition
+                                                    )
+                                                }
+                                    ),
+                            text = "운동 시작하기",
+                            onClick = {
+                                createWork(currentWorkRoutine.toList())
+                                navigateWorkReadyGraphToWorkGraph()
+                            }
+                        )
+                    }
                 }
             }
-
         }
     }
 }
