@@ -9,24 +9,19 @@ import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadState
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadWorkSetState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component.NavigationView
 import com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component.RoutineListView
-import com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component.WorkSetKeyPadBottomSheet
 
 
 @Composable
 internal fun CreateWorkSetScreen(
     modifier: Modifier = Modifier,
-    keypadWorkSetState: KeypadWorkSetState,
     routineUiState: RoutineUiState,
     workCategoryUiState: WorkCategoryUiState,
     workSetState: WorkSetState,
-    keypadState: KeypadState,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph: () -> Unit,
@@ -63,9 +58,7 @@ internal fun CreateWorkSetScreen(
                     ) {
                         RoutineListView(
                             modifier,
-                            keypadWorkSetState,
                             workSetState,
-                            keypadState,
                             routineScreenState
                         )
                     }
@@ -78,12 +71,6 @@ internal fun CreateWorkSetScreen(
                         navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph
                     )
                 }
-                WorkSetKeyPadBottomSheet(
-                    modifier,
-                    keypadWorkSetState,
-                    workSetState,
-                    keypadState
-                )
             }
         }
     }

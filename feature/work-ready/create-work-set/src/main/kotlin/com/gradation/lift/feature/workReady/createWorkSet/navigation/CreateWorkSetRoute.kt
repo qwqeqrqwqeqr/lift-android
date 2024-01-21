@@ -10,14 +10,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.feature.workReady.createWorkSet.data.CreateWorkSetViewModel
-import com.gradation.lift.feature.workReady.common.state.KeypadWorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.rememberRoutineScreenState
 import com.gradation.lift.feature.workReady.common.WorkReadySharedViewModel
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
-import com.gradation.lift.feature.workReady.common.state.KeypadState
 import com.gradation.lift.feature.workReady.createWorkSet.ui.CreateWorkSetScreen
 import com.gradation.lift.navigation.Route
 
@@ -33,22 +31,18 @@ internal fun CreateWorkSetRoute(
         remember { navController.getBackStackEntry(Route.WORK_READY_GRAPH_NAME) }),
     routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
 ) {
-    val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
 
 
     val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
     val workSetState: WorkSetState = viewModel.workSetState
-    val keypadState: KeypadState = viewModel.keypadState
     val workRoutineState: WorkRoutineState = sharedViewModel.workRoutineState
 
     BackHandler(onBack = navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph)
 
     CreateWorkSetScreen(
         modifier,
-        keypadWorkSetState,
         workCategoryUiState,
         workSetState,
-        keypadState,
         workRoutineState,
         navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph,
         navigateCreateWorkSetToReadyInWorkReadyGraph,

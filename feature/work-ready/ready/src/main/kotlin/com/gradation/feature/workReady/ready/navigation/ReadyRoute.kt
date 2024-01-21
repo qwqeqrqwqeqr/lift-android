@@ -1,17 +1,14 @@
 package com.gradation.feature.workReady.ready.navigation
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
@@ -22,8 +19,6 @@ import com.gradation.feature.workReady.ready.ui.ReadyScreen
 import com.gradation.lift.feature.workReady.common.WorkReadySharedViewModel
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.state.KeypadState
-import com.gradation.lift.feature.workReady.common.state.KeypadWorkSetState
 import com.gradation.lift.navigation.Route
 
 @Composable
@@ -42,8 +37,6 @@ internal fun ReadyRoute(
     readyScreenState: ReadyScreenState = rememberReadyScreenState(),
 ) {
     val currentWorkRoutine: SnapshotStateList<WorkRoutine> = workRoutineState.currentWorkRoutine
-    val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
-    val keypadState: KeypadState = viewModel.keypadState
 
     val createWork: (List<WorkRoutine>)->Unit = viewModel.createWork()
 
@@ -82,8 +75,6 @@ internal fun ReadyRoute(
         navigateReadyToFindWorkCategoryInWorkReadyGraph,
         navigateWorkReadyGraphToWorkGraph,
         currentWorkRoutine,
-        keypadWorkSetState,
-        keypadState,
         workRoutineState,
         workRoutineInfoState,
         readyScreenState

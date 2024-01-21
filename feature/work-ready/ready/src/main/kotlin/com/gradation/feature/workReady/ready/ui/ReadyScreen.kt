@@ -1,6 +1,5 @@
 package com.gradation.feature.workReady.ready.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.scrollBy
@@ -20,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,29 +35,25 @@ import androidx.compose.ui.text.style.TextAlign
 import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
+import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
-import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.filter.LiftAddWorkSetContainer
-import com.gradation.lift.designsystem.component.keypad.LiftKeypadTextField
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.snackbar.SnackBarCategory
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
-import com.gradation.lift.feature.workReady.common.state.KeypadState
-import com.gradation.lift.feature.workReady.common.state.KeypadWorkSetState
-import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.ui.state.rememberDragDropListState
 import kotlinx.coroutines.Job
@@ -68,13 +62,11 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun ReadyScreen(
     modifier: Modifier,
-    createWork: (List<WorkRoutine>)->Unit,
+    createWork: (List<WorkRoutine>) -> Unit,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
     currentWorkRoutine: SnapshotStateList<WorkRoutine>,
-    keypadWorkSetState: KeypadWorkSetState,
-    keypadState: KeypadState,
     workRoutineState: WorkRoutineState,
     workRoutineInfoState: WorkRoutineInfoState,
     readyScreenState: ReadyScreenState,
@@ -128,7 +120,8 @@ internal fun ReadyScreen(
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
                 state = dragDropListState.lazyListState
             ) {
-                itemsIndexed(currentWorkRoutine) { routineIndex, routine ->
+                itemsIndexed(items= currentWorkRoutine,
+                    key= {index: Int, item: WorkRoutine -> "$index${item.id}" }) { routineIndex, routine ->
                     val offsetOrNull = dragDropListState.elementDisplacement.takeIf {
                         routineIndex == dragDropListState.currentIndexOfDraggedItem
                     }
@@ -307,41 +300,34 @@ internal fun ReadyScreen(
                                                         color = LiftTheme.colorScheme.no2,
                                                         textAlign = TextAlign.Center
                                                     )
-                                                    LiftKeypadTextField(
+                                                    LiftKeyPadTextField(
                                                         modifier = modifier
-                                                            .weight(1f)
-                                                            .noRippleClickable {
-                                                                keypadState.updateState(
-                                                                    KeypadWorkSetState.Weight
-                                                                )
-                                                                keypadState.init(
-                                                                    routineIndex,
-                                                                    index,
-                                                                    workSet
-                                                                )
-                                                            },
+                                                            .height(LiftTheme.space.space28)
+                                                            .weight(1f),
                                                         value = workSet.weight,
-                                                        focused = keypadWorkSetState is KeypadWorkSetState.Weight &&
-                                                                keypadState.selectedRoutineIndex.value == routineIndex &&
-                                                                keypadState.selectedWorkSetIndex.value == index
+                                                        onValueChange = {
+                                                            workRoutineState.updateWorkSet(
+                                                                routineIndex,
+                                                                index,
+                                                                workSet.copy(weight = it)
+                                                            )
+                                                        },
+                                                        isError = !decimalNumberValidator(workSet.weight) || workSet.weight == "0"
                                                     )
-                                                    LiftKeypadTextField(
+
+                                                    LiftKeyPadTextField(
                                                         modifier = modifier
-                                                            .weight(1f)
-                                                            .noRippleClickable {
-                                                                keypadState.updateState(
-                                                                    KeypadWorkSetState.Repetition
-                                                                )
-                                                                keypadState.init(
-                                                                    routineIndex,
-                                                                    index,
-                                                                    workSet
-                                                                )
-                                                            },
+                                                            .height(LiftTheme.space.space28)
+                                                            .weight(1f),
                                                         value = workSet.repetition,
-                                                        focused = keypadWorkSetState is KeypadWorkSetState.Repetition &&
-                                                                keypadState.selectedRoutineIndex.value == routineIndex &&
-                                                                keypadState.selectedWorkSetIndex.value == index
+                                                        onValueChange = {
+                                                            workRoutineState.updateWorkSet(
+                                                                routineIndex,
+                                                                index,
+                                                                workSet.copy(repetition = it)
+                                                            )
+                                                        },
+                                                        isError = !decimalNumberValidator(workSet.repetition) || workSet.repetition == "0"
                                                     )
                                                 }
                                                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -354,10 +340,14 @@ internal fun ReadyScreen(
                                                                         routineIndex,
                                                                         workSet
                                                                     )
-                                                                else{
-                                                                    workRoutineInfoState.selectedRoutineList.toList().apply {
-                                                                        readyScreenState.updateSnackBarState(SnackBarState.CanNotRemove)
-                                                                    }
+                                                                else {
+                                                                    workRoutineInfoState.selectedRoutineList
+                                                                        .toList()
+                                                                        .apply {
+                                                                            readyScreenState.updateSnackBarState(
+                                                                                SnackBarState.CanNotRemove
+                                                                            )
+                                                                        }
                                                                 }
                                                             },
                                                         painter = painterResource(id = LiftIcon.Close),
@@ -385,12 +375,6 @@ internal fun ReadyScreen(
                     }
                 }
             }
-            WorkSetKeyPadBottomSheet(
-                modifier,
-                keypadWorkSetState,
-                workRoutineState,
-                keypadState
-            )
             LiftDefaultContainer(
                 modifier = modifier
                     .background(LiftTheme.colorScheme.no5)
@@ -424,16 +408,20 @@ internal fun ReadyScreen(
                                 currentWorkRoutine.isNotEmpty() &&
                                         currentWorkRoutine.flatMap { it.workSetList }
                                             .none { workSet ->
-                                                workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f
+                                                workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
+                                                    workSet.weight
+                                                )
                                             }
                                         &&
                                         currentWorkRoutine.flatMap { it.workSetList }
                                             .none { workSet ->
-                                                workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0
+                                                workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
+                                                    workSet.repetition
+                                                )
                                             }
                                 ),
                         text = "운동 시작하기",
-                        onClick ={
+                        onClick = {
                             createWork(currentWorkRoutine.toList())
                             navigateWorkReadyGraphToWorkGraph()
                         }

@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryByIdUseCase
-import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.KeypadState
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.workCategoryUiState
@@ -26,11 +25,9 @@ class CreateWorkSetViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private var workCategoryId: StateFlow<Nothing?> = savedStateHandle.getStateFlow(SavedStateHandleKey.CreateRoutine.CREATE_WORK_CATEGORY_ID_KEY,null)
+    private var workCategoryId: StateFlow<Int?> = savedStateHandle.getStateFlow(SavedStateHandleKey.CreateRoutine.CREATE_WORK_CATEGORY_ID_KEY,null)
 
     val workSetState = WorkSetState()
-    val keypadState = KeypadState()
-
 
     val workCategoryUiState: StateFlow<WorkCategoryUiState> =
         workCategoryUiState(workCategoryId, getWorkCategoryByIdUseCase).stateIn(
