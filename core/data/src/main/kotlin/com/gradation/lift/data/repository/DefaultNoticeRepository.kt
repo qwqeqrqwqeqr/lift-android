@@ -24,7 +24,7 @@ class DefaultNoticeRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getNoticeById(noticeId: Int): Flow<DataState<Notice>> = flow {
-        noticeDataSource.getNoticeById(noticeId).collectLatest { result ->
+        noticeDataSource.getNoticeById(noticeId).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

@@ -39,7 +39,7 @@ class DefaultWorkRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getWorkCategoryById(workCategoryId: Int): Flow<DataState<WorkCategory>> = flow {
-        workDataSource.getWorkCategoryById(workCategoryId).collectLatest { result ->
+        workDataSource.getWorkCategoryById(workCategoryId).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -49,7 +49,7 @@ class DefaultWorkRepository @Inject constructor(
 
     override fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>> =
         flow {
-            workDataSource.getWorkCategoryByWorkPart(workPart).collectLatest { result ->
+            workDataSource.getWorkCategoryByWorkPart(workPart).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))

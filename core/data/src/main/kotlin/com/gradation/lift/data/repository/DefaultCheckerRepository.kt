@@ -14,7 +14,7 @@ class DefaultCheckerRepository @Inject constructor(
     private val dispatcherProvider: DispatcherProvider
 ) : CheckerRepository {
     override fun checkDuplicateEmail(email: String): Flow<DataState<Boolean>> = flow {
-        checkerDataSource.checkDuplicateEmail(email).collectLatest { result ->
+        checkerDataSource.checkDuplicateEmail(email).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(
@@ -30,7 +30,7 @@ class DefaultCheckerRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun checkDuplicateName(name: String): Flow<DataState<Boolean>> = flow {
-        checkerDataSource.checkDuplicateName(name).collectLatest { result ->
+        checkerDataSource.checkDuplicateName(name).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(

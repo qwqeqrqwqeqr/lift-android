@@ -8,7 +8,6 @@ import com.gradation.lift.model.model.history.History
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -28,7 +27,7 @@ class DefaultHistoryRepository@Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getHistoryByHistoryId(historyIdList: Set<Int>): Flow<DataState<List<History>>>  = flow{
-        historyDataSource.getHistoryByHistoryId(historyIdList).collectLatest{ result ->
+        historyDataSource.getHistoryByHistoryId(historyIdList).collect{ result ->
             when(result){
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

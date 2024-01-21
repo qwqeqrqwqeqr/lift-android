@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class DefaultRoutineRepository @Inject constructor(
     private val routineDataSource: RoutineDataSource,
-    private val dispatcherProvider: DispatcherProvider
+    private val dispatcherProvider: DispatcherProvider,
 ) : RoutineRepository {
 
 
@@ -85,7 +85,7 @@ class DefaultRoutineRepository @Inject constructor(
 
     override fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
-            routineDataSource.getRoutineSetRoutineByWeekday(weekday).collectLatest { result ->
+            routineDataSource.getRoutineSetRoutineByWeekday(weekday).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -95,7 +95,7 @@ class DefaultRoutineRepository @Inject constructor(
 
     override fun getRoutineSetRoutineByLabel(label: Set<Label>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
-            routineDataSource.getRoutineSetRoutineByLabel(label).collectLatest { result ->
+            routineDataSource.getRoutineSetRoutineByLabel(label).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -106,13 +106,16 @@ class DefaultRoutineRepository @Inject constructor(
 
     override fun getRoutineSetRoutineByRoutineSetId(routineSetIdList: Set<Int>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
-            routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList)
-                .collectLatest { result ->
-                    when (result) {
-                        is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+            if (routineSetIdList.isEmpty())
+                emit(DataState.Fail("불러올 수 있는 루틴이 존재하지 않습니다."))
+            else
+                routineDataSource.getRoutineSetRoutineByRoutineSetId(routineSetIdList)
+                    .collect { result ->
+                        when (result) {
+                            is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                            is NetworkResult.Success -> emit(DataState.Success(result.data))
+                        }
                     }
-                }
         }.flowOn(dispatcherProvider.default)
 
 
