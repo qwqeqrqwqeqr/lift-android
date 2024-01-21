@@ -21,6 +21,9 @@ object LiftIcon {
     val Add = R.drawable.add
     val Order = R.drawable.order
 
+    val Set = R.drawable.set
+    val Weight = R.drawable.weight
+
     val Camera = R.drawable.camera
     val Cancel = R.drawable.cancel
     val Gallery = R.drawable.gallery
