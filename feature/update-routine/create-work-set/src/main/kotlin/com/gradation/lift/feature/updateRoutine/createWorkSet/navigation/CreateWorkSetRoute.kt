@@ -28,20 +28,14 @@ import com.gradation.lift.navigation.Route
 internal fun CreateWorkSetRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    workCategoryId: Int?,
     navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph: () -> Unit,
     viewModel: CreateWorkSetViewModel = hiltViewModel(),
     sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(Route.UPDATE_ROUTINE_GRAPH_NAME) }),
     routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
-
-    ) {
-
-    LaunchedEffect(Unit) { viewModel.setWorkCategoryId(workCategoryId) }
+) {
     val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
-
-
     val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
     val routineUiState: RoutineUiState by sharedViewModel.routineUiState.collectAsStateWithLifecycle()
     val workSetState: WorkSetState = viewModel.workSetState

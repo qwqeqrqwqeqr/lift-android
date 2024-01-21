@@ -27,7 +27,6 @@ import com.gradation.lift.navigation.Route
 internal fun CreateWorkSetRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    workCategoryId: Int?,
     navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph: () -> Unit,
     navigateCreateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
     viewModel: CreateWorkSetViewModel = hiltViewModel(),
@@ -35,7 +34,6 @@ internal fun CreateWorkSetRoute(
         remember { navController.getBackStackEntry(Route.CREATE_ROUTINE_GRAPH_NAME) }),
     routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
 ) {
-    LaunchedEffect(Unit) { viewModel.setWorkCategoryId(workCategoryId) }
     val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
 
 

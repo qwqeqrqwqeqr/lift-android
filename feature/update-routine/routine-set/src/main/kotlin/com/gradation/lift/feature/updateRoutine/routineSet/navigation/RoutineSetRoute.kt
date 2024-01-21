@@ -28,7 +28,7 @@ import com.gradation.lift.feature.updateRoutine.routineSet.data.state.rememberRo
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.dialog.DeleteDialog
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.UpdateRoutine.UPDATE_ROUTINE_SET_ID_KEY
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -53,7 +53,7 @@ internal fun RoutineSetRoute(
     routineSetScreenState: RoutineSetScreenState = rememberRoutineSetScreenState()
 ) {
     LaunchedEffect(Unit) {
-        with(navController.getValueSavedStateHandle<Int>(SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY)) {
+        with(navController.getValueSavedStateHandle<Int>(UPDATE_ROUTINE_SET_ID_KEY)) {
             sharedViewModel.setRoutineSetId(this)
         }
     }
