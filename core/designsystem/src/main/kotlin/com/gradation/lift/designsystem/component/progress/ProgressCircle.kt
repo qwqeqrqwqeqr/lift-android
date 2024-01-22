@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.progress
+package com.gradation.lift.designsystem.component.progress
 
 
 import androidx.compose.foundation.Canvas
@@ -10,24 +10,21 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
 fun LiftProgressCircle(
     modifier: Modifier = Modifier,
-    progress: Int,
+    progress: Float,
     progressBarColor: Color = LiftTheme.colorScheme.no4,
-    progressBarBackgroundColor: Color = LiftTheme.colorScheme.no1
+    progressBarBackgroundColor: Color = LiftTheme.colorScheme.no1,
 ) {
-
-    val maxProgress = 275f
+    val maxProgress = 245f
     BoxWithConstraints(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .padding(top = 8.dp, start = 8.dp)
-            .size(224.dp),
+            .size(LiftTheme.space.space266),
     ) {
         val canvasHeight = this.maxHeight
         val canvasWidth = this.maxWidth
@@ -38,20 +35,20 @@ fun LiftProgressCircle(
         ) {
             drawArc(
                 color = progressBarBackgroundColor,
-                startAngle = 135f,
+                startAngle = 150f,
                 sweepAngle = maxProgress,
                 useCenter = false,
                 size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
-                style = Stroke(width = 72f, cap = StrokeCap.Round)
+                style = Stroke(width = 96f, cap = StrokeCap.Round)
             )
 
             drawArc(
                 color = progressBarColor,
-                startAngle = 135f,
+                startAngle = 150f,
                 sweepAngle = progress / 100f * maxProgress,
                 useCenter = false,
                 size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
-                style = Stroke(width = 72f, cap = StrokeCap.Round)
+                style = Stroke(width = 96f, cap = StrokeCap.Round)
             )
         }
     }
@@ -59,12 +56,18 @@ fun LiftProgressCircle(
 
 @Composable
 @Preview
-fun LiftProgressCirclePreview() {
+fun LiftProgressCirclePreview(modifier: Modifier = Modifier) {
     LiftMaterialTheme {
-        LiftProgressCircle(
-            modifier = Modifier,
-            progress = 35,
-        )
+        Column(modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center) {
+
+
+            LiftProgressCircle(
+                modifier = modifier,
+                progress = 30f,
+            )
+        }
     }
 }
 
