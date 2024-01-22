@@ -13,11 +13,15 @@ class WorkSharedViewModel @Inject constructor(
 
     val historyRoutineList: MutableStateFlow<List<CreateHistoryRoutine>> = MutableStateFlow(emptyList())
     val historyWorkRestTime : MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime())
+    val historyProgress: MutableStateFlow<Int> = MutableStateFlow(0)
 
     val setHistoryRoutineList: (List<CreateHistoryRoutine>) -> Unit = {
         historyRoutineList.value =it
     }
     val setHistoryWorkRestTime: (WorkRestTime) -> Unit = {
         historyWorkRestTime.value =it
+    }
+    val setHistoryProgress: (Int) -> Unit = {
+        historyProgress.value =it
     }
 }

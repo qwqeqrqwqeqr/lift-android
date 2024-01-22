@@ -15,7 +15,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftButton
 import com.gradation.lift.designsystem.component.LiftCancelButton
+import com.gradation.lift.designsystem.component.button.LiftDefaultButton
+import com.gradation.lift.designsystem.component.button.LiftErrorButton
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.dialog.LiftDialog
+import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -30,71 +37,57 @@ internal fun AutoCompleteDialog(
             modifier
                 .background(
                     color = LiftTheme.colorScheme.no5,
-                    shape = RoundedCornerShape(size = 24.dp)
+                    shape = RoundedCornerShape(size = LiftTheme.space.space20)
                 )
-                .padding(
-                    start = 20.dp,
-                    end = 20.dp,
-                    top = 20.dp,
-                    bottom = 10.dp
-                ),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-
-            ) {
-            Text(
-                text = buildAnnotatedString {
-                    append("모든 운동을 ")
-                    withStyle(
-                        style = SpanStyle(color = LiftTheme.colorScheme.no4),
-                    ) {
-                        append("완료")
-                    }
-                    append("하셨습니다.")
-                },
+                .padding(LiftTheme.space.space20),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LiftMultiStyleText(
+                defaultColor = LiftTheme.colorScheme.no3,
+                defaultTextStyle = LiftTextStyle.No2,
                 textAlign = TextAlign.Center,
-                style = LiftTheme.typography.no2,
-                color = LiftTheme.colorScheme.no3
-            )
-            Spacer(
-                modifier = modifier.padding(10.dp)
-            )
-            Text(
-                "지금까지 진행한 운동을\n 완료 후 저장할까요?",
-                textAlign = TextAlign.Center,
-                style = LiftTheme.typography.no4,
-                color = LiftTheme.colorScheme.no9
-            )
-            Spacer(
-                modifier = modifier.padding(10.dp)
+                textWithStyleList = listOf(
+                    TextWithStyle(text = "모든 운동을 "),
+                    TextWithStyle(text = "완료", color = LiftTheme.colorScheme.no4),
+                    TextWithStyle(text = "하였습니다."),
+                )
             )
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.CenterHorizontally),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = LiftTheme.space.space8)
+            ) {
+                LiftText(
+                    textStyle = LiftTextStyle.No4,
+                    text = "지금까지 진행한 운동을\n" +
+                            "완료 후 저장할까요?",
+                    color = LiftTheme.colorScheme.no9,
+                    textAlign = TextAlign.Start
+                )
+            }
+
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(
+                    LiftTheme.space.space8,
+                    Alignment.CenterHorizontally
+                ),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier.fillMaxWidth()
             ) {
-                LiftCancelButton(
+                LiftDefaultButton(
                     modifier = modifier.weight(1f),
                     onClick = onClickDialogDismissButton,
-                ) {
-                    Text(
-                        text = "계속 진행",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
+                    text = "계속 진행",
+                )
 
-                LiftButton(
+                LiftSolidButton(
                     modifier = modifier.weight(1f),
                     onClick = onClickDialogCompleteButton,
-                ) {
-                    Text(
-                        text = "저장",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
+                    text = "저장"
+                )
             }
 
         }
