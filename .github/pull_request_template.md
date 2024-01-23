@@ -16,8 +16,9 @@
 
 #### Pull Request
 - [ ] feature -> **develop**
-- [ ] develop -> **master**
-- [ ] fix -> **master**
+- [ ] develop -> **release**
+- [ ] release -> **master**
+- [ ] hot-fix -> **master**
 
 
 <hr>
