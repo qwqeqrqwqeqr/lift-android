@@ -11,14 +11,12 @@ import androidx.compose.runtime.remember
 @Composable
 internal fun rememberCompleteDetailScreenState(
     snackbarHostState: SnackbarHostState = SnackbarHostState(),
-    scrollState: ScrollState = rememberScrollState(),
-): CompleteDetailScreenState = remember(snackbarHostState,scrollState) {
-    CompleteDetailScreenState(snackbarHostState,scrollState)
+): CompleteDetailScreenState = remember(snackbarHostState) {
+    CompleteDetailScreenState(snackbarHostState)
 }
 @Stable
 internal class CompleteDetailScreenState(
     val snackbarHostState: SnackbarHostState,
-    val scrollState: ScrollState,
 ) {
 }
 
