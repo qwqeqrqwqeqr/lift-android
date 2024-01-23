@@ -73,6 +73,7 @@ include(":feature:register-detail:navigation")
 include(":feature:work:common")
 include(":feature:work:work")
 include(":feature:work:complete")
+include(":feature:work:completeDetail")
 include(":feature:work:navigation")
 
 
