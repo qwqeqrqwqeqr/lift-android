@@ -27,6 +27,7 @@ fun LiftDefaultInputTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     isError: Boolean = false,
     isValid: Boolean = false,
+    singleLine: Boolean =true
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
@@ -39,6 +40,7 @@ fun LiftDefaultInputTextField(
         keyboardActions = keyboardActions,
         isError = isError,
         isValid = isValid,
+        singleLine=singleLine,
         enabled = enabled,
         trailingIcon = @Composable {
             if (isValid) {

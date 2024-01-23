@@ -6,12 +6,17 @@ import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.ANALYTICS_GRAPH_NAME
 import com.gradation.lift.navigation.Route.DAILY_LOG_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
+import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
-fun NavController.navigateHomeGraphToWorkReadyGraph() {
-    this.navigate(Route.WORK_READY_GRAPH_NAME)
+fun NavController.navigateHomeGraphToWorkReadyReadyRouter() {
+    this.navigate(Route.WORK_READY_READY_ROUTER_NAME)
+}
+
+fun NavController.navigateHomeGraphToWorkReadyRoutineSelectionRouter() {
+    this.navigate(Route.WORK_READY_ROUTINE_SELECTION_ROUTER_NAME)
 }
 
 fun NavController.navigateHomeGraphToCreateRoutineGraph() {
@@ -21,12 +26,9 @@ fun NavController.navigateHomeGraphToCreateRoutineGraph() {
 fun NavController.navigateHomeGraphToRoutineDetailGraph() {
     this.navigate(Route.ROUTINE_DETAIL_GRAPH_NAME)
 }
+
 fun NavController.navigateHomeGraphToRoutineDetailRoutineRouter(routineSetId: Int) {
-    this.setValueSavedStateHandle(
-        DETAIL_ROUTINE_SET_ID_KEY,
-        routineSetId
-    )
-    this.navigate(Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME)
+    this.navigate("$ROUTINE_DETAIL_ROUTINE_ROUTER_NAME/$routineSetId")
 }
 
 fun NavController.navigateHomeGraphToBadgeGraph() {
@@ -50,10 +52,6 @@ fun NavController.navigateBadgeToHomeInHomeGraph() {
         }
     }
 }
-
-
-
-
 
 
 fun NavHostController.navigateHomeGraph() {

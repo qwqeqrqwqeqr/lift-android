@@ -37,15 +37,10 @@ fun createWorkSetScreen(
         exitTransition = { fadeOut() },
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() }
-    ) { navBackstackEntry ->
-
-        val workCategoryId: Int? =
-            navBackstackEntry.arguments?.getInt(SavedStateHandleKey.UpdateRoutine.UPDATE_WORK_CATEGORY_ID_KEY)
-
+    ) {
         CreateWorkSetRoute(
             modifier,
             navController,
-            workCategoryId,
             navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph,
             navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph
         )

@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.home.home.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -20,6 +21,7 @@ import com.gradation.lift.feature.home.home.data.state.rememberHomeAnimationStat
 import com.gradation.lift.feature.home.home.data.state.rememberHomeScreenState
 import com.gradation.lift.feature.home.home.data.viewModel.HomeViewModel
 import com.gradation.lift.feature.home.home.ui.HomeScreen
+import com.gradation.lift.feature.home.home.ui.component.bottomSheet.WorkBottomSheet
 import com.gradation.lift.navigation.Route
 
 @Composable
@@ -27,12 +29,13 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
-    navigateHomeGraphToWorkReadyGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
     navigateHomeToBadgeInHomeGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
+    navigateHomeGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
+    navigateHomeGraphToWorkReadyReadyRouter: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: HomeSharedViewModel =
         hiltViewModel(remember { navController.getBackStackEntry(Route.HOME_GRAPH_NAME) }),
@@ -54,6 +57,14 @@ internal fun HomeRoute(
         BadgeConditionState.None -> {}
     }
 
+    AnimatedVisibility(visible = homeScreenState.workBottomSheetView) {
+        WorkBottomSheet(
+            modifier,
+            navigateHomeGraphToWorkReadyRoutineSelectionRouter,
+            navigateHomeGraphToWorkReadyReadyRouter,
+            homeScreenState
+        )
+    }
 
     HomeScreen(
         modifier,
@@ -61,7 +72,6 @@ internal fun HomeRoute(
         badgeUiState,
         routineUiState,
         navigateMainGraphToCreateRoutineGraph,
-        navigateHomeGraphToWorkReadyGraph,
         navigateHomeGraphToBadgeGraph,
         navigateHomeGraphToRoutineDetailGraph,
         navigateHomeGraphToRoutineDetailRoutineRouter,

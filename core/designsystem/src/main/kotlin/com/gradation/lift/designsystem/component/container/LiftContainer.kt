@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -18,6 +19,7 @@ fun LiftDefaultContainer(
     verticalPadding: Dp = LiftTheme.space.space0,
     horizontalPadding: Dp = LiftTheme.space.space0,
     shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
+    backGroundColor : Color = LiftTheme.colorScheme.no5,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -29,7 +31,7 @@ fun LiftDefaultContainer(
                 shape = shape
             )
             .background(
-                color = LiftTheme.colorScheme.no5,
+                color = backGroundColor,
                 shape = shape
             )
             .padding(horizontal = horizontalPadding, vertical = verticalPadding),

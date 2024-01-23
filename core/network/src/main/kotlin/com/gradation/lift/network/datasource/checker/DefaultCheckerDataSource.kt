@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource.checker
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.CheckerService
@@ -7,11 +8,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultCheckerDataSource @Inject constructor(
     private val checkerService: CheckerService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider,
 ) : CheckerDataSource {
     override suspend fun checkDuplicateEmail(email: String): Flow<NetworkResult<Boolean>> =
         flow {
@@ -29,7 +32,7 @@ class DefaultCheckerDataSource @Inject constructor(
                     )
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     @ExperimentalCoroutinesApi
     @FlowPreview
@@ -49,7 +52,7 @@ class DefaultCheckerDataSource @Inject constructor(
                     )
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 }
 

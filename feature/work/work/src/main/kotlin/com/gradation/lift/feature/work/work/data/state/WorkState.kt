@@ -1,20 +1,18 @@
 package com.gradation.lift.feature.work.work.data.state
 
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
-import com.gradation.lift.feature.work.work.data.model.WorkRoutineIdInfo
+import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.work.work.data.event.WorkRoutineEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -24,21 +22,14 @@ import kotlinx.datetime.LocalTime
 class WorkState(
     private val initTimerUseCase: InitTimerUseCase,
     private val viewModelScope: CoroutineScope,
+    var workRoutineList: SnapshotStateList<WorkRoutine> = emptyList<WorkRoutine>().toMutableStateList(),
+    var currentWorkRoutineIndex: MutableStateFlow<Int> = MutableStateFlow(0),
+    var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
+    var workRestFlag: MutableStateFlow<Boolean> = MutableStateFlow(true),
 ) {
 
     private lateinit var timerJob: Job
 
-
-    var currentWorkRoutineList: SnapshotStateList<WorkRoutine> =
-        emptyList<WorkRoutine>().toMutableStateList()
-    private val currentWorkRoutineListNumber: MutableStateFlow<Int> = MutableStateFlow(0)
-
-    private var checkedWorkSetList: SnapshotStateList<WorkRoutineIdInfo> =
-        emptyList<WorkRoutineIdInfo>().toMutableStateList()
-
-
-    private val workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime())
-    private val isWorkFlag: MutableStateFlow<Boolean> = MutableStateFlow(true)
 
     val workTime: StateFlow<LocalTime> = workRestTime.map { it.workTime }.stateIn(
         scope = viewModelScope,
@@ -52,87 +43,39 @@ class WorkState(
         initialValue = LocalTime(0, 0, 0)
     )
 
-    private val currentWorkRoutineListFlow: Flow<List<WorkRoutine>> =
-        snapshotFlow { currentWorkRoutineList.toList() }
-    private val checkWorkSetListFlow: Flow<List<WorkRoutineIdInfo>> =
-        snapshotFlow { checkedWorkSetList.toList() }
+    val updateWorkFlag: (Boolean) -> Unit = { workRestFlag.value = it }
 
+    val getWorkRoutineListSize: () -> Int = {  workRoutineList.size }
+    val updateCurrentWorkRoutineIndex: (Int) -> Unit = { currentWorkRoutineIndex.value = it }
 
-    val currentWork: StateFlow<WorkRoutine?> = combine(
-        currentWorkRoutineListFlow,
-        currentWorkRoutineListNumber
-    ) { currentWorkRoutineList, currentWorkRoutineListNumber ->
-        currentWorkRoutineList.find { currentWorkRoutineListNumber == it.id }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null
-    )
-    val preWork: StateFlow<WorkRoutine?> = combine(
-        currentWorkRoutineListFlow,
-        currentWorkRoutineListNumber
-    ) { currentWorkRoutineList, currentWorkRoutineListNumber ->
-        currentWorkRoutineList.find { currentWorkRoutineListNumber - 1 == it.id }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null
-    )
-
-    val nextWork: StateFlow<WorkRoutine?> = combine(
-        currentWorkRoutineListFlow,
-        currentWorkRoutineListNumber
-    ) { currentWorkRoutineList, currentWorkRoutineListNumber ->
-        currentWorkRoutineList.find { currentWorkRoutineListNumber + 1 == it.id }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null
-    )
-
-
-    val updateWorkFlag: (Boolean) -> Unit = { isWorkFlag.value = it }
-    val stopTime: () -> Unit = { timerJob.cancel() }
-    val checkWorkSet: (WorkRoutineIdInfo) -> Unit = { checkedWorkSetList.add(it) }
-    val uncheckWorkSet: (WorkRoutineIdInfo) -> Unit = { checkedWorkSetList.remove(it) }
-    val isChecked: (Int, Int) -> Boolean =
-        { routineId, workSetIndex -> checkedWorkSetList.any { it.workRoutineId == routineId && it.workSetIndex == workSetIndex } }
-
-    val isAllChecked: (WorkRoutine) -> Boolean = { workRoutine ->
-        checkedWorkSetList.count { it.workRoutineId == workRoutine.id } == workRoutine.workSetList.size
+    val minusWorkRoutineIndex: () -> Unit = {
+        if (currentWorkRoutineIndex.value > 0)
+            currentWorkRoutineIndex.value = currentWorkRoutineIndex.value - 1
     }
 
-    val workProgress: StateFlow<Int> = combine(
-        currentWorkRoutineListFlow,
-        checkWorkSetListFlow
-    ) { currentWorkRoutineListFlow, checkWorkSetListFlow ->
-        (
-                (checkWorkSetListFlow.count().toFloat() /
-                        currentWorkRoutineListFlow.flatMap { it.workSetList }.count().toFloat()
-                        ) * 100).toInt()
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = 0
-    )
-
-    val next: () -> Unit =
-        { currentWorkRoutineListNumber.value = currentWorkRoutineListNumber.value + 1 }
-    val pre: () -> Unit =
-        { currentWorkRoutineListNumber.value = currentWorkRoutineListNumber.value - 1 }
+    val plusWorkRoutineIndex: () -> Unit = {
+        if (currentWorkRoutineIndex.value < workRoutineList.size - 1)
+            currentWorkRoutineIndex.value = currentWorkRoutineIndex.value + 1
+    }
 
 
-    val removeWorkRoutineWorkSet: (Int, Int, WorkRoutineIdInfo) -> Unit =
-        { workRoutineIndex, workSetIndex, workRoutineIdInfo ->
-            checkedWorkSetList.remove(workRoutineIdInfo)
-            currentWorkRoutineList[workRoutineIndex].workSetList.removeAt(workSetIndex)
-        }
+    val getCurrentWorkRoutine: () -> WorkRoutine =
+        { workRoutineList[currentWorkRoutineIndex.value] }
+
+    val getPreWorkRoutine: () -> WorkRoutine? = {
+        if (currentWorkRoutineIndex.value <= 0 || workRoutineList.size==0) null
+        else workRoutineList[currentWorkRoutineIndex.value - 1]
+    }
+    val getNextWorkRoutine: () -> WorkRoutine? = {
+        if (currentWorkRoutineIndex.value >= workRoutineList.size - 1 || workRoutineList.size==0) null
+        else workRoutineList[currentWorkRoutineIndex.value + 1]
+    }
 
 
     fun startTimer() {
         timerJob = viewModelScope.launch {
             initTimerUseCase().map {
-                if (isWorkFlag.value) {
+                if (workRestFlag.value) {
                     workRestTime.update {
                         it.copy(
                             workTime = LocalTime.fromMillisecondOfDay((it.workTime.toMillisecondOfDay() + 200))
@@ -149,7 +92,76 @@ class WorkState(
         }
     }
 
-    companion object {
-        const val MAX_PROGRESS = 100
+    val stopTime: () -> Unit = { timerJob.cancel() }
+
+
+    val appendRoutine: (WorkRoutine) -> Unit = {
+        onWorkRoutineEvent(WorkRoutineEvent.AppendRoutine(it))
     }
+
+    val removeRoutine: (WorkRoutine) -> Unit = {
+        onWorkRoutineEvent(WorkRoutineEvent.RemoveRoutine(it))
+    }
+
+    val addWorkSet: (Int, WorkRoutineWorkSet) -> Unit = { routineId, workRoutineWorkSet ->
+        onWorkRoutineEvent(
+            WorkRoutineEvent.AddWorkSet(
+                routineId,
+                workRoutineWorkSet
+            )
+        )
+    }
+
+    val removeWorkSet: (Int, WorkRoutineWorkSet) -> Unit = { routineId, workRoutineWorkSet ->
+        onWorkRoutineEvent(
+            WorkRoutineEvent.RemoveWorkSet(
+                routineId,
+                workRoutineWorkSet
+            )
+        )
+    }
+    val updateWorkSet: (Int, Int, WorkRoutineWorkSet) -> Unit =
+        { routineId, workSetIndex, workRoutineWorkSet ->
+            onWorkRoutineEvent(
+                WorkRoutineEvent.UpdateWorkSet(
+                    routineId,
+                    workSetIndex,
+                    workRoutineWorkSet
+                )
+            )
+        }
+
+
+    private fun onWorkRoutineEvent(workRoutineEvent: WorkRoutineEvent) {
+        when (workRoutineEvent) {
+            is WorkRoutineEvent.AppendRoutine -> {
+                workRoutineList.add(workRoutineEvent.workRoutine)
+            }
+
+            is WorkRoutineEvent.RemoveRoutine -> {
+                workRoutineList.remove(workRoutineEvent.workRoutine)
+            }
+
+            is WorkRoutineEvent.AddWorkSet -> {
+                workRoutineList[workRoutineEvent.routineIndex].workSetList.add(
+                    workRoutineEvent.workRoutineWorkSet
+                )
+            }
+
+            is WorkRoutineEvent.RemoveWorkSet -> {
+                workRoutineList[workRoutineEvent.routineIndex].workSetList.remove(
+                    workRoutineEvent.workRoutineWorkSet
+                )
+            }
+
+            is WorkRoutineEvent.UpdateWorkSet -> {
+                workRoutineList[workRoutineEvent.routineIndex].workSetList[workRoutineEvent.workSetIndex] =
+                    workRoutineEvent.workRoutineWorkSet
+            }
+
+
+        }
+    }
+
+
 }

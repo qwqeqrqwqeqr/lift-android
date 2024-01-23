@@ -14,8 +14,6 @@ import com.gradation.lift.feature.updateRoutine.common.data.UpdateRoutineSharedV
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.CreateWorkSetViewModel
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadState
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadWorkSetState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkSetState
@@ -28,24 +26,16 @@ import com.gradation.lift.navigation.Route
 internal fun CreateWorkSetRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    workCategoryId: Int?,
     navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
     navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph: () -> Unit,
     viewModel: CreateWorkSetViewModel = hiltViewModel(),
     sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(Route.UPDATE_ROUTINE_GRAPH_NAME) }),
     routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
-
-    ) {
-
-    LaunchedEffect(Unit) { viewModel.setWorkCategoryId(workCategoryId) }
-    val keypadWorkSetState: KeypadWorkSetState by viewModel.keypadState.keypadWorkSetState.collectAsStateWithLifecycle()
-
-
+) {
     val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
     val routineUiState: RoutineUiState by sharedViewModel.routineUiState.collectAsStateWithLifecycle()
     val workSetState: WorkSetState = viewModel.workSetState
-    val keypadState: KeypadState = viewModel.keypadState
     val currentRoutineSetRoutineState: CurrentRoutineSetRoutineState =
         sharedViewModel.currentRoutineSetRoutineState
 
@@ -53,11 +43,9 @@ internal fun CreateWorkSetRoute(
 
     CreateWorkSetScreen(
         modifier,
-        keypadWorkSetState,
         routineUiState,
         workCategoryUiState,
         workSetState,
-        keypadState,
         currentRoutineSetRoutineState,
         navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph,
         navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph,

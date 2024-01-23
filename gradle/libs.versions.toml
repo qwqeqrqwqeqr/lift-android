@@ -1,24 +1,25 @@
 [versions]
 accompanist = "0.32.0"
-androidGradlePlugin = "8.1.3"
-androidxActivity = "1.8.0"
+androidGradlePlugin = "8.2.1"
+androidxActivity = "1.8.2"
 androidxAppCompat = "1.6.1"
 androidxArchCore = "2.2.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxComposeBom = "2023.10.01"
 androidxComposeCompiler = "1.5.3"
-androidxComposeFoundation = "1.6.0-beta02"
+androidxComposeFoundation = "1.6.0-rc01"
 androidXComposeUiGraphics = "1.5.4"
-androidxComposeMaterial3 = "1.2.0-alpha10"
-androidxComposeRuntimeTracing = "1.0.0-alpha04"
+androidxComposeMaterial3 = "1.2.0-beta02"
+androidxComposeRuntimeTracing = "1.0.0-beta01"
+androidxComposeAnimation = "1.5.4"
 androidxCore = "1.12.0"
 androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.1"
 androidxHiltNavigationCompose = "1.1.0"
-androidxLifecycle = "2.7.0-beta01"
-androidxNavigation = "2.7.5"
+androidxLifecycle = "2.7.0"
+androidxNavigation = "2.7.6"
 androixPagingCompose = "3.3.0-alpha02"
-androidxTracing = "1.1.0"
+androidxTracing = "1.2.0"
 androidxTestCore = "1.4.0"
 androidxTestExt = "1.1.5"
 androidxTestRules = "1.5.0"
@@ -32,8 +33,8 @@ gmsPlugin = "4.4.0"
 gmsAuth = "20.7.0"
 glide = "4.15.1"
 glideCompose = "1.0.0-alpha.1"
-googlePlayCore ="1.10.3"
-hilt = "2.47"
+googlePlayCore = "1.10.3"
+hilt = "2.48.1"
 hiltWork = "1.1.0"
 jacoco = "0.8.7"
 junit4 = "4.13.2"
@@ -41,7 +42,7 @@ kakao = "2.15.0"
 kotlin = "1.9.10"
 kotlinxCoroutines = "1.7.1"
 kotlinxDatetime = "0.4.0"
-kotlinxSerializationJson ="1.6.2"
+kotlinxSerializationJson = "1.6.2"
 ksp = "1.9.10-1.0.13"
 ktlintGradle = "11.3.1"
 mockitoCore = "4.5.1"
@@ -51,7 +52,7 @@ okhttp = "4.10.0"
 parcelize = "1.9.0"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-room = "2.6.0"
+room = "2.6.1"
 robolectric = "4.9"
 timber = "5.0.1"
 truth = "1.1.3"
@@ -100,7 +101,7 @@ androidx-tracing = { group = "androidx.tracing", name = "tracing-ktx", version.r
 
 #COMPOSE
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "androidxComposeFoundation"  }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "androidxComposeFoundation" }
 androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
@@ -117,6 +118,8 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "androidxComposeAnimation"}
+
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }

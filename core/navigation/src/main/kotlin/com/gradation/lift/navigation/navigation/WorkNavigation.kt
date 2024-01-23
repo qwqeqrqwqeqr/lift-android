@@ -2,6 +2,7 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.WORK_COMPLETE_DETAIL_ROUTER_NAME
 import com.gradation.lift.navigation.Route.WORK_COMPLETE_ROUTER_NAME
 
 
@@ -21,6 +22,15 @@ fun NavController.navigateWorkToCompleteInWorkGraph() {
         }
     }
 }
+
+fun NavController.navigateCompleteToCompleteDetailInWorkGraph() {
+    this.navigate(WORK_COMPLETE_DETAIL_ROUTER_NAME) {
+        popUpTo(WORK_COMPLETE_DETAIL_ROUTER_NAME) {
+            inclusive = true
+        }
+    }
+}
+
 
 
 

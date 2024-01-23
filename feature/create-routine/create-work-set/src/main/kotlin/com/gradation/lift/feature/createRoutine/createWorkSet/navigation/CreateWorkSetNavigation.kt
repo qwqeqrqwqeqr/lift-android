@@ -37,14 +37,11 @@ fun createWorkSetScreen(
         exitTransition = { fadeOut() },
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() }
-    ) { navBackstackEntry ->
-
-        val workCategoryId: Int? = navBackstackEntry.arguments?.getInt(CREATE_WORK_CATEGORY_ID_KEY)
+    ) {
 
         CreateWorkSetRoute(
             modifier,
             navController,
-            workCategoryId,
             navigateCreateWorkSetToFindWorkCategoryInCreateRoutineGraph,
             navigateCreateWorkSetToRoutineSetInCreateRoutineGraph
         )

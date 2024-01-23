@@ -54,7 +54,7 @@ class CheckerDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         checkerDataSource = DefaultCheckerDataSource(
             checkerService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler,dispatcher
         )
     }
 

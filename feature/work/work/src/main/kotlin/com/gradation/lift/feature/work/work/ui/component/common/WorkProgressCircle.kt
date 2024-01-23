@@ -1,30 +1,24 @@
 package com.gradation.lift.feature.work.work.ui.component.common
 
-import androidx.compose.animation.core.Spring.DampingRatioNoBouncy
-import androidx.compose.animation.core.Spring.StiffnessVeryLow
-import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.progress.LiftProgressCircle
+import com.gradation.lift.designsystem.component.label.LiftProgressLabel
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.progress.LiftProgressCircle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalTime
@@ -33,19 +27,10 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun WorkProgressCircle(
     modifier: Modifier = Modifier,
-    workState: WorkState,
-    currentWork: WorkRoutine?,
-    workProgress: Int,
+    progress: Float,
     workTime: LocalTime,
+    workState: WorkState,
 ) {
-    val progress: Int by animateIntAsState(
-        targetValue = workProgress,
-        animationSpec = spring(
-            dampingRatio = DampingRatioNoBouncy,
-            stiffness = StiffnessVeryLow,
-        ),
-        label = "workProgressAnimation"
-    )
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxWidth()
@@ -55,19 +40,21 @@ fun WorkProgressCircle(
             progress = progress,
         )
         Column(
-            modifier = modifier,
+            modifier = modifier.width(LiftTheme.space.space148),
             verticalArrangement = Arrangement.spacedBy(
-                LiftTheme.space.space4,
+                LiftTheme.space.space12,
                 Alignment.Top
             ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = (currentWork?.workCategory?.name ?: "").replace(" ", "\n"),
-                style = LiftTheme.typography.no1,
+            LiftText(
+                modifier = modifier,
+                textStyle = LiftTextStyle.No1,
+                text = workState.getCurrentWorkRoutine().workCategory.name,
                 color = LiftTheme.colorScheme.no11,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Center
             )
+
             Row(
                 modifier = modifier.align(Alignment.CenterHorizontally),
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
@@ -91,32 +78,16 @@ fun WorkProgressCircle(
             }
             Row(
                 modifier = modifier.align(Alignment.CenterHorizontally),
-                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
             ) {
-                Text(
+                LiftText(
+                    modifier = modifier,
+                    textStyle = LiftTextStyle.No2,
                     text = "달성도",
-                    style = LiftTheme.typography.no2,
                     color = LiftTheme.colorScheme.no9,
+                    textAlign = TextAlign.Start
                 )
-                Surface(
-                    color = LiftTheme.colorScheme.no9,
-                    modifier = modifier
-                        .clip(RoundedCornerShape(LiftTheme.space.space4))
-                        .align(
-                            Alignment.CenterVertically
-                        )
-                ) {
-                    Text(
-                        modifier = modifier.padding(
-                            horizontal = LiftTheme.space.space4,
-                            vertical = LiftTheme.space.space2
-                        ),
-                        text = "${workProgress}%",
-                        style = LiftTheme.typography.no5,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
-
+                LiftProgressLabel(modifier, progress)
             }
         }
     }

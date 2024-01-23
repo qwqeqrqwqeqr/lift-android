@@ -53,7 +53,7 @@ class NoticeDataSourceTest {
         networkResultHandler =
             NetworkResultHandler(dispatcherProvider = dispatcher)
         noticeDataSource = DefaultNoticeDefaultDataSource(
-            noticeService, networkResultHandler
+            noticeService, networkResultHandler,dispatcher
         )
     }
 

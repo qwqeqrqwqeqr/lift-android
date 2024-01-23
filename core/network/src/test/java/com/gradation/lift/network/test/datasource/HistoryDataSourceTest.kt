@@ -54,7 +54,7 @@ class HistoryDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         historyDataSource = DefaultHistoryDataSource(
             historyService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler,dispatcher
         )
     }
 

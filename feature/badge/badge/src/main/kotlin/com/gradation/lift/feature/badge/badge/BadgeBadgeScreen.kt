@@ -16,8 +16,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.LiftIconButton
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.component.bottom_sheet.FilterBottomSheet
@@ -133,9 +133,9 @@ fun BadgeBadgeScreen(
 
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
                 title = "내 뱃지",
-                onBackClickTopBar = navigateBadgeGraphToPreGraph,
+                onClick = navigateBadgeGraphToPreGraph,
                 actions = {
                     LiftIconButton(
                         onClick = navigateBadgeToSettingInBadgeGraph,

@@ -1,9 +1,13 @@
 package com.gradation.lift.navigation.navigation
 
+import android.annotation.SuppressLint
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.Route.WORK_READY_READY_ROUTER_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.UpdateRoutine.UPDATE_ROUTINE_SET_ID_KEY
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
@@ -15,20 +19,9 @@ fun NavController.navigateRoutineDetailGraphToHomeGraph() {
     }
 }
 
-fun NavController.navigateRoutineDetailGraphToBack(){
-    if (this.currentBackStack.value.any { it.destination.route == Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
-        this.navigate(Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
-            this.popUpTo(Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
-                inclusive = true
-            }
-        }
-    } else {
-        this.navigate(Route.HOME_GRAPH_NAME) {
-            this.popUpTo(Route.HOME_GRAPH_NAME) {
-                inclusive = true
-            }
-        }
-    }
+@SuppressLint("RestrictedApi")
+fun NavController.navigateRoutineDetailGraphToBack() {
+    popBackStack()
 }
 
 fun NavController.navigateRoutineDetailGraphToCreateRoutineGraph() {
@@ -38,10 +31,10 @@ fun NavController.navigateRoutineDetailGraphToCreateRoutineGraph() {
 
 fun NavController.navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetId: Int) {
     this.setValueSavedStateHandle(
-        SavedStateHandleKey.RoutineSet.UPDATE_ROUTINE_SET_ID_KEY,
+        UPDATE_ROUTINE_SET_ID_KEY,
         routineSetId
     )
-    this.navigate(Route.UPDATE_ROUTINE_GRAPH_NAME)
+    this.navigate(UPDATE_ROUTINE_GRAPH_NAME)
 }
 
 fun NavController.navigateRoutineDetailGraphToWorkReadyReadyRoute(routineSetIdList: String) {
@@ -54,10 +47,6 @@ fun NavController.navigateRoutineDetailGraphToWorkReadyReadyRoute(routineSetIdLi
 
 
 fun NavController.navigateRoutineListToRoutineInRoutineDetailGraph(routineSetId: Int) {
-    this.setValueSavedStateHandle(
-        SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY,
-        routineSetId
-    )
-    this.navigate(Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME)
+    this.navigate("$ROUTINE_DETAIL_ROUTINE_ROUTER_NAME/$routineSetId")
 }
 

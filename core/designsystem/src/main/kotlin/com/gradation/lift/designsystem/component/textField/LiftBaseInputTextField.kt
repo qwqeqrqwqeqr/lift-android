@@ -31,6 +31,7 @@ internal fun LiftBaseInputTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
     isValid: Boolean = false,
+    singleLine: Boolean= true,
 
     colors: TextFieldColors = TextFieldDefaults.colors(
         focusedTextColor = LiftTheme.colorScheme.no6,
@@ -68,7 +69,7 @@ internal fun LiftBaseInputTextField(
         onValueChange = onValueChange,
         textStyle = LiftTheme.typography.no6,
         enabled = enabled,
-        singleLine = true,
+        singleLine = singleLine,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         placeholder = @Composable {

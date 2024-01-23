@@ -45,46 +45,45 @@ internal fun AnalyticsScreen(
     updateWorkPartAnalyticsTargetType: (WorkPartAnalyticsTargetType) -> Unit,
     scrollState: ScrollState,
 ) {
-    Surface(color = LiftTheme.colorScheme.no17, modifier = modifier.fillMaxSize()) {
+    Column(
+        modifier = modifier
+            .background(LiftTheme.colorScheme.no17)
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(top = 16.dp, bottom = LiftTheme.space.space72)
+    ) {
 
-        Column(
-            modifier = modifier
-                .padding(top = 16.dp)
-                .verticalScroll(scrollState)
-        ) {
+        WorkFrequencyAnalyticsScreen(
+            modifier,
+            selectedMonth,
+            historyCountByCurrentMonth,
+            workFrequencyByWeek,
+            plusSelectedMonth,
+            minusSelectedMonth
+        )
+        Spacer(modifier = modifier.padding(16.dp))
+        WorkCountByMonthAnalyticsScreen(
+            modifier,
+            historyCountByCurrentMonth,
+            historyCountByPreMonth,
+            historyCountByMonthList,
+            historyAveragePreCount,
+            historyAverageCurrentCount
+        )
+        Spacer(modifier = modifier.padding(16.dp))
+        WorkFrequencyAnalyticsScreen(
+            modifier,
+            workPartAnalyticsTargetDate,
+            workPartAnalyticsTargetType,
+            historyWorkPartCountByPre,
+            historyWorkPartCountByCurrent,
+            historyCountByPre,
+            historyCountByCurrent,
+            maxOfWorkPartFrequency,
+            updateWorkPartAnalyticsTargetDate,
+            updateWorkPartAnalyticsTargetType
+        )
 
-            WorkFrequencyAnalyticsScreen(
-                modifier,
-                selectedMonth,
-                historyCountByCurrentMonth,
-                workFrequencyByWeek,
-                plusSelectedMonth,
-                minusSelectedMonth
-            )
-            Spacer(modifier = modifier.padding(16.dp))
-            WorkCountByMonthAnalyticsScreen(
-                modifier,
-                historyCountByCurrentMonth,
-                historyCountByPreMonth,
-                historyCountByMonthList,
-                historyAveragePreCount,
-                historyAverageCurrentCount
-            )
-            Spacer(modifier = modifier.padding(16.dp))
-            WorkFrequencyAnalyticsScreen(
-                modifier,
-                workPartAnalyticsTargetDate,
-                workPartAnalyticsTargetType,
-                historyWorkPartCountByPre,
-                historyWorkPartCountByCurrent,
-                historyCountByPre,
-                historyCountByCurrent,
-                maxOfWorkPartFrequency,
-                updateWorkPartAnalyticsTargetDate,
-                updateWorkPartAnalyticsTargetType
-            )
-
-        }
     }
 }
 
@@ -95,7 +94,7 @@ internal fun AnalyticsScreen(
 @Composable
 fun HistoryAnalyticsScreenPreview() {
     LiftMaterialTheme {
-       AnalyticsScreen(
+        AnalyticsScreen(
             selectedMonth = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             historyCountByCurrentMonth = 32,
             workFrequencyByWeek = emptyList(),
