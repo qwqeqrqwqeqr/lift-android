@@ -10,7 +10,7 @@ object LiftImage {
     val BadgeHalo = R.drawable.badge_halo
     val Halo = R.drawable.halo
 
-
+    val CompleteHalo = R.drawable.complete_halo
 }
 
 

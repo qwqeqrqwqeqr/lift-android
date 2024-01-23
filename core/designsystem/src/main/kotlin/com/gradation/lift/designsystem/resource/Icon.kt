@@ -101,6 +101,14 @@ object LiftIcon {
     val RoutineLabel5 = R.drawable.routine_label_5
 
 
+    val BottleWhite = R.drawable.bottle_white
+    val DumbbellWhite = R.drawable.dumbbell_white
+    val FireWhite = R.drawable.fire_white
+    val timerWhite = R.drawable.timer_white
+    val SweatWhite = R.drawable.sweat_white
+
+    val Star = R.drawable.star
+    val StarFilled = R.drawable.star_filled
 }
 
 
