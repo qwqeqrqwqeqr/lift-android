@@ -2,7 +2,9 @@ package com.gradation.lift.ui.mapper
 
 import android.icu.text.DecimalFormat
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
 
@@ -29,24 +31,6 @@ fun Float.toText(): String {
     return DecimalFormat("#.#").format(this)
 }
 
-
-/**
- * [toWeightText]
- * 무게를 UI에서 적절하게 표시될 수 있도록 변환해주는 함수
- * 무게를 입력할 때 사용할 것
- * @since 2023-08-28 22:37:40
- */
-fun Float.toWeightText(): String = (if (this.toInt() in 1..2000) this else 10.0f).toText()
-
-
-/**
- * [toRepetitionText]
- * 횟수를 UI에서 적절하게 표시될 수 있도록 변환햐주는 함수
- * 횟수를 입력할 때 사용할 것
- * @since 2023-08-28 22:38:09
- */
-fun Int.toRepetitionText(): Int = if (this in 1..100) this else 10
-
 /**
  * [toDayMonthText]
  * [LocalDate]를 월 일 형식으로 변환합니다.
@@ -54,10 +38,27 @@ fun Int.toRepetitionText(): Int = if (this in 1..100) this else 10
  */
 fun LocalDate.toDayMonthText(): String = "${this.monthNumber}월 ${this.dayOfMonth}일"
 
+
+/**
+ * [toDateText]
+ * "00.00 형식으로 날짜 출력형식을 변경합니다."
+ * @since 2024-01-23 13:22:14
+ */
 fun LocalDate.toDateText(): String =
     "${year.toString().subSequence(2, 4)}.${DecimalFormat("00").format(monthNumber)}.${dayOfMonth}"
-
+/**
+ * [toTimerText]
+ * "00:00:00 형식으로 시간 출력형식을 변경합니다."
+ * @since 2024-01-23 13:22:14
+ */
 fun LocalTime.toTimerText(): String =
     with(DateTimeFormatter.ofPattern("HH:mm:ss")) {
         toJavaLocalTime().format(this)
     }
+
+/**
+ * [toDayMonthYearText]
+ * "0000.00.00 형식으로 날짜 출력형식을 변경합니다."
+ * @since 2024-01-23 13:22:14
+ */
+fun LocalDateTime.toDayMonthYearText():String = toJavaLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
