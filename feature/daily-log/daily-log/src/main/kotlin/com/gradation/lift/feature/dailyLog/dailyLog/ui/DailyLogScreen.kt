@@ -39,42 +39,41 @@ fun HistoryDailyLogScreen(
     updateSelectedHistoryIndex: (Int) -> Unit,
     scrollState: ScrollState,
 ) {
-    Surface(color = LiftTheme.colorScheme.no17, modifier = modifier.fillMaxSize()) {
-
+    Column(
+        modifier = modifier
+            .background(LiftTheme.colorScheme.no17)
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(top = 16.dp, bottom = LiftTheme.space.space72)
+    ) {
         Column(
             modifier = modifier
-                .padding(top = 16.dp)
-                .verticalScroll(scrollState)
+                .background(
+                    LiftTheme.colorScheme.no5,
+                    shape = RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp)
+                )
+                .padding(16.dp),
         ) {
-            Column(
-                modifier = modifier
-                    .background(
-                        LiftTheme.colorScheme.no5,
-                        shape = RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp)
-                    )
-                    .padding(16.dp),
-            ) {
-                CalenderView(
+            CalenderView(
+                modifier,
+                selectedDate,
+                historyScoreByMonth,
+                updateSelectedDate,
+                plusMonthSelectedDate,
+                minusMonthSelectedDate
+            )
+            Spacer(modifier = modifier.padding(16.dp))
+
+            if (selectedHistoryList.isEmpty()) {
+                EmptyHistoryView()
+            } else {
+                HistoryView(
                     modifier,
                     selectedDate,
-                    historyScoreByMonth,
-                    updateSelectedDate,
-                    plusMonthSelectedDate,
-                    minusMonthSelectedDate
+                    selectedHistoryList,
+                    selectedHistory,
+                    updateSelectedHistoryIndex
                 )
-                Spacer(modifier = modifier.padding(16.dp))
-
-                if (selectedHistoryList.isEmpty()) {
-                    EmptyHistoryView()
-                } else {
-                    HistoryView(
-                        modifier,
-                        selectedDate,
-                        selectedHistoryList,
-                        selectedHistory,
-                        updateSelectedHistoryIndex
-                    )
-                }
             }
         }
     }
