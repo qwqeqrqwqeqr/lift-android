@@ -2,6 +2,7 @@ package com.gradation.feature.workReady.ready.ui
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
@@ -129,8 +130,8 @@ internal fun ReadyScreen(
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
                 state = dragDropListState.lazyListState
             ) {
-                itemsIndexed(items= currentWorkRoutine,
-                    key= {index: Int, item: WorkRoutine -> "$index${item.id}" }) { routineIndex, routine ->
+                itemsIndexed(items = currentWorkRoutine,
+                    key = { index: Int, item: WorkRoutine -> "$index${item.id}" }) { routineIndex, routine ->
                     val offsetOrNull = dragDropListState.elementDisplacement.takeIf {
                         routineIndex == dragDropListState.currentIndexOfDraggedItem
                     }
@@ -281,103 +282,117 @@ internal fun ReadyScreen(
                                         )
                                     }
                                 }
-                                if (workRoutineInfoState.isOpened(routine.id)) {
-                                    routine.workSetList.forEachIndexed { index, workSet ->
-                                        LiftPrimaryContainer(
-                                            modifier = modifier,
-                                            verticalPadding = LiftTheme.space.space8,
-                                            shape = RoundedCornerShape(size = LiftTheme.space.space8)
-                                        ) {
-                                            Row(
+                                AnimatedVisibility(
+                                    workRoutineInfoState.isOpened(routine.id),
+                                    label = "workSetAnimation"
+                                ) {
+                                    Column(
+                                        modifier = modifier.fillMaxWidth(),
+                                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                                    ) {
+
+
+                                        routine.workSetList.forEachIndexed { index, workSet ->
+                                            LiftPrimaryContainer(
                                                 modifier = modifier,
-                                                horizontalArrangement = Arrangement.spacedBy(
-                                                    LiftTheme.space.space16
-                                                ),
-                                                verticalAlignment = Alignment.CenterVertically
+                                                verticalPadding = LiftTheme.space.space8,
+                                                shape = RoundedCornerShape(size = LiftTheme.space.space8)
                                             ) {
                                                 Row(
-                                                    modifier = modifier.weight(1f),
-                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    modifier = modifier,
                                                     horizontalArrangement = Arrangement.spacedBy(
-                                                        LiftTheme.space.space8
-                                                    )
+                                                        LiftTheme.space.space16
+                                                    ),
+                                                    verticalAlignment = Alignment.CenterVertically
                                                 ) {
-                                                    LiftText(
+                                                    Row(
                                                         modifier = modifier.weight(1f),
-                                                        textStyle = LiftTextStyle.No3,
-                                                        text = "${index + 1}",
-                                                        color = LiftTheme.colorScheme.no2,
-                                                        textAlign = TextAlign.Center
-                                                    )
-                                                    LiftKeyPadTextField(
-                                                        modifier = modifier
-                                                            .height(LiftTheme.space.space28)
-                                                            .weight(1f),
-                                                        value = workSet.weight,
-                                                        onValueChange = {
-                                                            workRoutineState.updateWorkSet(
-                                                                routineIndex,
-                                                                index,
-                                                                workSet.copy(weight = it)
-                                                            )
-                                                        },
-                                                        isError = !decimalNumberValidator(workSet.weight) || workSet.weight == "0"
-                                                    )
-
-                                                    LiftKeyPadTextField(
-                                                        modifier = modifier
-                                                            .height(LiftTheme.space.space28)
-                                                            .weight(1f),
-                                                        value = workSet.repetition,
-                                                        onValueChange = {
-                                                            workRoutineState.updateWorkSet(
-                                                                routineIndex,
-                                                                index,
-                                                                workSet.copy(repetition = it)
-                                                            )
-                                                        },
-                                                        isError = !decimalNumberValidator(workSet.repetition) || workSet.repetition == "0"
-                                                    )
-                                                }
-                                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                                    Icon(
-                                                        modifier = modifier
-                                                            .size(LiftTheme.space.space12)
-                                                            .noRippleClickable {
-                                                                if (workRoutineState.currentWorkRoutine[routineIndex].workSetList.size > 1)
-                                                                    workRoutineState.removeWorkSet(
-                                                                        routineIndex,
-                                                                        workSet
-                                                                    )
-                                                                else {
-                                                                    workRoutineInfoState.selectedRoutineList
-                                                                        .toList()
-                                                                        .apply {
-                                                                            readyScreenState.updateSnackBarState(
-                                                                                SnackBarState.CanNotRemove
-                                                                            )
-                                                                        }
-                                                                }
+                                                        verticalAlignment = Alignment.CenterVertically,
+                                                        horizontalArrangement = Arrangement.spacedBy(
+                                                            LiftTheme.space.space8
+                                                        )
+                                                    ) {
+                                                        LiftText(
+                                                            modifier = modifier.weight(1f),
+                                                            textStyle = LiftTextStyle.No3,
+                                                            text = "${index + 1}",
+                                                            color = LiftTheme.colorScheme.no2,
+                                                            textAlign = TextAlign.Center
+                                                        )
+                                                        LiftKeyPadTextField(
+                                                            modifier = modifier
+                                                                .height(LiftTheme.space.space28)
+                                                                .weight(1f),
+                                                            value = workSet.weight,
+                                                            onValueChange = {
+                                                                workRoutineState.updateWorkSet(
+                                                                    routineIndex,
+                                                                    index,
+                                                                    workSet.copy(weight = it)
+                                                                )
                                                             },
-                                                        painter = painterResource(id = LiftIcon.Close),
-                                                        tint = LiftTheme.colorScheme.no10,
-                                                        contentDescription = "${routine}ChevronDown"
-                                                    )
-                                                    Spacer(modifier = modifier.width(LiftTheme.space.space12))
+                                                            isError = !decimalNumberValidator(
+                                                                workSet.weight
+                                                            ) || workSet.weight == "0"
+                                                        )
+
+                                                        LiftKeyPadTextField(
+                                                            modifier = modifier
+                                                                .height(LiftTheme.space.space28)
+                                                                .weight(1f),
+                                                            value = workSet.repetition,
+                                                            onValueChange = {
+                                                                workRoutineState.updateWorkSet(
+                                                                    routineIndex,
+                                                                    index,
+                                                                    workSet.copy(repetition = it)
+                                                                )
+                                                            },
+                                                            isError = !decimalNumberValidator(
+                                                                workSet.repetition
+                                                            ) || workSet.repetition == "0"
+                                                        )
+                                                    }
+                                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                                        Icon(
+                                                            modifier = modifier
+                                                                .size(LiftTheme.space.space12)
+                                                                .noRippleClickable {
+                                                                    if (workRoutineState.currentWorkRoutine[routineIndex].workSetList.size > 1)
+                                                                        workRoutineState.removeWorkSet(
+                                                                            routineIndex,
+                                                                            workSet
+                                                                        )
+                                                                    else {
+                                                                        workRoutineInfoState.selectedRoutineList
+                                                                            .toList()
+                                                                            .apply {
+                                                                                readyScreenState.updateSnackBarState(
+                                                                                    SnackBarState.CanNotRemove
+                                                                                )
+                                                                            }
+                                                                    }
+                                                                },
+                                                            painter = painterResource(id = LiftIcon.Close),
+                                                            tint = LiftTheme.colorScheme.no10,
+                                                            contentDescription = "${routine}ChevronDown"
+                                                        )
+                                                        Spacer(modifier = modifier.width(LiftTheme.space.space12))
+                                                    }
                                                 }
                                             }
                                         }
+                                        LiftPrimaryButton(
+                                            modifier = modifier,
+                                            text = "루틴추가",
+                                            onClick = {
+                                                workRoutineState.addWorkSet(
+                                                    routineIndex,
+                                                    routine.workSetList.last()
+                                                )
+                                            }
+                                        )
                                     }
-                                    LiftPrimaryButton(
-                                        modifier = modifier,
-                                        text = "루틴추가",
-                                        onClick = {
-                                            workRoutineState.addWorkSet(
-                                                routineIndex,
-                                                routine.workSetList.last()
-                                            )
-                                        }
-                                    )
                                 }
                             }
                         }
@@ -432,7 +447,8 @@ internal fun ReadyScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 AnimatedContent(
-                                    targetState = currentWorkRoutine.flatMap { it.workSetList }.mapNotNull { it.weight.toFloatOrNull() }
+                                    targetState = currentWorkRoutine.flatMap { it.workSetList }
+                                        .mapNotNull { it.weight.toFloatOrNull() }
                                         .sum(),
                                     transitionSpec = {
                                         slideIntoContainer(

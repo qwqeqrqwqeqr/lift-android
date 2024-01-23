@@ -220,7 +220,9 @@ fun ListScreen(
                                     )
                                 }
                             }
-                            if (workRoutineInfoState.isOpened(workRoutine.id)) {
+                            AnimatedVisibility (
+                                workRoutineInfoState.isOpened(workRoutine.id)
+                            ) {
                                 Column(
                                     modifier = modifier,
                                     verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
