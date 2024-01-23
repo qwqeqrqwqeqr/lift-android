@@ -55,7 +55,8 @@ class AuthDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         authDataSource = DefaultAuthDataSource(
             authService = authService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler,
+            dispatcherProvider = dispatcher
         )
     }
 

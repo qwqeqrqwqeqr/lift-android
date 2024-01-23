@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.mapper.toMessage
@@ -19,6 +20,7 @@ class DefaultAuthRepository @Inject constructor(
     private val kakaoOauthManager: KakaoOauthManager,
     private val naverOauthManager: NaverOauthManager,
     private val googleOauthManager: GoogleOauthManager,
+    private val dispatcherProvider: DispatcherProvider,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Unit>> = flow {
         authDataSource.signInDefault(signInInfo).collect { result ->
@@ -32,7 +34,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> = flow {
         authDataSource.signUpDefault(signUpInfo).collect { result ->
@@ -43,7 +45,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signInNaver(): Flow<DataState<Unit>> = flow {
         combine(naverOauthManager.getUserId(), naverOauthManager.getUserEmail()) { id, email ->
@@ -78,7 +80,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signUpNaver(): Flow<DataState<Boolean>> = flow {
         combine(naverOauthManager.getUserId(), naverOauthManager.getUserEmail()) { id, email ->
@@ -110,7 +112,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signInKakao(): Flow<DataState<Unit>> = flow {
         combine(kakaoOauthManager.getUserId(), kakaoOauthManager.getUserEmail()) { id, email ->
@@ -145,7 +147,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signUpKakao(): Flow<DataState<Boolean>> = flow {
         combine(kakaoOauthManager.getUserId(), kakaoOauthManager.getUserEmail()) { id, email ->
@@ -177,7 +179,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signInGoogle(): Flow<DataState<Unit>> = flow {
         combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
@@ -212,7 +214,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun signUpGoogle(): Flow<DataState<Boolean>> = flow {
         combine(googleOauthManager.getUserId(), googleOauthManager.getUserEmail()) { id, email ->
@@ -244,7 +246,7 @@ class DefaultAuthRepository @Inject constructor(
                 }
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun checkExistUser(userId: String, email: String): Flow<DataState<Boolean>> = flow {
         authDataSource.checkUserExist(userId, email).collect {
@@ -253,8 +255,7 @@ class DefaultAuthRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(it.data))
             }
         }
-
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getLoginMethod(): Flow<DataState<LoginMethod>> = flow {
         tokenDataStoreDataSource.loginMethod
@@ -264,7 +265,7 @@ class DefaultAuthRepository @Inject constructor(
             .collect { loginMethod ->
                 emit(DataState.Success(loginMethod))
             }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun isSigned(): Flow<DataState<Boolean>> = flow {
         val condition = tokenDataStoreDataSource.accessToken.first().isNotBlank() &&
@@ -279,7 +280,7 @@ class DefaultAuthRepository @Inject constructor(
         } catch (error: Exception) {
             emit(DataState.Fail(error.toMessage()))
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<DataState<Boolean>> =
         flow {
@@ -294,7 +295,7 @@ class DefaultAuthRepository @Inject constructor(
                     )
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>> =
         flow {
@@ -305,7 +306,7 @@ class DefaultAuthRepository @Inject constructor(
                         is NetworkResult.Success -> emit(DataState.Success(result.data))
                     }
                 }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>> =
         flow {
@@ -316,5 +317,5 @@ class DefaultAuthRepository @Inject constructor(
                         is NetworkResult.Success -> emit(DataState.Success(result.data))
                     }
                 }
-        }
+        }.flowOn(dispatcherProvider.default)
 }

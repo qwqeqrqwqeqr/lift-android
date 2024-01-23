@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.TermsRepository
 import com.gradation.lift.network.common.NetworkResult
@@ -9,6 +10,7 @@ import javax.inject.Inject
 
 class DefaultTermsRepository @Inject constructor(
     private val termsDataSource: TermsDataSource,
+    private val dispatcherProvider: DispatcherProvider
 ) : TermsRepository {
 
     override fun createUserTermsConsent(
@@ -21,7 +23,7 @@ class DefaultTermsRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun getUserMarketingTermsConsent(): Flow<DataState<Boolean>> = flow {
         termsDataSource.getUserMarketingTermsConsent().collect { result ->
@@ -30,7 +32,7 @@ class DefaultTermsRepository @Inject constructor(
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
-    }
+    }.flowOn(dispatcherProvider.default)
 
     override fun updateUserMarketingTermsConsent(marketingConsent: Boolean): Flow<DataState<Boolean>> =
         flow {
@@ -40,6 +42,6 @@ class DefaultTermsRepository @Inject constructor(
                     is NetworkResult.Success -> emit(DataState.Success(result.data))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 }

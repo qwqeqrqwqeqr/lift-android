@@ -49,19 +49,15 @@ internal fun Project.extensionAndroidCompose(
             add("implementation", libs.findLibrary("androidx-compose-runtime-livedata").get())
             add("implementation", libs.findLibrary("androidx-compose-runtime-tracing").get())
 
-
-
-
             add("implementation", libs.findLibrary("androidx-navigation-compose").get())
             add("implementation", libs.findLibrary("androidx-navigation-testing").get())
-
-
 
             add("implementation", libs.findLibrary("androidx-compose-material-icons-core").get())
             add("implementation", libs.findLibrary("androidx-compose-material-icons-extended").get())
             add("implementation", libs.findLibrary("androidx-compose-material3").get())
             add("implementation", libs.findLibrary("androidx-compose-material3-windowsizeclass").get())
 
+            add("implementation", libs.findLibrary("androidx-compose-animation").get())
 
             add("implementation", libs.findLibrary("androidx-compose-ui-test").get())
             add("implementation", libs.findLibrary("androidx-compose-ui-test-manifest").get())

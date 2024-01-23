@@ -6,25 +6,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.workReady.common.state.KeypadWorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.ui.component.NavigationView
 import com.gradation.lift.feature.workReady.createWorkSet.ui.component.RoutineListView
-import com.gradation.lift.feature.workReady.createWorkSet.ui.component.WorkSetKeyPadBottomSheet
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
-import com.gradation.lift.feature.workReady.common.state.KeypadState
 
 
 @Composable
 internal fun CreateWorkSetScreen(
     modifier: Modifier = Modifier,
-    keypadWorkSetState: KeypadWorkSetState,
     workCategoryUiState: WorkCategoryUiState,
     workSetState: WorkSetState,
-    keypadState: KeypadState,
     workRoutineState: WorkRoutineState,
     navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateCreateWorkSetToReadyInWorkReadyGraph: () -> Unit,
@@ -61,9 +56,7 @@ internal fun CreateWorkSetScreen(
                     ) {
                         RoutineListView(
                             modifier,
-                            keypadWorkSetState,
                             workSetState,
-                            keypadState,
                             routineScreenState
                         )
                     }
@@ -75,12 +68,6 @@ internal fun CreateWorkSetScreen(
                         navigateCreateWorkSetToReadyInWorkReadyGraph
                     )
                 }
-                WorkSetKeyPadBottomSheet(
-                    modifier,
-                    keypadWorkSetState,
-                    workSetState,
-                    keypadState
-                )
             }
         }
     }

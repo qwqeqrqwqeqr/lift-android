@@ -56,7 +56,7 @@ class RoutineDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         routineDataSource = DefaultRoutineDataSource(
             routineService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler,dispatcher
         )
     }
 

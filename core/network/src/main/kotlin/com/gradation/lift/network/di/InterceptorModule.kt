@@ -1,10 +1,13 @@
 package com.gradation.lift.network.di
 
+import android.net.ConnectivityManager
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.di.annotation.AuthNetworkInterceptor
+import com.gradation.lift.network.di.annotation.NetworkConnectivityInterceptor
 import com.gradation.lift.network.di.annotation.RetryNetworkInterceptor
 import com.gradation.lift.network.interceptor.AuthAuthenticator
 import com.gradation.lift.network.interceptor.AuthInterceptor
+import com.gradation.lift.network.interceptor.ConnectivityInterceptor
 import com.gradation.lift.network.interceptor.RetryInterceptor
 import dagger.Module
 import dagger.Provides
@@ -41,4 +44,12 @@ object InterceptorModule {
     @Singleton
     @Provides
     fun provideRetryInterceptor(): Interceptor = RetryInterceptor()
+
+    @NetworkConnectivityInterceptor
+    @Singleton
+    @Provides
+    fun provideNetworkConnectivityInterceptor(
+        connectivityManager: ConnectivityManager
+    ): Interceptor = ConnectivityInterceptor(connectivityManager)
 }
+

@@ -14,8 +14,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.LiftCancelButton
-import com.gradation.lift.designsystem.component.LiftErrorButton
+import com.gradation.lift.designsystem.component.button.LiftDefaultButton
+import com.gradation.lift.designsystem.component.button.LiftErrorButton
+import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.dialog.LiftDialog
+import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -30,76 +36,55 @@ internal fun SuspendDialog(
             modifier
                 .background(
                     color = LiftTheme.colorScheme.no5,
-                    shape = RoundedCornerShape(size = 24.dp)
+                    shape = RoundedCornerShape(size = LiftTheme.space.space20)
                 )
-                .padding(
-                    start = 20.dp,
-                    end = 20.dp,
-                    top = 20.dp,
-                    bottom = 10.dp
-                ),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-
+                .padding(LiftTheme.space.space20),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LiftMultiStyleText(
+                defaultColor = LiftTheme.colorScheme.no3,
+                defaultTextStyle = LiftTextStyle.No2,
+                textAlign = TextAlign.Center,
+                textWithStyleList = listOf(
+                    TextWithStyle(text = "운동을 "),
+                    TextWithStyle(text = "중단", color = LiftTheme.colorScheme.no12),
+                    TextWithStyle(text = "하실건가요?"),
+                )
+            )
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = LiftTheme.space.space8)
             ) {
-            Text(
-                text = buildAnnotatedString {
-                    append("운동을 ")
-                    withStyle(
-                        style = SpanStyle(color = LiftTheme.colorScheme.no12),
-                    ) {
-                        append("중단")
-                    }
-                    append("하실건가요?")
-                },
-                textAlign = TextAlign.Center,
-                style = LiftTheme.typography.no2,
-                color = LiftTheme.colorScheme.no3
-            )
-            Spacer(
-                modifier = modifier.padding(10.dp)
-            )
-            Text(
-                "운동을 중단할 경우 현재 운동 중인\n" +
-                        "기록이 삭제됩니다",
-                textAlign = TextAlign.Center,
-                style = LiftTheme.typography.no4,
-                color = LiftTheme.colorScheme.no9
-            )
-            Spacer(
-                modifier = modifier.padding(10.dp)
-            )
+                LiftText(
+                    textStyle = LiftTextStyle.No4,
+                    text = "운동을 중단할 경우 현재 운동 중인\n기록이 삭제됩니다",
+                    color = LiftTheme.colorScheme.no9,
+                    textAlign = TextAlign.Start
+                )
+            }
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(7.dp, Alignment.CenterHorizontally),
+                horizontalArrangement = Arrangement.spacedBy(
+                    LiftTheme.space.space8,
+                    Alignment.CenterHorizontally
+                ),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier.fillMaxWidth()
             ) {
-                LiftCancelButton(
+                LiftDefaultButton(
                     modifier = modifier.weight(1f),
                     onClick = onClickDialogDismissButton,
-                ) {
-                    Text(
-                        text = "취소",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
-
+                    text = "취소",
+                )
                 LiftErrorButton(
                     modifier = modifier.weight(1f),
                     onClick = onClickDialogSuspendButton,
-                ) {
-                    Text(
-                        text = "중단",
-                        style = LiftTheme.typography.no3,
-                        color = LiftTheme.colorScheme.no5,
-                    )
-                }
+                    text = "중단"
+                )
             }
-
         }
-
     }
 }
 

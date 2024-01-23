@@ -38,7 +38,6 @@ internal fun HomeScreen(
     badgeUiState: BadgeUiState,
     routineUiState: RoutineUiState,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
-    navigateHomeGraphToWorkReadyGraph: () -> Unit,
     navigateHomeGraphToBadgeGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
@@ -84,8 +83,7 @@ internal fun HomeScreen(
                         CircleShape
                     )
                     .size(LiftTheme.space.space72)
-                    .noRippleClickable { navigateHomeGraphToWorkReadyGraph() }
-                    ,
+                    .noRippleClickable { homeScreenState.updateWorkBottomSheetView(true) },
                 contentAlignment = Alignment.Center
 
             ) {

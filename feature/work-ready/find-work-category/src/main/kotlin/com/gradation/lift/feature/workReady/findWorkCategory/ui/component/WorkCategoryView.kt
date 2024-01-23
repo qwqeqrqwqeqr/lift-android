@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.label.PopularWorkCategoryLabel
 import com.gradation.lift.designsystem.component.label.RecommendWorkCategoryLabel
+import com.gradation.lift.designsystem.component.label.WorkPartLabel
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.ui.modifier.noRippleClickable
@@ -48,7 +49,10 @@ internal fun WorkCategoryView(
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
     ) {
         item { Spacer(modifier = modifier) }
-        items(workCategoryList) { workCategory ->
+        items(
+            items = workCategoryList,
+            key = { it.workCategory.id }
+        ) { workCategory ->
             LiftDefaultContainer(
                 modifier = modifier
                     .fillMaxWidth()
@@ -65,25 +69,42 @@ internal fun WorkCategoryView(
                         .padding(
                             horizontal = LiftTheme.space.space16,
                             vertical = LiftTheme.space.space16
-                        ), verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                 ) {
-                    Row(
-                        modifier = modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        LiftText(
-                            text = workCategory.workCategory.name,
-                            textStyle = LiftTextStyle.No3,
-                            color = LiftTheme.colorScheme.no3,
-                            textAlign = TextAlign.Start
-                        )
+                    if (workCategory.popularTag || workCategory.recommendTag) {
                         Row(
                             modifier = modifier,
                             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
                         ) {
                             if (workCategory.popularTag) PopularWorkCategoryLabel()
                             if (workCategory.recommendTag) RecommendWorkCategoryLabel()
+                        }
+                    }
+                    Column(
+                        modifier = modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
+                    ) {
+                        Row(
+                            modifier = modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            WorkPartLabel(workPart = workCategory.workCategory.workPart.name)
+                            LiftText(
+                                text = workCategory.workCategory.name,
+                                textStyle = LiftTextStyle.No2,
+                                color = LiftTheme.colorScheme.no3,
+                                textAlign = TextAlign.Start
+                            )
+                        }
+                        if (workCategory.workCategory.description.isNotEmpty()) {
+                            LiftText(
+                                text = workCategory.workCategory.description,
+                                textStyle = LiftTextStyle.No4,
+                                color = LiftTheme.colorScheme.no9,
+                                textAlign = TextAlign.Start
+                            )
                         }
                     }
                 }

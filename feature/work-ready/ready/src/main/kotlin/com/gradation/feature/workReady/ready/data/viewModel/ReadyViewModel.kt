@@ -5,9 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.lift.domain.usecase.work.CreateWorkUseCase
 import com.gradation.lift.domain.usecase.work.DeleteAllWorkUseCase
-import com.gradation.lift.domain.usecase.work.DeleteWorkUseCase
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.state.KeypadState
 import com.gradation.lift.model.model.work.Work
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.model.work.WorkRoutine as WorkRoutineModel
@@ -24,7 +22,6 @@ class ReadyViewModel @Inject constructor(
 ) : ViewModel() {
 
     internal val workRoutineInfoState = WorkRoutineInfoState()
-    internal val keypadState = KeypadState()
 
     fun createWork(): (List<WorkRoutine>) -> Unit = { workRoutineList ->
         viewModelScope.launch {

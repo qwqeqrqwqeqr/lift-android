@@ -1,5 +1,6 @@
 package com.gradation.lift.network.datasource.auth
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.auth.*
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
@@ -7,12 +8,14 @@ import com.gradation.lift.network.mapper.toDto
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 
 class DefaultAuthDataSource @Inject constructor(
     private val authService: AuthService,
     private val networkResultHandler: NetworkResultHandler,
+    private val dispatcherProvider: DispatcherProvider,
 ) : AuthDataSource {
     override suspend fun signInDefault(signInInfo: DefaultSignInInfo): Flow<NetworkResult<Token>> =
         flow {
@@ -26,7 +29,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -40,7 +43,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun signInKakao(signInInfo: KakaoSignInInfo): Flow<NetworkResult<Token>> =
@@ -55,7 +58,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun signUpKakao(signUpInfo: KakaoSignUpInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -69,7 +72,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun signInNaver(signInInfo: NaverSignInInfo): Flow<NetworkResult<Token>> =
         flow {
@@ -83,7 +86,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun signUpNaver(signUpInfo: NaverSignUpInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -97,7 +100,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun signInGoogle(signInInfo: GoogleSignInInfo): Flow<NetworkResult<Token>> =
@@ -112,7 +115,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun signUpGoogle(signUpInfo: GoogleSignUpInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -126,7 +129,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 
     override suspend fun checkUserExist(
@@ -142,7 +145,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -159,7 +162,7 @@ class DefaultAuthDataSource @Inject constructor(
                     )
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -171,7 +174,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
     override suspend fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<NetworkResult<Boolean>> =
         flow {
@@ -183,7 +186,7 @@ class DefaultAuthDataSource @Inject constructor(
                     is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
                 }
             }
-        }
+        }.flowOn(dispatcherProvider.default)
 
 }
 

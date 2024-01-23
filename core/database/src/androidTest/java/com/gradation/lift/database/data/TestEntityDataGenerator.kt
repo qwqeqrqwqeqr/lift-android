@@ -32,6 +32,7 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DAT
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import java.util.UUID
 
 object TestEntityDataGenerator {
     const val TEST_DATABASE = "test_database"
@@ -63,7 +64,8 @@ object TestEntityDataGenerator {
             id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            date = LocalDate(2023, 8, 31)
+            category = "Update",
+            date = LocalDate(2023, 8, 31),
         )
         val noticeEntityList = listOf(noticeEntity)
     }
@@ -163,14 +165,14 @@ object TestEntityDataGenerator {
 
     object Work {
         internal val workEntity = WorkEntity(
-            id = 1,
+            id = UUID.fromString(""),
             workTime = LocalTime(0, 20, 0),
             restTime = LocalTime(0, 10, 0),
             totalTime = LocalTime(0, 30, 0),
         )
         internal val workRoutineEntity = WorkRoutineEntity(
             id = 1,
-            workId = 1,
+            workId = UUID.fromString(""),
             workCategory = workCategoryEntity1,
             workSetList = listOf(
                 WorkSet(weight = 10f, repetition = 12),

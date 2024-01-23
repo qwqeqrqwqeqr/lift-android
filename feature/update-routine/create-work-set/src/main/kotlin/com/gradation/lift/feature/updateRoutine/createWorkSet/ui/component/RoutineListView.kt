@@ -13,15 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.filter.LiftAddContainer
 import com.gradation.lift.designsystem.component.keypad.LiftKeypadTextField
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadState
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadWorkSetState
+import com.gradation.lift.feature.updateRoutine.createWorkSet.data.model.WorkSet
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.ui.modifier.noRippleClickable
@@ -30,9 +31,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 @Composable
 internal fun RoutineListView(
     modifier: Modifier = Modifier,
-    keypadWorkSetState: KeypadWorkSetState,
     workSetState: WorkSetState,
-    keypadState: KeypadState,
     routineScreenState: RoutineScreenState,
 ) {
     Column(
@@ -101,7 +100,10 @@ internal fun RoutineListView(
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space6),
                 state = routineScreenState.lazyListState
             ) {
-                itemsIndexed(workSetState.workSetList) { index, workSet ->
+                itemsIndexed(
+                    items=workSetState.workSetList,
+                    key= { index: Int, _: WorkSet -> index }
+                ) { index, workSet ->
                     LiftPrimaryContainer(
                         modifier = modifier
                             .fillMaxWidth()
@@ -123,25 +125,32 @@ internal fun RoutineListView(
                                 color = LiftTheme.colorScheme.no2,
                                 textAlign = TextAlign.Center,
                             )
-                            LiftKeypadTextField(
+                            LiftKeyPadTextField(
                                 modifier = modifier
-                                    .weight(3f)
-                                    .noRippleClickable {
-                                        keypadState.updateState(KeypadWorkSetState.Weight)
-                                        keypadState.init(index, workSet)
-                                    },
+                                    .height(LiftTheme.space.space28)
+                                    .weight(3f),
                                 value = workSet.weight,
-                                focused = keypadWorkSetState is KeypadWorkSetState.Weight && keypadState.selectedIndex.value == index
+                                onValueChange = {
+                                    workSetState.updateWorkSet(
+                                        index,
+                                        workSet.copy(weight = it)
+                                    )
+                                },
+                                isError = !decimalNumberValidator(workSet.weight) || workSet.weight == "0"
                             )
-                            LiftKeypadTextField(
+
+                            LiftKeyPadTextField(
                                 modifier = modifier
-                                    .weight(3f)
-                                    .noRippleClickable {
-                                        keypadState.updateState(KeypadWorkSetState.Repetition)
-                                        keypadState.init(index, workSet)
-                                    },
+                                    .height(LiftTheme.space.space28)
+                                    .weight(3f),
                                 value = workSet.repetition,
-                                focused = keypadWorkSetState is KeypadWorkSetState.Repetition && keypadState.selectedIndex.value == index
+                                onValueChange = {
+                                    workSetState.updateWorkSet(
+                                        index,
+                                        workSet.copy(repetition = it)
+                                    )
+                                },
+                                isError = !decimalNumberValidator(workSet.repetition) || workSet.repetition == "0"
                             )
 
                             Icon(

@@ -2,7 +2,6 @@ package com.gradation.lift.feature.createRotuine.updateWorkSet.data
 
 import androidx.lifecycle.ViewModel
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.model.WorkSet
-import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.KeypadState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.workCategoryUiState
 import com.gradation.lift.model.model.routine.Routine
@@ -19,7 +18,6 @@ class UpdateWorkSetViewModel @Inject constructor(
 ) : ViewModel() {
 
     val workSetState = WorkSetState()
-    val keypadState = KeypadState()
 
     val setRoutine: (Routine) -> Unit = {
         workSetState.workSetList.clear()

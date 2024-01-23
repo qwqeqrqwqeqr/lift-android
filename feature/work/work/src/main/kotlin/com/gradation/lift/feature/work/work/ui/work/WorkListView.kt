@@ -1,156 +1,162 @@
 package com.gradation.lift.feature.work.work.ui.work
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
+import com.gradation.lift.designsystem.component.text.LiftText
+import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.model.WorkRoutine
-import com.gradation.lift.feature.work.work.data.model.WorkRoutineIdInfo
+import com.gradation.lift.feature.work.work.data.model.WorkRoutineCheckedInfo
+import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import com.gradation.lift.ui.mapper.toText
-import com.gradation.lift.ui.modifier.noRippleClickable
 
 @Composable
 fun WorkSetListView(
     modifier: Modifier = Modifier,
-    currentWork: WorkRoutine?,
+    workRoutineInfoState: WorkRoutineInfoState,
     workState: WorkState,
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
-            modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+    Column(modifier = modifier.fillMaxWidth()) {
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
-            Text(
-                text = "Set",
-                style = LiftTheme.typography.no2,
-                color = LiftTheme.colorScheme.no9,
-                textAlign = TextAlign.Center,
-                modifier = modifier.weight(1f)
-            )
-            Text(
-                text = "Kg",
-                style = LiftTheme.typography.no2,
-                color = LiftTheme.colorScheme.no9,
-                textAlign = TextAlign.Center,
-                modifier = modifier.weight(1f)
-            )
-            Text(
-                text = "Reps",
-                style = LiftTheme.typography.no2,
-                color = LiftTheme.colorScheme.no9,
-                textAlign = TextAlign.Center,
-                modifier = modifier.weight(1f)
-            )
-            Text(
-                text = "완료",
-                style = LiftTheme.typography.no2,
-                color = LiftTheme.colorScheme.no9,
-                textAlign = TextAlign.Center,
-                modifier = modifier.weight(1f)
-            )
-        }
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space6)
-        ) {
-            currentWork?.let { work ->
-                itemsIndexed(work.workSetList) { workSetIndex,workSet ->
-                    Row(
-                        modifier = modifier
-                            .background(LiftTheme.colorScheme.no1, RoundedCornerShape(LiftTheme.space.space8))
-                            .padding(horizontal = 12.dp, vertical = 8.dp)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(24.dp)
-                    ) {
-                        Text(
-                            text = "${workSetIndex+1}",
-                            style = LiftTheme.typography.no2,
-                            color = if (workState.isChecked(
-                                    work.id,
-                                    workSetIndex
-                                )
-                            ) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
-                            textAlign = TextAlign.Center,
-                            modifier = modifier
-                                .weight(1f)
-                                .align(Alignment.CenterVertically)
-                        )
-                        Text(
-                            text = workSet.weight.toFloatOrNull()?.toText() ?: workSet.weight,
-                            style = LiftTheme.typography.no2,
-                            color = if (workState.isChecked(
-                                    work.id,
-                                    workSetIndex
-                                )
-                            ) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
-                            textAlign = TextAlign.Center,
-                            modifier = modifier
-                                .weight(1f)
-                                .align(Alignment.CenterVertically)
-                        )
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = LiftTheme.space.space4),
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space36),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    modifier = modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = modifier.weight(1f),
+                        text = "Set",
+                        style = LiftTheme.typography.no2,
+                        color = LiftTheme.colorScheme.no9,
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        modifier = modifier.weight(1f),
+                        text = "Kg",
+                        style = LiftTheme.typography.no2,
+                        color = LiftTheme.colorScheme.no9,
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        modifier = modifier.weight(1f),
+                        text = "Reps",
+                        style = LiftTheme.typography.no2,
+                        color = LiftTheme.colorScheme.no9,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Row(
+                    modifier = modifier,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        modifier = modifier,
+                        text = "완료",
+                        style = LiftTheme.typography.no2,
+                        color = LiftTheme.colorScheme.no9,
+                        textAlign = TextAlign.Center,
+                    )
+                    Spacer(modifier = modifier.padding(LiftTheme.space.space8))
+                }
+            }
+            LazyColumn(
+                modifier = modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+            ) {
+                workState.getCurrentWorkRoutine().let { workRoutine ->
+                    itemsIndexed(workRoutine.workSetList) { workSetIndex, workSet ->
 
-                        Text(
-                            text = workSet.repetition,
-                            style = LiftTheme.typography.no2,
-                            color = if (workState.isChecked(
-                                    work.id,
-                                    workSetIndex
-                                )
-                            ) LiftTheme.colorScheme.no2 else LiftTheme.colorScheme.no9,
-                            textAlign = TextAlign.Center,
-                            modifier = modifier
-                                .weight(1f)
-                                .align(Alignment.CenterVertically)
-                        )
-                        if (workState.isChecked(work.id, workSetIndex)
+                        LiftPrimaryContainer(
+                            modifier = modifier.fillMaxWidth(),
+                            verticalPadding = LiftTheme.space.space8,
+                            horizontalPadding = LiftTheme.space.space4
                         ) {
-                            Icon(
-                                modifier = modifier
-                                    .size(LiftTheme.space.space28)
-                                    .weight(1f)
-                                    .noRippleClickable {
-                                        workState.uncheckWorkSet(
-                                            WorkRoutineIdInfo(
-                                                work.id,
-                                                workSetIndex
+                            Row(
+                                modifier = modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space36),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Row(
+                                    modifier = modifier
+                                        .weight(1f)
+                                        .fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    LiftText(
+                                        modifier = modifier.weight(1f),
+                                        textStyle = LiftTextStyle.No2,
+                                        text = "${workSetIndex + 1}",
+                                        color = LiftTheme.colorScheme.no10,
+                                        textAlign = TextAlign.Center
+                                    )
+                                    LiftText(
+                                        modifier = modifier.weight(1f),
+                                        textStyle = LiftTextStyle.No2,
+                                        text = workSet.weight.toFloatOrNull()?.toText()
+                                            ?: workSet.weight,
+                                        color = LiftTheme.colorScheme.no10,
+                                        textAlign = TextAlign.Center
+                                    )
+                                    LiftText(
+                                        modifier = modifier.weight(1f),
+                                        textStyle = LiftTextStyle.No2,
+                                        text = workSet.repetition,
+                                        color = LiftTheme.colorScheme.no10,
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                                Row(
+                                    modifier = modifier,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    LiftCircleCheckbox(
+                                        modifier = modifier.size(LiftTheme.space.space28),
+                                        checked = workRoutineInfoState.isChecked(
+                                            workRoutine.id,
+                                            workSetIndex
+                                        ),
+                                        onCheckedChange = {
+                                            if (workRoutineInfoState.isChecked(
+                                                    workRoutine.id,
+                                                    workSetIndex
+                                                )
                                             )
-                                        )
-                                    },
-                                painter = painterResource(LiftIcon.CheckBoxChecked),
-                                contentDescription = "",
-                                tint = Color.Unspecified,
-                            )
-                        } else {
-                            Icon(
-                                modifier = modifier
-                                    .size(LiftTheme.space.space28)
-                                    .weight(1f)
-                                    .noRippleClickable {
-                                        workState.checkWorkSet(
-                                            WorkRoutineIdInfo(
-                                                work.id,
-                                                workSetIndex
+                                                workRoutineInfoState.uncheckWorkSet(
+                                                    WorkRoutineCheckedInfo(
+                                                        workRoutine.id,
+                                                        workSetIndex
+                                                    )
+                                                )
+                                            else workRoutineInfoState.checkWorkSet(
+                                                WorkRoutineCheckedInfo(
+                                                    workRoutine.id,
+                                                    workSetIndex
+                                                )
                                             )
-                                        )
-                                    },
-                                painter = painterResource(LiftIcon.CheckBoxUnChecked),
-                                contentDescription = "",
-                                tint = Color.Unspecified,
-                            )
+                                        }
+                                    )
+                                    Spacer(modifier = modifier.padding(LiftTheme.space.space8))
+                                }
+                            }
                         }
                     }
                 }
@@ -158,3 +164,5 @@ fun WorkSetListView(
         }
     }
 }
+
+

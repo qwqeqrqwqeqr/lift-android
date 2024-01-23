@@ -1,6 +1,11 @@
 package com.gradation.feature.workReady.ready.ui
 
-import android.util.Log
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.scrollBy
@@ -20,7 +25,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,36 +33,36 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
+import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
-import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.filter.LiftAddWorkSetContainer
-import com.gradation.lift.designsystem.component.keypad.LiftKeypadTextField
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.snackbar.SnackBarCategory
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
-import com.gradation.lift.feature.workReady.common.state.KeypadState
-import com.gradation.lift.feature.workReady.common.state.KeypadWorkSetState
 import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.ui.state.rememberDragDropListState
@@ -68,13 +72,11 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun ReadyScreen(
     modifier: Modifier,
-    createWork: (List<WorkRoutine>)->Unit,
+    createWork: (List<WorkRoutine>) -> Unit,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
     currentWorkRoutine: SnapshotStateList<WorkRoutine>,
-    keypadWorkSetState: KeypadWorkSetState,
-    keypadState: KeypadState,
     workRoutineState: WorkRoutineState,
     workRoutineInfoState: WorkRoutineInfoState,
     readyScreenState: ReadyScreenState,
@@ -128,7 +130,8 @@ internal fun ReadyScreen(
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
                 state = dragDropListState.lazyListState
             ) {
-                itemsIndexed(currentWorkRoutine) { routineIndex, routine ->
+                itemsIndexed(items = currentWorkRoutine,
+                    key = { index: Int, item: WorkRoutine -> "$index${item.id}" }) { routineIndex, routine ->
                     val offsetOrNull = dragDropListState.elementDisplacement.takeIf {
                         routineIndex == dragDropListState.currentIndexOfDraggedItem
                     }
@@ -279,118 +282,123 @@ internal fun ReadyScreen(
                                         )
                                     }
                                 }
-                                if (workRoutineInfoState.isOpened(routine.id)) {
-                                    routine.workSetList.forEachIndexed { index, workSet ->
-                                        LiftPrimaryContainer(
-                                            modifier = modifier,
-                                            verticalPadding = LiftTheme.space.space8,
-                                            shape = RoundedCornerShape(size = LiftTheme.space.space8)
-                                        ) {
-                                            Row(
+                                AnimatedVisibility(
+                                    workRoutineInfoState.isOpened(routine.id),
+                                    label = "workSetAnimation"
+                                ) {
+                                    Column(
+                                        modifier = modifier.fillMaxWidth(),
+                                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                                    ) {
+
+
+                                        routine.workSetList.forEachIndexed { index, workSet ->
+                                            LiftPrimaryContainer(
                                                 modifier = modifier,
-                                                horizontalArrangement = Arrangement.spacedBy(
-                                                    LiftTheme.space.space16
-                                                ),
-                                                verticalAlignment = Alignment.CenterVertically
+                                                verticalPadding = LiftTheme.space.space8,
+                                                shape = RoundedCornerShape(size = LiftTheme.space.space8)
                                             ) {
                                                 Row(
-                                                    modifier = modifier.weight(1f),
-                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    modifier = modifier,
                                                     horizontalArrangement = Arrangement.spacedBy(
-                                                        LiftTheme.space.space8
-                                                    )
+                                                        LiftTheme.space.space16
+                                                    ),
+                                                    verticalAlignment = Alignment.CenterVertically
                                                 ) {
-                                                    LiftText(
+                                                    Row(
                                                         modifier = modifier.weight(1f),
-                                                        textStyle = LiftTextStyle.No3,
-                                                        text = "${index + 1}",
-                                                        color = LiftTheme.colorScheme.no2,
-                                                        textAlign = TextAlign.Center
-                                                    )
-                                                    LiftKeypadTextField(
-                                                        modifier = modifier
-                                                            .weight(1f)
-                                                            .noRippleClickable {
-                                                                keypadState.updateState(
-                                                                    KeypadWorkSetState.Weight
-                                                                )
-                                                                keypadState.init(
+                                                        verticalAlignment = Alignment.CenterVertically,
+                                                        horizontalArrangement = Arrangement.spacedBy(
+                                                            LiftTheme.space.space8
+                                                        )
+                                                    ) {
+                                                        LiftText(
+                                                            modifier = modifier.weight(1f),
+                                                            textStyle = LiftTextStyle.No3,
+                                                            text = "${index + 1}",
+                                                            color = LiftTheme.colorScheme.no2,
+                                                            textAlign = TextAlign.Center
+                                                        )
+                                                        LiftKeyPadTextField(
+                                                            modifier = modifier
+                                                                .height(LiftTheme.space.space28)
+                                                                .weight(1f),
+                                                            value = workSet.weight,
+                                                            onValueChange = {
+                                                                workRoutineState.updateWorkSet(
                                                                     routineIndex,
                                                                     index,
-                                                                    workSet
+                                                                    workSet.copy(weight = it)
                                                                 )
                                                             },
-                                                        value = workSet.weight,
-                                                        focused = keypadWorkSetState is KeypadWorkSetState.Weight &&
-                                                                keypadState.selectedRoutineIndex.value == routineIndex &&
-                                                                keypadState.selectedWorkSetIndex.value == index
-                                                    )
-                                                    LiftKeypadTextField(
-                                                        modifier = modifier
-                                                            .weight(1f)
-                                                            .noRippleClickable {
-                                                                keypadState.updateState(
-                                                                    KeypadWorkSetState.Repetition
-                                                                )
-                                                                keypadState.init(
+                                                            isError = !decimalNumberValidator(
+                                                                workSet.weight
+                                                            ) || workSet.weight == "0"
+                                                        )
+
+                                                        LiftKeyPadTextField(
+                                                            modifier = modifier
+                                                                .height(LiftTheme.space.space28)
+                                                                .weight(1f),
+                                                            value = workSet.repetition,
+                                                            onValueChange = {
+                                                                workRoutineState.updateWorkSet(
                                                                     routineIndex,
                                                                     index,
-                                                                    workSet
+                                                                    workSet.copy(repetition = it)
                                                                 )
                                                             },
-                                                        value = workSet.repetition,
-                                                        focused = keypadWorkSetState is KeypadWorkSetState.Repetition &&
-                                                                keypadState.selectedRoutineIndex.value == routineIndex &&
-                                                                keypadState.selectedWorkSetIndex.value == index
-                                                    )
-                                                }
-                                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                                    Icon(
-                                                        modifier = modifier
-                                                            .size(LiftTheme.space.space12)
-                                                            .noRippleClickable {
-                                                                if (workRoutineState.currentWorkRoutine[routineIndex].workSetList.size > 1)
-                                                                    workRoutineState.removeWorkSet(
-                                                                        routineIndex,
-                                                                        workSet
-                                                                    )
-                                                                else{
-                                                                    workRoutineInfoState.selectedRoutineList.toList().apply {
-                                                                        readyScreenState.updateSnackBarState(SnackBarState.CanNotRemove)
+                                                            isError = !decimalNumberValidator(
+                                                                workSet.repetition
+                                                            ) || workSet.repetition == "0"
+                                                        )
+                                                    }
+                                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                                        Icon(
+                                                            modifier = modifier
+                                                                .size(LiftTheme.space.space12)
+                                                                .noRippleClickable {
+                                                                    if (workRoutineState.currentWorkRoutine[routineIndex].workSetList.size > 1)
+                                                                        workRoutineState.removeWorkSet(
+                                                                            routineIndex,
+                                                                            workSet
+                                                                        )
+                                                                    else {
+                                                                        workRoutineInfoState.selectedRoutineList
+                                                                            .toList()
+                                                                            .apply {
+                                                                                readyScreenState.updateSnackBarState(
+                                                                                    SnackBarState.CanNotRemove
+                                                                                )
+                                                                            }
                                                                     }
-                                                                }
-                                                            },
-                                                        painter = painterResource(id = LiftIcon.Close),
-                                                        tint = LiftTheme.colorScheme.no10,
-                                                        contentDescription = "${routine}ChevronDown"
-                                                    )
-                                                    Spacer(modifier = modifier.width(LiftTheme.space.space12))
+                                                                },
+                                                            painter = painterResource(id = LiftIcon.Close),
+                                                            tint = LiftTheme.colorScheme.no10,
+                                                            contentDescription = "${routine}ChevronDown"
+                                                        )
+                                                        Spacer(modifier = modifier.width(LiftTheme.space.space12))
+                                                    }
                                                 }
                                             }
                                         }
+                                        LiftPrimaryButton(
+                                            modifier = modifier,
+                                            text = "루틴추가",
+                                            onClick = {
+                                                workRoutineState.addWorkSet(
+                                                    routineIndex,
+                                                    routine.workSetList.last()
+                                                )
+                                            }
+                                        )
                                     }
-                                    LiftPrimaryButton(
-                                        modifier = modifier,
-                                        text = "루틴추가",
-                                        onClick = {
-                                            workRoutineState.addWorkSet(
-                                                routineIndex,
-                                                routine.workSetList.last()
-                                            )
-                                        }
-                                    )
                                 }
                             }
                         }
                     }
                 }
             }
-            WorkSetKeyPadBottomSheet(
-                modifier,
-                keypadWorkSetState,
-                workRoutineState,
-                keypadState
-            )
             LiftDefaultContainer(
                 modifier = modifier
                     .background(LiftTheme.colorScheme.no5)
@@ -399,48 +407,178 @@ internal fun ReadyScreen(
                 verticalPadding = LiftTheme.space.space10,
                 horizontalPadding = LiftTheme.space.space20
             ) {
-                Row(
+                Column(
                     modifier = modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                 ) {
-                    LiftDefaultButton(
-                        modifier = modifier.weight(1f),
-                        text = "삭제",
-                        enabled = workRoutineInfoState.isNotEmptySelectedRoutineList(),
-                        onClick = {
-                            workRoutineInfoState.selectedRoutineList.toList().apply {
-                                workRoutineState.removeRoutines(this)
-                                readyScreenState.updateSnackBarState(SnackBarState.RemoveUndo(this.size))
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                    ) {
+                        Row(
+                            modifier = modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                            verticalAlignment = Alignment.CenterVertically,
 
+                            ) {
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                                verticalAlignment = Alignment.CenterVertically,
+
+                                ) {
+                                androidx.compose.material.Icon(
+                                    modifier = modifier.size(LiftTheme.space.space24),
+                                    imageVector = ImageVector.vectorResource(id = LiftIcon.Weight),
+                                    contentDescription = "Weight",
+                                    tint = Color.Unspecified
+                                )
+                                LiftText(
+                                    textStyle = LiftTextStyle.No3,
+                                    text = "총 무게",
+                                    color = LiftTheme.colorScheme.no3,
+                                    textAlign = TextAlign.Start
+                                )
                             }
-                            workRoutineInfoState.clearSelectedRoutineList()
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space1),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                AnimatedContent(
+                                    targetState = currentWorkRoutine.flatMap { it.workSetList }
+                                        .mapNotNull { it.weight.toFloatOrNull() }
+                                        .sum(),
+                                    transitionSpec = {
+                                        slideIntoContainer(
+                                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                                            animationSpec = tween(durationMillis = 300)
+                                        ) togetherWith ExitTransition.None
+                                    }, label = ""
+                                ) { value ->
+                                    LiftText(
+                                        textStyle = LiftTextStyle.No2,
+                                        text = value.toText(),
+                                        color = LiftTheme.colorScheme.no4,
+                                        textAlign = TextAlign.Start
+                                    )
+                                }
+                                LiftText(
+                                    textStyle = LiftTextStyle.No2,
+                                    text = "kg",
+                                    color = LiftTheme.colorScheme.no4,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+
+
                         }
-                    )
-                    LiftSolidButton(
-                        modifier = modifier.weight(1f),
-                        enabled =
-                        (
-                                currentWorkRoutine.isNotEmpty() &&
-                                        currentWorkRoutine.flatMap { it.workSetList }
-                                            .none { workSet ->
-                                                workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f
-                                            }
-                                        &&
-                                        currentWorkRoutine.flatMap { it.workSetList }
-                                            .none { workSet ->
-                                                workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0
-                                            }
-                                ),
-                        text = "운동 시작하기",
-                        onClick ={
-                            createWork(currentWorkRoutine.toList())
-                            navigateWorkReadyGraphToWorkGraph()
+                        Row(
+                            modifier = modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                            verticalAlignment = Alignment.CenterVertically,
+
+                            ) {
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                androidx.compose.material.Icon(
+                                    modifier = modifier.size(LiftTheme.space.space24),
+                                    imageVector = ImageVector.vectorResource(id = LiftIcon.Set),
+                                    contentDescription = "Set",
+                                    tint = Color.Unspecified
+
+                                )
+                                LiftText(
+                                    textStyle = LiftTextStyle.No3,
+                                    text = "총 세트",
+                                    color = LiftTheme.colorScheme.no3,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space1),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                AnimatedContent(
+                                    targetState = currentWorkRoutine.sumOf { it.workSetList.size },
+                                    transitionSpec = {
+                                        slideIntoContainer(
+                                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                                            animationSpec = tween(durationMillis = 300)
+                                        ) togetherWith ExitTransition.None
+                                    }, label = ""
+                                ) { value ->
+                                    LiftText(
+                                        textStyle = LiftTextStyle.No2,
+                                        text = "$value",
+                                        color = LiftTheme.colorScheme.no4,
+                                        textAlign = TextAlign.Start
+                                    )
+                                }
+                                LiftText(
+                                    textStyle = LiftTextStyle.No2,
+                                    text = "set",
+                                    color = LiftTheme.colorScheme.no4,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
                         }
-                    )
+                    }
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LiftDefaultButton(
+                            modifier = modifier.weight(1f),
+                            text = "삭제",
+                            enabled = workRoutineInfoState.isNotEmptySelectedRoutineList(),
+                            onClick = {
+                                workRoutineInfoState.selectedRoutineList.toList().apply {
+                                    workRoutineState.removeRoutines(this)
+                                    readyScreenState.updateSnackBarState(
+                                        SnackBarState.RemoveUndo(
+                                            this.size
+                                        )
+                                    )
+
+                                }
+                                workRoutineInfoState.clearSelectedRoutineList()
+                            }
+                        )
+                        LiftSolidButton(
+                            modifier = modifier.weight(1f),
+                            enabled =
+                            (
+                                    currentWorkRoutine.isNotEmpty() &&
+                                            currentWorkRoutine.flatMap { it.workSetList }
+                                                .none { workSet ->
+                                                    workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
+                                                        workSet.weight
+                                                    )
+                                                }
+                                            &&
+                                            currentWorkRoutine.flatMap { it.workSetList }
+                                                .none { workSet ->
+                                                    workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
+                                                        workSet.repetition
+                                                    )
+                                                }
+                                    ),
+                            text = "운동 시작하기",
+                            onClick = {
+                                createWork(currentWorkRoutine.toList())
+                                navigateWorkReadyGraphToWorkGraph()
+                            }
+                        )
+                    }
                 }
             }
-
         }
     }
 }
