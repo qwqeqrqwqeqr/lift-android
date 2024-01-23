@@ -1,8 +1,8 @@
-package com.gradation.lift.feature.work.complete.data.state
+package com.gradation.lift.feature.work.completedetail.data.state
 
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.common.utils.historyCommentValidator
-import com.gradation.lift.feature.work.complete.data.event.HistoryInfoEvent
+import com.gradation.lift.feature.work.completedetail.data.event.HistoryInfoEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,18 +19,16 @@ import kotlinx.coroutines.flow.stateIn
  * @since 2023-12-12 17:20:44
  */
 internal data class HistoryInfoState(
-    val score: MutableStateFlow<Int> = MutableStateFlow(5),
-    val comment: MutableStateFlow<String> = MutableStateFlow(""),
     private val viewModelScope: CoroutineScope,
 ) {
-
+    val score: MutableStateFlow<Int> = MutableStateFlow(3)
+    val comment: MutableStateFlow<String> = MutableStateFlow("")
 
     var commentValidator: StateFlow<Validator> =
         comment.map { it ->
-            if(it.isBlank()){
+            if (it.isBlank()) {
                 Validator(true, "")
-            }
-            else if (!historyCommentValidator(it)) {
+            } else if (!historyCommentValidator(it)) {
                 Validator(false, "0 - 20자 사이의 글자로 입력해주세요.")
             } else {
                 Validator(true, "")
@@ -41,13 +39,13 @@ internal data class HistoryInfoState(
             initialValue = Validator()
         )
 
-    val updateComment: (String) -> Unit = {onHistoryInfoEvent(HistoryInfoEvent.UpdateComment(it))}
-    val updateScore: (Int) -> Unit = {onHistoryInfoEvent(HistoryInfoEvent.UpdateScore(it))}
+    val updateComment: (String) -> Unit = { onHistoryInfoEvent(HistoryInfoEvent.UpdateComment(it)) }
+    val updateScore: (Int) -> Unit = { onHistoryInfoEvent(HistoryInfoEvent.UpdateScore(it)) }
 
-    private fun onHistoryInfoEvent(historyInfoEvent: HistoryInfoEvent){
-        when(historyInfoEvent){
+    private fun onHistoryInfoEvent(historyInfoEvent: HistoryInfoEvent) {
+        when (historyInfoEvent) {
             is HistoryInfoEvent.UpdateComment -> comment.value = historyInfoEvent.comment
-            is HistoryInfoEvent.UpdateScore ->  score.value = historyInfoEvent.score
+            is HistoryInfoEvent.UpdateScore -> score.value = historyInfoEvent.score
         }
     }
 }

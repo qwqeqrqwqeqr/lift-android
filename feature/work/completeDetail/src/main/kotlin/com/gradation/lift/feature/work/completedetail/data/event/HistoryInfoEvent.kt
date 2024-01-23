@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.complete.data.event
+package com.gradation.lift.feature.work.completedetail.data.event
 
 sealed interface HistoryInfoEvent{
 
