@@ -3,6 +3,8 @@ package com.gradation.lift.ui.mapper
 import android.icu.text.DecimalFormat
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.toJavaLocalTime
+import java.time.format.DateTimeFormatter
 
 /**
  * [toText]
@@ -52,4 +54,10 @@ fun Int.toRepetitionText(): Int = if (this in 1..100) this else 10
  */
 fun LocalDate.toDayMonthText(): String = "${this.monthNumber}월 ${this.dayOfMonth}일"
 
-fun LocalDate.toDateText():String = "${year.toString().subSequence(2, 4)}.${DecimalFormat("00").format(monthNumber)}.${dayOfMonth}"
+fun LocalDate.toDateText(): String =
+    "${year.toString().subSequence(2, 4)}.${DecimalFormat("00").format(monthNumber)}.${dayOfMonth}"
+
+fun LocalTime.toTimerText(): String =
+    with(DateTimeFormatter.ofPattern("HH:mm:ss")) {
+        toJavaLocalTime().format(this)
+    }
