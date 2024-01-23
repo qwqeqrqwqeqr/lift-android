@@ -79,6 +79,12 @@ internal val COLOR_NO44: Color = Color(0xFF00DC62)
 internal val COLOR_NO45: Color = Color(0xFF009341)
 internal val COLOR_NO46: Color = Color(0xFF4DC451)
 
+internal val COLOR_NO47: Color = Color(0xFFFFA825)
+internal val COLOR_NO48: Color = Color(0xFFFF576F)
+internal val COLOR_NO49: Color = Color(0xFF3FB9ED)
+internal val COLOR_NO50: Color = Color(0xFF42C047)
+internal val COLOR_NO51: Color = Color(0xFFDC70DF)
+
 
 
 
@@ -154,6 +160,11 @@ data class LiftColorScheme(
     val no44: Color,
     val no45: Color,
     val no46: Color,
+    val no47: Color,
+    val no48: Color,
+    val no49: Color,
+    val no50: Color,
+    val no51: Color,
     val mondayLabelColor: Color,
     val mondayBackgroundColor: Color,
     val tuesdayLabelColor: Color,
@@ -227,6 +238,11 @@ fun liftLightColorScheme(
     no44: Color = COLOR_NO44,
     no45: Color = COLOR_NO45,
     no46: Color = COLOR_NO46,
+    no47: Color = COLOR_NO47,
+    no48: Color = COLOR_NO48,
+    no49: Color = COLOR_NO49,
+    no50: Color = COLOR_NO50,
+    no51: Color = COLOR_NO51,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -297,6 +313,11 @@ fun liftLightColorScheme(
         no44,
         no45,
         no46,
+        no47,
+        no48,
+        no49,
+        no50,
+        no51,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
@@ -368,6 +389,11 @@ fun liftDarkColorScheme(
     no44: Color = Color.Unspecified,
     no45: Color = Color.Unspecified,
     no46: Color = Color.Unspecified,
+    no47: Color = Color.Unspecified,
+    no48: Color = Color.Unspecified,
+    no49: Color = Color.Unspecified,
+    no50: Color = Color.Unspecified,
+    no51: Color = Color.Unspecified,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -438,6 +464,11 @@ fun liftDarkColorScheme(
         no44,
         no45,
         no46,
+        no47,
+        no48,
+        no49,
+        no50,
+        no51,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,

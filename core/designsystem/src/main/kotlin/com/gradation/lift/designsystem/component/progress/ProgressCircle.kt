@@ -10,6 +10,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 
@@ -17,6 +18,8 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 fun LiftProgressCircle(
     modifier: Modifier = Modifier,
     progress: Float,
+    stroke :Float= 96f,
+    size: Dp = LiftTheme.space.space266,
     progressBarColor: Color = LiftTheme.colorScheme.no4,
     progressBarBackgroundColor: Color = LiftTheme.colorScheme.no1,
 ) {
@@ -24,7 +27,7 @@ fun LiftProgressCircle(
     BoxWithConstraints(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(LiftTheme.space.space266),
+            .size(size),
     ) {
         val canvasHeight = this.maxHeight
         val canvasWidth = this.maxWidth
@@ -39,7 +42,7 @@ fun LiftProgressCircle(
                 sweepAngle = maxProgress,
                 useCenter = false,
                 size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
-                style = Stroke(width = 96f, cap = StrokeCap.Round)
+                style = Stroke(width = stroke, cap = StrokeCap.Round)
             )
 
             drawArc(
@@ -48,7 +51,7 @@ fun LiftProgressCircle(
                 sweepAngle = progress / 100f * maxProgress,
                 useCenter = false,
                 size = Size(canvasWidth.toPx(), canvasHeight.toPx()),
-                style = Stroke(width = 96f, cap = StrokeCap.Round)
+                style = Stroke(width = stroke, cap = StrokeCap.Round)
             )
         }
     }
