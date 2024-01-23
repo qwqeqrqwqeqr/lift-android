@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import com.gradation.lift.feature.work.complete.navigation.completeScreen
+import com.gradation.lift.feature.work.completedetail.completeDetailScreen
 import com.gradation.lift.feature.work.work.navigation.workScreen
 import com.gradation.lift.navigation.Route.WORK_GRAPH_NAME
 import com.gradation.lift.navigation.Route.WORK_WORK_ROUTER_NAME
@@ -26,5 +27,6 @@ fun NavGraphBuilder.workGraphBuilder(
     ) {
         workScreen(modifier, navController)
         completeScreen(modifier, navController)
+        completeDetailScreen(modifier, navController)
     }
 }
