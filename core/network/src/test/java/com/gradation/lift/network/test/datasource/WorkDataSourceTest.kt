@@ -54,7 +54,7 @@ class WorkDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         workDataSource = DefaultWorkDataSource(
             workService = workService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler, dispatcher
         )
     }
 

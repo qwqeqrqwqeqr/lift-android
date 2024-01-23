@@ -8,6 +8,7 @@ import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import com.gradation.lift.domain.usecase.work.GetWorkUseCase
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,15 +23,13 @@ class WorkViewModel @Inject constructor(
     private val getWorkUseCase: GetWorkUseCase,
 ) : ViewModel() {
 
-    val workState = WorkState(initTimerUseCase, viewModelScope)
-
     init {
         viewModelScope.launch {
             getWorkUseCase().collect {
                 when (it) {
-                    is DataState.Fail -> workState.currentWorkRoutineList.addAll(emptyList())
+                    is DataState.Fail -> {}
                     is DataState.Success -> {
-                        workState.currentWorkRoutineList.addAll(it.data.routine.mapIndexed { index, workRoutine ->
+                        workState.workRoutineList.addAll(it.data.routine.mapIndexed { index, workRoutine ->
                             WorkRoutine(
                                 index,
                                 workRoutine.workCategory,
@@ -48,6 +47,9 @@ class WorkViewModel @Inject constructor(
             }
         }
     }
+
+    val workState = WorkState(initTimerUseCase, viewModelScope)
+    val workRoutineInfoState = WorkRoutineInfoState()
 }
 
 

@@ -54,7 +54,7 @@ class PictureDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         pictureDataSource = DefaultPictureDataSource(
             pictureService,
-            networkResultHandler = networkResultHandler
+            networkResultHandler = networkResultHandler,dispatcher
         )
     }
 

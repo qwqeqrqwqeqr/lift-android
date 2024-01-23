@@ -57,7 +57,7 @@ class BadgeDataSourceTest {
         networkResultHandler =
             NetworkResultHandler(dispatcherProvider = dispatcher)
         badgeDataSource = DefaultBadgeDataSource(
-            badgeService, networkResultHandler
+            badgeService, networkResultHandler, dispatcher
         )
     }
 

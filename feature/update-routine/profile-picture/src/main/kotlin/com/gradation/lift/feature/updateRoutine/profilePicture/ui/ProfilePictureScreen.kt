@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.component.LiftBackTopBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.profilePicture.ui.component.LoadingRoutineProfilePictureList
 import com.gradation.lift.feature.updateRoutine.profilePicture.data.state.RoutineSetPictureUiState
@@ -22,9 +22,9 @@ fun ProfilePictureScreen(
 ) {
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
                 title = "프로필 등록하기",
-                onBackClickTopBar = navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
+                onClick = navigateProfilePictureToRoutineSetInUpdateRoutineGraph,
             )
         }
     ) { padding ->

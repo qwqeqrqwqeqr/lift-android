@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.setting.component.fail.FailBadgeListView
 import com.gradation.lift.feature.badge.setting.component.fail.FailMainBadgeView
@@ -94,9 +94,9 @@ fun BadgeSettingScreen(
 ) {
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
                 title = "대표뱃지 설정",
-                onBackClickTopBar = navigateBadgeGraphToPreGraph,
+                onClick = navigateBadgeGraphToPreGraph,
             )
         },
         snackbarHost = {

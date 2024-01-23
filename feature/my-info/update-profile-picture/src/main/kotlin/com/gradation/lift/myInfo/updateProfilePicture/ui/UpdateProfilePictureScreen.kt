@@ -10,9 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.gradation.lift.designsystem.component.LiftBackTopBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateProfilePictureScreenState
@@ -30,9 +30,9 @@ fun UpdateProfilePictureScreen(
 ) {
     Scaffold(
         topBar = {
-            LiftBackTopBar(
+            LiftTopBar(
                 title = "프로필 사진 변경",
-                onBackClickTopBar = navigateUpdateProfileToMyInfoInMyInfoGraph
+                onClick = navigateUpdateProfileToMyInfoInMyInfoGraph
             )
         },
         snackbarHost = {

@@ -1,9 +1,9 @@
 package com.gradation.lift.feature.work.work.data.state
 
-interface WorkDialogUiState {
+sealed interface WorkDialogUiState {
 
-    object SuspendDialogUi : WorkDialogUiState
-    object CompleteDialogUi : WorkDialogUiState
-    object AutoCompleteDialogUi : WorkDialogUiState
-    object None : WorkDialogUiState
+    data object SuspendDialogUi : WorkDialogUiState
+    data object CompleteDialogUi : WorkDialogUiState
+    data object AutoCompleteDialogUi : WorkDialogUiState
+    data object None : WorkDialogUiState
 }

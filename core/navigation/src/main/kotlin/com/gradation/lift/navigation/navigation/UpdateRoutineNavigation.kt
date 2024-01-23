@@ -1,5 +1,6 @@
 package com.gradation.lift.navigation.navigation
 
+import android.annotation.SuppressLint
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
@@ -68,8 +69,8 @@ fun NavController.navigateChangeOrderToRoutineSetInUpdateRoutineGraph() {
 }
 
 
+@SuppressLint("RestrictedApi")
 fun NavController.navigateUpdateRoutineGraphToRoutineDetailGraph() {
-
     if (this.currentBackStack.value.any { it.destination.route == ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME }) {
         this.navigate(ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
             this.popUpTo(ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME) {
@@ -86,12 +87,8 @@ fun NavController.navigateUpdateRoutineGraphToRoutineDetailGraph() {
 }
 
 fun NavController.navigateUpdateRoutineRoutineSetRouterToRoutineDetailRoutineRouter(routineSetId: Int) {
-    this.setValueSavedStateHandle(
-        SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY,
-        routineSetId
-    )
-    this.navigate(ROUTINE_DETAIL_ROUTINE_ROUTER_NAME) {
-        this.popUpTo(ROUTINE_DETAIL_ROUTINE_ROUTER_NAME) {
+    this.navigate("$ROUTINE_DETAIL_ROUTINE_ROUTER_NAME/$routineSetId") {
+        this.popUpTo("$ROUTINE_DETAIL_ROUTINE_ROUTER_NAME/$routineSetId") {
             inclusive = true
         }
     }

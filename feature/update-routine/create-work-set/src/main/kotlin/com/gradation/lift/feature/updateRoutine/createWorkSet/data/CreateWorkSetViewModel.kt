@@ -1,12 +1,13 @@
 package com.gradation.lift.feature.updateRoutine.createWorkSet.data
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.domain.usecase.work.GetWorkCategoryByIdUseCase
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.KeypadState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.workCategoryUiState
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -19,15 +20,15 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class CreateWorkSetViewModel @Inject constructor(
-    getWorkCategoryByIdUseCase: GetWorkCategoryByIdUseCase
+    getWorkCategoryByIdUseCase: GetWorkCategoryByIdUseCase,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
-
-    private var workCategoryId: MutableStateFlow<Int?> = MutableStateFlow(null)
-    val setWorkCategoryId: (Int?) -> Unit = { workCategoryId.value = it }
+    private var workCategoryId: StateFlow<Nothing?> = savedStateHandle.getStateFlow(
+        SavedStateHandleKey.UpdateRoutine.UPDATE_WORK_CATEGORY_ID_KEY,
+        null
+    )
 
     val workSetState = WorkSetState()
-    val keypadState = KeypadState()
 
 
     val workCategoryUiState: StateFlow<WorkCategoryUiState> =

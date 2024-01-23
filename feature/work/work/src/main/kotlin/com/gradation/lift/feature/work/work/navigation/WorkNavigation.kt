@@ -13,7 +13,7 @@ fun NavGraphBuilder.workScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
 ) {
-    composable(route = WORK_WORK_ROUTER_NAME,) {
+    composable(route = WORK_WORK_ROUTER_NAME) {
 
         val navigateWorkToCompleteInWorkGraph: () -> Unit =
             { navController.navigateWorkToCompleteInWorkGraph() }
