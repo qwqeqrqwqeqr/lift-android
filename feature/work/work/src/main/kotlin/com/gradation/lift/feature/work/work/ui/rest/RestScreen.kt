@@ -23,10 +23,9 @@ import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.feature.work.work.data.state.WorkState
 import com.gradation.lift.feature.work.work.navigation.getProgress
 import com.gradation.lift.feature.work.work.ui.component.common.WorkProgressCircle
+import com.gradation.lift.ui.mapper.toTimerText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.toJavaLocalTime
-import java.time.format.DateTimeFormatter
 
 @ExperimentalMaterial3Api
 @Composable
@@ -116,9 +115,7 @@ fun RestScreen(
                     LiftText(
                         modifier = modifier,
                         textStyle = LiftTextStyle.No1,
-                        text = with(DateTimeFormatter.ofPattern("HH:mm:ss")) {
-                            restTime.toJavaLocalTime().format(this)
-                        },
+                        text = restTime.toTimerText(),
                         color = LiftTheme.colorScheme.no9,
                         textAlign = TextAlign.Center,
                     )

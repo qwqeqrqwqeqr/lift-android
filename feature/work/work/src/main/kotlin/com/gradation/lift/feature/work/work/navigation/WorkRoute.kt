@@ -67,7 +67,7 @@ fun WorkRoute(
     val setHistoryRoutineList: (List<CreateHistoryRoutine>) -> Unit =
         sharedViewModel.setHistoryRoutineList
     val setHistoryWorkRestTime: (WorkRestTime) -> Unit = sharedViewModel.setHistoryWorkRestTime
-    val setProgress: (Int) -> Unit = sharedViewModel.setHistoryProgress
+    val setProgress: (Float) -> Unit = sharedViewModel.setHistoryProgress
 
 
     val progress: Float by animateFloatAsState(
@@ -232,7 +232,7 @@ private fun createHistory(
     workRoutineInfoState: WorkRoutineInfoState,
     setHistoryRoutineList: (List<CreateHistoryRoutine>) -> Unit,
     setHistoryWorkRestTime: (WorkRestTime) -> Unit,
-    setProgress: (Int) -> Unit,
+    setProgress: (Float) -> Unit,
 ) {
     setHistoryWorkRestTime(
         WorkRestTime(
@@ -261,7 +261,7 @@ private fun createHistory(
         }.filter { it.workSetList.isNotEmpty() }
     )
     setProgress(
-        getProgress(workState, workRoutineInfoState).toInt()
+        getProgress(workState, workRoutineInfoState)
     )
     workState.stopTime()
 }
