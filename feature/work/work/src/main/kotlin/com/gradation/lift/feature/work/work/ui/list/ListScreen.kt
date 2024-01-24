@@ -394,7 +394,7 @@ fun ListScreen(
                                     }
                                     LiftPrimaryButton(
                                         modifier = modifier,
-                                        text = "루틴추가",
+                                        text = "세트추가",
                                         onClick = {
                                             workState.addWorkSet(
                                                 workRoutine.id,

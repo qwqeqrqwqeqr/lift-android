@@ -384,7 +384,7 @@ internal fun ReadyScreen(
                                         }
                                         LiftPrimaryButton(
                                             modifier = modifier,
-                                            text = "루틴추가",
+                                            text = "세트추가",
                                             onClick = {
                                                 workRoutineState.addWorkSet(
                                                     routineIndex,
