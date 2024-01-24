@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -26,6 +28,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.common.utils.Validator
@@ -187,7 +191,16 @@ internal fun CompleteDetailScreen(
                         singleLine = false,
                         isError = !commentValidator.status,
                         onValueChange = historyInfoState.updateComment,
-                        placeHolderValue = "오늘의 경험을 남겨주세요. (20자 내)"
+                        placeHolderValue = "오늘의 경험을 남겨주세요. (20자 내)",
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Text
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                completeDetailScreenState.focusManager.clearFocus()
+                            }
+                        ),
                     )
                     AnimatedVisibility(visible = !commentValidator.status) {
                         LiftText(
