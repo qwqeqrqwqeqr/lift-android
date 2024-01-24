@@ -36,17 +36,22 @@ fun NavigationView(
         LiftSolidButton(
             modifier = modifier,
             enabled = workSetState.workSetList.isNotEmpty()
-                    && workSetState.workSetList.none() { it.weight.isEmpty()|| it.weight.toFloatOrNull() ==0f  || !decimalNumberValidator(
-                it.weight
-            ) }
-                    && workSetState.workSetList.none() { it.repetition.isEmpty() || it.repetition.toIntOrNull() ==0 || !decimalNumberValidator(
-                it.repetition
-            ) },
+                    && workSetState.workSetList.none() {
+                it.weight.isEmpty() || it.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
+                    it.weight
+                )
+            }
+                    && workSetState.workSetList.none() {
+                it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
+                    it.repetition
+                )
+            },
             text = "등록하기",
             onClick = {
                 workRoutineState.appendRoutine(
                     WorkRoutine(
-                        id = workRoutineState.currentWorkRoutine.maxBy { it.id }.let { it.id + 1 },
+                        id = workRoutineState.currentWorkRoutine.takeUnless { it.isEmpty() }
+                            ?.let { it.maxOf { it.id } + 1 } ?: 0,
                         workCategory = workCategory,
                         workSetList = workSetState.workSetList.map {
                             WorkRoutineWorkSet(

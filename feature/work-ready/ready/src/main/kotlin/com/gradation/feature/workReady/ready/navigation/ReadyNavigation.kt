@@ -34,7 +34,10 @@ fun NavGraphBuilder.readyScreen(
         popExitTransition = { fadeOut() },
     ) {
         val routineSetIdList =
-            navController.getValueSavedStateHandle<String>(WORK_ROUTINE_SET_ID_LIST_KEY)?.split("|")?.map { it.toInt() } ?: emptyList()
+            navController.getValueSavedStateHandle<String>(WORK_ROUTINE_SET_ID_LIST_KEY)?.split("|")
+                ?.map { it.toInt() }
+                ?.toSet()
+                ?: emptySet<Int>()
 
         ReadyRoute(
             modifier,

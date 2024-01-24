@@ -25,7 +25,7 @@ import com.gradation.lift.navigation.Route
 internal fun ReadyRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    routineSetIdList: List<Int>,
+    routineSetIdList: Set<Int>,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,

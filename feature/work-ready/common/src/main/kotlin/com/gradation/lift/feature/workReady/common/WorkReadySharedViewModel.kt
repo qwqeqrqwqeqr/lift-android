@@ -20,10 +20,10 @@ class WorkReadySharedViewModel @Inject constructor(
 
     val workRoutineState = WorkRoutineState()
 
-    val initRoutineList: (List<Int>) -> Unit = {
+    val initRoutineList: (Set<Int>) -> Unit = {
         viewModelScope.launch {
             if (workRoutineState.currentWorkRoutine.isEmpty() && it.isNotEmpty()) {
-                getRoutineSetRoutineByRoutineSetIdUseCase(it.toSet()).map { routineSetRoutine ->
+                getRoutineSetRoutineByRoutineSetIdUseCase(it).map { routineSetRoutine ->
                     when (routineSetRoutine) {
                         is DataState.Fail -> emptyList()
                         is DataState.Success -> routineSetRoutine.data.flatMap { it.routine }

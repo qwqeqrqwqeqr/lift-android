@@ -7,8 +7,6 @@ import com.gradation.lift.navigation.Route.ANALYTICS_GRAPH_NAME
 import com.gradation.lift.navigation.Route.DAILY_LOG_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.RoutineSet.DETAIL_ROUTINE_SET_ID_KEY
-import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
 fun NavController.navigateHomeGraphToWorkReadyReadyRouter() {
