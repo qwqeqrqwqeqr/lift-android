@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -31,15 +29,6 @@ internal fun WorkCategoryView(
     navigateFindWorkCategoryToCreateWorkSetInUpdateRoutineGraph: (Int) -> Unit,
     findWorkCategoryScreenState: FindWorkCategoryScreenState,
 ) {
-    LaunchedEffect(findWorkCategoryScreenState.lazyListState) {
-        snapshotFlow { findWorkCategoryScreenState.lazyListState.firstVisibleItemIndex }
-            .collect {
-                if (it > 0)
-                    findWorkCategoryScreenState.updateSearchSortFilterView(false)
-                else
-                    findWorkCategoryScreenState.updateSearchSortFilterView(true)
-            }
-    }
     LazyColumn(
         modifier = modifier
             .background(LiftTheme.colorScheme.no17)
