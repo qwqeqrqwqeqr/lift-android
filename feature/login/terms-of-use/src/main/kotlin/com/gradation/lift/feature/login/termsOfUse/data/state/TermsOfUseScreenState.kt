@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun rememberTermsOfUseScreenState(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    snackbarHostState: SnackbarHostState =  remember {SnackbarHostState()},
     context: Context = LocalContext.current,
     completeDialogView: MutableState<Boolean> = rememberSaveable { mutableStateOf (false) },
     allConsent: MutableState<Boolean> = rememberSaveable { mutableStateOf (false) },

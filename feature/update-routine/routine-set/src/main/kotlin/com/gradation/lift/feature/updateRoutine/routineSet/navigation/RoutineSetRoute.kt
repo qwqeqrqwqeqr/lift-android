@@ -93,18 +93,15 @@ internal fun RoutineSetRoute(
 
     BackHandler(onBack = popBackStack)
 
-    AnimatedVisibility (routineSetScreenState.deleteDialogView) {
-        Surface(
-            color = LiftTheme.colorScheme.no5.copy(alpha = 0.7f),
-            modifier = modifier.fillMaxSize()
-        ) {
-            DeleteDialog(
-                modifier = modifier,
-                onClickDialogDeleteButton = { deleteRoutineSetRoutine(currentRoutineSetRoutine.id) },
-                onClickDialogDismissButton = { routineSetScreenState.updateDeleteDialogView(false) },
-            )
-        }
+
+    AnimatedVisibility(visible = routineSetScreenState.deleteDialogView) {
+        DeleteDialog(
+            modifier = modifier,
+            onClickDialogDeleteButton = { deleteRoutineSetRoutine(currentRoutineSetRoutine.id) },
+            onClickDialogDismissButton = { routineSetScreenState.updateDeleteDialogView(false) },
+        )
     }
+
 
     RoutineSetScreen(
         modifier,

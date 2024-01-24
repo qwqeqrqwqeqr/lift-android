@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 
 @Composable
 internal fun rememberCompleteDetailScreenState(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    snackbarHostState: SnackbarHostState =  remember {SnackbarHostState()},
 ): CompleteDetailScreenState = remember(snackbarHostState) {
     CompleteDetailScreenState(snackbarHostState)
 }

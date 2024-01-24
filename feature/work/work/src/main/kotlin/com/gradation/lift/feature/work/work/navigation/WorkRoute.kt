@@ -90,6 +90,8 @@ fun WorkRoute(
             workScreenState.updateWorkDialogState(WorkDialogUiState.CompleteDialogUi)
         }
     }
+
+
     LaunchedEffect(workScreenState.pagerState, currentWorkRoutineIndex) {
         snapshotFlow { workScreenState.pagerState.currentPage }.debounce(700L)
             .collectLatest { page ->

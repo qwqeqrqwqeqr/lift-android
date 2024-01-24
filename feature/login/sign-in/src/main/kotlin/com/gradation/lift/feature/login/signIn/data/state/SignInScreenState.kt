@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun rememberSignInScreenState(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    snackbarHostState: SnackbarHostState =  remember {SnackbarHostState()},
     context: Context = LocalContext.current,
 ): SignInScreenState =
     remember(snackbarHostState, context) {
