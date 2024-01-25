@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work.data.event
+package com.gradation.lift.feature.work.common.data
 
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet

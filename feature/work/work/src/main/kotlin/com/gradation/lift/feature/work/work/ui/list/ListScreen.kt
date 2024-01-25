@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -38,7 +37,7 @@ import com.gradation.lift.feature.work.work.data.state.SnackBarState
 import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
-import com.gradation.lift.feature.work.work.data.state.WorkState
+import com.gradation.lift.feature.work.common.data.WorkState
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
@@ -50,6 +49,7 @@ fun ListScreen(
     progress: Float,
     workTime: LocalTime,
     workState: WorkState,
+    navigateWorkToFindWorkCategoryInWorkGraph: () -> Unit,
     workRoutineInfoState: WorkRoutineInfoState,
     workScreenState: WorkScreenState,
 ) {
@@ -73,14 +73,13 @@ fun ListScreen(
                                     workSet.repetition
                                 )
                             }
-                    )
-                    {
+                    ) {
                         workScreenState.updateWorkScreenState(WorkScreenUiState.WorkScreenUi)
-                    }else{
+                    } else {
                         workScreenState.updateSnackBarState(SnackBarState.Success("잘못 입력한 값이 존재합니다.\n수정 후 다시 시도해주세요."))
                     }
                 },
-                actions = {}
+                actions = { LiftAddWorkSetContainer(modifier.noRippleClickable(onClick = navigateWorkToFindWorkCategoryInWorkGraph)) }
             )
         },
         snackbarHost = {
@@ -220,7 +219,7 @@ fun ListScreen(
                                     )
                                 }
                             }
-                            AnimatedVisibility (
+                            AnimatedVisibility(
                                 workRoutineInfoState.isOpened(workRoutine.id)
                             ) {
                                 Column(

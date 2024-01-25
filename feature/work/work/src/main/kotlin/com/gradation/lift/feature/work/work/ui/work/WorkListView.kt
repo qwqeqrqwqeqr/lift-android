@@ -15,7 +15,7 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineCheckedInfo
 import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
-import com.gradation.lift.feature.work.work.data.state.WorkState
+import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.ui.mapper.toText
 
 @Composable

@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.work.work.data.state
+package com.gradation.lift.feature.work.common.data
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -6,7 +6,6 @@ import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
-import com.gradation.lift.feature.work.work.data.event.WorkRoutineEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +23,8 @@ class WorkState(
     private val viewModelScope: CoroutineScope,
     var workRoutineList: SnapshotStateList<WorkRoutine> = emptyList<WorkRoutine>().toMutableStateList(),
     var currentWorkRoutineIndex: MutableStateFlow<Int> = MutableStateFlow(0),
-    var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
-    var workRestFlag: MutableStateFlow<Boolean> = MutableStateFlow(true),
+    private var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
+    private var workRestFlag: MutableStateFlow<Boolean> = MutableStateFlow(true),
 ) {
 
     private lateinit var timerJob: Job
