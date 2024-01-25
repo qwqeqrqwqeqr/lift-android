@@ -43,9 +43,18 @@ internal fun CompleteDetailRoute(
 
     val historyWorkRestTime: WorkRestTime by sharedViewModel.historyWorkRestTime.collectAsStateWithLifecycle()
     val historyRoutineList: List<CreateHistoryRoutine> by sharedViewModel.historyRoutineList.collectAsStateWithLifecycle()
+    val historyProgress: Float by sharedViewModel.historyProgress.collectAsStateWithLifecycle()
+    val usedRoutineSetIdList: List<Int> by sharedViewModel.usedRoutineSetIdList.collectAsStateWithLifecycle()
 
-    val createHistory: () -> Unit =
-        { viewModel.createHistory(historyWorkRestTime, historyRoutineList) }
+    val createHistory: () -> Unit = {
+            viewModel.createHistory(
+                historyProgress.toInt(),
+                historyWorkRestTime,
+                historyRoutineList,
+                usedRoutineSetIdList
+            )
+        }
+
 
     val historyInfoState = viewModel.historyInfoState
 
