@@ -57,6 +57,16 @@ interface HistoryService {
      */
     @DELETE("history/history")
     suspend fun deleteHistory(@Query("history_id") historyId: Int): Response<APIResultWrapper<DeleteHistoryResponseDto>>
+
+
+    /**
+     * [updateHistoryInfo]
+     * 운동 기록 삭제
+     * @param updateHistoryInfoRequestDto 운동 기록의 아아디와 변경할 메모와 점수
+     * @since 2024-01-25 18:30:30
+     */
+    @DELETE("history/history-info")
+    suspend fun updateHistoryInfo(@Body updateHistoryInfoRequestDto: UpdateHistoryInfoRequestDto): Response<APIResultWrapper<UpdateHistoryInfoResponseDto>>
 }
 
 

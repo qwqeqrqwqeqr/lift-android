@@ -23,6 +23,7 @@ data class GetHistoryResponseDto(
             historyId = it.value.first().historyId,
             comment = it.value.first().comment,
             score = it.value.first().score,
+            progress = it.value.first().progress,
             workTime = LocalTime.fromSecondOfDay(it.value.first().workTime.toInt()),
             restTime = LocalTime.fromSecondOfDay(it.value.first().restTime.toInt()),
             totalTime = LocalTime.fromSecondOfDay(it.value.first().totalTime.toInt()),

@@ -4,25 +4,20 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-
 @Serializable
 data class CreateHistoryRequestDto(
     @SerialName("comment")
-    val comment : String?,
+    val comment: String? = null,
     @SerialName("score")
-    val score :Int,
-
+    val score: Int? = null,
     @SerialName("work_time")
-    val workTime : Int,
-
+    val workTime: Int,
     @SerialName("rest_time")
-    val restTime : Int,
-
+    val restTime: Int,
     @SerialName("total_time")
-    val totalTime : Int,
-
+    val totalTime: Int,
     @SerialName("history_time_stamp")
-    val historyTimeStamp : String,
+    val historyTimeStamp: String,
     @SerialName("history_routine")
-    val historyRoutine : List<CreateHistoryRoutineDto>
+    val historyRoutine: List<CreateHistoryRoutineDto>,
 )
