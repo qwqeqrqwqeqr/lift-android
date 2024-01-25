@@ -10,6 +10,7 @@ import com.gradation.ift.feature.updateRoutine.navigation.updateRoutineGraphBuil
 import com.gradation.lift.feature.analytics.navigation.analyticsGraphBuilder
 import com.gradation.lift.feature.badge.navigation.badgeGraphBuilder
 import com.gradation.lift.feature.createRoutine.navigation.createRoutineGraphBuilder
+import com.gradation.lift.feature.history.navigation.historyGraphBuilder
 import com.gradation.lift.feature.home.navigation.homeGraphBuilder
 import com.gradation.lift.feature.login.navigation.loginGraphBuilder
 import com.gradation.lift.feature.myInfo.navigation.myInfoGraphBuilder
@@ -47,7 +48,7 @@ fun LiftNavHost(
         workGraphBuilder(modifier, navController)
         workReadyGraphBuilder(modifier, navController)
         routineDetailGraphBuilder(modifier, navController, this)
-        dailyLogGraphBuilder(modifier, navController)
+        historyGraphBuilder(modifier, navController)
         analyticsGraphBuilder(modifier, navController)
     }
 }

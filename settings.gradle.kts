@@ -97,8 +97,9 @@ include(":feature:my-info:update-profile-picture")
 include(":feature:my-info:update-name")
 include(":feature:my-info:update-info")
 
-include(":feature:daily-log:daily-log")
-include(":feature:daily-log:navigation")
+include(":feature:history:history")
+include(":feature:history:navigation")
+
 
 include(":feature:analytics:analytics")
 include(":feature:analytics:navigation")

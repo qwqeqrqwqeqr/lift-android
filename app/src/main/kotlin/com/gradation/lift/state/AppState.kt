@@ -33,7 +33,7 @@ class AppState(
             when (topLevelDestination) {
                 TopLevelNavDestination.Home -> navController.navigateHomeGraph()
                 TopLevelNavDestination.MyInfo -> navController.navigateMyInfoGraph()
-                TopLevelNavDestination.DailyLog -> navController.navigateDailyLogGraph()
+                TopLevelNavDestination.DailyLog -> navController.navigateHistoryGraph()
                 TopLevelNavDestination.Analytics -> navController.navigateAnalyticsGraph()
             }
         }
