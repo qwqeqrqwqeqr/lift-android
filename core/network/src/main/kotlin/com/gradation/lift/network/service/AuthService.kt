@@ -5,8 +5,8 @@ import com.gradation.lift.network.dto.auth.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.http.Query
 
 /**
@@ -130,7 +130,7 @@ interface AuthService {
      * @param updatePasswordRequestDto 사용자의 이메일과 변경할 패스워드
      * @since 2023-12-28 14:44:59
      */
-    @PUT("auth/password")
+    @PATCH("auth/password")
     suspend fun updateUserPassword(@Body updatePasswordRequestDto: UpdatePasswordRequestDto): Response<APIResultWrapper<UpdatePasswordResponseDto>>
 
 
