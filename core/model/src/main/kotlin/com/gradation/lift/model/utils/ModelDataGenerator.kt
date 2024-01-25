@@ -1,30 +1,6 @@
 package com.gradation.lift.model.utils
 
 import com.gradation.lift.model.BuildConfig
-import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.history.CreateHistory
-import com.gradation.lift.model.model.history.CreateHistoryRoutine
-import com.gradation.lift.model.model.history.History
-import com.gradation.lift.model.model.history.HistoryRoutine
-import com.gradation.lift.model.model.picture.RoutineSetPicture
-import com.gradation.lift.model.model.picture.UserProfilePicture
-import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.model.model.user.UserDetail
-import com.gradation.lift.model.model.work.WorkCategory
-import com.gradation.lift.model.model.work.WorkPart
-import com.gradation.lift.model.model.work.WorkSet
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel2
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModel2
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
@@ -34,8 +10,15 @@ import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.model.model.badge.CreateUserBadge
 import com.gradation.lift.model.model.badge.UserBadge
+import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.history.CreateHistory
+import com.gradation.lift.model.model.history.CreateHistoryRoutine
+import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.HistoryRoutine
 import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.picture.RoutineSetPicture
+import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
@@ -44,11 +27,26 @@ import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.model.work.WorkCategory
+import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel1
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel2
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
+import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -241,14 +239,14 @@ object ModelDataGenerator {
         val workCategoryModel1 = WorkCategory(
             id = 1,
             name = "숄더프레스",
-            workPart = workPartModel1,
+            workPart = listOf("어깨"),
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
         val workCategoryModel2 = WorkCategory(
             id = 2,
             name = "데드리프트",
-            workPart = workPartModel2,
+            workPart = listOf("등"),
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )

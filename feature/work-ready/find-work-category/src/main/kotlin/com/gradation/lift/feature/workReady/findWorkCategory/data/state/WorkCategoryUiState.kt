@@ -46,9 +46,8 @@ fun workCategoryUiState(
                                             )
                                         }
                                         .filter { workCategory ->
-                                            workPart.isEmpty() || workPart.contains(
-                                                workCategory.workPart
-                                            )
+                                            workPart.isEmpty() || workPart.intersect(workCategory.workPart.toSet())
+                                                .isNotEmpty()
                                         }.sortedBy { it.name }.map { workCategory ->
                                             TagWorkCategory(
                                                 workCategory,

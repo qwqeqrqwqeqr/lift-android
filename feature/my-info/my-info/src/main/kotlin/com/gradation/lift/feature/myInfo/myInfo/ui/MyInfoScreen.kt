@@ -3,6 +3,7 @@ package com.gradation.lift.feature.myInfo.myInfo.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -30,6 +31,7 @@ fun MyInfoScreen(
                 modifier = modifier,
                 snackbarHostState = myInfoScreenState.snackbarHostState
             )
+            Spacer(modifier = modifier.padding(LiftTheme.space.space72))
         }
     ) { padding ->
         Column(
