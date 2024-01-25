@@ -90,6 +90,8 @@ object Route {
     const val WORK_WORK_ROUTER_NAME = "work_work"
     const val WORK_COMPLETE_ROUTER_NAME = "work_complete"
     const val WORK_COMPLETE_DETAIL_ROUTER_NAME = "work_complete_detail"
+    const val WORK_FIND_WORK_CATEGORY_ROUTER_NAME = "work_find_work_category"
+    const val WORK_CREATE_WORK_SET_ROUTER_NAME = "work_create_work_set"
 
     const val WORK_READY_GRAPH_NAME = "work_ready_graph"
     const val WORK_READY_ROUTINE_SELECTION_ROUTER_NAME = "work_ready_routine_selection"

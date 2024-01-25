@@ -15,4 +15,6 @@ dependencies {
     implementation(project(":feature:work:complete"))
     implementation(project(":feature:work:work"))
     implementation(project(":feature:work:complete-detail"))
+    implementation(project(":feature:work:find-work-category"))
+    implementation(project(":feature:work:create-work-set"))
 }

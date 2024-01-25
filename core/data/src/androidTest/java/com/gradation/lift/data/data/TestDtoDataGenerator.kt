@@ -111,9 +111,9 @@ object TestDtoDataGenerator {
             historyId = 1,
             comment = "보람찬 하루",
             score = 5,
-            workTime = 1200,
-            restTime = 600,
-            totalTime = 1800,
+            workTime = 1200f,
+            restTime = 600f,
+            totalTime = 1800f,
             historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = historyRoutineDto1
         )
@@ -121,9 +121,9 @@ object TestDtoDataGenerator {
             historyId = 2,
             comment = "행복한 하루",
             score = 2,
-            workTime = 1200,
-            restTime = 600,
-            totalTime = 1800,
+            workTime = 1200f,
+            restTime = 600f,
+            totalTime = 1800f,
             historyTimeStamp = "2023-08-31T00:00:00",
             historyRoutine = historyRoutineDto2
         )

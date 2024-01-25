@@ -43,5 +43,6 @@ object SavedStateHandleKey {
     object Work{
         const val WORK_ROUTINE_SET_ID_LIST_KEY = "WORK_ROUTINE_SET_ID_LIST_KEY"
         const val WORK_READY_WORK_CATEGORY_ID_KEY = "WORK_READY_WORK_CATEGORY_ID_KEY"
+        const val WORK_WORK_CATEGORY_ID_KEY = "WORK_WORK_CATEGORY_ID_KEY"
     }
 }
