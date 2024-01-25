@@ -190,6 +190,7 @@ object ModelDataGenerator {
         val createHistoryModel = CreateHistory(
             comment = "보람찬 하루",
             score = 5,
+            progress =100,
             workTime = LocalTime(0, 20, 0),
             restTime = LocalTime(0, 10, 0),
             totalTime = LocalTime(0, 30, 0),
@@ -352,7 +353,7 @@ object ModelDataGenerator {
         )
 
         val updateRoutineSetCountModel = UpdateRoutineSetCount(
-            id = FAKE_INT_DATA
+            routineSetIdList = listOf(FAKE_INT_DATA)
         )
     }
 
