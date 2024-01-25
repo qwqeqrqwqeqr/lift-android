@@ -18,33 +18,35 @@ import javax.inject.Inject
 @HiltViewModel
 class ReadyViewModel @Inject constructor(
     private val createWorkUseCase: CreateWorkUseCase,
-    private val deleteAllWorkUseCase: DeleteAllWorkUseCase
+    private val deleteAllWorkUseCase: DeleteAllWorkUseCase,
 ) : ViewModel() {
 
     internal val workRoutineInfoState = WorkRoutineInfoState()
 
-    fun createWork(): (List<WorkRoutine>) -> Unit = { workRoutineList ->
-        viewModelScope.launch {
-            deleteAllWorkUseCase().collect()
-            createWorkUseCase(
-                UUID.randomUUID().let {
-                    Work(
-                        id = it,
-                        routine = workRoutineList.map { workRoutine ->
-                            WorkRoutineModel(
-                                workId = it,
-                                workCategory = workRoutine.workCategory,
-                                workSetList = workRoutine.workSetList.map { workSet ->
-                                    WorkSet(
-                                        weight = workSet.weight.toFloat(),
-                                        repetition = workSet.repetition.toInt()
-                                    )
-                                }
-                            )
-                        }
-                    )
-                }
-            ).collect()
+    fun createWork(): (List<Int>, List<WorkRoutine>) -> Unit =
+        { usedRoutineSetIdList, workRoutineList ->
+            viewModelScope.launch {
+                deleteAllWorkUseCase().collect()
+                createWorkUseCase(
+                    UUID.randomUUID().let {
+                        Work(
+                            id = it,
+                            routine = workRoutineList.map { workRoutine ->
+                                WorkRoutineModel(
+                                    workId = it,
+                                    workCategory = workRoutine.workCategory,
+                                    workSetList = workRoutine.workSetList.map { workSet ->
+                                        WorkSet(
+                                            weight = workSet.weight.toFloat(),
+                                            repetition = workSet.repetition.toInt()
+                                        )
+                                    }
+                                )
+                            },
+                            usedRoutineSetIdList = usedRoutineSetIdList
+                        )
+                    }
+                ).collect()
+            }
         }
-    }
 }

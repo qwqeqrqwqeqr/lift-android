@@ -72,7 +72,8 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun ReadyScreen(
     modifier: Modifier,
-    createWork: (List<WorkRoutine>) -> Unit,
+    routineSetIdList: Set<Int>,
+    createWork: (List<Int>, List<WorkRoutine>) -> Unit,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
@@ -572,7 +573,7 @@ internal fun ReadyScreen(
                                     ),
                             text = "운동 시작하기",
                             onClick = {
-                                createWork(currentWorkRoutine.toList())
+                                createWork(routineSetIdList.toList(), currentWorkRoutine.toList())
                                 navigateWorkReadyGraphToWorkGraph()
                             }
                         )
