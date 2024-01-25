@@ -17,10 +17,10 @@ data class WorkCategoryEntity(
     val workPart: WorkPartEntity,
 
     @ColumnInfo(name = "introduce")
-    val introduce: String,
+    val introduce: String?,
 
     @ColumnInfo(name = "description")
-    val description: String,
+    val description: String?,
 ) {
     fun toDomain() = WorkCategory(
         id = id,
