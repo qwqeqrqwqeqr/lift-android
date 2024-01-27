@@ -84,7 +84,7 @@ internal val COLOR_NO48: Color = Color(0xFFFF576F)
 internal val COLOR_NO49: Color = Color(0xFF3FB9ED)
 internal val COLOR_NO50: Color = Color(0xFF42C047)
 internal val COLOR_NO51: Color = Color(0xFFDC70DF)
-
+internal val COLOR_NO52: Color = Color(0xFFFF9595)
 
 
 
@@ -165,6 +165,7 @@ data class LiftColorScheme(
     val no49: Color,
     val no50: Color,
     val no51: Color,
+    val no52: Color,
     val mondayLabelColor: Color,
     val mondayBackgroundColor: Color,
     val tuesdayLabelColor: Color,
@@ -243,6 +244,7 @@ fun liftLightColorScheme(
     no49: Color = COLOR_NO49,
     no50: Color = COLOR_NO50,
     no51: Color = COLOR_NO51,
+    no52: Color = COLOR_NO52,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -264,7 +266,7 @@ fun liftLightColorScheme(
     recommendWorkCategoryLabelColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_COLOR,
     recommendWorkCategoryLabelBackgroundColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_BACKGROUND_COLOR,
     popularWorkCategoryLabelColor: Color = POPULAR_WORK_CATEGORY_LABEL_COLOR,
-    popularWorkCategoryLabelBackgroundColor: Color = POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR
+    popularWorkCategoryLabelBackgroundColor: Color = POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -318,6 +320,7 @@ fun liftLightColorScheme(
         no49,
         no50,
         no51,
+        no52,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,
@@ -394,6 +397,7 @@ fun liftDarkColorScheme(
     no49: Color = Color.Unspecified,
     no50: Color = Color.Unspecified,
     no51: Color = Color.Unspecified,
+    no52: Color = Color.Unspecified,
     mondayLabelColor: Color = MONDAY_LABEL_COLOR,
     mondayBackgroundColor: Color = MONDAY_BACKGROUND_COLOR,
     tuesdayLabelColor: Color = TUESDAY_LABEL_COLOR,
@@ -415,7 +419,7 @@ fun liftDarkColorScheme(
     recommendWorkCategoryLabelColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_COLOR,
     recommendWorkCategoryLabelBackgroundColor: Color = RECOMMEND_WORK_CATEGORY_LABEL_BACKGROUND_COLOR,
     popularWorkCategoryLabelColor: Color = POPULAR_WORK_CATEGORY_LABEL_COLOR,
-    popularWorkCategoryLabelBackgroundColor: Color = POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR
+    popularWorkCategoryLabelBackgroundColor: Color = POPULAR_WORK_CATEGORY_LABEL_BACKGROUND_COLOR,
 ): LiftColorScheme =
     LiftColorScheme(
         no1,
@@ -469,6 +473,7 @@ fun liftDarkColorScheme(
         no49,
         no50,
         no51,
+        no52,
         mondayLabelColor,
         mondayBackgroundColor,
         tuesdayLabelColor,

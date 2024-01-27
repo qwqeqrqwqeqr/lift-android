@@ -7,6 +7,7 @@ plugins {
     id("lift.android.image")
     id("lift.android.oauth")
     id("lift.android.firebase")
+    id("lift.android.google")
 }
 
 
