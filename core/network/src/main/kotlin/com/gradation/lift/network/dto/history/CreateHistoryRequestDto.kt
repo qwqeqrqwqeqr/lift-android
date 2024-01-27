@@ -10,6 +10,8 @@ data class CreateHistoryRequestDto(
     val comment: String? = null,
     @SerialName("score")
     val score: Int? = null,
+    @SerialName("progress")
+    val progress: Int,
     @SerialName("work_time")
     val workTime: Int,
     @SerialName("rest_time")

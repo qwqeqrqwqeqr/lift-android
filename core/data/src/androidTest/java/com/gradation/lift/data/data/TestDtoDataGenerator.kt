@@ -1,6 +1,5 @@
 package com.gradation.lift.data.data
 
-import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.createRoutineDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.routineDto1
 import com.gradation.lift.data.data.TestDtoDataGenerator.Routine.routineDto2
@@ -8,21 +7,9 @@ import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSet.routineSetDt
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSet.routineSetDto2
 import com.gradation.lift.data.data.TestDtoDataGenerator.WorkCategory.workCategoryDto1
 import com.gradation.lift.data.data.TestDtoDataGenerator.WorkCategory.workCategoryDto2
-import com.gradation.lift.data.data.TestDtoDataGenerator.WorkPart.workPartDto1
-import com.gradation.lift.data.data.TestDtoDataGenerator.WorkPart.workPartDto2
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.getId
-import com.gradation.lift.network.dto.auth.*
-import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
-import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
-import com.gradation.lift.network.dto.history.*
-import com.gradation.lift.network.dto.picture.GetRoutineSetPictureResponseDto
-import com.gradation.lift.network.dto.picture.GetUserProfilePictureResponseDto
-import com.gradation.lift.network.dto.picture.RoutineSetPictureDto
-import com.gradation.lift.network.dto.picture.UserProfilePictureDto
-import com.gradation.lift.network.dto.routine.*
-import com.gradation.lift.network.dto.user.*
-import com.gradation.lift.network.dto.work.*
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
@@ -33,6 +20,52 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPT
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.network.dto.auth.RefreshResponseDto
+import com.gradation.lift.network.dto.auth.SignInDefaultRequestDto
+import com.gradation.lift.network.dto.auth.SignInDefaultResponseDto
+import com.gradation.lift.network.dto.auth.SignInKakaoRequestDto
+import com.gradation.lift.network.dto.auth.SignInKakaoResponseDto
+import com.gradation.lift.network.dto.auth.SignInNaverRequestDto
+import com.gradation.lift.network.dto.auth.SignInNaverResponseDto
+import com.gradation.lift.network.dto.auth.SignUpDefaultRequestDto
+import com.gradation.lift.network.dto.auth.SignUpDefaultResponseDto
+import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
+import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
+import com.gradation.lift.network.dto.history.CreateHistoryRequestDto
+import com.gradation.lift.network.dto.history.CreateHistoryResponseDto
+import com.gradation.lift.network.dto.history.CreateHistoryRoutineDto
+import com.gradation.lift.network.dto.history.DeleteHistoryResponseDto
+import com.gradation.lift.network.dto.history.GetHistoryByHistoryIdResponseDto
+import com.gradation.lift.network.dto.history.GetHistoryResponseDto
+import com.gradation.lift.network.dto.history.HistoryDto
+import com.gradation.lift.network.dto.history.HistoryRoutineDto
+import com.gradation.lift.network.dto.picture.GetRoutineSetPictureResponseDto
+import com.gradation.lift.network.dto.picture.GetUserProfilePictureResponseDto
+import com.gradation.lift.network.dto.picture.RoutineSetPictureDto
+import com.gradation.lift.network.dto.picture.UserProfilePictureDto
+import com.gradation.lift.network.dto.routine.CreateRoutineDto
+import com.gradation.lift.network.dto.routine.CreateRoutineSetRoutineRequestDto
+import com.gradation.lift.network.dto.routine.CreateRoutineSetRoutineResponseDto
+import com.gradation.lift.network.dto.routine.GetRoutineResponseDto
+import com.gradation.lift.network.dto.routine.GetRoutineSetRoutineByLabelResponseDto
+import com.gradation.lift.network.dto.routine.GetRoutineSetRoutineByRoutineSetIdResponseDto
+import com.gradation.lift.network.dto.routine.GetRoutineSetRoutineByWeekdayResponseDto
+import com.gradation.lift.network.dto.routine.GetRoutineSetRoutineResponseDto
+import com.gradation.lift.network.dto.routine.RoutineDto
+import com.gradation.lift.network.dto.routine.RoutineSetDto
+import com.gradation.lift.network.dto.routine.RoutineSetRoutineDto
+import com.gradation.lift.network.dto.user.CreateUserDetailRequestDto
+import com.gradation.lift.network.dto.user.CreateUserDetailResponseDto
+import com.gradation.lift.network.dto.user.ExistUserDetailResponseDto
+import com.gradation.lift.network.dto.user.GetUserDetailResponseDto
+import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
+import com.gradation.lift.network.dto.user.UpdateUserDetailResponseDto
+import com.gradation.lift.network.dto.user.UserDetailDto
+import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
+import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
+import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
+import com.gradation.lift.network.dto.work.WorkCategoryDto
+import com.gradation.lift.network.dto.work.WorkPartDto
 
 object TestDtoDataGenerator {
 
@@ -150,6 +183,7 @@ object TestDtoDataGenerator {
         val createHistoryRequestDto = CreateHistoryRequestDto(
             comment = "보람찬 하루",
             score = 5,
+            progress = 100,
             workTime = 1200,
             restTime = 600,
             totalTime = 1800,
@@ -206,7 +240,7 @@ object TestDtoDataGenerator {
         internal val workCategoryDto1 = WorkCategoryDto(
             id = 1,
             name = "숄더프레스",
-            workPart = workPartDto1,
+            workPart = listOf("어깨"),
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
@@ -214,7 +248,7 @@ object TestDtoDataGenerator {
         internal val workCategoryDto2 = WorkCategoryDto(
             id = 2,
             name = "데드리프트",
-            workPart = workPartDto2,
+            workPart = listOf("등"),
             introduce = "Lorem ipsum dolor sit amet",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
