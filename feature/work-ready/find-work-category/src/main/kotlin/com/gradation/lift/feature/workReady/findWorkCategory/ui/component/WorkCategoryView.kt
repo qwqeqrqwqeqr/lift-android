@@ -2,7 +2,13 @@ package com.gradation.lift.feature.workReady.findWorkCategory.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -15,10 +21,10 @@ import com.gradation.lift.designsystem.component.label.RecommendWorkCategoryLabe
 import com.gradation.lift.designsystem.component.label.WorkPartLabel
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
-import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.findWorkCategory.data.model.TagWorkCategory
 import com.gradation.lift.feature.workReady.findWorkCategory.data.state.FindWorkCategoryScreenState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -79,7 +85,9 @@ internal fun WorkCategoryView(
                             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            WorkPartLabel(workPart = workCategory.workCategory.workPart.name)
+                            workCategory.workCategory.workPart.forEach {
+                                WorkPartLabel(workPart = it)
+                            }
                             LiftText(
                                 text = workCategory.workCategory.name,
                                 textStyle = LiftTextStyle.No2,
@@ -87,13 +95,14 @@ internal fun WorkCategoryView(
                                 textAlign = TextAlign.Start
                             )
                         }
-                        if (workCategory.workCategory.description.isNotEmpty()) {
-                            LiftText(
-                                text = workCategory.workCategory.description,
-                                textStyle = LiftTextStyle.No4,
-                                color = LiftTheme.colorScheme.no9,
-                                textAlign = TextAlign.Start
-                            )
+                        workCategory.workCategory.introduce?.let {
+                            if (it.isNotEmpty())
+                                LiftText(
+                                    text = it,
+                                    textStyle = LiftTextStyle.No4,
+                                    color = LiftTheme.colorScheme.no9,
+                                    textAlign = TextAlign.Start
+                                )
                         }
                     }
                 }

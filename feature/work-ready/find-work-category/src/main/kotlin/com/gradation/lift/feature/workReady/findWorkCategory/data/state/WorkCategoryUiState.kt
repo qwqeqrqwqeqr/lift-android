@@ -41,12 +41,11 @@ fun workCategoryUiState(
                                 WorkCategoryUiState.Success(
                                     workCategoryList.data
                                         .filter { workCategory ->
-                                            text.isEmpty() || workCategory.name.contains(
-                                                text
-                                            )
+                                            text.isEmpty() || workCategory.name.contains(text)
                                         }
                                         .filter { workCategory ->
-                                            workPart.isEmpty() || workPart.intersect(workCategory.workPart.toSet())
+                                            workPart.isEmpty() || workPart.map { it.name }
+                                                .intersect(workCategory.workPart.toSet())
                                                 .isNotEmpty()
                                         }.sortedBy { it.name }.map { workCategory ->
                                             TagWorkCategory(
