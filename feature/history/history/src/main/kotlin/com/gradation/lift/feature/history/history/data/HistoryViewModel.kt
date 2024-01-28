@@ -23,7 +23,6 @@ import javax.inject.Inject
  * [HistoryViewModel]
  * @property today 현재 날짜
  * @property selectedDate 선택된 날짜, 해당 날짜를 바탕으로 히스토리 정보를 가져옴
- * @property selectedHistoryContentIndex 선택된 날짜에 대한 운동기록 순번 (하루에 운동을 여러번 할 가능성에 대한 인덱스 기본값: 0)
  * @property calendar 캘린더 (선택한 날짜를 바탕으로 표시함)
  * @since 2024-01-26 16:20:01
  */
@@ -58,7 +57,7 @@ class HistoryViewModel @Inject constructor(
 
     val today: LocalDate = getTodayUseCase()
     val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
-    val selectedHistoryContentIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    var selectedTabIndex: MutableStateFlow<Int> = MutableStateFlow(0)
 
     val calendar: StateFlow<Map<Int, List<WeekDateHistoryCount>>> =
         combine(dateHistoryList, selectedDate) { dateHistoryList, selectedDate ->
@@ -75,27 +74,23 @@ class HistoryViewModel @Inject constructor(
             initialValue = emptyMap()
         )
 
-    val selectedHistory: StateFlow<History?> = combine(
+    val selectedHistoryList: StateFlow<List<History>> = combine(
         selectedDate,
-        selectedHistoryContentIndex,
         dateHistoryList
-    ) { selectedDate, selectedHistoryContentIndex, dateHistoryList ->
-        dateHistoryList.find { selectedDate == it.date }?.historyList?.get(
-            selectedHistoryContentIndex
-        )
+    ) { selectedDate, dateHistoryList ->
+        dateHistoryList.find { selectedDate == it.date }?.historyList ?: emptyList()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null
+        initialValue = emptyList()
     )
 
 
+    val updateSelectedTabIndex: (Int) -> Unit = { selectedTabIndex.value = it }
     val updateSelectedDate: (LocalDate) -> Unit = {
-        selectedHistoryContentIndex.value = 0
+        selectedTabIndex.value = 0
         selectedDate.value = it
     }
-    val updateSelectedHistoryContentIndex: (Int) -> Unit = {
-        selectedHistoryContentIndex.value = it
-    }
+
 
 }
