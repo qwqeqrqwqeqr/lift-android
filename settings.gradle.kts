@@ -75,7 +75,8 @@ include(":feature:work:work")
 include(":feature:work:complete")
 include(":feature:work:complete-detail")
 include(":feature:work:navigation")
-
+include(":feature:work:find-work-category")
+include(":feature:work:create-work-set")
 
 include(":feature:work-ready:ready")
 include(":feature:work-ready:common")
@@ -99,6 +100,7 @@ include(":feature:my-info:update-info")
 
 include(":feature:history:history")
 include(":feature:history:navigation")
+include(":feature:history:update-info")
 
 
 include(":feature:analytics:analytics")
@@ -120,6 +122,3 @@ include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
-
-include(":feature:work:find-work-category")
-include(":feature:work:create-work-set")

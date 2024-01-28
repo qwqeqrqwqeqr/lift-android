@@ -46,6 +46,7 @@ object Route {
 
     const val HISTORY_GRAPH_NAME = "history_graph"
     const val HISTORY_HISTORY_ROUTER_NAME = "history_history"
+    const val HISTORY_UPDATE_INFO_ROUTER_NAME = "history_update_info"
 
     const val ANALYTICS_GRAPH_NAME = "analytics_graph"
     const val ANALYTICS_ANALYTICS_ROUTER_NAME = "analytics_analytics"

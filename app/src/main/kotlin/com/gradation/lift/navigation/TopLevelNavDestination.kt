@@ -17,11 +17,6 @@ enum class TopLevelNavDestination(
         icon = LiftIcon.History,
         route = Route.HISTORY_HISTORY_ROUTER_NAME
     ),
-    Analytics(
-        displayName = "분석",
-        icon = LiftIcon.Analytics,
-        route = Route.ANALYTICS_ANALYTICS_ROUTER_NAME
-    ),
     MyInfo(
         displayName = "내정보",
         icon = LiftIcon.MyInfo,

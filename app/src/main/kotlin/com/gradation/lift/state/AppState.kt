@@ -12,7 +12,9 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.TopLevelNavDestination
-import com.gradation.lift.navigation.navigation.*
+import com.gradation.lift.navigation.navigation.navigateHistoryGraph
+import com.gradation.lift.navigation.navigation.navigateHomeGraph
+import com.gradation.lift.navigation.navigation.navigateMyInfoGraph
 
 @Stable
 class AppState(
@@ -25,7 +27,7 @@ class AppState(
         } ?: false
 
     val topLevelDestinations: List<TopLevelNavDestination> =
-        TopLevelNavDestination.values().asList()
+        TopLevelNavDestination.entries
 
 
     fun navigateToTopLevelDestination(): (TopLevelNavDestination) -> Unit = { topLevelDestination ->
@@ -34,7 +36,6 @@ class AppState(
                 TopLevelNavDestination.Home -> navController.navigateHomeGraph()
                 TopLevelNavDestination.MyInfo -> navController.navigateMyInfoGraph()
                 TopLevelNavDestination.DailyLog -> navController.navigateHistoryGraph()
-                TopLevelNavDestination.Analytics -> navController.navigateAnalyticsGraph()
             }
         }
     }

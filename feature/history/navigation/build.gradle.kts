@@ -12,4 +12,5 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
     implementation(project(":feature:history:history"))
+    implementation(project(":feature:history:update-info"))
 }

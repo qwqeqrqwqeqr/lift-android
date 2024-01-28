@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.history.history.navigation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -10,38 +11,49 @@ import com.gradation.lift.feature.history.history.data.model.WeekDateHistoryCoun
 import com.gradation.lift.feature.history.history.data.state.HistoryScreenState
 import com.gradation.lift.feature.history.history.data.state.rememberHistoryScreenState
 import com.gradation.lift.feature.history.history.ui.HistoryScreen
+import com.gradation.lift.feature.history.history.ui.bottomSheet.WorkBottomSheet
 import com.gradation.lift.model.model.history.History
 import kotlinx.datetime.LocalDate
 
 @Composable
 internal fun HistoryRoute(
     modifier: Modifier = Modifier,
+    navigateHistoryGraphToWorkReadyReadyRouter: () -> Unit,
+    navigateHistoryGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
+    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int) -> Unit,
     viewModel: HistoryViewModel = hiltViewModel(),
     historyScreenState: HistoryScreenState = rememberHistoryScreenState(),
 ) {
 
     val today: LocalDate = viewModel.today
     val selectedDate: LocalDate by viewModel.selectedDate.collectAsStateWithLifecycle()
-    val selectedHistoryContentIndex: Int by viewModel.selectedHistoryContentIndex.collectAsStateWithLifecycle()
+    val selectedTabIndex: Int by viewModel.selectedTabIndex.collectAsStateWithLifecycle()
     val calendar: Map<Int, List<WeekDateHistoryCount>> by viewModel.calendar.collectAsStateWithLifecycle()
-    val selectedHistory: History? by viewModel.selectedHistory.collectAsStateWithLifecycle()
+    val selectedHistoryList: List<History> by viewModel.selectedHistoryList.collectAsStateWithLifecycle()
 
-
+    val updateSelectedTabIndex: (Int) -> Unit = viewModel.updateSelectedTabIndex
     val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate
-    val updateSelectedHistoryContentIndex: (Int) -> Unit =
-        viewModel.updateSelectedHistoryContentIndex
 
+    AnimatedVisibility(visible = historyScreenState.workBottomSheetView) {
+        WorkBottomSheet(
+            modifier,
+            navigateHistoryGraphToWorkReadyReadyRouter,
+            navigateHistoryGraphToWorkReadyRoutineSelectionRouter,
+            historyScreenState
+        )
+    }
 
 
     HistoryScreen(
         modifier,
         today,
         selectedDate,
-        selectedHistoryContentIndex,
+        selectedTabIndex,
         calendar,
-        selectedHistory,
+        selectedHistoryList,
+        updateSelectedTabIndex,
         updateSelectedDate,
-        updateSelectedHistoryContentIndex,
-        historyScreenState
+        navigateHistoryToUpdateInfoInHistoryGraph,
+        historyScreenState,
     )
 }
