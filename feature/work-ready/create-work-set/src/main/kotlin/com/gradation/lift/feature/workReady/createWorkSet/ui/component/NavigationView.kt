@@ -7,13 +7,13 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import com.gradation.lift.common.utils.decimalNumberValidator
-import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
-import com.gradation.lift.feature.workReady.common.model.WorkRoutine
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
+import com.gradation.lift.feature.workReady.common.model.WorkRoutine
 import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.model.model.work.WorkCategory
 
 @Composable
@@ -36,12 +36,12 @@ fun NavigationView(
         LiftSolidButton(
             modifier = modifier,
             enabled = workSetState.workSetList.isNotEmpty()
-                    && workSetState.workSetList.none() {
-                it.weight.isEmpty() || it.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
+                    && workSetState.workSetList.none {
+                it.weight.isEmpty() || !decimalNumberValidator(
                     it.weight
                 )
             }
-                    && workSetState.workSetList.none() {
+                    && workSetState.workSetList.none {
                 it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                     it.repetition
                 )

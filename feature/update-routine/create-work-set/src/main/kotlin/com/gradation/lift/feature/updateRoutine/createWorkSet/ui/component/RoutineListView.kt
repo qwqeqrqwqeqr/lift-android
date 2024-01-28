@@ -2,7 +2,14 @@ package com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,7 +23,6 @@ import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.filter.LiftAddContainer
-import com.gradation.lift.designsystem.component.keypad.LiftKeypadTextField
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
@@ -136,7 +142,7 @@ internal fun RoutineListView(
                                         workSet.copy(weight = it)
                                     )
                                 },
-                                isError = !decimalNumberValidator(workSet.weight) || workSet.weight == "0"
+                                isError = !decimalNumberValidator(workSet.weight)
                             )
 
                             LiftKeyPadTextField(

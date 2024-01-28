@@ -41,9 +41,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
+import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
@@ -334,7 +334,7 @@ internal fun ReadyScreen(
                                                             },
                                                             isError = !decimalNumberValidator(
                                                                 workSet.weight
-                                                            ) || workSet.weight == "0"
+                                                            )
                                                         )
 
                                                         LiftKeyPadTextField(

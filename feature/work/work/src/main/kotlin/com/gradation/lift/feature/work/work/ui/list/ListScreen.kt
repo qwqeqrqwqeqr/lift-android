@@ -2,11 +2,21 @@ package com.gradation.lift.feature.work.work.ui.list
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,16 +38,16 @@ import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
-import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.work.data.model.WorkRoutineCheckedInfo
 import com.gradation.lift.feature.work.work.data.state.SnackBarState
 import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
-import com.gradation.lift.feature.work.common.data.WorkState
+import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
@@ -338,7 +348,7 @@ fun ListScreen(
                                                                 workSet.copy(weight = it)
                                                             )
                                                         },
-                                                        isError = !decimalNumberValidator(workSet.weight) || workSet.weight == "0"
+                                                        isError = !decimalNumberValidator(workSet.weight)
                                                     )
                                                     LiftKeyPadTextField(
                                                         modifier = modifier

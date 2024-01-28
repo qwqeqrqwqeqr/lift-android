@@ -17,25 +17,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.designsystem.component.LiftTextField
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftText
@@ -45,18 +39,13 @@ import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextF
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.completedetail.data.state.CompleteDetailScreenState
 import com.gradation.lift.feature.work.completedetail.data.state.HistoryInfoState
 import com.gradation.lift.feature.work.completedetail.data.state.rememberCompleteDetailScreenState
-import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.ui.mapper.toDayMonthYearText
-import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 internal fun CompleteDetailScreen(
@@ -141,7 +130,6 @@ internal fun CompleteDetailScreen(
                                 tint = if (it) LiftTheme.colorScheme.no26 else LiftTheme.colorScheme.no1
                             )
                         }
-
                     }
                     Row(
                         modifier = modifier,
