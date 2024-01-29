@@ -54,19 +54,33 @@ fun HistoryWorkResultContent(
                 contentDescription = "CheckBoxChecked",
                 tint = Color.Unspecified
             )
-            LiftMultiStyleText(
-                modifier = modifier,
-                defaultColor = LiftTheme.colorScheme.no11,
-                defaultTextStyle = LiftTextStyle.No1,
-                textAlign = TextAlign.Center,
-                textWithStyleList = listOf(
-                    TextWithStyle(text = "달성도 "),
-                    TextWithStyle(
-                        text = "${selectedHistory.progress}%",
-                        color = LiftTheme.colorScheme.no4
-                    ),
+            Row {
+                LiftText(
+                    textStyle = LiftTextStyle.No1,
+                    text = "달성도 ",
+                    color = LiftTheme.colorScheme.no11,
+                    textAlign = TextAlign.Center
                 )
-            )
+
+                AnimatedContent(
+                    targetState = selectedHistory.progress,
+                    transitionSpec = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                            animationSpec = tween(durationMillis = 300)
+                        ) togetherWith ExitTransition.None
+                    }, label = ""
+                ) {
+                    LiftText(
+                        modifier = modifier,
+                        color = LiftTheme.colorScheme.no4,
+                        textStyle = LiftTextStyle.No1,
+                        textAlign = TextAlign.Center,
+                        text = "${it}%",
+                    )
+                }
+            }
+
         }
         Column(
             modifier = modifier.fillMaxWidth(),

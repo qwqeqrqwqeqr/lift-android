@@ -66,7 +66,7 @@ fun HistoryMemoContent(
                 ) {
                     LiftText(
                         textStyle = LiftTextStyle.No3,
-                        text = "${selectedHistory.score}",
+                        text = "${selectedHistory.score ?: 0}",
                         color = LiftTheme.colorScheme.no6,
                         textAlign = TextAlign.Left
                     )
