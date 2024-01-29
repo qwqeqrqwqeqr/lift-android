@@ -49,5 +49,7 @@ object SavedStateHandleKey {
     object History {
         const val HISTORY_COMMENT_KEY = "HISTORY_COMMENT_KEY"
         const val HISTORY_SCORE_KEY = "HISTORY_SCORE_KEY"
+        const val HISTORY_ID_KEY = "HISTORY_ID_KEY"
+        const val HISTORY_DATE_KEY = "HISTORY_DATE_KEY"
     }
 }
