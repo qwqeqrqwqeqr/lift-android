@@ -11,6 +11,7 @@ import com.gradation.lift.feature.history.history.data.model.WeekDateHistoryCoun
 import com.gradation.lift.feature.history.history.data.state.HistoryScreenState
 import com.gradation.lift.feature.history.history.data.state.rememberHistoryScreenState
 import com.gradation.lift.feature.history.history.ui.HistoryScreen
+import com.gradation.lift.feature.history.history.ui.bottomSheet.DatePickerBottomSheet
 import com.gradation.lift.feature.history.history.ui.bottomSheet.WorkBottomSheet
 import com.gradation.lift.model.model.history.History
 import kotlinx.datetime.LocalDate
@@ -40,6 +41,11 @@ internal fun HistoryRoute(
             navigateHistoryGraphToWorkReadyReadyRouter,
             navigateHistoryGraphToWorkReadyRoutineSelectionRouter,
             historyScreenState
+        )
+    }
+    AnimatedVisibility(visible = historyScreenState.datePickerBottomSheetView) {
+        DatePickerBottomSheet(
+            modifier, selectedDate, updateSelectedDate, historyScreenState
         )
     }
 

@@ -46,10 +46,6 @@ fun CalendarView(
             .fillMaxWidth()
             .padding(horizontal = LiftTheme.space.space20),
     ) {
-        Column {
-
-        }
-        Spacer(modifier = modifier.padding(LiftTheme.space.space24))
         Column(modifier = modifier.fillMaxWidth()) {
             Row(
                 modifier = modifier.fillMaxWidth(),

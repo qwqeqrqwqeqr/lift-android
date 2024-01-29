@@ -24,7 +24,7 @@ import com.gradation.lift.feature.history.history.data.state.HistoryScreenState
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 /**
- * 요일 필터 바텀 시트
+ * 운동 선택 바텀 시트
  * @since 2024-01-08 19:20:06
  */
 @OptIn(ExperimentalMaterial3Api::class)
