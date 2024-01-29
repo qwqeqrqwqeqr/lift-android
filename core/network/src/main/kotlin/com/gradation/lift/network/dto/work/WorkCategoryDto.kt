@@ -10,9 +10,9 @@ data class WorkCategoryDto(
     @SerialName("name")
     val name: String,
     @SerialName("work_part")
-    val workPart: WorkPartDto,
+    val workPart: List<String>,
     @SerialName("introduce")
-    val introduce: String,
+    val introduce: String?,
     @SerialName("description")
-    val description: String
+    val description: String?,
 )

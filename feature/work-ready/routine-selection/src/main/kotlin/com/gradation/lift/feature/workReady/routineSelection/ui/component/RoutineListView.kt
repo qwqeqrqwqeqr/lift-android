@@ -19,8 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -61,15 +59,6 @@ internal fun RoutineListView(
     routineListInfoState: RoutineListInfoState,
     routineListScreenState: RoutineListScreenState,
 ) {
-    LaunchedEffect(routineListScreenState.lazyListState) {
-        snapshotFlow { routineListScreenState.lazyListState.firstVisibleItemIndex }
-            .collect {
-                if (it > 0)
-                    routineListScreenState.updateSearchSortFilterView(false)
-                else
-                    routineListScreenState.updateSearchSortFilterView(true)
-            }
-    }
     LazyColumn(
         modifier = modifier
             .background(LiftTheme.colorScheme.no17)

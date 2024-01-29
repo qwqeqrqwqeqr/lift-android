@@ -28,7 +28,7 @@ import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
-import com.gradation.lift.feature.work.work.data.state.WorkState
+import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.work.navigation.getProgress
 import com.gradation.lift.feature.work.work.ui.component.common.WorkProgressCircle
 import com.gradation.lift.ui.modifier.noRippleClickable

@@ -3,7 +3,9 @@ package com.gradation.lift.data.test.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.di.TestDispatcher.testDispatchers
 import com.gradation.lift.data.fake.datasource.FakeRoutineDataSource
 import com.gradation.lift.data.repository.DefaultRoutineRepository
 import com.gradation.lift.data.utils.TestReturnState
@@ -33,7 +35,7 @@ class RoutineRepositoryTest {
     private lateinit var successDataSource: RoutineDataSource
     private lateinit var successRepository: RoutineRepository
     private lateinit var failRepository: RoutineRepository
-
+    private val dispatcher: DispatcherProvider = testDispatchers()
 
     @get:Rule
     var coroutineRule = CoroutineRule()
@@ -46,8 +48,8 @@ class RoutineRepositoryTest {
         failDataSource = FakeRoutineDataSource(TestReturnState.Fail)
         successDataSource = FakeRoutineDataSource(TestReturnState.Success)
 
-        successRepository = DefaultRoutineRepository(successDataSource)
-        failRepository = DefaultRoutineRepository(failDataSource)
+        successRepository = DefaultRoutineRepository(successDataSource,dispatcher)
+        failRepository = DefaultRoutineRepository(failDataSource,dispatcher)
     }
 
 

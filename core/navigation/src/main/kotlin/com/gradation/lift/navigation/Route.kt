@@ -8,7 +8,7 @@ package com.gradation.lift.navigation
  * [BADGE_GRAPH_NAME]
  * [CREATE_ROUTINE_GRAPH_NAME]
  * [UPDATE_ROUTINE_GRAPH_NAME]
- * [DAILY_LOG_GRAPH_NAME]
+ * [HISTORY_GRAPH_NAME]
  * [ANALYTICS_GRAPH_NAME]
  * [HOME_GRAPH_NAME]
  * [LOGIN_GRAPH_NAME]
@@ -44,8 +44,9 @@ object Route {
     const val UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME = "update_routine_find_work_category"
     const val UPDATE_ROUTINE_CHANGE_ORDER_ROUTER_NAME = "update_routine_change_order"
 
-    const val DAILY_LOG_GRAPH_NAME = "daily_log_graph"
-    const val DAILY_LOG_DAILY_LOG_ROUTER_NAME = "daily_log_daily_log"
+    const val HISTORY_GRAPH_NAME = "history_graph"
+    const val HISTORY_HISTORY_ROUTER_NAME = "history_history"
+    const val HISTORY_UPDATE_INFO_ROUTER_NAME = "history_update_info"
 
     const val ANALYTICS_GRAPH_NAME = "analytics_graph"
     const val ANALYTICS_ANALYTICS_ROUTER_NAME = "analytics_analytics"
@@ -90,6 +91,8 @@ object Route {
     const val WORK_WORK_ROUTER_NAME = "work_work"
     const val WORK_COMPLETE_ROUTER_NAME = "work_complete"
     const val WORK_COMPLETE_DETAIL_ROUTER_NAME = "work_complete_detail"
+    const val WORK_FIND_WORK_CATEGORY_ROUTER_NAME = "work_find_work_category"
+    const val WORK_CREATE_WORK_SET_ROUTER_NAME = "work_create_work_set"
 
     const val WORK_READY_GRAPH_NAME = "work_ready_graph"
     const val WORK_READY_ROUTINE_SELECTION_ROUTER_NAME = "work_ready_routine_selection"

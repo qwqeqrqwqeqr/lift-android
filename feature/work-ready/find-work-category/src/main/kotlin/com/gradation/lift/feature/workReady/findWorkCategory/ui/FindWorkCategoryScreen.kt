@@ -16,6 +16,7 @@ import com.gradation.lift.feature.workReady.findWorkCategory.ui.component.Filter
 import com.gradation.lift.feature.workReady.findWorkCategory.ui.component.SearchView
 import com.gradation.lift.feature.workReady.findWorkCategory.ui.component.WorkCategoryView
 import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.ui.extensions.isScrollingUp
 
 
 @Composable
@@ -54,7 +55,7 @@ internal fun FindWorkCategoryScreen(
 
             is WorkCategoryUiState.Success -> {
                 Column(modifier = modifier.padding(paddingValues)) {
-                    AnimatedVisibility(findWorkCategoryScreenState.searchSortFilterView) {
+                    AnimatedVisibility(findWorkCategoryScreenState.lazyListState.isScrollingUp()) {
                         Column(
                             modifier = modifier
                                 .background(LiftTheme.colorScheme.no5)

@@ -16,6 +16,7 @@ import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component.Fi
 import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component.SearchView
 import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component.WorkCategoryView
 import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.ui.extensions.isScrollingUp
 
 
 @Composable
@@ -54,18 +55,23 @@ internal fun FindWorkCategoryScreen(
 
             is WorkCategoryUiState.Success -> {
                 Column(modifier = modifier.padding(paddingValues)) {
-                    AnimatedVisibility(findWorkCategoryScreenState.searchSortFilterView) {
+                    AnimatedVisibility(findWorkCategoryScreenState.lazyListState.isScrollingUp()) {
                         Column(
                             modifier = modifier
                                 .background(LiftTheme.colorScheme.no5)
-                                .padding(vertical = LiftTheme.space.space16,),
+                                .padding(vertical = LiftTheme.space.space16),
                             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                         ) {
                             Column(
                                 modifier = modifier,
                                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
                             ) {
-                                SearchView(modifier, searchFilterText, filterState,findWorkCategoryScreenState)
+                                SearchView(
+                                    modifier,
+                                    searchFilterText,
+                                    filterState,
+                                    findWorkCategoryScreenState
+                                )
                                 FilterView(modifier, workPartFilter, workPartList, filterState)
                             }
                             FilterCountView(modifier, workCategoryUiState.workCategoryList)

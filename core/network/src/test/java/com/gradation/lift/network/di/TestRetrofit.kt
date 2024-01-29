@@ -6,6 +6,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.mockwebserver.MockWebServer
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
@@ -19,9 +20,12 @@ class TestRetrofit(
             .baseUrl(mockWebServer.url("/"))
             .client(
                 OkHttpClient.Builder()
-                    .connectTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-                    .readTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-                    .writeTimeout(Constants.DEFAULT_TIMEOUT.toLong(), TimeUnit.MILLISECONDS).build()
+                    .connectTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .writeTimeout(Constants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .addNetworkInterceptor(HttpLoggingInterceptor().also {
+                        it.level = HttpLoggingInterceptor.Level.BODY
+                    }).build()
             )
             .addConverterFactory(
                 with(Json {

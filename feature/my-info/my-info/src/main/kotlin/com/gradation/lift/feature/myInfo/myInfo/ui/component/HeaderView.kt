@@ -54,18 +54,10 @@ fun HeaderView(
                 ) {
                     Spacer(
                         modifier = modifier
-                            .background(
-                                SkeletonBrush(),
-                                RoundedCornerShape(LiftTheme.space.space6)
-                            )
                             .size(LiftTheme.space.space36)
                     )
                     Spacer(
                         modifier = modifier
-                            .background(
-                                SkeletonBrush(),
-                                RoundedCornerShape(LiftTheme.space.space6)
-                            )
                             .height(LiftTheme.space.space36)
                             .width(LiftTheme.space.space48)
                     )
@@ -104,10 +96,18 @@ fun HeaderView(
                 ) {
                     Spacer(
                         modifier = modifier
+                            .background(
+                                SkeletonBrush(),
+                                RoundedCornerShape(LiftTheme.space.space6)
+                            )
                             .size(LiftTheme.space.space36)
                     )
                     Spacer(
                         modifier = modifier
+                            .background(
+                                SkeletonBrush(),
+                                RoundedCornerShape(LiftTheme.space.space6)
+                            )
                             .height(LiftTheme.space.space36)
                             .width(LiftTheme.space.space48)
                     )

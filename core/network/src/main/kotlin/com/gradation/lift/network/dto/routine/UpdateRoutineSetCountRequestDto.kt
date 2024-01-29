@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UpdateRoutineSetCountRequestDto(
-    @SerialName("routine_set_id")
-    val id: Int,
+    @SerialName("routine_set_id_list")
+    val routineSetIdList: List<Int>,
 )

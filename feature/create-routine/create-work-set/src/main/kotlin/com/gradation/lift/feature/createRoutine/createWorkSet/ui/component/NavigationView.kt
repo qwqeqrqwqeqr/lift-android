@@ -1,13 +1,10 @@
 package com.gradation.lift.feature.createRoutine.createWorkSet.ui.component
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
-import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,14 +21,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
-import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
-import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
+import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkSet
@@ -180,13 +176,11 @@ fun NavigationView(
             LiftSolidButton(
                 modifier = modifier,
                 enabled = workSetState.workSetList.isNotEmpty()
-                        && workSetState.workSetList.none() {
-                    it.weight.isEmpty() || it.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
-                        it.weight
-                    )
+                        && workSetState.workSetList.none {
+                            it.weight.isEmpty() || !decimalNumberValidator(it.weight)
                 }
-                        && workSetState.workSetList.none() {
-                    it.repetition.isEmpty() || it.weight.toIntOrNull() == 0 || !decimalNumberValidator(
+                        && workSetState.workSetList.none {
+                    it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                         it.repetition
                     )
                 },

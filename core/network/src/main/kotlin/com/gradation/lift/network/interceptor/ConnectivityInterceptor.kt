@@ -28,7 +28,9 @@ class ConnectivityInterceptor @Inject constructor(
         }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!isConnected) { throw ConnectException("네트워크 연결 실패") }
+        if (!isConnected) {
+            throw ConnectException("네트워크에 연결되어있지 않습니다.\n네트워크 연결 후 시도해주세요.")
+        }
         return chain.proceed(chain.request().newBuilder().build())
     }
 }

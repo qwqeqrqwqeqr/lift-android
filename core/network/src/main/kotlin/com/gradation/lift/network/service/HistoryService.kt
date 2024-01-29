@@ -2,13 +2,11 @@ package com.gradation.lift.network.service
 
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.history.*
-import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
-import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
-import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -57,6 +55,16 @@ interface HistoryService {
      */
     @DELETE("history/history")
     suspend fun deleteHistory(@Query("history_id") historyId: Int): Response<APIResultWrapper<DeleteHistoryResponseDto>>
+
+
+    /**
+     * [updateHistoryInfo]
+     * 운동 기록 업데이트
+     * @param updateHistoryInfoRequestDto 운동 기록의 아아디와 변경할 메모와 점수
+     * @since 2024-01-29 20:08:24
+     */
+    @PATCH("history/history-info")
+    suspend fun updateHistoryInfo(@Body updateHistoryInfoRequestDto: UpdateHistoryInfoRequestDto): Response<APIResultWrapper<UpdateHistoryInfoResponseDto>>
 }
 
 
