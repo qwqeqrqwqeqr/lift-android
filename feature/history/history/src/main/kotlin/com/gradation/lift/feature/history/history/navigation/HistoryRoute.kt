@@ -21,7 +21,7 @@ internal fun HistoryRoute(
     modifier: Modifier = Modifier,
     navigateHistoryGraphToWorkReadyReadyRouter: () -> Unit,
     navigateHistoryGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
-    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int) -> Unit,
+    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int, Int, String) -> Unit,
     viewModel: HistoryViewModel = hiltViewModel(),
     historyScreenState: HistoryScreenState = rememberHistoryScreenState(),
 ) {

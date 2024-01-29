@@ -20,13 +20,14 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.model.model.date.toWeekday
 import com.gradation.lift.model.model.history.History
 
 @Composable
 fun HistoryMemoContent(
     modifier: Modifier = Modifier,
     selectedHistory: History,
-    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int) -> Unit,
+    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int, Int, String) -> Unit,
 ) {
     Column(
         modifier = modifier.padding(horizontal = LiftTheme.space.space20),
@@ -102,7 +103,13 @@ fun HistoryMemoContent(
         LiftPrimaryButton(text = "메모하기") {
             navigateHistoryToUpdateInfoInHistoryGraph(
                 selectedHistory.comment ?: "",
-                selectedHistory.score ?: 0
+                selectedHistory.score ?: 0,
+                selectedHistory.historyId,
+                selectedHistory.historyTimeStamp.let {
+                    "${it.dayOfMonth}일 ${
+                        it.date.toWeekday().getWeekdayName()
+                    }요일"
+                }
             )
         }
     }

@@ -85,7 +85,7 @@ internal fun CompleteDetailRoute(
         }
     }
 
-    BackHandler(enabled = false, onBack = {})
+    BackHandler(onBack = createHistoryPassMemo)
 
 
     CompleteDetailScreen(

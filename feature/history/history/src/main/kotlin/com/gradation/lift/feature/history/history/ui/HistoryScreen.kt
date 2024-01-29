@@ -37,7 +37,7 @@ fun HistoryScreen(
     selectedHistoryList: List<History>,
     updateSelectedTabIndex: (Int) -> Unit,
     updateSelectedDate: (LocalDate) -> Unit,
-    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int) -> Unit,
+    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int, Int, String) -> Unit,
     historyScreenState: HistoryScreenState,
 ) {
 

@@ -15,7 +15,7 @@ import com.gradation.lift.model.model.history.History
 fun HistoryContent(
     modifier: Modifier = Modifier,
     selectedHistory: History,
-    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int) -> Unit,
+    navigateHistoryToUpdateInfoInHistoryGraph: (String, Int, Int, String) -> Unit,
     historyScreenState: HistoryScreenState,
 ) {
     Column(

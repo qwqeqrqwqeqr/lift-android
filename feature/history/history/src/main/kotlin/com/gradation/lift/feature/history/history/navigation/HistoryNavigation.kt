@@ -20,9 +20,10 @@ fun NavGraphBuilder.historyScreen(
         { navController.navigateHistoryGraphToWorkReadyReadyRouter() }
     val navigateHistoryGraphToWorkReadyRoutineSelectionRouter: () -> Unit =
         { navController.navigateHistoryGraphToWorkReadyRoutineSelectionRouter() }
-    val navigateHistoryToUpdateInfoInHistoryGraph: (String, Int) -> Unit = { comment, score ->
-        navController.navigateHistoryToUpdateInfoInHistoryGraph(comment, score)
-    }
+    val navigateHistoryToUpdateInfoInHistoryGraph: (String, Int, Int, String) -> Unit =
+        { comment, score, historyId, date ->
+            navController.navigateHistoryToUpdateInfoInHistoryGraph(comment, score, historyId, date)
+        }
 
 
     composable(
