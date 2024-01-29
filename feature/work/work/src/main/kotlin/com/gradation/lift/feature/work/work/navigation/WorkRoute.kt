@@ -2,9 +2,11 @@ package com.gradation.lift.feature.work.work.navigation
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -24,7 +26,7 @@ import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
-import com.gradation.lift.feature.work.work.data.state.WorkState
+import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.work.data.state.rememberWorkScreenState
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkViewModel
 import com.gradation.lift.feature.work.work.ui.list.ListScreen
@@ -46,12 +48,13 @@ fun WorkRoute(
     navController: NavController,
     navigateWorkToCompleteInWorkGraph: () -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
+    navigateWorkToFindWorkCategoryInWorkGraph: () -> Unit,
     viewModel: WorkViewModel = hiltViewModel(),
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(Route.WORK_GRAPH_NAME) }
     ),
 ) {
-    val workState: WorkState = viewModel.workState
+    val workState: WorkState = sharedViewModel.workState
     val workRoutineInfoState: WorkRoutineInfoState =
         viewModel.workRoutineInfoState
     val workScreenState: WorkScreenState = rememberWorkScreenState(workState)
@@ -60,9 +63,9 @@ fun WorkRoute(
     val workDialogUiState: WorkDialogUiState by workScreenState.workDialogUiState.collectAsStateWithLifecycle()
     val autoCompleteState: Boolean by workScreenState.autoCompleteState.collectAsStateWithLifecycle()
 
-    val workTime: LocalTime by viewModel.workState.workTime.collectAsStateWithLifecycle()
-    val restTime: LocalTime by viewModel.workState.restTime.collectAsStateWithLifecycle()
-    val currentWorkRoutineIndex: Int by viewModel.workState.currentWorkRoutineIndex.collectAsStateWithLifecycle()
+    val workTime: LocalTime by sharedViewModel.workState.workTime.collectAsStateWithLifecycle()
+    val restTime: LocalTime by sharedViewModel.workState.restTime.collectAsStateWithLifecycle()
+    val currentWorkRoutineIndex: Int by sharedViewModel.workState.currentWorkRoutineIndex.collectAsStateWithLifecycle()
 
     val setHistoryRoutineList: (List<CreateHistoryRoutine>) -> Unit =
         sharedViewModel.setHistoryRoutineList
@@ -90,6 +93,8 @@ fun WorkRoute(
             workScreenState.updateWorkDialogState(WorkDialogUiState.CompleteDialogUi)
         }
     }
+
+
     LaunchedEffect(workScreenState.pagerState, currentWorkRoutineIndex) {
         snapshotFlow { workScreenState.pagerState.currentPage }.debounce(700L)
             .collectLatest { page ->
@@ -186,41 +191,55 @@ fun WorkRoute(
             WorkDialogUiState.None -> {}
         }
 
-        when (workScreenUiState) {
-            is WorkScreenUiState.ListScreenUi ->
-                ListScreen(
-                    modifier,
-                    progress,
-                    workTime,
-                    workState,
-                    workRoutineInfoState,
-                    workScreenState
-                )
+
+        Crossfade(
+            targetState = workScreenUiState, label = "",
+            animationSpec =
+            when (workScreenUiState) {
+                is WorkScreenUiState.ListScreenUi -> tween()
+                WorkScreenUiState.RestScreenUi -> tween()
+                WorkScreenUiState.WorkScreenUi -> tween()
+
+            },
+        ) { screen ->
+            when (screen) {
+                is WorkScreenUiState.ListScreenUi ->
+                    ListScreen(
+                        modifier,
+                        progress,
+                        workTime,
+                        workState,
+                        navigateWorkToFindWorkCategoryInWorkGraph,
+                        workRoutineInfoState,
+                        workScreenState
+                    )
 
 
-            WorkScreenUiState.RestScreenUi ->
-                RestScreen(
-                    modifier,
-                    progress,
-                    workTime,
-                    restTime,
-                    workState,
-                    workRoutineInfoState,
-                    workScreenState
-                )
+                WorkScreenUiState.RestScreenUi ->
+                    RestScreen(
+                        modifier,
+                        progress,
+                        workTime,
+                        restTime,
+                        workState,
+                        workRoutineInfoState,
+                        workScreenState
+                    )
 
 
-            WorkScreenUiState.WorkScreenUi ->
-                WorkScreen(
-                    modifier,
-                    progress,
-                    currentWorkRoutineIndex,
-                    workTime,
-                    workState,
-                    workRoutineInfoState,
-                    workScreenState
-                )
+                WorkScreenUiState.WorkScreenUi ->
+                    WorkScreen(
+                        modifier,
+                        progress,
+                        currentWorkRoutineIndex,
+                        workTime,
+                        workState,
+                        workRoutineInfoState,
+                        workScreenState
+                    )
+            }
         }
+
     }
 }
 

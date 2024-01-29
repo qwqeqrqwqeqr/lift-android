@@ -9,6 +9,7 @@ import com.gradation.lift.network.dto.terms.UpdateUserMarketingTermsConsentRespo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -39,7 +40,7 @@ interface TermsService {
      * 마케팅 이용약관 동의 여부 수정하기
      * @since 2023-12-28 17:32:53
      */
-    @PUT("terms/consent/marketing-terms")
+    @PATCH("terms/consent/marketing-terms")
     suspend fun updateUserMarketingTermsConsent(@Body updateUserMarketingTermsConsentRequestDto: UpdateUserMarketingTermsConsentRequestDto): Response<APIResultWrapper<UpdateUserMarketingTermsConsentResponseDto>>
 
 }

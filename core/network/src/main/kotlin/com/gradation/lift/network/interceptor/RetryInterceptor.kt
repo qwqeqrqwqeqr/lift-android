@@ -15,7 +15,7 @@ class RetryInterceptor @Inject constructor(
 ) : Interceptor {
      override fun intercept(chain: Interceptor.Chain): Response {
         return with(chain) {
-            val newRequest = request().newBuilder().build()
+            val newRequest = request().newBuilder().addHeader("Connection", "close").build()
             var response = proceed(newRequest)
             var tryCount = 0
             while (!response.isSuccessful && tryCount < 3){

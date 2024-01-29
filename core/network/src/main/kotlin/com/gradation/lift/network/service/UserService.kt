@@ -48,7 +48,7 @@ interface UserService {
      * 사용자 상세정보 업데이트하기
      * @since 2023-10-06 21:52:40
      */
-    @PUT("user/user-detail/profile-picture")
+    @PATCH("user/user-detail/profile-picture")
     suspend fun updateUserDetailProfilePicture(@Body updateUserDetailProfilePictureRequestDto: UpdateUserDetailProfilePictureRequestDto):
             Response<APIResultWrapper<UpdateUserDetailProfilePictureResponseDto>>
 
@@ -58,7 +58,7 @@ interface UserService {
      * 사용자 이름 업데이트하기
      * @since 2024-01-11 17:19:34
      */
-    @PUT("user/user-detail/name")
+    @PATCH("user/user-detail/name")
     suspend fun updateUserDetailName(@Body updateUserDetailNameRequestDto: UpdateUserDetailNameRequestDto):
             Response<APIResultWrapper<UpdateUserDetailNameResponseDto>>
 
@@ -68,7 +68,7 @@ interface UserService {
      * 사용자 정보(성별,키,몸무게) 업데이트하기
      * @since 2024-01-11 17:19:37
      */
-    @PUT("user/user-detail/info")
+    @PATCH("user/user-detail/info")
     suspend fun updateUserDetailInfo(@Body updateUserDetailInfoRequestDto: UpdateUserDetailInfoRequestDto):
             Response<APIResultWrapper<UpdateUserDetailInfoResponseDto>>
 

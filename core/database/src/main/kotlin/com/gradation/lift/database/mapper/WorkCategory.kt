@@ -12,5 +12,5 @@ fun WorkPart.toEntity() = WorkPartEntity(
 
 
 fun WorkCategory.toEntity() = WorkCategoryEntity(
-    id, name, workPart.toEntity(), introduce, description
+    id, name, workPart, introduce, description
 )

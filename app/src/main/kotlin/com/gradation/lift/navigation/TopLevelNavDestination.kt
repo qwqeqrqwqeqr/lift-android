@@ -14,13 +14,8 @@ enum class TopLevelNavDestination(
     ),
     DailyLog(
         displayName = "기록",
-        icon = LiftIcon.DailyLog,
-        route = Route.DAILY_LOG_DAILY_LOG_ROUTER_NAME
-    ),
-    Analytics(
-        displayName = "분석",
-        icon = LiftIcon.Analytics,
-        route = Route.ANALYTICS_ANALYTICS_ROUTER_NAME
+        icon = LiftIcon.History,
+        route = Route.HISTORY_HISTORY_ROUTER_NAME
     ),
     MyInfo(
         displayName = "내정보",

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route.WORK_WORK_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateWorkGraphToHomeGraph
 import com.gradation.lift.navigation.navigation.navigateWorkToCompleteInWorkGraph
+import com.gradation.lift.navigation.navigation.navigateWorkToFindWorkCategoryInWorkGraph
 
 
 fun NavGraphBuilder.workScreen(
@@ -20,11 +21,15 @@ fun NavGraphBuilder.workScreen(
         val navigateWorkGraphToHomeGraph: () -> Unit =
             { navController.navigateWorkGraphToHomeGraph() }
 
+        val navigateWorkToFindWorkCategoryInWorkGraph: () -> Unit =
+            { navController.navigateWorkToFindWorkCategoryInWorkGraph() }
+
         WorkRoute(
             modifier,
             navController,
             navigateWorkToCompleteInWorkGraph,
-            navigateWorkGraphToHomeGraph
+            navigateWorkGraphToHomeGraph,
+            navigateWorkToFindWorkCategoryInWorkGraph
         )
     }
 

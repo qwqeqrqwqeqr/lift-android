@@ -21,7 +21,7 @@ data class HistoryEntity(
     val comment: String?,
 
     @ColumnInfo(name = "score")
-    val score: Int,
+    val score: Int?,
 
     @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "work_time")

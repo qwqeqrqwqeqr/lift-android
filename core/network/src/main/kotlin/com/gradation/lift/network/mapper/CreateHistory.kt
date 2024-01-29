@@ -9,10 +9,11 @@ fun CreateHistory.toDto() : CreateHistoryRequestDto =
     CreateHistoryRequestDto(
         comment = this.comment,
         score = this.score,
+        progress = this.progress,
         workTime = this.workTime.toSecondOfDay(),
         restTime = this.restTime.toSecondOfDay(),
         totalTime = this.totalTime.toSecondOfDay(),
-        historyTimeStamp  = this.historyTimeStamp.toString(),
+        historyTimeStamp = this.historyTimeStamp.toString(),
         historyRoutine = this.historyRoutine.map { historyRoutine ->
             CreateHistoryRoutineDto(
                 workCategory = historyRoutine.workCategory,
