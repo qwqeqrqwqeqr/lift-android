@@ -5,4 +5,4 @@ import com.gradation.lift.network.dto.routine.UpdateRoutineSetCountRequestDto
 
 
 fun UpdateRoutineSetCount.toDto(): UpdateRoutineSetCountRequestDto =
-    UpdateRoutineSetCountRequestDto(id = this.id)
+    UpdateRoutineSetCountRequestDto(routineSetIdList = this.routineSetIdList)

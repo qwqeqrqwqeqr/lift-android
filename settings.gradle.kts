@@ -73,9 +73,10 @@ include(":feature:register-detail:navigation")
 include(":feature:work:common")
 include(":feature:work:work")
 include(":feature:work:complete")
-include(":feature:work:completeDetail")
+include(":feature:work:complete-detail")
 include(":feature:work:navigation")
-
+include(":feature:work:find-work-category")
+include(":feature:work:create-work-set")
 
 include(":feature:work-ready:ready")
 include(":feature:work-ready:common")
@@ -97,8 +98,10 @@ include(":feature:my-info:update-profile-picture")
 include(":feature:my-info:update-name")
 include(":feature:my-info:update-info")
 
-include(":feature:daily-log:daily-log")
-include(":feature:daily-log:navigation")
+include(":feature:history:history")
+include(":feature:history:navigation")
+include(":feature:history:update-info")
+
 
 include(":feature:analytics:analytics")
 include(":feature:analytics:navigation")
@@ -119,4 +122,3 @@ include(":feature:badge:navigation")
 include(":feature:create-routine:navigation")
 include(":feature:update-routine:navigation")
 include(":feature:my-info:navigation")
-

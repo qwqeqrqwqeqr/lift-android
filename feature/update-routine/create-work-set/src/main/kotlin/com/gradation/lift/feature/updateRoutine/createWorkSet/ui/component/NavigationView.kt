@@ -176,13 +176,11 @@ fun NavigationView(
             LiftSolidButton(
                 modifier = modifier,
                 enabled = workSetState.workSetList.isNotEmpty()
-                        && workSetState.workSetList.none() {
-                    it.weight.isEmpty() || it.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
-                        it.weight
-                    )
+                        && workSetState.workSetList.none {
+                    it.weight.isEmpty() || !decimalNumberValidator(it.weight)
                 }
-                        && workSetState.workSetList.none() {
-                    it.repetition.isEmpty() || it.weight.toIntOrNull() == 0 || !decimalNumberValidator(
+                        && workSetState.workSetList.none {
+                    it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                         it.repetition
                     )
                 },

@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.myInfo.myInfo.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -22,6 +23,17 @@ fun MyInfoRoute(
 ) {
 
     val myInfoUiState: MyInfoUiState by viewModel.myInfoUiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(myInfoUiState) {
+        when (val result = myInfoUiState) {
+            is MyInfoUiState.Fail -> {
+                myInfoScreenState.snackbarHostState.showSnackbar(result.message)
+            }
+
+            MyInfoUiState.Loading -> {}
+            is MyInfoUiState.Success -> {}
+        }
+    }
 
     MyInfoScreen(
         modifier,

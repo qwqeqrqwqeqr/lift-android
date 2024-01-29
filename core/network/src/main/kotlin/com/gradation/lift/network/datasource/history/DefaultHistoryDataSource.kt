@@ -3,6 +3,7 @@ package com.gradation.lift.network.datasource.history
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.UpdateHistoryInfo
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.mapper.toDto
@@ -68,4 +69,18 @@ class DefaultHistoryDataSource @Inject constructor(
             }
         }
     }.flowOn(dispatcherProvider.default)
+
+    override suspend fun updateHistoryInfo(updateHistoryInfo: UpdateHistoryInfo): Flow<NetworkResult<Boolean>> =
+        flow {
+            networkResultHandler {
+                historyService.updateHistoryInfo(updateHistoryInfo.toDto())
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.result))
+                }
+            }
+        }.flowOn(dispatcherProvider.default)
+
 }

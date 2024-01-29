@@ -44,7 +44,6 @@ class WorkPartAnalyticsState @Inject constructor(
         MutableStateFlow(WorkPartAnalyticsTargetType.All)
 
 
-    
     val historyWorkPartCountByPre: StateFlow<WorkPartFrequency> =
         combine(
             today,
@@ -59,17 +58,21 @@ class WorkPartAnalyticsState @Inject constructor(
                                 .let { it ->
                                     WorkPartFrequency(
                                         chestFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == CHEST_NAME },
+                                            .count { it.workCategory.workPart.contains(CHEST_NAME) },
                                         shoulderFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == SHOULDER_NAME },
+                                            .count { it.workCategory.workPart.contains(SHOULDER_NAME) },
                                         armFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ARM_NAME },
+                                            .count { it.workCategory.workPart.contains(ARM_NAME) },
                                         backFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == BACK_NAME },
+                                            .count { it.workCategory.workPart.contains(BACK_NAME) },
                                         lowerBodyFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == LOWER_BODY_NAME },
+                                            .count {
+                                                it.workCategory.workPart.contains(
+                                                    LOWER_BODY_NAME
+                                                )
+                                            },
                                         absFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ABS_NAME }
+                                            .count { it.workCategory.workPart.contains(ABS_NAME) }
                                     )
 
                                 }
@@ -82,17 +85,21 @@ class WorkPartAnalyticsState @Inject constructor(
                                 .let { it ->
                                     WorkPartFrequency(
                                         chestFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == CHEST_NAME },
+                                            .count { it.workCategory.workPart.contains(CHEST_NAME) },
                                         shoulderFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == SHOULDER_NAME },
+                                            .count { it.workCategory.workPart.contains(SHOULDER_NAME) },
                                         armFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ARM_NAME },
+                                            .count { it.workCategory.workPart.contains(ARM_NAME) },
                                         backFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == BACK_NAME },
+                                            .count { it.workCategory.workPart.contains(BACK_NAME) },
                                         lowerBodyFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == LOWER_BODY_NAME },
+                                            .count {
+                                                it.workCategory.workPart.contains(
+                                                    LOWER_BODY_NAME
+                                                )
+                                            },
                                         absFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ABS_NAME }
+                                            .count { it.workCategory.workPart.contains(ABS_NAME) }
                                     )
 
                                 }
@@ -105,17 +112,21 @@ class WorkPartAnalyticsState @Inject constructor(
                                 .let { it ->
                                     WorkPartFrequency(
                                         chestFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == CHEST_NAME },
+                                            .count { it.workCategory.workPart.contains(CHEST_NAME) },
                                         shoulderFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == SHOULDER_NAME },
+                                            .count { it.workCategory.workPart.contains(SHOULDER_NAME) },
                                         armFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ARM_NAME },
+                                            .count { it.workCategory.workPart.contains(ARM_NAME) },
                                         backFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == BACK_NAME },
+                                            .count { it.workCategory.workPart.contains(BACK_NAME) },
                                         lowerBodyFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == LOWER_BODY_NAME },
+                                            .count {
+                                                it.workCategory.workPart.contains(
+                                                    LOWER_BODY_NAME
+                                                )
+                                            },
                                         absFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ABS_NAME }
+                                            .count { it.workCategory.workPart.contains(ABS_NAME) }
                                     )
 
                                 }
@@ -131,7 +142,7 @@ class WorkPartAnalyticsState @Inject constructor(
             initialValue = WorkPartFrequency()
         )
 
-    
+
     val historyWorkPartCountByCurrent: StateFlow<WorkPartFrequency> =
         combine(
             today,
@@ -146,17 +157,21 @@ class WorkPartAnalyticsState @Inject constructor(
                                 .let { it ->
                                     WorkPartFrequency(
                                         chestFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == CHEST_NAME },
+                                            .count { it.workCategory.workPart.contains(CHEST_NAME) },
                                         shoulderFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == SHOULDER_NAME },
+                                            .count { it.workCategory.workPart.contains(SHOULDER_NAME) },
                                         armFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ARM_NAME },
+                                            .count { it.workCategory.workPart.contains(ARM_NAME) },
                                         backFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == BACK_NAME },
+                                            .count { it.workCategory.workPart.contains(BACK_NAME) },
                                         lowerBodyFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == LOWER_BODY_NAME },
+                                            .count {
+                                                it.workCategory.workPart.contains(
+                                                    LOWER_BODY_NAME
+                                                )
+                                            },
                                         absFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ABS_NAME }
+                                            .count { it.workCategory.workPart.contains(ABS_NAME) }
                                     )
 
                                 }
@@ -169,17 +184,21 @@ class WorkPartAnalyticsState @Inject constructor(
                                 .let { it ->
                                     WorkPartFrequency(
                                         chestFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == CHEST_NAME },
+                                            .count { it.workCategory.workPart.contains(CHEST_NAME) },
                                         shoulderFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == SHOULDER_NAME },
+                                            .count { it.workCategory.workPart.contains(SHOULDER_NAME) },
                                         armFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ARM_NAME },
+                                            .count { it.workCategory.workPart.contains(ARM_NAME) },
                                         backFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == BACK_NAME },
+                                            .count { it.workCategory.workPart.contains(BACK_NAME) },
                                         lowerBodyFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == LOWER_BODY_NAME },
+                                            .count {
+                                                it.workCategory.workPart.contains(
+                                                    LOWER_BODY_NAME
+                                                )
+                                            },
                                         absFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ABS_NAME }
+                                            .count { it.workCategory.workPart.contains(ABS_NAME) }
                                     )
 
                                 }
@@ -192,17 +211,21 @@ class WorkPartAnalyticsState @Inject constructor(
                                 .let { it ->
                                     WorkPartFrequency(
                                         chestFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == CHEST_NAME },
+                                            .count { it.workCategory.workPart.contains(CHEST_NAME) },
                                         shoulderFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == SHOULDER_NAME },
+                                            .count { it.workCategory.workPart.contains(SHOULDER_NAME) },
                                         armFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ARM_NAME },
+                                            .count { it.workCategory.workPart.contains(ARM_NAME) },
                                         backFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == BACK_NAME },
+                                            .count { it.workCategory.workPart.contains(BACK_NAME) },
                                         lowerBodyFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == LOWER_BODY_NAME },
+                                            .count {
+                                                it.workCategory.workPart.contains(
+                                                    LOWER_BODY_NAME
+                                                )
+                                            },
                                         absFrequency = it.flatMap { it.historyRoutine }
-                                            .count { it.workCategory.workPart.name == ABS_NAME }
+                                            .count { it.workCategory.workPart.contains(ABS_NAME) }
                                     )
 
                                 }
@@ -219,7 +242,6 @@ class WorkPartAnalyticsState @Inject constructor(
         )
 
 
-    
     val historyCountByPre: StateFlow<Int> = historyWorkPartCountByPre.map {
         it.absFrequency + it.armFrequency + it.backFrequency + it.chestFrequency + it.shoulderFrequency + it.lowerBodyFrequency
     }.stateIn(
@@ -228,7 +250,7 @@ class WorkPartAnalyticsState @Inject constructor(
         initialValue = 0
     )
 
-    
+
     val historyCountByCurrent: StateFlow<Int> = historyWorkPartCountByCurrent.map {
         it.absFrequency + it.armFrequency + it.backFrequency + it.chestFrequency + it.shoulderFrequency + it.lowerBodyFrequency
     }.stateIn(
@@ -238,7 +260,6 @@ class WorkPartAnalyticsState @Inject constructor(
     )
 
 
-    
     val maxOfWorkPartFrequency: StateFlow<String> =
         historyWorkPartCountByCurrent.map { workPartFrequency ->
             maxOf(

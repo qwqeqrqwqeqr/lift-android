@@ -13,12 +13,12 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
-internal fun rememberRoutineSetScreenState(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+fun rememberRoutineSetScreenState(
+    snackbarHostState: SnackbarHostState = remember {SnackbarHostState()},
     focusManager: FocusManager = LocalFocusManager.current,
     scrollState: ScrollState = rememberScrollState(),
 ): RoutineSetScreenState {
-    return remember(snackbarHostState, focusManager) {
+    return remember(snackbarHostState, focusManager, scrollState) {
         RoutineSetScreenState(
             snackbarHostState,
             focusManager,
@@ -28,7 +28,7 @@ internal fun rememberRoutineSetScreenState(
 }
 
 @Stable
-internal class RoutineSetScreenState constructor(
+class RoutineSetScreenState (
     val snackbarHostState: SnackbarHostState,
     val focusManager: FocusManager,
     val scrollState: ScrollState,

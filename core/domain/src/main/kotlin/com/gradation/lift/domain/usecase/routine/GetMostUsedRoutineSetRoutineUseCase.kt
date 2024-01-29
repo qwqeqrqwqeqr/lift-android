@@ -15,7 +15,7 @@ class GetMostUsedRoutineSetRoutineUseCase @Inject constructor(
      * 가장 많이 사용한 루틴을 불러오기
      * [limit] 몇개의 루틴을 가져올지에 대한 파라미터 기본 값 5
      */
-    operator fun invoke(limit: Int = 5): Flow<DataState<List<RoutineSetRoutine>>> = flow {
+    operator fun invoke(limit: Int = 10): Flow<DataState<List<RoutineSetRoutine>>> = flow {
         routineRepository.getRoutineSetRoutine().collect {
             when (it) {
                 is DataState.Fail -> emit(DataState.Fail(it.message))
@@ -24,7 +24,6 @@ class GetMostUsedRoutineSetRoutineUseCase @Inject constructor(
                 }
             }
         }
-
     }
 
 }

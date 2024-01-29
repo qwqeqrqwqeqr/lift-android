@@ -21,14 +21,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
-import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
+import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.ui.mapper.toText
@@ -174,13 +174,13 @@ fun NavigationView(
             LiftSolidButton(
                 modifier = modifier,
                 enabled = workSetState.workSetList.isNotEmpty()
-                        && workSetState.workSetList.none() {
-                    it.weight.isEmpty() || it.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
+                        && workSetState.workSetList.none {
+                    it.weight.isEmpty() || !decimalNumberValidator(
                         it.weight
                     )
                 }
-                        && workSetState.workSetList.none() {
-                    it.repetition.isEmpty() || it.weight.toIntOrNull() == 0 || !decimalNumberValidator(
+                        && workSetState.workSetList.none {
+                    it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                         it.repetition
                     )
                 },

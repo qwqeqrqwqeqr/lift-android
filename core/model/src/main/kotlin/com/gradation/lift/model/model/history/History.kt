@@ -20,7 +20,8 @@ import kotlinx.datetime.LocalTime
 data class History(
     val historyId: Int = 0,
     val comment: String? = null,
-    val score: Int = 0,
+    val score: Int? = null,
+    val progress: Int = 0,
     val workTime: LocalTime = LocalTime(0, 0, 0),
     val restTime: LocalTime = LocalTime(0, 0, 0),
     val totalTime: LocalTime = LocalTime(0, 0, 0),

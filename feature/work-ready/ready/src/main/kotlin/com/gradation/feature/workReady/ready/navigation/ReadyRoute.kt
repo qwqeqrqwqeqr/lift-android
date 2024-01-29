@@ -25,7 +25,7 @@ import com.gradation.lift.navigation.Route
 internal fun ReadyRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    routineSetIdList: List<Int>,
+    routineSetIdList: Set<Int>,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
@@ -37,8 +37,7 @@ internal fun ReadyRoute(
     readyScreenState: ReadyScreenState = rememberReadyScreenState(),
 ) {
     val currentWorkRoutine: SnapshotStateList<WorkRoutine> = workRoutineState.currentWorkRoutine
-
-    val createWork: (List<WorkRoutine>)->Unit = viewModel.createWork()
+    val createWork: (List<Int>, List<WorkRoutine>) -> Unit = viewModel.createWork()
 
     LaunchedEffect(routineSetIdList) { sharedViewModel.initRoutineList(routineSetIdList) }
     BackHandler(onBack = popBackStack)
@@ -70,6 +69,7 @@ internal fun ReadyRoute(
 
     ReadyScreen(
         modifier,
+        routineSetIdList,
         createWork,
         popBackStack,
         navigateReadyToFindWorkCategoryInWorkReadyGraph,

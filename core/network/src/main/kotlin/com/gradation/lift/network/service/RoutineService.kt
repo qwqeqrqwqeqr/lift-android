@@ -9,6 +9,7 @@ import retrofit2.http.Query
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.PATCH
 import retrofit2.http.PUT
 
 
@@ -43,7 +44,7 @@ interface RoutineService {
      * 루틴세트의 사용횟수를 1 증가시킵니다.
      * @since 2023-10-13 11:35:46
      */
-    @PUT("routine/routine-set/count")
+    @PATCH("routine/routine-set/count")
     suspend fun updateRoutineSetCount(@Body updateRoutineSetCountRequestDto: UpdateRoutineSetCountRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
 
 

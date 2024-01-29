@@ -27,6 +27,7 @@ import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineL
 import com.gradation.lift.feature.workReady.routineSelection.data.state.SortFilterState
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.RoutineListView
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.SearchSortFilterView
+import com.gradation.lift.ui.extensions.isScrollingUp
 
 @Composable
 internal fun RoutineSelectionScreen(
@@ -81,7 +82,7 @@ internal fun RoutineSelectionScreen(
                             .weight(1f)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
-                        AnimatedVisibility(routineListScreenState.searchSortFilterView) {
+                        AnimatedVisibility(routineListScreenState.lazyListState.isScrollingUp()) {
                             SearchSortFilterView(
                                 modifier,
                                 sortFilterState,

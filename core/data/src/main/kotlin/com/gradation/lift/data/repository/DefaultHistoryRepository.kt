@@ -5,6 +5,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.UpdateHistoryInfo
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import kotlinx.coroutines.flow.Flow
@@ -47,6 +48,16 @@ class DefaultHistoryRepository@Inject constructor(
     override fun deleteHistory(historyId: Int): Flow<DataState<Unit>> = flow{
         historyDataSource.deleteHistory(historyId
         ).collect{ result ->
+            when(result){
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
+    }.flowOn(dispatcherProvider.default)
+
+
+    override fun updateHistoryInfo(updateHistoryInfo: UpdateHistoryInfo): Flow<DataState<Boolean>> = flow{
+        historyDataSource.updateHistoryInfo(updateHistoryInfo).collect{ result ->
             when(result){
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

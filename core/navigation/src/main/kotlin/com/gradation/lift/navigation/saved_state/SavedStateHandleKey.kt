@@ -40,8 +40,16 @@ object SavedStateHandleKey {
         const val USER_NAME_KEY = "MY_INFO_USER_NAME_KEY_KEY"
     }
 
-    object Work{
+    object Work {
         const val WORK_ROUTINE_SET_ID_LIST_KEY = "WORK_ROUTINE_SET_ID_LIST_KEY"
         const val WORK_READY_WORK_CATEGORY_ID_KEY = "WORK_READY_WORK_CATEGORY_ID_KEY"
+        const val WORK_WORK_CATEGORY_ID_KEY = "WORK_WORK_CATEGORY_ID_KEY"
+    }
+
+    object History {
+        const val HISTORY_COMMENT_KEY = "HISTORY_COMMENT_KEY"
+        const val HISTORY_SCORE_KEY = "HISTORY_SCORE_KEY"
+        const val HISTORY_ID_KEY = "HISTORY_ID_KEY"
+        const val HISTORY_DATE_KEY = "HISTORY_DATE_KEY"
     }
 }
