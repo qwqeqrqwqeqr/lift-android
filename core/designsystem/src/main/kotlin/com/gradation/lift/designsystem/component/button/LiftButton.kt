@@ -20,6 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.hapticfeedback.HapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -32,6 +35,7 @@ fun LiftSolidButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
+    val hapticFeedback: HapticFeedback = LocalHapticFeedback.current
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
 
@@ -58,7 +62,10 @@ fun LiftSolidButton(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = onClick,
+                onClick = {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onClick()
+                },
                 enabled = enabled
             ),
         verticalAlignment = Alignment.CenterVertically,
@@ -84,6 +91,7 @@ fun LiftDefaultButton(
     shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     onClick: () -> Unit,
 ) {
+    val hapticFeedback: HapticFeedback = LocalHapticFeedback.current
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
 
@@ -109,7 +117,10 @@ fun LiftDefaultButton(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = onClick,
+                onClick = {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onClick()
+                },
                 enabled = enabled
             ),
         verticalAlignment = Alignment.CenterVertically,
@@ -132,6 +143,7 @@ fun LiftErrorButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
+    val hapticFeedback: HapticFeedback = LocalHapticFeedback.current
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
 
@@ -157,7 +169,10 @@ fun LiftErrorButton(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = onClick,
+                onClick = {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onClick()
+                },
                 enabled = enabled
             ),
         verticalAlignment = Alignment.CenterVertically,
@@ -179,6 +194,7 @@ fun LiftPrimaryButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
+    val hapticFeedback: HapticFeedback = LocalHapticFeedback.current
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
 
@@ -216,7 +232,10 @@ fun LiftPrimaryButton(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = onClick,
+                onClick = {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onClick()
+                },
                 enabled = enabled
             ),
         verticalAlignment = Alignment.CenterVertically,
