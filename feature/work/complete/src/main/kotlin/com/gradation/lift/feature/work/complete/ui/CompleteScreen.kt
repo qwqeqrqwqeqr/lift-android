@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -34,12 +33,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.gradation.lift.common.utils.decimalNumberValidator
-import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
-import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
-import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.progress.LiftProgressCircle
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
@@ -529,7 +524,7 @@ internal fun CompleteScreen(
                     }
                 }
                 Column(
-                    modifier = modifier,
+                    modifier = modifier.padding(end = LiftTheme.space.space20),
                     verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
                 ) {
                     historyRoutineList.forEachIndexed { routineIndex, routine ->

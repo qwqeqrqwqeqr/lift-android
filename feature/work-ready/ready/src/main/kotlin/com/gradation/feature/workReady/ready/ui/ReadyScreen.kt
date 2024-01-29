@@ -41,9 +41,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
+import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
@@ -72,7 +72,8 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun ReadyScreen(
     modifier: Modifier,
-    createWork: (List<WorkRoutine>) -> Unit,
+    routineSetIdList: Set<Int>,
+    createWork: (List<Int>, List<WorkRoutine>) -> Unit,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
@@ -333,7 +334,7 @@ internal fun ReadyScreen(
                                                             },
                                                             isError = !decimalNumberValidator(
                                                                 workSet.weight
-                                                            ) || workSet.weight == "0"
+                                                            )
                                                         )
 
                                                         LiftKeyPadTextField(
@@ -384,7 +385,7 @@ internal fun ReadyScreen(
                                         }
                                         LiftPrimaryButton(
                                             modifier = modifier,
-                                            text = "루틴추가",
+                                            text = "세트추가",
                                             onClick = {
                                                 workRoutineState.addWorkSet(
                                                     routineIndex,
@@ -572,7 +573,7 @@ internal fun ReadyScreen(
                                     ),
                             text = "운동 시작하기",
                             onClick = {
-                                createWork(currentWorkRoutine.toList())
+                                createWork(routineSetIdList.toList(), currentWorkRoutine.toList())
                                 navigateWorkReadyGraphToWorkGraph()
                             }
                         )

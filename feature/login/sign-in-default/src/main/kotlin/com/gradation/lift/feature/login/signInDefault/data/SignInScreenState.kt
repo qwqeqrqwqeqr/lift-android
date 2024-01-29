@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
 fun rememberSignInScreenState(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    snackbarHostState: SnackbarHostState =  remember {SnackbarHostState()},
     focusManager: FocusManager = LocalFocusManager.current,
 ): SignInScreenState =
     remember(snackbarHostState,focusManager) {

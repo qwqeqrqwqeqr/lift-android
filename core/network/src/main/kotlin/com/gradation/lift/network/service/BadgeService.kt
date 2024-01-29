@@ -12,6 +12,7 @@ import com.gradation.lift.network.dto.badge.UpdateUserBadgeMainFlagResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -43,6 +44,6 @@ interface BadgeService {
     @GET("badge/user-badge/condition")
     suspend fun getUserBadgeByCondition(): Response<APIResultWrapper<GetUserBadgeConditionResponseDto>>
 
-    @PUT("badge/user-badge/main-flag")
+    @PATCH("badge/user-badge/main-flag")
     suspend fun updateUserBadgeMainFlag(@Body updateUserBadgeMainFlagRequestDto: UpdateUserBadgeMainFlagRequestDto): Response<APIResultWrapper<UpdateUserBadgeMainFlagResponseDto>>
 }

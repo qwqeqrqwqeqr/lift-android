@@ -20,7 +20,8 @@ fun LazyListScope.loadingRoutineListView(
 ) {
     item {
         RoutineListHeaderView(modifier, navigateHomeGraphToRoutineDetailGraph)
-
+    }
+    item {
         Column(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)

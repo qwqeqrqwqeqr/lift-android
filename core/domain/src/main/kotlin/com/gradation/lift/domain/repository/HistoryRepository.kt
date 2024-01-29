@@ -3,6 +3,7 @@ package com.gradation.lift.domain.repository
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.UpdateHistoryInfo
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -40,4 +41,11 @@ interface HistoryRepository {
      * @since 2023-08-28 18:27:31
      */
     fun deleteHistory(historyId: Int): Flow<DataState<Unit>>
+
+    /**
+     * [deleteHistory]
+     * 기록 정보를 업데이트합니다.
+     * @since 2024-01-25 18:40:29
+     */
+    fun updateHistoryInfo(updateHistoryInfo: UpdateHistoryInfo): Flow<DataState<Boolean>>
 }

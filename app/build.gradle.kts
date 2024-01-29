@@ -7,6 +7,7 @@ plugins {
     id("lift.android.image")
     id("lift.android.oauth")
     id("lift.android.firebase")
+    id("lift.android.google")
 }
 
 
@@ -44,7 +45,7 @@ dependencies {
     implementation(project(":feature:update-routine:navigation"))
     implementation(project(":feature:my-info:navigation"))
     implementation(project(":feature:home:navigation"))
-    implementation(project(":feature:daily-log:navigation"))
+    implementation(project(":feature:history:navigation"))
     implementation(project(":feature:analytics:navigation"))
     implementation(project(":feature:work-ready:navigation"))
 

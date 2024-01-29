@@ -3,13 +3,10 @@ package com.gradation.lift.network.dto.history
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.model.model.history.HistoryRoutine
 import com.gradation.lift.model.model.work.WorkCategory
-import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.model.model.work.WorkSet
-import kotlinx.serialization.SerialName
-
-import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 import kotlinx.datetime.LocalDateTime.Companion.parse
-
+import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -33,10 +30,7 @@ data class GetHistoryByHistoryIdResponseDto(
                     workCategory = WorkCategory(
                         id = history.historyRoutine.workCategory.id,
                         name = history.historyRoutine.workCategory.name,
-                        workPart = WorkPart(
-                            id = history.historyRoutine.workCategory.workPart.id,
-                            name = history.historyRoutine.workCategory.workPart.name
-                        ),
+                        workPart = history.historyRoutine.workCategory.workPart,
                         introduce = history.historyRoutine.workCategory.introduce,
                         description = history.historyRoutine.workCategory.description
                     ),

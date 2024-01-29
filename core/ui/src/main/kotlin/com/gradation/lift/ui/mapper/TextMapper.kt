@@ -4,6 +4,7 @@ import android.icu.text.DecimalFormat
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
@@ -61,4 +62,13 @@ fun LocalTime.toTimerText(): String =
  * "0000.00.00 형식으로 날짜 출력형식을 변경합니다."
  * @since 2024-01-23 13:22:14
  */
-fun LocalDateTime.toDayMonthYearText():String = toJavaLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+fun LocalDateTime.toDayMonthYearText(): String =
+    toJavaLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
+/**
+ * [toDayMonthYearText]
+ * "0000.00 형식으로 날짜 출력형식을 변경합니다."
+ * @since 2024-01-29 14:42:04
+ */
+fun LocalDate.toMonthYearText(): String =
+    toJavaLocalDate().format(DateTimeFormatter.ofPattern("yyyy.MM"))

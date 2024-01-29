@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
 internal fun rememberRoutineSetScreenState(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
+    snackbarHostState: SnackbarHostState =  remember {SnackbarHostState()},
     focusManager: FocusManager = LocalFocusManager.current,
     scrollState: ScrollState = rememberScrollState(),
 ): RoutineSetScreenState {

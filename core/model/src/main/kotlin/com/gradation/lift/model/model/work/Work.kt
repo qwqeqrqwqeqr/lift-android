@@ -12,11 +12,13 @@ import java.util.UUID
  * @property restTime 현재 까지 휴식한 시간
  * @property totalTime 종합 운동 시간 ([totalTime] + [workTime])
  * @property routine 현재 진행중인 운동들을 모아둔 리스트
+ * @property usedRoutineSetIdList 사용된 루틴 세트 아이디
  */
 data class Work(
     val id: UUID,
     val workTime : LocalTime= LocalTime(0,0,0),
     val restTime: LocalTime=LocalTime(0,0,0),
     val totalTime: LocalTime=LocalTime(0,0,0),
-    val routine: List<WorkRoutine>
+    val routine: List<WorkRoutine>,
+    val usedRoutineSetIdList : List<Int> = emptyList()
 )

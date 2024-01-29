@@ -28,6 +28,7 @@ import com.gradation.lift.feature.home.home.ui.component.routineList.emptyRoutin
 import com.gradation.lift.feature.home.home.ui.component.routineList.failRoutineListView
 import com.gradation.lift.feature.home.home.ui.component.routineList.loadingRoutineListView
 import com.gradation.lift.feature.home.home.ui.component.routineList.successRoutineListView
+import com.gradation.lift.ui.extensions.isScrollingUp
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 
@@ -45,24 +46,13 @@ internal fun HomeScreen(
     homeScreenState: HomeScreenState,
     homeAnimationState: HomeAnimationState,
 ) {
-    LaunchedEffect(homeScreenState.lazyListState) {
-        snapshotFlow { homeScreenState.lazyListState.firstVisibleItemIndex }
-            .collect { it ->
-                if (it > 0) {
-                    homeScreenState.updateVisibleBannerView(false)
-                } else {
-                    homeScreenState.updateVisibleBannerView(true)
-                }
-            }
-    }
-
 
 
     Scaffold(
         modifier = modifier,
         topBar = {
             AnimatedVisibility(
-                visible = homeScreenState.visibleBannerView,
+                visible = homeScreenState.lazyListState.isScrollingUp(),
                 enter = expandVertically(spring(stiffness = 100f)),
                 exit = shrinkVertically(spring(stiffness = 100f))
             ) {
