@@ -11,8 +11,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.completedetail.CompleteDetailScreen
 import com.gradation.lift.feature.work.completedetail.data.CompleteDetailViewModel
 import com.gradation.lift.feature.work.completedetail.data.state.CompleteDetailScreenState
@@ -47,13 +47,22 @@ internal fun CompleteDetailRoute(
     val usedRoutineSetIdList: List<Int> by sharedViewModel.usedRoutineSetIdList.collectAsStateWithLifecycle()
 
     val createHistory: () -> Unit = {
-            viewModel.createHistory(
-                historyProgress.toInt(),
-                historyWorkRestTime,
-                historyRoutineList,
-                usedRoutineSetIdList
-            )
-        }
+        viewModel.createHistory(
+            historyProgress.toInt(),
+            historyWorkRestTime,
+            historyRoutineList,
+            usedRoutineSetIdList
+        )
+    }
+
+    val createHistoryPassMemo: () -> Unit = {
+        viewModel.createHistoryPassMemo(
+            historyProgress.toInt(),
+            historyWorkRestTime,
+            historyRoutineList,
+            usedRoutineSetIdList
+        )
+    }
 
 
     val historyInfoState = viewModel.historyInfoState
@@ -86,6 +95,7 @@ internal fun CompleteDetailRoute(
         commentValidator,
         currentTime,
         createHistory,
+        createHistoryPassMemo,
         historyInfoState,
         completeDetailScreenState
     )

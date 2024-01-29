@@ -13,7 +13,8 @@ import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import javax.inject.Inject
@@ -56,8 +57,35 @@ internal class CompleteDetailViewModel @Inject constructor(
                         is DataState.Fail -> createWorkHistoryState.value =
                             CreateWorkHistoryState.Fail(message = it.message)
 
-                        is DataState.Success ->
-                        {
+                        is DataState.Success -> {
+                            updateRoutineSetCountUseCase(UpdateRoutineSetCount(usedRoutineSetIdList)).collect()
+                            createWorkHistoryState.value = CreateWorkHistoryState.Success
+                        }
+                    }
+                }
+            }
+        }
+
+    val createHistoryPassMemo: (Int, WorkRestTime, List<CreateHistoryRoutine>, List<Int>) -> Unit =
+        { progress, workRestTime, historyRoutineList, usedRoutineSetIdList ->
+            viewModelScope.launch {
+                createHistoryUseCase(
+                    CreateHistory(
+                        comment = null,
+                        score = null,
+                        progress = progress,
+                        workTime = workRestTime.workTime,
+                        restTime = workRestTime.restTime,
+                        totalTime = workRestTime.totalTime,
+                        historyTimeStamp = getNowUseCase(),
+                        historyRoutine = historyRoutineList
+                    )
+                ).collect {
+                    when (it) {
+                        is DataState.Fail -> createWorkHistoryState.value =
+                            CreateWorkHistoryState.Fail(message = it.message)
+
+                        is DataState.Success -> {
                             updateRoutineSetCountUseCase(UpdateRoutineSetCount(usedRoutineSetIdList)).collect()
                             createWorkHistoryState.value = CreateWorkHistoryState.Success
                         }

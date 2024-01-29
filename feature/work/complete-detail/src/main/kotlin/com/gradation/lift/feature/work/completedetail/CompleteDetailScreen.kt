@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.gradation.lift.common.utils.Validator
+import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
@@ -55,6 +56,7 @@ internal fun CompleteDetailScreen(
     commentValidator: Validator,
     currentTime: LocalDateTime,
     createHistory: () -> Unit,
+    createHistoryPassMemo: () -> Unit,
     historyInfoState: HistoryInfoState,
     completeDetailScreenState: CompleteDetailScreenState,
 ) {
@@ -202,10 +204,21 @@ internal fun CompleteDetailScreen(
 
                 }
             }
-            LiftSolidButton(
-                text = "완료",
-                onClick = createHistory
-            )
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+            ) {
+                LiftDefaultButton(
+                    modifier = modifier.weight(1f),
+                    text = "건너뛰기",
+                    onClick = createHistoryPassMemo
+                )
+                LiftSolidButton(
+                    modifier = modifier.weight(2f),
+                    text = "완료",
+                    onClick = createHistory
+                )
+            }
         }
     }
 }
@@ -221,6 +234,7 @@ fun CompleteScreenDetailPreview(modifier: Modifier = Modifier) {
             commentValidator = Validator(true, ""),
             currentTime = java.time.LocalDateTime.now().toKotlinLocalDateTime(),
             createHistory = {},
+            createHistoryPassMemo = {},
             historyInfoState = HistoryInfoState(rememberCoroutineScope()),
             completeDetailScreenState = rememberCompleteDetailScreenState()
         )
