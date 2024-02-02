@@ -10,7 +10,13 @@ class FirebasePlugin : Plugin<Project> {
         with(target){
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-            with(dependencies){
+            with(pluginManager) {
+                apply("com.google.gms.google-services")
+                apply("com.google.firebase.crashlytics")
+            }
+
+
+            with(dependencies) {
                 val bom = libs.findLibrary("firebase-bom").get()
                 add("implementation", platform(bom))
                 add("implementation", libs.findLibrary("firebase-analytics-ktx").get())
