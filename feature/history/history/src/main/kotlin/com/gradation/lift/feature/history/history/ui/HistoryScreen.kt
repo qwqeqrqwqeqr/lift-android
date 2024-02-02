@@ -43,13 +43,22 @@ fun HistoryScreen(
 
     LazyColumn(
         modifier = modifier
-            .background(LiftTheme.colorScheme.no5)
             .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    listOf(
+                        LiftTheme.colorScheme.no5,
+                        LiftTheme.colorScheme.no5,
+                        LiftTheme.colorScheme.no5,
+                        LiftTheme.colorScheme.no1,
+                    )
+                )
+            )
             .padding(top = LiftTheme.space.space40, bottom = LiftTheme.space.space60),
         state = historyScreenState.lazyListState
     ) {
         item {
-            Column {
+            Column(modifier = modifier.background(LiftTheme.colorScheme.no5)) {
                 HeaderView(modifier, selectedDate, historyScreenState)
                 Spacer(modifier = modifier.height(LiftTheme.space.space24))
                 CalendarView(
@@ -71,32 +80,41 @@ fun HistoryScreen(
             }
         }
         item {
-            Column(
-                modifier
-                    .fillMaxWidth()
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                LiftTheme.colorScheme.no5,
-                                LiftTheme.colorScheme.no1,
-                            )
+            when (selectedHistoryList.size) {
+                0 ->
+                    Column(
+                        modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
+                    ) {
+                        LiftText(
+                            modifier = modifier.padding(horizontal = LiftTheme.space.space20),
+                            textStyle = LiftTextStyle.No2,
+                            text = "${selectedDate.dayOfMonth}일 ${
+                                selectedDate.toWeekday().getWeekdayName()
+                            }요일",
+                            color = LiftTheme.colorScheme.no9,
+                            textAlign = TextAlign.Center
                         )
-                    ),
-                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
-            ) {
-                LiftText(
-                    modifier = modifier.padding(horizontal = LiftTheme.space.space20),
-                    textStyle = LiftTextStyle.No2,
-                    text = "${selectedDate.dayOfMonth}일 ${
-                        selectedDate.toWeekday().getWeekdayName()
-                    }요일",
-                    color = LiftTheme.colorScheme.no9,
-                    textAlign = TextAlign.Center
-                )
+                        EmptyHistoryView(
+                            modifier, selectedDate, historyScreenState
+                        )
+                    }
 
-                when (selectedHistoryList.size) {
-                    0 -> EmptyHistoryView(modifier, selectedDate, historyScreenState)
-                    1 -> {
+                1 -> {
+
+                    Column(
+                        modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
+                    ) {
+                        LiftText(
+                            modifier = modifier.padding(horizontal = LiftTheme.space.space20),
+                            textStyle = LiftTextStyle.No2,
+                            text = "${selectedDate.dayOfMonth}일 ${
+                                selectedDate.toWeekday().getWeekdayName()
+                            }요일",
+                            color = LiftTheme.colorScheme.no9,
+                            textAlign = TextAlign.Center
+                        )
                         Column(
                             modifier = modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
@@ -109,26 +127,41 @@ fun HistoryScreen(
                             )
                         }
                     }
+                }
 
                     else -> {
+
                         Column(
-                            modifier = modifier.fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
+                            modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
                         ) {
-                            HistoryCountTab(
-                                modifier,
-                                selectedTabIndex,
-                                selectedHistoryList,
-                                updateSelectedTabIndex
+                            LiftText(
+                                modifier = modifier.padding(horizontal = LiftTheme.space.space20),
+                                textStyle = LiftTextStyle.No2,
+                                text = "${selectedDate.dayOfMonth}일 ${
+                                    selectedDate.toWeekday().getWeekdayName()
+                                }요일",
+                                color = LiftTheme.colorScheme.no9,
+                                textAlign = TextAlign.Center
                             )
-                            HistoryContent(
-                                modifier,
-                                selectedHistoryList[selectedTabIndex],
-                                navigateHistoryToUpdateInfoInHistoryGraph,
-                                historyScreenState
-                            )
+                            Column(
+                                modifier = modifier.fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
+                            ) {
+                                HistoryCountTab(
+                                    modifier,
+                                    selectedTabIndex,
+                                    selectedHistoryList,
+                                    updateSelectedTabIndex
+                                )
+                                HistoryContent(
+                                    modifier,
+                                    selectedHistoryList[selectedTabIndex],
+                                    navigateHistoryToUpdateInfoInHistoryGraph,
+                                    historyScreenState
+                                )
+                            }
                         }
-                    }
                 }
             }
         }
