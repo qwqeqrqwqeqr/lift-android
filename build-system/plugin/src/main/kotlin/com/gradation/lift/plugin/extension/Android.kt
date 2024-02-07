@@ -26,7 +26,11 @@ internal fun Project.extensionAndroid(
                 buildConfig = true
             }
 
-            buildConfigField("String", "KAKAO_APP_KEY", getKey("KAKAO_APP_KEY", rootDir))
+            buildConfigField(
+                "String",
+                "KAKAO_APP_KEY",
+                getKey("KAKAO_APP_KEY", rootDir)
+            )
             buildConfigField(
                 "String",
                 "NAVER_OAUTH_CLIENT_ID",
@@ -70,9 +74,21 @@ internal fun Project.extensionAndroid(
             }
         }
 
+        signingConfigs {
+
+            create("release") {
+                storeFile = project.properties["STORE_FILE_PATH"]?.let { file(it) }
+                storePassword = getKey("STORE_PASSWORD", rootDir)
+                keyAlias = getKey("KEY_ALIAS", rootDir)
+                keyPassword = getKey("KEY_PASSWORD", rootDir)
+            }
+        }
+
         buildTypes {
             getByName("debug")
-            getByName("release")
+            getByName("release") {
+                signingConfigs.getByName("release")
+            }
         }
     }
 }

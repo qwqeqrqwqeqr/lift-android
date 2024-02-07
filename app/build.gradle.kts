@@ -17,6 +17,13 @@ android {
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
+    buildTypes {
+        getByName("debug")
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+        }
+
+    }
 }
 
 

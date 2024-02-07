@@ -102,4 +102,5 @@ native
 wrapper
 .tmp
 
-
+keystore.properties
+lfitAndroidKey
