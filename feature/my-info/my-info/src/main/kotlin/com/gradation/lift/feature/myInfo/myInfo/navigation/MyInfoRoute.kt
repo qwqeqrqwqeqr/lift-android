@@ -18,6 +18,7 @@ fun MyInfoRoute(
     modifier: Modifier = Modifier,
     navigateMyInfoGraphToNoticeGraph: () -> Unit,
     navigateMyInfoToProfileInMyInfoGraph: () -> Unit,
+    navigateToOssScreen: () -> Unit,
     viewModel: MyInfoViewModel = hiltViewModel(),
     myInfoScreenState: MyInfoScreenState = rememberMyInfoScreenState(),
 ) {
@@ -39,6 +40,7 @@ fun MyInfoRoute(
         modifier,
         navigateMyInfoGraphToNoticeGraph,
         navigateMyInfoToProfileInMyInfoGraph,
+        navigateToOssScreen,
         myInfoUiState,
         myInfoScreenState
     )

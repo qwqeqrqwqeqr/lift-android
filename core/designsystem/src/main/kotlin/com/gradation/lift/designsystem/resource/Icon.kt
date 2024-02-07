@@ -51,6 +51,7 @@ object LiftIcon {
     val LiftSmallLogo = R.drawable.lift_small_logo
     val Speaker = R.drawable.speaker
     val TermsPolicies = R.drawable.terms_policies
+    val License = R.drawable.license
 
     val EmptyAlarm = R.drawable.empty_alarm
     val EmptyNotice = R.drawable.empty_notice

@@ -1,10 +1,12 @@
 package com.gradation.lift
 
+
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.getValue
@@ -16,15 +18,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.oauth.common.naverInitializer
 import com.gradation.lift.state.SplashState
+import com.gradation.lift.state.rememberAppState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
-import rememberAppState
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,6 +55,8 @@ class MainActivity : ComponentActivity() {
         }
 
 
+
+
         naverInitializer(
             applicationContext,
             BuildConfig.NAVER_OAUTH_CLIENT_ID,
@@ -64,20 +69,21 @@ class MainActivity : ComponentActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.splashUiState.onEach { splashState = it }.collect()
             }
-
-
         }
 
 
+
+
         setContent {
-            LiftMaterialTheme() {
+            LiftMaterialTheme {
                 LiftApp(
                     splashState = splashState,
                     windowSizeClass = calculateWindowSizeClass(this),
                     appState = rememberAppState(
                         navController = rememberNavController(),
                         systemUiController = rememberSystemUiController(),
-                    )
+                    ),
+                    navigateToOssScreen = { with(this) { startActivity(createOssIntent()) } }
                 )
             }
         }
@@ -85,6 +91,9 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
+private fun Context.createOssIntent(): Intent {
+    OssLicensesMenuActivity.setActivityTitle("오픈소스 라이센스")
+    return Intent(this, OssLicensesMenuActivity::class.java)
+}
 
 

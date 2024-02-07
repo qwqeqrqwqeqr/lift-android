@@ -11,6 +11,7 @@ import com.gradation.lift.navigation.navigation.navigateMyInfoToProfileInMyInfoG
 fun NavGraphBuilder.myInfoScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
+    navigateToOssScreen: () -> Unit,
 ) {
     val navigateMyInfoGraphToNoticeGraph: () -> Unit =
         { navController.navigateMyInfoGraphToNoticeGraph() }
@@ -22,7 +23,8 @@ fun NavGraphBuilder.myInfoScreen(
         MyInfoRoute(
             modifier,
             navigateMyInfoGraphToNoticeGraph,
-            navigateMyInfoToProfileInMyInfoGraph
+            navigateMyInfoToProfileInMyInfoGraph,
+            navigateToOssScreen
         )
     }
 }

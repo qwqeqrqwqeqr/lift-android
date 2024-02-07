@@ -1,6 +1,7 @@
+package com.gradation.lift.state
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
@@ -16,7 +17,6 @@ import com.gradation.lift.navigation.navigation.navigateHistoryGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraph
 
-@Stable
 class AppState(
     val navController: NavHostController,
     val currentDestination: NavDestination?,

@@ -22,6 +22,7 @@ fun MyInfoScreen(
     modifier: Modifier = Modifier,
     navigateMyInfoGraphToNoticeGraph: () -> Unit,
     navigateMyInfoToProfileInMyInfoGraph: () -> Unit,
+    navigateToOssScreen: () -> Unit,
     myInfoUiState: MyInfoUiState,
     myInfoScreenState: MyInfoScreenState,
 ) {
@@ -42,7 +43,12 @@ fun MyInfoScreen(
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
             HeaderView(modifier, myInfoUiState, navigateMyInfoToProfileInMyInfoGraph)
-            MyInfoListView(modifier, navigateMyInfoGraphToNoticeGraph, myInfoScreenState)
+            MyInfoListView(
+                modifier,
+                navigateMyInfoGraphToNoticeGraph,
+                navigateToOssScreen,
+                myInfoScreenState
+            )
         }
     }
 }

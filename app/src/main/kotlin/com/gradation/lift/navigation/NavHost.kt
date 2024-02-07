@@ -26,6 +26,7 @@ fun LiftNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String,
+    navigateToOssScreen: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -40,7 +41,7 @@ fun LiftNavHost(
         createRoutineGraphBuilder(modifier, navController, this)
         homeGraphBuilder(modifier, navController, this)
         loginGraphBuilder(modifier, navController, this)
-        myInfoGraphBuilder(modifier, navController)
+        myInfoGraphBuilder(modifier, navController, navigateToOssScreen)
         noticeGraphBuilder(modifier, navController)
         registerDetailGraphBuilder(modifier, navController, this)
         updateRoutineGraphBuilder(modifier, navController, this)

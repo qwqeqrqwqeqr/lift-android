@@ -17,6 +17,7 @@ import com.gradation.lift.navigation.Route.MY_INFO_MY_INFO_ROUTER_NAME
 fun NavGraphBuilder.myInfoGraphBuilder(
     modifier: Modifier = Modifier,
     navController: NavController,
+    navigateToOssScreen: () -> Unit,
 ) {
     navigation(
         route = MY_INFO_GRAPH_NAME,
@@ -26,7 +27,7 @@ fun NavGraphBuilder.myInfoGraphBuilder(
         enterTransition = { fadeIn() },
         exitTransition = { fadeOut() },
     ) {
-        myInfoScreen(modifier, navController)
+        myInfoScreen(modifier, navController, navigateToOssScreen)
         profileScreen(modifier, navController)
         updateInfoScreen(modifier, navController)
         updateNameScreen(modifier, navController)
