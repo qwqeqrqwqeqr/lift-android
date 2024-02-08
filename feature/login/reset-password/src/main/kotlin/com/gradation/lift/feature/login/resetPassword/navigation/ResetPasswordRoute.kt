@@ -47,7 +47,7 @@ fun ResetPasswordRoute(
         is UpdatePasswordState.Fail -> {
             LaunchedEffect(updatePasswordStateResult.message) {
                 resetPasswordScreenState.snackbarHostState.showSnackbar(
-                    message = updatePasswordStateResult.message, duration = SnackbarDuration.Long
+                    message = updatePasswordStateResult.message, duration = SnackbarDuration.Short
                 )
                 updateUpdatePasswordState(UpdatePasswordState.None)
             }

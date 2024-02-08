@@ -35,7 +35,7 @@ fun SignInDefaultRoute(
         is SignInState.Fail -> {
             LaunchedEffect(signInStateResult.message) {
                 signInScreenState.snackbarHostState.showSnackbar(
-                    message = signInStateResult.message, duration = SnackbarDuration.Long
+                    message = signInStateResult.message, duration = SnackbarDuration.Short
                 )
                 updateSignInState(SignInState.None)
             }
