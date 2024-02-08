@@ -50,7 +50,7 @@ fun VerifyEmailRoute(
         is EmailAuthenticationState.Fail -> {
             LaunchedEffect(result.message) {
                 verifyEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Long
+                    message = result.message, duration = SnackbarDuration.Short
                 )
                 updateEmailAuthenticationState(EmailAuthenticationState.None)
             }
@@ -58,17 +58,8 @@ fun VerifyEmailRoute(
 
         EmailAuthenticationState.None -> {}
         is EmailAuthenticationState.Success -> {
-            if (!result.isSuccess) {
-                LaunchedEffect(result) {
-                    verifyEmailScreenState.snackbarHostState.showSnackbar(
-                        message = "존재하지 않는 이메일 입니다.", duration = SnackbarDuration.Long
-                    )
-                    updateEmailAuthenticationState(EmailAuthenticationState.None)
-                }
-            } else {
-                verifyEmailScreenState.updateAuthenticationCodeTextFieldView(true)
-                verifyEmailScreenState.updateAuthenticationButtonView(true)
-            }
+            verifyEmailScreenState.updateAuthenticationCodeTextFieldView(true)
+            verifyEmailScreenState.updateAuthenticationButtonView(true)
         }
 
         EmailAuthenticationState.Loading -> {}
@@ -78,7 +69,7 @@ fun VerifyEmailRoute(
         is EmailValidationState.Fail -> {
             LaunchedEffect(result.message) {
                 verifyEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Long
+                    message = result.message, duration = SnackbarDuration.Short
                 )
                 updateEmailValidationState(EmailValidationState.None)
             }
@@ -89,7 +80,7 @@ fun VerifyEmailRoute(
             if (!result.isSuccess) {
                 LaunchedEffect(true) {
                     verifyEmailScreenState.snackbarHostState.showSnackbar(
-                        message = "인증에 실패하였습니다.", duration = SnackbarDuration.Long
+                        message = "인증에 실패하였습니다.", duration = SnackbarDuration.Short
                     )
                     updateEmailValidationState(EmailValidationState.None)
                 }

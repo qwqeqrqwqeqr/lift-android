@@ -67,6 +67,7 @@ class VerifyEmailViewModel @Inject constructor(
                                 verifyEmailState.updateSelectedEmail(email)
                                 verifyEmailState.updateEmailValidator(Validator(true, ""))
                                 verifyEmailState.startTimer()
+                                emailAuthenticationState.value = EmailAuthenticationState.Success
                             } else {
                                 verifyEmailState.updateEmailValidator(
                                     Validator(
@@ -74,9 +75,9 @@ class VerifyEmailViewModel @Inject constructor(
                                         "존재하지 않는 이메일 입니다."
                                     )
                                 )
+                                emailAuthenticationState.value =
+                                    EmailAuthenticationState.Fail("존재하지 않는 이메일 입니다.")
                             }
-                            emailAuthenticationState.value =
-                                EmailAuthenticationState.Success(it.data)
                         }
                     }
                 }

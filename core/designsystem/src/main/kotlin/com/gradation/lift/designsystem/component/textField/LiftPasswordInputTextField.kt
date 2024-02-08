@@ -3,6 +3,7 @@ package com.gradation.lift.designsystem.component.textField
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -41,7 +42,7 @@ fun LiftPasswordInputTextField(
     ) {
     var visualTransformation: Boolean by remember { mutableStateOf(true) }
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-
+    val isFocused: Boolean by interactionSource.collectIsFocusedAsState()
     LiftBaseInputTextField(
         modifier = modifier,
         value = value,
@@ -53,6 +54,8 @@ fun LiftPasswordInputTextField(
         visualTransformation = if (visualTransformation) PasswordVisualTransformation() else VisualTransformation.None,
         isError = isError,
         isValid = isValid,
+        isFocused = isFocused,
+        interactionSource = interactionSource,
         trailingIcon = @Composable {
             AnimatedVisibility(visible = isValid) {
                 Icon(
@@ -62,10 +65,10 @@ fun LiftPasswordInputTextField(
                     tint = Color.Unspecified
                 )
             }
-            AnimatedVisibility (!isValid && value.isNotEmpty() && enabled && onValueClear != null) {
+            AnimatedVisibility(!isValid && value.isNotEmpty() && enabled && onValueClear != null) {
                 Row(
                     modifier = modifier.padding(end = LiftTheme.space.space16),
-                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(

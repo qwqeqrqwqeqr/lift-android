@@ -3,6 +3,7 @@ package com.gradation.lift.designsystem.component.textField
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +40,7 @@ fun LiftSearchInputTextField(
     ),
     keyboardActions: KeyboardActions = KeyboardActions.Default) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    val isFocused: Boolean by interactionSource.collectIsFocusedAsState()
 
 
     LiftBaseInputTextField(
@@ -50,21 +53,23 @@ fun LiftSearchInputTextField(
         enabled = enabled,
         isError = false,
         isValid = false,
+        isFocused = isFocused,
+        interactionSource = interactionSource,
         trailingIcon = @Composable {
             Row(
                 modifier = modifier.padding(end = LiftTheme.space.space16),
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                 AnimatedVisibility(visible = value.isNotEmpty() && enabled && onValueClear != null) {
-                        Icon(
-                            modifier = modifier
-                                .size(LiftTheme.space.space24)
-                                .clickable(
-                                    interactionSource = interactionSource,
-                                    indication = null,
-                                    onClick = onValueClear!!,
-                                ),
+                AnimatedVisibility(visible = value.isNotEmpty() && enabled && onValueClear != null) {
+                    Icon(
+                        modifier = modifier
+                            .size(LiftTheme.space.space24)
+                            .clickable(
+                                interactionSource = interactionSource,
+                                indication = null,
+                                onClick = onValueClear!!,
+                            ),
                             painter = painterResource(id = LiftIcon.Cancel),
                             contentDescription = "Clear",
                             tint = Color.Unspecified

@@ -35,15 +35,25 @@ data class CreateEmailState(
     ),
     val viewModelScope: CoroutineScope,
 ) {
-    val updateEmail: (String) -> Unit = { email.value = it }
-    val updateEmailAuthenticationCode: (String) -> Unit = { emailAuthenticationCode.value = it }
+    val updateEmail: (String) -> Unit = {
+        email.value = it
+        emailValidator.value = Validator(
+            status = true,
+            message = ""
+        )
+    }
+    val updateEmailAuthenticationCode: (String) -> Unit = {
+        emailAuthenticationCode.value = it
+        authenticationValidator.value = Validator(
+            status = true,
+            message = ""
+        )
+    }
     val updateSelectedEmail: (String) -> Unit = { selectedEmail.value = it }
     val updateEmailValidator: (Validator) -> Unit = { emailValidator.value = it }
     val updateAuthenticationValidator: (Validator) -> Unit = { authenticationValidator.value = it }
 
-    private var timerJob: Job? =null
-
-
+    private var timerJob: Job? = null
 
 
     val startTimer: () -> Unit = {

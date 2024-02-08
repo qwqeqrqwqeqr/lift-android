@@ -64,7 +64,7 @@ fun SignUpCreateEmailRoute(
         is EmailAuthenticationState.Fail -> {
             LaunchedEffect(result.message) {
                 signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Long
+                    message = result.message, duration = SnackbarDuration.Short
                 )
                 updateEmailAuthenticationState(EmailAuthenticationState.None)
             }
@@ -72,19 +72,9 @@ fun SignUpCreateEmailRoute(
 
         EmailAuthenticationState.None -> {}
         is EmailAuthenticationState.Success -> {
-            if (!result.isSuccess) {
-                LaunchedEffect(result) {
-                    signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                        message = "이미 사용중인 이메일 입니다.", duration = SnackbarDuration.Long
-                    )
-                    updateEmailAuthenticationState(EmailAuthenticationState.None)
-                }
-            } else {
-                signUpCreateEmailScreenState.updateAuthenticationCodeTextFieldView(true)
-                signUpCreateEmailScreenState.updateAuthenticationButtonView(true)
-            }
+            signUpCreateEmailScreenState.updateAuthenticationCodeTextFieldView(true)
+            signUpCreateEmailScreenState.updateAuthenticationButtonView(true)
         }
-
         EmailAuthenticationState.Loading -> {}
     }
 
@@ -93,7 +83,7 @@ fun SignUpCreateEmailRoute(
         is EmailValidationState.Fail -> {
             LaunchedEffect(result.message) {
                 signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Long
+                    message = result.message, duration = SnackbarDuration.Short
                 )
                 updateEmailValidationState(EmailValidationState.None)
             }
@@ -104,7 +94,7 @@ fun SignUpCreateEmailRoute(
             if (!result.isSuccess) {
                 LaunchedEffect(true) {
                     signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                        message = "인증에 실패하였습니다.", duration = SnackbarDuration.Long
+                        message = "인증에 실패하였습니다.", duration = SnackbarDuration.Short
                     )
                     updateEmailValidationState(EmailValidationState.None)
                 }
