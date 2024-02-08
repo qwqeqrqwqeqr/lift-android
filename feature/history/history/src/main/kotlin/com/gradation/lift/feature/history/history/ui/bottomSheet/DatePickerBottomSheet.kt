@@ -133,6 +133,7 @@ internal fun DatePickerBottomSheet(
                             currentDayValue
                         )
                     )
+                    historyScreenState.updateDatePickerBottomSheetView(false)
                 }
             }
         }
@@ -155,9 +156,10 @@ fun DateSelectionView(
     val monthListState =
         rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2 - 5 + currentMonthValue)
     val dayListState =
-        rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2 + (currentDayValue - 2))
+        rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2 + (currentDayValue - 5))
 
-    val yearList: MutableState<List<Int>> = remember { mutableStateOf((2023..2099).toList()) }
+    val yearList: MutableState<List<Int>> =
+        remember { mutableStateOf(historyScreenState.yearRange.toList()) }
     val monthList: MutableState<List<Int>> = remember { mutableStateOf((1..12).toList()) }
     val dayList = remember(currentYearValue, currentMonthValue) {
         derivedStateOf {

@@ -54,7 +54,7 @@ fun HistoryScreen(
                     )
                 )
             )
-            .padding(top = LiftTheme.space.space40, bottom = LiftTheme.space.space60),
+            .padding(bottom = LiftTheme.space.space60),
         state = historyScreenState.lazyListState
     ) {
         item {
