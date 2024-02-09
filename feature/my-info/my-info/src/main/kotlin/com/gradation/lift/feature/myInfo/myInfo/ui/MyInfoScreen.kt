@@ -22,6 +22,7 @@ fun MyInfoScreen(
     modifier: Modifier = Modifier,
     navigateMyInfoGraphToNoticeGraph: () -> Unit,
     navigateMyInfoToProfileInMyInfoGraph: () -> Unit,
+    navigateMyInfoToTermsPolicyInMyInfoGraph: () -> Unit,
     navigateToOssScreen: () -> Unit,
     myInfoUiState: MyInfoUiState,
     myInfoScreenState: MyInfoScreenState,
@@ -46,6 +47,7 @@ fun MyInfoScreen(
             MyInfoListView(
                 modifier,
                 navigateMyInfoGraphToNoticeGraph,
+                navigateMyInfoToTermsPolicyInMyInfoGraph,
                 navigateToOssScreen,
                 myInfoScreenState
             )

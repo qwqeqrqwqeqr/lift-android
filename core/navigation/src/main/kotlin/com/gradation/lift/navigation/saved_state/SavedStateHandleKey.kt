@@ -38,6 +38,8 @@ object SavedStateHandleKey {
         const val USER_HEIGHT_KEY = "MY_INFO_USER_HEIGHT_KEY"
         const val USER_WEIGHT_KEY = "MY_INFO_USER_WEIGHT_KEY"
         const val USER_NAME_KEY = "MY_INFO_USER_NAME_KEY_KEY"
+        const val TERMS_POLICY_TITLE_KEY = "TERMS_POLICY_TITLE_KEY"
+        const val TERMS_POLICY_CONTENTS_KEY = "TERMS_POLICY_CONTENTS_KEY"
     }
 
     object Work {

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToNoticeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoToProfileInMyInfoGraph
+import com.gradation.lift.navigation.navigation.navigateMyInfoToTermsPolicyInMyInfoGraph
 
 fun NavGraphBuilder.myInfoScreen(
     modifier: Modifier = Modifier,
@@ -19,11 +20,15 @@ fun NavGraphBuilder.myInfoScreen(
     val navigateMyInfoToProfileInMyInfoGraph: () -> Unit =
         { navController.navigateMyInfoToProfileInMyInfoGraph() }
 
+    val navigateMyInfoToTermsPolicyInMyInfoGraph: () -> Unit =
+        { navController.navigateMyInfoToTermsPolicyInMyInfoGraph() }
+
     composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoRoute(
             modifier,
             navigateMyInfoGraphToNoticeGraph,
             navigateMyInfoToProfileInMyInfoGraph,
+            navigateMyInfoToTermsPolicyInMyInfoGraph,
             navigateToOssScreen
         )
     }

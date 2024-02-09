@@ -17,7 +17,8 @@ dependencies {
     implementation(project(":feature:my-info:update-profile-picture"))
     implementation(project(":feature:my-info:update-name"))
     implementation(project(":feature:my-info:update-info"))
-
+    implementation(project(":feature:my-info:terms-policy"))
+    implementation(project(":feature:my-info:terms-policy-detail"))
 
 
 }

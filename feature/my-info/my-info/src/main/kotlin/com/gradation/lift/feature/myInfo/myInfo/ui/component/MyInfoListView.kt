@@ -26,6 +26,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 fun MyInfoListView(
     modifier: Modifier = Modifier,
     navigateMyInfoGraphToNoticeGraph: () -> Unit,
+    navigateMyInfoToTermsPolicyInMyInfoGraph: () -> Unit,
     navigateToOssScreen: () -> Unit,
     myInfoScreenState: MyInfoScreenState,
 ) {
@@ -34,6 +35,11 @@ fun MyInfoListView(
             LiftIcon.Speaker,
             "공지사항",
             navigateMyInfoGraphToNoticeGraph
+        ),
+        MyInfoContent(
+            LiftIcon.TermsPolicies,
+            "약관 및 정책",
+            navigateMyInfoToTermsPolicyInMyInfoGraph
         ),
         MyInfoContent(
             LiftIcon.License,
