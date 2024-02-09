@@ -25,7 +25,6 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.common.IntentSenderForResultStarter
 import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -49,9 +48,13 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var dispatcherProvider: DispatcherProvider
 
+    @Inject
+    lateinit var appUpdateManager: AppUpdateManager
 
-    private val appUpdateManager: AppUpdateManager = AppUpdateManagerFactory.create(this)
-    private val appUpdateInfoTask: Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
+    @Inject
+    lateinit var appUpdateInfoTask: Task<AppUpdateInfo>
+
+
     private val activityResultLauncher: ActivityResultLauncher<IntentSenderRequest> =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
             when (result.resultCode) {
@@ -72,7 +75,6 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->

@@ -12,5 +12,6 @@ class LiftApplication : Application() {
 
         kakaoInitializer(this,KAKAO_APP_KEY)
 
+
     }
 }
