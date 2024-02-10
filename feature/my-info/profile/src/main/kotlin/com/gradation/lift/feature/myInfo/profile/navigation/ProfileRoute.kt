@@ -2,20 +2,20 @@ package com.gradation.lift.feature.myInfo.profile.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gradation.lift.feature.myInfo.profile.ui.ProfileScreen
 import com.gradation.lift.feature.myInfo.profile.data.ProfileViewModel
 import com.gradation.lift.feature.myInfo.profile.data.state.ProfileScreenState
 import com.gradation.lift.feature.myInfo.profile.data.state.ProfileUiState
 import com.gradation.lift.feature.myInfo.profile.data.state.SignOutState
 import com.gradation.lift.feature.myInfo.profile.data.state.rememberProfileScreenState
+import com.gradation.lift.feature.myInfo.profile.ui.ProfileScreen
 import com.gradation.lift.feature.myInfo.profile.ui.dialog.SignOutDialog
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 fun ProfileRoute(
@@ -40,8 +40,8 @@ fun ProfileRoute(
         signOutState) {
         is SignOutState.Fail -> {
             LaunchedEffect(true) {
-                profileScreenState.snackbarHostState.showSnackbar(
-                    message = signOutStateResult.message, duration = SnackbarDuration.Short
+                profileScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = signOutStateResult.message,
                 )
                 updateSignOutState(SignOutState.None)
             }

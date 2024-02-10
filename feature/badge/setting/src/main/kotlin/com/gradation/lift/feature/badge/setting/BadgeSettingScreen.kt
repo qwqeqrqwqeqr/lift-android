@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -33,6 +32,7 @@ import com.gradation.lift.feature.badge.setting.component.success.MainBadgeView
 import com.gradation.lift.feature.badge.setting.data.BadgeSettingViewModel
 import com.gradation.lift.feature.badge.setting.data.state.BadgeUiState
 import com.gradation.lift.model.model.badge.UserBadge
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 fun BadgeSettingRoute(
@@ -57,9 +57,8 @@ fun BadgeSettingRoute(
 
     if (snackBarState) {
         LaunchedEffect(true) {
-            snackbarHostState.showSnackbar(
+            snackbarHostState.showImmediatelySnackbar(
                 message = "대표뱃지 설정은 최대 5개까지 가능해요",
-                duration = SnackbarDuration.Indefinite
             )
             updateSnackBarState(false)
         }

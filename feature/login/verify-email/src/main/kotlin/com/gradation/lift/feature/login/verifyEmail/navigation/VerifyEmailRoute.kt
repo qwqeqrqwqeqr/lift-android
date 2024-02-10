@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.login.verifyEmail.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,6 +15,7 @@ import com.gradation.lift.feature.login.verifyEmail.data.VerifyEmailState
 import com.gradation.lift.feature.login.verifyEmail.data.VerifyEmailViewModel
 import com.gradation.lift.feature.login.verifyEmail.data.rememberVerifyEmailScreenState
 import com.gradation.lift.feature.login.verifyEmail.ui.VerifyEmailScreen
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import kotlinx.datetime.LocalTime
 
 @Composable
@@ -49,8 +49,8 @@ fun VerifyEmailRoute(
     when (val result: EmailAuthenticationState = emailAuthenticationState) {
         is EmailAuthenticationState.Fail -> {
             LaunchedEffect(result.message) {
-                verifyEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Short
+                verifyEmailScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = result.message,
                 )
                 updateEmailAuthenticationState(EmailAuthenticationState.None)
             }
@@ -68,8 +68,8 @@ fun VerifyEmailRoute(
     when (val result = emailValidationState) {
         is EmailValidationState.Fail -> {
             LaunchedEffect(result.message) {
-                verifyEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Short
+                verifyEmailScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = result.message,
                 )
                 updateEmailValidationState(EmailValidationState.None)
             }
@@ -79,8 +79,8 @@ fun VerifyEmailRoute(
         is EmailValidationState.Success -> {
             if (!result.isSuccess) {
                 LaunchedEffect(true) {
-                    verifyEmailScreenState.snackbarHostState.showSnackbar(
-                        message = "인증에 실패하였습니다.", duration = SnackbarDuration.Short
+                    verifyEmailScreenState.snackbarHostState.showImmediatelySnackbar(
+                        message = "인증에 실패하였습니다.",
                     )
                     updateEmailValidationState(EmailValidationState.None)
                 }

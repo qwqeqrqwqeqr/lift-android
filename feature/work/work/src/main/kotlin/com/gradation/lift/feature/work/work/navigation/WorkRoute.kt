@@ -35,6 +35,7 @@ import com.gradation.lift.feature.work.work.ui.work.WorkScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
@@ -108,7 +109,7 @@ fun WorkRoute(
         when (val result = workScreenState.snackBarState) {
             SnackBarState.None -> {}
             is SnackBarState.Success -> {
-                workScreenState.snackbarHostState.showSnackbar(result.message)
+                workScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
                 workScreenState.updateSnackBarState(SnackBarState.None)
             }
         }

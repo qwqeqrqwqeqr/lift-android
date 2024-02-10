@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,19 +13,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
-import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
 import com.gradation.lift.feature.updateRoutine.common.data.UpdateRoutineSharedViewModel
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
-import com.gradation.lift.feature.updateRoutine.routineSet.ui.RoutineSetScreen
-import com.gradation.lift.feature.updateRoutine.routineSet.data.state.RoutineSetScreenState
+import com.gradation.lift.feature.updateRoutine.common.data.state.RoutineUiState
 import com.gradation.lift.feature.updateRoutine.routineSet.data.RoutineSetViewModel
+import com.gradation.lift.feature.updateRoutine.routineSet.data.state.RoutineSetScreenState
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.UpdateRoutineState
 import com.gradation.lift.feature.updateRoutine.routineSet.data.state.rememberRoutineSetScreenState
+import com.gradation.lift.feature.updateRoutine.routineSet.ui.RoutineSetScreen
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.dialog.DeleteDialog
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.UpdateRoutine.UPDATE_ROUTINE_SET_ID_KEY
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnrememberedGetBackStackEntry")
@@ -72,8 +72,8 @@ internal fun RoutineSetRoute(
     when (val result = updateRoutineState) {
         is UpdateRoutineState.Fail -> {
             LaunchedEffect(result) {
-                routineSetScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Short
+                routineSetScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = result.message,
                 )
                 updateUpdateRoutineState(UpdateRoutineState.None)
             }

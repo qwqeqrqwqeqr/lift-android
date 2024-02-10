@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.myInfo.updateInfo.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -15,6 +14,7 @@ import com.gradation.lift.feature.myInfo.updateInfo.data.state.UpdateUserDetailI
 import com.gradation.lift.feature.myInfo.updateInfo.data.state.rememberUpdateInfoScreenState
 import com.gradation.lift.feature.myInfo.updateInfo.ui.UpdateInfoScreen
 import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 
 @Composable
@@ -51,8 +51,8 @@ fun UpdateInfoRoute(
     when (val updateUserDetailStateResult: UpdateUserDetailInfoState = updateUserDetailInfoState) {
         is UpdateUserDetailInfoState.Fail -> {
             LaunchedEffect(true) {
-                updateInfoScreenState.snackbarHostState.showSnackbar(
-                    message = updateUserDetailStateResult.message, duration = SnackbarDuration.Short
+                updateInfoScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = updateUserDetailStateResult.message,
                 )
                 updateUpdateUserDetailState(UpdateUserDetailInfoState.None)
             }

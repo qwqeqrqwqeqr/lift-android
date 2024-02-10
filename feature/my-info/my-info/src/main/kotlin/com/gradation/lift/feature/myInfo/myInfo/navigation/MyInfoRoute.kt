@@ -11,6 +11,7 @@ import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoScreenState
 import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoUiState
 import com.gradation.lift.feature.myInfo.myInfo.data.state.rememberMyInfoScreenState
 import com.gradation.lift.feature.myInfo.myInfo.ui.MyInfoScreen
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 
 @Composable
@@ -29,7 +30,7 @@ fun MyInfoRoute(
     LaunchedEffect(myInfoUiState) {
         when (val result = myInfoUiState) {
             is MyInfoUiState.Fail -> {
-                myInfoScreenState.snackbarHostState.showSnackbar(result.message)
+                myInfoScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
             }
 
             MyInfoUiState.Loading -> {}

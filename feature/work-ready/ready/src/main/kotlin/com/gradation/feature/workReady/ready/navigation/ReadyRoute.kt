@@ -10,16 +10,17 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
-import com.gradation.feature.workReady.ready.data.viewModel.ReadyViewModel
+import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.feature.workReady.ready.data.state.rememberReadyScreenState
+import com.gradation.feature.workReady.ready.data.viewModel.ReadyViewModel
 import com.gradation.feature.workReady.ready.ui.ReadyScreen
 import com.gradation.lift.feature.workReady.common.WorkReadySharedViewModel
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 internal fun ReadyRoute(
@@ -46,10 +47,10 @@ internal fun ReadyRoute(
     when (val state = readyScreenState.snackBarState) {
         SnackBarState.CanNotRemove -> {
             LaunchedEffect(true) {
-                readyScreenState.snackbarHostState.showSnackbar(
+                readyScreenState.snackbarHostState.showImmediatelySnackbar(
                     message = "세트 수가 1개 이하여서 삭제할 수 없어요",
-                    duration = SnackbarDuration.Short
-                )
+
+                    )
                 readyScreenState.updateSnackBarState(SnackBarState.None)
             }
         }
@@ -57,10 +58,10 @@ internal fun ReadyRoute(
         SnackBarState.None -> {}
         is SnackBarState.RemoveUndo -> {
             LaunchedEffect(true) {
-                readyScreenState.snackbarHostState.showSnackbar(
-                    message = "${state.size}개의 목록이 삭제됐어요.",
+                readyScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = "${state.size}개의 목록이 삭제되었어요.",
                     actionLabel = "되돌리기",
-                    duration = SnackbarDuration.Short
+                    duration = SnackbarDuration.Short,
                 )
                 readyScreenState.updateSnackBarState(SnackBarState.None)
             }

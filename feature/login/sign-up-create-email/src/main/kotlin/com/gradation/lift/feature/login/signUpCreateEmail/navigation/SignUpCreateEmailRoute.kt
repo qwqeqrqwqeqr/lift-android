@@ -2,7 +2,6 @@ package com.gradation.lift.feature.login.signUpCreateEmail.navigation
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,6 +21,7 @@ import com.gradation.lift.feature.login.signUpCreateEmail.data.SignUpCreateEmail
 import com.gradation.lift.feature.login.signUpCreateEmail.data.rememberSignUpCreateEmailScreenState
 import com.gradation.lift.feature.login.signUpCreateEmail.ui.SignUpCreateEmailScreen
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import kotlinx.datetime.LocalTime
 
 @Composable
@@ -63,8 +63,8 @@ fun SignUpCreateEmailRoute(
     when (val result: EmailAuthenticationState = emailAuthenticationState) {
         is EmailAuthenticationState.Fail -> {
             LaunchedEffect(result.message) {
-                signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Short
+                signUpCreateEmailScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = result.message,
                 )
                 updateEmailAuthenticationState(EmailAuthenticationState.None)
             }
@@ -82,8 +82,8 @@ fun SignUpCreateEmailRoute(
         val result = emailValidationState) {
         is EmailValidationState.Fail -> {
             LaunchedEffect(result.message) {
-                signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Short
+                signUpCreateEmailScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = result.message,
                 )
                 updateEmailValidationState(EmailValidationState.None)
             }
@@ -93,8 +93,8 @@ fun SignUpCreateEmailRoute(
         is EmailValidationState.Success -> {
             if (!result.isSuccess) {
                 LaunchedEffect(true) {
-                    signUpCreateEmailScreenState.snackbarHostState.showSnackbar(
-                        message = "인증에 실패하였습니다.", duration = SnackbarDuration.Short
+                    signUpCreateEmailScreenState.snackbarHostState.showImmediatelySnackbar(
+                        message = "인증에 실패하였습니다."
                     )
                     updateEmailValidationState(EmailValidationState.None)
                 }

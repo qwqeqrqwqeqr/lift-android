@@ -3,7 +3,6 @@ package com.gradation.lift.feature.register_detail.profile_picture.navigation
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,6 +21,7 @@ import com.gradation.lift.feature.register_detail.profile_picture.data.rememberP
 import com.gradation.lift.feature.register_detail.profile_picture.ui.ProfilePictureScreen
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -87,8 +87,9 @@ internal fun RegisterDetailProfilePictureRoute(
     when (val createUserDetailResult = createUserDetailState) {
         is CreateUserDetailState.Fail -> {
             LaunchedEffect(true) {
-                profilePictureScreenState.snackbarHostState.showSnackbar(
-                    message = createUserDetailResult.message, duration = SnackbarDuration.Short
+                profilePictureScreenState.snackbarHostState.currentSnackbarData?.dismiss()
+                profilePictureScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = createUserDetailResult.message
                 )
                 updateCreateUserDetailState(CreateUserDetailState.None)
             }
