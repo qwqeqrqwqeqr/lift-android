@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.progress
+package com.gradation.lift.designsystem.temp.progress
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.padding

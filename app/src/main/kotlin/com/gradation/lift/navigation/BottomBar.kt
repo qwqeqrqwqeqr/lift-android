@@ -63,7 +63,7 @@ fun BottomBar(
                 modifier = modifier.weight(1f),
                 interactionSource = interactionSource,
                 onClick = { onNavigateToDestination(destination) },
-                icon = destination.icon,
+                icon = if (isSelected) destination.selectedIcon else destination.unSelectedIcon,
                 text = destination.displayName,
                 color = contentColor
             )

@@ -85,7 +85,7 @@ fun BadgeView(
                 Icon(
                     modifier = modifier
                         .size(LiftTheme.space.space8),
-                    painter = painterResource(LiftIcon.ChevronRightSharp),
+                    painter = painterResource(LiftIcon.ChevronRight),
                     contentDescription = "selectAllBadge",
                     tint = LiftTheme.colorScheme.no2,
                 )

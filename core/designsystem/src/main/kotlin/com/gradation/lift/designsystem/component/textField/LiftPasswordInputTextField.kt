@@ -60,7 +60,7 @@ fun LiftPasswordInputTextField(
             AnimatedVisibility(visible = isValid) {
                 Icon(
                     modifier = modifier.size(LiftTheme.space.space24),
-                    painter = painterResource(id = LiftIcon.GreenCheck),
+                    painter = painterResource(id = LiftIcon.CheckboxGreen),
                     contentDescription = "Valid",
                     tint = Color.Unspecified
                 )

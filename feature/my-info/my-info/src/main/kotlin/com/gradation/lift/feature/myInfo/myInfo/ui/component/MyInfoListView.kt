@@ -94,8 +94,8 @@ fun MyInfoListView(
                 if (it.navigate != null) {
                     Icon(
                         modifier = modifier.size(LiftTheme.space.space12),
-                        painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                        contentDescription = "chevronRightLarge",
+                        painter = painterResource(id = LiftIcon.ChevronRight),
+                        contentDescription = "ChevronRight",
                         tint = LiftTheme.colorScheme.no2
                     )
                 }

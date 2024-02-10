@@ -84,8 +84,8 @@ fun ProfileContentListView(
                 }
                 Icon(
                     modifier = modifier,
-                    painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                    contentDescription = "chevronRightLarge",
+                    painter = painterResource(id = LiftIcon.ChevronRight),
+                    contentDescription = "ChevronRight",
                     tint = LiftTheme.colorScheme.no2
                 )
             }

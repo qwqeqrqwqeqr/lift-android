@@ -14,8 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.chart.chart.WorkHexagonChart
-import com.gradation.lift.designsystem.component.chart.model.WorkHexagonChartItem
+import com.gradation.lift.designsystem.temp.chart.chart.WorkHexagonChart
+import com.gradation.lift.designsystem.temp.chart.model.WorkHexagonChartItem
 import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.analytics.analytics.data.model.WorkPartAnalyticsTargetDate

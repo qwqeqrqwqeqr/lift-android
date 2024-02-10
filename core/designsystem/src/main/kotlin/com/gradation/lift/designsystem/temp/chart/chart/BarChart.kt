@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component.chart.chart
+package com.gradation.lift.designsystem.temp.chart.chart
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.chart.model.BarChartItem
+import com.gradation.lift.designsystem.temp.chart.model.BarChartItem
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
 

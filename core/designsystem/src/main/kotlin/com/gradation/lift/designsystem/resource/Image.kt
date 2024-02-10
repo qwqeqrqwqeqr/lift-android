@@ -18,5 +18,6 @@ object LiftImage {
 
 object LiftBannerImage{
     val Banner1 = R.drawable.banner_1
+    val Banner2 = R.drawable.banner_2
 }
 

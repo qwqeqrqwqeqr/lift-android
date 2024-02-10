@@ -142,7 +142,7 @@ internal fun ChangeOrderScreen(
                                                 onDragCancel = { dragDropListState.onDragInterrupted() }
                                             )
                                         },
-                                    painter = painterResource(id = LiftIcon.Order),
+                                    painter = painterResource(id = LiftIcon.EqualBlack),
                                     contentDescription = "changeOrder",
                                     tint = LiftTheme.colorScheme.no3,
                                 )

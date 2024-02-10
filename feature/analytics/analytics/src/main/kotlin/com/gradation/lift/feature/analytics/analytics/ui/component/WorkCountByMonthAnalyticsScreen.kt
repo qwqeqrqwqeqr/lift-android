@@ -25,8 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.chart.chart.BarChart
-import com.gradation.lift.designsystem.component.chart.model.BarChartItem
+import com.gradation.lift.designsystem.temp.chart.chart.BarChart
+import com.gradation.lift.designsystem.temp.chart.model.BarChartItem
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.analytics.analytics.data.model.WorkFrequencyMonth
@@ -47,15 +47,8 @@ fun WorkCountByMonthAnalyticsScreen(
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        Spacer(modifier = modifier.padding(16.dp))
-        Image(
-            painter = painterResource(id = R.drawable.analytics_image),
-            contentDescription = "analytics",
-            modifier = modifier
-                .size(60.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = modifier.padding(16.dp))
+
+    Spacer(modifier = modifier.padding(16.dp))
         Text(
             text = buildAnnotatedString {
                 if (historyCountByCurrentMonth == historyCountByPreMonth) {

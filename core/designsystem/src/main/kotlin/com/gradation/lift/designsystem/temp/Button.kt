@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component
+package com.gradation.lift.designsystem.temp
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues

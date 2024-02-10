@@ -23,7 +23,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.progress.LiftProgressBar
+import com.gradation.lift.designsystem.temp.progress.LiftProgressBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.data.state.BadgeState
@@ -41,7 +41,7 @@ fun BadgeInfoView(
                 LiftTheme.colorScheme.no5,
                 RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
             )
-            .padding(top=16.dp, start = 16.dp, end = 16.dp, bottom = 24.dp),
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(

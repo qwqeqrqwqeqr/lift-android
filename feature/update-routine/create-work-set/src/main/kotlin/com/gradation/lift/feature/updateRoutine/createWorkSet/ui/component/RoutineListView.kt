@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
-import com.gradation.lift.designsystem.component.filter.LiftAddContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftAddSmallButton
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
@@ -58,7 +58,7 @@ internal fun RoutineListView(
                 color = LiftTheme.colorScheme.no3,
                 textAlign = TextAlign.Start
             )
-            LiftAddContainer(
+            LiftAddSmallButton(
                 modifier = modifier
                     .noRippleClickable { workSetState.addWorkSet() }
             )

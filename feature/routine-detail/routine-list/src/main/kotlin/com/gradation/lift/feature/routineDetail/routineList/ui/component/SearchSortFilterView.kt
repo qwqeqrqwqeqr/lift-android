@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.component.filter.LiftLabelFilterContainer
-import com.gradation.lift.designsystem.component.filter.LiftSortFilterContainer
-import com.gradation.lift.designsystem.component.filter.LiftWeekdayFilterContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftLabelFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftSortFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftWeekdayFilterSmallButton
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
@@ -109,7 +109,7 @@ internal fun SortFilterView(
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
             item {
-                LiftSortFilterContainer(
+                LiftSortFilterSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateSortTypeBottomSheetView(
                             true
@@ -119,7 +119,7 @@ internal fun SortFilterView(
                 )
             }
             item {
-                LiftWeekdayFilterContainer(
+                LiftWeekdayFilterSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateWeekdayFilterTypeBottomSheetView(
                             true
@@ -130,7 +130,7 @@ internal fun SortFilterView(
                 )
             }
             item {
-                LiftLabelFilterContainer(
+                LiftLabelFilterSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateLabelFilterTypeBottomSheetView(true)
                     },

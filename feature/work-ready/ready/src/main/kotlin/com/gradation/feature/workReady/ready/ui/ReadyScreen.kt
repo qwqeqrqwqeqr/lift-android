@@ -48,10 +48,11 @@ import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
-import com.gradation.lift.designsystem.component.filter.LiftAddWorkSetContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftAddWorkSetButton
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.snackbar.SnackBarCategory
@@ -93,7 +94,7 @@ internal fun ReadyScreen(
                 title = "운동 준비",
                 backgroundColor = LiftTheme.colorScheme.no5,
                 onClick = popBackStack,
-                actions = { LiftAddWorkSetContainer(modifier.noRippleClickable(onClick = navigateReadyToFindWorkCategoryInWorkReadyGraph)) }
+                actions = { LiftAddWorkSetButton(modifier.noRippleClickable(onClick = navigateReadyToFindWorkCategoryInWorkReadyGraph)) }
             )
         },
         snackbarHost = {
@@ -157,8 +158,9 @@ internal fun ReadyScreen(
                                     horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                                 ) {
                                     LiftCircleCheckbox(
-                                        modifier = modifier.size(LiftTheme.space.space24),
+                                        modifier = modifier,
                                         checked = workRoutineInfoState.isSelected(routine.id),
+                                        liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size24,
                                         onCheckedChange = {
                                             if (workRoutineInfoState.isSelected(routine.id))
                                                 workRoutineInfoState.unselectRoutineInfo(routine.id)
@@ -219,7 +221,7 @@ internal fun ReadyScreen(
                                                 onDragCancel = { dragDropListState.onDragInterrupted() }
                                             )
                                         },
-                                    painter = painterResource(id = LiftIcon.Order),
+                                    painter = painterResource(id = LiftIcon.EqualBlack),
                                     contentDescription = "changeOrder",
                                     tint = LiftTheme.colorScheme.no3,
                                 )

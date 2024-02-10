@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.LiftButton
+import com.gradation.lift.designsystem.temp.LiftButton
 import com.gradation.lift.designsystem.component.dialog.LiftDialog
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftMaterialTheme

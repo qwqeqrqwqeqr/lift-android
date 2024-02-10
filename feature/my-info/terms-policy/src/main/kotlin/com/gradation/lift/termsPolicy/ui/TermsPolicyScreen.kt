@@ -72,8 +72,8 @@ fun TermsPolicyScreen(
                     Icon(
                         modifier = modifier
                             .size(LiftTheme.space.space14),
-                        painter = painterResource(LiftIcon.ChevronRightSharp),
-                        contentDescription = "ChevronRightSharp",
+                        painter = painterResource(LiftIcon.ChevronRight),
+                        contentDescription = "ChevronRight",
                         tint = LiftTheme.colorScheme.no2,
                     )
                 }

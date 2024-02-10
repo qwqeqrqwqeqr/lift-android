@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component.filter
+package com.gradation.lift.designsystem.component.button.smallButton
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,12 +21,12 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun LiftLabelFilterContainer(
+fun LiftLabelFilterSmallButton(
     modifier: Modifier = Modifier,
     labelType: Set<Int>,
     selectedAll: Boolean,
 ) {
-    LiftBaseFilterContainer(modifier = modifier) {
+    LiftBaseSmallButton(modifier = modifier) {
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
@@ -43,14 +43,14 @@ fun LiftLabelFilterContainer(
                 color = LiftTheme.colorScheme.no2,
                 textAlign = TextAlign.Start
             )
-            if(selectedAll){
+            if (selectedAll) {
                 LiftText(
                     textStyle = LiftTextStyle.No5,
                     text = "전체",
                     color = LiftTheme.colorScheme.no4,
                     textAlign = TextAlign.Start
                 )
-            }else {
+            } else {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
@@ -65,11 +65,11 @@ fun LiftLabelFilterContainer(
 }
 
 @Composable
-fun LiftWeekdayFilterContainer(
+fun LiftWeekdayFilterSmallButton(
     modifier: Modifier = Modifier,
     weekdayType: String,
 ) {
-    LiftBaseFilterContainer(modifier = modifier) {
+    LiftBaseSmallButton(modifier = modifier) {
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
@@ -97,11 +97,11 @@ fun LiftWeekdayFilterContainer(
 }
 
 @Composable
-fun LiftSortFilterContainer(
+fun LiftSortFilterSmallButton(
     modifier: Modifier = Modifier,
     sortType: String,
 ) {
-    LiftBaseFilterContainer(modifier = modifier) {
+    LiftBaseSmallButton(modifier = modifier) {
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
@@ -128,100 +128,3 @@ fun LiftSortFilterContainer(
     }
 }
 
-
-@Composable
-fun LiftChangeOrderContainer(
-    modifier: Modifier = Modifier,
-) {
-    LiftBaseFilterContainer(modifier = modifier) {
-        Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier=modifier.size(LiftTheme.space.space12),
-                painter = painterResource(id = LiftIcon.Order),
-                contentDescription = "Order",
-                tint = LiftTheme.colorScheme.no2
-            )
-            LiftText(
-                textStyle = LiftTextStyle.No5,
-                text = "순서변경",
-                color = LiftTheme.colorScheme.no4,
-                textAlign = TextAlign.Start
-            )
-        }
-    }
-}
-
-@Composable
-fun LiftAddContainer(
-    modifier: Modifier = Modifier,
-) {
-    LiftBaseFilterContainer(modifier = modifier) {
-        Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier=modifier.size(LiftTheme.space.space12),
-                painter = painterResource(id = LiftIcon.Plus),
-                contentDescription = "Plus",
-                tint = LiftTheme.colorScheme.no2
-            )
-            LiftText(
-                textStyle = LiftTextStyle.No5,
-                text = "추가",
-                color = LiftTheme.colorScheme.no4,
-                textAlign = TextAlign.Start
-            )
-        }
-    }
-}
-
-@Composable
-fun LiftAddWorkSetContainer(
-    modifier: Modifier = Modifier,
-) {
-    LiftBaseFilterContainer(modifier = modifier) {
-        Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier=modifier.size(LiftTheme.space.space12),
-                painter = painterResource(id = LiftIcon.Plus),
-                contentDescription = "Plus",
-                tint = LiftTheme.colorScheme.no2
-            )
-            LiftText(
-                textStyle = LiftTextStyle.No5,
-                text = "운동추가",
-                color = LiftTheme.colorScheme.no4,
-                textAlign = TextAlign.Start
-            )
-        }
-    }
-}
-
-@Composable
-fun LiftBaseFilterContainer(
-    modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit,
-) {
-    Row(
-        modifier = modifier
-            .height(LiftTheme.space.space28)
-            .background(
-                LiftTheme.colorScheme.no1,
-                RoundedCornerShape(LiftTheme.space.space6)
-            )
-            .padding(horizontal = LiftTheme.space.space6),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
-        content = content
-    )
-}
