@@ -1,11 +1,20 @@
 package com.gradation.lift.feature.workReady.routineSelection.ui
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -21,9 +30,9 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.routineSelection.data.model.LabelFilterType
 import com.gradation.lift.feature.workReady.routineSelection.data.model.SortType
 import com.gradation.lift.feature.workReady.routineSelection.data.model.WeekdayFilterType
-import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListUiState
 import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListInfoState
 import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListScreenState
+import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListUiState
 import com.gradation.lift.feature.workReady.routineSelection.data.state.SortFilterState
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.RoutineListView
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.SearchSortFilterView
@@ -82,7 +91,11 @@ internal fun RoutineSelectionScreen(
                             .weight(1f)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
-                        AnimatedVisibility(routineListScreenState.lazyListState.isScrollingUp()) {
+                        AnimatedVisibility(
+                            routineListScreenState.lazyListState.isScrollingUp(),
+                            enter = expandVertically(spring()),
+                            exit = shrinkVertically(spring(stiffness = 0f))
+                        ) {
                             SearchSortFilterView(
                                 modifier,
                                 sortFilterState,

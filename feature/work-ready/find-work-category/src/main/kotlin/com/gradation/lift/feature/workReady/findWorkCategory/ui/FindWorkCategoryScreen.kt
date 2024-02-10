@@ -1,10 +1,17 @@
 package com.gradation.lift.feature.workReady.findWorkCategory.ui
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -55,11 +62,15 @@ internal fun FindWorkCategoryScreen(
 
             is WorkCategoryUiState.Success -> {
                 Column(modifier = modifier.padding(paddingValues)) {
-                    AnimatedVisibility(findWorkCategoryScreenState.lazyListState.isScrollingUp()) {
+                    AnimatedVisibility(
+                        findWorkCategoryScreenState.lazyListState.isScrollingUp(),
+                        enter = expandVertically(spring()),
+                        exit = shrinkVertically(spring(stiffness = 0f))
+                    ) {
                         Column(
                             modifier = modifier
                                 .background(LiftTheme.colorScheme.no5)
-                                .padding(vertical = LiftTheme.space.space16,),
+                                .padding(vertical = LiftTheme.space.space16),
                             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                         ) {
                             Column(

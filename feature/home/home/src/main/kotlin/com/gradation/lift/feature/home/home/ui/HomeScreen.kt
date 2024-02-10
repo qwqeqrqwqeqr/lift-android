@@ -61,8 +61,8 @@ internal fun HomeScreen(
         topBar = {
             AnimatedVisibility(
                 visible = homeScreenState.lazyListState.isScrollingUp(),
-                enter = expandVertically(spring(stiffness = 100f)),
-                exit = shrinkVertically(spring(stiffness = 100f))
+                enter = expandVertically(spring()),
+                exit = shrinkVertically(spring(stiffness = 0f))
             ) {
                 TopBar(modifier, userDetailUiState)
             }
@@ -106,7 +106,7 @@ internal fun HomeScreen(
                     start = LiftTheme.space.space20,
                     end = LiftTheme.space.space20,
                 ),
-            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
         ) {
             item { BannerView(modifier) }
 
