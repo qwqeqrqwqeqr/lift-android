@@ -119,6 +119,8 @@ object LiftIcon {
 
     val Star = R.drawable.star
     val StarFilled = R.drawable.star_filled
+    val HeartFilled = R.drawable.heart_filled
+    val HeartEmpty = R.drawable.heart_empty
 }
 
 
