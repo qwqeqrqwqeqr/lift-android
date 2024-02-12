@@ -37,7 +37,7 @@ fun RoutineListHeaderView(
                 tint = Color.Unspecified,
             )
             LiftText(
-                textStyle = LiftTextStyle.No1,
+                textStyle = LiftTextStyle.No2,
                 text = "자주 사용하는 루틴",
                 color = LiftTheme.colorScheme.no3,
                 textAlign = TextAlign.Start
@@ -50,7 +50,7 @@ fun RoutineListHeaderView(
             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
         ) {
             LiftText(
-                textStyle = LiftTextStyle.No6,
+                textStyle = LiftTextStyle.No7,
                 text = "전체보기",
                 color = LiftTheme.colorScheme.no2,
                 textAlign = TextAlign.Start

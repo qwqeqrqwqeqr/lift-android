@@ -1,47 +1,47 @@
 package com.gradation.lift.designsystem.component.topBar
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun LiftHomeTopBar(
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit,
 ) {
-    TopAppBar(
+    Row(
         modifier = modifier
-            .statusBarsPadding()
-            .padding(end = LiftTheme.space.space8),
-        title = {
-            Icon(
-                painter = painterResource(R.drawable.logo_extension_kor),
-                contentDescription = "logo",
-                tint = Color.Unspecified,
-                modifier = modifier.size(LiftTheme.space.space72)
-            )
-        },
-
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = LiftTheme.colorScheme.no31,
-            scrolledContainerColor = LiftTheme.colorScheme.no5,
-            navigationIconContentColor = LiftTheme.colorScheme.no9,
-            titleContentColor = LiftTheme.colorScheme.no9,
-            actionIconContentColor = LiftTheme.colorScheme.no9,
-        ),
-        actions = actions
-    )
+            .fillMaxWidth()
+            .padding(
+                top = WindowInsets.systemBars
+                    .asPaddingValues()
+                    .calculateTopPadding() + LiftTheme.space.space20,
+                start = LiftTheme.space.space20,
+                end = LiftTheme.space.space20,
+            ),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        GlideImage(
+            modifier = modifier.width(LiftTheme.space.space72),
+            model = R.drawable.logo_extension_kor,
+            contentDescription = "logo",
+        )
+        actions()
+    }
 }

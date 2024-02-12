@@ -12,6 +12,7 @@ object LiftImage {
 
     val CompleteHalo = R.drawable.complete_halo
 
+    val WorkLogo = R.drawable.work_logo
     val Logo = R.drawable.logo
 }
 

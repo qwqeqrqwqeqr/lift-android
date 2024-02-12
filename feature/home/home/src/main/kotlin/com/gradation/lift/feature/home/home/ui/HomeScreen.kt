@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,8 +22,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.resource.LiftIcon
+import com.gradation.lift.designsystem.resource.LiftImage.WorkLogo
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
@@ -40,6 +45,7 @@ import com.gradation.lift.ui.extensions.isScrollingUp
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -54,8 +60,6 @@ internal fun HomeScreen(
     homeScreenState: HomeScreenState,
     homeAnimationState: HomeAnimationState,
 ) {
-
-
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -64,34 +68,54 @@ internal fun HomeScreen(
                 enter = expandVertically(spring()),
                 exit = shrinkVertically(spring(stiffness = 0f))
             ) {
-                TopBar(modifier, userDetailUiState)
+                TopBar(
+                    modifier,
+                    userDetailUiState
+                )
             }
         },
         floatingActionButton = {
-            Box(
-                modifier = modifier
-                    .border(
-                        width = LiftTheme.space.space2,
-                        color = LiftTheme.colorScheme.no5,
-                        shape = CircleShape
-                    )
-                    .background(
-                        LiftTheme.colorScheme.no4,
-                        CircleShape
-                    )
-                    .size(LiftTheme.space.space72)
-                    .noRippleClickable { homeScreenState.updateWorkBottomSheetView(true) },
-                contentAlignment = Alignment.Center
-
+            Column(
+                modifier = modifier,
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
             ) {
-                Icon(
-                    modifier = modifier
-                        .width(LiftTheme.space.space42)
-                        .height(LiftTheme.space.space28),
-                    painter = painterResource(id = LiftIcon.Work),
-                    contentDescription = "work",
-                    tint = LiftTheme.colorScheme.no5
+                GlideImage(
+                    modifier = modifier.width(LiftTheme.space.space72),
+                    model = WorkLogo,
+                    contentDescription = ""
                 )
+
+                Box(
+                    modifier = modifier
+                        .shadow(
+                            elevation = LiftTheme.space.space4,
+                            spotColor = LiftTheme.colorScheme.no36,
+                            ambientColor = LiftTheme.colorScheme.no36,
+                            shape = CircleShape
+                        )
+                        .border(
+                            width = LiftTheme.space.space2,
+                            color = LiftTheme.colorScheme.no5,
+                            shape = CircleShape
+                        )
+                        .background(
+                            LiftTheme.colorScheme.no4,
+                            CircleShape
+                        )
+                        .size(LiftTheme.space.space72)
+                        .noRippleClickable { homeScreenState.updateWorkBottomSheetView(true) },
+                    contentAlignment = Alignment.Center
+
+                ) {
+                    Icon(
+                        modifier = modifier
+                            .width(LiftTheme.space.space42)
+                            .height(LiftTheme.space.space28),
+                        painter = painterResource(id = LiftIcon.Work),
+                        contentDescription = "work",
+                        tint = LiftTheme.colorScheme.no5
+                    )
+                }
             }
         },
         floatingActionButtonPosition = FabPosition.EndOverlay
@@ -106,7 +130,7 @@ internal fun HomeScreen(
                     start = LiftTheme.space.space20,
                     end = LiftTheme.space.space20,
                 ),
-            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space40),
         ) {
             item { BannerView(modifier) }
 

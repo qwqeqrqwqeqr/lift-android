@@ -31,11 +31,11 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
-import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -63,7 +63,7 @@ fun BadgeView(
                     tint = Color.Unspecified,
                 )
                 LiftText(
-                    textStyle = LiftTextStyle.No1,
+                    textStyle = LiftTextStyle.No2,
                     text = "내 뱃지",
                     color = LiftTheme.colorScheme.no3,
                     textAlign = TextAlign.Start
@@ -77,7 +77,7 @@ fun BadgeView(
             ) {
 
                 LiftText(
-                    textStyle = LiftTextStyle.No6,
+                    textStyle = LiftTextStyle.No7,
                     text = "전체보기",
                     color = LiftTheme.colorScheme.no2,
                     textAlign = TextAlign.Start
