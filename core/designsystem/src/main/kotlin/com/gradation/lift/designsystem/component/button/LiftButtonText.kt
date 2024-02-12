@@ -34,7 +34,7 @@ internal fun LiftSmallButtonText(
         modifier = modifier,
         text = text,
         textAlign = textAlign,
-        color =color,
-        style = LiftTheme.typography.no5,
+        color = color,
+        style = LiftTheme.typography.no8,
     )
 }
