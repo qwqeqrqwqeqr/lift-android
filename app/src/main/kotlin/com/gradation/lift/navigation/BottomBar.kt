@@ -33,7 +33,7 @@ fun BottomBar(
 
             .fillMaxWidth()
             .shadow(
-                elevation = LiftTheme.space.space6,
+                elevation = LiftTheme.space.space4,
                 spotColor = LiftTheme.colorScheme.no11,
                 ambientColor = LiftTheme.colorScheme.no11,
                 shape = RoundedCornerShape(

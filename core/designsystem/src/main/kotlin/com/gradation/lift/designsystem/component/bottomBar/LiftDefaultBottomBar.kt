@@ -23,9 +23,9 @@ fun LiftDefaultBottomBar(
     LiftDefaultContainer(
         modifier = modifier
             .shadow(
-                elevation = -LiftTheme.space.space4,
-                spotColor = LiftTheme.colorScheme.no35,
-                ambientColor = LiftTheme.colorScheme.no35
+                elevation = LiftTheme.space.space6,
+                spotColor = LiftTheme.colorScheme.no11,
+                ambientColor = LiftTheme.colorScheme.no11
             )
             .fillMaxWidth()
             .background(LiftTheme.colorScheme.no5),
@@ -46,10 +46,7 @@ fun LiftDefaultBottomBarPreview(modifier: Modifier = Modifier) {
                 .background(LiftTheme.colorScheme.no5),
             verticalArrangement = Arrangement.Center
         ) {
-
-
             LiftDefaultBottomBar(modifier) {
-
             }
         }
     }
