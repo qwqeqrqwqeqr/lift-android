@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.history.history.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.gradation.lift.feature.history.history.data.HistoryViewModel
 import com.gradation.lift.feature.history.history.data.model.WeekDateHistoryCount
 import com.gradation.lift.feature.history.history.data.state.HistoryScreenState
@@ -18,6 +20,7 @@ import com.gradation.lift.feature.history.history.ui.HistoryScreen
 import com.gradation.lift.feature.history.history.ui.bottomSheet.DatePickerBottomSheet
 import com.gradation.lift.feature.history.history.ui.bottomSheet.WorkBottomSheet
 import com.gradation.lift.model.model.history.History
+import com.gradation.lift.ui.extensions.showToast
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toJavaLocalDate
@@ -28,6 +31,7 @@ import java.time.temporal.ChronoUnit
 @Composable
 internal fun HistoryRoute(
     modifier: Modifier = Modifier,
+    navController: NavController,
     navigateHistoryGraphToWorkReadyReadyRouter: () -> Unit,
     navigateHistoryGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
     navigateHistoryToUpdateInfoInHistoryGraph: (String, Int, Int, String) -> Unit,
@@ -60,6 +64,14 @@ internal fun HistoryRoute(
     }
 
 
+    BackHandler(onBack = {
+        if (System.currentTimeMillis() - historyScreenState.terminateWaitTime.value >= 1500) {
+            historyScreenState.terminateWaitTime.value = System.currentTimeMillis()
+            showToast(historyScreenState.context, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.")
+        } else {
+            navController.popBackStack()
+        }
+    })
 
 
 

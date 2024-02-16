@@ -35,6 +35,7 @@ fun NavGraphBuilder.historyScreen(
     ) {
         HistoryRoute(
             modifier,
+            navController,
             navigateHistoryGraphToWorkReadyReadyRouter,
             navigateHistoryGraphToWorkReadyRoutineSelectionRouter,
             navigateHistoryToUpdateInfoInHistoryGraph

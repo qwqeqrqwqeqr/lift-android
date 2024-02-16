@@ -26,6 +26,7 @@ fun NavGraphBuilder.myInfoScreen(
     composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
         MyInfoRoute(
             modifier,
+            navController,
             navigateMyInfoGraphToNoticeGraph,
             navigateMyInfoToProfileInMyInfoGraph,
             navigateMyInfoToTermsPolicyInMyInfoGraph,

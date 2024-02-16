@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.history.history.data.state
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -7,12 +8,15 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.hapticfeedback.HapticFeedback
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import kotlinx.datetime.toJavaLocalDate
 import java.time.LocalDate
@@ -35,9 +39,18 @@ fun rememberHistoryScreenState(
             ).toInt()
         },
     ),
+    terminateWaitTime: MutableState<Long> = remember { mutableLongStateOf(0L) },
+    context: Context = LocalContext.current,
 ): HistoryScreenState {
-    return remember(snackbarHostState, lazyListState, pagerState) {
-        HistoryScreenState(snackbarHostState, lazyListState, hapticFeedbackType, pagerState)
+    return remember(snackbarHostState, lazyListState, pagerState, terminateWaitTime, context) {
+        HistoryScreenState(
+            snackbarHostState,
+            lazyListState,
+            hapticFeedbackType,
+            pagerState,
+            terminateWaitTime,
+            context
+        )
     }
 
 
@@ -50,6 +63,8 @@ data class HistoryScreenState(
     val lazyListState: LazyListState,
     val hapticFeedbackType: HapticFeedback,
     val pagerState: PagerState,
+    val terminateWaitTime: MutableState<Long>,
+    val context: Context,
 ) {
     var workBottomSheetView: Boolean by mutableStateOf(false)
     val updateWorkBottomSheetView: (Boolean) -> Unit =

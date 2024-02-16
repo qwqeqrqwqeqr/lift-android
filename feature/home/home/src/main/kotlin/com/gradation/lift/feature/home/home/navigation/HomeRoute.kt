@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.home.home.navigation
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import com.gradation.lift.feature.home.home.ui.HomeScreen
 import com.gradation.lift.feature.home.home.ui.component.bottomSheet.WorkBottomSheet
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.ui.extensions.showImmediatelySnackbar
+import com.gradation.lift.ui.extensions.showToast
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -55,6 +57,8 @@ internal fun HomeRoute(
 
     val badgeConditionState: BadgeConditionState by sharedViewModel.badgeConditionState.collectAsStateWithLifecycle()
 
+
+
     when (badgeConditionState) {
         is BadgeConditionState.Success -> LaunchedEffect(true) {
             navigateHomeToBadgeInHomeGraph()
@@ -77,6 +81,17 @@ internal fun HomeRoute(
             )
         }
     }
+
+
+
+    BackHandler(onBack = {
+        if (System.currentTimeMillis() - homeScreenState.terminateWaitTime.value >= 1500) {
+            homeScreenState.terminateWaitTime.value = System.currentTimeMillis()
+            showToast(homeScreenState.context, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.")
+        } else {
+            navController.popBackStack()
+        }
+    })
 
 
     AnimatedVisibility(visible = homeScreenState.workBottomSheetView) {
