@@ -1,9 +1,11 @@
 package com.gradation.lift.state
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
@@ -16,10 +18,14 @@ import com.gradation.lift.navigation.TopLevelNavDestination
 import com.gradation.lift.navigation.navigation.navigateHistoryGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraph
+import kotlinx.coroutines.CoroutineScope
 
 class AppState(
     val navController: NavHostController,
     val currentDestination: NavDestination?,
+    val warnSnackbarHostState: SnackbarHostState,
+    val infoSnackbarHostState: SnackbarHostState,
+    val coroutineScope: CoroutineScope,
 ) {
     val isShowBottomBar: Boolean
         @Composable get() = currentDestination?.let { destination ->
@@ -47,6 +53,9 @@ class AppState(
 fun rememberAppState(
     navController: NavHostController,
     systemUiController: SystemUiController,
+    warnSnackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    infoSnackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ): AppState {
 
     val currentDestination: NavDestination? =
@@ -54,7 +63,7 @@ fun rememberAppState(
 
     val statusBarColor: Color by animateColorAsState(
         targetValue = when (currentDestination?.route) {
-            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no31
+            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no17
             else -> LiftTheme.colorScheme.no5
         }, label = "statusBarColor"
     )
@@ -70,10 +79,19 @@ fun rememberAppState(
     systemUiController.setStatusBarColor(color = statusBarColor)
     systemUiController.setNavigationBarColor(color = navigationBarColor)
 
-    return remember(navController, currentDestination) {
+    return remember(
+        navController,
+        currentDestination,
+        warnSnackbarHostState,
+        infoSnackbarHostState,
+        coroutineScope
+    ) {
         AppState(
             navController,
             currentDestination,
+            warnSnackbarHostState,
+            infoSnackbarHostState,
+            coroutineScope
         )
     }
 }

@@ -29,6 +29,9 @@ import androidx.compose.ui.text.style.TextAlign
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.component.icon.IconBoxSize
+import com.gradation.lift.designsystem.component.icon.IconType
+import com.gradation.lift.designsystem.component.icon.LiftIconBox
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -47,7 +50,10 @@ fun BadgeView(
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     homeAnimationState: HomeAnimationState,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)) {
+    Column(
+        modifier = modifier.padding(horizontal = LiftTheme.space.space20),
+        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
+    ) {
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -75,30 +81,32 @@ fun BadgeView(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
             ) {
-
                 LiftText(
                     textStyle = LiftTextStyle.No7,
                     text = "전체보기",
                     color = LiftTheme.colorScheme.no2,
                     textAlign = TextAlign.Start
                 )
-                Icon(
-                    modifier = modifier
-                        .size(LiftTheme.space.space8),
-                    painter = painterResource(LiftIcon.ChevronRight),
-                    contentDescription = "selectAllBadge",
-                    tint = LiftTheme.colorScheme.no2,
+                LiftIconBox(
+                    icon = LiftIcon.ChevronRight,
+                    iconType = IconType.Vector,
+                    iconBoxSize = IconBoxSize.Size12,
+                    padding = LiftTheme.space.space2,
+                    tint = LiftTheme.colorScheme.no2
                 )
+
             }
         }
 
         Column {
             when (badgeUiState) {
-                is BadgeUiState.Fail -> Spacer(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .height(LiftTheme.space.space96)
-                )
+                is BadgeUiState.Fail -> {
+                    Spacer(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(LiftTheme.space.space96)
+                    )
+                }
 
                 BadgeUiState.Loading ->
                     Spacer(

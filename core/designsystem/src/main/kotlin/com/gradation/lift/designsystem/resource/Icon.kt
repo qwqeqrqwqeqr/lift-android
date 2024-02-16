@@ -16,7 +16,7 @@ object LiftIcon {
     val UnselectedMyInfo = R.drawable.profile_grey
     val UnselectedRoutine = R.drawable.routine_grey
 
-
+    val CheckBoxCanceled = R.drawable.checkbox_canceled
     val CheckBoxChecked = R.drawable.checkbox_checked
     val CheckBoxUnChecked = R.drawable.checkbox_unchecked
     val CheckboxGreen = R.drawable.checkbox_green
@@ -52,6 +52,7 @@ object LiftIcon {
     val Badge = R.drawable.badge
     val BadgeDisabled = R.drawable.badge_disabled
     val RoutineList = R.drawable.routine_list
+    val DumbbellColor = R.drawable.dumbbell_color
     val BadgeAdd = R.drawable.badge_add
 
 
@@ -92,6 +93,7 @@ object LiftIcon {
     val DecreaseArrow = R.drawable.decrease_arrow
 
     val Plus = R.drawable.plus_blue
+    val Pause = R.drawable.pause
     val EqualBlack = R.drawable.equal_black
     val equalBlue = R.drawable.equal_blue
 

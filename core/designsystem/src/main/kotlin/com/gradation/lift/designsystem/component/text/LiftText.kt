@@ -16,7 +16,9 @@ fun LiftText(
     color: Color,
     textAlign: TextAlign,
     textDecoration: TextDecoration = TextDecoration.None,
-    overflow: TextOverflow = TextOverflow.Clip
+    overflow: TextOverflow = TextOverflow.Clip,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
 ) {
     Text(
         modifier = modifier,
@@ -25,7 +27,9 @@ fun LiftText(
         textAlign = textAlign,
         style = textStyle.toStyle(),
         textDecoration = textDecoration,
-        overflow=overflow
+        overflow = overflow,
+        maxLines = maxLines,
+        minLines = minLines
     )
 }
 

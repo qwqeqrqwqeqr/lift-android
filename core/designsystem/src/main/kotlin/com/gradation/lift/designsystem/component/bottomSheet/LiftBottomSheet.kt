@@ -3,10 +3,9 @@ package com.gradation.lift.designsystem.component.bottomSheet
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.displayCutout
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -40,8 +39,6 @@ fun LiftBottomSheet(
     onDismissRequest: () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-
     ModalBottomSheet(
         modifier = modifier,
         sheetState = sheetState,
@@ -59,7 +56,9 @@ fun LiftBottomSheet(
         ),
         windowInsets = WindowInsets.displayCutout,
     ) {
-        Column(modifier = modifier.padding(bottom = bottomPadding)) {
+        Column(modifier = modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()) {
             content()
         }
     }
