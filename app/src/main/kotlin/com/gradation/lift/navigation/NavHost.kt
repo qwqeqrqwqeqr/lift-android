@@ -37,17 +37,17 @@ fun LiftNavHost(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
     ) {
-        badgeGraphBuilder(navController, this)
-        createRoutineGraphBuilder(modifier, navController, this)
-        homeGraphBuilder(modifier, navController, this)
-        loginGraphBuilder(modifier, navController, this)
+        badgeGraphBuilder(modifier, navController)
+        createRoutineGraphBuilder(modifier, navController)
+        homeGraphBuilder(modifier, navController)
+        loginGraphBuilder(modifier, navController)
         myInfoGraphBuilder(modifier, navController, navigateToOssScreen)
         noticeGraphBuilder(modifier, navController)
-        registerDetailGraphBuilder(modifier, navController, this)
-        updateRoutineGraphBuilder(modifier, navController, this)
+        registerDetailGraphBuilder(modifier, navController)
+        updateRoutineGraphBuilder(modifier, navController)
         workGraphBuilder(modifier, navController)
         workReadyGraphBuilder(modifier, navController)
-        routineDetailGraphBuilder(modifier, navController, this)
+        routineDetailGraphBuilder(modifier, navController)
         historyGraphBuilder(modifier, navController)
         analyticsGraphBuilder(modifier, navController)
     }

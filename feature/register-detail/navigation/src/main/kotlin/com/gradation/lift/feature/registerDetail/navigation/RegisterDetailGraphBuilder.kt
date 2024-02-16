@@ -11,12 +11,11 @@ import com.gradation.lift.feature.register_detail.profile_picture.navigation.pro
 import com.gradation.lift.navigation.Route.REGISTER_DETAIL_GRAPH_NAME
 import com.gradation.lift.navigation.Route.REGISTER_DETAIL_NAME_ROUTER_NAME
 
-fun registerDetailGraphBuilder(
-    modifier: Modifier=Modifier,
+fun NavGraphBuilder.registerDetailGraphBuilder(
+    modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.navigation(
+    navigation(
         route = REGISTER_DETAIL_GRAPH_NAME,
         startDestination = REGISTER_DETAIL_NAME_ROUTER_NAME,
         popEnterTransition = null,
@@ -24,9 +23,9 @@ fun registerDetailGraphBuilder(
         enterTransition = null,
         exitTransition = null,
     ) {
-        nameScreen(modifier,navController)
-        genderScreen(modifier,navController)
-        heightWeightScreen(modifier,navController)
-        profilePictureScreen(modifier,navController)
+        nameScreen(modifier, navController)
+        genderScreen(modifier, navController)
+        heightWeightScreen(modifier, navController)
+        profilePictureScreen(modifier, navController)
     }
 }

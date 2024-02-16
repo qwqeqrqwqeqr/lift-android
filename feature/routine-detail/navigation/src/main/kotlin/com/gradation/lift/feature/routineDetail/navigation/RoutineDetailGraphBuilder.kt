@@ -10,12 +10,11 @@ import com.gradation.lift.feature.routineDetail.routine.navigation.routineScreen
 import com.gradation.lift.feature.routineDetail.routineList.navigation.routineListScreen
 import com.gradation.lift.navigation.Route
 
-fun routineDetailGraphBuilder(
+fun NavGraphBuilder.routineDetailGraphBuilder(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.navigation(
+    navigation(
         route = Route.ROUTINE_DETAIL_GRAPH_NAME,
         startDestination = Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME,
         enterTransition = { fadeIn() },
