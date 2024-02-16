@@ -24,11 +24,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
@@ -233,14 +233,9 @@ internal fun ChangeOrderScreen(
                     }
                 }
             }
-            LiftDefaultContainer(
+            LiftDefaultBottomBar(
                 modifier = modifier
-                    .background(LiftTheme.colorScheme.no5)
-                    .fillMaxWidth()
-                  ,
-                shape = RectangleShape,
-                verticalPadding = LiftTheme.space.space10,
-                horizontalPadding = LiftTheme.space.space20
+
             ) {
                 LiftSolidButton(
                     modifier = modifier,

@@ -5,11 +5,13 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import com.gradation.lift.ui.provider.LocalWarnSnackbarHostState
 
 @Composable
 fun rememberMyInfoScreenState(
     context: Context = LocalContext.current,
-    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    snackbarHostState: SnackbarHostState = LocalWarnSnackbarHostState.current,
+    appScope: SnackbarHostState = LocalWarnSnackbarHostState.current,
 ): MyInfoScreenState =
     remember(context, snackbarHostState) {
         MyInfoScreenState(

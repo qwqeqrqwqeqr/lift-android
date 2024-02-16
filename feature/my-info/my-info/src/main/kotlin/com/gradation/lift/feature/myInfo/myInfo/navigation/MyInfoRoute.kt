@@ -32,7 +32,6 @@ fun MyInfoRoute(
             is MyInfoUiState.Fail -> {
                 myInfoScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
             }
-
             MyInfoUiState.Loading -> {}
             is MyInfoUiState.Success -> {}
         }

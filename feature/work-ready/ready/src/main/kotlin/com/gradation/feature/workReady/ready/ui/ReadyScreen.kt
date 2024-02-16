@@ -34,7 +34,6 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
@@ -45,14 +44,15 @@ import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
 import com.gradation.feature.workReady.ready.data.state.WorkRoutineInfoState
 import com.gradation.lift.common.utils.decimalNumberValidator
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftAddWorkSetButton
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
-import com.gradation.lift.designsystem.component.button.smallButton.LiftAddWorkSetButton
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
 import com.gradation.lift.designsystem.component.snackbar.SnackBarCategory
@@ -402,13 +402,9 @@ internal fun ReadyScreen(
                     }
                 }
             }
-            LiftDefaultContainer(
+            LiftDefaultBottomBar(
                 modifier = modifier
-                    .background(LiftTheme.colorScheme.no5)
-                    .fillMaxWidth(),
-                shape = RectangleShape,
-                verticalPadding = LiftTheme.space.space10,
-                horizontalPadding = LiftTheme.space.space20
+
             ) {
                 Column(
                     modifier = modifier.fillMaxWidth(),

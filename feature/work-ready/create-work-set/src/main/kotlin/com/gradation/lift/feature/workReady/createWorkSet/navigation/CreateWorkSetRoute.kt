@@ -9,13 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.lift.feature.workReady.common.WorkReadySharedViewModel
+import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.createWorkSet.data.CreateWorkSetViewModel
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.rememberRoutineScreenState
-import com.gradation.lift.feature.workReady.common.WorkReadySharedViewModel
-import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.createWorkSet.ui.CreateWorkSetScreen
 import com.gradation.lift.navigation.Route
 
@@ -25,7 +25,6 @@ internal fun CreateWorkSetRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph: () -> Unit,
-    navigateCreateWorkSetToReadyInWorkReadyGraph: () -> Unit,
     viewModel: CreateWorkSetViewModel = hiltViewModel(),
     sharedViewModel: WorkReadySharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(Route.WORK_READY_GRAPH_NAME) }),
@@ -45,7 +44,6 @@ internal fun CreateWorkSetRoute(
         workSetState,
         workRoutineState,
         navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph,
-        navigateCreateWorkSetToReadyInWorkReadyGraph,
         routineScreenState
     )
 

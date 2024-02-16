@@ -10,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph
-import com.gradation.lift.navigation.navigation.navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 
 
@@ -23,8 +22,6 @@ fun createWorkSetScreen(
     val navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph: () -> Unit =
         { navController.navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph() }
 
-    val navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph: () -> Unit =
-        { navController.navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph() }
 
     navGraphBuilder.composable(
         route = "${UPDATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME}/{${SavedStateHandleKey.UpdateRoutine.UPDATE_WORK_CATEGORY_ID_KEY}}",
@@ -42,7 +39,6 @@ fun createWorkSetScreen(
             modifier,
             navController,
             navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph,
-            navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph
         )
     }
 }
