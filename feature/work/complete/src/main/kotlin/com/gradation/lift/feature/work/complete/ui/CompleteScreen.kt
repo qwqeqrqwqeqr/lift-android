@@ -19,9 +19,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -524,7 +524,10 @@ internal fun CompleteScreen(
                     }
                 }
                 Column(
-                    modifier = modifier.padding(end = LiftTheme.space.space20),
+                    modifier = modifier.padding(
+                        end = LiftTheme.space.space20,
+                        bottom = LiftTheme.space.space20
+                    ),
                     verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
                 ) {
                     historyRoutineList.forEachIndexed { routineIndex, routine ->

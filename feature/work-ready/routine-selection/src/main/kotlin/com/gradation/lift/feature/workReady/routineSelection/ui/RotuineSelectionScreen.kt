@@ -1,25 +1,16 @@
 package com.gradation.lift.feature.workReady.routineSelection.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.designsystem.component.text.LiftText
-import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.routineSelection.data.model.LabelFilterType
@@ -46,7 +37,6 @@ internal fun RoutineSelectionScreen(
     popBackStack: () -> Unit,
     navigateRoutineSelectionToReadyInWorkReadyGraph: (String) -> Unit,
 ) {
-
     Scaffold(
         topBar = {
             LiftTopBar(
@@ -85,46 +75,22 @@ internal fun RoutineSelectionScreen(
                             .weight(1f)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
-                            SearchSortFilterView(
-                                modifier,
-                                sortFilterState,
-                                searchFilterText,
-                                routineSetRoutineListUiState.routineSetRoutineList,
-                                weekdayFilterType,
-                                labelFilterType,
-                                sortType,
-                                routineListScreenState
-                            )
-                        if (routineSetRoutineListUiState.routineSetRoutineList.isNotEmpty())
-                            RoutineListView(
-                                modifier,
-                                routineSetRoutineListUiState.routineSetRoutineList,
-                                routineListInfoState,
-                                routineListScreenState,
-                            )
-                        else
-                            Column(
-                                modifier = modifier
-                                    .fillMaxSize()
-                                    .background(LiftTheme.colorScheme.no17),
-                                verticalArrangement = Arrangement.spacedBy(
-                                    LiftTheme.space.space16,
-                                    Alignment.CenterVertically
-                                ),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Image(
-                                    modifier = modifier.size(LiftTheme.space.space72),
-                                    painter = painterResource(id = R.drawable.open_box),
-                                    contentDescription = "emptyBox",
-                                )
-                                LiftText(
-                                    textStyle = LiftTextStyle.No4,
-                                    text = "조건에 맞는 루틴이 존재하지 않네요..",
-                                    color = LiftTheme.colorScheme.no2,
-                                    textAlign = TextAlign.Center
-                                )
-                            }
+                        SearchSortFilterView(
+                            modifier,
+                            sortFilterState,
+                            searchFilterText,
+                            routineSetRoutineListUiState.routineSetRoutineList,
+                            weekdayFilterType,
+                            labelFilterType,
+                            sortType,
+                            routineListScreenState
+                        )
+                        RoutineListView(
+                            modifier,
+                            routineSetRoutineListUiState.routineSetRoutineList,
+                            routineListInfoState,
+                            routineListScreenState,
+                        )
                     }
                     LiftDefaultBottomBar(
                         modifier = modifier

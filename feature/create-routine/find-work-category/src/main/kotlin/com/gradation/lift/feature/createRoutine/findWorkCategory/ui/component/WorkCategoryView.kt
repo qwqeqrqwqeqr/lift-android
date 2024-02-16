@@ -46,6 +46,7 @@ internal fun WorkCategoryView(
         state = findWorkCategoryScreenState.lazyListState,
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
     ) {
+        item { Spacer(modifier = modifier) }
         items(
             items = workCategoryList,
             key = { it.workCategory.id }
