@@ -78,16 +78,14 @@ internal fun HistoryRoute(
                         it.second.dayOfMonth
                     ).plusMonths(it.first.toLong()).toKotlinLocalDate()
                 )
+                historyScreenState.pagerState.scrollToPage(
+                    START_DATE.until(
+                        this.toJavaLocalDate(),
+                        ChronoUnit.MONTHS
+                    ).toInt()
+                )
             }
         }
-    }
-    LaunchedEffect(selectedDate) {
-        historyScreenState.pagerState.scrollToPage(
-            START_DATE.until(
-                selectedDate.toJavaLocalDate(),
-                ChronoUnit.MONTHS
-            ).toInt()
-        )
     }
 
 

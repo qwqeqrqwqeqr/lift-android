@@ -31,7 +31,6 @@ import com.gradation.lift.model.model.date.getWeekdayEntries
 import com.gradation.lift.model.model.date.toWeekday
 import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.toJavaLocalDate
-import kotlinx.datetime.toKotlinLocalDate
 import java.time.LocalDate
 
 
@@ -97,7 +96,12 @@ fun CalendarView(
                                         repeat(count) {
                                             DisabledWeekDateCard(
                                                 modifier = modifier.weight(1f),
-                                                date = (targetDate.plusDays(it.toLong() + 1L))
+                                                date = kotlinx.datetime.LocalDate(
+                                                    targetDate.year,
+                                                    targetDate.monthValue,
+                                                    (targetDate.plusDays(it.toLong() + 1L)).dayOfMonth
+                                                ),
+                                                updateSelectedDate = updateSelectedDate
                                             )
                                         }
                                     }
@@ -204,7 +208,12 @@ fun CalendarView(
                                         repeat(getWeekdayEntries().size - dateInfo.count()) {
                                             DisabledWeekDateCard(
                                                 modifier.weight(1f),
-                                                targetDate.plusDays(it.toLong())
+                                                date = kotlinx.datetime.LocalDate(
+                                                    targetDate.year,
+                                                    targetDate.monthValue,
+                                                    (targetDate.plusDays(it.toLong())).dayOfMonth
+                                                ),
+                                                updateSelectedDate = updateSelectedDate
                                             )
                                         }
                                     }
@@ -299,17 +308,22 @@ fun CalendarView(
 @Composable
 fun DisabledWeekDateCard(
     modifier: Modifier = Modifier,
-    date: LocalDate,
+    date: kotlinx.datetime.LocalDate,
+    updateSelectedDate: (kotlinx.datetime.LocalDate) -> Unit,
 ) {
     Column(
-        modifier = modifier.padding(vertical = LiftTheme.space.space8),
+        modifier = modifier
+            .noRippleClickable {
+                updateSelectedDate(date)
+            }
+            .padding(vertical = LiftTheme.space.space8),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
     ) {
         LiftText(
             textStyle = LiftTextStyle.No5,
             text = date.dayOfMonth.toString(),
-            color = if (date.toKotlinLocalDate()
+            color = if (date
                     .toWeekday() == Weekday.Sunday()
             ) LiftTheme.colorScheme.no52 else LiftTheme.colorScheme.no6,
             textAlign = TextAlign.Center
