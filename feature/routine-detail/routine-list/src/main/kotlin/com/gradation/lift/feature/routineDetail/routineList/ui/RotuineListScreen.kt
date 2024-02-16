@@ -91,22 +91,17 @@ internal fun RoutineListScreen(
                             .weight(1f)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
-                        AnimatedVisibility(
-                            routineListScreenState.lazyListState.isScrollingUp(),
-                            enter = expandVertically(spring()),
-                            exit = shrinkVertically(spring(stiffness = 0f))
-                        ) {
-                            SearchSortFilterView(
-                                modifier,
-                                sortFilterState,
-                                searchFilterText,
-                                routineSetRoutineListUiState.routineSetRoutineList,
-                                weekdayFilterType,
-                                labelFilterType,
-                                sortType,
-                                routineListScreenState
-                            )
-                        }
+
+                        SearchSortFilterView(
+                            modifier,
+                            sortFilterState,
+                            searchFilterText,
+                            routineSetRoutineListUiState.routineSetRoutineList,
+                            weekdayFilterType,
+                            labelFilterType,
+                            sortType,
+                            routineListScreenState
+                        )
                         if (routineSetRoutineListUiState.routineSetRoutineList.isNotEmpty())
                             RoutineListView(
                                 modifier,

@@ -48,9 +48,17 @@ internal fun SearchSortFilterView(
             horizontal = LiftTheme.space.space20,
             vertical = LiftTheme.space.space16
         ),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
     ) {
-        SearchView(modifier, sortFilterState, searchFilterText, routineListScreenState)
+        AnimatedVisibility(
+            routineListScreenState.lazyListState.isScrollingUp(),
+            enter = expandVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+            exit = shrinkVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+        ) {
+            Column {
+                SearchView(modifier, sortFilterState, searchFilterText, routineListScreenState)
+                Spacer(modifier = modifier.height(LiftTheme.space.space16))
+            }
+        }
         SortFilterView(
             modifier,
             routineSetRoutineList,

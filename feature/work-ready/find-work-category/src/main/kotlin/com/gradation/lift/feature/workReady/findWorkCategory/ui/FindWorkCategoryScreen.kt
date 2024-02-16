@@ -1,6 +1,7 @@
 package com.gradation.lift.feature.workReady.findWorkCategory.ui
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -62,26 +64,34 @@ internal fun FindWorkCategoryScreen(
 
             is WorkCategoryUiState.Success -> {
                 Column(modifier = modifier.padding(paddingValues)) {
-                    AnimatedVisibility(
-                        findWorkCategoryScreenState.lazyListState.isScrollingUp(),
-                        enter = expandVertically(spring()),
-                        exit = shrinkVertically(spring(stiffness = 0f))
+                    Column(
+                        modifier = modifier
+                            .background(LiftTheme.colorScheme.no5)
+                            .padding(vertical = LiftTheme.space.space16),
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                     ) {
                         Column(
-                            modifier = modifier
-                                .background(LiftTheme.colorScheme.no5)
-                                .padding(vertical = LiftTheme.space.space16),
-                            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
+                            modifier = modifier,
                         ) {
-                            Column(
-                                modifier = modifier,
-                                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
+                            AnimatedVisibility(
+                                visible = findWorkCategoryScreenState.lazyListState.isScrollingUp(),
+                                enter = expandVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+                                exit = shrinkVertically(spring(stiffness = Spring.StiffnessMediumLow)),
                             ) {
-                                SearchView(modifier, searchFilterText, filterState,findWorkCategoryScreenState)
-                                FilterView(modifier, workPartFilter, workPartList, filterState)
+                                Column {
+                                    SearchView(
+                                        modifier,
+                                        searchFilterText,
+                                        filterState,
+                                        findWorkCategoryScreenState
+                                    )
+
+                                    Spacer(modifier = modifier.height(LiftTheme.space.space16))
+                                }
                             }
-                            FilterCountView(modifier, workCategoryUiState.workCategoryList)
+                            FilterView(modifier, workPartFilter, workPartList, filterState)
                         }
+                        FilterCountView(modifier, workCategoryUiState.workCategoryList)
                     }
                     WorkCategoryView(
                         modifier,

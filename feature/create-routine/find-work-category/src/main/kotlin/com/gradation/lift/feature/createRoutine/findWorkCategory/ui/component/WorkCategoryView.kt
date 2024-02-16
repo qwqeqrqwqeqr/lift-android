@@ -39,11 +39,13 @@ internal fun WorkCategoryView(
         modifier = modifier
             .background(LiftTheme.colorScheme.no17)
             .fillMaxSize()
-            .padding(horizontal = LiftTheme.space.space20),
+            .padding(
+                end = LiftTheme.space.space20,
+                start = LiftTheme.space.space20
+            ),
         state = findWorkCategoryScreenState.lazyListState,
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
     ) {
-        item { Spacer(modifier = modifier) }
         items(
             items = workCategoryList,
             key = { it.workCategory.id }

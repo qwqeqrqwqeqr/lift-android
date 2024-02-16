@@ -1,9 +1,5 @@
 package com.gradation.lift.feature.workReady.routineSelection.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,12 +13,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
@@ -36,7 +31,6 @@ import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineL
 import com.gradation.lift.feature.workReady.routineSelection.data.state.SortFilterState
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.RoutineListView
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.SearchSortFilterView
-import com.gradation.lift.ui.extensions.isScrollingUp
 
 @Composable
 internal fun RoutineSelectionScreen(
@@ -91,11 +85,6 @@ internal fun RoutineSelectionScreen(
                             .weight(1f)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
-                        AnimatedVisibility(
-                            routineListScreenState.lazyListState.isScrollingUp(),
-                            enter = expandVertically(spring()),
-                            exit = shrinkVertically(spring(stiffness = 0f))
-                        ) {
                             SearchSortFilterView(
                                 modifier,
                                 sortFilterState,
@@ -106,7 +95,6 @@ internal fun RoutineSelectionScreen(
                                 sortType,
                                 routineListScreenState
                             )
-                        }
                         if (routineSetRoutineListUiState.routineSetRoutineList.isNotEmpty())
                             RoutineListView(
                                 modifier,
@@ -138,19 +126,19 @@ internal fun RoutineSelectionScreen(
                                 )
                             }
                     }
-                    LiftDefaultContainer(
+                    LiftDefaultBottomBar(
                         modifier = modifier
-                            .background(LiftTheme.colorScheme.no5)
-                            .fillMaxWidth(),
-                        shape = RectangleShape,
-                        verticalPadding = LiftTheme.space.space10,
-                        horizontalPadding = LiftTheme.space.space20
+
                     ) {
                         LiftSolidButton(
                             modifier = modifier.fillMaxWidth(),
                             text = "운동시작하기(${routineListInfoState.selectedRoutineList.toList().size}개)",
                             onClick = {
-                                navigateRoutineSelectionToReadyInWorkReadyGraph(routineListInfoState.selectedRoutineList.joinToString("|"))
+                                navigateRoutineSelectionToReadyInWorkReadyGraph(
+                                    routineListInfoState.selectedRoutineList.joinToString(
+                                        "|"
+                                    )
+                                )
                             },
                             enabled = routineListInfoState.selectedRoutineList.toList().isNotEmpty()
                         )

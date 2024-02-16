@@ -1,7 +1,14 @@
 package com.gradation.lift.feature.workReady.routineSelection.ui.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.text.KeyboardActions
@@ -26,6 +33,7 @@ import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineL
 import com.gradation.lift.feature.workReady.routineSelection.data.state.SortFilterState
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.ui.extensions.isScrollingUp
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 /**
@@ -41,16 +49,24 @@ internal fun SearchSortFilterView(
     weekdayFilterType: WeekdayFilterType,
     labelFilterType: LabelFilterType,
     sortType: SortType,
-    routineListScreenState: RoutineListScreenState
+    routineListScreenState: RoutineListScreenState,
 ) {
     Column(
         modifier = modifier.padding(
             horizontal = LiftTheme.space.space20,
             vertical = LiftTheme.space.space16
         ),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
     ) {
-        SearchView(modifier, sortFilterState, searchFilterText,routineListScreenState)
+        AnimatedVisibility(
+            routineListScreenState.lazyListState.isScrollingUp(),
+            enter = expandVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+            exit = shrinkVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+        ) {
+            Column {
+                SearchView(modifier, sortFilterState, searchFilterText, routineListScreenState)
+                Spacer(modifier = modifier.height(LiftTheme.space.space16))
+            }
+        }
         SortFilterView(
             modifier,
             routineSetRoutineList,
@@ -94,7 +110,7 @@ internal fun SortFilterView(
     weekdayFilterType: WeekdayFilterType,
     labelFilterType: LabelFilterType,
     sortType: SortType,
-    routineListScreenState: RoutineListScreenState
+    routineListScreenState: RoutineListScreenState,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
         LiftMultiStyleText(

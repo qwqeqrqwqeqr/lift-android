@@ -16,12 +16,11 @@ import com.gradation.lift.navigation.Route.LOGIN_GRAPH_NAME
 import com.gradation.lift.navigation.Route.LOGIN_SIGN_IN_ROUTER_NAME
 
 
-fun loginGraphBuilder(
+fun NavGraphBuilder.loginGraphBuilder(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.navigation(
+    navigation(
         route = LOGIN_GRAPH_NAME,
         startDestination = LOGIN_SIGN_IN_ROUTER_NAME,
         popEnterTransition = null,
