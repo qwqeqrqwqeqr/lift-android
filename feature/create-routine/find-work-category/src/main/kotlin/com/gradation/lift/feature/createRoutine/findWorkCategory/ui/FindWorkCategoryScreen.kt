@@ -3,6 +3,7 @@ package com.gradation.lift.feature.createRoutine.findWorkCategory.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
@@ -80,7 +81,7 @@ internal fun FindWorkCategoryScreen(
                             AnimatedVisibility(
                                 visible = findWorkCategoryScreenState.lazyListState.isScrollingUp(),
                                 enter = expandVertically(spring(stiffness = Spring.StiffnessMediumLow)),
-                                exit = shrinkVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+                                exit = shrinkVertically(tween(500)),
                             ) {
                                 Column {
                                     SearchView(
