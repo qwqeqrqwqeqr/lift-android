@@ -68,6 +68,9 @@ internal fun ReadyRoute(
         }
     }
 
+
+
+
     ReadyScreen(
         modifier,
         routineSetIdList,
@@ -78,7 +81,7 @@ internal fun ReadyRoute(
         currentWorkRoutine,
         workRoutineState,
         workRoutineInfoState,
-        readyScreenState
+        readyScreenState,
     )
 
 }
