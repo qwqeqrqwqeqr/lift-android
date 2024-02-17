@@ -7,10 +7,12 @@ import com.gradation.lift.navigation.Route.ANALYTICS_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HISTORY_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 
 
 fun NavController.navigateHomeGraphToWorkReadyReadyRouter() {
-    this.navigate(Route.WORK_READY_READY_ROUTER_NAME)
+    val emptyString = ""
+    this.navigate("${Route.WORK_READY_READY_ROUTER_NAME}?${SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY}=$emptyString")
 }
 
 fun NavController.navigateHomeGraphToWorkReadyRoutineSelectionRouter() {

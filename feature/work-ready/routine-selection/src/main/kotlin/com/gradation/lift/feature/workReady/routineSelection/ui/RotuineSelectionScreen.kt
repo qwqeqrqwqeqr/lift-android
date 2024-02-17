@@ -34,8 +34,9 @@ internal fun RoutineSelectionScreen(
     weekdayFilterType: WeekdayFilterType,
     searchFilterText: String,
     sortType: SortType,
+    updateRoutineSetIdSet: (Set<Int>) -> Unit,
     popBackStack: () -> Unit,
-    navigateRoutineSelectionToReadyInWorkReadyGraph: (String) -> Unit,
+    navigateRoutineSelectionToReadyInWorkReadyGraph: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -96,18 +97,18 @@ internal fun RoutineSelectionScreen(
                         modifier = modifier
 
                     ) {
-                        LiftSolidButton(
-                            modifier = modifier.fillMaxWidth(),
-                            text = "운동시작하기(${routineListInfoState.selectedRoutineList.toList().size}개)",
-                            onClick = {
-                                navigateRoutineSelectionToReadyInWorkReadyGraph(
-                                    routineListInfoState.selectedRoutineList.joinToString(
-                                        "|"
-                                    )
-                                )
-                            },
-                            enabled = routineListInfoState.selectedRoutineList.toList().isNotEmpty()
-                        )
+                        with(routineListInfoState.selectedRoutineList.toSet()) {
+                            LiftSolidButton(
+                                modifier = modifier.fillMaxWidth(),
+                                text = "운동시작하기(${size}개)",
+                                onClick = {
+                                    updateRoutineSetIdSet(this)
+                                    navigateRoutineSelectionToReadyInWorkReadyGraph()
+                                },
+                                enabled = routineListInfoState.selectedRoutineList.toList()
+                                    .isNotEmpty()
+                            )
+                        }
                     }
                 }
             }

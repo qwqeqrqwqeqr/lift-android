@@ -3,6 +3,7 @@ package com.gradation.lift.feature.workReady.routineSelection.ui.component
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +61,7 @@ internal fun SearchSortFilterView(
         AnimatedVisibility(
             routineListScreenState.lazyListState.isScrollingUp(),
             enter = expandVertically(spring(stiffness = Spring.StiffnessMediumLow)),
-            exit = shrinkVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+            exit = shrinkVertically(tween(500)),
         ) {
             Column {
                 SearchView(modifier, sortFilterState, searchFilterText, routineListScreenState)

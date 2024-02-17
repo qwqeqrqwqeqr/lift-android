@@ -74,7 +74,7 @@ import com.gradation.lift.ui.state.rememberDragDropListState
 @Composable
 internal fun ReadyScreen(
     modifier: Modifier,
-    routineSetIdList: Set<Int>,
+    routineSetIdSet: Set<Int>,
     createWork: (List<Int>, List<WorkRoutine>) -> Unit,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
@@ -294,7 +294,7 @@ internal fun ReadyScreen(
                             text = "운동 시작하기",
                             onClick = {
                                 createWork(
-                                    routineSetIdList.toList(),
+                                    routineSetIdSet.toList(),
                                     currentWorkRoutine.toList()
                                 )
                                 navigateWorkReadyGraphToWorkGraph()

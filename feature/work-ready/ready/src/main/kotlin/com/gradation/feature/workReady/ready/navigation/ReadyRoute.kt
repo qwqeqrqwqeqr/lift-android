@@ -5,10 +5,12 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.feature.workReady.ready.data.state.ReadyScreenState
 import com.gradation.feature.workReady.ready.data.state.SnackBarState
@@ -26,7 +28,6 @@ import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 internal fun ReadyRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
-    routineSetIdList: Set<Int>,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
@@ -39,8 +40,11 @@ internal fun ReadyRoute(
 ) {
     val currentWorkRoutine: SnapshotStateList<WorkRoutine> = workRoutineState.currentWorkRoutine
     val createWork: (List<Int>, List<WorkRoutine>) -> Unit = viewModel.createWork()
+    val routineSetIdSet: Set<Int> by sharedViewModel.routineSetIdSet.collectAsStateWithLifecycle()
 
-    LaunchedEffect(routineSetIdList) { sharedViewModel.initRoutineList(routineSetIdList) }
+    LaunchedEffect(routineSetIdSet) {
+        sharedViewModel.initRoutineList()
+    }
     BackHandler(onBack = popBackStack)
 
 
@@ -73,7 +77,7 @@ internal fun ReadyRoute(
 
     ReadyScreen(
         modifier,
-        routineSetIdList,
+        routineSetIdSet,
         createWork,
         popBackStack,
         navigateReadyToFindWorkCategoryInWorkReadyGraph,
