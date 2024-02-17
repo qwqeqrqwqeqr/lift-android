@@ -128,7 +128,7 @@ fun HistoryWorkResultContent(
                             ) {
                                 AnimatedContent(
                                     targetState = selectedHistory.historyRoutine.flatMap { historyRoutine -> historyRoutine.workSetList }
-                                        .map { workSet -> workSet.weight }.sum(),
+                                        .map { it.repetition.toFloat() * it.weight }.sum(),
                                     transitionSpec = {
                                         slideIntoContainer(
                                             towards = AnimatedContentTransitionScope.SlideDirection.Up,

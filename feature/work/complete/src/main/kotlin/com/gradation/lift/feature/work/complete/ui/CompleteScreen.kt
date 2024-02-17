@@ -230,7 +230,7 @@ internal fun CompleteScreen(
                             ) {
                                 AnimatedContent(
                                     targetState = historyRoutineList.flatMap { historyRoutine -> historyRoutine.workSetList }
-                                        .map { workSet -> workSet.weight }.sum(),
+                                        .map { it.repetition.toFloat() * it.weight }.sum(),
                                     transitionSpec = {
                                         slideIntoContainer(
                                             towards = AnimatedContentTransitionScope.SlideDirection.Up,

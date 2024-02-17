@@ -84,8 +84,12 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList.mapNotNull { it.weight.toFloatOrNull() }
-                                .sum(),
+                            targetState = workSetState.workSetList
+                                .mapNotNull {
+                                    if (it.repetition.toIntOrNull() != null && it.weight.toFloatOrNull() != null)
+                                        it.repetition.toInt().toFloat() * it.weight.toFloat()
+                                    else null
+                                }.sum(),
                             transitionSpec = {
                                 slideIntoContainer(
                                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
