@@ -1,6 +1,13 @@
 package com.gradation.lift.database.di
 
-import com.gradation.lift.database.util.*
+import com.gradation.lift.database.util.GenderTypeConverter
+import com.gradation.lift.database.util.IntListTypeConverter
+import com.gradation.lift.database.util.LocalDateTimeTypeConverter
+import com.gradation.lift.database.util.LocalDateTypeConverter
+import com.gradation.lift.database.util.LocalTimeTypeConverter
+import com.gradation.lift.database.util.StringListTypeConverter
+import com.gradation.lift.database.util.UnitOfWeightTypeConverter
+import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -19,9 +26,13 @@ object TestConverterModule {
 
     @Provides
     @Singleton
-    fun provideListTypeConverter(): ListTypeConverter =
-        ListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
+    fun provideIntListTypeConverter(): IntListTypeConverter =
+        IntListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
+    @Provides
+    @Singleton
+    fun provideStringListTypeConverter(): StringListTypeConverter =
+        StringListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
     @Provides
     @Singleton

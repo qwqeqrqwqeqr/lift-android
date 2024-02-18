@@ -16,8 +16,13 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideListTypeConverter(moshi: Moshi): ListTypeConverter =
-        ListTypeConverter(moshi)
+    fun provideIntListTypeConverter(moshi: Moshi): IntListTypeConverter =
+        IntListTypeConverter(moshi)
+
+    @Provides
+    @Singleton
+    fun provideStringListTypeConverter(moshi: Moshi): StringListTypeConverter =
+        StringListTypeConverter(moshi)
 
     @Provides
     @Singleton

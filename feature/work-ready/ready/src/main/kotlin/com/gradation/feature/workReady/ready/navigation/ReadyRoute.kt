@@ -39,7 +39,7 @@ internal fun ReadyRoute(
     readyScreenState: ReadyScreenState = rememberReadyScreenState(),
 ) {
     val currentWorkRoutine: SnapshotStateList<WorkRoutine> = workRoutineState.currentWorkRoutine
-    val createWork: (List<Int>, List<WorkRoutine>) -> Unit = viewModel.createWork()
+    val createWork: (List<Int>, List<WorkRoutine>) -> Unit = viewModel.createWork
     val routineSetIdSet: Set<Int> by sharedViewModel.routineSetIdSet.collectAsStateWithLifecycle()
 
     LaunchedEffect(routineSetIdSet) {
