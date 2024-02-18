@@ -10,23 +10,23 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.data.TestDtoDataGenerator.Routine.getRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.deleteRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateUsedRoutineSetRequestDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateUsedRoutineSetResponseDto
+import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByLabelResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
 import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
 import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.routineResponseJson
 import com.gradation.lift.network.data.TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson
-import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.service.RoutineService
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineRequestDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.createRoutineSetRoutineResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.deleteRoutineSetRoutineResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetCountRequestDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetCountResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineRequestDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSet.updateRoutineSetRoutineResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByLabelResponseDto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -108,7 +108,7 @@ class RoutineServiceTest {
     }
 
     @Test
-    fun updateRoutineSetCountService() = runTest {
+    fun updateUsedRoutineSetService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(resultResponseJson)
@@ -117,7 +117,7 @@ class RoutineServiceTest {
         )
 
         val response =
-            routineService.updateRoutineSetCount(updateRoutineSetCountRequestDto = updateRoutineSetCountRequestDto)
+            routineService.updateUsedRoutineSet(updateUsedRoutineSetRequestDto = updateUsedRoutineSetRequestDto)
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path).isEqualTo("/routine/routine-set/count")
@@ -126,7 +126,7 @@ class RoutineServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(updateRoutineSetCountResponseDto)
+            .isEqualTo(updateUsedRoutineSetResponseDto)
     }
 
 

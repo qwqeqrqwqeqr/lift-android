@@ -5,8 +5,8 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import com.gradation.lift.network.common.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
@@ -20,7 +20,7 @@ interface RoutineDataSource {
     suspend fun createRoutineSetRoutine(createRoutineSetRoutine: CreateRoutineSetRoutine): Flow<NetworkResult<Unit>>
     suspend fun deleteRoutineSetRoutine(routineSetId : Int): Flow<NetworkResult<Unit>>
     suspend fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<NetworkResult<Unit>>
-    suspend fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<NetworkResult<Unit>>
+    suspend fun updateUsedRoutineSet(updateUsedRoutineSet: UpdateUsedRoutineSet): Flow<NetworkResult<Unit>>
 
 
     suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>>

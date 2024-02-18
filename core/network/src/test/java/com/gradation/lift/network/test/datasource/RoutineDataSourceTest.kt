@@ -7,15 +7,15 @@ import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
-import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestJsonDataGenerator
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.RoutineService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -106,7 +106,7 @@ class RoutineDataSourceTest {
     }
 
     @Test
-    fun updateRoutineSetCountDataSource() = runTest {
+    fun updateUsedRoutineSetDataSource() = runTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(TestJsonDataGenerator.Common.resultResponseJson)
@@ -115,7 +115,7 @@ class RoutineDataSourceTest {
         )
 
         with(
-            routineDataSource.updateRoutineSetCount(updateRoutineSetCount = ModelDataGenerator.RoutineSetRoutine.updateRoutineSetCountModel)
+            routineDataSource.updateUsedRoutineSet(updateUsedRoutineSet = ModelDataGenerator.RoutineSetRoutine.updateUsedRoutineSetModel)
                 .first()
         ) {
             Truth.assertThat(

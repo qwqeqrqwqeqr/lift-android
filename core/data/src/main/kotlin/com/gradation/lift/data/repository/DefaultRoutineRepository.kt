@@ -8,12 +8,11 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -46,9 +45,9 @@ class DefaultRoutineRepository @Inject constructor(
             }
         }.flowOn(dispatcherProvider.default)
 
-    override fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<DataState<Unit>> =
+    override fun updateUsedRoutineSet(updateUsedRoutineSet: UpdateUsedRoutineSet): Flow<DataState<Unit>> =
         flow {
-            routineDataSource.updateRoutineSetCount(updateRoutineSetCount).collect { result ->
+            routineDataSource.updateUsedRoutineSet(updateUsedRoutineSet).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(DataState.Success(result.data))

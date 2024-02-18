@@ -66,7 +66,7 @@ import org.junit.runners.Suite
     ErrorMapperTest::class,
     SignInMapperTest::class,
     SignUpMapperTest::class,
-    UpdateRoutineSetCountMapperTest::class,
+    UpdateUsedRoutineSetMapperTest::class,
     UpdateRoutineSetRoutineMapperTest::class
 )
 class NetworkTestSuit

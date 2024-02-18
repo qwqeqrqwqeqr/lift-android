@@ -2,15 +2,14 @@ package com.gradation.lift.network.service
 
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.routine.*
-
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Query
 
 
 /**
@@ -40,12 +39,12 @@ interface RoutineService {
     suspend fun updateRoutineSetRoutine(@Body updateRoutineSetRoutineRequestDto: UpdateRoutineSetRoutineRequestDto): Response<APIResultWrapper<UpdateRoutineSetRoutineResponseDto>>
 
     /**
-     * [updateRoutineSetCount]
-     * 루틴세트의 사용횟수를 1 증가시킵니다.
-     * @since 2023-10-13 11:35:46
+     * [updateUsedRoutineSet]
+     * 사용한 루틴세트의 상태를 업데이트합니다.
+     * @since 2024-02-18 17:00:20
      */
-    @PATCH("routine/routine-set/count")
-    suspend fun updateRoutineSetCount(@Body updateRoutineSetCountRequestDto: UpdateRoutineSetCountRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
+    @PATCH("routine/routine-set/use")
+    suspend fun updateUsedRoutineSet(@Body updateUsedRoutineSetRequestDto: UpdateUsedRoutineSetRequestDto): Response<APIResultWrapper<UpdateUsedRoutineSetResponseDto>>
 
 
     /**

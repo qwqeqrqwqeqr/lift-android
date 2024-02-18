@@ -15,8 +15,8 @@ import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator
-import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateRoutineSetCountModel
 import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateRoutineSetRoutineModel
+import com.gradation.lift.model.utils.ModelDataGenerator.RoutineSetRoutine.updateUsedRoutineSetModel
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -89,18 +89,18 @@ class RoutineRepositoryTest {
     }
 
     @Test
-    fun updateRoutineSetCount() = runTest {
+    fun updateUsedRoutineSet() = runTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.updateRoutineSetCount(updateRoutineSetCount = updateRoutineSetCountModel)
+            successRepository.updateUsedRoutineSet(updateUsedRoutineSet = updateUsedRoutineSetModel)
                 .first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.updateRoutineSetCount(updateRoutineSetCount = updateRoutineSetCountModel)
+            failRepository.updateUsedRoutineSet(updateUsedRoutineSet = updateUsedRoutineSetModel)
                 .first()
         )
     }

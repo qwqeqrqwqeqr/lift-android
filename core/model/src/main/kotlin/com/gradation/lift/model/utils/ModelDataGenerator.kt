@@ -25,8 +25,8 @@ import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
-import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.model.work.WorkCategory
@@ -350,8 +350,9 @@ object ModelDataGenerator {
             routine = listOf(updateRoutineModel),
         )
 
-        val updateRoutineSetCountModel = UpdateRoutineSetCount(
-            routineSetIdList = listOf(FAKE_INT_DATA)
+        val updateUsedRoutineSetModel = UpdateUsedRoutineSet(
+            routineSetIdList = listOf(FAKE_INT_DATA),
+            usedTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
         )
     }
 

@@ -6,8 +6,8 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -34,11 +34,11 @@ interface RoutineRepository {
     fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<DataState<Unit>>
 
     /**
-     * [updateRoutineSetCount]
+     * [updateUsedRoutineSet]
      * 루틴 세트의 사용횟수 1 증가
      * @since 2023-10-13 11:46:09
      */
-    fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<DataState<Unit>>
+    fun updateUsedRoutineSet(updateUsedRoutineSet: UpdateUsedRoutineSet): Flow<DataState<Unit>>
 
     /**
      * [deleteRoutineSetRoutine]

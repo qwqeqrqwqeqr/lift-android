@@ -5,17 +5,17 @@ import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRo
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByRoutineSetIdResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineByWeekdayResponseDto
 import com.gradation.lift.data.data.TestDtoDataGenerator.RoutineSetRoutine.getRoutineSetRoutineResponseDto
+import com.gradation.lift.data.utils.TestReturnState
+import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
-import com.gradation.lift.data.utils.TestReturnState
-import com.gradation.lift.model.model.date.Weekday
-import com.gradation.lift.model.model.routine.Label
-import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
-import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -45,7 +45,7 @@ class FakeRoutineDataSource(private val testReturnState: TestReturnState = TestR
             }
         }
 
-    override suspend fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<NetworkResult<Unit>> =
+    override suspend fun updateUsedRoutineSet(updateUsedRoutineSet: UpdateUsedRoutineSet): Flow<NetworkResult<Unit>> =
         flow {
             when (testReturnState) {
                 TestReturnState.Fail -> emit(NetworkResult.Fail(FAKE_ERROR_MESSAGE))
