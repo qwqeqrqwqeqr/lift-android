@@ -40,7 +40,7 @@ import com.gradation.lift.database.util.*
         WorkCategoryEntity::class,
         WorkPartEntity::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = true,
 )
 @TypeConverters(

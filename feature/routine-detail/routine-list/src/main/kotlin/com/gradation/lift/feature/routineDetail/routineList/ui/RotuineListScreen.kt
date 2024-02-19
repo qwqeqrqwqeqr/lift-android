@@ -81,7 +81,7 @@ internal fun RoutineListScreen(
                             modifier,
                             sortFilterState,
                             searchFilterText,
-                            routineSetRoutineListUiState.routineSetRoutineList,
+                            routineSetRoutineListUiState.routineListState.routineList,
                             weekdayFilterType,
                             labelFilterType,
                             sortType,
@@ -89,7 +89,7 @@ internal fun RoutineListScreen(
                         )
                         RoutineListView(
                             modifier,
-                            routineSetRoutineListUiState.routineSetRoutineList,
+                            routineSetRoutineListUiState.routineListState.routineList,
                             routineListInfoState,
                             routineListScreenState,
                             navigateRoutineListToRoutineInRoutineDetailGraph

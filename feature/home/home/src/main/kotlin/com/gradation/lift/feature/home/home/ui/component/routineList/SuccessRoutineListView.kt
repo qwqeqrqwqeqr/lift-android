@@ -23,6 +23,7 @@ import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.label.AllRoutineLabel
 import com.gradation.lift.designsystem.component.label.FridayRoutineLabel
 import com.gradation.lift.designsystem.component.label.MondayRoutineLabel
+import com.gradation.lift.designsystem.component.label.RecentRoutineLabel
 import com.gradation.lift.designsystem.component.label.RoutineLabel
 import com.gradation.lift.designsystem.component.label.SaturdayRoutineLabel
 import com.gradation.lift.designsystem.component.label.SundayRoutineLabel
@@ -32,9 +33,9 @@ import com.gradation.lift.designsystem.component.label.WednesdayRoutineLabel
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.home.home.data.model.RecentUsedRoutineSetRoutine
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.getWeekdayEntries
-import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 
@@ -42,7 +43,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 @Composable
 fun SuccessRoutineListView(
     modifier: Modifier = Modifier,
-    routineList: List<RoutineSetRoutine>,
+    routineList: List<RecentUsedRoutineSetRoutine>,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
@@ -61,13 +62,13 @@ fun SuccessRoutineListView(
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
             ) {
                 item { Spacer(modifier = modifier.width(LiftTheme.space.space12)) }
-                items(routineList, key = { it.id }) {
+                items(routineList, key = { it.routineSetRoutine.id }) {
                     LiftDefaultContainer(
                         modifier = modifier
                             .width(LiftTheme.space.space140)
                             .noRippleClickable {
                                 navigateHomeGraphToRoutineDetailRoutineRouter(
-                                    it.id
+                                    it.routineSetRoutine.id
                                 )
                             },
                         horizontalPadding = LiftTheme.space.space12,
@@ -82,7 +83,7 @@ fun SuccessRoutineListView(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
                                 ) {
-                                    it.label.forEach {
+                                    it.routineSetRoutine.label.forEach {
                                         RoutineLabel(
                                             modifier.size(LiftTheme.space.space10),
                                             id = it.id
@@ -91,15 +92,18 @@ fun SuccessRoutineListView(
                                 }
                                 Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)) {
                                     LiftText(
-                                        textStyle = LiftTextStyle.No3, text = it.name, color =
-                                        LiftTheme.colorScheme.no9, textAlign = TextAlign.Start
+                                        textStyle = LiftTextStyle.No3,
+                                        text = it.routineSetRoutine.name,
+                                        color =
+                                        LiftTheme.colorScheme.no9,
+                                        textAlign = TextAlign.Start
                                     )
-                                    if (it.description.isEmpty())
+                                    if (it.routineSetRoutine.description.isEmpty())
                                         Spacer(modifier = modifier.height(LiftTheme.space.space16))
                                     else
                                         LiftText(
                                             textStyle = LiftTextStyle.No6,
-                                            text = it.description,
+                                            text = it.routineSetRoutine.description,
                                             color = LiftTheme.colorScheme.no9,
                                             textAlign = TextAlign.Start,
                                             overflow = TextOverflow.Ellipsis,
@@ -111,10 +115,11 @@ fun SuccessRoutineListView(
                                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
                                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
                             ) {
-                                if (it.weekday.size == getWeekdayEntries().size)
+                                if (it.recentUsed) RecentRoutineLabel(modifier)
+                                if (it.routineSetRoutine.weekday.size == getWeekdayEntries().size)
                                     AllRoutineLabel(modifier, false)
                                 else {
-                                    it.weekday.forEach {
+                                    it.routineSetRoutine.weekday.forEach {
                                         when (it) {
                                             is Weekday.Friday -> FridayRoutineLabel(
                                                 modifier,

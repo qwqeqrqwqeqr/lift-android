@@ -39,7 +39,7 @@ fun RoutineListView(
         is RoutineUiState.Success -> {
             SuccessRoutineListView(
                 modifier,
-                routineUiState.routineList,
+                routineUiState.routineState.routineList,
                 navigateHomeGraphToRoutineDetailGraph,
                 navigateMainGraphToCreateRoutineGraph,
                 navigateHomeGraphToRoutineDetailRoutineRouter,

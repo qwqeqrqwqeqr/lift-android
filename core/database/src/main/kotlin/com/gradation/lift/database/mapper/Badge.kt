@@ -7,7 +7,7 @@ import com.gradation.lift.model.model.badge.UserBadge
 
 
 fun Badge.toEntity() = BadgeEntity(
-    id, name, description, hint, url, color
+    id, name, description, hint, url, color, backgroundColor
 )
 
 fun UserBadge.toEntity() = UserBadgeEntity(

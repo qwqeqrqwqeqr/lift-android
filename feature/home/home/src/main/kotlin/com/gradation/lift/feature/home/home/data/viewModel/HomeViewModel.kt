@@ -8,8 +8,11 @@ import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.domain.usecase.routine.GetMostUsedRoutineSetRoutineUseCase
+import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRecentUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
+import com.gradation.lift.feature.home.home.data.model.RecentUsedRoutineSetRoutine
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
+import com.gradation.lift.feature.home.home.data.state.RoutineState
 import com.gradation.lift.feature.home.home.data.state.RoutineUiState
 import com.gradation.lift.feature.home.home.data.state.UserDetailUiState
 import com.gradation.lift.feature.home.home.data.state.WorkStampState
@@ -18,6 +21,7 @@ import com.gradation.lift.model.model.history.History
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.DatePeriod
@@ -38,6 +42,7 @@ class HomeViewModel @Inject constructor(
     getUserDetailUseCase: GetUserDetailUseCase,
     getUserBadgeByMainFlagUseCase: GetUserBadgeByMainFlagUseCase,
     getMostUsedRoutineSetRoutineUseCase: GetMostUsedRoutineSetRoutineUseCase,
+    getRoutineSetRoutineByRecentUseCase: GetRoutineSetRoutineByRecentUseCase,
     getHistoryUseCase: GetHistoryUseCase,
     getCurrentWeekUseCase: GetCurrentWeekUseCase,
     getTodayUseCase: GetTodayUseCase,
@@ -67,11 +72,28 @@ class HomeViewModel @Inject constructor(
     )
 
     internal val routineUiState: StateFlow<RoutineUiState> =
-        getMostUsedRoutineSetRoutineUseCase().map {
-            when (it) {
-                is DataState.Fail -> RoutineUiState.Fail(it.message)
+        combine(
+            getMostUsedRoutineSetRoutineUseCase(),
+            getRoutineSetRoutineByRecentUseCase()
+        ) { mostUsed, recent ->
+            when (mostUsed) {
+                is DataState.Fail -> RoutineUiState.Fail(mostUsed.message)
                 is DataState.Success -> {
-                    if (it.data.isEmpty()) RoutineUiState.Empty else RoutineUiState.Success(it.data)
+                    when (recent) {
+                        is DataState.Fail -> RoutineUiState.Fail(recent.message)
+                        is DataState.Success -> {
+                            if (mostUsed.data.isEmpty()) RoutineUiState.Empty
+                            else
+                                RoutineUiState.Success(
+                                    RoutineState(mostUsed.data.map {
+                                        RecentUsedRoutineSetRoutine(
+                                            routineSetRoutine = it,
+                                            recentUsed = recent.data.contains(it)
+                                        )
+                                    })
+                                )
+                        }
+                    }
                 }
             }
         }.stateIn(

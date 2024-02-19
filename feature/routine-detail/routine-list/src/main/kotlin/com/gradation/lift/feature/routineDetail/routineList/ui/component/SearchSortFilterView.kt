@@ -28,12 +28,12 @@ import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.component.textField.LiftSearchInputTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routineDetail.routineList.data.model.LabelFilterType
+import com.gradation.lift.feature.routineDetail.routineList.data.model.RecentUsedRoutineSetRoutine
 import com.gradation.lift.feature.routineDetail.routineList.data.model.SortType
 import com.gradation.lift.feature.routineDetail.routineList.data.model.WeekdayFilterType
 import com.gradation.lift.feature.routineDetail.routineList.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routineDetail.routineList.data.state.SortFilterState
 import com.gradation.lift.model.model.routine.Label
-import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.extensions.isScrollingUp
 import com.gradation.lift.ui.modifier.noRippleClickable
 
@@ -46,7 +46,7 @@ internal fun SearchSortFilterView(
     modifier: Modifier = Modifier,
     sortFilterState: SortFilterState,
     searchFilterText: String,
-    routineSetRoutineList: List<RoutineSetRoutine>,
+    routineSetRoutineList: List<RecentUsedRoutineSetRoutine>,
     weekdayFilterType: WeekdayFilterType,
     labelFilterType: LabelFilterType,
     sortType: SortType,
@@ -107,7 +107,7 @@ internal fun SearchView(
 @Composable
 internal fun SortFilterView(
     modifier: Modifier = Modifier,
-    routineSetRoutineList: List<RoutineSetRoutine>,
+    routineSetRoutineList: List<RecentUsedRoutineSetRoutine>,
     weekdayFilterType: WeekdayFilterType,
     labelFilterType: LabelFilterType,
     sortType: SortType,
