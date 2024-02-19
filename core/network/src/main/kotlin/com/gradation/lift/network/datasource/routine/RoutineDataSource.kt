@@ -26,6 +26,7 @@ interface RoutineDataSource {
     suspend fun getRoutine(): Flow<NetworkResult<List<Routine>>>
 
     suspend fun getRoutineSetRoutine(): Flow<NetworkResult<List<RoutineSetRoutine>>>
+    suspend fun getRoutineSetRoutineByRecent(): Flow<NetworkResult<List<RoutineSetRoutine>>>
 
     suspend fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<NetworkResult<List<RoutineSetRoutine>>>
 

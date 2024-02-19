@@ -82,6 +82,15 @@ class DefaultRoutineRepository @Inject constructor(
         }
     }.flowOn(dispatcherProvider.default)
 
+    override fun getRoutineSetRoutineByRecent(): Flow<DataState<List<RoutineSetRoutine>>> = flow {
+        routineDataSource.getRoutineSetRoutineByRecent().distinctUntilChanged().collect { result ->
+            when (result) {
+                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Success -> emit(DataState.Success(result.data))
+            }
+        }
+    }.flowOn(dispatcherProvider.default)
+
     override fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<DataState<List<RoutineSetRoutine>>> =
         flow {
             routineDataSource.getRoutineSetRoutineByWeekday(weekday).collect { result ->

@@ -100,4 +100,14 @@ interface RoutineService {
      */
     @GET("routine/routine-set-routine/routine-set-id")
     suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id_list") routineSetIdList: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
+
+
+    /**
+     * [getRoutineSetRoutineByRecent]
+     * 가장 최근에 사용한 루틴을 불러오기
+     * @since 2024-02-19 15:05:48
+     */
+    @GET("routine/routine-set-routine/recent")
+    suspend fun getRoutineSetRoutineByRecent(): Response<APIResultWrapper<GetRoutineSetRoutineByRecentResponseDto>>
+
 }

@@ -100,6 +100,17 @@ class DefaultRoutineDataSource @Inject constructor(
             }
         }.flowOn(dispatcherProvider.default)
 
+    override suspend fun getRoutineSetRoutineByRecent(): Flow<NetworkResult<List<RoutineSetRoutine>>> =
+        flow {
+            networkResultHandler { routineService.getRoutineSetRoutineByRecent() }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+
+                    is NetworkResult.Success -> emit(NetworkResult.Success(result.data.toDomain()))
+                }
+            }
+        }.flowOn(dispatcherProvider.default)
+
 
     override suspend fun getRoutineSetRoutineByWeekday(weekday: Set<Weekday>): Flow<NetworkResult<List<RoutineSetRoutine>>> =
         flow {

@@ -2,6 +2,7 @@ package com.gradation.lift.domain.repository
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.model.model.auth.LoginMethod
+import com.gradation.lift.model.model.user.DeleteUserInfo
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
@@ -15,6 +16,13 @@ import kotlinx.coroutines.flow.Flow
  *  @since 2023-08-28 20:00:06
  */
 interface UserRepository {
+
+    /**
+     * [deleteUserInfo]
+     * 사용자의 계정을 삭제합니다.
+     * @since 2024-02-19 15:16:24
+     */
+    fun deleteUser(deleteUserInfo: DeleteUserInfo): Flow<DataState<Unit>>
 
     /**
      * [getUserDetail]

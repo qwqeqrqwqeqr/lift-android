@@ -63,6 +63,13 @@ interface RoutineRepository {
     fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>>
 
     /**
+     * [getRoutineSetRoutine]
+     * 사용자가 최근 사용한 루틴 불러오기
+     * @since 2024-02-19 15:11:23
+     */
+    fun getRoutineSetRoutineByRecent(): Flow<DataState<List<RoutineSetRoutine>>>
+
+    /**
      * [getRoutineSetRoutineByWeekday]
      * 해당 요일들에 해당하는 사용자의 루틴 세트 불러오기
      * 요일 리스트를 Set로 받은 후, string으로 변환하여 API를 요청함
