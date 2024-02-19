@@ -22,8 +22,9 @@ fun ProfileRoute(
     modifier: Modifier = Modifier,
     navigateProfileToMyInfoInMyInfoGraph: () -> Unit,
     navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit,
-    navigateProfileToUpdateInfoInMyInfoGraph: (String,Float,Float) -> Unit,
+    navigateProfileToUpdateInfoInMyInfoGraph: (String, Float, Float) -> Unit,
     navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit,
+    navigateProfileToCancelMembershipInMyInfoGraph: () -> Unit,
     navigateMyInfoGraphToLoginGraph: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel(),
     profileScreenState: ProfileScreenState = rememberProfileScreenState(),
@@ -70,6 +71,7 @@ fun ProfileRoute(
         navigateProfileToUpdateNameInMyInfoGraph,
         navigateProfileToUpdateInfoInMyInfoGraph,
         navigateProfileToUpdateProfilePictureInMyInfoGraph,
+        navigateProfileToCancelMembershipInMyInfoGraph,
         profileUiState,
         profileScreenState
     )

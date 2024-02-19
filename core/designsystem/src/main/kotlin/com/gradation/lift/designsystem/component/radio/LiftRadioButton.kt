@@ -32,7 +32,7 @@ fun LiftRadioButton(
         ),
         icon = if (selected) LiftIcon.RadioChecked else LiftIcon.RadioUnchecked,
         iconType = IconType.Painter,
-        iconBoxSize = IconBoxSize.Size24
+        iconBoxSize = IconBoxSize.Size20
     )
 }
 

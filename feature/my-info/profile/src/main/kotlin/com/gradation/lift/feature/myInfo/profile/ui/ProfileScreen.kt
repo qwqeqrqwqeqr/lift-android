@@ -1,7 +1,11 @@
 package com.gradation.lift.feature.myInfo.profile.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,8 +27,9 @@ internal fun ProfileScreen(
     modifier: Modifier = Modifier,
     navigateProfileToMyInfoInMyInfoGraph: () -> Unit,
     navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit,
-    navigateProfileToUpdateInfoInMyInfoGraph: (String,Float,Float) -> Unit,
+    navigateProfileToUpdateInfoInMyInfoGraph: (String, Float, Float) -> Unit,
     navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit,
+    navigateProfileToCancelMembershipInMyInfoGraph: () -> Unit,
     profileUiState: ProfileUiState,
     profileScreenState: ProfileScreenState,
 ) {
@@ -91,6 +96,7 @@ internal fun ProfileScreen(
                             modifier,
                             navigateProfileToUpdateNameInMyInfoGraph,
                             navigateProfileToUpdateInfoInMyInfoGraph,
+                            navigateProfileToCancelMembershipInMyInfoGraph,
                             profileUiState.profileState
                         )
                     }
