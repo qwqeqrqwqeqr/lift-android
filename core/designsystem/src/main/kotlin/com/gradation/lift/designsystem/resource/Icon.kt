@@ -93,8 +93,8 @@ object LiftIcon {
 
     val DropDown = R.drawable.drop_down
 
-    val IncreaseArrow = R.drawable.increase_arrow
-    val DecreaseArrow = R.drawable.decrease_arrow
+    val Up = R.drawable.up
+    val Down = R.drawable.down
 
     val Plus = R.drawable.plus_blue
     val Pause = R.drawable.pause

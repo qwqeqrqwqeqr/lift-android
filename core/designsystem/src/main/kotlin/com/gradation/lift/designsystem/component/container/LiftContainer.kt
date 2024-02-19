@@ -20,7 +20,7 @@ fun LiftDefaultContainer(
     verticalPadding: Dp = LiftTheme.space.space0,
     horizontalPadding: Dp = LiftTheme.space.space0,
     shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
-    backGroundColor : Color = LiftTheme.colorScheme.no5,
+    backGroundColor: Color = LiftTheme.colorScheme.no5,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -93,8 +93,8 @@ fun LiftSecondaryContainer(
     horizontalPadding: Dp = LiftTheme.space.space0,
     shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
     content: @Composable BoxScope.() -> Unit,
+) {
 
-    ) {
     Box(
         modifier = modifier
             .background(

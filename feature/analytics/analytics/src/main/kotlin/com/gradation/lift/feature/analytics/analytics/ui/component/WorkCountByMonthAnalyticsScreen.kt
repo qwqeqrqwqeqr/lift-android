@@ -1,6 +1,5 @@
 package com.gradation.lift.feature.analytics.analytics.ui.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,23 +10,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.R
 import com.gradation.lift.designsystem.temp.chart.chart.BarChart
 import com.gradation.lift.designsystem.temp.chart.model.BarChartItem
-import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.analytics.analytics.data.model.WorkFrequencyMonth
 import kotlin.math.abs
@@ -200,12 +193,7 @@ fun WorkCountByMonthAnalyticsScreen(
                                 style = LiftTheme.typography.no4,
                                 modifier = modifier.background(LiftTheme.colorScheme.no5)
                             )
-                            Icon(
-                                painter = painterResource(LiftIcon.IncreaseArrow),
-                                contentDescription = "",
-                                tint = LiftTheme.colorScheme.no27,
-                                modifier = modifier.background(LiftTheme.colorScheme.no5)
-                            )
+
                         } else if (this < 0) {
                             Text(
                                 text = "${abs(this)}회 ",
@@ -213,12 +201,7 @@ fun WorkCountByMonthAnalyticsScreen(
                                 style = LiftTheme.typography.no4,
                                 modifier = modifier.background(LiftTheme.colorScheme.no5)
                             )
-                            Icon(
-                                painter = painterResource(LiftIcon.DecreaseArrow),
-                                contentDescription = "",
-                                tint = LiftTheme.colorScheme.no28,
-                                modifier = modifier.background(LiftTheme.colorScheme.no5)
-                            )
+
                         }
                     }
 
@@ -237,13 +220,7 @@ fun WorkCountByMonthAnalyticsScreen(
                                 style = LiftTheme.typography.no4,
                                 modifier = modifier.background(LiftTheme.colorScheme.no5)
                             )
-                            Icon(
-                                painter = painterResource(LiftIcon.IncreaseArrow),
-                                contentDescription = "",
-                                tint = LiftTheme.colorScheme.no27,
-                                modifier = modifier.background(LiftTheme.colorScheme.no5)
 
-                            )
                         } else if (this < 0) {
                             Text(
                                 text = "${abs(this)}회 ",
@@ -251,13 +228,7 @@ fun WorkCountByMonthAnalyticsScreen(
                                 style = LiftTheme.typography.no4,
                                 modifier = modifier.background(LiftTheme.colorScheme.no5)
                             )
-                            Icon(
-                                painter = painterResource(LiftIcon.DecreaseArrow),
-                                contentDescription = "",
-                                tint = LiftTheme.colorScheme.no28,
-                                modifier = modifier.background(LiftTheme.colorScheme.no5)
 
-                            )
                         }
                     }
 
