@@ -83,7 +83,8 @@ object ModelDataGenerator {
             description = FAKE_STRING_DATA,
             hint = FAKE_STRING_DATA,
             url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            color = FAKE_COLOR_DATA
+            color = FAKE_COLOR_DATA,
+            backgroundColor = FAKE_COLOR_DATA
         )
         val badgeConditionModel = BadgeCondition(
             badge = badgeModel

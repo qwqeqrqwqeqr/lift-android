@@ -18,7 +18,9 @@ data class BadgeDto(
     @SerialName("url")
     val url: String,
     @SerialName("color")
-    val color: String
+    val color: String,
+    @SerialName("background_color")
+    val backgroundColor: String,
 )
 
 

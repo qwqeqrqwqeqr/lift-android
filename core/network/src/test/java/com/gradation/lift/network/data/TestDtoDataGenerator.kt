@@ -140,7 +140,8 @@ object TestDtoDataGenerator {
             description = FAKE_STRING_DATA,
             hint = FAKE_STRING_DATA,
             url = FAKE_URL_DATA,
-            color = FAKE_COLOR_DATA
+            color = FAKE_COLOR_DATA,
+            backgroundColor = FAKE_COLOR_DATA
         )
         internal val userBadgeDto = UserBadgeDto(
             badge = badgeDto,
