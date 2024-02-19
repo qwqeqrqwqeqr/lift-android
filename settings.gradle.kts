@@ -100,6 +100,8 @@ include(":feature:my-info:update-info")
 include(":feature:my-info:navigation")
 include(":feature:my-info:terms-policy")
 include(":feature:my-info:terms-policy-detail")
+include(":feature:my-info:cancel-membership")
+include(":feature:my-info:cancel-membership-confirm")
 
 include(":feature:history:history")
 include(":feature:history:navigation")
