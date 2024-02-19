@@ -2,6 +2,8 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.MY_INFO_CANCEL_MEMBERSHIP_CONFIRM_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_CANCEL_MEMBERSHIP_ROUTER_NAME
 import com.gradation.lift.navigation.Route.MY_INFO_TERMS_POLICY_DETAIL_ROUTER_NAME
 import com.gradation.lift.navigation.Route.MY_INFO_TERMS_POLICY_ROUTER_NAME
 import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_INFO_ROUTER_NAME
@@ -163,3 +165,38 @@ fun NavController.navigateUpdateProfilePictureToProfileInMyInfoGraph() {
 }
 
 
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 프로필 화면에서 회원 탈퇴 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateProfileToCancelMembershipInMyInfoGraph() {
+    this.navigate(MY_INFO_CANCEL_MEMBERSHIP_ROUTER_NAME)
+}
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 회원 탈퇴 화면에서 프로필 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateCancelMembershipToProfileInMyInfoGraph() {
+    popBackStack()
+}
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 회원 탈퇴 화면에서 회원 탈퇴 확인 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateCancelMembershipToCancelMembershipConfirmInMyInfoGraph(reason: String) {
+    this.navigate("$MY_INFO_CANCEL_MEMBERSHIP_CONFIRM_ROUTER_NAME/$reason")
+}
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 회원 탈퇴 확인 화면에서 회원 탈퇴 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateCancelMembershipConfirmToCancelMembershipInMyInfoGraph() {
+    popBackStack()
+}

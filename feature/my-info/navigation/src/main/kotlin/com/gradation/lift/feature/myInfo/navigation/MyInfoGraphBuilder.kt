@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
+import com.gradation.lift.feature.myInfo.cancelMembership.navigation.cancelMembershipScreen
+import com.gradation.lift.feature.myInfo.cancelMembershipConfirm.navigation.cancelMembershipConfirmScreen
 import com.gradation.lift.feature.myInfo.myInfo.navigation.myInfoScreen
 import com.gradation.lift.feature.myInfo.profile.navigation.profileScreen
 import com.gradation.lift.feature.myInfo.updateInfo.navigation.updateInfoScreen
@@ -36,5 +38,7 @@ fun NavGraphBuilder.myInfoGraphBuilder(
         updateProfilePicture(modifier, navController)
         termsPolicyScreen(modifier, navController)
         termsPolicyDetailScreen(modifier, navController)
+        cancelMembershipScreen(modifier, navController)
+        cancelMembershipConfirmScreen(modifier, navController)
     }
 }

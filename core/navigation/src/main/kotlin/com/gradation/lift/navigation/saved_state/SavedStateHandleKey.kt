@@ -40,6 +40,8 @@ object SavedStateHandleKey {
         const val USER_NAME_KEY = "MY_INFO_USER_NAME_KEY_KEY"
         const val TERMS_POLICY_TITLE_KEY = "TERMS_POLICY_TITLE_KEY"
         const val TERMS_POLICY_CONTENTS_KEY = "TERMS_POLICY_CONTENTS_KEY"
+
+        const val MY_INFO_CANCEL_MEMBERSHIP_REASON_KEY = "MY_INFO_CANCEL_MEMBERSHIP_REASON_KEY"
     }
 
     object Work {

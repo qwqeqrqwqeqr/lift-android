@@ -19,6 +19,8 @@ dependencies {
     implementation(project(":feature:my-info:update-info"))
     implementation(project(":feature:my-info:terms-policy"))
     implementation(project(":feature:my-info:terms-policy-detail"))
+    implementation(project(":feature:my-info:cancel-membership"))
+    implementation(project(":feature:my-info:cancel-membership-confirm"))
 
 
 }
