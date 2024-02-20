@@ -93,13 +93,16 @@ object LiftIcon {
 
     val DropDown = R.drawable.drop_down
 
+    val HexagonBlue = R.drawable.hexagon_blue
+    val HexagonOrange = R.drawable.hexagon_orange
+
     val Up = R.drawable.up
     val Down = R.drawable.down
 
     val Plus = R.drawable.plus_blue
     val Pause = R.drawable.pause
     val EqualBlack = R.drawable.equal_black
-    val equalBlue = R.drawable.equal_blue
+    val EqualBlue = R.drawable.equal_blue
 
     val LeftArrowCircle = R.drawable.left_arrow_circle
     val RightArrowCircle = R.drawable.right_arrow_circle

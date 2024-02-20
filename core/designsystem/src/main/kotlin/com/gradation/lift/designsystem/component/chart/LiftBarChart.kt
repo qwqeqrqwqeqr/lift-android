@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
+import com.gradation.lift.designsystem.component.chart.state.BarChartState
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftSecondaryContainer
 import com.gradation.lift.designsystem.component.icon.LiftIconBox
@@ -25,17 +27,12 @@ import kotlinx.datetime.LocalDate
 import kotlin.math.abs
 
 
-data class WorkCountByMonth(
-    val workCount: Int,
-    val month: LocalDate,
-)
-
 @Composable
 fun LiftBarChart(
     modifier: Modifier = Modifier,
-    workCountByMonthList: List<WorkCountByMonth>,
+    barChartState: BarChartState,
 ) {
-    val maxCount = workCountByMonthList.maxOf { it.workCount }
+    val maxCount = barChartState.workCountByMonthList.maxOf { it.workCount }
     LiftDefaultContainer(
         modifier = modifier
             .fillMaxWidth(),
@@ -57,7 +54,7 @@ fun LiftBarChart(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.Bottom
             ) {
-                workCountByMonthList.forEachIndexed { index, workCountByMonth ->
+                barChartState.workCountByMonthList.forEachIndexed { index, workCountByMonth ->
                     Column(
                         modifier = modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
@@ -66,8 +63,8 @@ fun LiftBarChart(
                         LiftText(
                             text = "${workCountByMonth.workCount}회",
                             color = when (index) {
-                                workCountByMonthList.lastIndex - 1 -> LiftTheme.colorScheme.no26
-                                workCountByMonthList.lastIndex -> LiftTheme.colorScheme.no4
+                                barChartState.workCountByMonthList.lastIndex - 1 -> LiftTheme.colorScheme.no26
+                                barChartState.workCountByMonthList.lastIndex -> LiftTheme.colorScheme.no4
                                 else -> LiftTheme.colorScheme.no2
                             },
                             textAlign = TextAlign.Center,
@@ -82,8 +79,8 @@ fun LiftBarChart(
                                 .fillMaxWidth()
                                 .background(
                                     color = when (index) {
-                                        workCountByMonthList.lastIndex - 1 -> LiftTheme.colorScheme.no26
-                                        workCountByMonthList.lastIndex -> LiftTheme.colorScheme.no4
+                                        barChartState.workCountByMonthList.lastIndex - 1 -> LiftTheme.colorScheme.no26
+                                        barChartState.workCountByMonthList.lastIndex -> LiftTheme.colorScheme.no4
                                         else -> LiftTheme.colorScheme.no39
                                     },
                                     RoundedCornerShape(LiftTheme.space.space6)
@@ -106,21 +103,22 @@ fun LiftBarChart(
             ) {
                 SummaryContainer(
                     modifier = modifier.weight(1f),
-                    title = "${workCountByMonthList[workCountByMonthList.lastIndex - 2].month.monthNumber}월",
-                    originData = workCountByMonthList.last().workCount,
-                    targetData = workCountByMonthList[workCountByMonthList.lastIndex - 2].workCount,
+                    title = "${barChartState.workCountByMonthList[barChartState.workCountByMonthList.lastIndex - 2].month.monthNumber}월",
+                    originData = barChartState.workCountByMonthList.last().workCount,
+                    targetData = barChartState.workCountByMonthList[barChartState.workCountByMonthList.lastIndex - 2].workCount,
                 )
                 SummaryContainer(
                     modifier = modifier.weight(1f),
-                    title = "${workCountByMonthList[workCountByMonthList.lastIndex - 1].month.monthNumber}월",
-                    originData = workCountByMonthList.last().workCount,
-                    targetData = workCountByMonthList[workCountByMonthList.lastIndex - 1].workCount,
+                    title = "${barChartState.workCountByMonthList[barChartState.workCountByMonthList.lastIndex - 1].month.monthNumber}월",
+                    originData = barChartState.workCountByMonthList.last().workCount,
+                    targetData = barChartState.workCountByMonthList[barChartState.workCountByMonthList.lastIndex - 1].workCount,
                 )
                 SummaryContainer(
                     modifier = modifier.weight(1f),
                     title = "평균",
-                    originData = workCountByMonthList.last().workCount,
-                    targetData = workCountByMonthList.map { it.workCount }.average().toInt(),
+                    originData = barChartState.workCountByMonthList.last().workCount,
+                    targetData = barChartState.workCountByMonthList.map { it.workCount }.average()
+                        .toInt(),
                 )
             }
         }
@@ -211,14 +209,15 @@ fun LiftBarChartPreview(
 ) {
     LiftBarChart(
         modifier,
-        workCountByMonthList =
-        listOf(
-            WorkCountByMonth(25, LocalDate(2023, 9, 5)),
-            WorkCountByMonth(8, LocalDate(2023, 10, 5)),
-            WorkCountByMonth(28, LocalDate(2023, 11, 5)),
-            WorkCountByMonth(1, LocalDate(2023, 12, 5)),
-            WorkCountByMonth(25, LocalDate(2024, 1, 5)),
-            WorkCountByMonth(15, LocalDate(2024, 2, 5)),
+        barChartState = BarChartState(
+            listOf(
+                WorkCountByMonth(25, LocalDate(2023, 9, 5)),
+                WorkCountByMonth(8, LocalDate(2023, 10, 5)),
+                WorkCountByMonth(28, LocalDate(2023, 11, 5)),
+                WorkCountByMonth(1, LocalDate(2023, 12, 5)),
+                WorkCountByMonth(25, LocalDate(2024, 1, 5)),
+                WorkCountByMonth(15, LocalDate(2024, 2, 5)),
+            )
         )
     )
 }
