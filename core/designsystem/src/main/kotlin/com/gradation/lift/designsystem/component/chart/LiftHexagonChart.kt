@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
-import com.gradation.lift.designsystem.component.chart.model.WorkPartCount
+import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByPreAndCurrentMonth
 import com.gradation.lift.designsystem.component.chart.state.HexagonChartState
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
@@ -66,8 +66,9 @@ fun LiftHexagonChart(
 
     val localDensity = LocalDensity.current
 
-    val maxValue = hexagonChartState.workPartCountList.maxOf { it.currentCount }
-        .coerceAtLeast(hexagonChartState.workPartCountList.maxOf { it.preCount }).toFloat()
+    val maxValue = hexagonChartState.workPartCountByPreAndCurrentMonthList.maxOf { it.currentCount }
+        .coerceAtLeast(hexagonChartState.workPartCountByPreAndCurrentMonthList.maxOf { it.preCount })
+        .toFloat()
 
     LiftDefaultContainer(
         modifier = modifier,
@@ -98,14 +99,14 @@ fun LiftHexagonChart(
                     draw(
                         color = preColor,
                         borderColor = preBorderColor,
-                        value = hexagonChartState.workPartCountList.map { it.preCount.toFloat() },
+                        value = hexagonChartState.workPartCountByPreAndCurrentMonthList.map { it.preCount.toFloat() },
                         maxValue
                     )
 
                     draw(
                         color = currentColor,
                         borderColor = currentBorderColor,
-                        value = hexagonChartState.workPartCountList.map { it.currentCount.toFloat() },
+                        value = hexagonChartState.workPartCountByPreAndCurrentMonthList.map { it.currentCount.toFloat() },
                         maxValue
                     )
                 }
@@ -114,7 +115,7 @@ fun LiftHexagonChart(
                     LiftWorkPartCountView(
                         modifier = modifier
                             .align(pair.first),
-                        value = hexagonChartState.workPartCountList[index],
+                        value = hexagonChartState.workPartCountByPreAndCurrentMonthList[index],
                         offset = pair.second
                     )
                 }
@@ -127,44 +128,12 @@ fun LiftHexagonChart(
 }
 
 
-private fun Density.getChartOffsetList(boxSize: Dp) =
-    listOf(
-        Pair(Alignment.CenterEnd, Offset(x = -24f, y = 0f)),
-        Pair(
-            Alignment.BottomCenter,
-            Offset(
-                x = (boxSize.toPx() / 12),
-                y = 48f
-            ),
-        ),
-        Pair(
-            Alignment.BottomCenter,
-            Offset(
-                x = (-boxSize.toPx() / 12),
-                y = 48f
-            ),
-        ),
-        Pair(Alignment.CenterStart, Offset(x = 24f, y = 0f)),
-        Pair(
-            Alignment.TopCenter,
-            Offset(
-                x = (-boxSize.toPx() / 12),
-                y = -48f
-            ),
-        ),
-        Pair(
-            Alignment.TopCenter,
-            Offset(
-                x = (boxSize.toPx() / 12),
-                y = -48f
-            ),
-        ),
-    )
+
 
 @Composable
 fun LiftWorkPartCountView(
     modifier: Modifier = Modifier,
-    value: WorkPartCount,
+    value: WorkPartCountByPreAndCurrentMonth,
     offset: Offset,
 ) {
     LiftEmptyContainer(
@@ -318,6 +287,7 @@ fun DescriptionContentView(
         modifier = modifier,
         horizontalPadding = LiftTheme.space.space16,
         verticalPadding = LiftTheme.space.space12,
+        shape = RoundedCornerShape(size = LiftTheme.space.space6),
     ) {
 
         Column(
@@ -417,6 +387,41 @@ fun DescriptionContentView(
     }
 }
 
+private fun Density.getChartOffsetList(boxSize: Dp) =
+    listOf(
+        Pair(Alignment.CenterEnd, Offset(x = -24f, y = 0f)),
+        Pair(
+            Alignment.BottomCenter,
+            Offset(
+                x = (boxSize.toPx() / 12),
+                y = 48f
+            ),
+        ),
+        Pair(
+            Alignment.BottomCenter,
+            Offset(
+                x = (-boxSize.toPx() / 12),
+                y = 48f
+            ),
+        ),
+        Pair(Alignment.CenterStart, Offset(x = 24f, y = 0f)),
+        Pair(
+            Alignment.TopCenter,
+            Offset(
+                x = (-boxSize.toPx() / 12),
+                y = -48f
+            ),
+        ),
+        Pair(
+            Alignment.TopCenter,
+            Offset(
+                x = (boxSize.toPx() / 12),
+                y = -48f
+            ),
+        ),
+    )
+
+
 @Composable
 @Preview(
     name = "SAMSUNG Galaxy S20",
@@ -437,13 +442,13 @@ fun LiftHexagonChartPreview(
         LiftHexagonChart(
             modifier,
             HexagonChartState(
-                workPartCountList = listOf(
-                    WorkPartCount("등", 27, 8),
-                    WorkPartCount("복근", 5, 13),
-                    WorkPartCount("가슴", 30, 30),
-                    WorkPartCount("어깨", 10, 25),
-                    WorkPartCount("하체", 15, 32),
-                    WorkPartCount("팔", 19, 3)
+                workPartCountByPreAndCurrentMonthList = listOf(
+                    WorkPartCountByPreAndCurrentMonth("등", 27, 8),
+                    WorkPartCountByPreAndCurrentMonth("복근", 5, 13),
+                    WorkPartCountByPreAndCurrentMonth("가슴", 30, 30),
+                    WorkPartCountByPreAndCurrentMonth("어깨", 10, 25),
+                    WorkPartCountByPreAndCurrentMonth("하체", 15, 32),
+                    WorkPartCountByPreAndCurrentMonth("팔", 19, 3)
                 ),
                 workCountByMonthList = listOf(
                     WorkCountByMonth(12, LocalDate(2024, 1, 5)),
