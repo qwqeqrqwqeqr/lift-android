@@ -56,8 +56,8 @@ import kotlin.math.sin
 /**
  * [LiftPieChart]
  * @param workPartList 운동 부위 리스트
- * @param selectedPart 현재 선택된 운동부위
- * @param selectedWorkCategoryByWorkPart 선택된 운동 부위에 따른 운동 카테고리로 4개만 설정
+ * @param selectedWorkPart 현재 선택된 운동부위
+ * @param workCategoryCountByWorkPartList 선택된 운동 부위에 따른 운동 카테고리로 4개만 설정
  * @param sumOfWorkCategoryCountByWorkPart 선택된 운동 부위에 따른 운동 카테고리 운동횟수 총합
  * @param updateSelectedPart 운동 부위 변경
  */
@@ -65,8 +65,8 @@ import kotlin.math.sin
 fun LiftPieChart(
     modifier: Modifier = Modifier,
     workPartList: List<String>,
-    selectedPart: String,
-    selectedWorkCategoryByWorkPart: List<WorkCategoryCount>,
+    selectedWorkPart: String,
+    workCategoryCountByWorkPartList: List<WorkCategoryCount>,
     sumOfWorkCategoryCountByWorkPart: Int,
     updateSelectedPart: (String) -> Unit,
 ) {
@@ -84,7 +84,7 @@ fun LiftPieChart(
     val largeStroke = with(localDensity) { LiftTheme.space.space52.toPx() }
     val largeShadowStroke = with(localDensity) { LiftTheme.space.space56.toPx() }
 
-    val valueList = selectedWorkCategoryByWorkPart.sortedByDescending { it.count }
+    val valueList = workCategoryCountByWorkPartList.sortedByDescending { it.count }
     val colorList = listOf(primaryColor, secondaryColor, tertiaryColor, quaternaryColor)
     val pieRangeValueList = arrayListOf<PieRangeValue>()
 
@@ -92,7 +92,7 @@ fun LiftPieChart(
     val updateSelectedWorkCategory: (String) -> Unit = { selectedWorkCategory = it }
 
     run {
-        val totalValue = selectedWorkCategoryByWorkPart.sumOf { it.count }
+        val totalValue = workCategoryCountByWorkPartList.sumOf { it.count }
         val maxProgress = 360f
         var temp = 0f
         valueList.map { it ->
@@ -127,7 +127,7 @@ fun LiftPieChart(
                 workPartList.forEach { name ->
                     LiftDefaultChip(
                         text = name,
-                        isSelected = selectedPart == name,
+                        isSelected = selectedWorkPart == name,
                         onClick = { updateSelectedPart(name) }
                     )
                 }
@@ -355,8 +355,8 @@ fun LiftPieChartPreview(
     LiftPieChart(
         modifier,
         workPartList = listOf("가슴", "어깨", "팔", "등", "복근", "하체"),
-        selectedPart = "가슴",
-        selectedWorkCategoryByWorkPart = listOf(
+        selectedWorkPart = "가슴",
+        workCategoryCountByWorkPartList = listOf(
             WorkCategoryCount("운동1", 10),
             WorkCategoryCount("운동2", 20),
             WorkCategoryCount("운동3", 35),

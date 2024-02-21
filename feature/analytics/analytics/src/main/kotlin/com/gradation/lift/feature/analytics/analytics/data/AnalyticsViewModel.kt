@@ -3,25 +3,25 @@ package com.gradation.lift.feature.analytics.analytics.data
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.date.GetCurrentWeekUseCase
-import com.gradation.lift.domain.usecase.date.GetPreWeekUseCase
 import com.gradation.lift.domain.usecase.date.GetTodayUseCase
 import com.gradation.lift.domain.usecase.date.GetWeekDateOfCurrentMonthUseCase
 import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsBarChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsCalendarState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsHexagonChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsPieChartState
 import com.gradation.lift.feature.analytics.analytics.data.state.HistoryUiState
-import com.gradation.lift.feature.analytics.analytics.data.state.WorkCountByMonthAnalyticsState
-import com.gradation.lift.feature.analytics.analytics.data.state.WorkFrequencyAnalyticsState
-import com.gradation.lift.feature.analytics.analytics.data.state.WorkPartAnalyticsState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 import javax.inject.Inject
 
 /**
  * [AnalyticsViewModel]
- * @property today 현재 날짜
- * @property historyUiState 운동 기록 관련 상태
- * @since 2023-09-05 19:48:50
  */
 
 @HiltViewModel
@@ -29,20 +29,13 @@ class AnalyticsViewModel @Inject constructor(
     getHistoryUseCase: GetHistoryUseCase,
     getTodayUseCase: GetTodayUseCase,
     getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,
-    getPreWeekUseCase: GetPreWeekUseCase,
-    getCurrentWeekUseCase: GetCurrentWeekUseCase,
 ) : ViewModel() {
 
-    private val today: StateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
     val historyUiState: StateFlow<HistoryUiState> = getHistoryUseCase().map {
-        when (val getHistoryResult = it) {
-            is DataState.Fail -> HistoryUiState.Fail(getHistoryResult.message)
-            is DataState.Success -> {
-                with(getHistoryResult.data) {
-                    if (isEmpty()) HistoryUiState.Empty else HistoryUiState.Success(toList())
-                }
-            }
+        when (it) {
+            is DataState.Fail -> HistoryUiState.Fail(it.message)
+            is DataState.Success -> HistoryUiState.Success(it.data)
         }
     }.stateIn(
         scope = viewModelScope,
@@ -50,30 +43,38 @@ class AnalyticsViewModel @Inject constructor(
         initialValue = HistoryUiState.Loading
     )
 
+    val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
 
 
-    val workFrequencyAnalyticsState = WorkFrequencyAnalyticsState(
-        viewModelScope,
+    val analyticsCalendarState = AnalyticsCalendarState(
+        getWeekDateOfCurrentMonthUseCase,
+        selectedDate,
         historyUiState,
-        getTodayUseCase,
-        getWeekDateOfCurrentMonthUseCase
+        viewModelScope
     )
 
-    val workCountByMonthAnalyticsState = WorkCountByMonthAnalyticsState(
-        viewModelScope,
-        today,
-        historyUiState
-    )
-
-
-    val workPartAnalyticsState = WorkPartAnalyticsState(
-        viewModelScope,
-        today,
+    val analyticsBarChartState = AnalyticsBarChartState(
         historyUiState,
-        getPreWeekUseCase,
-        getCurrentWeekUseCase
+        selectedDate,
+        viewModelScope,
     )
 
+    val analyticsHexagonChartState = AnalyticsHexagonChartState(
+        historyUiState,
+        selectedDate,
+        viewModelScope
+    )
+
+    val analyticsPieChartState = AnalyticsPieChartState(
+        historyUiState,
+        selectedDate,
+        viewModelScope
+    )
+
+
+    val updateSelectedDate: (LocalDate) -> Unit = {
+        selectedDate.value = it
+    }
 
 }
 
