@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.analytics.analytics.data.state
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMonth
 import com.gradation.lift.model.model.work.WorkPart
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
@@ -24,6 +26,7 @@ class AnalyticsHexagonChartState(
     private val historyUiState: StateFlow<HistoryUiState>,
     private val selectedDate: MutableStateFlow<LocalDate>,
     private val viewModelScope: CoroutineScope,
+    private val dispatcherProvider: DispatcherProvider,
     val workPartCountByMonthList: StateFlow<List<WorkPartCountByMonth>> = combine(
         historyUiState,
         selectedDate
@@ -31,6 +34,7 @@ class AnalyticsHexagonChartState(
         when (state) {
             is HistoryUiState.Fail -> emptyList()
             HistoryUiState.Loading -> emptyList()
+            HistoryUiState.Empty -> emptyList()
             is HistoryUiState.Success -> {
 
                 val targetMonthRange: List<LocalDate> = (0 until 2).map { month ->
@@ -58,7 +62,7 @@ class AnalyticsHexagonChartState(
                 }
             }
         }
-    }.stateIn(
+    }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList()
@@ -70,6 +74,7 @@ class AnalyticsHexagonChartState(
         when (state) {
             is HistoryUiState.Fail -> emptyList()
             HistoryUiState.Loading -> emptyList()
+            HistoryUiState.Empty -> emptyList()
             is HistoryUiState.Success -> {
 
                 val targetMonthRange: List<LocalDate> = (0 until 2).map { month ->
@@ -90,7 +95,7 @@ class AnalyticsHexagonChartState(
                 }
             }
         }
-    }.stateIn(
+    }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList()

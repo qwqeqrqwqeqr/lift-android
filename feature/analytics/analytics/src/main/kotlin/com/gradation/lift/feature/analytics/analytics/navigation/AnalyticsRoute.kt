@@ -4,7 +4,9 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,11 +22,16 @@ import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsHexago
 import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsPieChartState
 import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsScreenState
 import com.gradation.lift.feature.analytics.analytics.data.state.HistoryUiState
+import com.gradation.lift.feature.analytics.analytics.data.state.START_DATE
 import com.gradation.lift.feature.analytics.analytics.data.state.rememberAnalyticsScreenState
+import com.gradation.lift.feature.analytics.analytics.ui.AnalyticsScreen
 import com.gradation.lift.feature.analytics.analytics.ui.bottomSheet.DatePickerBottomSheet
 import com.gradation.lift.feature.analytics.analytics.ui.bottomSheet.WorkBottomSheet
 import com.gradation.lift.ui.extensions.showToast
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toKotlinLocalDate
+import java.time.temporal.ChronoUnit
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -47,6 +54,7 @@ internal fun AnalyticsRoute(
 
 
     val calendar: Map<Int, List<WeekDateHistoryCount>> by analyticsCalendarState.calendar.collectAsStateWithLifecycle()
+    val selectedDateHistoryCount: Int by analyticsCalendarState.selectedDateHistoryCount.collectAsStateWithLifecycle()
 
     val workCountByMonthList: List<WorkCountByMonth> by analyticsBarChartState.workCountByMonthList.collectAsStateWithLifecycle()
     val thisMonthWorkCountForPreMonth: Int by analyticsBarChartState.thisMonthWorkCountForPreMonth.collectAsStateWithLifecycle()
@@ -77,6 +85,31 @@ internal fun AnalyticsRoute(
         )
     }
 
+    LaunchedEffect(analyticsScreenState.pagerState, selectedDate) {
+        snapshotFlow {
+            Pair(
+                analyticsScreenState.pagerState.currentPage,
+                selectedDate
+            )
+        }.collect { it ->
+            selectedDate.run {
+                updateSelectedDate(
+                    java.time.LocalDate.of(
+                        START_DATE.year,
+                        START_DATE.monthValue,
+                        START_DATE.dayOfMonth
+                    ).plusMonths(it.first.toLong()).toKotlinLocalDate()
+                )
+                analyticsScreenState.pagerState.scrollToPage(
+                    START_DATE.until(
+                        this.toJavaLocalDate(),
+                        ChronoUnit.MONTHS
+                    ).toInt()
+                )
+            }
+        }
+    }
+
     BackHandler(onBack = {
         if (System.currentTimeMillis() - analyticsScreenState.terminateWaitTime.value >= 1500) {
             analyticsScreenState.terminateWaitTime.value = System.currentTimeMillis()
@@ -85,6 +118,26 @@ internal fun AnalyticsRoute(
             navController.popBackStack()
         }
     })
+
+
+    AnalyticsScreen(
+        modifier,
+        historyUiState,
+        selectedDate,
+        calendar,
+        selectedDateHistoryCount,
+        workCountByMonthList,
+        thisMonthWorkCountForPreMonth,
+        workPartCountByMonthList,
+        workCountByPreCurrentMonth,
+        workPartList,
+        selectedWorkPart,
+        workCategoryCountByWorkPartList,
+        sumOfWorkCountByWorkPart,
+        mostUsedWorkCategory,
+        updateSelectedWorkPart,
+        analyticsScreenState
+    )
 
 
 }

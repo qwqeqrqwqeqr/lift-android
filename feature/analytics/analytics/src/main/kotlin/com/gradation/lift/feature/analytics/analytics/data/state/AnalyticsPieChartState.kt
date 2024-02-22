@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.analytics.analytics.data.state
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.component.chart.model.WorkCategoryCount
 import com.gradation.lift.model.model.history.HistoryRoutine
 import com.gradation.lift.model.model.work.WorkPart
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
@@ -26,6 +28,7 @@ class AnalyticsPieChartState(
     private val historyUiState: StateFlow<HistoryUiState>,
     private val selectedDate: MutableStateFlow<LocalDate>,
     private val viewModelScope: CoroutineScope,
+    private val dispatcherProvider: DispatcherProvider,
     private val selectedDateHistoryRoutine: StateFlow<List<HistoryRoutine>> = combine(
         historyUiState,
         selectedDate
@@ -33,13 +36,14 @@ class AnalyticsPieChartState(
         when (state) {
             is HistoryUiState.Fail -> emptyList()
             HistoryUiState.Loading -> emptyList()
+            HistoryUiState.Empty -> emptyList()
             is HistoryUiState.Success -> {
                 state.historyList
                     .filter { it.historyTimeStamp.year == date.year && it.historyTimeStamp.monthNumber == date.monthNumber }
                     .flatMap { it.historyRoutine }
             }
         }
-    }.stateIn(
+    }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList()
@@ -61,7 +65,7 @@ class AnalyticsPieChartState(
                     count = it.size
                 )
             }
-    }.stateIn(
+    }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList()
@@ -71,14 +75,14 @@ class AnalyticsPieChartState(
         selectedWorkPart
     ) { historyRoutine, workPart ->
         historyRoutine.count { it.workCategory.workPart.contains(workPart) }
-    }.stateIn(
+    }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = 0
     ),
     val mostUsedWorkCategory: StateFlow<String> = workCategoryCountByWorkPartList.map {
         it.takeIf { it.isNotEmpty() }?.first()?.name ?: ""
-    }.stateIn(
+    }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = ""

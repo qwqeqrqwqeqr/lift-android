@@ -1,11 +1,13 @@
 package com.gradation.lift.feature.analytics.analytics.data.state
 
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.DatePeriod
@@ -23,11 +25,13 @@ class AnalyticsBarChartState(
     private val historyUiState: StateFlow<HistoryUiState>,
     private val selectedDate: MutableStateFlow<LocalDate>,
     private val viewModelScope: CoroutineScope,
+    private val dispatcherProvider: DispatcherProvider,
     val workCountByMonthList: StateFlow<List<WorkCountByMonth>> =
         combine(historyUiState, selectedDate) { state, date ->
             when (state) {
                 is HistoryUiState.Fail -> emptyList()
                 HistoryUiState.Loading -> emptyList()
+                HistoryUiState.Empty -> emptyList()
                 is HistoryUiState.Success -> {
 
                     val targetMonthRange: List<LocalDate> = (0 until 6).map { month ->
@@ -47,18 +51,20 @@ class AnalyticsBarChartState(
                         }
                     }
                 }
+
             }
-        }.stateIn(
+        }.flowOn(dispatcherProvider.default).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = emptyList()
         ),
     val thisMonthWorkCountForPreMonth: StateFlow<Int> =
-        workCountByMonthList.map { it[it.lastIndex].workCount - it[it.lastIndex - 1].workCount }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = 0
-            ),
+        workCountByMonthList.map {
+            if (it.isEmpty()) 0 else it[it.lastIndex].workCount - it[it.lastIndex - 1].workCount
+        }.flowOn(dispatcherProvider.default).stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = 0
+        ),
 
     )

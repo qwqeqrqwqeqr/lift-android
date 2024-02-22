@@ -63,11 +63,9 @@ internal fun DatePickerBottomSheet(
     ) {
         var currentYearValue: Int by remember { mutableIntStateOf(selectedDate.year) }
         var currentMonthValue: Int by remember { mutableIntStateOf(selectedDate.monthNumber) }
-        var currentDayValue: Int by remember { mutableIntStateOf(selectedDate.dayOfMonth) }
 
         val updateCurrentYearValue: (Int) -> Unit = { currentYearValue = it }
         val updateCurrentMonthValue: (Int) -> Unit = { currentMonthValue = it }
-        val updateCurrentDayValue: (Int) -> Unit = { currentDayValue = it }
 
         Column(
             modifier = modifier
@@ -92,7 +90,7 @@ internal fun DatePickerBottomSheet(
                         color = LiftTheme.colorScheme.no9,
                         textStyle = LiftTextStyle.No2,
                         textAlign = TextAlign.Start,
-                        text = "${selectedDate.year}년 ${selectedDate.monthNumber}월 ${selectedDate.dayOfMonth}일"
+                        text = "${selectedDate.year}년 ${selectedDate.monthNumber}월"
                     )
                 }
                 Icon(
@@ -110,10 +108,8 @@ internal fun DatePickerBottomSheet(
                 modifier,
                 currentYearValue,
                 currentMonthValue,
-                currentDayValue,
                 updateCurrentYearValue,
                 updateCurrentMonthValue,
-                updateCurrentDayValue,
                 analyticsScreenState
             )
             Row(
@@ -134,7 +130,7 @@ internal fun DatePickerBottomSheet(
                         LocalDate(
                             currentYearValue,
                             currentMonthValue,
-                            currentDayValue
+                            1
                         )
                     )
                     analyticsScreenState.updateDatePickerBottomSheetView(false)
@@ -149,29 +145,20 @@ fun DateSelectionView(
     modifier: Modifier = Modifier,
     currentYearValue: Int,
     currentMonthValue: Int,
-    currentDayValue: Int,
     updateCurrentYearValue: (Int) -> Unit,
     updateCurrentMonthValue: (Int) -> Unit,
-    updateCurrentDayValue: (Int) -> Unit,
     analyticsScreenState: AnalyticsScreenState,
 ) {
     val yearListState =
         rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2 + (currentYearValue - 2024))
     val monthListState =
         rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2 - 5 + currentMonthValue)
-    val dayListState =
-        rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE / 2 + (currentDayValue - 5))
+
 
     val yearList: MutableState<List<Int>> =
         remember { mutableStateOf(analyticsScreenState.yearRange.toList()) }
     val monthList: MutableState<List<Int>> = remember { mutableStateOf((1..12).toList()) }
-    val dayList = remember(currentYearValue, currentMonthValue) {
-        derivedStateOf {
-            (if (currentYearValue % 4 == 0 && currentMonthValue == 2) (1..29)
-            else if (currentMonthValue in listOf(1, 3, 5, 7, 8, 10, 12)) (1..31)
-            else (1..30)).toList()
-        }
-    }
+
 
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
@@ -191,10 +178,6 @@ fun DateSelectionView(
     LaunchedEffect(key1 = !monthListState.isScrollInProgress) {
         updateCurrentMonthValue(currentMonthValue)
         monthListState.animateScrollToItem(index = monthListState.firstVisibleItemIndex)
-    }
-    LaunchedEffect(key1 = !dayListState.isScrollInProgress) {
-        updateCurrentDayValue(currentDayValue)
-        dayListState.animateScrollToItem(index = dayListState.firstVisibleItemIndex)
     }
 
 
@@ -265,38 +248,6 @@ fun DateSelectionView(
                 ) { selected ->
                     LiftText(
                         text = monthList.value[index].toString(),
-                        modifier = modifier.alpha(if (selected) 1f else 0.6f),
-                        textStyle = LiftTextStyle.No3,
-                        color = textColor,
-                        textAlign = TextAlign.Center
-                    )
-                }
-                Spacer(modifier = modifier.height(LiftTheme.space.space10))
-            }
-        }
-        LazyColumn(
-            modifier = modifier.weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            state = dayListState
-        ) {
-            items(count = Int.MAX_VALUE) { item ->
-                val index = item % dayList.value.size
-                val currentValue by remember(dayListState) { derivedStateOf { dayListState.firstVisibleItemIndex + 1 } }
-                LaunchedEffect(currentValue) {
-                    if (item == currentValue) {
-                        updateCurrentDayValue(dayList.value[index])
-                        analyticsScreenState.hapticFeedbackType.performHapticFeedback(
-                            HapticFeedbackType.TextHandleMove
-                        )
-                    }
-                }
-                Spacer(modifier = modifier.height(LiftTheme.space.space10))
-                AnimatedContent(
-                    targetState = currentValue == item,
-                    label = "textAlphaAnimation"
-                ) { selected ->
-                    LiftText(
-                        text = dayList.value[index].toString(),
                         modifier = modifier.alpha(if (selected) 1f else 0.6f),
                         textStyle = LiftTextStyle.No3,
                         color = textColor,

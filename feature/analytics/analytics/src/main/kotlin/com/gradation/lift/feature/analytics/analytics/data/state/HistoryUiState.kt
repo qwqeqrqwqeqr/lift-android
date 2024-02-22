@@ -9,4 +9,5 @@ sealed interface HistoryUiState {
     data class Fail(val message: String) : HistoryUiState
 
     data object Loading : HistoryUiState
+    data object Empty : HistoryUiState
 }
