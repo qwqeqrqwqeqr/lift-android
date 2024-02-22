@@ -1,12 +1,15 @@
 package com.gradation.lift.feature.analytics.analytics.navigation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import com.gradation.lift.designsystem.component.chart.model.WorkCategoryCount
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMonth
 import com.gradation.lift.feature.analytics.analytics.data.AnalyticsViewModel
@@ -14,16 +17,28 @@ import com.gradation.lift.feature.analytics.analytics.data.model.WeekDateHistory
 import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsBarChartState
 import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsCalendarState
 import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsHexagonChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsPieChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsScreenState
 import com.gradation.lift.feature.analytics.analytics.data.state.HistoryUiState
+import com.gradation.lift.feature.analytics.analytics.data.state.rememberAnalyticsScreenState
+import com.gradation.lift.feature.analytics.analytics.ui.bottomSheet.DatePickerBottomSheet
+import com.gradation.lift.feature.analytics.analytics.ui.bottomSheet.WorkBottomSheet
+import com.gradation.lift.ui.extensions.showToast
 import kotlinx.datetime.LocalDate
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun AnalyticsRoute(
     modifier: Modifier = Modifier,
+    navController: NavController,
+    navigateAnalyticsGraphToWorkReadyReadyRouter: () -> Unit,
+    navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
     viewModel: AnalyticsViewModel = hiltViewModel(),
     analyticsCalendarState: AnalyticsCalendarState = viewModel.analyticsCalendarState,
     analyticsBarChartState: AnalyticsBarChartState = viewModel.analyticsBarChartState,
     analyticsHexagonChartState: AnalyticsHexagonChartState = viewModel.analyticsHexagonChartState,
+    analyticsPieChartState: AnalyticsPieChartState = viewModel.analyticsPieChartState,
+    analyticsScreenState: AnalyticsScreenState = rememberAnalyticsScreenState(viewModel.today),
 ) {
 
     val historyUiState: HistoryUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
@@ -39,12 +54,37 @@ internal fun AnalyticsRoute(
     val workPartCountByMonthList: List<WorkPartCountByMonth> by analyticsHexagonChartState.workPartCountByMonthList.collectAsStateWithLifecycle()
     val workCountByPreCurrentMonth: List<WorkCountByMonth> by analyticsHexagonChartState.workCountByPreCurrentMonth.collectAsStateWithLifecycle()
 
+    val workPartList: List<String> = analyticsPieChartState.workPartList
+    val selectedWorkPart: String by analyticsPieChartState.selectedWorkPart.collectAsStateWithLifecycle()
+    val workCategoryCountByWorkPartList: List<WorkCategoryCount> by analyticsPieChartState.workCategoryCountByWorkPartList.collectAsStateWithLifecycle()
+    val sumOfWorkCountByWorkPart: Int by analyticsPieChartState.sumOfWorkCountByWorkPart.collectAsStateWithLifecycle()
+    val mostUsedWorkCategory: String by analyticsPieChartState.mostUsedWorkCategory.collectAsStateWithLifecycle()
+
+    val updateSelectedWorkPart: (String) -> Unit = analyticsPieChartState.updateSelectedWorkPart
 
 
-
-    Column {
-        Text(text = workPartCountByMonthList.toString())
-        Text(text = workCountByPreCurrentMonth.toString())
+    AnimatedVisibility(visible = analyticsScreenState.workBottomSheetView) {
+        WorkBottomSheet(
+            modifier,
+            navigateAnalyticsGraphToWorkReadyReadyRouter,
+            navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter,
+            analyticsScreenState
+        )
     }
+    AnimatedVisibility(visible = analyticsScreenState.datePickerBottomSheetView) {
+        DatePickerBottomSheet(
+            modifier, selectedDate, updateSelectedDate, analyticsScreenState
+        )
+    }
+
+    BackHandler(onBack = {
+        if (System.currentTimeMillis() - analyticsScreenState.terminateWaitTime.value >= 1500) {
+            analyticsScreenState.terminateWaitTime.value = System.currentTimeMillis()
+            showToast(analyticsScreenState.context, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.")
+        } else {
+            navController.popBackStack()
+        }
+    })
+
 
 }

@@ -7,12 +7,19 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route.ANALYTICS_ANALYTICS_ROUTER_NAME
+import com.gradation.lift.navigation.navigation.navigateAnalyticsGraphToWorkReadyReadyRouter
+import com.gradation.lift.navigation.navigation.navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter
 
 
 fun NavGraphBuilder.analyticsScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
 ) {
+    val navigateAnalyticsGraphToWorkReadyReadyRouter: () -> Unit =
+        { navController.navigateAnalyticsGraphToWorkReadyReadyRouter() }
+    val navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter: () -> Unit =
+        { navController.navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter() }
+
     composable(
         route = ANALYTICS_ANALYTICS_ROUTER_NAME,
         enterTransition = { fadeIn() },
@@ -22,7 +29,10 @@ fun NavGraphBuilder.analyticsScreen(
     ) {
 
         AnalyticsRoute(
-            modifier
+            modifier,
+            navController,
+            navigateAnalyticsGraphToWorkReadyReadyRouter,
+            navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter
         )
     }
 }

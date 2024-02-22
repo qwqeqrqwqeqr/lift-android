@@ -31,6 +31,7 @@ class AnalyticsViewModel @Inject constructor(
     getWeekDateOfCurrentMonthUseCase: GetWeekDateOfCurrentMonthUseCase,
 ) : ViewModel() {
 
+    val today: LocalDate = getTodayUseCase()
 
     val historyUiState: StateFlow<HistoryUiState> = getHistoryUseCase().map {
         when (it) {
@@ -43,7 +44,7 @@ class AnalyticsViewModel @Inject constructor(
         initialValue = HistoryUiState.Loading
     )
 
-    val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
+    val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(today)
 
 
     val analyticsCalendarState = AnalyticsCalendarState(
