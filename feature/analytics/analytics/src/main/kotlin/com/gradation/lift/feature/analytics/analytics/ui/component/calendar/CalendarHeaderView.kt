@@ -22,7 +22,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.LocalDate
 
 @Composable
-fun HeaderView(
+fun CalendarHeaderView(
     modifier: Modifier = Modifier,
     selectedDate: LocalDate,
     selectedDateHistoryCount: Int,

@@ -34,7 +34,7 @@ class AnalyticsBarChartState(
                 HistoryUiState.Empty -> emptyList()
                 is HistoryUiState.Success -> {
 
-                    val targetMonthRange: List<LocalDate> = (0 until 6).map { month ->
+                    val targetMonthRange: List<LocalDate> = (5 downTo 0).map { month ->
                         date.minus(DatePeriod(months = month))
                             .let { LocalDate(it.year, it.monthNumber, 1) }
                     }

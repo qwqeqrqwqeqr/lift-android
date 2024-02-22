@@ -1,7 +1,10 @@
 package com.gradation.lift.designsystem.component.chart
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,8 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,27 +60,42 @@ fun LiftBarChart(
                 verticalAlignment = Alignment.Bottom
             ) {
                 barChartState.workCountByMonthList.forEachIndexed { index, workCountByMonth ->
+                    val barHeight by animateDpAsState(
+                        targetValue = ((workCountByMonth.workCount.toFloat() / maxCount.toFloat()) * 180).dp,
+                        label = "heightAnimation",
+                        animationSpec = tween(2000)
+                    )
                     Column(
                         modifier = modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        LiftText(
-                            text = "${workCountByMonth.workCount}회",
-                            color = when (index) {
-                                barChartState.workCountByMonthList.lastIndex - 1 -> LiftTheme.colorScheme.no26
-                                barChartState.workCountByMonthList.lastIndex -> LiftTheme.colorScheme.no4
-                                else -> LiftTheme.colorScheme.no2
-                            },
-                            textAlign = TextAlign.Center,
-                            textStyle = LiftTextStyle.No5
-                        )
+                        Box(
+                            modifier = modifier
+                                .background(
+                                    if (barChartState.workCountByMonthList.lastIndex == index) LiftTheme.colorScheme.no4 else Color.Transparent,
+                                    RoundedCornerShape(LiftTheme.space.space4)
+                                )
+                                .padding(
+                                    horizontal = LiftTheme.space.space4,
+                                    vertical = LiftTheme.space.space2
+                                )
+                        ) {
+                            LiftText(
+                                text = "${workCountByMonth.workCount}회",
+                                color = when (index) {
+                                    barChartState.workCountByMonthList.lastIndex - 1 -> LiftTheme.colorScheme.no26
+                                    barChartState.workCountByMonthList.lastIndex -> LiftTheme.colorScheme.no5
+                                    else -> LiftTheme.colorScheme.no2
+                                },
+                                textAlign = TextAlign.Center,
+                                textStyle = LiftTextStyle.No5
+                            )
+                        }
                         Spacer(
                             modifier = modifier
                                 .padding(horizontal = LiftTheme.space.space8)
-                                .height(
-                                    ((workCountByMonth.workCount.toFloat() / maxCount.toFloat()) * 180).dp
-                                )
+                                .height(barHeight)
                                 .fillMaxWidth()
                                 .background(
                                     color = when (index) {

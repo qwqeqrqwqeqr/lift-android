@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
@@ -20,6 +21,7 @@ import kotlinx.datetime.minus
  * 육각형 차트에서 사용되는 상태 값 집합
  * @param workPartCountByMonthList 지난달과 이번달에 대한 부위별 운동횟수
  * @param workCountByPreCurrentMonth 지난달과 이번달의 총 운동횟수
+ * @param mostUsedWorkPartInThisMonth 이번달에 가장 많이 운동한 부위
  * @since 2024-02-21 16:30:34
  */
 class AnalyticsHexagonChartState(
@@ -37,7 +39,7 @@ class AnalyticsHexagonChartState(
             HistoryUiState.Empty -> emptyList()
             is HistoryUiState.Success -> {
 
-                val targetMonthRange: List<LocalDate> = (0 until 2).map { month ->
+                val targetMonthRange: List<LocalDate> = (1 downTo 0).map { month ->
                     date.minus(DatePeriod(months = month))
                         .let { LocalDate(it.year, it.monthNumber, 1) }
                 }
@@ -55,6 +57,8 @@ class AnalyticsHexagonChartState(
                             name = workPart,
                             preCount = historyListPair.first.flatMap { it.historyRoutine }
                                 .count { it.workCategory.workPart.contains(workPart) },
+
+
                             currentCount = historyListPair.second.flatMap { it.historyRoutine }
                                 .count { it.workCategory.workPart.contains(workPart) },
                         )
@@ -77,7 +81,7 @@ class AnalyticsHexagonChartState(
             HistoryUiState.Empty -> emptyList()
             is HistoryUiState.Success -> {
 
-                val targetMonthRange: List<LocalDate> = (0 until 2).map { month ->
+                val targetMonthRange: List<LocalDate> = (1 downTo 0).map { month ->
                     date.minus(DatePeriod(months = month))
                         .let { LocalDate(it.year, it.monthNumber, 1) }
                 }
@@ -99,5 +103,12 @@ class AnalyticsHexagonChartState(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList()
+    ),
+    val mostUsedWorkPartInThisMonth: StateFlow<String> = workPartCountByMonthList.map {
+        if (it.isEmpty()) "" else it.maxBy { it.currentCount }.name
+    }.flowOn(dispatcherProvider.default).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = ""
     ),
 )

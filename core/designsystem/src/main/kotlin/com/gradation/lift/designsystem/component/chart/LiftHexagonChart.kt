@@ -1,5 +1,7 @@
 package com.gradation.lift.designsystem.component.chart
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -70,6 +72,22 @@ fun LiftHexagonChart(
         .coerceAtLeast(hexagonChartState.workPartCountByMonthList.maxOf { it.preCount })
         .toFloat()
 
+    val preMonthCountValueList = hexagonChartState.workPartCountByMonthList.map {
+        animateFloatAsState(
+            targetValue = it.preCount.toFloat(),
+            label = "preMonthCountAnimation",
+            animationSpec = tween(2000)
+        ).value
+    }
+
+    val currentMonthCountValueList = hexagonChartState.workPartCountByMonthList.map {
+        animateFloatAsState(
+            targetValue = it.currentCount.toFloat(),
+            label = "currentMonthCountAnimation",
+            animationSpec = tween(2000)
+        ).value
+    }
+
     LiftDefaultContainer(
         modifier = modifier,
         horizontalPadding = LiftTheme.space.space10,
@@ -96,19 +114,21 @@ fun LiftHexagonChart(
                         backgroundBorderColor
                     )
 
-                    draw(
-                        color = preColor,
-                        borderColor = preBorderColor,
-                        value = hexagonChartState.workPartCountByMonthList.map { it.preCount.toFloat() },
-                        maxValue
-                    )
+                    if (preMonthCountValueList.any { it != 0f })
+                        draw(
+                            color = preColor,
+                            borderColor = preBorderColor,
+                            value = preMonthCountValueList,
+                            maxValue
+                        )
 
-                    draw(
-                        color = currentColor,
-                        borderColor = currentBorderColor,
-                        value = hexagonChartState.workPartCountByMonthList.map { it.currentCount.toFloat() },
-                        maxValue
-                    )
+                    if (currentMonthCountValueList.any { it != 0f })
+                        draw(
+                            color = currentColor,
+                            borderColor = currentBorderColor,
+                            value = currentMonthCountValueList,
+                            maxValue
+                        )
                 }
 
                 localDensity.getChartOffsetList(boxSize).forEachIndexed { index, pair ->
@@ -126,8 +146,6 @@ fun LiftHexagonChart(
         }
     }
 }
-
-
 
 
 @Composable
