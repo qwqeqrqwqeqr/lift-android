@@ -15,6 +15,7 @@ import com.google.accompanist.systemuicontroller.SystemUiController
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.TopLevelNavDestination
+import com.gradation.lift.navigation.navigation.navigateAnalyticsGraph
 import com.gradation.lift.navigation.navigation.navigateHistoryGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraph
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraph
@@ -41,7 +42,7 @@ class AppState(
             when (topLevelDestination) {
                 TopLevelNavDestination.Home -> navController.navigateHomeGraph()
                 TopLevelNavDestination.MyInfo -> navController.navigateMyInfoGraph()
-                TopLevelNavDestination.Analytics -> {}
+                TopLevelNavDestination.Analytics -> navController.navigateAnalyticsGraph()
                 TopLevelNavDestination.DailyLog -> navController.navigateHistoryGraph()
             }
         }
