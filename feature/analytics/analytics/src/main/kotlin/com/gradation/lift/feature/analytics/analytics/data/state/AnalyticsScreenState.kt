@@ -29,14 +29,8 @@ fun rememberAnalyticsScreenState(
     lazyListState: LazyListState = rememberLazyListState(),
     hapticFeedbackType: HapticFeedback = LocalHapticFeedback.current,
     pagerState: PagerState = rememberPagerState(
-        initialPage =
-        START_DATE.until(today.toJavaLocalDate(), ChronoUnit.MONTHS).toInt(),
-        pageCount = {
-            START_DATE.until(
-                END_DATE,
-                ChronoUnit.MONTHS
-            ).toInt()
-        },
+        initialPage = START_DATE.until(today.toJavaLocalDate(), ChronoUnit.MONTHS).toInt(),
+        pageCount = { START_DATE.until(END_DATE, ChronoUnit.MONTHS).toInt() },
     ),
     terminateWaitTime: MutableState<Long> = remember { mutableLongStateOf(0L) },
     context: Context = LocalContext.current,

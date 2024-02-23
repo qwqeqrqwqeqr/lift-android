@@ -68,7 +68,7 @@ class AnalyticsHexagonChartState(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = emptyList()
     ),
     val workCountByPreCurrentMonth: StateFlow<List<WorkCountByMonth>> = combine(
@@ -101,14 +101,14 @@ class AnalyticsHexagonChartState(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = emptyList()
     ),
     val mostUsedWorkPartInThisMonth: StateFlow<String> = workPartCountByMonthList.map {
         if (it.isEmpty()) "" else it.maxBy { it.currentCount }.name
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = ""
     ),
 )

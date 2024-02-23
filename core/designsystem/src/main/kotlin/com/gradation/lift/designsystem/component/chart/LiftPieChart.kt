@@ -1,9 +1,12 @@
 package com.gradation.lift.designsystem.component.chart
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -40,7 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.chart.model.PieRangeValue
+import com.gradation.lift.designsystem.component.chart.model.PieChartValue
 import com.gradation.lift.designsystem.component.chart.model.WorkCategoryCount
 import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
@@ -80,31 +83,76 @@ fun LiftPieChart(
     val tertiaryColor = LiftTheme.colorScheme.no29
     val quaternaryColor = LiftTheme.colorScheme.no56
 
+    val defaultColor = LiftTheme.colorScheme.no1
+
     val stroke = with(localDensity) { LiftTheme.space.space40.toPx() }
     val largeStroke = with(localDensity) { LiftTheme.space.space52.toPx() }
-    val largeShadowStroke = with(localDensity) { LiftTheme.space.space56.toPx() }
+    val shadowStroke = with(localDensity) { LiftTheme.space.space56.toPx() }
 
     val valueList = workCategoryCountByWorkPartList.sortedByDescending { it.count }
     val colorList = listOf(primaryColor, secondaryColor, tertiaryColor, quaternaryColor)
-    val pieRangeValueList = arrayListOf<PieRangeValue>()
+    val pieChartValueList = arrayListOf<PieChartValue>()
 
-    var selectedWorkCategory: String by remember { mutableStateOf(valueList.first().name) }
+    var selectedWorkCategory: String by remember { mutableStateOf("") }
     val updateSelectedWorkCategory: (String) -> Unit = { selectedWorkCategory = it }
+
+
 
     run {
         val totalValue = workCategoryCountByWorkPartList.sumOf { it.count }
         val maxProgress = 360f
         var temp = 0f
-        valueList.map { it ->
-            val rate = it.count.toFloat() / totalValue * maxProgress
-            pieRangeValueList.add(
-                PieRangeValue(
-                    value = it,
-                    start = temp,
-                    rate = rate
+        valueList.zip(colorList).map { it ->
+
+            val tempRate = it.first.count.toFloat() / totalValue * maxProgress
+
+            val startPosition: Float by animateFloatAsState(
+                targetValue = temp,
+                label = "startPieChartPositionAnimation",
+                animationSpec = tween(2000)
+            )
+            val rate: Float by animateFloatAsState(
+                targetValue = tempRate,
+                label = "pieChartRateAnimation",
+                animationSpec = tween(2000)
+            )
+
+            val strokeAnimation: Float by animateFloatAsState(
+                targetValue =
+                if (it.first.name == selectedWorkCategory) largeStroke else stroke,
+                label = "",
+                animationSpec = tween(1500)
+            )
+
+            val shadowStrokeAnimation: Float by animateFloatAsState(
+                targetValue =
+                if (it.first.name == selectedWorkCategory) shadowStroke else 0f,
+                label = "",
+                animationSpec = tween(1500)
+            )
+
+            val color: Color by animateColorAsState(
+                targetValue = it.second,
+                label = "",
+                animationSpec = tween(1500)
+            )
+
+
+            val visibleBubbleView: Boolean = (it.first.name == selectedWorkCategory)
+
+
+            pieChartValueList.add(
+                PieChartValue(
+                    value = it.first,
+                    startPosition = startPosition,
+                    rate = rate,
+                    stroke = strokeAnimation,
+                    shadowStroke = shadowStrokeAnimation,
+                    visibleBubbleView = visibleBubbleView,
+                    color = color
                 )
             )
-            temp += rate
+            temp += tempRate
         }
     }
 
@@ -147,23 +195,20 @@ fun LiftPieChart(
                         .align(Alignment.Center),
                 ) {
                     pieChart(
-                        pieRangeValueList,
-                        colorList,
-                        selectedWorkCategory,
+                        pieChartValueList,
                         shadowColor,
                         backgroundColor,
-                        largeShadowStroke,
-                        largeStroke,
-                        stroke
+                        stroke,
+                        defaultColor
                     )
                 }
-                pieRangeValueList.forEach {
-                    androidx.compose.animation.AnimatedVisibility(visible = it.value.name == selectedWorkCategory) {
+                pieChartValueList.forEach {
+                    androidx.compose.animation.AnimatedVisibility(visible = it.visibleBubbleView) {
                         BubbleView(
                             modifier = modifier,
                             localDensity = localDensity,
                             boxSize = boxSize,
-                            pieRangeValue = it
+                            pieChartValue = it
                         )
                     }
                 }
@@ -188,59 +233,56 @@ fun LiftPieChart(
 }
 
 fun DrawScope.pieChart(
-    pieRangeValueList: List<PieRangeValue>,
-    colorList: List<Color>,
-    selectedWorkCategory: String,
+    pieChartValueList: List<PieChartValue>,
     shadowColor: Color,
     backgroundColor: Color,
-    largeShadowStroke: Float,
-    largeStroke: Float,
-    stroke: Float,
+    defaultStroke: Float,
+    defaultColor: Color,
 ) {
+    if (pieChartValueList.isEmpty()) {
+        drawArc(
+            color = defaultColor,
+            startAngle = 0f,
+            sweepAngle = 360f,
+            useCenter = false,
+            style = Stroke(width = defaultStroke, cap = StrokeCap.Butt),
+        )
 
-    pieRangeValueList.zip(colorList).forEach { it ->
-        when (it.first.value.name) {
-            selectedWorkCategory -> {
-                drawArc(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            shadowColor.copy(0.3f),
-                            Color.Transparent,
-                        ),
-                        tileMode = TileMode.Repeated
+        drawCircle(
+            color = backgroundColor,
+            radius = size.minDimension / 2.5f,
+        )
+    } else {
+        pieChartValueList.forEach { it ->
+            drawArc(
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        shadowColor.copy(0.3f),
+                        Color.Transparent,
                     ),
-                    startAngle = it.first.start,
-                    sweepAngle = it.first.rate,
-                    useCenter = false,
-                    style = Stroke(width = largeShadowStroke, cap = StrokeCap.Butt),
-                )
-                drawArc(
-                    color = it.second,
-                    startAngle = it.first.start,
-                    sweepAngle = it.first.rate,
-                    topLeft = Offset(x = 0f, y = 0f),
-                    useCenter = false,
-                    style = Stroke(width = largeStroke, cap = StrokeCap.Butt)
-                )
-            }
+                    tileMode = TileMode.Repeated
+                ),
+                startAngle = it.startPosition,
+                sweepAngle = it.rate,
+                useCenter = false,
+                style = Stroke(width = it.shadowStroke, cap = StrokeCap.Butt),
+            )
+            drawArc(
+                color = it.color,
+                startAngle = it.startPosition,
+                sweepAngle = it.rate,
+                topLeft = Offset(x = 0f, y = 0f),
+                useCenter = false,
+                style = Stroke(width = it.stroke, cap = StrokeCap.Butt)
+            )
 
-            else -> {
-                drawArc(
-                    color = it.second,
-                    startAngle = it.first.start,
-                    sweepAngle = it.first.rate,
-                    topLeft = Offset(x = 0f, y = 0f),
-                    useCenter = false,
-                    style = Stroke(width = stroke, cap = StrokeCap.Butt)
-                )
-            }
         }
-    }
 
-    drawCircle(
-        color = backgroundColor,
-        radius = size.minDimension / 2.5f,
-    )
+        drawCircle(
+            color = backgroundColor,
+            radius = size.minDimension / 2.5f,
+        )
+    }
 }
 
 
@@ -253,6 +295,7 @@ fun DescriptionView(
     valueList: List<WorkCategoryCount>,
     colorList: List<Color>,
 ) {
+    val mutableInteractionSource = remember { MutableInteractionSource() }
     FlowRow(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
@@ -260,11 +303,19 @@ fun DescriptionView(
     ) {
         valueList.zip(colorList).forEach {
             val textColor by animateColorAsState(
-                targetValue = if (selectedWorkCategory == it.first.name) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no1,
+                targetValue = if (selectedWorkCategory == it.first.name) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no13,
                 label = "textColorAnimation"
             )
             LiftSecondaryContainer(
-                modifier = modifier.clickable { updateSelectedWorkCategory(it.first.name) },
+                modifier = modifier.clickable(
+                    interactionSource = mutableInteractionSource,
+                    indication = null
+                ) {
+                    if (selectedWorkCategory == it.first.name)
+                        updateSelectedWorkCategory("")
+                    else
+                        updateSelectedWorkCategory(it.first.name)
+                },
                 horizontalPadding = LiftTheme.space.space6,
                 verticalPadding = LiftTheme.space.space6,
                 shape = RoundedCornerShape(size = LiftTheme.space.space6),
@@ -284,7 +335,7 @@ fun DescriptionView(
                         text = it.first.name,
                         color = textColor,
                         textAlign = TextAlign.Center,
-                        textStyle = LiftTextStyle.No7
+                        textStyle = if (selectedWorkCategory == it.first.name) LiftTextStyle.No8 else LiftTextStyle.No7
                     )
                 }
             }
@@ -298,17 +349,17 @@ fun BubbleView(
     modifier: Modifier = Modifier,
     localDensity: Density,
     boxSize: Dp,
-    pieRangeValue: PieRangeValue,
+    pieChartValue: PieChartValue,
 ) {
     LiftEmptyContainer(
         modifier = modifier.offset(
             y = (
                     with(localDensity) { (boxSize / 4).toPx() } *
-                            sin(pieRangeValue.start * Math.PI / 180)
+                            sin(pieChartValue.startPosition * Math.PI / 180)
                     ).dp,
             x = (
                     with(localDensity) { (boxSize / 4).toPx() } *
-                            cos(pieRangeValue.start * Math.PI / 180)
+                            cos(pieChartValue.startPosition * Math.PI / 180)
                     ).dp,
         ),
         verticalPadding = LiftTheme.space.space8,
@@ -322,17 +373,17 @@ fun BubbleView(
         ) {
             LiftText(
                 modifier = modifier,
-                text = pieRangeValue.value.name,
+                text = pieChartValue.value.name,
                 color = LiftTheme.colorScheme.no6,
                 textAlign = TextAlign.Center,
-                textStyle = LiftTextStyle.No5
+                textStyle = LiftTextStyle.No8
             )
             LiftText(
                 modifier = modifier,
-                text = "${pieRangeValue.value.count}회",
+                text = "${pieChartValue.value.count}회",
                 color = LiftTheme.colorScheme.no5,
                 textAlign = TextAlign.Center,
-                textStyle = LiftTextStyle.No5
+                textStyle = LiftTextStyle.No8
             )
         }
     }

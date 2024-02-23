@@ -36,21 +36,21 @@ data class AnalyticsCalendarState(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = emptyList()
     ),
     val calendar: StateFlow<Map<Int, List<WeekDateHistoryCount>>> =
-        combine(dateHistoryList, selectedDate) { dateHistoryList, selectedDate ->
-            getWeekDateOfCurrentMonthUseCase(selectedDate).map { weekDate ->
+        combine(dateHistoryList, selectedDate) { list, date ->
+            getWeekDateOfCurrentMonthUseCase(date).map { weekDate ->
                 WeekDateHistoryCount(
-                    historyCount = dateHistoryList.flatMap { it.historyList }
+                    historyCount = list.flatMap { it.historyList }
                         .count { weekDate.date == it.historyTimeStamp.date },
                     weekDateMonth = weekDate
                 )
             }.groupBy { it.weekDateMonth.week }
         }.flowOn(dispatcherProvider.default).stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Lazily,
             initialValue = emptyMap()
         ),
     val selectedDateHistoryCount: StateFlow<Int> = combine(
@@ -68,7 +68,7 @@ data class AnalyticsCalendarState(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = 0
     ),
 )

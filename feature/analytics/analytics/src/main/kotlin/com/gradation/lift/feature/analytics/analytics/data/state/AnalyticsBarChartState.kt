@@ -55,7 +55,7 @@ class AnalyticsBarChartState(
             }
         }.flowOn(dispatcherProvider.default).stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Lazily,
             initialValue = emptyList()
         ),
     val thisMonthWorkCountForPreMonth: StateFlow<Int> =
@@ -63,7 +63,7 @@ class AnalyticsBarChartState(
             if (it.isEmpty()) 0 else it[it.lastIndex].workCount - it[it.lastIndex - 1].workCount
         }.flowOn(dispatcherProvider.default).stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Lazily,
             initialValue = 0
         ),
 

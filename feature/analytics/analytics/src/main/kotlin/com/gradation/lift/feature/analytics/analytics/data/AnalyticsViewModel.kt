@@ -45,7 +45,7 @@ class AnalyticsViewModel @Inject constructor(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Eagerly,
         initialValue = HistoryUiState.Loading
     )
 

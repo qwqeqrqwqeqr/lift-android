@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.analytics.analytics.ui.component.barChart
+package com.gradation.lift.feature.analytics.analytics.ui.component.hexagonChart
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -8,21 +8,24 @@ import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
-import kotlin.math.abs
+import kotlinx.datetime.LocalDate
 
 @Composable
-fun BarChartHeaderView(
+fun HexagonChartHeaderView(
     modifier: Modifier = Modifier,
-    workCountByMonthList: List<WorkCountByMonth>,
-    thisMonthWorkCountForPreMonth: Int,
+    selectedDate: LocalDate,
+    workCountByPreCurrentMonth: List<WorkCountByMonth>,
+    mostUsedWorkPartInThisMonth: String,
 ) {
-    if (workCountByMonthList.none { it.workCount != 0 })
+    if (workCountByPreCurrentMonth.last().workCount == 0)
         LiftMultiStyleText(
             modifier,
             LiftTheme.colorScheme.no9,
             LiftTextStyle.No1,
             listOf(
-                TextWithStyle(text = "최근 6개월 동안 "),
+                TextWithStyle(
+                    text = "${selectedDate.monthNumber}월에는 ",
+                ),
                 TextWithStyle(
                     text = "운동을 진행하지 않으셨어요",
                     color = LiftTheme.colorScheme.no4,
@@ -37,25 +40,15 @@ fun BarChartHeaderView(
             LiftTextStyle.No1,
             listOf(
                 TextWithStyle(
-                    text = "${workCountByMonthList[workCountByMonthList.lastIndex - 1].month.monthNumber}월",
+                    text = "이번달",
                     color = LiftTheme.colorScheme.no4,
                 ),
-                TextWithStyle(text = if (thisMonthWorkCountForPreMonth != 0) "보다 " else "이랑 동일하게 "),
+                TextWithStyle(text = "은 "),
                 TextWithStyle(
-                    text = when {
-                        thisMonthWorkCountForPreMonth > 0 -> "${thisMonthWorkCountForPreMonth}회 더 운동"
-                        thisMonthWorkCountForPreMonth < 0 -> "${
-                            abs(
-                                thisMonthWorkCountForPreMonth
-                            )
-                        }회 덜 운동"
-
-                        else -> "운동"
-                    },
+                    text = "${mostUsedWorkPartInThisMonth}운동",
                     color = LiftTheme.colorScheme.no4,
                 ),
-
-                TextWithStyle(text = "했어요"),
+                TextWithStyle(text = "을 많이 했어요"),
             ),
             TextAlign.Start
         )

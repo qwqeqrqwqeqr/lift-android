@@ -45,7 +45,7 @@ class AnalyticsPieChartState(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = emptyList()
     ),
     val workPartList: List<String> = WorkPart.WORK_PART_NAME_LIST,
@@ -67,7 +67,7 @@ class AnalyticsPieChartState(
             }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = emptyList()
     ),
     val sumOfWorkCountByWorkPart: StateFlow<Int> = combine(
@@ -77,14 +77,14 @@ class AnalyticsPieChartState(
         historyRoutine.count { it.workCategory.workPart.contains(workPart) }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = 0
     ),
     val mostUsedWorkCategory: StateFlow<String> = workCategoryCountByWorkPartList.map {
         it.takeIf { it.isNotEmpty() }?.first()?.name ?: ""
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Lazily,
         initialValue = ""
     ),
 ) {

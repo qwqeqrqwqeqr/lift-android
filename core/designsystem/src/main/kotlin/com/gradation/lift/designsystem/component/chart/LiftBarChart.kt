@@ -61,7 +61,7 @@ fun LiftBarChart(
             ) {
                 barChartState.workCountByMonthList.forEachIndexed { index, workCountByMonth ->
                     val barHeight by animateDpAsState(
-                        targetValue = ((workCountByMonth.workCount.toFloat() / maxCount.toFloat()) * 180).dp,
+                        targetValue = if (maxCount == 0) 0.dp else ((workCountByMonth.workCount.toFloat() / maxCount.toFloat()) * 180).dp,
                         label = "heightAnimation",
                         animationSpec = tween(2000)
                     )
