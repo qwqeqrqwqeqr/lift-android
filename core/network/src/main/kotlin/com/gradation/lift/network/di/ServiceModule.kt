@@ -73,4 +73,9 @@ object ServiceModule {
     @Singleton
     fun provideTermsService(@AuthRetrofit retrofit: Retrofit): TermsService =
         retrofit.create(TermsService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideFavoriteService(@AuthRetrofit retrofit: Retrofit): FavoriteService =
+        retrofit.create(FavoriteService::class.java)
 }

@@ -16,7 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.gradation.lift.feature.home.home.data.model.bannerList
-import com.gradation.lift.ui.provider.LocalInfoSnackbarHostState
+import com.gradation.lift.ui.provider.LocalWarnSnackbarHostState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -26,7 +26,7 @@ fun rememberHomeScreenState(
         initialPage = 0,
         pageCount = { bannerList.size }
     ),
-    snackbarHostState: SnackbarHostState = LocalInfoSnackbarHostState.current,
+    snackbarHostState: SnackbarHostState = LocalWarnSnackbarHostState.current,
     terminateWaitTime: MutableState<Long> = remember { mutableLongStateOf(0L) },
     context: Context = LocalContext.current,
 ): HomeScreenState {

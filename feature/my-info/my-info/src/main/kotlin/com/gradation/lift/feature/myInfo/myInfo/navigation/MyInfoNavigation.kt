@@ -1,5 +1,7 @@
 package com.gradation.lift.feature.myInfo.myInfo.navigation
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -23,7 +25,11 @@ fun NavGraphBuilder.myInfoScreen(
     val navigateMyInfoToTermsPolicyInMyInfoGraph: () -> Unit =
         { navController.navigateMyInfoToTermsPolicyInMyInfoGraph() }
 
-    composable(Route.MY_INFO_MY_INFO_ROUTER_NAME) {
+    composable(Route.MY_INFO_MY_INFO_ROUTER_NAME,
+        enterTransition = { fadeIn() },
+        exitTransition = { fadeOut() },
+        popEnterTransition = { fadeIn() },
+        popExitTransition = { fadeOut() }) {
         MyInfoRoute(
             modifier,
             navController,
