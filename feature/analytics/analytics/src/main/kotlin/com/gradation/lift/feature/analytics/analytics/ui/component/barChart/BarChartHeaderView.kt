@@ -3,6 +3,7 @@ package com.gradation.lift.feature.analytics.analytics.ui.component.barChart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.chart.model.SampleData.HEXAGON_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -15,6 +16,22 @@ fun BarChartHeaderView(
     modifier: Modifier = Modifier,
     workCountByMonthList: List<WorkCountByMonth>,
     thisMonthWorkCountForPreMonth: Int,
+    sample: Boolean = false,
+) {
+    if (sample)
+        HeaderTextView(
+            modifier,
+            HEXAGON_CHART_SAMPLE_DATA.workCountByMonthList,
+            HEXAGON_CHART_SAMPLE_DATA.workCountByMonthList.let { it[it.lastIndex].workCount - it[it.lastIndex - 1].workCount })
+    else
+        HeaderTextView(modifier, workCountByMonthList, thisMonthWorkCountForPreMonth)
+}
+
+@Composable
+private fun HeaderTextView(
+    modifier: Modifier = Modifier,
+    workCountByMonthList: List<WorkCountByMonth>,
+    thisMonthWorkCountForPreMonth: Int,
 ) {
     if (workCountByMonthList.none { it.workCount != 0 })
         LiftMultiStyleText(
@@ -22,10 +39,12 @@ fun BarChartHeaderView(
             LiftTheme.colorScheme.no9,
             LiftTextStyle.No1,
             listOf(
-                TextWithStyle(text = "최근 6개월 동안 "),
+                TextWithStyle(
+                    text = "최근 6개월 동안 ",
+                    color = LiftTheme.colorScheme.no4,
+                ),
                 TextWithStyle(
                     text = "운동을 진행하지 않으셨어요",
-                    color = LiftTheme.colorScheme.no4,
                 ),
             ),
             TextAlign.Start

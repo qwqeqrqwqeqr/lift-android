@@ -19,6 +19,7 @@ fun HexagonChartView(
     workPartCountByMonthList: List<WorkPartCountByMonth>,
     workCountByPreCurrentMonth: List<WorkCountByMonth>,
     mostUsedWorkPartInThisMonth: String,
+    sample: Boolean = false,
 ) {
     Column(
         modifier = modifier.padding(
@@ -27,12 +28,14 @@ fun HexagonChartView(
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
     ) {
         HexagonChartHeaderView(
-            modifier, selectedDate, workCountByPreCurrentMonth, mostUsedWorkPartInThisMonth
+            modifier, selectedDate, workCountByPreCurrentMonth, mostUsedWorkPartInThisMonth, sample
         )
         LiftHexagonChart(
+            modifier = modifier,
             hexagonChartState = HexagonChartState(
-                workPartCountByMonthList, workCountByPreCurrentMonth
-            )
+                workPartCountByMonthList, workCountByPreCurrentMonth, selectedDate
+            ),
+            sample = sample
         )
 
     }

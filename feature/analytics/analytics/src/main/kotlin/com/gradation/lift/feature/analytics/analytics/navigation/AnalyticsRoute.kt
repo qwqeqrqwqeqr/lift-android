@@ -63,11 +63,14 @@ internal fun AnalyticsRoute(
     val workCountByPreCurrentMonth: List<WorkCountByMonth> by analyticsHexagonChartState.workCountByPreCurrentMonth.collectAsStateWithLifecycle()
     val mostUsedWorkPartInThisMonth: String by analyticsHexagonChartState.mostUsedWorkPartInThisMonth.collectAsStateWithLifecycle()
 
+
     val workPartList: List<String> = analyticsPieChartState.workPartList
     val selectedWorkPart: String by analyticsPieChartState.selectedWorkPart.collectAsStateWithLifecycle()
     val workCategoryCountByWorkPartList: List<WorkCategoryCount> by analyticsPieChartState.workCategoryCountByWorkPartList.collectAsStateWithLifecycle()
     val sumOfWorkCountByWorkPart: Int by analyticsPieChartState.sumOfWorkCountByWorkPart.collectAsStateWithLifecycle()
     val mostUsedWorkCategory: String by analyticsPieChartState.mostUsedWorkCategory.collectAsStateWithLifecycle()
+    val selectedDateTotalWorkCount: Int by analyticsPieChartState.selectedDateTotalWorkCount.collectAsStateWithLifecycle()
+
 
     val updateSelectedWorkPart: (String) -> Unit = analyticsPieChartState.updateSelectedWorkPart
 
@@ -137,6 +140,7 @@ internal fun AnalyticsRoute(
         workCategoryCountByWorkPartList,
         sumOfWorkCountByWorkPart,
         mostUsedWorkCategory,
+        selectedDateTotalWorkCount,
         updateSelectedWorkPart,
         analyticsScreenState
     )

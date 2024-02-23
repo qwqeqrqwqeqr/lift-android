@@ -87,6 +87,13 @@ class AnalyticsPieChartState(
         started = SharingStarted.Lazily,
         initialValue = ""
     ),
+    val selectedDateTotalWorkCount: StateFlow<Int> = selectedDateHistoryRoutine.map {
+        it.count()
+    }.flowOn(dispatcherProvider.default).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Lazily,
+        initialValue = 0
+    ),
 ) {
     val updateSelectedWorkPart: (String) -> Unit = { selectedWorkPart.value = it }
 }

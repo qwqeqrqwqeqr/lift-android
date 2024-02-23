@@ -32,12 +32,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.chart.model.SampleData.HEXAGON_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMonth
 import com.gradation.lift.designsystem.component.chart.state.HexagonChartState
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
-import com.gradation.lift.designsystem.component.container.LiftSecondaryContainer
+import com.gradation.lift.designsystem.component.container.LiftInfoContainer
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.icon.IconBoxSize
 import com.gradation.lift.designsystem.component.icon.IconType
 import com.gradation.lift.designsystem.component.icon.LiftIconBox
@@ -47,7 +49,9 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.minus
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -56,7 +60,11 @@ import kotlin.math.sin
 fun LiftHexagonChart(
     modifier: Modifier = Modifier,
     hexagonChartState: HexagonChartState,
+    sample: Boolean = false,
 ) {
+    val isSample = hexagonChartState.workCountByMonthList.none { it.workCount != 0 } || sample
+    val state = if (isSample) HEXAGON_CHART_SAMPLE_DATA else hexagonChartState
+
     val backgroundBorderColor = LiftTheme.colorScheme.no8
     val backgroundColor = LiftTheme.colorScheme.no17
 
@@ -68,11 +76,11 @@ fun LiftHexagonChart(
 
     val localDensity = LocalDensity.current
 
-    val maxValue = hexagonChartState.workPartCountByMonthList.maxOf { it.currentCount }
-        .coerceAtLeast(hexagonChartState.workPartCountByMonthList.maxOf { it.preCount })
+    val maxValue = state.workPartCountByMonthList.maxOf { it.currentCount }
+        .coerceAtLeast(state.workPartCountByMonthList.maxOf { it.preCount })
         .toFloat()
 
-    val preMonthCountValueList = hexagonChartState.workPartCountByMonthList.map {
+    val preMonthCountValueList = state.workPartCountByMonthList.map {
         animateFloatAsState(
             targetValue = it.preCount.toFloat(),
             label = "preMonthCountAnimation",
@@ -80,7 +88,7 @@ fun LiftHexagonChart(
         ).value
     }
 
-    val currentMonthCountValueList = hexagonChartState.workPartCountByMonthList.map {
+    val currentMonthCountValueList = state.workPartCountByMonthList.map {
         animateFloatAsState(
             targetValue = it.currentCount.toFloat(),
             label = "currentMonthCountAnimation",
@@ -97,6 +105,10 @@ fun LiftHexagonChart(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space32),
         ) {
+            if (sample) LiftInfoContainer(
+                modifier = modifier,
+                text = "운동을 진행하면 운동결과에 따른 분석을 볼 수 있어요"
+            )
             BoxWithConstraints(
                 modifier = modifier
                     .fillMaxWidth()
@@ -135,14 +147,20 @@ fun LiftHexagonChart(
                     LiftWorkPartCountView(
                         modifier = modifier
                             .align(pair.first),
-                        value = hexagonChartState.workPartCountByMonthList[index],
-                        offset = pair.second
+                        value = state.workPartCountByMonthList[index],
+                        offset = pair.second,
+                        isSample = isSample
                     )
                 }
 
 
             }
-            DescriptionContentView(modifier, hexagonChartState.workCountByMonthList)
+            DescriptionContentView(
+                modifier,
+                state.workCountByMonthList,
+                state.selectedDate,
+                isSample
+            )
         }
     }
 }
@@ -153,6 +171,7 @@ fun LiftWorkPartCountView(
     modifier: Modifier = Modifier,
     value: WorkPartCountByMonth,
     offset: Offset,
+    isSample: Boolean,
 ) {
     LiftEmptyContainer(
         modifier = modifier.offset(x = offset.x.dp, y = offset.y.dp),
@@ -170,12 +189,12 @@ fun LiftWorkPartCountView(
                 defaultTextStyle = LiftTextStyle.No5,
                 textWithStyleList = listOf(
                     TextWithStyle(
-                        text = "${value.currentCount}",
+                        text = "${if (isSample) "?" else value.currentCount}",
                         color = LiftTheme.colorScheme.no4,
                     ),
                     TextWithStyle(text = " / "),
                     TextWithStyle(
-                        text = "${value.preCount}",
+                        text = "${if (isSample) "?" else value.preCount}",
                         color = LiftTheme.colorScheme.no47,
                     ),
                 ),
@@ -300,8 +319,10 @@ fun DrawScope.drawBackGround(
 fun DescriptionContentView(
     modifier: Modifier = Modifier,
     workCountByMonthList: List<WorkCountByMonth>,
+    selectedDate: LocalDate,
+    isSample: Boolean,
 ) {
-    LiftSecondaryContainer(
+    LiftPrimaryContainer(
         modifier = modifier,
         horizontalPadding = LiftTheme.space.space16,
         verticalPadding = LiftTheme.space.space12,
@@ -328,7 +349,7 @@ fun DescriptionContentView(
                             iconBoxSize = IconBoxSize.Size12
                         )
                         LiftText(
-                            text = "${this@with.month.monthNumber}월",
+                            text = "${if (isSample) selectedDate.monthNumber else this@with.month.monthNumber}월",
                             color = LiftTheme.colorScheme.no3,
                             textAlign = TextAlign.Start,
                             textStyle = LiftTextStyle.No7
@@ -342,13 +363,13 @@ fun DescriptionContentView(
                         )
                     ) {
                         LiftText(
-                            text = "${this@with.month.monthNumber}월 운동횟수",
+                            text = "${if (isSample) selectedDate.monthNumber else this@with.month.monthNumber}월 운동횟수",
                             color = LiftTheme.colorScheme.no3,
                             textAlign = TextAlign.End,
                             textStyle = LiftTextStyle.No7
                         )
                         LiftText(
-                            text = "${this@with.workCount}회",
+                            text = "${if (isSample) "?" else this@with.workCount}회",
                             color = LiftTheme.colorScheme.no3,
                             textAlign = TextAlign.End,
                             textStyle = LiftTextStyle.No8
@@ -373,7 +394,7 @@ fun DescriptionContentView(
                             iconBoxSize = IconBoxSize.Size12
                         )
                         LiftText(
-                            text = "${this@with.month.monthNumber}월",
+                            text = "${if (isSample) selectedDate.minus(DatePeriod(months = 1)).monthNumber else this@with.month.monthNumber}월",
                             color = LiftTheme.colorScheme.no3,
                             textAlign = TextAlign.Start,
                             textStyle = LiftTextStyle.No7
@@ -387,13 +408,13 @@ fun DescriptionContentView(
                         )
                     ) {
                         LiftText(
-                            text = "${this@with.month.monthNumber}월 운동횟수",
+                            text = "${if (isSample) selectedDate.minus(DatePeriod(months = 1)).monthNumber else this@with.month.monthNumber}월 운동횟수",
                             color = LiftTheme.colorScheme.no3,
                             textAlign = TextAlign.End,
                             textStyle = LiftTextStyle.No7
                         )
                         LiftText(
-                            text = "${this@with.workCount}회",
+                            text = "${if (isSample) "?" else this@with.workCount}회",
                             color = LiftTheme.colorScheme.no3,
                             textAlign = TextAlign.End,
                             textStyle = LiftTextStyle.No8
@@ -459,20 +480,8 @@ fun LiftHexagonChartPreview(
     ) {
         LiftHexagonChart(
             modifier,
-            HexagonChartState(
-                workPartCountByMonthList = listOf(
-                    WorkPartCountByMonth("등", 27, 8),
-                    WorkPartCountByMonth("복근", 5, 13),
-                    WorkPartCountByMonth("가슴", 30, 30),
-                    WorkPartCountByMonth("어깨", 10, 25),
-                    WorkPartCountByMonth("하체", 15, 32),
-                    WorkPartCountByMonth("팔", 19, 3)
-                ),
-                workCountByMonthList = listOf(
-                    WorkCountByMonth(12, LocalDate(2024, 1, 5)),
-                    WorkCountByMonth(25, LocalDate(2024, 2, 5)),
-                )
-            )
+            HEXAGON_CHART_SAMPLE_DATA,
+            true
         )
     }
 }

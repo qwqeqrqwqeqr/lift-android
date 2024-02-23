@@ -2,6 +2,7 @@ package com.gradation.lift.designsystem.component.chart.state
 
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMonth
+import kotlinx.datetime.LocalDate
 
 /**
  *  [workPartCountByMonthList] 총 6개의 부위
@@ -11,4 +12,5 @@ import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMont
 data class HexagonChartState(
     val workPartCountByMonthList: List<WorkPartCountByMonth>,
     val workCountByMonthList: List<WorkCountByMonth>,
+    val selectedDate: LocalDate,
 )

@@ -44,11 +44,14 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gradation.lift.designsystem.component.chart.model.PieChartValue
+import com.gradation.lift.designsystem.component.chart.model.SampleData.PIE_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.chart.model.WorkCategoryCount
+import com.gradation.lift.designsystem.component.chart.state.PieChartState
 import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
-import com.gradation.lift.designsystem.component.container.LiftSecondaryContainer
+import com.gradation.lift.designsystem.component.container.LiftInfoContainer
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -56,23 +59,16 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 
-/**
- * [LiftPieChart]
- * @param workPartList 운동 부위 리스트
- * @param selectedWorkPart 현재 선택된 운동부위
- * @param workCategoryCountByWorkPartList 선택된 운동 부위에 따른 운동 카테고리로 4개만 설정
- * @param sumOfWorkCategoryCountByWorkPart 선택된 운동 부위에 따른 운동 카테고리 운동횟수 총합
- * @param updateSelectedPart 운동 부위 변경
- */
 @Composable
 fun LiftPieChart(
     modifier: Modifier = Modifier,
-    workPartList: List<String>,
-    selectedWorkPart: String,
-    workCategoryCountByWorkPartList: List<WorkCategoryCount>,
-    sumOfWorkCategoryCountByWorkPart: Int,
-    updateSelectedPart: (String) -> Unit,
+    pieChartState: PieChartState,
+    sample: Boolean = false,
 ) {
+    val isSample: Boolean = sample || pieChartState.selectedDateTotalWorkCount == 0
+
+    val state = if (isSample) PIE_CHART_SAMPLE_DATA else pieChartState
+
     val localDensity = LocalDensity.current
 
     val backgroundColor = LiftTheme.colorScheme.no5
@@ -89,7 +85,7 @@ fun LiftPieChart(
     val largeStroke = with(localDensity) { LiftTheme.space.space52.toPx() }
     val shadowStroke = with(localDensity) { LiftTheme.space.space56.toPx() }
 
-    val valueList = workCategoryCountByWorkPartList.sortedByDescending { it.count }
+    val valueList = state.workCategoryCountByWorkPartList.sortedByDescending { it.count }
     val colorList = listOf(primaryColor, secondaryColor, tertiaryColor, quaternaryColor)
     val pieChartValueList = arrayListOf<PieChartValue>()
 
@@ -99,7 +95,7 @@ fun LiftPieChart(
 
 
     run {
-        val totalValue = workCategoryCountByWorkPartList.sumOf { it.count }
+        val totalValue = state.workCategoryCountByWorkPartList.sumOf { it.count }
         val maxProgress = 360f
         var temp = 0f
         valueList.zip(colorList).map { it ->
@@ -168,15 +164,20 @@ fun LiftPieChart(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space32)
         ) {
+            if (sample) LiftInfoContainer(
+                modifier = modifier,
+                text = "운동을 진행하면 운동결과에 따른 분석을 볼 수 있어요"
+            )
+
             Row(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
             ) {
-                workPartList.forEach { name ->
+                state.workPartList.forEach { name ->
                     LiftDefaultChip(
                         text = name,
-                        isSelected = selectedWorkPart == name,
-                        onClick = { updateSelectedPart(name) }
+                        isSelected = state.selectedWorkPart == name,
+                        onClick = { state.updateSelectedWorkPart(name) }
                     )
                 }
             }
@@ -214,20 +215,26 @@ fun LiftPieChart(
                 }
                 LiftText(
                     modifier = modifier.align(Alignment.Center),
-                    text = "${sumOfWorkCategoryCountByWorkPart}회",
+                    text = "${if (isSample) "??" else state.sumOfWorkCategoryCountByWorkPart}회",
                     color = LiftTheme.colorScheme.no9,
                     textAlign = TextAlign.Center,
                     textStyle = LiftTextStyle.No1
                 )
             }
-
-            DescriptionView(
-                modifier,
-                selectedWorkCategory,
-                updateSelectedWorkCategory,
-                valueList,
-                colorList
+            if (pieChartState.sumOfWorkCategoryCountByWorkPart == 0) LiftInfoContainer(
+                modifier = modifier,
+                text = "${pieChartState.selectedWorkPart} 운동을 진행하면 분석 결과를 볼 수 있어요"
             )
+            else {
+                DescriptionView(
+                    modifier,
+                    selectedWorkCategory,
+                    updateSelectedWorkCategory,
+                    valueList,
+                    colorList,
+                    isSample
+                )
+            }
         }
     }
 }
@@ -294,6 +301,7 @@ fun DescriptionView(
     updateSelectedWorkCategory: (String) -> Unit,
     valueList: List<WorkCategoryCount>,
     colorList: List<Color>,
+    isSample: Boolean,
 ) {
     val mutableInteractionSource = remember { MutableInteractionSource() }
     FlowRow(
@@ -301,12 +309,12 @@ fun DescriptionView(
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
         horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
     ) {
-        valueList.zip(colorList).forEach {
+        valueList.zip(colorList).forEachIndexed { index, it ->
             val textColor by animateColorAsState(
                 targetValue = if (selectedWorkCategory == it.first.name) LiftTheme.colorScheme.no4 else LiftTheme.colorScheme.no13,
                 label = "textColorAnimation"
             )
-            LiftSecondaryContainer(
+            LiftPrimaryContainer(
                 modifier = modifier.clickable(
                     interactionSource = mutableInteractionSource,
                     indication = null
@@ -332,7 +340,7 @@ fun DescriptionView(
                     )
                     LiftText(
                         modifier = modifier,
-                        text = it.first.name,
+                        text = if (isSample) "진행한 운동 ${index + 1}" else it.first.name,
                         color = textColor,
                         textAlign = TextAlign.Center,
                         textStyle = if (selectedWorkCategory == it.first.name) LiftTextStyle.No8 else LiftTextStyle.No7
@@ -405,15 +413,7 @@ fun LiftPieChartPreview(
 ) {
     LiftPieChart(
         modifier,
-        workPartList = listOf("가슴", "어깨", "팔", "등", "복근", "하체"),
-        selectedWorkPart = "가슴",
-        workCategoryCountByWorkPartList = listOf(
-            WorkCategoryCount("운동1", 10),
-            WorkCategoryCount("운동2", 20),
-            WorkCategoryCount("운동3", 35),
-            WorkCategoryCount("운동4", 20),
-        ),
-        sumOfWorkCategoryCountByWorkPart = 72,
-        updateSelectedPart = {}
+        pieChartState = PIE_CHART_SAMPLE_DATA,
+        sample = true
     )
 }

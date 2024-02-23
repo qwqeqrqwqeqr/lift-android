@@ -42,21 +42,27 @@ fun LiftProgressBar(
             color = progressBarBackgroundColor
         )
 
-        drawPath(
-            path = Path().apply {
-                moveTo(
-                    0f,
-                    center.y
-                )
-                lineTo(
-                    progress / 100f * size.width,
-                    center.y
-                )
-                close()
-            },
-            style = Stroke(width = stroke.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round),
-            color = progressBarColor,
-        )
+
+        if (progress != 0f)
+            drawPath(
+                path = Path().apply {
+                    moveTo(
+                        0f,
+                        center.y
+                    )
+                    lineTo(
+                        progress / 100f * size.width,
+                        center.y
+                    )
+                    close()
+                },
+                style = Stroke(
+                    width = stroke.toPx(),
+                    cap = StrokeCap.Round,
+                    join = StrokeJoin.Round
+                ),
+                color = progressBarColor,
+            )
     }
 
 

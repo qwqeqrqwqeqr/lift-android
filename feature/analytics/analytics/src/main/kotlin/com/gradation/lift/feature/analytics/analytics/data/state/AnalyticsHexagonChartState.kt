@@ -80,7 +80,6 @@ class AnalyticsHexagonChartState(
             HistoryUiState.Loading -> emptyList()
             HistoryUiState.Empty -> emptyList()
             is HistoryUiState.Success -> {
-
                 val targetMonthRange: List<LocalDate> = (1 downTo 0).map { month ->
                     date.minus(DatePeriod(months = month))
                         .let { LocalDate(it.year, it.monthNumber, 1) }
@@ -94,7 +93,6 @@ class AnalyticsHexagonChartState(
                         WorkCountByMonth(
                             workCount = it.size, month = targetDate
                         )
-
                     }
                 }
             }

@@ -9,12 +9,15 @@ import com.gradation.lift.designsystem.component.chart.LiftBarChart
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.chart.state.BarChartState
 import com.gradation.lift.designsystem.theme.LiftTheme
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun BarChartView(
     modifier: Modifier = Modifier,
     workCountByMonthList: List<WorkCountByMonth>,
     thisMonthWorkCountForPreMonth: Int,
+    selectedDate: LocalDate,
+    sample: Boolean = false,
 ) {
     Column(
         modifier = modifier.padding(
@@ -25,12 +28,16 @@ fun BarChartView(
         BarChartHeaderView(
             modifier,
             workCountByMonthList,
-            thisMonthWorkCountForPreMonth
+            thisMonthWorkCountForPreMonth,
+            sample
         )
         LiftBarChart(
+            modifier = modifier,
             barChartState = BarChartState(
-                workCountByMonthList
-            )
+                workCountByMonthList,
+                selectedDate
+            ),
+            sample = sample
         )
     }
 }
