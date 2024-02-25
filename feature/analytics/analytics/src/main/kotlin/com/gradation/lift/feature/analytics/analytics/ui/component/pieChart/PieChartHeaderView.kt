@@ -3,7 +3,6 @@ package com.gradation.lift.feature.analytics.analytics.ui.component.pieChart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.component.chart.model.SampleData.PIE_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
@@ -19,22 +18,13 @@ fun PieChartHeaderView(
     mostUsedWorkCategory: String,
     sample: Boolean = false,
 ) {
-    if (sample)
-        HeaderTextView(
-            modifier,
-            selectedDate,
-            PIE_CHART_SAMPLE_DATA.sumOfWorkCategoryCountByWorkPart,
-            PIE_CHART_SAMPLE_DATA.selectedWorkPart,
-            PIE_CHART_SAMPLE_DATA.workCategoryCountByWorkPartList.maxBy { it.count }.name,
-        )
-    else
-        HeaderTextView(
-            modifier,
-            selectedDate,
-            sumOfWorkCountByWorkPart,
-            selectedWorkPart,
-            mostUsedWorkCategory,
-        )
+    if (!sample) HeaderTextView(
+        modifier,
+        selectedDate,
+        sumOfWorkCountByWorkPart,
+        selectedWorkPart,
+        mostUsedWorkCategory,
+    )
 }
 
 @Composable

@@ -16,7 +16,7 @@ import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsScreen
 import com.gradation.lift.feature.analytics.analytics.data.state.HistoryUiState
 import com.gradation.lift.feature.analytics.analytics.ui.component.barChart.BarChartView
 import com.gradation.lift.feature.analytics.analytics.ui.component.calendar.CalendarView
-import com.gradation.lift.feature.analytics.analytics.ui.component.emptyAnalyticsScreen
+import com.gradation.lift.feature.analytics.analytics.ui.component.empty.emptyAnalyticsScreen
 import com.gradation.lift.feature.analytics.analytics.ui.component.hexagonChart.HexagonChartView
 import com.gradation.lift.feature.analytics.analytics.ui.component.pieChart.PieChartView
 import kotlinx.datetime.LocalDate

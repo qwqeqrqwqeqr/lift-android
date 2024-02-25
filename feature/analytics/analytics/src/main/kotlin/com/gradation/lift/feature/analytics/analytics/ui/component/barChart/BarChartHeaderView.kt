@@ -3,7 +3,6 @@ package com.gradation.lift.feature.analytics.analytics.ui.component.barChart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.component.chart.model.SampleData.HEXAGON_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -18,14 +17,9 @@ fun BarChartHeaderView(
     thisMonthWorkCountForPreMonth: Int,
     sample: Boolean = false,
 ) {
-    if (sample)
-        HeaderTextView(
-            modifier,
-            HEXAGON_CHART_SAMPLE_DATA.workCountByMonthList,
-            HEXAGON_CHART_SAMPLE_DATA.workCountByMonthList.let { it[it.lastIndex].workCount - it[it.lastIndex - 1].workCount })
-    else
-        HeaderTextView(modifier, workCountByMonthList, thisMonthWorkCountForPreMonth)
+    if (!sample) HeaderTextView(modifier, workCountByMonthList, thisMonthWorkCountForPreMonth)
 }
+
 
 @Composable
 private fun HeaderTextView(

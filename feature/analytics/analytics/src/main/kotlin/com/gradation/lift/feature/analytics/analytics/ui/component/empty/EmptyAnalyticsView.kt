@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.analytics.analytics.ui.component
+package com.gradation.lift.feature.analytics.analytics.ui.component.empty
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +34,7 @@ fun LazyListScope.emptyAnalyticsScreen(
 ) {
     item { Spacer(modifier = modifier) }
     item {
+        SampleHeaderView(modifier = modifier)
         BarChartView(
             modifier,
             workCountByMonthList,
