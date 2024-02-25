@@ -19,6 +19,7 @@ import com.gradation.lift.feature.registerDetail.navigation.registerDetailGraphB
 import com.gradation.lift.feature.routineDetail.navigation.routineDetailGraphBuilder
 import com.gradation.lift.feature.work.navigation.workGraphBuilder
 import com.gradation.lift.feature.workReady.navigation.workReadyGraphBuilder
+import com.gradation.lift.inquiry.navigation.inquiryGraphBuilder
 
 
 @Composable
@@ -50,6 +51,7 @@ fun LiftNavHost(
         routineDetailGraphBuilder(modifier, navController)
         historyGraphBuilder(modifier, navController)
         analyticsGraphBuilder(modifier, navController)
+        inquiryGraphBuilder(modifier, navController)
     }
 }
 

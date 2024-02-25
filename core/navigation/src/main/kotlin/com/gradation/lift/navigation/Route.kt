@@ -103,4 +103,7 @@ object Route {
     const val WORK_READY_READY_ROUTER_NAME = "work_ready_ready"
     const val WORK_READY_FIND_WORK_CATEGORY_ROUTER_NAME = "work_ready_find_work_category"
     const val WORK_READY_CREATE_WORK_SET_ROUTER_NAME = "work_ready_create_work_set"
+
+    const val INQUIRY_GRAPH_NAME = "inquiry_graph"
+    const val INQUIRY_REGISTER_INQUIRY_ROUTER_NAME = "inquiry_register_inquiry"
 }

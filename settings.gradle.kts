@@ -107,6 +107,8 @@ include(":feature:history:history")
 include(":feature:history:navigation")
 include(":feature:history:update-info")
 
+include(":feature:inquiry:register-inquiry")
+include(":feature:inquiry:navigation")
 
 include(":feature:analytics:analytics")
 include(":feature:analytics:navigation")

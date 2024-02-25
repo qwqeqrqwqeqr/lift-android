@@ -35,6 +35,10 @@ fun NavController.navigateHomeGraphToBadgeGraph() {
     this.navigate(Route.BADGE_GRAPH_NAME)
 }
 
+fun NavController.navigateHomeGraphToInquiryGraph() {
+    this.navigate(Route.INQUIRY_GRAPH_NAME)
+}
+
 fun NavController.navigateHomeGraphToBadgeSettingRouter() {
     this.navigate(Route.BADGE_SETTING_ROUTER_NAME)
 }
@@ -42,6 +46,8 @@ fun NavController.navigateHomeGraphToBadgeSettingRouter() {
 fun NavController.navigateHomeToBadgeInHomeGraph() {
     this.navigate(Route.HOME_BADGE_ROUTER_NAME)
 }
+
+
 
 fun NavController.navigateHomeGraphToMyinfoProfileRouter() {
     this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME)
