@@ -12,6 +12,7 @@ import com.gradation.lift.network.datasource.badge.BadgeDataSource
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.favorite.FavoriteDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.inquiry.InquiryDataSource
 import com.gradation.lift.network.datasource.notice.NoticeDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
@@ -154,6 +155,15 @@ object RepositoryModule {
         dispatcherProvider: DispatcherProvider,
     ): FavoriteRepository = DefaultFavoriteRepository(
         favoriteDataSource, dispatcherProvider
+    )
+
+    @ViewModelScoped
+    @Provides
+    fun provideInquiryRepository(
+        inquiryDataSource: InquiryDataSource,
+        dispatcherProvider: DispatcherProvider,
+    ): InquiryRepository = DefaultInquiryRepository(
+        inquiryDataSource, dispatcherProvider
     )
 
 }
