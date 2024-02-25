@@ -22,27 +22,32 @@ import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.model.bannerList
 import com.gradation.lift.feature.home.home.data.state.HomeScreenState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun BannerView(
     modifier: Modifier = Modifier,
+    navigateHomeGraphToInquiryGraph: () -> Unit,
     homeScreenState: HomeScreenState,
 ) {
+    val bannerNavigationList = listOf(navigateHomeGraphToInquiryGraph).zip(bannerList)
+
     Column(
         modifier = modifier
     ) {
         HorizontalPager(state = homeScreenState.pagerState) { page ->
-            bannerList[page].also {
+            bannerNavigationList[page].also {
                 Box(
                     modifier = modifier
                         .fillMaxWidth()
+                        .noRippleClickable { it.first() }
                         .padding(horizontal = LiftTheme.space.space20)
                 ) {
                     GlideImage(
                         modifier = modifier,
-                        model = it.image,
-                        contentDescription = it.image.toString(),
+                        model = it.second.image,
+                        contentDescription = it.second.image.toString(),
                         contentScale = ContentScale.FillWidth
                     )
                     Row(

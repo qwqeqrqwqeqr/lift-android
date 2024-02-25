@@ -8,6 +8,7 @@ import com.gradation.lift.navigation.Route.HOME_HOME_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph
+import com.gradation.lift.navigation.navigation.navigateHomeGraphToInquiryGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToMyinfoProfileRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToRoutineDetailRoutineRouter
@@ -37,6 +38,8 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
         { navController.navigateHomeGraphToWorkReadyRoutineSelectionRouter() }
     val navigateHomeGraphToMyinfoProfileRouter: () -> Unit =
         { navController.navigateHomeGraphToMyinfoProfileRouter() }
+    val navigateHomeGraphToInquiryGraph: () -> Unit =
+        { navController.navigateHomeGraphToInquiryGraph() }
 
     composable(HOME_HOME_ROUTER_NAME) {
         HomeRoute(
@@ -50,7 +53,8 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
             navigateHomeGraphToBadgeSettingRouter,
             navigateHomeGraphToWorkReadyRoutineSelectionRouter,
             navigateHomeGraphToWorkReadyReadyRouter,
-            navigateHomeGraphToMyinfoProfileRouter
+            navigateHomeGraphToMyinfoProfileRouter,
+            navigateHomeGraphToInquiryGraph
         )
     }
 

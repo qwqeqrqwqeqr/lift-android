@@ -43,6 +43,7 @@ internal fun HomeRoute(
     navigateHomeGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
     navigateHomeGraphToWorkReadyReadyRouter: () -> Unit,
     navigateHomeGraphToMyinfoProfileRouter: () -> Unit,
+    navigateHomeGraphToInquiryGraph: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: HomeSharedViewModel =
         hiltViewModel(remember { navController.getBackStackEntry(Route.HOME_GRAPH_NAME) }),
@@ -115,6 +116,7 @@ internal fun HomeRoute(
         navigateHomeGraphToRoutineDetailRoutineRouter,
         navigateHomeGraphToBadgeSettingRouter,
         navigateHomeGraphToMyinfoProfileRouter,
+        navigateHomeGraphToInquiryGraph,
         homeScreenState,
         homeAnimationState
     )

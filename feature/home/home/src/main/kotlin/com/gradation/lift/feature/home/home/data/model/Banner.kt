@@ -5,11 +5,10 @@ import com.gradation.lift.designsystem.resource.LiftBannerImage
 
 data class Banner(
     val image: Int,
-    val navigation: (() -> Unit)? = null,
 )
 
 
 val bannerList = listOf(
-    Banner(LiftBannerImage.Banner1) {},
-    Banner(LiftBannerImage.Banner2) {}
+//    Banner(LiftBannerImage.Banner1),
+    Banner(LiftBannerImage.Banner2)
 )

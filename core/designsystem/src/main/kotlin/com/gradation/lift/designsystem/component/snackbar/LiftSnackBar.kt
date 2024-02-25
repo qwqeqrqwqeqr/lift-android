@@ -52,26 +52,6 @@ fun LiftSnackBar(
 }
 
 
-@Composable
-fun LiftSnackBar(
-    modifier: Modifier = Modifier,
-    snackbarHostState: SnackbarHostState,
-    snackbarCategory: SnackBarCategory = SnackBarCategory.Warn,
-) {
-    SnackbarHost(
-        modifier = modifier.padding(LiftTheme.space.space12),
-        hostState = snackbarHostState,
-        snackbar = { data ->
-            SnackbarComponent(
-                modifier = modifier,
-                message = data.visuals.message,
-                actionLabel = data.visuals.actionLabel,
-                snackbarCategory = snackbarCategory,
-                onClick = {}
-            )
-        }
-    )
-}
 
 @Composable
 fun SnackbarComponent(

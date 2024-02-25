@@ -42,6 +42,7 @@ internal fun HomeScreen(
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
     navigateHomeGraphToBadgeSettingRouter: () -> Unit,
     navigateHomeGraphToMyinfoProfileRouter: () -> Unit,
+    navigateHomeGraphToInquiryGraph: () -> Unit,
     homeScreenState: HomeScreenState,
     homeAnimationState: HomeAnimationState,
 ) {
@@ -69,7 +70,7 @@ internal fun HomeScreen(
                     userDetailUiState,
                     navigateHomeGraphToMyinfoProfileRouter
                 )
-                BannerView(modifier, homeScreenState)
+                BannerView(modifier, navigateHomeGraphToInquiryGraph, homeScreenState)
             }
             item {
                 BadgeView(
@@ -115,6 +116,7 @@ fun HomeScreenPreview() {
             navigateHomeGraphToRoutineDetailRoutineRouter = { },
             navigateHomeGraphToBadgeSettingRouter = { },
             navigateHomeGraphToMyinfoProfileRouter = { },
+            navigateHomeGraphToInquiryGraph = {},
             homeScreenState = rememberHomeScreenState(),
             homeAnimationState = rememberHomeAnimationState()
         )
