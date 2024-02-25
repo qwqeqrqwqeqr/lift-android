@@ -12,6 +12,8 @@ import com.gradation.lift.network.datasource.favorite.DefaultFavoriteDataSource
 import com.gradation.lift.network.datasource.favorite.FavoriteDataSource
 import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.inquiry.DefaultInquiryDataSource
+import com.gradation.lift.network.datasource.inquiry.InquiryDataSource
 import com.gradation.lift.network.datasource.notice.DefaultNoticeDefaultDataSource
 import com.gradation.lift.network.datasource.notice.NoticeDataSource
 import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
@@ -127,6 +129,14 @@ object DataSourceModule {
         dispatcherProvider: DispatcherProvider,
     ): FavoriteDataSource =
         DefaultFavoriteDataSource(favoriteService, networkResultHandler, dispatcherProvider)
+
+    @Provides
+    fun provideInquiryDataSource(
+        inquiryService: InquiryService,
+        networkResultHandler: NetworkResultHandler,
+        dispatcherProvider: DispatcherProvider,
+    ): InquiryDataSource =
+        DefaultInquiryDataSource(inquiryService, networkResultHandler, dispatcherProvider)
 
 
 }
