@@ -1,13 +1,8 @@
 package com.gradation.lift.designsystem.component.button.smallButton
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -127,4 +122,38 @@ fun LiftSortFilterSmallButton(
         }
     }
 }
+
+
+@Composable
+fun LiftBadgeFilterSmallButton(
+    modifier: Modifier = Modifier,
+    filterType: String,
+) {
+    LiftBaseSmallButton(modifier = modifier) {
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = LiftIcon.BadgeSmall),
+                contentDescription = "BadgeSmall",
+                tint = LiftTheme.colorScheme.no2
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No6,
+                text = "뱃지",
+                color = LiftTheme.colorScheme.no2,
+                textAlign = TextAlign.Start
+            )
+            LiftText(
+                textStyle = LiftTextStyle.No5,
+                text = filterType,
+                color = LiftTheme.colorScheme.no4,
+                textAlign = TextAlign.Start
+            )
+        }
+    }
+}
+
 

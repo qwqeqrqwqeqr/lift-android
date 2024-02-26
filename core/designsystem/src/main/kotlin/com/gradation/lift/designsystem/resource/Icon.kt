@@ -32,6 +32,9 @@ object LiftIcon {
     val Calendar = R.drawable.calendar
     val Label = R.drawable.label
 
+    val Badge = R.drawable.badge
+    val BadgeDisabled = R.drawable.badge_disabled
+    val BadgeSmall = R.drawable.badge_small
 
     val Set = R.drawable.set
     val Weight = R.drawable.weight
@@ -53,8 +56,7 @@ object LiftIcon {
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
     val Muscle = R.drawable.muscle
-    val Badge = R.drawable.badge
-    val BadgeDisabled = R.drawable.badge_disabled
+
     val RoutineList = R.drawable.routine_list
     val DumbbellColor = R.drawable.dumbbell_color
     val BadgeAdd = R.drawable.badge_add

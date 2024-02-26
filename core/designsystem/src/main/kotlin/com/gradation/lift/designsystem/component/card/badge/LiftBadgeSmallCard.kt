@@ -27,6 +27,7 @@ fun LiftBadgeSmallCard(
     badgeUrl: String,
 ) {
     LiftDefaultContainer(
+        modifier = modifier,
         verticalPadding = LiftTheme.space.space12,
         horizontalPadding = LiftTheme.space.space12,
         shape = RoundedCornerShape(LiftTheme.space.space6)
@@ -37,13 +38,13 @@ fun LiftBadgeSmallCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (isDefault) {
+                LiftDefaultBadgeSmallIcon(modifier)
+            } else {
                 GlideImage(
                     modifier = modifier.size(LiftTheme.space.space48),
                     model = badgeUrl,
                     contentDescription = badgeUrl
                 )
-            } else {
-                LiftDefaultBadgeSmallIcon(modifier)
             }
 
             LiftText(

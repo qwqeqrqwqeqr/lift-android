@@ -8,6 +8,7 @@ object LiftImage {
     val Congrats = R.drawable.congrats
     val BadgeCongrats = R.drawable.badge_congrats
     val BadgeHalo = R.drawable.badge_halo
+    val BadgeSmallHalo = R.drawable.badge_small_halo
     val Halo = R.drawable.halo
 
     val CompleteHalo = R.drawable.complete_halo

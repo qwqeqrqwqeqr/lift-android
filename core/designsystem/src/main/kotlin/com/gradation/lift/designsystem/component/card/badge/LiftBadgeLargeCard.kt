@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -56,16 +55,17 @@ fun LiftBadgeLargeCard(
     val interactionSource = remember { MutableInteractionSource() }
     LiftEmptyContainer(
         modifier = modifier
-            .width(LiftTheme.space.space280),
+            .width(LiftTheme.space.space280)
+            .height(LiftTheme.space.space360),
         backGroundColor = backgroundColor,
         shape = RoundedCornerShape(LiftTheme.space.space12)
     ) {
         Column(
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
                 modifier = modifier
-                    .fillMaxWidth()
                     .clip(
                         RoundedCornerShape(
                             topStart = LiftTheme.space.space12,
@@ -74,7 +74,10 @@ fun LiftBadgeLargeCard(
                     )
             ) {
                 GlideImage(
-                    model = painterResource(id = LiftImage.Halo),
+                    model = LiftImage.BadgeSmallHalo,
+                    modifier = modifier
+                        .align(Alignment.TopCenter)
+                        .fillMaxWidth(),
                     contentDescription = "halo",
                     contentScale = ContentScale.FillWidth
                 )
@@ -104,7 +107,7 @@ fun LiftBadgeLargeCard(
                         )
                     }
                     GlideImage(
-                        modifier = modifier.size(LiftTheme.space.space48),
+                        modifier = modifier.size(LiftTheme.space.space116),
                         model = badgeUrl,
                         contentDescription = badgeUrl
                     )
@@ -118,7 +121,7 @@ fun LiftBadgeLargeCard(
                             bottomStart = LiftTheme.space.space12
                         )
                     )
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .padding(
                         horizontal = LiftTheme.space.space20,
                         vertical = LiftTheme.space.space12
