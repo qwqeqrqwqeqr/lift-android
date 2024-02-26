@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.ANALYTICS_GRAPH_NAME
+import com.gradation.lift.navigation.Route.BADGE_BADGE_ROUTER_NAME
 import com.gradation.lift.navigation.Route.HISTORY_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
@@ -31,22 +32,17 @@ fun NavController.navigateHomeGraphToRoutineDetailRoutineRouter(routineSetId: In
     this.navigate("$ROUTINE_DETAIL_ROUTINE_ROUTER_NAME/$routineSetId")
 }
 
-fun NavController.navigateHomeGraphToBadgeGraph() {
-    this.navigate(Route.BADGE_GRAPH_NAME)
+fun NavController.navigateHomeGraphToBadgeBadgeRouter(page: Int) {
+    this.navigate("$BADGE_BADGE_ROUTER_NAME/$page")
 }
 
 fun NavController.navigateHomeGraphToInquiryGraph() {
     this.navigate(Route.INQUIRY_GRAPH_NAME)
 }
 
-fun NavController.navigateHomeGraphToBadgeSettingRouter() {
-    this.navigate(Route.BADGE_SETTING_ROUTER_NAME)
-}
-
 fun NavController.navigateHomeToBadgeInHomeGraph() {
     this.navigate(Route.HOME_BADGE_ROUTER_NAME)
 }
-
 
 
 fun NavController.navigateHomeGraphToMyinfoProfileRouter() {

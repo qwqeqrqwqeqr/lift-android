@@ -46,8 +46,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 fun BadgeView(
     modifier: Modifier = Modifier,
     badgeUiState: BadgeUiState,
-    navigateHomeGraphToBadgeGraph: () -> Unit,
-    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
+    navigateHomeGraphToBadgeBadgeRouter: (Int) -> Unit,
     homeAnimationState: HomeAnimationState,
 ) {
     Column(
@@ -77,7 +76,7 @@ fun BadgeView(
             }
 
             Row(
-                modifier = modifier.noRippleClickable { navigateHomeGraphToBadgeGraph() },
+                modifier = modifier.noRippleClickable { navigateHomeGraphToBadgeBadgeRouter(0) },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
             ) {
@@ -183,7 +182,7 @@ fun BadgeView(
                                         .size(LiftTheme.space.space52)
                                         .padding(horizontal = LiftTheme.space.space8)
                                         .background(LiftTheme.colorScheme.no5, CircleShape)
-                                        .noRippleClickable { navigateHomeGraphToBadgeSettingRouter() }
+                                        .noRippleClickable { navigateHomeGraphToBadgeBadgeRouter(1) }
                                         .weight(1f),
                                     contentAlignment = Alignment.Center
                                 ) {

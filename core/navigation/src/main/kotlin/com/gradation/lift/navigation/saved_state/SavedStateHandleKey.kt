@@ -20,6 +20,9 @@ object SavedStateHandleKey {
             "CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY"
     }
 
+    object Badge {
+        const val BADGE_PAGE_KEY = "BADGE_PAGE_KEY"
+    }
 
     object UpdateRoutine {
         const val UPDATE_ROUTINE_SET_ID_KEY = "UPDATE_ROUTINE_SET_ID_KEY"

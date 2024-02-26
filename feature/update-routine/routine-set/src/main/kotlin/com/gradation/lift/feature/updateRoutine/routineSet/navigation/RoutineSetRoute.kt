@@ -3,7 +3,6 @@ package com.gradation.lift.feature.updateRoutine.routineSet.navigation
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,7 +27,6 @@ import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.UpdateRouti
 import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
-@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 internal fun RoutineSetRoute(

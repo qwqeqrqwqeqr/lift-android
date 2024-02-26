@@ -42,6 +42,8 @@ include(":feature:home:badge")
 include(":feature:home:common")
 include(":feature:home:navigation")
 
+
+include(":feature:create-routine:navigation")
 include(":feature:create-routine:routine-set")
 include(":feature:create-routine:find-work-category")
 include(":feature:create-routine:profile-picture")
@@ -85,8 +87,9 @@ include(":feature:work-ready:routine-selection")
 include(":feature:work-ready:find-work-category")
 include(":feature:work-ready:create-work-set")
 
+
+include(":feature:badge:navigation")
 include(":feature:badge:badge")
-include(":feature:badge:setting")
 
 include(":feature:notice:notice")
 include(":feature:notice:notice-detail")
@@ -113,6 +116,7 @@ include(":feature:inquiry:navigation")
 include(":feature:analytics:analytics")
 include(":feature:analytics:navigation")
 
+include(":feature:update-routine:navigation")
 include(":feature:update-routine:routine-set")
 include(":feature:update-routine:profile-picture")
 include(":feature:update-routine:create-work-set")
@@ -121,10 +125,10 @@ include(":feature:update-routine:find-work-category")
 include(":feature:update-routine:change-order")
 include(":feature:update-routine:common")
 
+include(":feature:routine-detail:navigation")
 include(":feature:routine-detail:routine")
 include(":feature:routine-detail:routine-list")
 
-include(":feature:routine-detail:navigation")
-include(":feature:badge:navigation")
-include(":feature:create-routine:navigation")
-include(":feature:update-routine:navigation")
+
+
+

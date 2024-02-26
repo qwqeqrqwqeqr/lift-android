@@ -5,8 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route.HOME_HOME_ROUTER_NAME
-import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeGraph
-import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeSettingRouter
+import com.gradation.lift.navigation.navigation.navigateHomeGraphToBadgeBadgeRouter
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToCreateRoutineGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToInquiryGraph
 import com.gradation.lift.navigation.navigation.navigateHomeGraphToMyinfoProfileRouter
@@ -22,16 +21,14 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
 
     val navigateMainGraphToCreateRoutineGraph: () -> Unit =
         { navController.navigateHomeGraphToCreateRoutineGraph() }
-    val navigateHomeGraphToBadgeGraph: () -> Unit =
-        { navController.navigateHomeGraphToBadgeGraph() }
+    val navigateHomeGraphToBadgeBadgeRouter: (Int) -> Unit =
+        { page -> navController.navigateHomeGraphToBadgeBadgeRouter(page) }
     val navigateHomeToBadgeInHomeGraph: () -> Unit =
         { navController.navigateHomeToBadgeInHomeGraph() }
     val navigateHomeGraphToRoutineDetailGraph: () -> Unit =
         { navController.navigateHomeGraphToRoutineDetailGraph() }
     val navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit =
         { navController.navigateHomeGraphToRoutineDetailRoutineRouter(it) }
-    val navigateHomeGraphToBadgeSettingRouter: () -> Unit =
-        { navController.navigateHomeGraphToBadgeSettingRouter() }
     val navigateHomeGraphToWorkReadyReadyRouter: () -> Unit =
         { navController.navigateHomeGraphToWorkReadyReadyRouter() }
     val navigateHomeGraphToWorkReadyRoutineSelectionRouter: () -> Unit =
@@ -46,11 +43,10 @@ fun NavGraphBuilder.homeScreen(modifier:Modifier=Modifier,navController: NavCont
             modifier,
             navController,
             navigateMainGraphToCreateRoutineGraph,
-            navigateHomeGraphToBadgeGraph,
+            navigateHomeGraphToBadgeBadgeRouter,
             navigateHomeToBadgeInHomeGraph,
             navigateHomeGraphToRoutineDetailGraph,
             navigateHomeGraphToRoutineDetailRoutineRouter,
-            navigateHomeGraphToBadgeSettingRouter,
             navigateHomeGraphToWorkReadyRoutineSelectionRouter,
             navigateHomeGraphToWorkReadyReadyRouter,
             navigateHomeGraphToMyinfoProfileRouter,

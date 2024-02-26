@@ -37,10 +37,10 @@ internal fun HomeScreen(
     routineUiState: RoutineUiState,
     workStampUiState: WorkStampUiState,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
-    navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToBadgeBadgeRouter: (Int) -> Unit,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
-    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
+
     navigateHomeGraphToMyinfoProfileRouter: () -> Unit,
     navigateHomeGraphToInquiryGraph: () -> Unit,
     homeScreenState: HomeScreenState,
@@ -76,8 +76,7 @@ internal fun HomeScreen(
                 BadgeView(
                     modifier,
                     badgeUiState,
-                    navigateHomeGraphToBadgeGraph,
-                    navigateHomeGraphToBadgeSettingRouter,
+                    navigateHomeGraphToBadgeBadgeRouter,
                     homeAnimationState
                 )
             }
@@ -111,10 +110,9 @@ fun HomeScreenPreview() {
             routineUiState = RoutineUiState.Loading,
             workStampUiState = WorkStampUiState.Loading,
             navigateMainGraphToCreateRoutineGraph = { },
-            navigateHomeGraphToBadgeGraph = { },
+            navigateHomeGraphToBadgeBadgeRouter = { },
             navigateHomeGraphToRoutineDetailGraph = { },
             navigateHomeGraphToRoutineDetailRoutineRouter = { },
-            navigateHomeGraphToBadgeSettingRouter = { },
             navigateHomeGraphToMyinfoProfileRouter = { },
             navigateHomeGraphToInquiryGraph = {},
             homeScreenState = rememberHomeScreenState(),
