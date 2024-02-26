@@ -50,6 +50,7 @@ data class LiftSpace(
     val space196: Dp = 196.dp,
     val space214: Dp = 214.dp,
     val space266: Dp = 266.dp,
+    val space280: Dp = 280.dp,
 
 
     val paddingSpace: Dp = 16.dp,

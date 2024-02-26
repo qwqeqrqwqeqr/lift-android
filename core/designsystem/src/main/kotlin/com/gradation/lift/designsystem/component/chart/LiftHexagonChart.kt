@@ -32,13 +32,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.card.LiftInfoCard
 import com.gradation.lift.designsystem.component.chart.model.SampleData.HEXAGON_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
 import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMonth
 import com.gradation.lift.designsystem.component.chart.state.HexagonChartState
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
-import com.gradation.lift.designsystem.component.container.LiftInfoContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.icon.IconBoxSize
 import com.gradation.lift.designsystem.component.icon.IconType
@@ -105,7 +105,7 @@ fun LiftHexagonChart(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space32),
         ) {
-            if (sample) LiftInfoContainer(
+            if (sample) LiftInfoCard(
                 modifier = modifier,
                 text = "운동을 진행하면 운동결과에 따른 분석을 볼 수 있어요"
             )

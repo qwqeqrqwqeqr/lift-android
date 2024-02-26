@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.gradation.lift.designsystem.component.card.LiftInfoCard
 import com.gradation.lift.designsystem.component.chart.model.PieChartValue
 import com.gradation.lift.designsystem.component.chart.model.SampleData.PIE_CHART_SAMPLE_DATA
 import com.gradation.lift.designsystem.component.chart.model.WorkCategoryCount
@@ -50,7 +51,6 @@ import com.gradation.lift.designsystem.component.chart.state.PieChartState
 import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
-import com.gradation.lift.designsystem.component.container.LiftInfoContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -164,7 +164,7 @@ fun LiftPieChart(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space32)
         ) {
-            if (sample) LiftInfoContainer(
+            if (sample) LiftInfoCard(
                 modifier = modifier,
                 text = "운동을 진행하면 운동결과에 따른 분석을 볼 수 있어요"
             )
@@ -221,7 +221,7 @@ fun LiftPieChart(
                     textStyle = LiftTextStyle.No1
                 )
             }
-            if (pieChartState.sumOfWorkCategoryCountByWorkPart == 0) LiftInfoContainer(
+            if (pieChartState.sumOfWorkCategoryCountByWorkPart == 0) LiftInfoCard(
                 modifier = modifier,
                 text = "${pieChartState.selectedWorkPart} 운동을 진행하면 분석 결과를 볼 수 있어요"
             )

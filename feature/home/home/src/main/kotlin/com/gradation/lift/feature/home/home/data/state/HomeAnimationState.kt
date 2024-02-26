@@ -16,18 +16,16 @@ fun rememberHomeAnimationState(): HomeAnimationState {
     val backgroundBadgeEffectTransition =
         rememberInfiniteTransition(label = "backgroundBadgeEffectTransition")
     val backgroundBadgeEffectColor: Color by backgroundBadgeEffectTransition.animateColor(
-        initialValue = Color(0x33CFD6E3),
-        targetValue = Color(0xEECFD6E3),
+        initialValue = Color.Transparent,
+        targetValue = Color(0x55CFD6E3),
         animationSpec = infiniteRepeatable(
             animation = tween(4000), repeatMode = RepeatMode.Reverse
         ), label = "backgroundBadgeEffectColor"
     )
     return remember(backgroundBadgeEffectColor) {
-        HomeAnimationState( backgroundBadgeEffectColor)
+        HomeAnimationState(backgroundBadgeEffectColor)
     }
 }
 
 
-class HomeAnimationState(val backgroundBadgeEffectColor: Color) {
-
-}
+class HomeAnimationState(val backgroundBadgeEffectColor: Color)

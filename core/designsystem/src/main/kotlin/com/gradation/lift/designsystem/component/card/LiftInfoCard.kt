@@ -1,4 +1,4 @@
-package com.gradation.lift.designsystem.component.container
+package com.gradation.lift.designsystem.component.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.icon.IconBoxSize
 import com.gradation.lift.designsystem.component.icon.IconType
 import com.gradation.lift.designsystem.component.icon.LiftIconBox
@@ -16,7 +17,7 @@ import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun LiftInfoContainer(
+fun LiftInfoCard(
     modifier: Modifier = Modifier,
     text: String,
 ) {
