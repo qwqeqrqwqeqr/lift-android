@@ -9,6 +9,7 @@ import com.gradation.lift.navigation.Route.HISTORY_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Badge.BADGE_PAGE_KEY
 
 
 fun NavController.navigateHomeGraphToWorkReadyReadyRouter() {
@@ -33,7 +34,7 @@ fun NavController.navigateHomeGraphToRoutineDetailRoutineRouter(routineSetId: In
 }
 
 fun NavController.navigateHomeGraphToBadgeBadgeRouter(page: Int) {
-    this.navigate("$BADGE_BADGE_ROUTER_NAME/$page")
+    navigate("$BADGE_BADGE_ROUTER_NAME?$BADGE_PAGE_KEY=$page")
 }
 
 fun NavController.navigateHomeGraphToInquiryGraph() {

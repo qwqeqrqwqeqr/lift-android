@@ -21,7 +21,7 @@ fun badgeScreen(
 
 
     navGraphBuilder.composable(
-        route = "${BADGE_BADGE_ROUTER_NAME}/{$BADGE_PAGE_KEY}",
+        route = "${BADGE_BADGE_ROUTER_NAME}?$BADGE_PAGE_KEY={$BADGE_PAGE_KEY}",
         arguments = listOf(
             navArgument(BADGE_PAGE_KEY) {
                 type = NavType.IntType
@@ -29,11 +29,10 @@ fun badgeScreen(
         ),
     ) { it ->
 
-        val initialPage = it.savedStateHandle.get<Int>(BADGE_PAGE_KEY) ?: 0
 
 
         BadgeBadgeRoute(
-            modifier, initialPage, navigateBadgeGraphToHomeGraph,
+            modifier, navigateBadgeGraphToHomeGraph,
         )
     }
 

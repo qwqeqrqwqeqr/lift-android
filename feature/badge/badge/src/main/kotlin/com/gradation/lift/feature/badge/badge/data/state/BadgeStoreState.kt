@@ -1,8 +1,8 @@
 package com.gradation.lift.feature.badge.badge.data.state
 
+import com.gradation.lift.feature.badge.badge.data.model.BadgeState
 import com.gradation.lift.feature.badge.badge.data.model.FilterType
 import com.gradation.lift.feature.badge.badge.data.model.SortType
-import com.gradation.lift.feature.badge.badge.data.model.UserBadge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,11 +25,11 @@ import kotlinx.coroutines.flow.stateIn
 class BadgeStoreState(
     badgeUiState: StateFlow<BadgeUiState>,
     viewModelScope: CoroutineScope,
-    private val badgeList: StateFlow<List<UserBadge>> = badgeUiState.map {
+    private val badgeList: StateFlow<List<BadgeState>> = badgeUiState.map {
         when (it) {
             is BadgeUiState.Fail -> emptyList()
             BadgeUiState.Loading -> emptyList()
-            is BadgeUiState.Success -> it.badgeList
+            is BadgeUiState.Success -> it.badgeStateList
         }
     }.stateIn(
         scope = viewModelScope,
@@ -38,7 +38,7 @@ class BadgeStoreState(
     ),
     val sortType: MutableStateFlow<SortType> = MutableStateFlow(SortType.Number()),
     val filterType: MutableStateFlow<FilterType> = MutableStateFlow(FilterType.All()),
-    val userBadgeList: StateFlow<List<UserBadge>> = combine(
+    val badgeStateList: StateFlow<List<BadgeState>> = combine(
         badgeList,
         sortType,
         filterType
@@ -46,16 +46,16 @@ class BadgeStoreState(
         when (filter) {
             is FilterType.Acquired -> {
                 when (sort) {
-                    is SortType.Name -> badge.filterIsInstance<UserBadge.AcquireBadge>()
+                    is SortType.Name -> badge.filterIsInstance<BadgeState.AcquireBadge>()
                         .sortedBy { it.name }
 
-                    is SortType.Newest -> badge.filterIsInstance<UserBadge.AcquireBadge>()
+                    is SortType.Newest -> badge.filterIsInstance<BadgeState.AcquireBadge>()
                         .sortedByDescending { it.badgeTimeStamp }
 
-                    is SortType.Number -> badge.filterIsInstance<UserBadge.AcquireBadge>()
+                    is SortType.Number -> badge.filterIsInstance<BadgeState.AcquireBadge>()
                         .sortedBy { it.id }
 
-                    is SortType.Oldest -> badge.filterIsInstance<UserBadge.AcquireBadge>()
+                    is SortType.Oldest -> badge.filterIsInstance<BadgeState.AcquireBadge>()
                         .sortedBy { it.badgeTimeStamp }
                 }
             }
@@ -63,29 +63,29 @@ class BadgeStoreState(
             is FilterType.All -> {
                 when (sort) {
                     is SortType.Name -> badge.sortedBy { it.name }
-                    is SortType.Newest -> badge.filterIsInstance<UserBadge.AcquireBadge>()
-                        .sortedByDescending { it.badgeTimeStamp } + badge.filterIsInstance<UserBadge.UnacquiredBadge>()
+                    is SortType.Newest -> badge.filterIsInstance<BadgeState.AcquireBadge>()
+                        .sortedByDescending { it.badgeTimeStamp } + badge.filterIsInstance<BadgeState.UnacquiredBadge>()
                         .sortedBy { it.id }
 
                     is SortType.Number -> badge.sortedBy { it.id }
-                    is SortType.Oldest -> badge.filterIsInstance<UserBadge.AcquireBadge>()
-                        .sortedBy { it.badgeTimeStamp } + badge.filterIsInstance<UserBadge.UnacquiredBadge>()
+                    is SortType.Oldest -> badge.filterIsInstance<BadgeState.AcquireBadge>()
+                        .sortedBy { it.badgeTimeStamp } + badge.filterIsInstance<BadgeState.UnacquiredBadge>()
                         .sortedBy { it.id }
                 }
             }
 
             is FilterType.UnAcquired -> {
                 when (sort) {
-                    is SortType.Name -> badge.filterIsInstance<UserBadge.UnacquiredBadge>()
+                    is SortType.Name -> badge.filterIsInstance<BadgeState.UnacquiredBadge>()
                         .sortedBy { it.name }
 
-                    is SortType.Newest -> badge.filterIsInstance<UserBadge.UnacquiredBadge>()
+                    is SortType.Newest -> badge.filterIsInstance<BadgeState.UnacquiredBadge>()
                         .sortedBy { it.id }
 
-                    is SortType.Number -> badge.filterIsInstance<UserBadge.UnacquiredBadge>()
+                    is SortType.Number -> badge.filterIsInstance<BadgeState.UnacquiredBadge>()
                         .sortedBy { it.id }
 
-                    is SortType.Oldest -> badge.filterIsInstance<UserBadge.UnacquiredBadge>()
+                    is SortType.Oldest -> badge.filterIsInstance<BadgeState.UnacquiredBadge>()
                         .sortedBy { it.id }
                 }
 
@@ -97,18 +97,18 @@ class BadgeStoreState(
         initialValue = emptyList()
     ),
 
-    val currentTotalBadgeCount: StateFlow<Int> = userBadgeList.map { it.count() }.stateIn(
+    val currentTotalBadgeCount: StateFlow<Int> = badgeStateList.map { it.count() }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
         initialValue = 0
     ),
-    val acquiredBadgeCount: StateFlow<Int> = badgeList.map { it.count { it is UserBadge.AcquireBadge } }
+    val acquiredBadgeCount: StateFlow<Int> = badgeList.map { it.count { it is BadgeState.AcquireBadge } }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
             initialValue = 0
         ),
-    val unacquiredBadgeCount: StateFlow<Int> = badgeList.map { it.count { it is UserBadge.UnacquiredBadge } }
+    val unacquiredBadgeCount: StateFlow<Int> = badgeList.map { it.count { it is BadgeState.UnacquiredBadge } }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,

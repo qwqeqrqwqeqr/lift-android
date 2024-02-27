@@ -90,6 +90,7 @@ include(":feature:work-ready:create-work-set")
 
 include(":feature:badge:navigation")
 include(":feature:badge:badge")
+include(":feature:badge:setting")
 
 include(":feature:notice:notice")
 include(":feature:notice:notice-detail")

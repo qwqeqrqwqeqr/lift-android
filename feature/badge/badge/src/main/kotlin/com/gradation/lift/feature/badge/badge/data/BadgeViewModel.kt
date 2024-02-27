@@ -1,14 +1,18 @@
 package com.gradation.lift.feature.badge.badge.data
 
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.badge.GetBadgeUseCase
 import com.gradation.lift.domain.usecase.badge.GetUserBadgeUseCase
-import com.gradation.lift.feature.badge.badge.data.model.UserBadge
+import com.gradation.lift.domain.usecase.badge.UpdateUserBadgeMainFlagUseCase
+import com.gradation.lift.feature.badge.badge.data.model.BadgeState
+import com.gradation.lift.feature.badge.badge.data.state.BadgeCaseState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeStoreState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +29,12 @@ import javax.inject.Inject
 class BadgeViewModel @Inject constructor(
     getUserBadgeUseCase: GetUserBadgeUseCase,
     getBadgeUseCase: GetBadgeUseCase,
+    savedStateHandle: SavedStateHandle,
+    updateUserBadgeMainFlagUseCase: UpdateUserBadgeMainFlagUseCase,
 ) : ViewModel() {
+
+    internal val initialPage: Int =
+        savedStateHandle.get<Int>(SavedStateHandleKey.Badge.BADGE_PAGE_KEY) ?: 0
 
     val badgeUiState: StateFlow<BadgeUiState> = combine(
         getBadgeUseCase(),
@@ -37,8 +46,9 @@ class BadgeViewModel @Inject constructor(
                 is DataState.Fail -> BadgeUiState.Fail(userBadge.message)
                 is DataState.Success -> {
                     BadgeUiState.Success(
+                        badgeStateList =
                         userBadge.data.map {
-                            UserBadge.AcquireBadge(
+                            BadgeState.AcquireBadge(
                                 id = it.badge.id,
                                 name = it.badge.name,
                                 description = it.badge.description,
@@ -49,14 +59,15 @@ class BadgeViewModel @Inject constructor(
                                 badgeTimeStamp = it.badgeTimeStamp
                             )
                         } + badge.data.subtract(userBadge.data.map { it.badge }.toSet()).map {
-                            UserBadge.UnacquiredBadge(
+                            BadgeState.UnacquiredBadge(
                                 id = it.id,
                                 name = it.name,
                                 description = it.description,
                                 hint = it.hint,
                                 url = it.url,
                             )
-                        }
+                        },
+                        userBadgeList = userBadge.data
                     )
                 }
             }
@@ -69,6 +80,8 @@ class BadgeViewModel @Inject constructor(
 
 
     val badgeStoreState = BadgeStoreState(badgeUiState, viewModelScope)
+    val badgeCaseState =
+        BadgeCaseState(updateUserBadgeMainFlagUseCase, badgeUiState, viewModelScope)
 }
 
 

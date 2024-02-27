@@ -74,7 +74,11 @@ fun LiftDefaultBadgeLargeCard(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                LiftDefaultBadgeLargeIcon(modifier)
+                LiftIconBox(
+                    icon = LiftIcon.BadgeCircle,
+                    iconType = IconType.Vector,
+                    iconBoxSize = IconBoxSize.Size116
+                )
             }
             Column(
                 modifier = modifier

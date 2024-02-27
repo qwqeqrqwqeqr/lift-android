@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.badge.badge.ui.component
+package com.gradation.lift.feature.badge.badge.ui.component.badgeStore
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,9 +24,9 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.badge.badge.data.model.BadgeState
 import com.gradation.lift.feature.badge.badge.data.model.FilterType
 import com.gradation.lift.feature.badge.badge.data.model.SortType
-import com.gradation.lift.feature.badge.badge.data.model.UserBadge
 import com.gradation.lift.feature.badge.badge.data.state.BadgeScreenState
 import com.gradation.lift.ui.modifier.noRippleClickable
 
@@ -36,7 +36,7 @@ fun BadgeStoreContentView(
     modifier: Modifier = Modifier,
     sortType: SortType,
     filterType: FilterType,
-    userBadgeList: List<UserBadge>,
+    badgeStateList: List<BadgeState>,
     currentTotalBadgeCount: Int,
     acquiredBadgeCount: Int,
     unacquiredBadgeCount: Int,
@@ -168,18 +168,18 @@ fun BadgeStoreContentView(
             LiftTheme.space.space8,
         ),
         horizontalArrangement = Arrangement.spacedBy(
-            LiftTheme.space.space12,
+            LiftTheme.space.space4,
         )
     ) {
-        userBadgeList.forEach {
+        badgeStateList.forEach {
             when (it) {
-                is UserBadge.AcquireBadge -> LiftBadgeSmallCard(
+                is BadgeState.AcquireBadge -> LiftBadgeSmallCard(
                     modifier.noRippleClickable {
                         badgeScreenState.updateBadgeDetailDialogView(true to it)
                     }, false, it.name, it.url
                 )
 
-                is UserBadge.UnacquiredBadge -> LiftBadgeSmallCard(
+                is BadgeState.UnacquiredBadge -> LiftBadgeSmallCard(
                     modifier.noRippleClickable {
                         badgeScreenState.updateBadgeDetailDialogView(true to it)
                     }, true, it.name, it.url

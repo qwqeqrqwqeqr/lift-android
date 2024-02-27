@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import com.gradation.lift.feature.badge.badge.data.model.UserBadge
+import com.gradation.lift.feature.badge.badge.data.model.BadgeState
 import com.gradation.lift.ui.provider.LocalWarnSnackbarHostState
 
 @Composable
@@ -25,7 +25,7 @@ fun rememberBadgeScreenState(
             lazyListState,
             initialPage,
             snackbarHostState,
-            context
+            context,
         )
     }
 }
@@ -36,17 +36,17 @@ data class BadgeScreenState(
     val snackbarHostState: SnackbarHostState,
     val context: Context,
 ) {
-
     val selectedPage: MutableState<Int> = mutableIntStateOf(initialPage)
+
     val filterBottomSheetView: MutableState<Boolean> = mutableStateOf(false)
     val sortBottomSheetView: MutableState<Boolean> = mutableStateOf(false)
-    val badgeDetailDialogView: MutableState<Pair<Boolean, UserBadge?>> =
+    val badgeDetailDialogView: MutableState<Pair<Boolean, BadgeState?>> =
         mutableStateOf(Pair(false, null))
 
 
     val updateFilterBottomSheetView: (Boolean) -> Unit = { filterBottomSheetView.value = it }
     val updateSortBottomSheetView: (Boolean) -> Unit = { sortBottomSheetView.value = it }
-    val updateBadgeDetailDialogView: (Pair<Boolean, UserBadge?>) -> Unit =
+    val updateBadgeDetailDialogView: (Pair<Boolean, BadgeState?>) -> Unit =
         { badgeDetailDialogView.value = it }
     val updateSelectedPage: (Int) -> Unit = { selectedPage.value = it }
 

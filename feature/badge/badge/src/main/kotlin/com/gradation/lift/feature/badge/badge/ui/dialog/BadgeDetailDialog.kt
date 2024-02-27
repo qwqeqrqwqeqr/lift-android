@@ -5,31 +5,31 @@ import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.component.card.badge.LiftBadgeLargeCard
 import com.gradation.lift.designsystem.component.card.badge.LiftDefaultBadgeLargeCard
 import com.gradation.lift.designsystem.component.dialog.LiftDialog
-import com.gradation.lift.feature.badge.badge.data.model.UserBadge
+import com.gradation.lift.feature.badge.badge.data.model.BadgeState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeScreenState
 
 @Composable
 internal fun BadgeDetailDialog(
     modifier: Modifier = Modifier,
-    userBadge: UserBadge,
+    badgeState: BadgeState,
     badgeStoreScreenState: BadgeScreenState,
 ) {
     LiftDialog(onDismissRequest = { badgeStoreScreenState.updateBadgeDetailDialogView(false to null) }) {
-        when (userBadge) {
-            is UserBadge.AcquireBadge -> LiftBadgeLargeCard(
+        when (badgeState) {
+            is BadgeState.AcquireBadge -> LiftBadgeLargeCard(
                 modifier,
-                userBadge.name,
-                userBadge.description,
-                userBadge.url,
-                userBadge.color,
-                userBadge.backgroundColor,
-                userBadge.badgeTimeStamp
+                badgeState.name,
+                badgeState.description,
+                badgeState.url,
+                badgeState.color,
+                badgeState.backgroundColor,
+                badgeState.badgeTimeStamp
             ) { badgeStoreScreenState.updateBadgeDetailDialogView(false to null) }
 
-            is UserBadge.UnacquiredBadge -> LiftDefaultBadgeLargeCard(
+            is BadgeState.UnacquiredBadge -> LiftDefaultBadgeLargeCard(
                 modifier,
-                userBadge.name,
-                userBadge.hint
+                badgeState.name,
+                badgeState.hint
             ) { badgeStoreScreenState.updateBadgeDetailDialogView(false to null) }
         }
 

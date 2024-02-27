@@ -4,11 +4,11 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.LocalDateTime
 
 /**
- * [UserBadge]
+ * [BadgeState]
  * 미획득 뱃지와 획득 뱃지로 분류한 사용자 뱃지 클래스
  * @since 2023-09-26 12:54:43
  */
-sealed class UserBadge(
+sealed class BadgeState(
     val id: Int,
     val name: String,
     val description: String,
@@ -24,7 +24,7 @@ sealed class UserBadge(
         val color: Color,
         val backgroundColor: Color,
         val badgeTimeStamp: LocalDateTime,
-    ) : UserBadge(id, name, description, hint, url)
+    ) : BadgeState(id, name, description, hint, url)
 
     class UnacquiredBadge(
         id: Int,
@@ -32,5 +32,5 @@ sealed class UserBadge(
         description: String,
         hint: String,
         url: String,
-    ) : UserBadge(id, name, description, hint, url)
+    ) : BadgeState(id, name, description, hint, url)
 }

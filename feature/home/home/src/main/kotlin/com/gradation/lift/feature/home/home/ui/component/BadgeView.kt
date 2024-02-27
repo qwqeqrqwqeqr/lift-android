@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -177,22 +176,19 @@ fun BadgeView(
                             }
 
                             if (badgeUiState.userBadge.size < 5) {
-                                Box(
+
+                                LiftIconBox(
                                     modifier = modifier
-                                        .size(LiftTheme.space.space52)
-                                        .padding(horizontal = LiftTheme.space.space8)
-                                        .background(LiftTheme.colorScheme.no5, CircleShape)
-                                        .noRippleClickable { navigateHomeGraphToBadgeBadgeRouter(1) }
+                                        .noRippleClickable {
+                                            navigateHomeGraphToBadgeBadgeRouter(
+                                                1
+                                            )
+                                        }
                                         .weight(1f),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        modifier = modifier.size(LiftTheme.space.space24),
-                                        painter = painterResource(id = LiftIcon.Plus),
-                                        contentDescription = "addBadge",
-                                        tint = LiftTheme.colorScheme.no32
-                                    )
-                                }
+                                    icon = LiftIcon.PlusCircle,
+                                    iconType = IconType.Vector,
+                                    iconBoxSize = IconBoxSize.Size52
+                                )
                             }
                             repeat(4 - badgeUiState.userBadge.size) {
                                 Spacer(

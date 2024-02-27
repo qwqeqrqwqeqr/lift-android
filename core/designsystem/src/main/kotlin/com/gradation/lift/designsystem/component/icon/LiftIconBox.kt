@@ -26,7 +26,9 @@ enum class IconBoxSize {
     Size28,
     Size32,
     Size44,
-    Size48
+    Size48,
+    Size52,
+    Size116,
 }
 
 
@@ -54,6 +56,8 @@ fun LiftIconBox(
                     IconBoxSize.Size32 -> LiftTheme.space.space32
                     IconBoxSize.Size44 -> LiftTheme.space.space44
                     IconBoxSize.Size48 -> LiftTheme.space.space48
+                    IconBoxSize.Size52 -> LiftTheme.space.space52
+                    IconBoxSize.Size116 -> LiftTheme.space.space116
                 }
             )
             .padding(padding)

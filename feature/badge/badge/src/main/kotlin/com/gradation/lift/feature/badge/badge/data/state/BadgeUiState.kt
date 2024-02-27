@@ -1,7 +1,8 @@
 package com.gradation.lift.feature.badge.badge.data.state
 
-import com.gradation.lift.feature.badge.badge.data.model.UserBadge
+import com.gradation.lift.feature.badge.badge.data.model.BadgeState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState.Loading
+import com.gradation.lift.model.model.badge.UserBadge
 
 
 /**
@@ -10,7 +11,11 @@ import com.gradation.lift.feature.badge.badge.data.state.BadgeUiState.Loading
  */
 sealed interface BadgeUiState {
 
-    data class Success(val badgeList: List<UserBadge>) : BadgeUiState
+    data class Success(
+        val badgeStateList: List<BadgeState>,
+        val userBadgeList: List<UserBadge>,
+    ) : BadgeUiState
+
     data class Fail(val message: String) : BadgeUiState
     data object Loading : BadgeUiState
 
