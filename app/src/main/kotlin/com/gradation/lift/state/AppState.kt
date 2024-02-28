@@ -65,13 +65,15 @@ fun rememberAppState(
     val statusBarColor: Color by animateColorAsState(
         targetValue = when (currentDestination?.route) {
             Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no17
+            Route.HOME_BADGE_ROUTER_NAME -> LiftTheme.colorScheme.no30
             else -> LiftTheme.colorScheme.no5
         }, label = "statusBarColor"
     )
 
     val navigationBarColor: Color by animateColorAsState(
         targetValue = when (currentDestination?.route) {
-            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no5
+            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no17
+            Route.HOME_BADGE_ROUTER_NAME -> LiftTheme.colorScheme.no30
             else -> LiftTheme.colorScheme.no5
         }, label = "navigationBarColor"
     )

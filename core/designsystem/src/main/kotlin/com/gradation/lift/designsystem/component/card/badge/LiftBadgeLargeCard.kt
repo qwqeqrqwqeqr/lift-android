@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -60,68 +59,66 @@ fun LiftBadgeLargeCard(
         backGroundColor = backgroundColor,
         shape = RoundedCornerShape(LiftTheme.space.space12)
     ) {
+        GlideImage(
+            model = LiftImage.BadgeSmallHalo,
+            modifier = modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth(),
+            contentDescription = "halo",
+            contentScale = ContentScale.FillBounds
+        )
+
         Column(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Box(
+            Column(
                 modifier = modifier
+                    .padding(bottom = LiftTheme.space.space24)
                     .clip(
                         RoundedCornerShape(
                             topStart = LiftTheme.space.space12,
                             topEnd = LiftTheme.space.space12
                         )
-                    )
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                GlideImage(
-                    model = LiftImage.BadgeSmallHalo,
+                Row(
                     modifier = modifier
-                        .align(Alignment.TopCenter)
-                        .fillMaxWidth(),
-                    contentDescription = "halo",
-                    contentScale = ContentScale.FillWidth
-                )
-
-                Column(
-                    modifier = modifier.padding(bottom = LiftTheme.space.space24),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = LiftTheme.space.space20,
+                            vertical = LiftTheme.space.space16
+                        ),
+                    horizontalArrangement = Arrangement.End
                 ) {
-                    Row(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = LiftTheme.space.space20,
-                                vertical = LiftTheme.space.space16
-                            ),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        LiftIconBox(
-                            modifier = modifier.clickable(
-                                interactionSource = interactionSource,
-                                indication = null
-                            ) { onClickDismiss() },
-                            icon = LiftIcon.Close,
-                            iconType = IconType.Vector,
-                            iconBoxSize = IconBoxSize.Size16,
-                            tint = LiftTheme.colorScheme.no13
-                        )
-                    }
-                    GlideImage(
-                        modifier = modifier.size(LiftTheme.space.space116),
-                        model = badgeUrl,
-                        contentDescription = badgeUrl
+                    LiftIconBox(
+                        modifier = modifier.clickable(
+                            interactionSource = interactionSource,
+                            indication = null
+                        ) { onClickDismiss() },
+                        icon = LiftIcon.Close,
+                        iconType = IconType.Vector,
+                        iconBoxSize = IconBoxSize.Size16,
+                        tint = LiftTheme.colorScheme.no13
                     )
                 }
+                GlideImage(
+                    modifier = modifier.size(LiftTheme.space.space116),
+                    model = badgeUrl,
+                    contentDescription = badgeUrl
+                )
             }
             Column(
                 modifier = modifier
+                    .weight(1f)
+                    .fillMaxSize()
                     .background(
                         LiftTheme.colorScheme.no5.copy(0.4f), RoundedCornerShape(
                             bottomEnd = LiftTheme.space.space12,
                             bottomStart = LiftTheme.space.space12
                         )
                     )
-                    .fillMaxSize()
                     .padding(
                         horizontal = LiftTheme.space.space20,
                         vertical = LiftTheme.space.space12
@@ -185,3 +182,26 @@ fun LiftBadgeLargeCardPreview(modifier: Modifier = Modifier) {
     }
 }
 
+
+//Row(
+//modifier = modifier
+//.fillMaxWidth()
+//.height(LiftTheme.space.space48)
+//.padding(
+//start = LiftTheme.space.space20,
+//end = LiftTheme.space.space20,
+//),
+//horizontalArrangement = Arrangement.End,
+//verticalAlignment = Alignment.CenterVertically
+//) {
+//    LiftIconBox(
+//        modifier = modifier.clickable(
+//            interactionSource = interactionSource,
+//            indication = null
+//        ) { onClickDismiss() },
+//        icon = LiftIcon.Close,
+//        iconType = IconType.Vector,
+//        iconBoxSize = IconBoxSize.Size16,
+//        tint = LiftTheme.colorScheme.no13
+//    )
+//}

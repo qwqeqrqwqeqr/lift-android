@@ -10,6 +10,7 @@ import com.gradation.lift.model.model.badge.CreateUserBadge
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
 import javax.inject.Inject
 
 
@@ -19,13 +20,14 @@ class BadgeViewModel @Inject constructor(
     private val getNowUseCase: GetNowUseCase
 ) : ViewModel() {
 
+    val today: LocalDateTime = getNowUseCase()
 
     val createUserBadgeState: MutableStateFlow<CreateUserBadgeState> =
         MutableStateFlow(CreateUserBadgeState.None)
 
     fun createUserBadge(): (Int) -> Unit = {
         viewModelScope.launch {
-            CreateUserBadge(id = it, badgeTimeStamp = getNowUseCase()).apply {
+            CreateUserBadge(id = it, badgeTimeStamp = today).apply {
                 createUserBadgeUseCase(this).collect {
                     when (it) {
                         is DataState.Fail -> createUserBadgeState.value =
