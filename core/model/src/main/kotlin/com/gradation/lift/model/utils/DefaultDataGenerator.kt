@@ -45,4 +45,7 @@ object DefaultDataGenerator {
     const val FAKE_ROUTINE_REPETITION_DATA = 12
     const val FAKE_WORK_CATEGORY_NAME_DATA = "운동"
     const val FAKE_WORK_PART_NAME_DATA = "운동"
+
+    const val FAKE_STATUS_DATA = true
+    const val FAKE_MESSAGE_DATA = ""
 }

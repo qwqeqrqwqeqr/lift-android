@@ -62,6 +62,7 @@ import com.gradation.lift.network.dto.badge.GetUserBadgeConditionResponseDto
 import com.gradation.lift.network.dto.badge.GetUserBadgeResponseDto
 import com.gradation.lift.network.dto.badge.UpdateUserBadgeMainFlagDto
 import com.gradation.lift.network.dto.badge.UpdateUserBadgeMainFlagRequestDto
+import com.gradation.lift.network.dto.badge.UpdateUserBadgeMainFlagResponseDto
 import com.gradation.lift.network.dto.badge.UserBadgeDto
 import com.gradation.lift.network.dto.checker.CheckDuplicateEmailResponseDto
 import com.gradation.lift.network.dto.checker.CheckDuplicateNameResponseDto
@@ -164,17 +165,6 @@ object TestDtoDataGenerator {
 
         }
 
-        object SignInGoogle {
-            internal val SIGN_IN_GOOGLE_REQUEST_DTO = SignInGoogleRequestDto(
-                id = FAKE_STRING_DATA,
-                email = FAKE_EMAIL_DATA
-            )
-            internal val SIGN_IN_GOOGLE_RESPONSE_DTO = SignInGoogleResponseDto(
-                accessToken = FAKE_ACCESS_TOKEN,
-                refreshToken = FAKE_REFRESH_TOKEN
-            )
-        }
-
         object SignUpGoogle {
             internal val SIGN_UP_GOOGLE_REQUEST_DTO = SignUpGoogleRequestDto(
                 id = FAKE_STRING_DATA,
@@ -186,12 +176,12 @@ object TestDtoDataGenerator {
 
         }
 
-        object SignInKakao {
-            internal val SIGN_IN_KAKAO_REQUEST_DTO = SignInKakaoRequestDto(
+        object SignInGoogle {
+            internal val SIGN_IN_GOOGLE_REQUEST_DTO = SignInGoogleRequestDto(
                 id = FAKE_STRING_DATA,
                 email = FAKE_EMAIL_DATA
             )
-            internal val SIGN_IN_KAKAO_RESPONSE_DTO = SignInKakaoResponseDto(
+            internal val SIGN_IN_GOOGLE_RESPONSE_DTO = SignInGoogleResponseDto(
                 accessToken = FAKE_ACCESS_TOKEN,
                 refreshToken = FAKE_REFRESH_TOKEN
             )
@@ -207,12 +197,13 @@ object TestDtoDataGenerator {
             )
         }
 
-        object SignInNaver {
-            internal val SIGN_IN_NAVER_REQUEST_DTO = SignInNaverRequestDto(
+
+        object SignInKakao {
+            internal val SIGN_IN_KAKAO_REQUEST_DTO = SignInKakaoRequestDto(
                 id = FAKE_STRING_DATA,
                 email = FAKE_EMAIL_DATA
             )
-            internal val SIGN_IN_NAVER_RESPONSE_DTO = SignInNaverResponseDto(
+            internal val SIGN_IN_KAKAO_RESPONSE_DTO = SignInKakaoResponseDto(
                 accessToken = FAKE_ACCESS_TOKEN,
                 refreshToken = FAKE_REFRESH_TOKEN
             )
@@ -227,6 +218,19 @@ object TestDtoDataGenerator {
                 result = FAKE_BOOLEAN_DATA
             )
         }
+
+
+        object SignInNaver {
+            internal val SIGN_IN_NAVER_REQUEST_DTO = SignInNaverRequestDto(
+                id = FAKE_STRING_DATA,
+                email = FAKE_EMAIL_DATA
+            )
+            internal val SIGN_IN_NAVER_RESPONSE_DTO = SignInNaverResponseDto(
+                accessToken = FAKE_ACCESS_TOKEN,
+                refreshToken = FAKE_REFRESH_TOKEN
+            )
+        }
+
 
         object CheckExistUser {
             internal val CHECK_EXIST_USER_RESPONSE_DTO = CheckExistUserResponseDto(
@@ -332,9 +336,13 @@ object TestDtoDataGenerator {
         }
 
         object UpdateUserBadgeByMainFlag {
-            internal val GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO =
+            internal val UPDATE_USER_BADGE_BY_MAIN_FLAG_REQUEST_DTO =
                 UpdateUserBadgeMainFlagRequestDto(
                     listOf(UPDATE_USER_BADGE_MAIN_FLAG_DTO)
+                )
+            internal val UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO =
+                UpdateUserBadgeMainFlagResponseDto(
+                    FAKE_BOOLEAN_DATA
                 )
         }
     }
@@ -570,11 +578,11 @@ object TestDtoDataGenerator {
         }
 
         object UpdateUserDetailProfilePicture {
-            internal val UPDATE_USER_DETAIL_INFO_REQUEST_DTO =
+            internal val UPDATE_USER_DETAIL_PROFILE_PICTURE_REQUEST_DTO =
                 UpdateUserDetailProfilePictureRequestDto(
                     profilePicture = FAKE_URL_DATA
                 )
-            internal val UPDATE_USER_DETAIL_INFO_RESPONSE_DTO =
+            internal val UPDATE_USER_DETAIL_PROFILE_PICTURE_RESPONSE_DTO =
                 UpdateUserDetailProfilePictureResponseDto(
                     FAKE_BOOLEAN_DATA
                 )
