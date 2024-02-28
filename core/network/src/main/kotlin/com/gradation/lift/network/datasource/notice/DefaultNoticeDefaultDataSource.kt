@@ -1,7 +1,7 @@
 package com.gradation.lift.network.datasource.notice
 
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.notice.Notice
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.NoticeService

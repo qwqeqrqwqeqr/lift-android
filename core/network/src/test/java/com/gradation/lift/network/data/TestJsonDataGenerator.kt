@@ -877,7 +877,7 @@ object TestJsonDataGenerator {
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "history": [
-                   {
+                  {
                     "history_id": $FAKE_INT_DATA,
                     "comment": "$FAKE_STRING_DATA",
                     "score": $FAKE_SCORE_DATA,

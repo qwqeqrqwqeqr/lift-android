@@ -156,7 +156,7 @@ object TestDtoDataGenerator {
         object SignInDefault {
 
             internal val SIGN_IN_DEFAULT_REQUEST_DTO = SignInDefaultRequestDto(
-                id = FAKE_EMAIL_DATA,
+                id = FAKE_STRING_DATA,
                 password = FAKE_PASSWORD_DATA
             )
             internal val SIGN_IN_DEFAULT_RESPONSE_DTO = SignInDefaultResponseDto(
@@ -415,8 +415,8 @@ object TestDtoDataGenerator {
         object UpdateRoutineSetRoutine {
             val UPDATE_ROUTINE_SET_ROUTINE_REQUEST_DTO = UpdateRoutineSetRoutineRequestDto(
                 id = FAKE_INT_DATA,
-                name = FAKE_STRING_DATA,
-                description = FAKE_STRING_DATA,
+                name = FAKE_ROUTINE_NAME_DATA,
+                description = FAKE_ROUTINE_DESCRIPTION_DATA,
                 picture = FAKE_URL_DATA,
                 weekday = FAKE_WEEKDAY_DATA,
                 label = FAKE_LABEL_DATA,
@@ -428,8 +428,8 @@ object TestDtoDataGenerator {
 
         object CreateRoutineSetRoutine {
             val CREATE_ROUTINE_SET_ROUTINE_REQUEST_DTO = CreateRoutineSetRoutineRequestDto(
-                name = FAKE_STRING_DATA,
-                description = FAKE_STRING_DATA,
+                name = FAKE_ROUTINE_NAME_DATA,
+                description = FAKE_ROUTINE_DESCRIPTION_DATA,
                 picture = FAKE_URL_DATA,
                 weekday = FAKE_WEEKDAY_DATA,
                 label = FAKE_LABEL_DATA,

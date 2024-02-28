@@ -3,13 +3,15 @@ package com.gradation.lift.data.test.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.di.TestDispatcher
 import com.gradation.lift.data.fake.datasource.FakeUserDataSource
 import com.gradation.lift.data.repository.DefaultUserRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_MODEL
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +31,8 @@ class UserRepositoryTest {
     private lateinit var successRepository: UserRepository
     private lateinit var failRepository: UserRepository
 
+    private lateinit var testDispatcher: DispatcherProvider
+
 
     @get:Rule
     var coroutineRule = CoroutineRule()
@@ -40,9 +44,9 @@ class UserRepositoryTest {
     fun setUp() {
         failDataSource = FakeUserDataSource(TestReturnState.Fail)
         successDataSource = FakeUserDataSource(TestReturnState.Success)
-
-        successRepository = DefaultUserRepository(successDataSource)
-        failRepository = DefaultUserRepository(failDataSource)
+        testDispatcher = TestDispatcher.testDispatchers()
+        successRepository = DefaultUserRepository(successDataSource, testDispatcher)
+        failRepository = DefaultUserRepository(failDataSource, testDispatcher)
     }
 
 
@@ -50,7 +54,7 @@ class UserRepositoryTest {
     @Test
     fun getUserDetailDataSource() = runTest {
         Truth.assertThat(
-            DataState.Success(ModelDataGenerator.User.userDetailModel)
+            DataState.Success(USER_DETAIL_MODEL)
         ).isEqualTo(
             successRepository.getUserDetail().first()
         )
@@ -67,13 +71,13 @@ class UserRepositoryTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.createUserDetail(ModelDataGenerator.User.createUserDetailModel).first()
+            successRepository.createUserDetail(USER_DETAIL_MODEL).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.createUserDetail(ModelDataGenerator.User.createUserDetailModel).first()
+            failRepository.createUserDetail(USER_DETAIL_MODEL).first()
         )
     }
 
@@ -82,13 +86,13 @@ class UserRepositoryTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.updateUserDetail(ModelDataGenerator.User.userDetailModel).first()
+            successRepository.updateUserDetail(USER_DETAIL_MODEL).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.updateUserDetail(ModelDataGenerator.User.userDetailModel).first()
+            failRepository.updateUserDetail(USER_DETAIL_MODEL).first()
         )
     }
 

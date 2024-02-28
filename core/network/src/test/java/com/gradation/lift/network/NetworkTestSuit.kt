@@ -17,6 +17,24 @@
 package com.gradation.lift.network
 
 
+import com.gradation.lift.network.test.datasource.AuthDataSourceTest
+import com.gradation.lift.network.test.datasource.BadgeDataSourceTest
+import com.gradation.lift.network.test.datasource.CheckerDataSourceTest
+import com.gradation.lift.network.test.datasource.HistoryDataSourceTest
+import com.gradation.lift.network.test.datasource.NoticeDataSourceTest
+import com.gradation.lift.network.test.datasource.PictureDataSourceTest
+import com.gradation.lift.network.test.datasource.RoutineDataSourceTest
+import com.gradation.lift.network.test.datasource.UserDataSourceTest
+import com.gradation.lift.network.test.datasource.WorkDataSourceTest
+import com.gradation.lift.network.test.mapper.CreateHistoryMapperTest
+import com.gradation.lift.network.test.mapper.CreateRoutineSetRoutineMapperTest
+import com.gradation.lift.network.test.mapper.CreateUserBadgeMapperTest
+import com.gradation.lift.network.test.mapper.CreateUserDetailMapperTest
+import com.gradation.lift.network.test.mapper.ErrorMapperTest
+import com.gradation.lift.network.test.mapper.SignInMapperTest
+import com.gradation.lift.network.test.mapper.SignUpMapperTest
+import com.gradation.lift.network.test.mapper.UpdateRoutineSetRoutineMapperTest
+import com.gradation.lift.network.test.mapper.UpdateUsedRoutineSetMapperTest
 import com.gradation.lift.network.test.network.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
@@ -40,7 +58,29 @@ import org.junit.runners.Suite
     NoticeServiceTest::class,
     RefreshServiceTest::class,
     InquiryServiceTest::class,
-    TermsServiceTest::class
+    TermsServiceTest::class,
+
+
+    CreateHistoryMapperTest::class,
+    CreateRoutineSetRoutineMapperTest::class,
+    CreateUserBadgeMapperTest::class,
+    CreateUserDetailMapperTest::class,
+    ErrorMapperTest::class,
+    SignInMapperTest::class,
+    SignUpMapperTest::class,
+    UpdateRoutineSetRoutineMapperTest::class,
+    UpdateUsedRoutineSetMapperTest::class,
+
+
+    AuthDataSourceTest::class,
+    BadgeDataSourceTest::class,
+    CheckerDataSourceTest::class,
+    HistoryDataSourceTest::class,
+    NoticeDataSourceTest::class,
+    PictureDataSourceTest::class,
+    RoutineDataSourceTest::class,
+    UserDataSourceTest::class,
+    WorkDataSourceTest::class
 
 )
 class NetworkTestSuit

@@ -1,6 +1,6 @@
 package com.gradation.lift.feature.notice.noticeDetail.data
 
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.notice.Notice
 
 sealed interface NoticeUiState {
     data class Success(val notice: Notice) : NoticeUiState

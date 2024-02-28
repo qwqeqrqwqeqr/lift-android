@@ -3,81 +3,141 @@ package com.gradation.lift.model.utils
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
 import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationValidationInfo
+import com.gradation.lift.model.model.auth.GoogleSignInInfo
+import com.gradation.lift.model.model.auth.GoogleSignUpInfo
 import com.gradation.lift.model.model.auth.KakaoSignInInfo
+import com.gradation.lift.model.model.auth.KakaoSignUpInfo
 import com.gradation.lift.model.model.auth.NaverSignInInfo
+import com.gradation.lift.model.model.auth.NaverSignUpInfo
 import com.gradation.lift.model.model.auth.Token
+import com.gradation.lift.model.model.auth.UpdatePasswordInfo
+import com.gradation.lift.model.model.auth.toLoginMethod
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.BadgeCondition
 import com.gradation.lift.model.model.badge.CreateUserBadge
+import com.gradation.lift.model.model.badge.UpdateUserBadgeMainFlag
 import com.gradation.lift.model.model.badge.UserBadge
-import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.date.Weekday
+import com.gradation.lift.model.model.date.toWeekDay
 import com.gradation.lift.model.model.history.CreateHistory
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.model.model.history.HistoryRoutine
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.history.UpdateHistoryInfo
+import com.gradation.lift.model.model.notice.Notice
 import com.gradation.lift.model.model.picture.RoutineSetPicture
 import com.gradation.lift.model.model.picture.UserProfilePicture
 import com.gradation.lift.model.model.routine.CreateRoutine
 import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
-import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutine
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
-import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.routine.toLabel
+import com.gradation.lift.model.model.user.DeleteUserInfo
 import com.gradation.lift.model.model.user.UserDetail
+import com.gradation.lift.model.model.user.UserDetailInfo
+import com.gradation.lift.model.model.user.UserDetailName
+import com.gradation.lift.model.model.user.UserDetailProfilePicture
+import com.gradation.lift.model.model.user.toGender
+import com.gradation.lift.model.model.user.toUnitOfWeight
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_AUTHENTICATION_METHOD_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_DATE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_GENDER_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_HEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_LABEL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PROGRESS_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_REPETITION_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_WEIGHT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_SCORE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_STAMP_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_UNIT_OF_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.Routine.routineModel2
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel1
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModel2
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEEKDAY_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEIGHT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_CATEGORY_NAME_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_PART_NAME_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.Weekday.WEEKDAY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Work.WORK_CATEGORY_MODEL
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.LocalTime
+import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
+import kotlinx.datetime.toLocalDateTime
 
 object ModelDataGenerator {
 
     object Auth {
-        val defaultSignInInfoModel = DefaultSignInInfo(
+        val DEFAULT_SIGN_IN_INFO_MODEL = DefaultSignInInfo(
+            id = FAKE_STRING_DATA,
+            password = FAKE_PASSWORD_DATA
+        )
+        val DEFAULT_SIGN_UP_INFO_MODEL = DefaultSignUpInfo(
             id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
-        val defaultSignUpInfoModel = DefaultSignUpInfo(
-            id = FAKE_EMAIL_DATA,
-            password = FAKE_PASSWORD_DATA
+        val EMAIL_AUTHENTICATION_INFO_MODEL = EmailAuthenticationInfo(
+            email = FAKE_EMAIL_DATA,
+            isSigned = FAKE_BOOLEAN_DATA
         )
-        val tokenModel = Token(
+        val EMAIL_AUTHENTICATION_VALIDATION_INFO_MODEL = EmailAuthenticationValidationInfo(
+            email = FAKE_EMAIL_DATA,
+            authenticationCode = FAKE_INT_DATA,
+            isSigned = FAKE_BOOLEAN_DATA
+        )
+        val GOOGLE_SIGN_IN_INFO_MODEL = GoogleSignInInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA,
+        )
+        val GOOGLE_SIGN_UP_INFO_MODEL = GoogleSignUpInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA,
+        )
+        val KAKAO_SIGN_IN_INFO_MODEL = KakaoSignInInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+        val KAKAO_SIGN_UP_INFO_MODEL = KakaoSignUpInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+        val LOGIN_METHOD_MODEL = FAKE_AUTHENTICATION_METHOD_DATA.toLoginMethod()
+
+        val NAVER_SIGN_IN_INFO_MODEL = NaverSignInInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+        val NAVER_SIGN_UP_INFO_MODEL = NaverSignUpInfo(
+            id = FAKE_STRING_DATA,
+            email = FAKE_EMAIL_DATA
+        )
+        val TOKEN_MODEL = Token(
             accessToken = FAKE_ACCESS_TOKEN,
             refreshToken = FAKE_REFRESH_TOKEN
         )
-        val kakaoSignInInfoModel = KakaoSignInInfo(
-            id = FAKE_STRING_DATA,
-            email = FAKE_EMAIL_DATA
+        val UPDATE_PASSWORD_INFO_MODEL = UpdatePasswordInfo(
+            email = FAKE_EMAIL_DATA,
+            password = FAKE_PASSWORD_DATA
         )
-        val naverSignInInfoModel = NaverSignInInfo(
-            id = FAKE_STRING_DATA,
-            email = FAKE_EMAIL_DATA
-        )
+
     }
 
     object Badge {
-        val badgeModel = Badge(
+        val BADGE_MODEL = Badge(
             id = FAKE_INT_DATA,
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
@@ -86,286 +146,314 @@ object ModelDataGenerator {
             color = FAKE_COLOR_DATA,
             backgroundColor = FAKE_COLOR_DATA
         )
-        val badgeConditionModel = BadgeCondition(
-            badge = badgeModel
+        val BADGE_CONDITION_MODEL = BadgeCondition(
+            badge = Badge(
+                id = FAKE_INT_DATA,
+                name = FAKE_STRING_DATA,
+                description = FAKE_STRING_DATA,
+                hint = FAKE_STRING_DATA,
+                url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+                color = FAKE_COLOR_DATA,
+                backgroundColor = FAKE_COLOR_DATA
+            )
         )
-        val createUserBadgeModel = CreateUserBadge(
+        val CREATE_USER_BADGE_MODEL = CreateUserBadge(
             id = FAKE_INT_DATA,
-            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            badgeTimeStamp = FAKE_TIME_STAMP_DATA.toLocalDateTime()
         )
-        val userBadgeModel = UserBadge(
-            badge = badgeModel,
-            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+        val UPDATE_USER_BADGE_MAIN_FLAG_MODEL = UpdateUserBadgeMainFlag(
+            listOf(
+                FAKE_INT_DATA to FAKE_BOOLEAN_DATA
+            )
+        )
+        val USER_BADGE_MODEL = UserBadge(
+            badge = Badge(
+                id = FAKE_INT_DATA,
+                name = FAKE_STRING_DATA,
+                description = FAKE_STRING_DATA,
+                hint = FAKE_STRING_DATA,
+                url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+                color = FAKE_COLOR_DATA,
+                backgroundColor = FAKE_COLOR_DATA
+            ),
+            badgeTimeStamp = FAKE_TIME_STAMP_DATA.toLocalDateTime(),
             mainFlag = FAKE_BOOLEAN_DATA
         )
     }
 
     object User {
 
-        val userDetailModel = UserDetail(
+        val DELETE_USER_INFO_MODEL = DeleteUserInfo(FAKE_STRING_DATA)
+        val GENDER_MODEL = FAKE_GENDER_DATA.toGender()
+        val UNIT_OF_WEIGHT_MODEL = FAKE_UNIT_OF_WEIGHT_DATA.toUnitOfWeight()
+
+        val USER_DETAIL_MODEL = UserDetail(
             name = FAKE_STRING_DATA,
-            gender = Gender.Male(),
-            height = 180.0f,
-            weight = 83.3f,
+            gender = GENDER_MODEL,
+            height = FAKE_HEIGHT_DATA,
+            weight = FAKE_WEIGHT_DATA,
             profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            unitOfWeight = UnitOfWeight.Kg()
+            unitOfWeight = UNIT_OF_WEIGHT_MODEL
         )
 
-        val createUserDetailModel = UserDetail(
-            name = FAKE_STRING_DATA,
-            gender = Gender.Male(),
-            height = 180.0f,
-            weight = 83.3f,
-            profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            unitOfWeight = UnitOfWeight.Kg()
+        val USER_DETAIL_INFO_MODEL = UserDetailInfo(
+            gender = GENDER_MODEL,
+            height = FAKE_HEIGHT_DATA,
+            weight = FAKE_WEIGHT_DATA,
+            unitOfWeight = UNIT_OF_WEIGHT_MODEL,
         )
+
+        val USER_DETAIL_NAME_MODEL = UserDetailName(
+            name = FAKE_STRING_DATA
+        )
+
+        val USER_DETAIL_PROFILE_PICTURE_MODEL = UserDetailProfilePicture(
+            profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+        )
+
+
     }
+
+    object Work {
+        val WORK_PART_MODEL = WorkPart(id = FAKE_INT_DATA, name = FAKE_WORK_PART_NAME_DATA)
+
+        val WORK_CATEGORY_MODEL = WorkCategory(
+            id = FAKE_INT_DATA,
+            name = FAKE_WORK_CATEGORY_NAME_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
+            introduce = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA
+        )
+
+
+//        val WORK_ROUTINE_MODEL = WorkRoutine(
+//            workId = FAKE_UUID_DATA,
+//            workCategory = WORK_CATEGORY_MODEL,
+//            workSetList = listOf(
+//                WorkSet(
+//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+//                    repetition = FAKE_ROUTINE_REPETITION_DATA
+//                ),
+//                WorkSet(
+//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+//                    repetition = FAKE_ROUTINE_REPETITION_DATA
+//                ),
+//                WorkSet(
+//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+//                    repetition = FAKE_ROUTINE_REPETITION_DATA
+//                ),
+//            )
+//        )
+//
+//        val WORK_MODEL = Work(
+//            id = FAKE_UUID_DATA,
+//            workTime = fromSecondOfDay(FAKE_TIME_DATA),
+//            restTime = fromSecondOfDay(FAKE_TIME_DATA),
+//            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
+//            routine = listOf(WORK_ROUTINE_MODEL),
+//            usedRoutineSetIdList = listOf(FAKE_INT_DATA)
+//        )
+
+    }
+
 
     object History {
 
-        val historyRoutineModel1 = HistoryRoutine(
-            id = 1,
-            historyId = 1,
-            workCategory = workCategoryModel1,
+        val CREATE_HISTORY_ROUTINE_MODEL = CreateHistoryRoutine(
+            workCategory = FAKE_WORK_CATEGORY_NAME_DATA,
             workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
             )
         )
 
-        val historyRoutineModel2 = HistoryRoutine(
-            id = 2,
-            historyId = 2,
-            workCategory = workCategoryModel2,
+        val CREATE_HISTORY_MODEL = CreateHistory(
+            comment = FAKE_STRING_DATA,
+            score = FAKE_SCORE_DATA,
+            progress = FAKE_PROGRESS_DATA,
+            workTime = fromSecondOfDay(FAKE_TIME_DATA),
+            restTime = fromSecondOfDay(FAKE_TIME_DATA),
+            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
+            historyTimeStamp = FAKE_TIME_STAMP_DATA.toLocalDateTime(),
+            historyRoutine = listOf(CREATE_HISTORY_ROUTINE_MODEL)
+        )
+
+
+        val HISTORY_ROUTINE_MODEL = HistoryRoutine(
+            id = FAKE_INT_DATA,
+            historyId = FAKE_INT_DATA,
+            workCategory = WORK_CATEGORY_MODEL,
             workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
             )
         )
 
-
-        val historyModel1 = History(
-            historyId = 1,
-            comment = "보람찬 하루",
-            score = 5,
-            workTime = LocalTime(0, 20, 0),
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
-            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
-            historyRoutine = listOf(historyRoutineModel1)
+        val HISTORY_MODEL = History(
+            historyId = FAKE_INT_DATA,
+            comment = FAKE_STRING_DATA,
+            score = FAKE_SCORE_DATA,
+            progress = FAKE_PROGRESS_DATA,
+            workTime = fromSecondOfDay(FAKE_TIME_DATA),
+            restTime = fromSecondOfDay(FAKE_TIME_DATA),
+            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
+            historyTimeStamp = FAKE_TIME_STAMP_DATA.toLocalDateTime(),
+            historyRoutine = listOf(HISTORY_ROUTINE_MODEL)
         )
 
-        val historyModel2 = History(
-            historyId = 2,
-            comment = "행복한 하루",
-            score = 2,
-            workTime = LocalTime(0, 20, 0),
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
-            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
-            historyRoutine = listOf(historyRoutineModel2)
+
+        val UPDATE_HISTORY_INFO_MODEL = UpdateHistoryInfo(
+            historyId = FAKE_INT_DATA,
+            comment = FAKE_STRING_DATA,
+            score = FAKE_SCORE_DATA,
         )
 
-        val historyModelList = listOf(historyModel1, historyModel2)
+    }
 
-
-        val createHistoryRoutineModel = CreateHistoryRoutine(
-            workCategory = "숄더프레스",
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
+    object Notice {
+        val NOTICE_MODEL = Notice(
+            id = FAKE_INT_DATA,
+            title = FAKE_STRING_DATA,
+            category = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA,
+            date = LocalDate.parse(FAKE_DATE_DATA)
         )
-
-        val createHistoryModel = CreateHistory(
-            comment = "보람찬 하루",
-            score = 5,
-            progress =100,
-            workTime = LocalTime(0, 20, 0),
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
-            historyTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
-            historyRoutine = listOf(createHistoryRoutineModel)
-        )
-
     }
 
     object Picture {
-        val userProfilePictureModel1 = UserProfilePicture(
-            id = 1,
-            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
-        )
-        val userProfilePictureModel2 = UserProfilePicture(
-            id = 2,
-            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
-        )
-
-        val routineSetPictureModel1 = RoutineSetPicture(
-            id = 1,
+        val ROUTINE_SET_PICTURE_MODEL = RoutineSetPicture(
+            id = FAKE_INT_DATA,
             category = FAKE_STRING_DATA,
             url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
-        val routineSetPictureModel2 = RoutineSetPicture(
-            id = 2,
-            category = FAKE_STRING_DATA,
+        val USER_PROFILE_PICTURE_MODEL = UserProfilePicture(
+            id = FAKE_INT_DATA,
             url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA
         )
-
-
-        val userProfilePictureModelList = listOf(
-            userProfilePictureModel1, userProfilePictureModel2
-        )
-        val routineSetPictureModelList = listOf(
-            routineSetPictureModel1, routineSetPictureModel2
-        )
     }
 
-    object WorkPart {
-        val workPartModel1 = WorkPart(id = 1, name = "어깨")
-        val workPartModel2 = WorkPart(id = 2, name = "등")
-        val workPartModelList = listOf(workPartModel1, workPartModel2)
+    object Weekday {
+        val WEEKDAY_MODEL = FAKE_WEEKDAY_DATA.toWeekDay()
     }
 
-
-    object WorkCategory {
-        val workCategoryModel1 = WorkCategory(
-            id = 1,
-            name = "숄더프레스",
-            workPart = listOf("어깨"),
-            introduce = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        )
-        val workCategoryModel2 = WorkCategory(
-            id = 2,
-            name = "데드리프트",
-            workPart = listOf("등"),
-            introduce = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        )
-
-        val workCategoryModelList = listOf(workCategoryModel1, workCategoryModel2)
-
-    }
 
     object Routine {
-        val routineModel1 = Routine(
-            id = 1,
-            routineSetId = 1,
-            workCategory = workCategoryModel1,
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
-        )
-        val routineModel2 = Routine(
-            id = 2,
-            routineSetId = 2,
-            workCategory = workCategoryModel2,
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
-        )
-        val routineModelList = listOf(routineModel1, routineModel2)
-    }
 
-    object RoutineSetRoutine {
-        val routineSetRoutineModel1 = RoutineSetRoutine(
-            id = 1,
-            name = FAKE_ROUTINE_NAME_DATA,
-            description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = setOf(Weekday.Monday(), Weekday.Tuesday()),
-            label = setOf(Label.LABEL1, Label.LABEL2),
-            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            routine = listOf(routineModel1),
-            count = FAKE_INT_DATA
-        )
+        val LABEL_MODEL = FAKE_LABEL_DATA.toLabel()
 
-        val routineSetRoutineModel2 = RoutineSetRoutine(
-            id = 2,
-            name = FAKE_ROUTINE_NAME_DATA,
-            description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = setOf(Weekday.Monday(), Weekday.Tuesday()),
-            label = setOf(Label.LABEL1, Label.LABEL2),
-            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            routine = listOf(routineModel2),
-            count = FAKE_INT_DATA
-        )
-        val routineSetRoutineModelList = listOf(routineSetRoutineModel1, routineSetRoutineModel2)
-
-
-        val createRoutineModel = CreateRoutine(
-            workCategory = "숄더프레스",
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
-        )
-
-        val createRoutineSetRoutineModel = CreateRoutineSetRoutine(
-            name = FAKE_STRING_DATA,
-            description = FAKE_STRING_DATA,
-            weekday = setOf(Weekday.Monday(), Weekday.Tuesday()),
-            label = setOf(Label.LABEL1, Label.LABEL2),
-            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            routine = listOf(createRoutineModel),
-        )
-
-        private val updateRoutineModel = UpdateRoutine(
-            id = null,
-            workCategory = "숄더프레스",
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
-        )
-
-        val updateRoutineSetRoutineModel = UpdateRoutineSetRoutine(
+        val ROUTINE_MODEL = Routine(
             id = FAKE_INT_DATA,
-            name = FAKE_STRING_DATA,
-            description = FAKE_STRING_DATA,
-            weekday = setOf(Weekday.Monday(), Weekday.Tuesday()),
-            label = setOf(Label.LABEL1, Label.LABEL2),
-            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            routine = listOf(updateRoutineModel),
+            routineSetId = FAKE_INT_DATA,
+            workCategory = WORK_CATEGORY_MODEL,
+            workSetList = listOf(
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+            )
         )
 
-        val updateUsedRoutineSetModel = UpdateUsedRoutineSet(
+        val ROUTINE_SET_ROUTINE_MODEL = RoutineSetRoutine(
+            id = FAKE_INT_DATA,
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
+            weekday = setOf(WEEKDAY_MODEL),
+            label = setOf(LABEL_MODEL),
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+            routine = listOf(ROUTINE_MODEL),
+            count = FAKE_INT_DATA
+        )
+
+        val CREATE_ROUTINE_MODEL = CreateRoutine(
+            workCategory = FAKE_WORK_CATEGORY_NAME_DATA,
+            workSetList = listOf(
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+            )
+        )
+
+        val CREATE_ROUTINE_SET_ROUTINE_MODEL = CreateRoutineSetRoutine(
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
+            weekday = setOf(WEEKDAY_MODEL),
+            label = setOf(LABEL_MODEL),
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+            routine = listOf(CREATE_ROUTINE_MODEL),
+        )
+
+        private val UPDATE_ROUTINE_MODEL = UpdateRoutine(
+            id = FAKE_INT_DATA,
+            workCategory = FAKE_WORK_CATEGORY_NAME_DATA,
+            workSetList = listOf(
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+            )
+        )
+
+        val UPDATE_ROUTINE_SET_ROUTINE_MODEL = UpdateRoutineSetRoutine(
+            id = FAKE_INT_DATA,
+            name = FAKE_ROUTINE_NAME_DATA,
+            description = FAKE_ROUTINE_DESCRIPTION_DATA,
+            weekday = setOf(WEEKDAY_MODEL),
+            label = setOf(LABEL_MODEL),
+            picture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
+            routine = listOf(UPDATE_ROUTINE_MODEL),
+        )
+
+        val UPDATE_USED_ROUTINE_SET_MODEL = UpdateUsedRoutineSet(
             routineSetIdList = listOf(FAKE_INT_DATA),
-            usedTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            usedTimeStamp = FAKE_TIME_STAMP_DATA.toLocalDateTime(),
         )
     }
 
-    object Notification {
-        val noticeModel = Notice(
-            id = FAKE_INT_DATA,
-            title = FAKE_STRING_DATA,
-            category ="update",
-            description = FAKE_STRING_DATA,
-            date = LocalDate(2023, 8, 31)
-        )
-    }
 }
 
 

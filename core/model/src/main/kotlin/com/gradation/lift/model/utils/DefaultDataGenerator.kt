@@ -1,11 +1,11 @@
 package com.gradation.lift.model.utils
 
 import com.gradation.lift.model.model.auth.LoginMethod
-import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UnitOfWeight
 
 
 object DefaultDataGenerator {
@@ -48,4 +48,6 @@ object DefaultDataGenerator {
 
     const val FAKE_STATUS_DATA = true
     const val FAKE_MESSAGE_DATA = ""
+
+//    val FAKE_UUID_DATA:UUID = UUID(byteArrayOf(Byte))
 }
