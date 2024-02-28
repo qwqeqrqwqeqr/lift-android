@@ -21,9 +21,9 @@ data class GetHistoryResponseDto(
             comment = it.value.first().comment,
             score = it.value.first().score,
             progress = it.value.first().progress,
-            workTime = LocalTime.fromSecondOfDay(it.value.first().workTime.toInt()),
-            restTime = LocalTime.fromSecondOfDay(it.value.first().restTime.toInt()),
-            totalTime = LocalTime.fromSecondOfDay(it.value.first().totalTime.toInt()),
+            workTime = LocalTime.fromSecondOfDay(it.value.first().workTime),
+            restTime = LocalTime.fromSecondOfDay(it.value.first().restTime),
+            totalTime = LocalTime.fromSecondOfDay(it.value.first().totalTime),
             historyTimeStamp = LocalDateTime.parse(it.value.first().historyTimeStamp),
             historyRoutine = it.value.map { history ->
                 HistoryRoutine(

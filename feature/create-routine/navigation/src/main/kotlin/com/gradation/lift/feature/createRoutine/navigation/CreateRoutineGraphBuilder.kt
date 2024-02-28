@@ -16,12 +16,11 @@ import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
 
 
-fun createRoutineGraphBuilder(
+fun NavGraphBuilder.createRoutineGraphBuilder(
     modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.navigation(
+    navigation(
         route = CREATE_ROUTINE_GRAPH_NAME,
         startDestination = CREATE_ROUTINE_ROUTINE_SET_ROUTER_NAME,
         enterTransition = { fadeIn() },

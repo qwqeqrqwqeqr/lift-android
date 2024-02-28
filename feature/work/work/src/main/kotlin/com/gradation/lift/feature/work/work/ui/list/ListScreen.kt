@@ -26,10 +26,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
+import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
-import com.gradation.lift.designsystem.component.filter.LiftAddWorkSetContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftAddWorkSetButton
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.label.WorkCompleteLabel
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
@@ -89,7 +90,7 @@ fun ListScreen(
                         workScreenState.updateSnackBarState(SnackBarState.Success("잘못 입력한 값이 존재합니다.\n수정 후 다시 시도해주세요."))
                     }
                 },
-                actions = { LiftAddWorkSetContainer(modifier.noRippleClickable(onClick = navigateWorkToFindWorkCategoryInWorkGraph)) }
+                actions = { LiftAddWorkSetButton(modifier.noRippleClickable(onClick = navigateWorkToFindWorkCategoryInWorkGraph)) }
             )
         },
         snackbarHost = {
@@ -372,11 +373,12 @@ fun ListScreen(
                                                 ) {
                                                     Spacer(modifier = modifier.padding(LiftTheme.space.space16))
                                                     LiftCircleCheckbox(
-                                                        modifier = modifier.size(LiftTheme.space.space28),
+                                                        modifier = modifier,
                                                         checked = workRoutineInfoState.isChecked(
                                                             workRoutine.id,
                                                             index
                                                         ),
+                                                        liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size28,
                                                         onCheckedChange = {
                                                             if (workRoutineInfoState.isChecked(
                                                                     workRoutine.id,

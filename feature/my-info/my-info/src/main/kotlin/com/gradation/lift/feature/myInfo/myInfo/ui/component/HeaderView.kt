@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.component.button.ButtonTextSize
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -26,10 +27,10 @@ import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoUiState
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun HeaderView(
-    modifier: Modifier=Modifier,
-    myInfoUiState:MyInfoUiState,
-    navigateMyInfoToProfileInMyInfoGraph:()->Unit
-){
+    modifier: Modifier = Modifier,
+    myInfoUiState: MyInfoUiState,
+    navigateMyInfoToProfileInMyInfoGraph: () -> Unit,
+) {
     when (myInfoUiState) {
         is MyInfoUiState.Fail -> {
             Row(
@@ -42,7 +43,8 @@ fun HeaderView(
                         end = LiftTheme.space.space20,
                         bottom = LiftTheme.space.space16,
                     ),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
                     modifier = modifier,
@@ -68,6 +70,7 @@ fun HeaderView(
                     height = LiftTheme.space.space36,
                     shape = RoundedCornerShape(LiftTheme.space.space8),
                     text = "프로필 보기",
+                    buttonTextSize = ButtonTextSize.Small,
                     onClick = navigateMyInfoToProfileInMyInfoGraph
                 )
             }
@@ -84,7 +87,8 @@ fun HeaderView(
                         end = LiftTheme.space.space20,
                         bottom = LiftTheme.space.space16,
                     ),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
                     modifier = modifier,
@@ -118,6 +122,7 @@ fun HeaderView(
                     height = LiftTheme.space.space36,
                     shape = RoundedCornerShape(LiftTheme.space.space8),
                     text = "프로필 보기",
+                    buttonTextSize = ButtonTextSize.Small,
                     onClick = navigateMyInfoToProfileInMyInfoGraph
                 )
             }
@@ -134,7 +139,8 @@ fun HeaderView(
                         end = LiftTheme.space.space20,
                         bottom = LiftTheme.space.space16,
                     ),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
                     modifier = modifier,
@@ -160,9 +166,10 @@ fun HeaderView(
                 LiftDefaultButton(
                     modifier = modifier,
                     width = LiftTheme.space.space80,
-                    height = LiftTheme.space.space36,
+                    height = LiftTheme.space.space32,
                     shape = RoundedCornerShape(LiftTheme.space.space8),
                     text = "프로필 보기",
+                    buttonTextSize = ButtonTextSize.Small,
                     onClick = navigateMyInfoToProfileInMyInfoGraph
                 )
             }

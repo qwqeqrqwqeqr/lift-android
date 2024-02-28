@@ -13,5 +13,4 @@ dependencies {
     implementation(project(":core:navigation"))
 
     implementation(project(":feature:badge:badge"))
-    implementation(project(":feature:badge:setting"))
 }

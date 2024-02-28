@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="16dp"
+    android:height="18dp"
+    android:viewportWidth="16"
+    android:viewportHeight="18"
+    tools:ignore="MissingDefaultResource">
+    <path
+        android:fillColor="#0080FF"
+        android:fillType="evenOdd"
+        android:pathData="M1.5,0C0.672,0 0,0.672 0,1.5V4H16V1.5C16,0.672 15.328,0 14.5,0H1.5ZM0,5V16.5C0,17.328 0.672,18 1.5,18H14.5C15.328,18 16,17.328 16,16.5V5H0ZM4,2C4,2.552 3.552,3 3,3C2.448,3 2,2.552 2,2C2,1.448 2.448,1 3,1C3.552,1 4,1.448 4,2ZM6,3C6.552,3 7,2.552 7,2C7,1.448 6.552,1 6,1C5.448,1 5,1.448 5,2C5,2.552 5.448,3 6,3ZM10,2C10,2.552 9.552,3 9,3C8.448,3 8,2.552 8,2C8,1.448 8.448,1 9,1C9.552,1 10,1.448 10,2ZM4.646,7.846L1.646,10.846L1.293,11.2L1.646,11.554L4.646,14.554L5.354,13.846L2.707,11.2L5.354,8.554L4.646,7.846ZM6.526,14.042L8.526,8.042L9.474,8.358L7.474,14.358L6.526,14.042ZM11.354,14.554L14.354,11.554L14.707,11.2L14.354,10.846L11.354,7.846L10.646,8.554L13.293,11.2L10.646,13.846L11.354,14.554Z" />
+</vector>

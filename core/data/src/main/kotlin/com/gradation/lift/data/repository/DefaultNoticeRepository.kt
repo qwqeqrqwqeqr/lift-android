@@ -3,10 +3,13 @@ package com.gradation.lift.data.repository
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.NoticeRepository
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.notice.Notice
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.notice.NoticeDataSource
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 

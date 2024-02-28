@@ -9,4 +9,18 @@ package com.gradation.lift.model.model.work
 data class WorkPart(
     val id: Int,
     val name: String,
-)
+) {
+    companion object {
+
+        val WORK_PART_NAME_LIST = listOf<String>(
+            "가슴",
+            "등",
+            "복근",
+            "하체",
+            "팔",
+            "어깨"
+        )
+    }
+}
+
+

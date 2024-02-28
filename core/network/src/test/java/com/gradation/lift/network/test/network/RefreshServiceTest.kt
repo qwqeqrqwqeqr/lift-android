@@ -3,15 +3,14 @@ package com.gradation.lift.network.test.network
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestDtoDataGenerator.Refresh.refreshResponseDto
-import com.gradation.lift.network.data.TestJsonDataGenerator.Refresh.refreshResponseJson
-import com.gradation.lift.network.di.TestServiceModule
+import com.gradation.lift.network.data.TestDtoDataGenerator.Refresh.Refresh.REFRESH_RESPONSE_DTO
+import com.gradation.lift.network.data.TestJsonDataGenerator.Refresh.REFRESH_RESPONSE_JSON
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.service.RefreshService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -21,13 +20,13 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class RefreshServiceTest {
 
     private lateinit var retrofit: TestRetrofit
     private lateinit var mockWebServer: MockWebServer
     private lateinit var refreshService: RefreshService
+
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -51,9 +50,9 @@ class RefreshServiceTest {
         val refreshToken = FAKE_REFRESH_TOKEN
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(refreshResponseJson)
+                .setBody(REFRESH_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization",refreshToken)
+                .addHeader("Authorization", refreshToken)
                 .setResponseCode(Constants.CREATED)
 
         )
@@ -67,7 +66,7 @@ class RefreshServiceTest {
         assertThat(response.code()).isEqualTo(Constants.CREATED)
         assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         assertThat(response.body()!!.data)
-            .isEqualTo(refreshResponseDto)
+            .isEqualTo(REFRESH_RESPONSE_DTO)
     }
 
 }

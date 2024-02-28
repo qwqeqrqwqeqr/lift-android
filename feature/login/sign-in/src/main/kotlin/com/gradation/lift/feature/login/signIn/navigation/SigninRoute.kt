@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.login.signIn.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,15 +11,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.feature.login.common.data.LoginMethodState
 import com.gradation.lift.feature.login.common.data.LoginSharedViewModel
-import com.gradation.lift.feature.login.signIn.ui.SignInScreen
 import com.gradation.lift.feature.login.signIn.data.state.ConnectState
 import com.gradation.lift.feature.login.signIn.data.state.OAuthSignInState
-import com.gradation.lift.feature.login.signIn.data.state.SignInState
 import com.gradation.lift.feature.login.signIn.data.state.SignInScreenState
+import com.gradation.lift.feature.login.signIn.data.state.SignInState
 import com.gradation.lift.feature.login.signIn.data.state.rememberSignInScreenState
 import com.gradation.lift.feature.login.signIn.data.viewmodel.SignInViewModel
+import com.gradation.lift.feature.login.signIn.ui.SignInScreen
 import com.gradation.lift.model.model.auth.LoginMethod
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 internal fun SignInRoute(
@@ -46,8 +46,8 @@ internal fun SignInRoute(
     when (val connectStateResult: ConnectState = connectState) {
         is ConnectState.Fail -> {
             LaunchedEffect(connectStateResult.message) {
-                signInScreenState.snackbarHostState.showSnackbar(
-                    message = connectStateResult.message, duration = SnackbarDuration.Short
+                signInScreenState.snackbarHostState.showImmediatelySnackbar(
+                    connectStateResult.message,
                 )
                 viewModel.oAuthSignInState.updateConnectState(ConnectState.None)
             }
@@ -91,8 +91,8 @@ internal fun SignInRoute(
     when (val signInStateResult: SignInState = signInState) {
         is SignInState.Fail -> {
             LaunchedEffect(true) {
-                signInScreenState.snackbarHostState.showSnackbar(
-                    message = signInStateResult.message, duration = SnackbarDuration.Short
+                signInScreenState.snackbarHostState.showImmediatelySnackbar(
+                    signInStateResult.message,
                 )
                 viewModel.oAuthSignInState.updateOAuthSignInState(SignInState.None)
             }

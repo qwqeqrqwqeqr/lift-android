@@ -18,11 +18,11 @@ fun NavGraphBuilder.analyticsGraphBuilder(
     navigation(
         route = ANALYTICS_GRAPH_NAME,
         startDestination = ANALYTICS_ANALYTICS_ROUTER_NAME,
-        popEnterTransition = { fadeIn() },
-        popExitTransition = { fadeOut() },
         enterTransition = { fadeIn() },
         exitTransition = { fadeOut() },
+        popEnterTransition = { fadeIn() },
+        popExitTransition = { fadeOut() }
     ) {
-        analyticsScreen(modifier)
+        analyticsScreen(modifier, navController)
     }
 }

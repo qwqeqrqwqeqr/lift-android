@@ -11,6 +11,7 @@ class GooglePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
             dependencies {
                 add("implementation", libs.findLibrary("google-services").get())
                 add("implementation", libs.findLibrary("google-play-core").get())

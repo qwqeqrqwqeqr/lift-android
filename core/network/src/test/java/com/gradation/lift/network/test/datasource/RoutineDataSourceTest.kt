@@ -4,18 +4,31 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.CREATE_ROUTINE_SET_ROUTINE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.ROUTINE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.ROUTINE_SET_ROUTINE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.UPDATE_ROUTINE_SET_ROUTINE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Routine.UPDATE_USED_ROUTINE_SET_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Weekday.WEEKDAY_MODEL
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.CREATE_ROUTINE_SET_ROUTINE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.DELETE_ROUTINE_SET_ROUTINE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.GET_ROUTINE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.GET_ROUTINE_SET_ROUTINE_BY_LABEL_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.GET_ROUTINE_SET_ROUTINE_BY_RECENT_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.GET_ROUTINE_SET_ROUTINE_BY_ROUTINE_SET_ID_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.GET_ROUTINE_SET_ROUTINE_BY_WEEKDAY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.GET_ROUTINE_SET_ROUTINE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.UPDATE_ROUTINE_SET_ROUTINE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Routine.UPDATE_USED_ROUTINE_SET_RESPONSE_JSON
 import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
 import com.gradation.lift.network.datasource.routine.RoutineDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.RoutineService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -56,7 +69,7 @@ class RoutineDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         routineDataSource = DefaultRoutineDataSource(
             routineService,
-            networkResultHandler = networkResultHandler,dispatcher
+            networkResultHandler = networkResultHandler, dispatcher
         )
     }
 
@@ -70,13 +83,13 @@ class RoutineDataSourceTest {
     fun createRoutineSetRoutineDataSource() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
+                .setBody(CREATE_ROUTINE_SET_ROUTINE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(
-            routineDataSource.createRoutineSetRoutine(createRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.createRoutineSetRoutineModel)
+            routineDataSource.createRoutineSetRoutine(createRoutineSetRoutine = CREATE_ROUTINE_SET_ROUTINE_MODEL)
                 .first()
         ) {
             Truth.assertThat(
@@ -85,50 +98,12 @@ class RoutineDataSourceTest {
         }
     }
 
-
-    @Test
-    fun updateRoutineSetRoutineDataSource() = runTest {
-        mockWebServer.enqueue(
-            MockResponse()
-                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
-                .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
-        )
-
-        with(
-            routineDataSource.updateRoutineSetRoutine(updateRoutineSetRoutine = ModelDataGenerator.RoutineSetRoutine.updateRoutineSetRoutineModel)
-                .first()
-        ) {
-            Truth.assertThat(
-                NetworkResult.Success(Unit),
-            ).isEqualTo(this)
-        }
-    }
-
-    @Test
-    fun updateRoutineSetCountDataSource() = runTest {
-        mockWebServer.enqueue(
-            MockResponse()
-                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
-                .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
-        )
-
-        with(
-            routineDataSource.updateRoutineSetCount(updateRoutineSetCount = ModelDataGenerator.RoutineSetRoutine.updateRoutineSetCountModel)
-                .first()
-        ) {
-            Truth.assertThat(
-                NetworkResult.Success(Unit),
-            ).isEqualTo(this)
-        }
-    }
 
     @Test
     fun deleteRoutineSetRoutineDataSource() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
+                .setBody(DELETE_ROUTINE_SET_ROUTINE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -145,11 +120,49 @@ class RoutineDataSourceTest {
 
 
     @Test
+    fun updateRoutineSetRoutineDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_ROUTINE_SET_ROUTINE_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.updateRoutineSetRoutine(UPDATE_ROUTINE_SET_ROUTINE_MODEL)
+                .first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun updateUsedRoutineSetDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_USED_ROUTINE_SET_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.updateUsedRoutineSet(updateUsedRoutineSet = UPDATE_USED_ROUTINE_SET_MODEL)
+                .first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
     fun getRoutineDataSource() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Routine.routineResponseJson)
+                .setBody(GET_ROUTINE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -158,7 +171,7 @@ class RoutineDataSourceTest {
             routineDataSource.getRoutine().first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.Routine.routineModelList),
+                NetworkResult.Success(listOf(ROUTINE_MODEL)),
             ).isEqualTo(this)
         }
     }
@@ -168,7 +181,7 @@ class RoutineDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson)
+                .setBody(GET_ROUTINE_SET_ROUTINE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -177,7 +190,26 @@ class RoutineDataSourceTest {
             routineDataSource.getRoutineSetRoutine().first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList),
+                NetworkResult.Success(listOf(ROUTINE_SET_ROUTINE_MODEL)),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun getRoutineSetRoutineByRecentDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_ROUTINE_SET_ROUTINE_BY_RECENT_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            routineDataSource.getRoutineSetRoutine().first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(listOf(ROUTINE_SET_ROUTINE_MODEL)),
             ).isEqualTo(this)
         }
     }
@@ -187,35 +219,36 @@ class RoutineDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson)
+                .setBody(GET_ROUTINE_SET_ROUTINE_BY_WEEKDAY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(
-            routineDataSource.getRoutineSetRoutineByWeekday(setOf(Weekday.Monday(),Weekday.Tuesday())).first()
+            routineDataSource.getRoutineSetRoutineByWeekday(setOf(WEEKDAY_MODEL)).first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList),
+                NetworkResult.Success(listOf(ROUTINE_SET_ROUTINE_MODEL)),
             ).isEqualTo(this)
         }
     }
+
 
     @Test
     fun getRoutineSetRoutineByLabelDataSource() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson)
+                .setBody(GET_ROUTINE_SET_ROUTINE_BY_LABEL_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(
-            routineDataSource.getRoutineSetRoutineByLabel(setOf(Label.LABEL1,Label.LABEL2)).first()
+            routineDataSource.getRoutineSetRoutineByLabel(setOf(Label.LABEL1, Label.LABEL2)).first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList),
+                NetworkResult.Success(listOf(ROUTINE_SET_ROUTINE_MODEL)),
             ).isEqualTo(this)
         }
     }
@@ -226,16 +259,16 @@ class RoutineDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.RoutineSetRoutine.routineSetRoutineResponseJson)
+                .setBody(GET_ROUTINE_SET_ROUTINE_BY_ROUTINE_SET_ID_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(
-            routineDataSource.getRoutineSetRoutineByRoutineSetId(setOf(12, 13, 14)).first()
+            routineDataSource.getRoutineSetRoutineByRoutineSetId(setOf(FAKE_INT_DATA)).first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.RoutineSetRoutine.routineSetRoutineModelList),
+                NetworkResult.Success(listOf(ROUTINE_SET_ROUTINE_MODEL)),
             ).isEqualTo(this)
         }
     }

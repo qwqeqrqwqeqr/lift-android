@@ -8,6 +8,7 @@ buildscript {
         classpath(libs.android.gradlePlugin)
         classpath(libs.google.services)
         classpath(libs.firebase.crashlytics.gradle)
+        classpath(libs.gms.oss.licenses.plugin)
     }
 }
 

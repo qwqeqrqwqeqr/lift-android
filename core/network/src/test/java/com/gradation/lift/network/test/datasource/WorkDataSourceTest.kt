@@ -4,19 +4,25 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.Work.WORK_CATEGORY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Work.WORK_PART_MODEL
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestJsonDataGenerator
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_POPULAR_WORK_CATEGORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_RECOMMEND_WORK_CATEGORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_CATEGORY_BY_ID_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_CATEGORY_RESPONSE_JSON
 import com.gradation.lift.network.datasource.work.DefaultWorkDataSource
 import com.gradation.lift.network.datasource.work.WorkDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.WorkService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -27,7 +33,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class WorkDataSourceTest {
 
@@ -69,16 +74,15 @@ class WorkDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.WorkPart.workPartResponseJson)
+                .setBody(TestJsonDataGenerator.Work.GET_WORK_PART_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
-
         with(
             workDataSource.getWorkPart().first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.WorkPart.workPartModelList),
+                NetworkResult.Success(listOf(WORK_PART_MODEL)),
             ).isEqualTo(this)
         }
     }
@@ -89,7 +93,7 @@ class WorkDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.WorkCategory.workCategoryResponseJson)
+                .setBody(GET_WORK_CATEGORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -99,7 +103,26 @@ class WorkDataSourceTest {
             workDataSource.getWorkCategory().first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.WorkCategory.workCategoryModelList),
+                NetworkResult.Success(listOf(WORK_CATEGORY_MODEL)),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun getWorkCategoryByIdDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_WORK_CATEGORY_BY_ID_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            workDataSource.getWorkCategoryById(FAKE_INT_DATA).first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(WORK_CATEGORY_MODEL),
             ).isEqualTo(this)
         }
     }
@@ -109,7 +132,7 @@ class WorkDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.WorkCategory.workCategoryResponseJson)
+                .setBody(GET_POPULAR_WORK_CATEGORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -119,17 +142,38 @@ class WorkDataSourceTest {
             workDataSource.getPopularWorkCategory().first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.WorkCategory.workCategoryModelList),
+                NetworkResult.Success(listOf(WORK_CATEGORY_MODEL)),
             ).isEqualTo(this)
         }
     }
+
+    @Test
+    fun getRecommendWorkCategoryDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_RECOMMEND_WORK_CATEGORY_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+
+        with(
+            workDataSource.getRecommendWorkCategory().first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(listOf(WORK_CATEGORY_MODEL)),
+            ).isEqualTo(this)
+        }
+    }
+
 
     @Test
     fun getWorkCategoryByWorkPartDataSource() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.WorkCategory.workCategoryResponseJson)
+                .setBody(GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -139,7 +183,7 @@ class WorkDataSourceTest {
             workDataSource.getWorkCategoryByWorkPart(DefaultDataGenerator.FAKE_STRING_DATA).first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.WorkCategory.workCategoryModelList),
+                NetworkResult.Success(listOf(WORK_CATEGORY_MODEL)),
             ).isEqualTo(this)
         }
     }

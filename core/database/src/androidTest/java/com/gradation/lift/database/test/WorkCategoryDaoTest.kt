@@ -6,7 +6,6 @@ import com.google.common.truth.Truth
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
-import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity2
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntityList
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkPart.workPartEntityList
 import com.gradation.lift.database.di.LiftDatabase
@@ -56,7 +55,7 @@ class WorkCategoryDaoTest {
             Truth.assertThat(this.size).isEqualTo(2)
             Truth.assertThat(this.map { it.id }.toSet())
                 .isEqualTo(workCategoryEntityList.map { it.id }.toSet())
-            Truth.assertThat(this.map { it.workPart.name }.toSet())
+            Truth.assertThat(this.map { it.workPart }.toSet())
                 .isEqualTo(workPartEntityList.map { it.name }.toSet())
         }
 
@@ -75,7 +74,6 @@ class WorkCategoryDaoTest {
     @Test
     fun testDeleteAllWorkCategory() = runTest {
         workCategoryDao.insertWorkCategory(workCategoryEntity1)
-        workCategoryDao.insertWorkCategory(workCategoryEntity2)
         workCategoryDao.deleteAllWorkCategory()
         with(workCategoryDao.getAllWorkCategory().first()) {
             Truth.assertThat(this.size).isEqualTo(0)

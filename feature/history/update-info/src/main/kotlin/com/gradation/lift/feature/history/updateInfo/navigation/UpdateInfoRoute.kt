@@ -13,6 +13,7 @@ import com.gradation.lift.feature.history.updateInfo.data.state.UpdateHistoryInf
 import com.gradation.lift.feature.history.updateInfo.data.state.UpdateInfoScreenState
 import com.gradation.lift.feature.history.updateInfo.data.state.rememberUpdateInfoScreenState
 import com.gradation.lift.feature.history.updateInfo.ui.UpdateInfoScreen
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 internal fun UpdateInfoRoute(
@@ -39,7 +40,7 @@ internal fun UpdateInfoRoute(
     when (val result = updateHistoryInfoState) {
         is UpdateHistoryInfoState.Fail -> {
             LaunchedEffect(true) {
-                updateInfoScreenState.snackbarHostState.showSnackbar(result.message)
+                updateInfoScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
                 updateUpdateHistoryInfoState(UpdateHistoryInfoState.None)
             }
         }

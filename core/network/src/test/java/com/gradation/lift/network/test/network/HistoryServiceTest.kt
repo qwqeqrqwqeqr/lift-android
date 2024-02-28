@@ -3,19 +3,24 @@ package com.gradation.lift.network.test.network
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.createHistoryRequestDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.createHistoryResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.deleteHistoryResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryByHistoryIdResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.History.getHistoryResponseDto
-import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.History.historyResponseJson
-import com.gradation.lift.network.di.TestServiceModule
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.CreateHistory.CREATE_HISTORY_REQUEST_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.CreateHistory.CREATE_HISTORY_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.DeleteHistory.DELETE_HISTORY_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.GetHistory.GET_HISTORY_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.GetHistoryByHistoryID.GET_HISTORY_BY_HISTORY_ID_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.UpdateHistoryInfo.UPDATE_HISTORY_INFO_REQUEST_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.History.UpdateHistoryInfo.UPDATE_HISTORY_INFO_RESPONSE_DTO
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.CREATE_HISTORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.DELETE_HISTORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.GET_HISTORY_BY_HISTORY_ID_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.GET_HISTORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.UPDATE_HISTORY_INFO_RESPONSE_JSON
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.service.HistoryService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -25,7 +30,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class HistoryServiceTest {
 
@@ -56,13 +60,12 @@ class HistoryServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(historyResponseJson)
+                .setBody(GET_HISTORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         val response = historyService.getHistory()
-
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
@@ -72,42 +75,20 @@ class HistoryServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getHistoryResponseDto)
+            .isEqualTo(GET_HISTORY_RESPONSE_DTO)
     }
 
-
-    @Test
-    fun getHistoryByHistoryIdService() = runTest {
-        mockWebServer.enqueue(
-            MockResponse()
-                .setBody(historyResponseJson)
-                .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
-        )
-
-        val response = historyService.getHistoryByHistoryId("12,13,14")
-        val request = mockWebServer.takeRequest()
-
-        Truth.assertThat(request.path)
-            .isEqualTo("/history/history-by-history-id?history_id_list=12%2C13%2C14")
-        Truth.assertThat(request.method).isEqualTo(Constants.GET)
-
-        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
-        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
-        Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getHistoryByHistoryIdResponseDto)
-    }
 
     @Test
     fun createHistoryService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(CREATE_HISTORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
-        val response = historyService.createHistory(createHistoryRequestDto)
+        val response = historyService.createHistory(CREATE_HISTORY_REQUEST_DTO)
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
@@ -117,29 +98,75 @@ class HistoryServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(createHistoryResponseDto)
+            .isEqualTo(CREATE_HISTORY_RESPONSE_DTO)
     }
 
     @Test
     fun deleteHistoryService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(DELETE_HISTORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
-        val response = historyService.deleteHistory(1)
+        val response = historyService.deleteHistory(FAKE_INT_DATA)
         val request = mockWebServer.takeRequest()
 
         Truth.assertThat(request.path)
-            .isEqualTo("/history/history?history_id=1")
+            .isEqualTo("/history/history?history_id=$FAKE_INT_DATA")
         Truth.assertThat(request.method).isEqualTo(Constants.DELETE)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(deleteHistoryResponseDto)
+            .isEqualTo(DELETE_HISTORY_RESPONSE_DTO)
+    }
+
+
+    @Test
+    fun getHistoryByHistoryIdService() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_HISTORY_BY_HISTORY_ID_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        val response = historyService.getHistoryByHistoryId(FAKE_INT_DATA.toString())
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path)
+            .isEqualTo("/history/history-by-history-id?history_id_list=$FAKE_INT_DATA")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(GET_HISTORY_BY_HISTORY_ID_RESPONSE_DTO)
+    }
+
+
+    @Test
+    fun updateHistoryInfoService() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_HISTORY_INFO_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.CREATED)
+        )
+
+        val response = historyService.updateHistoryInfo(UPDATE_HISTORY_INFO_REQUEST_DTO)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path)
+            .isEqualTo("/history/history-info")
+        Truth.assertThat(request.method).isEqualTo(Constants.PATCH)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.CREATED)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(UPDATE_HISTORY_INFO_RESPONSE_DTO)
     }
 
 }

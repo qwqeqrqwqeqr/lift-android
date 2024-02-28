@@ -2,7 +2,6 @@ package com.gradation.lift.feature.login.resetPassword.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,6 +17,7 @@ import com.gradation.lift.feature.login.resetPassword.data.rememberResetPassword
 import com.gradation.lift.feature.login.resetPassword.ui.ResetPasswordScreen
 import com.gradation.lift.feature.login.resetPassword.ui.dialog.CancelDialog
 import com.gradation.lift.feature.login.resetPassword.ui.dialog.CompleteDialog
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 fun ResetPasswordRoute(
@@ -46,8 +46,8 @@ fun ResetPasswordRoute(
     when (val updatePasswordStateResult = updatePasswordState) {
         is UpdatePasswordState.Fail -> {
             LaunchedEffect(updatePasswordStateResult.message) {
-                resetPasswordScreenState.snackbarHostState.showSnackbar(
-                    message = updatePasswordStateResult.message, duration = SnackbarDuration.Long
+                resetPasswordScreenState.snackbarHostState.showImmediatelySnackbar(
+                    updatePasswordStateResult.message
                 )
                 updateUpdatePasswordState(UpdatePasswordState.None)
             }

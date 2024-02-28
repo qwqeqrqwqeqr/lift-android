@@ -6,8 +6,8 @@ import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_GRAPH_NAME
 import com.gradation.lift.navigation.Route.WORK_READY_READY_ROUTER_NAME
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.UpdateRoutine.UPDATE_ROUTINE_SET_ID_KEY
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY
 import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
@@ -38,11 +38,7 @@ fun NavController.navigateRoutineDetailGraphToUpdateRoutineGraph(routineSetId: I
 }
 
 fun NavController.navigateRoutineDetailGraphToWorkReadyReadyRoute(routineSetIdList: String) {
-    this.setValueSavedStateHandle(
-        SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY,
-        routineSetIdList
-    )
-    this.navigate(WORK_READY_READY_ROUTER_NAME)
+    this.navigate("${WORK_READY_READY_ROUTER_NAME}?${WORK_ROUTINE_SET_ID_LIST_KEY}=$routineSetIdList")
 }
 
 

@@ -7,8 +7,11 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.di.TestDispatcher.testDispatchers
 import com.gradation.lift.data.fake.datasource.FakeAuthDataSource
+import com.gradation.lift.data.fake.oauthmanager.FakeGoogleOauthManager
 import com.gradation.lift.data.fake.oauthmanager.FakeKakaoOauthManager
 import com.gradation.lift.data.fake.oauthmanager.FakeNaverOauthManager
 import com.gradation.lift.data.repository.DefaultAuthRepository
@@ -18,9 +21,12 @@ import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.LoginMethod
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.DEFAULT_SIGN_IN_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.DEFAULT_SIGN_UP_INFO_MODEL
 import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
 import com.gradation.lift.test.rule.CoroutineRule
@@ -46,11 +52,11 @@ class AuthRepositoryTest {
     private lateinit var tokenDataStoreDataSource: TokenDataStoreDataSource
     private lateinit var kakaoOauthManager: KakaoOauthManager
     private lateinit var naverOauthManager: NaverOauthManager
+    private lateinit var googleOauthManager: GoogleOauthManager
 
 
     private lateinit var testDataStore: DataStore<Preferences>
-
-
+    private lateinit var testDispatcher: DispatcherProvider
 
 
     @get:Rule
@@ -69,25 +75,30 @@ class AuthRepositoryTest {
         failDataSource = FakeAuthDataSource(TestReturnState.Fail)
         successDataSource = FakeAuthDataSource(TestReturnState.Success)
 
-
+        testDispatcher = testDispatchers()
 
         tokenDataStoreDataSource = TokenDataStoreDataSource(testDataStore)
 
         kakaoOauthManager = FakeKakaoOauthManager()
         naverOauthManager = FakeNaverOauthManager()
+        googleOauthManager = FakeGoogleOauthManager()
 
 
         successRepository = DefaultAuthRepository(
             successDataSource,
             tokenDataStoreDataSource,
             kakaoOauthManager,
-            naverOauthManager
+            naverOauthManager,
+            googleOauthManager,
+            testDispatcher
         )
         failRepository = DefaultAuthRepository(
             failDataSource,
             tokenDataStoreDataSource,
             kakaoOauthManager,
-            naverOauthManager
+            naverOauthManager,
+            googleOauthManager,
+            testDispatcher
         )
     }
 
@@ -103,16 +114,16 @@ class AuthRepositoryTest {
     @Test
     fun signUpDefault() = runTest {
         Truth.assertThat(
-            DataState.Success(Unit)
+            DataState.Success(FAKE_BOOLEAN_DATA)
         ).isEqualTo(
-            successRepository.signUpDefault(signUpInfo = ModelDataGenerator.Auth.defaultSignUpInfoModel)
+            successRepository.signUpDefault(signUpInfo = DEFAULT_SIGN_UP_INFO_MODEL)
                 .first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.signUpDefault(signUpInfo = ModelDataGenerator.Auth.defaultSignUpInfoModel)
+            failRepository.signUpDefault(signUpInfo = DEFAULT_SIGN_UP_INFO_MODEL)
                 .first()
         )
     }
@@ -122,7 +133,7 @@ class AuthRepositoryTest {
 
 
         with(
-            successRepository.signInDefault(signInInfo = ModelDataGenerator.Auth.defaultSignInInfoModel)
+            successRepository.signInDefault(signInInfo = DEFAULT_SIGN_IN_INFO_MODEL)
                 .first()
         ) {
             Truth.assertThat(tokenDataStoreDataSource.accessToken.first())
@@ -143,7 +154,7 @@ class AuthRepositoryTest {
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.signInDefault(signInInfo = ModelDataGenerator.Auth.defaultSignInInfoModel)
+            failRepository.signInDefault(signInInfo = DEFAULT_SIGN_IN_INFO_MODEL)
                 .first()
         )
 

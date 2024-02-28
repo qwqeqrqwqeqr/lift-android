@@ -20,6 +20,7 @@ import com.gradation.lift.feature.work.completedetail.data.state.CreateWorkHisto
 import com.gradation.lift.feature.work.completedetail.data.state.rememberCompleteDetailScreenState
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import kotlinx.datetime.LocalDateTime
 
 
@@ -74,7 +75,7 @@ internal fun CompleteDetailRoute(
     LaunchedEffect(createWorkHistoryState) {
         when (val result = createWorkHistoryState) {
             is CreateWorkHistoryState.Fail -> {
-                completeDetailScreenState.snackbarHostState.showSnackbar(result.message)
+                completeDetailScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
                 updateCreateWorkHistoryState(CreateWorkHistoryState.None)
             }
 

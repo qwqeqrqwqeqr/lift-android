@@ -2,7 +2,6 @@ package com.gradation.lift.feature.createRoutine.routineSet.navigation
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,13 +13,14 @@ import androidx.navigation.NavController
 import com.gradation.lift.common.utils.Validator
 import com.gradation.lift.feature.createRoutine.common.data.CreateRoutineSharedViewModel
 import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
-import com.gradation.lift.feature.createRoutine.routineSet.ui.RoutineSetScreen
-import com.gradation.lift.feature.createRoutine.routineSet.data.state.RoutineSetScreenState
 import com.gradation.lift.feature.createRoutine.routineSet.data.RoutineSetViewModel
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.CreateRoutineState
+import com.gradation.lift.feature.createRoutine.routineSet.data.state.RoutineSetScreenState
 import com.gradation.lift.feature.createRoutine.routineSet.data.state.rememberRoutineSetScreenState
+import com.gradation.lift.feature.createRoutine.routineSet.ui.RoutineSetScreen
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.navigation.Route.CREATE_ROUTINE_GRAPH_NAME
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -56,9 +56,10 @@ internal fun RoutineSetRoute(
     when (val result = createRoutineState) {
         is CreateRoutineState.Fail -> {
             LaunchedEffect(result) {
-                routineSetScreenState.snackbarHostState.showSnackbar(
-                    message = result.message, duration = SnackbarDuration.Short
-                )
+                routineSetScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = result.message,
+
+                    )
                 updateUpdateRoutineState(CreateRoutineState.None)
             }
         }

@@ -12,20 +12,19 @@ import com.gradation.lift.feature.home.home.navigation.homeScreen
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.HOME_HOME_ROUTER_NAME
 
-fun homeGraphBuilder(
-    modifier: Modifier=Modifier,
+fun NavGraphBuilder.homeGraphBuilder(
+    modifier: Modifier = Modifier,
     navController: NavController,
-    navGraphBuilder: NavGraphBuilder,
 ) {
-    navGraphBuilder.navigation(
+    navigation(
         route = HOME_GRAPH_NAME,
         startDestination = HOME_HOME_ROUTER_NAME,
-        popEnterTransition = {fadeIn(animationSpec = tween(1000))},
+        popEnterTransition = { fadeIn(animationSpec = tween(1000)) },
         popExitTransition = { fadeOut(animationSpec = tween(1000)) },
-        enterTransition = {fadeIn(animationSpec = tween(1000))},
+        enterTransition = { fadeIn(animationSpec = tween(1000)) },
         exitTransition = { fadeOut(animationSpec = tween(1000)) },
     ) {
-        newBadgeScreen(modifier ,navController)
-        homeScreen(modifier,navController)
+        newBadgeScreen(modifier, navController)
+        homeScreen(modifier, navController)
     }
 }

@@ -21,6 +21,7 @@ import com.gradation.lift.feature.createRoutine.routineSet.ui.component.RoutineV
 import com.gradation.lift.feature.createRoutine.routineSet.ui.dialog.CancelDialog
 import com.gradation.lift.feature.createRoutine.routineSet.ui.dialog.CompleteDialog
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.ui.extensions.focusClearManager
 
 
 @Composable
@@ -72,6 +73,7 @@ internal fun RoutineSetScreen(
         Column(
             modifier = modifier
                 .background(LiftTheme.colorScheme.no5)
+                .focusClearManager(routineSetScreenState.focusManager)
                 .padding(padding)
         ) {
             Column(

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -29,13 +28,16 @@ import androidx.compose.ui.text.style.TextAlign
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.gradation.lift.designsystem.brush.SkeletonBrush
+import com.gradation.lift.designsystem.component.icon.IconBoxSize
+import com.gradation.lift.designsystem.component.icon.IconType
+import com.gradation.lift.designsystem.component.icon.LiftIconBox
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
-import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -43,11 +45,13 @@ import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
 fun BadgeView(
     modifier: Modifier = Modifier,
     badgeUiState: BadgeUiState,
-    navigateHomeGraphToBadgeGraph: () -> Unit,
-    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
+    navigateHomeGraphToBadgeBadgeRouter: (Int) -> Unit,
     homeAnimationState: HomeAnimationState,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)) {
+    Column(
+        modifier = modifier.padding(horizontal = LiftTheme.space.space20),
+        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
+    ) {
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -63,7 +67,7 @@ fun BadgeView(
                     tint = Color.Unspecified,
                 )
                 LiftText(
-                    textStyle = LiftTextStyle.No1,
+                    textStyle = LiftTextStyle.No2,
                     text = "내 뱃지",
                     color = LiftTheme.colorScheme.no3,
                     textAlign = TextAlign.Start
@@ -71,34 +75,36 @@ fun BadgeView(
             }
 
             Row(
-                modifier = modifier.noRippleClickable { navigateHomeGraphToBadgeGraph() },
+                modifier = modifier.noRippleClickable { navigateHomeGraphToBadgeBadgeRouter(0) },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2)
             ) {
-
                 LiftText(
-                    textStyle = LiftTextStyle.No6,
+                    textStyle = LiftTextStyle.No7,
                     text = "전체보기",
                     color = LiftTheme.colorScheme.no2,
                     textAlign = TextAlign.Start
                 )
-                Icon(
-                    modifier = modifier
-                        .size(LiftTheme.space.space8),
-                    painter = painterResource(LiftIcon.ChevronRightSharp),
-                    contentDescription = "selectAllBadge",
-                    tint = LiftTheme.colorScheme.no2,
+                LiftIconBox(
+                    icon = LiftIcon.ChevronRight,
+                    iconType = IconType.Vector,
+                    iconBoxSize = IconBoxSize.Size12,
+                    padding = LiftTheme.space.space2,
+                    tint = LiftTheme.colorScheme.no2
                 )
+
             }
         }
 
         Column {
             when (badgeUiState) {
-                is BadgeUiState.Fail -> Spacer(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .height(LiftTheme.space.space96)
-                )
+                is BadgeUiState.Fail -> {
+                    Spacer(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(LiftTheme.space.space96)
+                    )
+                }
 
                 BadgeUiState.Loading ->
                     Spacer(
@@ -170,22 +176,19 @@ fun BadgeView(
                             }
 
                             if (badgeUiState.userBadge.size < 5) {
-                                Box(
+
+                                LiftIconBox(
                                     modifier = modifier
-                                        .size(LiftTheme.space.space52)
-                                        .padding(horizontal = LiftTheme.space.space8)
-                                        .background(LiftTheme.colorScheme.no5, CircleShape)
-                                        .noRippleClickable { navigateHomeGraphToBadgeSettingRouter() }
+                                        .noRippleClickable {
+                                            navigateHomeGraphToBadgeBadgeRouter(
+                                                1
+                                            )
+                                        }
                                         .weight(1f),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        modifier = modifier.size(LiftTheme.space.space24),
-                                        painter = painterResource(id = LiftIcon.Plus),
-                                        contentDescription = "addBadge",
-                                        tint = LiftTheme.colorScheme.no32
-                                    )
-                                }
+                                    icon = LiftIcon.PlusCircle,
+                                    iconType = IconType.Vector,
+                                    iconBoxSize = IconBoxSize.Size52
+                                )
                             }
                             repeat(4 - badgeUiState.userBadge.size) {
                                 Spacer(

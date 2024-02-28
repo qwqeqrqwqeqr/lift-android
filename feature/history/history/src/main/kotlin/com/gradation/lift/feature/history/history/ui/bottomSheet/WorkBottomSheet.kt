@@ -42,7 +42,11 @@ internal fun WorkBottomSheet(
     ) {
         Column(
             modifier = modifier
-                .padding(LiftTheme.space.space20)
+                .padding(
+                    start = LiftTheme.space.space20,
+                    end = LiftTheme.space.space20,
+                    bottom = LiftTheme.space.space20
+                )
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space28)
         ) {

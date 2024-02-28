@@ -23,8 +23,10 @@ data class BadgeEntity(
     val url: String,
     @ColumnInfo(name = "color")
     val color: String,
+    @ColumnInfo(name = "background_color")
+    val backgroundColor: String,
 ) {
     fun toDomain() = Badge(
-        id, name, description, hint, url, color
+        id, name, description, hint, url, color, backgroundColor
     )
 }

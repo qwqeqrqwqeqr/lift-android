@@ -31,6 +31,7 @@ import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.label.AllRoutineLabel
 import com.gradation.lift.designsystem.component.label.FridayRoutineLabel
 import com.gradation.lift.designsystem.component.label.MondayRoutineLabel
+import com.gradation.lift.designsystem.component.label.RecentRoutineLabel
 import com.gradation.lift.designsystem.component.label.RoutineLabel
 import com.gradation.lift.designsystem.component.label.SaturdayRoutineLabel
 import com.gradation.lift.designsystem.component.label.SundayRoutineLabel
@@ -41,13 +42,13 @@ import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.routineDetail.routineList.data.model.RecentUsedRoutineSetRoutine
 import com.gradation.lift.feature.routineDetail.routineList.data.model.RoutineIdInfo
 import com.gradation.lift.feature.routineDetail.routineList.data.state.RoutineListInfoState
 import com.gradation.lift.feature.routineDetail.routineList.data.state.RoutineListScreenState
 import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.date.getWeekdayEntries
 import com.gradation.lift.model.model.routine.Routine
-import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 
@@ -57,7 +58,7 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 @Composable
 internal fun RoutineListView(
     modifier: Modifier = Modifier,
-    routineSetRoutineList: List<RoutineSetRoutine>,
+    routineSetRoutineList: List<RecentUsedRoutineSetRoutine>,
     routineListInfoState: RoutineListInfoState,
     routineListScreenState: RoutineListScreenState,
     navigateRoutineListToRoutineInRoutineDetailGraph: (Int) -> Unit,
@@ -72,20 +73,22 @@ internal fun RoutineListView(
     ) {
         item { Spacer(modifier = modifier.padding(LiftTheme.space.space4)) }
         items(routineSetRoutineList) { routineSetRoutine ->
-            LiftDefaultContainer(modifier = modifier.fillMaxWidth().animateItemPlacement()) {
+            LiftDefaultContainer(modifier = modifier
+                .fillMaxWidth()
+                .animateItemPlacement()) {
                 Column {
                     Row(
                         modifier = modifier
                             .noRippleClickable {
-                                navigateRoutineListToRoutineInRoutineDetailGraph(routineSetRoutine.id)
+                                navigateRoutineListToRoutineInRoutineDetailGraph(routineSetRoutine.routineSetRoutine.id)
                             }
                             .padding(LiftTheme.space.space12),
                         horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space16),
                     ) {
                         GlideImage(
                             modifier = modifier.size(LiftTheme.space.space68),
-                            model = routineSetRoutine.picture,
-                            contentDescription = "${routineSetRoutine.picture}routinePicture"
+                            model = routineSetRoutine.routineSetRoutine.picture,
+                            contentDescription = "${routineSetRoutine.routineSetRoutine.picture}routinePicture"
                         )
                         Column(verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)) {
                             Row(
@@ -95,7 +98,7 @@ internal fun RoutineListView(
                             ) {
                                 LiftText(
                                     textStyle = LiftTextStyle.No3,
-                                    text = routineSetRoutine.name,
+                                    text = routineSetRoutine.routineSetRoutine.name,
                                     color =
                                     LiftTheme.colorScheme.no9,
                                     textAlign = TextAlign.Start
@@ -104,7 +107,7 @@ internal fun RoutineListView(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
                                 ) {
-                                    routineSetRoutine.label.forEach {
+                                    routineSetRoutine.routineSetRoutine.label.forEach {
                                         RoutineLabel(
                                             modifier.size(LiftTheme.space.space10),
                                             id = it.id
@@ -112,12 +115,12 @@ internal fun RoutineListView(
                                     }
                                 }
                             }
-                            if (routineSetRoutine.description.isEmpty())
+                            if (routineSetRoutine.routineSetRoutine.description.isEmpty())
                                 Spacer(modifier = modifier.padding(LiftTheme.space.space4))
                             else
                                 LiftText(
                                     textStyle = LiftTextStyle.No6,
-                                    text = routineSetRoutine.description,
+                                    text = routineSetRoutine.routineSetRoutine.description,
                                     color =
                                     LiftTheme.colorScheme.no9,
                                     textAlign = TextAlign.Start
@@ -127,10 +130,12 @@ internal fun RoutineListView(
                                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4),
                                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
                             ) {
-                                if (routineSetRoutine.weekday.size == getWeekdayEntries().size)
+                                if (routineSetRoutine.recentUsed)
+                                    RecentRoutineLabel(modifier)
+                                if (routineSetRoutine.routineSetRoutine.weekday.size == getWeekdayEntries().size)
                                     AllRoutineLabel(modifier)
                                 else {
-                                    routineSetRoutine.weekday.forEach {
+                                    routineSetRoutine.routineSetRoutine.weekday.forEach {
                                         when (it) {
                                             is Weekday.Friday -> FridayRoutineLabel(modifier)
                                             is Weekday.Monday -> MondayRoutineLabel(modifier)
@@ -151,7 +156,7 @@ internal fun RoutineListView(
                         thickness = LiftTheme.space.space4,
                         color = LiftTheme.colorScheme.no17,
                     )
-                    routineSetRoutine.routine.forEach { routine ->
+                    routineSetRoutine.routineSetRoutine.routine.forEach { routine ->
                         Column(
                             modifier = modifier.padding(
                                 vertical = LiftTheme.space.verticalPaddingSpace
@@ -174,7 +179,7 @@ internal fun RoutineListView(
                                 )
 
                                 if (routineListInfoState.isContains(
-                                        routineSetRoutine.id,
+                                        routineSetRoutine.routineSetRoutine.id,
                                         routine.id
                                     )
                                 ) {
@@ -182,7 +187,7 @@ internal fun RoutineListView(
                                         modifier = modifier.noRippleClickable {
                                             routineListInfoState.closeRoutineInfo(
                                                 RoutineIdInfo(
-                                                    routineSetRoutine.id,
+                                                    routineSetRoutine.routineSetRoutine.id,
                                                     routine.id
                                                 )
                                             )
@@ -195,7 +200,7 @@ internal fun RoutineListView(
                                         modifier = modifier.noRippleClickable {
                                             routineListInfoState.openRoutineInfo(
                                                 RoutineIdInfo(
-                                                    routineSetRoutine.id,
+                                                    routineSetRoutine.routineSetRoutine.id,
                                                     routine.id
                                                 )
                                             )
@@ -205,7 +210,12 @@ internal fun RoutineListView(
                                     )
                                 }
                             }
-                            AnimatedVisibility (routineListInfoState.isContains(routineSetRoutine.id, routine.id)) {
+                            AnimatedVisibility(
+                                routineListInfoState.isContains(
+                                    routineSetRoutine.routineSetRoutine.id,
+                                    routine.id
+                                )
+                            ) {
                                 RoutineDetailView(
                                     modifier,
                                     routine,

@@ -15,12 +15,13 @@ fun NavGraphBuilder.routineSelectionScreen(
     val popBackStack: () -> Unit =
         { navController.popBackStack() }
 
-    val navigateRoutineSelectionToReadyInWorkReadyGraph: (String) -> Unit =
-        { navController.navigateRoutineSelectionToReadyInWorkReadyGraph(it) }
+    val navigateRoutineSelectionToReadyInWorkReadyGraph: () -> Unit =
+        { navController.navigateRoutineSelectionToReadyInWorkReadyGraph() }
 
     composable(WORK_READY_ROUTINE_SELECTION_ROUTER_NAME) {
         RoutineSelectionRoute(
             modifier,
+            navController,
             popBackStack,
             navigateRoutineSelectionToReadyInWorkReadyGraph,
         )

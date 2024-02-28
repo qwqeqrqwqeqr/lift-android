@@ -6,8 +6,8 @@ import com.gradation.lift.model.model.routine.CreateRoutineSetRoutine
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
-import com.gradation.lift.model.model.routine.UpdateRoutineSetCount
 import com.gradation.lift.model.model.routine.UpdateRoutineSetRoutine
+import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -34,11 +34,11 @@ interface RoutineRepository {
     fun updateRoutineSetRoutine(updateRoutineSetRoutine: UpdateRoutineSetRoutine): Flow<DataState<Unit>>
 
     /**
-     * [updateRoutineSetCount]
+     * [updateUsedRoutineSet]
      * 루틴 세트의 사용횟수 1 증가
      * @since 2023-10-13 11:46:09
      */
-    fun updateRoutineSetCount(updateRoutineSetCount: UpdateRoutineSetCount): Flow<DataState<Unit>>
+    fun updateUsedRoutineSet(updateUsedRoutineSet: UpdateUsedRoutineSet): Flow<DataState<Unit>>
 
     /**
      * [deleteRoutineSetRoutine]
@@ -61,6 +61,13 @@ interface RoutineRepository {
      * @since 2023-08-28 19:57:12
      */
     fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>>
+
+    /**
+     * [getRoutineSetRoutine]
+     * 사용자가 최근 사용한 루틴 불러오기
+     * @since 2024-02-19 15:11:23
+     */
+    fun getRoutineSetRoutineByRecent(): Flow<DataState<List<RoutineSetRoutine>>>
 
     /**
      * [getRoutineSetRoutineByWeekday]

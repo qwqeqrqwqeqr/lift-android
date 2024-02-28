@@ -41,7 +41,12 @@ interface WorkService {
      * @since 2023-12-08 12:14:55
      */
     @GET("work/work-category-by-id")
-    suspend fun getWorkCategoryById(@Query("work_category_id") workCategoryId: Int): Response<APIResultWrapper<GetWorkCategoryByIdResponseDto>>
+    suspend fun getWorkCategoryById(
+        @Query(
+            "work_category_id",
+            encoded = true
+        ) workCategoryId: Int,
+    ): Response<APIResultWrapper<GetWorkCategoryByIdResponseDto>>
 
 
 
@@ -67,7 +72,12 @@ interface WorkService {
      * @since 2023-08-28 22:29:31
      */
     @GET("work/work-category-by-work-part")
-    suspend fun getWorkCategoryByWorkPart(@Query("work_part") workPart: String): Response<APIResultWrapper<GetWorkCategoryByWorkPartResponseDto>>
+    suspend fun getWorkCategoryByWorkPart(
+        @Query(
+            "work_part",
+            encoded = true
+        ) workPart: String,
+    ): Response<APIResultWrapper<GetWorkCategoryByWorkPartResponseDto>>
 }
 
 

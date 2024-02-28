@@ -12,7 +12,6 @@ import com.gradation.lift.navigation.Route.WORK_READY_READY_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateReadyToFindWorkCategoryInWorkReadyGraph
 import com.gradation.lift.navigation.navigation.navigateWorkReadyGraphToWorkGraph
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
 
 
 fun NavGraphBuilder.readyScreen(
@@ -27,22 +26,20 @@ fun NavGraphBuilder.readyScreen(
         { navController.navigateWorkReadyGraphToWorkGraph() }
 
     composable(
-        route = WORK_READY_READY_ROUTER_NAME,
+        route = "$WORK_READY_READY_ROUTER_NAME?$WORK_ROUTINE_SET_ID_LIST_KEY={$WORK_ROUTINE_SET_ID_LIST_KEY}",
+        arguments = listOf(
+            navArgument(WORK_ROUTINE_SET_ID_LIST_KEY) {
+                type = NavType.StringType
+                defaultValue = ""
+            }),
         enterTransition = { fadeIn() },
         exitTransition = { fadeOut() },
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() },
     ) {
-        val routineSetIdList =
-            navController.getValueSavedStateHandle<String>(WORK_ROUTINE_SET_ID_LIST_KEY)?.split("|")
-                ?.map { it.toInt() }
-                ?.toSet()
-                ?: emptySet<Int>()
-
         ReadyRoute(
             modifier,
             navController,
-            routineSetIdList,
             popBackStack,
             navigateReadyToFindWorkCategoryInWorkReadyGraph,
             navigateWorkReadyGraphToWorkGraph

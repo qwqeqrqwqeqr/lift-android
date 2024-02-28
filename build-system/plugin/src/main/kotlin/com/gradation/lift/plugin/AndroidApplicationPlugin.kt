@@ -19,6 +19,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply(libs.findPlugin("android-application").get().get().pluginId)
                 apply(libs.findPlugin("kotlin-android").get().get().pluginId)
+                apply("com.google.android.gms.oss-licenses-plugin")
             }
             extensions.configure<ApplicationExtension> {
                 extensionAndroid(this)
@@ -37,6 +38,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-lifecycle-livedata-ktx").get())
                 add("implementation", libs.findLibrary("androidx-lifecycle-runtime-ktx").get())
                 add("implementation", libs.findLibrary("androidx-tracing").get())
+                add("implementation", libs.findLibrary("google-play-service-oss-license").get())
 
                 add("testImplementation", libs.findLibrary("androidx-arch-core-testing").get())
                 add("androidTestImplementation", libs.findLibrary("androidx-test-core").get())

@@ -16,16 +16,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
-import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.myInfo.myInfo.data.model.MyInfoContent
 import com.gradation.lift.feature.myInfo.myInfo.data.state.MyInfoScreenState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 @Composable
 fun MyInfoListView(
     modifier: Modifier = Modifier,
     navigateMyInfoGraphToNoticeGraph: () -> Unit,
+    navigateMyInfoToTermsPolicyInMyInfoGraph: () -> Unit,
+    navigateToOssScreen: () -> Unit,
     myInfoScreenState: MyInfoScreenState,
 ) {
     val myInfoContentList = listOf(
@@ -33,6 +35,16 @@ fun MyInfoListView(
             LiftIcon.Speaker,
             "공지사항",
             navigateMyInfoGraphToNoticeGraph
+        ),
+        MyInfoContent(
+            LiftIcon.TermsPolicies,
+            "약관 및 정책",
+            navigateMyInfoToTermsPolicyInMyInfoGraph
+        ),
+        MyInfoContent(
+            LiftIcon.License,
+            "오픈소스 라이센스",
+            navigateToOssScreen
         ),
         MyInfoContent(
             LiftIcon.LiftSmallLogo,
@@ -66,7 +78,7 @@ fun MyInfoListView(
                     horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                 ) {
                     Icon(
-                        modifier = modifier.size(LiftTheme.space.space24),
+                        modifier = modifier.size(LiftTheme.space.space18),
                         painter = painterResource(id = it.icon),
                         contentDescription = "${it.icon}",
                         tint = Color.Unspecified
@@ -81,9 +93,9 @@ fun MyInfoListView(
                 }
                 if (it.navigate != null) {
                     Icon(
-                        modifier = modifier,
-                        painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                        contentDescription = "chevronRightLarge",
+                        modifier = modifier.size(LiftTheme.space.space12),
+                        painter = painterResource(id = LiftIcon.ChevronRight),
+                        contentDescription = "ChevronRight",
                         tint = LiftTheme.colorScheme.no2
                     )
                 }

@@ -1,10 +1,16 @@
 package com.gradation.lift.designsystem.component.bottomSheet
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -12,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.window.SecureFlagPolicy
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 
@@ -42,6 +49,17 @@ fun LiftBottomSheet(
         scrimColor = scrimColor,
         dragHandle = dragHandle,
         onDismissRequest = onDismissRequest,
-        content = content
-    )
+        properties = ModalBottomSheetProperties(
+            SecureFlagPolicy.Inherit,
+            isFocusable = true,
+            shouldDismissOnBackPress = true
+        ),
+        windowInsets = WindowInsets.displayCutout,
+    ) {
+        Column(modifier = modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()) {
+            content()
+        }
+    }
 }

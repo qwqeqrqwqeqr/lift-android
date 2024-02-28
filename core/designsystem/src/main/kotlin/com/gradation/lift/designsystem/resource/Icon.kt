@@ -4,13 +4,28 @@ import com.gradation.lift.designsystem.R
 
 
 object LiftIcon {
-    val Home = R.drawable.home
-    val History = R.drawable.history
-    val Analytics = R.drawable.analytics
-    val MyInfo = R.drawable.my_info
+    val SelectedHome = R.drawable.home_blue
+    val SelectedHistory = R.drawable.calendar_blue
+    val SelectedAnalytics = R.drawable.analytics_blue
+    val SelectedMyInfo = R.drawable.profile_blue
+    val SelectedRoutine = R.drawable.routine_blue
+
+    val UnselectedHome = R.drawable.home_grey
+    val UnselectedHistory = R.drawable.calendar_grey
+    val UnselectedAnalytics = R.drawable.analytics_grey
+    val UnselectedMyInfo = R.drawable.profile_grey
+    val UnselectedRoutine = R.drawable.routine_grey
+
+    val CheckBoxCanceled = R.drawable.checkbox_canceled
     val CheckBoxChecked = R.drawable.checkbox_checked
     val CheckBoxUnChecked = R.drawable.checkbox_unchecked
-    val GreenCheck = R.drawable.green_check
+    val CheckboxGreen = R.drawable.checkbox_green
+
+    val PlusCircle = R.drawable.plus_circle
+    val BadgeCircle = R.drawable.badge_circle
+
+    val RadioChecked = R.drawable.radio_checked
+    val RadioUnchecked = R.drawable.radio_unchecked
 
     val EyeSelected = R.drawable.eye_selected
     val EyeUnSelected = R.drawable.eye_unselected
@@ -18,8 +33,10 @@ object LiftIcon {
     val Sort = R.drawable.sort
     val Calendar = R.drawable.calendar
     val Label = R.drawable.label
-    val Add = R.drawable.add
-    val Order = R.drawable.order
+
+    val Badge = R.drawable.badge
+    val BadgeDisabled = R.drawable.badge_disabled
+    val BadgeSmall = R.drawable.badge_small
 
     val Set = R.drawable.set
     val Weight = R.drawable.weight
@@ -37,20 +54,22 @@ object LiftIcon {
     val List = R.drawable.list
     val Close = R.drawable.close
     val Check = R.drawable.check
-    val MiniStar = R.drawable.mini_star
 
     val Warn = R.drawable.warn
     val Bell = R.drawable.bell
     val Muscle = R.drawable.muscle
-    val Badge = R.drawable.badge
-    val BadgeDisabled = R.drawable.badge_disabled
+
     val RoutineList = R.drawable.routine_list
+    val DumbbellColor = R.drawable.dumbbell_color
     val BadgeAdd = R.drawable.badge_add
+
+
     val Chat = R.drawable.chat
     val Kettlebell = R.drawable.kettlebell
     val LiftSmallLogo = R.drawable.lift_small_logo
     val Speaker = R.drawable.speaker
     val TermsPolicies = R.drawable.terms_policies
+    val License = R.drawable.license
 
     val EmptyAlarm = R.drawable.empty_alarm
     val EmptyNotice = R.drawable.empty_notice
@@ -60,8 +79,6 @@ object LiftIcon {
     val Fire = R.drawable.fire
 
     val Search = R.drawable.search
-    val Bang = R.drawable.bang
-
     val Glitter = R.drawable.glitter
 
     val LoginKakao = R.drawable.login_kakao
@@ -74,16 +91,22 @@ object LiftIcon {
     val ArrowBack = R.drawable.arrow_back
 
     val ChevronRight = R.drawable.chevron_right
-    val ChevronRightSharp = R.drawable.chevorn_right_sharp
-    val ChevronRightLarge = R.drawable.chevron_right_large
-    val ChevronUp = R.drawable.chevorn_up
-    val ChevronDown = R.drawable.chevorn_down
+    val ChevronLeft = R.drawable.chevron_left
+    val ChevronUp = R.drawable.chevron_up
+    val ChevronDown = R.drawable.chevron_down
+
     val DropDown = R.drawable.drop_down
 
-    val IncreaseArrow = R.drawable.increase_arrow
-    val DecreaseArrow = R.drawable.decrease_arrow
+    val HexagonBlue = R.drawable.hexagon_blue
+    val HexagonOrange = R.drawable.hexagon_orange
 
-    val Plus = R.drawable.plus
+    val Up = R.drawable.up
+    val Down = R.drawable.down
+
+    val Plus = R.drawable.plus_blue
+    val Pause = R.drawable.pause
+    val EqualBlack = R.drawable.equal_black
+    val EqualBlue = R.drawable.equal_blue
 
     val LeftArrowCircle = R.drawable.left_arrow_circle
     val RightArrowCircle = R.drawable.right_arrow_circle
@@ -109,6 +132,8 @@ object LiftIcon {
 
     val Star = R.drawable.star
     val StarFilled = R.drawable.star_filled
+    val HeartFilled = R.drawable.heart_filled
+    val HeartEmpty = R.drawable.heart_empty
 }
 
 

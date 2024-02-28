@@ -1,8 +1,8 @@
 package com.gradation.lift.feature.login.common.data
 
-import com.gradation.lift.feature.login.common.data.Constants.MARKTETING_CONENT
-import com.gradation.lift.feature.login.common.data.Constants.PRIVACY_POLICY_CONTENT
-import com.gradation.lift.feature.login.common.data.Constants.TERMS_OF_USE_CONTENT
+import com.gradation.lift.ui.utils.TermsPolicyContent.MARKTETING_CONENT
+import com.gradation.lift.ui.utils.TermsPolicyContent.PRIVACY_POLICY_CONTENT
+import com.gradation.lift.ui.utils.TermsPolicyContent.TERMS_OF_USE_CONTENT
 
 
 /**

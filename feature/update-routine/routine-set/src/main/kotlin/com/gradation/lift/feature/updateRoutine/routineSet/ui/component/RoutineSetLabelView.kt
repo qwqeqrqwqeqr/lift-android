@@ -102,7 +102,6 @@ fun RoutineSetLabelView(
                                 currentRoutineSetRoutine.label.plus(it.first)
                             )
                         },
-
                     painter = painterResource(id = it.second),
                     contentDescription = "",
                     tint = Color.Unspecified

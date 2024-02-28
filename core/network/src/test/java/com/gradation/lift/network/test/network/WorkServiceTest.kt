@@ -3,19 +3,25 @@ package com.gradation.lift.network.test.network
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryByWorkPartResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getWorkCategoryResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkPart.getWorkPartResponseDto
-import com.gradation.lift.network.data.TestJsonDataGenerator.WorkCategory.workCategoryResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.WorkPart.workPartResponseJson
-import com.gradation.lift.network.di.TestServiceModule
+import com.gradation.lift.network.data.TestDtoDataGenerator.Work.GetPopularWorkCategory.GET_POPULAR_WORK_CATEGORY_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Work.GetRecommendWorkCategory.GET_RECOMMEND_WORK_CATEGORY_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Work.GetWorkCategory.GET_WORK_CATEGORY_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Work.GetWorkCategoryById.GET_WORK_CATEGORY_BY_ID_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Work.GetWorkCategoryByWorkPart.GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Work.GetWorkPart.GET_WORK_PART_RESPONSE_DTO
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_POPULAR_WORK_CATEGORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_RECOMMEND_WORK_CATEGORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_CATEGORY_BY_ID_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_CATEGORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Work.GET_WORK_PART_RESPONSE_JSON
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.service.WorkService
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.network.data.TestDtoDataGenerator.WorkCategory.getPopularWorkCategoryResponseDto
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -25,7 +31,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class WorkServiceTest {
 
@@ -56,7 +61,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(workPartResponseJson)
+                .setBody(GET_WORK_PART_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -70,7 +75,7 @@ class WorkServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getWorkPartResponseDto)
+            .isEqualTo(GET_WORK_PART_RESPONSE_DTO)
     }
 
     @Test
@@ -78,7 +83,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(workCategoryResponseJson)
+                .setBody(GET_WORK_CATEGORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -92,7 +97,30 @@ class WorkServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getWorkCategoryResponseDto)
+            .isEqualTo(GET_WORK_CATEGORY_RESPONSE_DTO)
+    }
+
+    @Test
+    fun getWorkCategoryByWorkCategoryIdService() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_WORK_CATEGORY_BY_ID_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        val response = workService.getWorkCategoryById(FAKE_INT_DATA)
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path)
+            .isEqualTo("/work/work-category-by-id?work_category_id=$FAKE_INT_DATA")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(GET_WORK_CATEGORY_BY_ID_RESPONSE_DTO)
     }
 
 
@@ -101,7 +129,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(workCategoryResponseJson)
+                .setBody(GET_POPULAR_WORK_CATEGORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -115,7 +143,29 @@ class WorkServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getPopularWorkCategoryResponseDto)
+            .isEqualTo(GET_POPULAR_WORK_CATEGORY_RESPONSE_DTO)
+    }
+
+    @Test
+    fun getRecommendWorkCategoryService() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_RECOMMEND_WORK_CATEGORY_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        val response = workService.getRecommendWorkCategory()
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path).isEqualTo("/work/work-category/recommend")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(GET_RECOMMEND_WORK_CATEGORY_RESPONSE_DTO)
     }
 
 
@@ -124,7 +174,7 @@ class WorkServiceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(workCategoryResponseJson)
+                .setBody(GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -132,12 +182,13 @@ class WorkServiceTest {
         val response = workService.getWorkCategoryByWorkPart(FAKE_STRING_DATA)
         val request = mockWebServer.takeRequest()
 
-        Truth.assertThat(request.path).isEqualTo("/work/work-category-by-work-part?work_part=${FAKE_STRING_DATA}")
+        Truth.assertThat(request.path)
+            .isEqualTo("/work/work-category-by-work-part?work_part=${FAKE_STRING_DATA}")
         Truth.assertThat(request.method).isEqualTo(Constants.GET)
 
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getWorkCategoryByWorkPartResponseDto)
+            .isEqualTo(GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_DTO)
     }
 }
