@@ -130,6 +130,7 @@ import com.gradation.lift.network.dto.user.UserDetailDto
 import com.gradation.lift.network.dto.work.GetPopularWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetRecommendWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryByIdResponseDto
+import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
 import com.gradation.lift.network.dto.work.WorkCategoryDto
@@ -521,7 +522,7 @@ object TestDtoDataGenerator {
 
         object GetWorkCategoryByWorkPart {
             internal val GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_DTO =
-                GetWorkCategoryByIdResponseDto(workCategory = WORK_CATEGORY_DTO)
+                GetWorkCategoryByWorkPartResponseDto(workCategory = listOf(WORK_CATEGORY_DTO))
         }
     }
 

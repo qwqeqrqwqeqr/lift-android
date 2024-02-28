@@ -21,7 +21,12 @@ interface CheckerService {
      * @since 2023-08-28 22:32:34
      */
     @GET("checker/duplicate-email")
-    suspend fun checkDuplicateEmail(@Query("email") email: String): Response<APIResultWrapper<CheckDuplicateEmailResponseDto>>
+    suspend fun checkDuplicateEmail(
+        @Query(
+            "email",
+            encoded = true
+        ) email: String,
+    ): Response<APIResultWrapper<CheckDuplicateEmailResponseDto>>
 
 
     /**
@@ -30,6 +35,11 @@ interface CheckerService {
      *  @since 2023-08-28 22:32:30
      */
     @GET("checker/duplicate-name")
-    suspend fun checkDuplicateName(@Query("name") name: String): Response<APIResultWrapper<CheckDuplicateNameResponseDto>>
+    suspend fun checkDuplicateName(
+        @Query(
+            "name",
+            encoded = true
+        ) name: String,
+    ): Response<APIResultWrapper<CheckDuplicateNameResponseDto>>
 
 }

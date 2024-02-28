@@ -289,14 +289,14 @@ object TestJsonDataGenerator {
                           "description": "$FAKE_STRING_DATA"
                         },
                         "work_weight_list": [
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
                         ],
                         "work_repetition_list": [
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
                         ]
                       }
                     ]
@@ -323,15 +323,15 @@ object TestJsonDataGenerator {
                     "description": "$FAKE_STRING_DATA"
                    },
                    "work_weight_list": [
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                   ],
-                   "work_repetition_list": [
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                  ]
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                 },
                 "routine_set": {
                   "routine_set_id": $FAKE_INT_DATA,
@@ -408,15 +408,15 @@ object TestJsonDataGenerator {
                     "description": "$FAKE_STRING_DATA"
                    },
                    "work_weight_list": [
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                   ],
-                   "work_repetition_list": [
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                  ]
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                 },
                 "routine_set": {
                   "routine_set_id": $FAKE_INT_DATA,
@@ -451,16 +451,16 @@ object TestJsonDataGenerator {
                     "introduce": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA"
                    },
-                   "work_weight_list": [
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                   ],
-                   "work_repetition_list": [
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                  ]
+                  "work_weight_list": [
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                 },
                 "routine_set": {
                   "routine_set_id": $FAKE_INT_DATA,
@@ -495,16 +495,16 @@ object TestJsonDataGenerator {
                     "introduce": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA"
                    },
-                   "work_weight_list": [
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                   ],
-                   "work_repetition_list": [
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                  ]
+                 "work_weight_list": [
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                 },
                 "routine_set": {
                   "routine_set_id": $FAKE_INT_DATA,
@@ -539,16 +539,16 @@ object TestJsonDataGenerator {
                     "introduce": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA"
                    },
-                   "work_weight_list": [
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                          "$FAKE_ROUTINE_WEIGHT_DATA",
-                   ],
-                   "work_repetition_list": [
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                           "$FAKE_ROUTINE_REPETITION_DATA",
-                  ]
+                  "work_weight_list": [
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                 },
                 "routine_set": {
                   "routine_set_id": $FAKE_INT_DATA,
@@ -658,17 +658,19 @@ object TestJsonDataGenerator {
 
 
         internal val GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_JSON: String = """
-        {
+         {
           "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "work_category":  {
+            "work_category": [
+              {
                 "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                 "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                 "introduce": "$FAKE_STRING_DATA",
                 "description": "$FAKE_STRING_DATA"
               }
+            ]
           }
         }
     """.trimIndent()
@@ -683,7 +685,7 @@ object TestJsonDataGenerator {
           "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "authentication_method": "$FAKE_AUTHENTICATION_METHOD_DATA",
+            "authentication_method": "$FAKE_AUTHENTICATION_METHOD_DATA"
           }
         }
         """.trimIndent()
@@ -813,10 +815,10 @@ object TestJsonDataGenerator {
                 "history": [
                   {
                     "history_id": $FAKE_INT_DATA,
-                    "comment": $FAKE_STRING_DATA,
+                    "comment": "$FAKE_STRING_DATA",
                     "score": $FAKE_SCORE_DATA,
-                    "progress": $FAKE_PROGRESS_DATA",
-                    "work_time": $FAKE_TIME_DATA,
+                    "progress": $FAKE_PROGRESS_DATA,
+                    "work_time": "$FAKE_TIME_DATA",
                     "rest_time": "$FAKE_TIME_DATA",
                     "total_time": "$FAKE_TIME_DATA",
                     "history_time_stamp": "$FAKE_TIME_STAMP_DATA",
@@ -830,16 +832,16 @@ object TestJsonDataGenerator {
                        "introduce": "$FAKE_STRING_DATA",
                        "description": "$FAKE_STRING_DATA"
                         }
-                      "work_weight_list": [
-                        $FAKE_ROUTINE_WEIGHT_DATA,
-                        $FAKE_ROUTINE_WEIGHT_DATA,
-                        $FAKE_ROUTINE_WEIGHT_DATA,
-                      ],
-                      "work_repetition_list": [
-                        $FAKE_ROUTINE_REPETITION_DATA,
-                        $FAKE_ROUTINE_REPETITION_DATA,
-                        $FAKE_ROUTINE_REPETITION_DATA,
-                      ]
+                     "work_weight_list": [
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                     }
                   }
                 ]
@@ -875,12 +877,12 @@ object TestJsonDataGenerator {
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "history": [
-                  {
+                   {
                     "history_id": $FAKE_INT_DATA,
-                    "comment": $FAKE_STRING_DATA,
+                    "comment": "$FAKE_STRING_DATA",
                     "score": $FAKE_SCORE_DATA,
-                    "progress": $FAKE_PROGRESS_DATA",
-                    "work_time": $FAKE_TIME_DATA,
+                    "progress": $FAKE_PROGRESS_DATA,
+                    "work_time": "$FAKE_TIME_DATA",
                     "rest_time": "$FAKE_TIME_DATA",
                     "total_time": "$FAKE_TIME_DATA",
                     "history_time_stamp": "$FAKE_TIME_STAMP_DATA",
@@ -894,16 +896,16 @@ object TestJsonDataGenerator {
                        "introduce": "$FAKE_STRING_DATA",
                        "description": "$FAKE_STRING_DATA"
                         }
-                      "work_weight_list": [
-                        $FAKE_ROUTINE_WEIGHT_DATA,
-                        $FAKE_ROUTINE_WEIGHT_DATA,
-                        $FAKE_ROUTINE_WEIGHT_DATA,
-                      ],
-                      "work_repetition_list": [
-                        $FAKE_ROUTINE_REPETITION_DATA,
-                        $FAKE_ROUTINE_REPETITION_DATA,
-                        $FAKE_ROUTINE_REPETITION_DATA,
-                      ]
+                     "work_weight_list": [
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f,
+                          ${FAKE_ROUTINE_WEIGHT_DATA}f
+                        ],
+                        "work_repetition_list": [
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA,
+                           $FAKE_ROUTINE_REPETITION_DATA
+                        ]
                     }
                   }
                 ]
@@ -969,7 +971,7 @@ object TestJsonDataGenerator {
                 "title": "$FAKE_STRING_DATA",
                 "description": "$FAKE_STRING_DATA",
                 "category": "$FAKE_STRING_DATA",
-                "date": "$FAKE_DATE_DATA",
+                "date": "$FAKE_DATE_DATA"
               }
             ]
           }
@@ -987,7 +989,7 @@ object TestJsonDataGenerator {
                 "title": "$FAKE_STRING_DATA",
                 "description": "$FAKE_STRING_DATA",
                 "category": "$FAKE_STRING_DATA",
-                "date": "$FAKE_DATE_DATA",
+                "date": "$FAKE_DATE_DATA"
               }
           }
         }
@@ -1038,9 +1040,9 @@ object TestJsonDataGenerator {
           "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": [
+            "work_category_id_list": [
                 $FAKE_INT_DATA
-            ],
+            ]
           }
         }
         """.trimIndent()
@@ -1062,9 +1064,7 @@ object TestJsonDataGenerator {
           "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": [
-                $FAKE_INT_DATA
-            ],
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -1076,7 +1076,7 @@ object TestJsonDataGenerator {
           "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": $FAKE_BOOLEAN_DATA
+            "access_token": "$FAKE_ACCESS_TOKEN"
           }
         }
     """.trimIndent()

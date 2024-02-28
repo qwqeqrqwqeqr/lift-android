@@ -28,10 +28,19 @@ import org.junit.runners.Suite
 @Suite.SuiteClasses(
 
 
-
     AuthServiceTest::class,
     BadgeServiceTest::class,
+    CheckerServiceTest::class,
+    FavoriteServiceTest::class,
+    RoutineServiceTest::class,
+    WorkServiceTest::class,
+    UserServiceTest::class,
+    HistoryServiceTest::class,
+    PictureServiceTest::class,
+    NoticeServiceTest::class,
+    RefreshServiceTest::class,
+    InquiryServiceTest::class,
+    TermsServiceTest::class
 
-
-    )
+)
 class NetworkTestSuit

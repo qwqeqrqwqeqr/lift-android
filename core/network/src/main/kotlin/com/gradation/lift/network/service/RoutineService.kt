@@ -53,7 +53,12 @@ interface RoutineService {
      * @since 2023-09-06 16:12:41
      */
     @DELETE("routine/routine-set-routine")
-    suspend fun deleteRoutineSetRoutine(@Query("routine_set_id") routineSetId: Int): Response<APIResultWrapper<DeleteRoutineSetRoutineResponseDto>>
+    suspend fun deleteRoutineSetRoutine(
+        @Query(
+            "routine_set_id",
+            encoded = true
+        ) routineSetId: Int,
+    ): Response<APIResultWrapper<DeleteRoutineSetRoutineResponseDto>>
 
 
     /**
@@ -79,7 +84,12 @@ interface RoutineService {
      * @since 2023-10-13 11:21:09
      */
     @GET("routine/routine-set-routine/weekday")
-    suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
+    suspend fun getRoutineSetRoutineByWeekday(
+        @Query(
+            "weekday",
+            encoded = true
+        ) weekday: String,
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
 
     /**
@@ -89,7 +99,12 @@ interface RoutineService {
      * @since 2023-10-13 11:21:09
      */
     @GET("routine/routine-set-routine/label")
-    suspend fun getRoutineSetRoutineByLabel(@Query("label") label: String): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
+    suspend fun getRoutineSetRoutineByLabel(
+        @Query(
+            "label",
+            encoded = true
+        ) label: String,
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
 
 
     /**
@@ -99,7 +114,12 @@ interface RoutineService {
      * @since 2023-10-13 11:21:14
      */
     @GET("routine/routine-set-routine/routine-set-id")
-    suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id_list") routineSetIdList: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
+    suspend fun getRoutineSetRoutineByRoutineSetId(
+        @Query(
+            "routine_set_id_list",
+            encoded = true
+        ) routineSetIdList: String,
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
 
 
     /**

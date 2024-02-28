@@ -14,6 +14,7 @@ object Constants {
 
     const val OK = 200
     const val CREATED = 201
+    const val DELETED = 204
     const val BAD_REQUEST = 400
     const val UNAUTHORIZATION = 401
     const val FORBIDDEN = 403
