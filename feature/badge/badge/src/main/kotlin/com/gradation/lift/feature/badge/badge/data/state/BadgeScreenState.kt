@@ -65,12 +65,14 @@ data class BadgeScreenState(
     val sortBottomSheetView: MutableState<Boolean> = mutableStateOf(false)
     val badgeDetailDialogView: MutableState<Pair<Boolean, BadgeState?>> =
         mutableStateOf(Pair(false, null))
-
+    val updateCancelDialog: MutableState<Boolean> = mutableStateOf(false)
 
     val updateFilterBottomSheetView: (Boolean) -> Unit = { filterBottomSheetView.value = it }
     val updateSortBottomSheetView: (Boolean) -> Unit = { sortBottomSheetView.value = it }
     val updateBadgeDetailDialogView: (Pair<Boolean, BadgeState?>) -> Unit =
         { badgeDetailDialogView.value = it }
+    val updateUpdateCancelDialog: (Boolean) -> Unit = { updateCancelDialog.value = it }
+
     val updateSelectedPage: (Int) -> Unit = { selectedPage.value = it }
 
 }

@@ -24,6 +24,7 @@ import com.gradation.lift.feature.badge.badge.ui.BadgeScreen
 import com.gradation.lift.feature.badge.badge.ui.bottomSheet.FilterBottomSheetView
 import com.gradation.lift.feature.badge.badge.ui.bottomSheet.SortBottomSheetView
 import com.gradation.lift.feature.badge.badge.ui.dialog.BadgeDetailDialog
+import com.gradation.lift.feature.badge.badge.ui.dialog.UpdateCancelDialog
 import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ fun BadgeBadgeRoute(
     viewModel: BadgeViewModel = hiltViewModel(),
     badgeStoreState: BadgeStoreState = viewModel.badgeStoreState,
     badgeCaseState: BadgeCaseState = viewModel.badgeCaseState,
-    badgeStoreScreenState: BadgeScreenState = rememberBadgeScreenState(initialPage = viewModel.initialPage),
+    badgeScreenState: BadgeScreenState = rememberBadgeScreenState(initialPage = viewModel.initialPage),
     badgeAnimationState: BadgeAnimationState = rememberBadgeAnimationState(),
 ) {
     val badgeUiState: BadgeUiState by viewModel.badgeUiState.collectAsStateWithLifecycle()
@@ -58,25 +59,35 @@ fun BadgeBadgeRoute(
 
 
 
-    AnimatedVisibility(visible = badgeStoreScreenState.filterBottomSheetView.value) {
-        FilterBottomSheetView(modifier, filterType, badgeStoreState, badgeStoreScreenState)
+    AnimatedVisibility(visible = badgeScreenState.filterBottomSheetView.value) {
+        FilterBottomSheetView(modifier, filterType, badgeStoreState, badgeScreenState)
     }
-    AnimatedVisibility(visible = badgeStoreScreenState.sortBottomSheetView.value) {
-        SortBottomSheetView(modifier, sortType, badgeStoreState, badgeStoreScreenState)
+    AnimatedVisibility(visible = badgeScreenState.sortBottomSheetView.value) {
+        SortBottomSheetView(modifier, sortType, badgeStoreState, badgeScreenState)
     }
 
-    AnimatedVisibility(visible = badgeStoreScreenState.badgeDetailDialogView.value.first) {
-        badgeStoreScreenState.badgeDetailDialogView.value.second?.let { userBadge ->
-            BadgeDetailDialog(modifier, userBadge, badgeStoreScreenState)
+    AnimatedVisibility(visible = badgeScreenState.badgeDetailDialogView.value.first) {
+        badgeScreenState.badgeDetailDialogView.value.second?.let { userBadge ->
+            BadgeDetailDialog(modifier, userBadge, badgeScreenState)
         }
     }
+    AnimatedVisibility(visible = badgeScreenState.updateCancelDialog.value) {
+        UpdateCancelDialog(modifier, navigateBadgeGraphToHomeGraph, badgeScreenState)
+    }
 
-    BackHandler { navigateBadgeGraphToHomeGraph() }
+    BackHandler(
+        onBack = {
+            if (mainFlagBadgeChangeListIsEmpty)
+                navigateBadgeGraphToHomeGraph()
+            else
+                badgeScreenState.updateUpdateCancelDialog(true)
+        }
+    )
 
     LaunchedEffect(badgeUiState) {
         if (badgeUiState is BadgeUiState.Fail) {
-            badgeStoreScreenState.appCoroutineScope.launch {
-                badgeStoreScreenState.appSnackbarHostState.showImmediatelySnackbar(
+            badgeScreenState.appCoroutineScope.launch {
+                badgeScreenState.appSnackbarHostState.showImmediatelySnackbar(
                     (badgeUiState as BadgeUiState.Fail).message
                 )
             }
@@ -86,14 +97,14 @@ fun BadgeBadgeRoute(
     LaunchedEffect(badgeCaseSnackbarState) {
         when (val result = badgeCaseSnackbarState) {
             is BadgeCaseSnackbarState.Fail -> {
-                badgeStoreScreenState.appSnackbarHostState.showImmediatelySnackbar(
+                badgeScreenState.appSnackbarHostState.showImmediatelySnackbar(
                     result.message
                 )
                 updateBadgeCaseSnackbarState(BadgeCaseSnackbarState.None)
             }
 
             is BadgeCaseSnackbarState.FillMaxed -> {
-                badgeStoreScreenState.snackbarHostState.showImmediatelySnackbar(
+                badgeScreenState.snackbarHostState.showImmediatelySnackbar(
                     result.message
                 )
                 updateBadgeCaseSnackbarState(BadgeCaseSnackbarState.None)
@@ -101,7 +112,7 @@ fun BadgeBadgeRoute(
 
             BadgeCaseSnackbarState.None -> {}
             is BadgeCaseSnackbarState.UpdateCompleted -> {
-                badgeStoreScreenState.snackbarHostState.showImmediatelySnackbar(
+                badgeScreenState.snackbarHostState.showImmediatelySnackbar(
                     result.message
                 )
                 updateBadgeCaseSnackbarState(BadgeCaseSnackbarState.None)
@@ -123,7 +134,7 @@ fun BadgeBadgeRoute(
         filteredUserBadgeList,
         mainFlagBadgeSet,
         mainFlagBadgeChangeListIsEmpty,
-        badgeStoreScreenState,
+        badgeScreenState,
         badgeCaseState,
         badgeAnimationState,
         navigateBadgeGraphToHomeGraph

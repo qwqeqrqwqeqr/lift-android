@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
  * @property mainFlagBadgeSet 대표 플래그로 설정된 뱃지들에 대한 집합
  * @property searchText 검색어
  * @property userBadgeList 사용자 뱃지 리스트
+ * @property filteredUserBadgeList 검색어로 필터링된 뱃지 리스트
  * @since 2024-02-27 21:21:43
  */
 class BadgeCaseState(
