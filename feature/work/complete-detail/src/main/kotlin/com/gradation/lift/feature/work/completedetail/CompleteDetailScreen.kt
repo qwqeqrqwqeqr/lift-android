@@ -43,6 +43,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.completedetail.data.state.CompleteDetailScreenState
 import com.gradation.lift.feature.work.completedetail.data.state.HistoryInfoState
 import com.gradation.lift.feature.work.completedetail.data.state.rememberCompleteDetailScreenState
+import com.gradation.lift.ui.extensions.focusClearManager
 import com.gradation.lift.ui.mapper.toDayMonthYearText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.LocalDateTime
@@ -70,6 +71,7 @@ internal fun CompleteDetailScreen(
             modifier = modifier
                 .fillMaxSize()
                 .background(LiftTheme.colorScheme.no5)
+                .focusClearManager(completeDetailScreenState.focusManager)
                 .padding(it)
                 .padding(
                     top = LiftTheme.space.space64,

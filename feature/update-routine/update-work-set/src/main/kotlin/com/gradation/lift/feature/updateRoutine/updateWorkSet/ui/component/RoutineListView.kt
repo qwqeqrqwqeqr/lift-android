@@ -13,16 +13,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
-import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.button.smallButton.LiftAddSmallButton
+import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
@@ -143,7 +146,11 @@ internal fun RoutineListView(
                                         workSet.copy(weight = it)
                                     )
                                 },
-                                isError = !decimalNumberValidator(workSet.weight)
+                                isError = !decimalNumberValidator(workSet.weight),
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                keyboardActions = KeyboardActions(onDone = {
+                                    routineScreenState.focusManager.clearFocus()
+                                })
                             )
 
                             LiftKeyPadTextField(
@@ -157,7 +164,11 @@ internal fun RoutineListView(
                                         workSet.copy(repetition = it)
                                     )
                                 },
-                                isError = !decimalNumberValidator(workSet.repetition) || workSet.repetition == "0"
+                                isError = !decimalNumberValidator(workSet.repetition) || workSet.repetition == "0",
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                keyboardActions = KeyboardActions(onDone = {
+                                    routineScreenState.focusManager.clearFocus()
+                                })
                             )
 
                             Icon(

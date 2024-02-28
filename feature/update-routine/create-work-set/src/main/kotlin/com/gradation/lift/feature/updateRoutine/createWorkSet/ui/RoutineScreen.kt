@@ -17,6 +17,7 @@ import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkCat
 import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component.NavigationView
 import com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component.RoutineListView
+import com.gradation.lift.ui.extensions.focusClearManager
 
 
 @Composable
@@ -64,6 +65,7 @@ internal fun CreateWorkSetScreen(
                         modifier = modifier
                             .weight(1f)
                             .fillMaxSize()
+                            .focusClearManager(routineScreenState.focusManager)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
                         RoutineListView(

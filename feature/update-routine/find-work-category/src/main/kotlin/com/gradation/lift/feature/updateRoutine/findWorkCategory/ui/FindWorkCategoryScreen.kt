@@ -26,6 +26,7 @@ import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.Fi
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.SearchView
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.WorkCategoryView
 import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.ui.extensions.focusClearManager
 import com.gradation.lift.ui.extensions.isScrollingUp
 
 
@@ -60,6 +61,7 @@ internal fun FindWorkCategoryScreen(
             WorkCategoryUiState.Loading -> Spacer(
                 modifier = modifier
                     .fillMaxSize()
+                    .focusClearManager(findWorkCategoryScreenState.focusManager)
                     .background(LiftTheme.colorScheme.no17)
             )
 

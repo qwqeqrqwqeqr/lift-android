@@ -22,6 +22,7 @@ import com.gradation.lift.feature.routineDetail.routineList.data.state.RoutineLi
 import com.gradation.lift.feature.routineDetail.routineList.data.state.SortFilterState
 import com.gradation.lift.feature.routineDetail.routineList.ui.component.RoutineListView
 import com.gradation.lift.feature.routineDetail.routineList.ui.component.SearchSortFilterView
+import com.gradation.lift.ui.extensions.focusClearManager
 
 @Composable
 internal fun RoutineListScreen(
@@ -69,6 +70,7 @@ internal fun RoutineListScreen(
                 Column(
                     modifier = modifier
                         .background(LiftTheme.colorScheme.no17)
+                        .focusClearManager(routineListScreenState.focusManager)
                         .padding(padding)
                 ) {
                     Column(

@@ -21,6 +21,7 @@ import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.Navigati
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.RoutineSetView
 import com.gradation.lift.feature.updateRoutine.routineSet.ui.component.RoutineView
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.ui.extensions.focusClearManager
 
 
 @Composable
@@ -32,7 +33,6 @@ internal fun RoutineSetScreen(
     updateCondition: Boolean,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
     routineUiState: RoutineUiState,
-
     updateRoutineSetRoutine: (RoutineSetRoutine) -> Unit,
     popBackStack: () -> Unit,
     navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
@@ -73,6 +73,7 @@ internal fun RoutineSetScreen(
                 Column(
                     modifier = modifier
                         .background(LiftTheme.colorScheme.no5)
+                        .focusClearManager(routineSetScreenState.focusManager)
                         .padding(padding)
                 ) {
                     Column(

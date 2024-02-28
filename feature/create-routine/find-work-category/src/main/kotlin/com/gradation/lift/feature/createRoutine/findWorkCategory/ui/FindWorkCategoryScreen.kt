@@ -26,6 +26,7 @@ import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component.Fi
 import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component.SearchView
 import com.gradation.lift.feature.createRoutine.findWorkCategory.ui.component.WorkCategoryView
 import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.ui.extensions.focusClearManager
 import com.gradation.lift.ui.extensions.isScrollingUp
 
 
@@ -67,6 +68,7 @@ internal fun FindWorkCategoryScreen(
                 Column(
                     modifier = modifier
                         .fillMaxSize()
+                        .focusClearManager(findWorkCategoryScreenState.focusManager)
                         .padding(paddingValues)
                 ) {
                     Column(

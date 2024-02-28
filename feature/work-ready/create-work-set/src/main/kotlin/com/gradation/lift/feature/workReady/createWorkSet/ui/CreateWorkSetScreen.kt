@@ -16,6 +16,7 @@ import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkCategor
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.ui.component.NavigationView
 import com.gradation.lift.feature.workReady.createWorkSet.ui.component.RoutineListView
+import com.gradation.lift.ui.extensions.focusClearManager
 
 
 @Composable
@@ -53,7 +54,9 @@ internal fun CreateWorkSetScreen(
                         onClick = navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph,
                     )
                 },
-                modifier = modifier.fillMaxSize(),
+                modifier = modifier
+                    .fillMaxSize()
+                    .focusClearManager(routineScreenState.focusManager),
             ) { padding ->
                 Column(
                     modifier = modifier.padding(padding),
