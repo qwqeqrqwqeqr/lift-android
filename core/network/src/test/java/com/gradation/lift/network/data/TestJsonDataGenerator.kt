@@ -34,16 +34,16 @@ object TestJsonDataGenerator {
     object Auth {
         internal val SIGN_UP_DEFAULT_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
         internal val SIGN_IN_DEFAULT_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "access_token": "$FAKE_ACCESS_TOKEN",
@@ -54,17 +54,17 @@ object TestJsonDataGenerator {
 
         internal val SIGN_UP_GOOGLE_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
 
         internal val SIGN_IN_GOOGLE_RESPONSE_JSON = """
         {
-         "status": "$FAKE_STATUS_DATA",
+         "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "access_token": "$FAKE_ACCESS_TOKEN",
@@ -76,17 +76,17 @@ object TestJsonDataGenerator {
 
         internal val SIGN_UP_KAKAO_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
 
         internal val SIGN_IN_KAKAO_RESPONSE_JSON = """
         {
-         "status": "$FAKE_STATUS_DATA",
+         "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "access_token": "$FAKE_ACCESS_TOKEN",
@@ -97,17 +97,17 @@ object TestJsonDataGenerator {
 
         internal val SIGN_UP_NAVER_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
 
         internal val SIGN_IN_NAVER_RESPONSE_JSON = """
         {
-         "status": "$FAKE_STATUS_DATA",
+         "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "access_token": "$FAKE_ACCESS_TOKEN",
@@ -119,50 +119,41 @@ object TestJsonDataGenerator {
 
         internal val CHECK_EXIST_USER_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
 
-        internal val REFRESH_RESPONSE_JSON = """
-        {
-          "status": "$FAKE_STATUS_DATA",
-          "message": "$FAKE_MESSAGE_DATA",
-          "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
-          }
-        }
-    """.trimIndent()
 
         internal val CREATE_EMAIL_AUTHENTICATION_CODE_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
 
         internal val VALIDATE_EMAIL_AUTHENTICATION_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
 
         internal val UPDATE_PASSWORD_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
     """.trimIndent()
@@ -171,18 +162,18 @@ object TestJsonDataGenerator {
     object Badge {
         internal val GET_BADGE_RESPONSE_JSON: String = """
             {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "badge": [
                   {
-                    "id": "$FAKE_INT_DATA",
+                    "id": $FAKE_INT_DATA,
                     "name": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA",
                     "hint": "$FAKE_STRING_DATA",
                     "url": "$FAKE_URL_DATA",
-                    "color": "$FAKE_COLOR_DATA"
-                    "backgroundColor": "$FAKE_COLOR_DATA"
+                    "color": "$FAKE_COLOR_DATA",
+                    "background_color": "$FAKE_COLOR_DATA"
                   }
                 ]
               }
@@ -190,23 +181,23 @@ object TestJsonDataGenerator {
         """.trimIndent()
         internal val GET_USER_BADGE_RESPONSE_JSON: String = """
             {
-                 "status": "$FAKE_STATUS_DATA",
+                 "status": $FAKE_STATUS_DATA,
                "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "user_badge": [
                   {
                     "badge":
                      {
-                     "id": "$FAKE_INT_DATA",
+                     "id": $FAKE_INT_DATA,
                      "name": "$FAKE_STRING_DATA",
                      "description": "$FAKE_STRING_DATA",
                      "hint": "$FAKE_STRING_DATA",
                      "url": "$FAKE_URL_DATA",
                      "color": "$FAKE_COLOR_DATA",
-                     "backgroundColor": "$FAKE_COLOR_DATA"
+                     "background_color": "$FAKE_COLOR_DATA"
                     },
                     "badge_time_stamp": "$FAKE_TIME_STAMP_DATA",
-                    "main_flag": "$FAKE_BOOLEAN_DATA"
+                    "main_flag": $FAKE_BOOLEAN_DATA
                   }
                 ]
               }
@@ -215,30 +206,29 @@ object TestJsonDataGenerator {
 
         internal val CREATE_USER_BADGE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val GET_USER_BADGE_CONDITION_RESPONSE_JSON: String = """
             {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
-                "badge": [
+                "badge":
                   {
-                    "id": "$FAKE_INT_DATA",
+                    "id": $FAKE_INT_DATA,
                     "name": "$FAKE_STRING_DATA",
                     "description": "$FAKE_STRING_DATA",
                     "hint": "$FAKE_STRING_DATA",
                     "url": "$FAKE_URL_DATA",
-                    "color": "$FAKE_COLOR_DATA"
-                    "backgroundColor": "$FAKE_COLOR_DATA"
+                    "color": "$FAKE_COLOR_DATA",
+                    "background_color": "$FAKE_COLOR_DATA"
                   }
-                ]
               }
             }
         """.trimIndent()
@@ -246,35 +236,35 @@ object TestJsonDataGenerator {
 
         internal val GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON: String = """
             {
-                 "status": "$FAKE_STATUS_DATA",
+                 "status": $FAKE_STATUS_DATA,
                "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "user_badge": [
                   {
                     "badge":
                      {
-                     "id": "$FAKE_INT_DATA",
+                     "id": $FAKE_INT_DATA,
                      "name": "$FAKE_STRING_DATA",
                      "description": "$FAKE_STRING_DATA",
                      "hint": "$FAKE_STRING_DATA",
                      "url": "$FAKE_URL_DATA",
                      "color": "$FAKE_COLOR_DATA",
-                     "backgroundColor": "$FAKE_COLOR_DATA"
+                     "background_color": "$FAKE_COLOR_DATA"
                     },
                     "badge_time_stamp": "$FAKE_TIME_STAMP_DATA",
-                    "main_flag": "$FAKE_BOOLEAN_DATA"
+                    "main_flag": $FAKE_BOOLEAN_DATA
                   }
                 ]
               }
             }
         """.trimIndent()
 
-        internal val UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO: String = """
+        internal val UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -284,15 +274,15 @@ object TestJsonDataGenerator {
     object Routine {
         internal val GET_ROUTINE_RESPONSE_JSON: String = """
             {
-             "status": "$FAKE_STATUS_DATA",
+             "status": $FAKE_STATUS_DATA,
              "message": "$FAKE_MESSAGE_DATA",
              "data": {
                     "routine": [
                       {
-                        "routine_id": "$FAKE_INT_DATA",
-                        "routine_set_id": "$FAKE_INT_DATA",
+                        "routine_id": $FAKE_INT_DATA,
+                        "routine_set_id": $FAKE_INT_DATA,
                         "work_category": {
-                          "id": "$FAKE_INT_DATA",
+                          "id": $FAKE_INT_DATA,
                           "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                           "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                           "introduce": "$FAKE_STRING_DATA",
@@ -317,16 +307,16 @@ object TestJsonDataGenerator {
 
         internal val GET_ROUTINE_SET_ROUTINE_RESPONSE_JSON: String = """
         {
-        "status": "$FAKE_STATUS_DATA",
+        "status": $FAKE_STATUS_DATA,
         "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "routine_set_routine": [
               {
                 "routine": {
-                   "routine_id": "$FAKE_INT_DATA",
-                   "routine_set_id": "$FAKE_INT_DATA",
+                   "routine_id": $FAKE_INT_DATA,
+                   "routine_set_id": $FAKE_INT_DATA,
                    "work_category": {
-                   "id": "$FAKE_INT_DATA",
+                   "id": $FAKE_INT_DATA,
                    "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                    "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                     "introduce": "$FAKE_STRING_DATA",
@@ -344,13 +334,13 @@ object TestJsonDataGenerator {
                   ]
                 },
                 "routine_set": {
-                  "routine_set_id": "$FAKE_INT_DATA",
+                  "routine_set_id": $FAKE_INT_DATA,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "$FAKE_WEEKDAY_DATA",
                   "picture": "$FAKE_URL_DATA",
                   "label":"$FAKE_LABEL_DATA",
-                  "count" : "$FAKE_INT_DATA"
+                  "count" : $FAKE_INT_DATA
                 }
               }
               ]
@@ -360,20 +350,20 @@ object TestJsonDataGenerator {
 
         internal val UPDATE_ROUTINE_SET_ROUTINE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val CREATE_ROUTINE_SET_ROUTINE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -381,20 +371,20 @@ object TestJsonDataGenerator {
 
         internal val DELETE_ROUTINE_SET_ROUTINE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val UPDATE_USED_ROUTINE_SET_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -402,16 +392,16 @@ object TestJsonDataGenerator {
 
         internal val GET_ROUTINE_SET_ROUTINE_BY_RECENT_RESPONSE_JSON: String = """
         {
-        "status": "$FAKE_STATUS_DATA",
+        "status": $FAKE_STATUS_DATA,
         "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "routine_set_routine": [
               {
                 "routine": {
-                   "routine_id": "$FAKE_INT_DATA",
-                   "routine_set_id": "$FAKE_INT_DATA",
+                   "routine_id": $FAKE_INT_DATA,
+                   "routine_set_id": $FAKE_INT_DATA,
                    "work_category": {
-                   "id": "$FAKE_INT_DATA",
+                   "id": $FAKE_INT_DATA,
                    "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                    "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                     "introduce": "$FAKE_STRING_DATA",
@@ -429,13 +419,13 @@ object TestJsonDataGenerator {
                   ]
                 },
                 "routine_set": {
-                  "routine_set_id": "$FAKE_INT_DATA",
+                  "routine_set_id": $FAKE_INT_DATA,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "$FAKE_WEEKDAY_DATA",
                   "picture": "$FAKE_URL_DATA",
                   "label":"$FAKE_LABEL_DATA",
-                  "count" : "$FAKE_INT_DATA"
+                  "count" : $FAKE_INT_DATA
                 }
               }
               ]
@@ -446,16 +436,16 @@ object TestJsonDataGenerator {
 
         internal val GET_ROUTINE_SET_ROUTINE_BY_WEEKDAY_RESPONSE_JSON: String = """
         {
-        "status": "$FAKE_STATUS_DATA",
+        "status": $FAKE_STATUS_DATA,
         "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "routine_set_routine": [
               {
                 "routine": {
-                   "routine_id": "$FAKE_INT_DATA",
-                   "routine_set_id": "$FAKE_INT_DATA",
+                   "routine_id": $FAKE_INT_DATA,
+                   "routine_set_id": $FAKE_INT_DATA,
                    "work_category": {
-                   "id": "$FAKE_INT_DATA",
+                   "id": $FAKE_INT_DATA,
                    "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                    "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                     "introduce": "$FAKE_STRING_DATA",
@@ -473,13 +463,13 @@ object TestJsonDataGenerator {
                   ]
                 },
                 "routine_set": {
-                  "routine_set_id": "$FAKE_INT_DATA",
+                  "routine_set_id": $FAKE_INT_DATA,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "$FAKE_WEEKDAY_DATA",
                   "picture": "$FAKE_URL_DATA",
                   "label":"$FAKE_LABEL_DATA",
-                  "count" : "$FAKE_INT_DATA"
+                  "count" : $FAKE_INT_DATA
                 }
               }
               ]
@@ -490,16 +480,16 @@ object TestJsonDataGenerator {
 
         internal val GET_ROUTINE_SET_ROUTINE_BY_LABEL_RESPONSE_JSON: String = """
         {
-        "status": "$FAKE_STATUS_DATA",
+        "status": $FAKE_STATUS_DATA,
         "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "routine_set_routine": [
               {
                 "routine": {
-                   "routine_id": "$FAKE_INT_DATA",
-                   "routine_set_id": "$FAKE_INT_DATA",
+                   "routine_id": $FAKE_INT_DATA,
+                   "routine_set_id": $FAKE_INT_DATA,
                    "work_category": {
-                   "id": "$FAKE_INT_DATA",
+                   "id": $FAKE_INT_DATA,
                    "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                    "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                     "introduce": "$FAKE_STRING_DATA",
@@ -517,13 +507,13 @@ object TestJsonDataGenerator {
                   ]
                 },
                 "routine_set": {
-                  "routine_set_id": "$FAKE_INT_DATA",
+                  "routine_set_id": $FAKE_INT_DATA,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "$FAKE_WEEKDAY_DATA",
                   "picture": "$FAKE_URL_DATA",
                   "label":"$FAKE_LABEL_DATA",
-                  "count" : "$FAKE_INT_DATA"
+                  "count" : $FAKE_INT_DATA
                 }
               }
               ]
@@ -534,16 +524,16 @@ object TestJsonDataGenerator {
 
         internal val GET_ROUTINE_SET_ROUTINE_BY_ROUTINE_SET_ID_RESPONSE_JSON: String = """
         {
-        "status": "$FAKE_STATUS_DATA",
+        "status": $FAKE_STATUS_DATA,
         "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "routine_set_routine": [
               {
                 "routine": {
-                   "routine_id": "$FAKE_INT_DATA",
-                   "routine_set_id": "$FAKE_INT_DATA",
+                   "routine_id": $FAKE_INT_DATA,
+                   "routine_set_id": $FAKE_INT_DATA,
                    "work_category": {
-                   "id": "$FAKE_INT_DATA",
+                   "id": $FAKE_INT_DATA,
                    "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                    "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                     "introduce": "$FAKE_STRING_DATA",
@@ -561,13 +551,13 @@ object TestJsonDataGenerator {
                   ]
                 },
                 "routine_set": {
-                  "routine_set_id": "$FAKE_INT_DATA",
+                  "routine_set_id": $FAKE_INT_DATA,
                   "name": "$FAKE_ROUTINE_NAME_DATA",
                   "description": "$FAKE_ROUTINE_DESCRIPTION_DATA",
                   "weekday": "$FAKE_WEEKDAY_DATA",
                   "picture": "$FAKE_URL_DATA",
                   "label":"$FAKE_LABEL_DATA",
-                  "count" : "$FAKE_INT_DATA"
+                  "count" : $FAKE_INT_DATA
                 }
               }
               ]
@@ -580,12 +570,12 @@ object TestJsonDataGenerator {
     object Work {
         internal val GET_WORK_PART_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "work_part": [
               {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_PART_NAME_DATA"
               }
             ]
@@ -596,12 +586,12 @@ object TestJsonDataGenerator {
 
         internal val GET_WORK_CATEGORY_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "work_category": [
               {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                 "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                 "introduce": "$FAKE_STRING_DATA",
@@ -615,11 +605,11 @@ object TestJsonDataGenerator {
 
         internal val GET_WORK_CATEGORY_BY_ID_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "work_category":  {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                 "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                 "introduce": "$FAKE_STRING_DATA",
@@ -632,12 +622,12 @@ object TestJsonDataGenerator {
 
         internal val GET_POPULAR_WORK_CATEGORY_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "work_category": [
               {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                 "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                 "introduce": "$FAKE_STRING_DATA",
@@ -650,12 +640,12 @@ object TestJsonDataGenerator {
 
         internal val GET_RECOMMEND_WORK_CATEGORY_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "work_category": [
               {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                 "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                 "introduce": "$FAKE_STRING_DATA",
@@ -669,11 +659,11 @@ object TestJsonDataGenerator {
 
         internal val GET_WORK_CATEGORY_BY_WORK_PART_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "work_category":  {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                 "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                 "introduce": "$FAKE_STRING_DATA",
@@ -690,7 +680,7 @@ object TestJsonDataGenerator {
 
         internal val GET_USER_AUTHENTICATION_METHOD_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "authentication_method": "$FAKE_AUTHENTICATION_METHOD_DATA",
@@ -700,7 +690,7 @@ object TestJsonDataGenerator {
 
         internal val GET_USER_DETAIL_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "user_detail": {
@@ -717,20 +707,20 @@ object TestJsonDataGenerator {
 
         internal val UPDATE_USER_DETAIL_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val CREATE_USER_DETAIL_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -738,30 +728,30 @@ object TestJsonDataGenerator {
 
         internal val UPDATE_USER_DETAIL_INFO_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val UPDATE_USER_DETAIL_PROFILE_PICTURE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val UPDATE_USER_DETAIL_NAME_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -769,10 +759,10 @@ object TestJsonDataGenerator {
 
         internal val EXIST_USER_DETAIL_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -780,10 +770,10 @@ object TestJsonDataGenerator {
 
         internal val DELETE_USER_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -793,10 +783,10 @@ object TestJsonDataGenerator {
     object Checker {
         internal val CHECK_DUPLICATE_NAME_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -804,10 +794,10 @@ object TestJsonDataGenerator {
 
         internal val CHECK_DUPLICATE_EMAIL_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -817,7 +807,7 @@ object TestJsonDataGenerator {
     object History {
         val GET_HISTORY_RESPONSE_JSON = """
             {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "history": [
@@ -834,7 +824,7 @@ object TestJsonDataGenerator {
                       "history_routine_id": $FAKE_INT_DATA,
                       "history_id": $FAKE_INT_DATA,
                       "work_category":  {
-                       "id": "$FAKE_INT_DATA",
+                       "id": $FAKE_INT_DATA,
                        "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                        "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                        "introduce": "$FAKE_STRING_DATA",
@@ -860,20 +850,20 @@ object TestJsonDataGenerator {
 
         internal val CREATE_HISTORY_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val DELETE_HISTORY_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -881,7 +871,7 @@ object TestJsonDataGenerator {
 
         val GET_HISTORY_BY_HISTORY_ID_RESPONSE_JSON = """
             {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "history": [
@@ -898,7 +888,7 @@ object TestJsonDataGenerator {
                       "history_routine_id": $FAKE_INT_DATA,
                       "history_id": $FAKE_INT_DATA,
                       "work_category":  {
-                       "id": "$FAKE_INT_DATA",
+                       "id": $FAKE_INT_DATA,
                        "name": "$FAKE_WORK_CATEGORY_NAME_DATA",
                        "work_part": ["$FAKE_WORK_PART_NAME_DATA"],
                        "introduce": "$FAKE_STRING_DATA",
@@ -924,10 +914,10 @@ object TestJsonDataGenerator {
 
         internal val UPDATE_HISTORY_INFO_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -936,12 +926,12 @@ object TestJsonDataGenerator {
     object Picture {
         internal val GET_ROUTINE_SET_PICTURE_RESPONSE_JSON = """
             {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
               "data": {
                 "routine_set_picture": [
                   {
-                    "id": "$FAKE_INT_DATA",
+                    "id": $FAKE_INT_DATA,
                     "category": "$FAKE_STRING_DATA",
                     "url": "$FAKE_URL_DATA"
                   }
@@ -952,12 +942,12 @@ object TestJsonDataGenerator {
 
         internal val GET_USER_PROFILE_PICTURE_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "user_profile_picture": [
               {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "url": "$FAKE_URL_DATA"
               }
             ]
@@ -970,12 +960,12 @@ object TestJsonDataGenerator {
     object Notice {
         internal val GET_NOTICE_RESPONSE_JSON = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "notice": [
               {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "title": "$FAKE_STRING_DATA",
                 "description": "$FAKE_STRING_DATA",
                 "category": "$FAKE_STRING_DATA",
@@ -988,12 +978,12 @@ object TestJsonDataGenerator {
 
         internal val GET_NOTICE_BY_ID_RESPONSE_JSON = """
              {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "notice": 
             {
-                "id": "$FAKE_INT_DATA",
+                "id": $FAKE_INT_DATA,
                 "title": "$FAKE_STRING_DATA",
                 "description": "$FAKE_STRING_DATA",
                 "category": "$FAKE_STRING_DATA",
@@ -1008,10 +998,10 @@ object TestJsonDataGenerator {
     object Terms {
         internal val CREATE_USER_TERMS_CONSENT_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -1019,20 +1009,20 @@ object TestJsonDataGenerator {
 
         internal val GET_USER_MARKETING_TERMS_CONSENT_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
 
         internal val UPDATE_USER_MARKETING_TERMS_CONSENT_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -1045,11 +1035,11 @@ object TestJsonDataGenerator {
 
         internal val GET_WORK_CATEGORY_FAVORITE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "result": [
-                "$FAKE_INT_DATA"
+                $FAKE_INT_DATA
             ],
           }
         }
@@ -1057,10 +1047,10 @@ object TestJsonDataGenerator {
 
         internal val UPDATE_WORK_CATEGORY_FAVORITE_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
-            "result": "$FAKE_BOOLEAN_DATA",
+            "result": $FAKE_BOOLEAN_DATA
           }
         }
         """.trimIndent()
@@ -1069,15 +1059,26 @@ object TestJsonDataGenerator {
     object Inquiry {
         internal val CREATE_INQUIRY_RESPONSE_JSON: String = """
         {
-          "status": "$FAKE_STATUS_DATA",
+          "status": $FAKE_STATUS_DATA,
           "message": "$FAKE_MESSAGE_DATA",
           "data": {
             "result": [
-                "$FAKE_INT_DATA"
+                $FAKE_INT_DATA
             ],
           }
         }
         """.trimIndent()
     }
 
+    object Refresh {
+        internal val REFRESH_RESPONSE_JSON = """
+        {
+          "status": $FAKE_STATUS_DATA,
+          "message": "$FAKE_MESSAGE_DATA",
+          "data": {
+            "result": $FAKE_BOOLEAN_DATA
+          }
+        }
+    """.trimIndent()
+    }
 }

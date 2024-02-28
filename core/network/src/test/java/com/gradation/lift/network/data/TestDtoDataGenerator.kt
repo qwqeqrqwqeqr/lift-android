@@ -153,15 +153,16 @@ object TestDtoDataGenerator {
         }
 
         object SignInDefault {
-            internal val SIGN_IN_DEFAULT_RESPONSE_DTO = SignInDefaultResponseDto(
-                accessToken = FAKE_ACCESS_TOKEN,
-                refreshToken = FAKE_REFRESH_TOKEN
-            )
 
             internal val SIGN_IN_DEFAULT_REQUEST_DTO = SignInDefaultRequestDto(
                 id = FAKE_EMAIL_DATA,
                 password = FAKE_PASSWORD_DATA
             )
+            internal val SIGN_IN_DEFAULT_RESPONSE_DTO = SignInDefaultResponseDto(
+                accessToken = FAKE_ACCESS_TOKEN,
+                refreshToken = FAKE_REFRESH_TOKEN
+            )
+
 
         }
 
@@ -238,12 +239,7 @@ object TestDtoDataGenerator {
             )
         }
 
-        object Refresh {
-            internal val REFRESH_RESPONSE_DTO = RefreshResponseDto(
-                accessToken = FAKE_ACCESS_TOKEN
 
-            )
-        }
 
         object CreateEmailAuthenticationCode {
             internal val CREATE_EMAIL_AUTHENTICATION_CODE_REQUEST_DTO =
@@ -812,5 +808,14 @@ object TestDtoDataGenerator {
             internal val CREATE_INQUIRY_RESPONSE_DTO = CreateInquiryResponseDto(FAKE_BOOLEAN_DATA)
         }
 
+    }
+
+    object Refresh {
+        object Refresh {
+            internal val REFRESH_RESPONSE_DTO = RefreshResponseDto(
+                accessToken = FAKE_ACCESS_TOKEN
+
+            )
+        }
     }
 }

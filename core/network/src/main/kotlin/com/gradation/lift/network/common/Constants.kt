@@ -26,6 +26,7 @@ object Constants {
     const val POST = "POST"
     const val PUT = "PUT"
     const val DELETE = "DELETE"
+    const val PATCH = "PATCH"
 
 }
 

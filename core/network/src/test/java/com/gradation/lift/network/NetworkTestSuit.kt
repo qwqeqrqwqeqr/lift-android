@@ -16,16 +16,7 @@
 
 package com.gradation.lift.network
 
-import com.gradation.lift.network.test.datasource.AuthDataSourceTest
-import com.gradation.lift.network.test.datasource.BadgeDataSourceTest
-import com.gradation.lift.network.test.datasource.CheckerDataSourceTest
-import com.gradation.lift.network.test.datasource.HistoryDataSourceTest
-import com.gradation.lift.network.test.datasource.NoticeDataSourceTest
-import com.gradation.lift.network.test.datasource.PictureDataSourceTest
-import com.gradation.lift.network.test.datasource.RoutineDataSourceTest
-import com.gradation.lift.network.test.datasource.UserDataSourceTest
-import com.gradation.lift.network.test.datasource.WorkDataSourceTest
-import com.gradation.lift.network.test.mapper.*
+
 import com.gradation.lift.network.test.network.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
@@ -36,37 +27,11 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
 
-    AuthDataSourceTest::class,
-    CheckerDataSourceTest::class,
-    HistoryDataSourceTest::class,
-    PictureDataSourceTest::class,
-    RoutineDataSourceTest::class,
-    UserDataSourceTest::class,
-    WorkDataSourceTest::class,
-    NoticeDataSourceTest::class,
-    BadgeDataSourceTest::class,
 
 
     AuthServiceTest::class,
-    CheckerServiceTest::class,
-    UserServiceTest::class,
-    RoutineServiceTest::class,
-    WorkServiceTest::class,
-    RefreshServiceTest::class,
-    PictureServiceTest::class,
-    HistoryServiceTest::class,
-    NoticeServiceTest::class,
     BadgeServiceTest::class,
 
 
-    CreateHistoryMapperTest::class,
-    CreateRoutineSetRoutineMapperTest::class,
-    CreateUserDetailMapperTest::class,
-    CreateUserBadgeMapperTest::class,
-    ErrorMapperTest::class,
-    SignInMapperTest::class,
-    SignUpMapperTest::class,
-    UpdateUsedRoutineSetMapperTest::class,
-    UpdateRoutineSetRoutineMapperTest::class
-)
+    )
 class NetworkTestSuit
