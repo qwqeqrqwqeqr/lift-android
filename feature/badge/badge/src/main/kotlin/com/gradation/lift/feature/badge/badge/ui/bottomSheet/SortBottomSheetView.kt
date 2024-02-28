@@ -91,14 +91,20 @@ internal fun SortBottomSheetView(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         sortType == this,
-                    ) { badgeStoreState.updateSortType(this) }
+                    ) {
+                        badgeStoreState.updateSortType(this)
+                        badgeStoreScreenState.updateSortBottomSheetView(false)
+                    }
                 }
                 with(SortType.Name()) {
                     LiftDefaultSelector(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         sortType == this
-                    ) { badgeStoreState.updateSortType(this) }
+                    ) {
+                        badgeStoreState.updateSortType(this)
+                        badgeStoreScreenState.updateSortBottomSheetView(false)
+                    }
                 }
 
                 with(SortType.Newest()) {
@@ -106,14 +112,20 @@ internal fun SortBottomSheetView(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         sortType == this,
-                    ) { badgeStoreState.updateSortType(this) }
+                    ) {
+                        badgeStoreState.updateSortType(this)
+                        badgeStoreScreenState.updateSortBottomSheetView(false)
+                    }
                 }
                 with(SortType.Oldest()) {
                     LiftDefaultSelector(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         sortType == this,
-                    ) { badgeStoreState.updateSortType(this) }
+                    ) {
+                        badgeStoreState.updateSortType(this)
+                        badgeStoreScreenState.updateSortBottomSheetView(false)
+                    }
                 }
 
             }

@@ -31,6 +31,7 @@ import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.badge.badge.data.state.BadgeAnimationState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeCaseState
 import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.ui.modifier.noRippleClickable
@@ -40,7 +41,8 @@ import com.gradation.lift.ui.modifier.noRippleClickable
 fun BadgeCaseView(
     modifier: Modifier = Modifier,
     badgeCaseState: BadgeCaseState,
-    mainFlagUserBadgeList: List<UserBadge>,
+    mainFlagBadgeSet: Set<UserBadge>,
+    badgeAnimationState: BadgeAnimationState,
 ) {
     Column(
         modifier = modifier
@@ -81,7 +83,8 @@ fun BadgeCaseView(
                             end = Offset(y = size.height, x = center.x),
                             colors = listOf(
                                 Color.Transparent,
-                                Color.Transparent,
+                                badgeAnimationState.backgroundBadgeEffectColor,
+                                badgeAnimationState.backgroundBadgeEffectColor,
                             )
                         )
                     )
@@ -92,7 +95,7 @@ fun BadgeCaseView(
                 modifier = modifier.offset(y = -LiftTheme.space.space8),
                 verticalAlignment = Alignment.Bottom
             ) {
-                mainFlagUserBadgeList.forEach {
+                mainFlagBadgeSet.forEach {
                     Box(modifier = modifier.weight(1f)) {
                         GlideImage(
                             modifier = modifier
@@ -107,7 +110,7 @@ fun BadgeCaseView(
                                 .offset(x = -LiftTheme.space.space2)
                                 .zIndex(1f)
                                 .noRippleClickable {
-                                    badgeCaseState.removeBadge(it.badge.id)
+                                    badgeCaseState.removeBadge(it)
                                 },
                             icon = LiftIcon.Cancel,
                             iconType = IconType.Vector,
@@ -116,7 +119,7 @@ fun BadgeCaseView(
                     }
                 }
 
-                repeat(5 - mainFlagUserBadgeList.size) {
+                repeat(5 - mainFlagBadgeSet.size) {
                     LiftIconBox(
                         modifier = modifier.weight(1f),
                         icon = LiftIcon.BadgeCircle,
@@ -143,7 +146,7 @@ fun BadgeCaseView(
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            mainFlagUserBadgeList.forEach {
+            mainFlagBadgeSet.forEach {
                 Box(
                     modifier = modifier
                         .size(LiftTheme.space.space52)
@@ -159,7 +162,7 @@ fun BadgeCaseView(
 
                 }
             }
-            repeat(5 - mainFlagUserBadgeList.size) {
+            repeat(5 - mainFlagBadgeSet.size) {
                 Box(
                     modifier = modifier
                         .size(LiftTheme.space.space52)

@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.badge.badge.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,25 +10,32 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.card.badge.LiftBadgeSmallCard
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
+import com.gradation.lift.designsystem.component.snackbar.SnackBarCategory
 import com.gradation.lift.designsystem.component.tab.LiftDoubleTab
+import com.gradation.lift.designsystem.component.textField.LiftSearchInputTextField
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.badge.badge.data.model.BadgeState
 import com.gradation.lift.feature.badge.badge.data.model.FilterType
 import com.gradation.lift.feature.badge.badge.data.model.SortType
+import com.gradation.lift.feature.badge.badge.data.state.BadgeAnimationState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeCaseState
 import com.gradation.lift.feature.badge.badge.data.state.BadgeScreenState
 import com.gradation.lift.feature.badge.badge.ui.component.badgeCase.BadgeCaseView
 import com.gradation.lift.feature.badge.badge.ui.component.badgeStore.BadgeStoreContentView
 import com.gradation.lift.model.model.badge.UserBadge
+import com.gradation.lift.ui.extensions.focusClearManager
 import com.gradation.lift.ui.modifier.noRippleClickable
+import com.gradation.lift.ui.state.keyboardOpenAsState
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -39,13 +47,17 @@ fun BadgeScreen(
     currentTotalBadgeCount: Int,
     acquiredBadgeCount: Int,
     unacquiredBadgeCount: Int,
-    userBadgeList: List<UserBadge>,
-    mainFlagUserBadgeList: List<UserBadge>,
+    searchText: String,
+    filteredUserBadgeList: List<UserBadge>,
+    mainFlagBadgeSet: Set<UserBadge>,
     mainFlagBadgeChangeListIsEmpty: Boolean,
     badgeScreenState: BadgeScreenState,
     badgeCaseState: BadgeCaseState,
+    badgeAnimationState: BadgeAnimationState,
     navigateBadgeGraphToHomeGraph: () -> Unit,
 ) {
+    val keyboardOpenAsState: Boolean by keyboardOpenAsState()
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -58,11 +70,12 @@ fun BadgeScreen(
         snackbarHost = {
             LiftSnackBar(
                 modifier = modifier,
-                snackbarHostState = badgeScreenState.snackbarHostState
+                snackbarHostState = badgeScreenState.snackbarHostState,
+                snackbarCategory = SnackBarCategory.Info
             )
         },
         bottomBar = {
-            if (badgeScreenState.selectedPage.value == 1) {
+            if (badgeScreenState.selectedPage.value == 1 && !keyboardOpenAsState) {
                 LiftDefaultBottomBar {
                     LiftSolidButton(
                         text = "적용하기",
@@ -76,6 +89,7 @@ fun BadgeScreen(
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
+                .focusClearManager(badgeScreenState.focusManager)
                 .background(LiftTheme.colorScheme.no17)
                 .padding(padding)
         ) {
@@ -114,10 +128,35 @@ fun BadgeScreen(
                     Column(
                         modifier = modifier
                             .background(LiftTheme.colorScheme.no5)
-                            .padding(horizontal = LiftTheme.space.space20),
+                            .padding(
+                                start = LiftTheme.space.space20,
+                                end = LiftTheme.space.space20,
+                                bottom = LiftTheme.space.space12
+                            ),
                         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space44)
                     ) {
-                        BadgeCaseView(modifier, badgeCaseState, mainFlagUserBadgeList)
+
+                        AnimatedVisibility(visible = !keyboardOpenAsState) {
+
+
+                            BadgeCaseView(
+                                modifier,
+                                badgeCaseState,
+                                mainFlagBadgeSet,
+                                badgeAnimationState
+                            )
+                        }
+                        LiftSearchInputTextField(
+                            modifier = modifier,
+                            value = searchText,
+                            onValueChange = badgeCaseState.updateSearchText,
+                            placeHolderValue = "뱃지 이름 검색",
+                            keyboardActions = KeyboardActions(
+                                onSearch = {
+                                    badgeScreenState.focusManager.clearFocus()
+                                }
+                            )
+                        )
                     }
                     FlowRow(
                         modifier = modifier
@@ -128,24 +167,25 @@ fun BadgeScreen(
                                 end = LiftTheme.space.space20
                             ),
                         verticalArrangement = Arrangement.spacedBy(
-                            LiftTheme.space.space8,
+                            LiftTheme.space.space16,
                         ),
                         horizontalArrangement = Arrangement.spacedBy(
-                            LiftTheme.space.space4,
+                            LiftTheme.space.space16,
                         )
                     ) {
-                        userBadgeList.forEach {
+                        filteredUserBadgeList.forEach {
                             LiftBadgeSmallCard(
                                 modifier.noRippleClickable {
-                                    if (mainFlagUserBadgeList.contains(it))
-                                        badgeCaseState.removeBadge(it.badge.id)
+                                    if (mainFlagBadgeSet.map { it.badge.id }.contains(it.badge.id))
+                                        badgeCaseState.removeBadge(it)
                                     else
-                                        badgeCaseState.appendBadge(it.badge.id)
+                                        badgeCaseState.appendBadge(it)
                                 },
                                 isDefault = false,
                                 badgeName = it.badge.name,
                                 badgeUrl = it.badge.url,
-                                selected = mainFlagUserBadgeList.contains(it)
+                                selected = mainFlagBadgeSet.map { it.badge.id }
+                                    .contains(it.badge.id)
                             )
                         }
                     }

@@ -11,92 +11,88 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * @property mainFlagBadgeChangeSet 변경사항을 담는 리스트
- * @property userBadgeList 사용자 뱃지 리스트/?
- * @property userBadgeMainFlagSet 대표 플래그로 설정된 뱃지들에 대한 집합
+ * @property mainFlagBadgeChangeSet 변경사항을 담는 집합
+ * @property mainFlagBadgeSet 대표 플래그로 설정된 뱃지들에 대한 집합
+ * @property searchText 검색어
+ * @property userBadgeList 사용자 뱃지 리스트
  * @since 2024-02-27 21:21:43
  */
 class BadgeCaseState(
     updateUserBadgeMainFlagUseCase: UpdateUserBadgeMainFlagUseCase,
     badgeUiState: StateFlow<BadgeUiState>,
     viewModelScope: CoroutineScope,
-    private val mainFlagBadgeChangeSet: MutableStateFlow<Set<Pair<Int, Boolean>>> = MutableStateFlow(
-        emptySet()
+    val badgeCaseSnackbarState: MutableStateFlow<BadgeCaseSnackbarState> = MutableStateFlow(
+        BadgeCaseSnackbarState.None
     ),
-    val userBadgeList: StateFlow<List<UserBadge>> = badgeUiState.map {
+    val updateBadgeCaseSnackbarState: (BadgeCaseSnackbarState) -> Unit = {
+        badgeCaseSnackbarState.value = it
+    },
+    private val mainFlagBadgeChangeSet: MutableStateFlow<Set<Pair<Int, Boolean>>> =
+        MutableStateFlow(
+            emptySet()
+        ),
+    val mainFlagBadgeSet: MutableStateFlow<Set<UserBadge>> = MutableStateFlow(emptySet()),
+    val searchText: MutableStateFlow<String> = MutableStateFlow(""),
+    val updateSearchText: (String) -> Unit = { searchText.value = it },
+    private val userBadgeList: StateFlow<List<UserBadge>> = badgeUiState.map {
         when (it) {
             is BadgeUiState.Fail -> emptyList()
             BadgeUiState.Loading -> emptyList()
-            is BadgeUiState.Success -> it.userBadgeList
+            is BadgeUiState.Success -> {
+                mainFlagBadgeSet.update { set -> set.plus(it.userBadgeList.filter { it.mainFlag }) }
+                it.userBadgeList
+            }
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
         initialValue = emptyList()
     ),
-    private val userBadgeMainFlagSet: StateFlow<Set<Int>> = combine(
+    val filteredUserBadgeList: StateFlow<List<UserBadge>> = combine(
         userBadgeList,
-        mainFlagBadgeChangeSet
-    ) { userBadge, changeList ->
-
-        userBadge.asSequence().filter { it.mainFlag }
-            .filter { badge ->
-                changeList.any {
-                    badge.badge.id == it.first && it.second
-                } || changeList.none {
-                    badge.badge.id == it.first
-                }
-            }.map { it.badge.id }
-            .plus(changeList.filter { it.second }.map { it.first })
-            .toSet()
+        searchText
+    ) { badgeList, text ->
+        if (text.isEmpty()) badgeList
+        else {
+            badgeList.filter { it.badge.name.contains(text) }
+        }
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptySet()
-    ),
-
-    val mainFlagUserBadgeList: StateFlow<List<UserBadge>> = combine(
-        userBadgeList,
-        userBadgeMainFlagSet
-    ) { badgeList, mainFlagSet ->
-        badgeList.filter { badge -> mainFlagSet.any { it == badge.badge.id } }
-
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Lazily,
+        started = SharingStarted.WhileSubscribed(5000L),
         initialValue = emptyList()
     ),
 
 
-    val mainFlagBadgeChangeListIsEmpty: StateFlow<Boolean> = combine(
-        userBadgeList,
-        mainFlagBadgeChangeSet
-    ) { badgeList, changeList ->
-        changeList.none { changeItem ->
-            (badgeList.find { it.badge.id == changeItem.first }?.mainFlag == true && !changeItem.second)
-                    || (badgeList.find { it.badge.id == changeItem.first }?.mainFlag == false && changeItem.second)
-        }
+    val mainFlagBadgeChangeListIsEmpty: StateFlow<Boolean> = mainFlagBadgeChangeSet.map {
+        it.isEmpty()
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = false
     ),
 ) {
-    val appendBadge: (Int) -> Unit = { badgeId ->
-        mainFlagBadgeChangeSet.value =
-            mainFlagBadgeChangeSet.value.filter {
-                it.first != badgeId
-            }.plus(badgeId to true).toSet()
+    val appendBadge: (UserBadge) -> Unit = { badge ->
+        if (mainFlagBadgeSet.value.size >= 5) {
+            updateBadgeCaseSnackbarState(BadgeCaseSnackbarState.FillMaxed())
+        } else {
+            mainFlagBadgeSet.update { it.plus(badge) }
+            mainFlagBadgeChangeSet.value =
+                mainFlagBadgeChangeSet.value.filter {
+                    it.first != badge.badge.id
+                }.plus(badge.badge.id to true).toSet()
+        }
     }
 
-    val removeBadge: (Int) -> Unit = { badgeId ->
+    val removeBadge: (UserBadge) -> Unit = { badge ->
+        mainFlagBadgeSet.update { it.minus(badge) }
         mainFlagBadgeChangeSet.value =
             mainFlagBadgeChangeSet.value.filter {
-                it.first != badgeId
-            }.plus(badgeId to false).toSet()
+                it.first != badge.badge.id
+            }.plus(badge.badge.id to false).toSet()
     }
 
     val updateUserBadgeMainFlag: () -> Unit = {
@@ -105,9 +101,13 @@ class BadgeCaseState(
                 UpdateUserBadgeMainFlag(mainFlagBadgeChangeSet.value.toList())
             ).collect {
                 when (it) {
-                    is DataState.Fail -> {}
+                    is DataState.Fail -> {
+                        updateBadgeCaseSnackbarState(BadgeCaseSnackbarState.Fail())
+                    }
+
                     is DataState.Success -> {
                         mainFlagBadgeChangeSet.value = emptySet()
+                        updateBadgeCaseSnackbarState(BadgeCaseSnackbarState.UpdateCompleted())
                     }
                 }
             }

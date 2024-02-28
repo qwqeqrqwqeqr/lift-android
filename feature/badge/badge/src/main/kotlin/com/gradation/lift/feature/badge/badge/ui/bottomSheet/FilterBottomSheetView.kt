@@ -91,21 +91,30 @@ internal fun FilterBottomSheetView(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         filterType == this
-                    ) { badgeStoreState.updateFilterType(this) }
+                    ) {
+                        badgeStoreState.updateFilterType(this)
+                        badgeStoreScreenState.updateFilterBottomSheetView(false)
+                    }
                 }
                 with(FilterType.Acquired()) {
                     LiftDefaultSelector(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         filterType == this,
-                    ) { badgeStoreState.updateFilterType(this) }
+                    ) {
+                        badgeStoreState.updateFilterType(this)
+                        badgeStoreScreenState.updateFilterBottomSheetView(false)
+                    }
                 }
                 with(FilterType.UnAcquired()) {
                     LiftDefaultSelector(
                         modifier.fillMaxWidth(),
                         this.getTitleName(),
                         filterType == this,
-                    ) { badgeStoreState.updateFilterType(this) }
+                    ) {
+                        badgeStoreState.updateFilterType(this)
+                        badgeStoreScreenState.updateFilterBottomSheetView(false)
+                    }
                 }
 
             }

@@ -165,10 +165,10 @@ fun BadgeStoreContentView(
                 end = LiftTheme.space.space20
             ),
         verticalArrangement = Arrangement.spacedBy(
-            LiftTheme.space.space8,
+            LiftTheme.space.space16,
         ),
         horizontalArrangement = Arrangement.spacedBy(
-            LiftTheme.space.space4,
+            LiftTheme.space.space16,
         )
     ) {
         badgeStateList.forEach {
