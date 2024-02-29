@@ -26,11 +26,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftAddWorkSetButton
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
-import com.gradation.lift.designsystem.component.button.smallButton.LiftAddWorkSetButton
 import com.gradation.lift.designsystem.component.label.LiftNumberLabel
 import com.gradation.lift.designsystem.component.label.WorkCompleteLabel
 import com.gradation.lift.designsystem.component.snackbar.LiftSnackBar
@@ -41,11 +41,11 @@ import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
-import com.gradation.lift.feature.work.work.data.model.WorkRoutineCheckedInfo
+import com.gradation.lift.feature.work.common.data.model.WorkRoutineCheckedInfo
+import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.work.data.state.SnackBarState
-import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.ui.modifier.noRippleClickable

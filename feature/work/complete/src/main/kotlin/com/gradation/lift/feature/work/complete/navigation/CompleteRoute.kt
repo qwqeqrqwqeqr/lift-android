@@ -40,7 +40,7 @@ internal fun CompleteRoute(
     val currentTime :LocalDateTime = viewModel.currentTime
 
 
-    BackHandler(enabled = false, onBack = {})
+    BackHandler(enabled = true, onBack = {})
 
     CompleteScreen(
         modifier,

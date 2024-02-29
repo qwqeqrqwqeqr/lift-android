@@ -24,9 +24,9 @@ import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.WorkState
+import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
-import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.feature.work.work.navigation.getProgress

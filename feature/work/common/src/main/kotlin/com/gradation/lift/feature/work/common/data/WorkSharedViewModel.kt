@@ -9,6 +9,8 @@ import com.gradation.lift.domain.usecase.work.GetWorkUseCase
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,6 +41,9 @@ class WorkSharedViewModel @Inject constructor(
     val usedRoutineSetIdList: MutableStateFlow<List<Int>> = MutableStateFlow(emptyList())
 
     val workState = WorkState(initTimerUseCase, viewModelScope)
+
+    val workRoutineInfoState: WorkRoutineInfoState = WorkRoutineInfoState()
+
 
     init {
         viewModelScope.launch {

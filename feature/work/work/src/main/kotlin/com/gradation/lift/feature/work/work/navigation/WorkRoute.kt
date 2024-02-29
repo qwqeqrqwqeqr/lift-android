@@ -17,11 +17,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
-import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
+import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.work.data.state.SnackBarState
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
-import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.feature.work.work.data.state.rememberWorkScreenState
@@ -55,9 +55,9 @@ fun WorkRoute(
     ),
 ) {
     val workState: WorkState = sharedViewModel.workState
-    val workRoutineInfoState: WorkRoutineInfoState =
-        viewModel.workRoutineInfoState
+    val workRoutineInfoState: WorkRoutineInfoState = sharedViewModel.workRoutineInfoState
     val workScreenState: WorkScreenState = rememberWorkScreenState(workState)
+
 
     val workScreenUiState: WorkScreenUiState by workScreenState.workScreenUiState.collectAsStateWithLifecycle()
     val workDialogUiState: WorkDialogUiState by workScreenState.workDialogUiState.collectAsStateWithLifecycle()

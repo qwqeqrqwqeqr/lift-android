@@ -1,5 +1,10 @@
-package com.gradation.lift.feature.work.common.data
+package com.gradation.lift.feature.work.common.data.event
 
+import com.gradation.lift.feature.work.common.data.event.WorkRoutineEvent.AddWorkSet
+import com.gradation.lift.feature.work.common.data.event.WorkRoutineEvent.AppendRoutine
+import com.gradation.lift.feature.work.common.data.event.WorkRoutineEvent.RemoveRoutine
+import com.gradation.lift.feature.work.common.data.event.WorkRoutineEvent.RemoveWorkSet
+import com.gradation.lift.feature.work.common.data.event.WorkRoutineEvent.UpdateWorkSet
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
 

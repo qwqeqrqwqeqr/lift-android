@@ -10,14 +10,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
-import com.gradation.lift.feature.work.common.data.WorkState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.createWorkSet.data.CreateWorkSetViewModel
 import com.gradation.lift.feature.work.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.work.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.work.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.work.createWorkSet.data.state.rememberRoutineScreenState
 import com.gradation.lift.feature.work.createWorkSet.ui.CreateWorkSetScreen
-import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.WORK_GRAPH_NAME
 
 @Composable

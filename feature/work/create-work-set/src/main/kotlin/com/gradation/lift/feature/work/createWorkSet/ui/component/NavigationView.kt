@@ -6,9 +6,9 @@ import androidx.compose.ui.Modifier
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.model.model.work.WorkCategory
 

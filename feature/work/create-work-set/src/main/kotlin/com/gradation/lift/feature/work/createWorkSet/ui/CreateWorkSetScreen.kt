@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.WorkState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.work.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.work.createWorkSet.data.state.WorkSetState
