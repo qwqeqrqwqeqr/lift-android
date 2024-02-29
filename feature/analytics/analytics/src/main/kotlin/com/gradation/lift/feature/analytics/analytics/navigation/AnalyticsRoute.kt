@@ -89,7 +89,7 @@ internal fun AnalyticsRoute(
         )
     }
 
-    LaunchedEffect(analyticsScreenState.pagerState.currentPage, selectedDate) {
+    LaunchedEffect(analyticsScreenState.pagerState, selectedDate) {
         snapshotFlow {
             Pair(
                 analyticsScreenState.pagerState.currentPage,

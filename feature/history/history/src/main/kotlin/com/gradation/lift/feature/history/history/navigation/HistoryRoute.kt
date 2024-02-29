@@ -21,7 +21,6 @@ import com.gradation.lift.feature.history.history.ui.bottomSheet.DatePickerBotto
 import com.gradation.lift.feature.history.history.ui.bottomSheet.WorkBottomSheet
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.ui.extensions.showToast
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toKotlinLocalDate
@@ -81,7 +80,7 @@ internal fun HistoryRoute(
                 historyScreenState.pagerState.currentPage,
                 selectedDate
             )
-        }.distinctUntilChanged().collect { it ->
+        }.collect { it ->
             selectedDate.run {
                 updateSelectedDate(
                     java.time.LocalDate.of(
