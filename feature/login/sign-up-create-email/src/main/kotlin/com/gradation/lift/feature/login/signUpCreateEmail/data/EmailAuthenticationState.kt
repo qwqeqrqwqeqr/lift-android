@@ -8,7 +8,7 @@ package com.gradation.lift.feature.login.signUpCreateEmail.data
 */
 sealed interface EmailAuthenticationState {
 
-    data class Success(val isSuccess :Boolean): EmailAuthenticationState
+    data object Success : EmailAuthenticationState
     data class Fail(val message: String) : EmailAuthenticationState
     data object None : EmailAuthenticationState
     data object  Loading : EmailAuthenticationState

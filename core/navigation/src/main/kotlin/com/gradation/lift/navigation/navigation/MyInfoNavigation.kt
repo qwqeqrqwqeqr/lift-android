@@ -2,6 +2,10 @@ package com.gradation.lift.navigation.navigation
 
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.MY_INFO_CANCEL_MEMBERSHIP_CONFIRM_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_CANCEL_MEMBERSHIP_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_TERMS_POLICY_DETAIL_ROUTER_NAME
+import com.gradation.lift.navigation.Route.MY_INFO_TERMS_POLICY_ROUTER_NAME
 import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_INFO_ROUTER_NAME
 import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_NAME_ROUTER_NAME
 import com.gradation.lift.navigation.Route.MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME
@@ -28,6 +32,46 @@ fun NavController.navigateMyInfoGraphToLoginGraph() {
 fun NavController.navigateMyInfoGraphToNoticeGraph() {
     this.navigate(Route.NOTICE_GRAPH_NAME)
 }
+
+/**
+ * [navigateMyInfoToTermsPolicyInMyInfoGraph]
+ * 약관 정책 화면으로 이동
+ * @since 2024-02-08 17:07:51
+ */
+fun NavController.navigateMyInfoToTermsPolicyInMyInfoGraph() {
+    this.navigate(MY_INFO_TERMS_POLICY_ROUTER_NAME)
+}
+
+/**
+ * [navigateMyInfoToTermsPolicyInMyInfoGraph]
+ * 약관 정책 화면에서 내정보 화면으로 이동
+ * @since 2024-02-08 17:07:51
+ */
+fun NavController.navigateTermsPolicyToMyInfoInMyInfoGraph() {
+    this.popBackStack()
+}
+
+/**
+ * [navigateMyInfoToTermsPolicyInMyInfoGraph]
+ * 약관 정책 화면에서 상세화면으로 이동
+ * @since 2024-02-08 17:07:51
+ */
+fun NavController.navigateTermsPolicyToTermsPolicyDetailMyInfoGraph(
+    title: String,
+    content: String,
+) {
+    this.navigate("$MY_INFO_TERMS_POLICY_DETAIL_ROUTER_NAME/$title/$content")
+}
+
+/**
+ * [navigateMyInfoToTermsPolicyInMyInfoGraph]
+ * 상세 화면에서 이전 화면으로 이동
+ * @since 2024-02-08 17:07:51
+ */
+fun NavController.navigateTermsPolicyDetailToTermsPolicyMyInfoGraph() {
+    this.popBackStack()
+}
+
 
 /**
  * [navigateMyInfoToProfileInMyInfoGraph]
@@ -121,4 +165,38 @@ fun NavController.navigateUpdateProfilePictureToProfileInMyInfoGraph() {
 }
 
 
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 프로필 화면에서 회원 탈퇴 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateProfileToCancelMembershipInMyInfoGraph() {
+    this.navigate(MY_INFO_CANCEL_MEMBERSHIP_ROUTER_NAME)
+}
 
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 회원 탈퇴 화면에서 프로필 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateCancelMembershipToProfileInMyInfoGraph() {
+    popBackStack()
+}
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 회원 탈퇴 화면에서 회원 탈퇴 확인 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateCancelMembershipToCancelMembershipConfirmInMyInfoGraph(reason: String) {
+    this.navigate("$MY_INFO_CANCEL_MEMBERSHIP_CONFIRM_ROUTER_NAME/$reason")
+}
+
+/**
+ * [navigateProfileToUpdateProfilePictureInMyInfoGraph]
+ * 회원 탈퇴 확인 화면에서 회원 탈퇴 화면으로 이동
+ * @since 2024-02-19 17:24:33
+ */
+fun NavController.navigateCancelMembershipConfirmToCancelMembershipInMyInfoGraph() {
+    popBackStack()
+}

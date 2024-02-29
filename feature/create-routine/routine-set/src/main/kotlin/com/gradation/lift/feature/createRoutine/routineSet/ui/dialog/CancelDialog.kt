@@ -1,7 +1,11 @@
 package com.gradation.lift.feature.createRoutine.routineSet.ui.dialog
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,7 +45,7 @@ internal fun CancelDialog(
                 textAlign = TextAlign.Center,
                 textWithStyleList = listOf(
                     TextWithStyle(text = "루틴 제작을"),
-                    TextWithStyle(text = " 완료", color = LiftTheme.colorScheme.no12),
+                    TextWithStyle(text = " 취소", color = LiftTheme.colorScheme.no12),
                     TextWithStyle(text = "하실건가요?"),
                 )
             )

@@ -2,10 +2,10 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.common.toUnitOfWeight
 import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UnitOfWeight
 import com.gradation.lift.model.model.user.toGender
+import com.gradation.lift.model.model.user.toUnitOfWeight
 import com.gradation.lift.model.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -13,28 +13,46 @@ import com.squareup.moshi.Types
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.LocalTime.Companion.parse as localTimeParse
-import kotlinx.datetime.LocalDateTime.Companion.parse as localDateTimeParse
-import kotlinx.datetime.LocalDate.Companion.parse as localDateParse
-
 import javax.inject.Inject
+import kotlinx.datetime.LocalDate.Companion.parse as localDateParse
+import kotlinx.datetime.LocalDateTime.Companion.parse as localDateTimeParse
+import kotlinx.datetime.LocalTime.Companion.parse as localTimeParse
 
 
 @ProvidedTypeConverter
-class ListTypeConverter(
+class StringListTypeConverter(
     private val moshi: Moshi,
 ) {
     @TypeConverter
-    fun jsonTypeToListType(value: String): List<String>? {
+    fun jsonTypeToStringListType(value: String): List<String>? {
         val listType = Types.newParameterizedType(List::class.java, String::class.java)
         val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun listTypeToJsonType(type: List<String>): String {
+    fun stringListTypeToJsonType(type: List<String>): String {
         val listType = Types.newParameterizedType(List::class.java, String::class.java)
         val adapter: JsonAdapter<List<String>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+@ProvidedTypeConverter
+class IntListTypeConverter(
+    private val moshi: Moshi,
+) {
+    @TypeConverter
+    fun jsonTypeToIntListType(value: String): List<Int>? {
+        val listType = Types.newParameterizedType(List::class.java, Integer::class.java)
+        val adapter: JsonAdapter<List<Int>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun intListTypeToJsonType(type: List<Int>): String {
+        val listType = Types.newParameterizedType(List::class.java, Integer::class.java)
+        val adapter: JsonAdapter<List<Int>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }

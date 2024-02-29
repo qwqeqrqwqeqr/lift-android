@@ -1,8 +1,9 @@
 package com.gradation.lift.feature.createRoutine.changeOrder.ui
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,17 +18,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.composed
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.zIndex
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
@@ -40,10 +41,10 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.ui.mapper.toText
+import com.gradation.lift.ui.state.dragAndDrop
 import com.gradation.lift.ui.state.rememberDragDropListState
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ChangeOrderScreen(
     modifier: Modifier,
@@ -52,9 +53,13 @@ internal fun ChangeOrderScreen(
     navigateChangeOrderToRoutineSetInCreateRoutineGraph: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
-    var overScrollJob by remember { mutableStateOf<Job?>(null) }
+    val hapticFeedback = LocalHapticFeedback.current
     val dragDropListState =
-        rememberDragDropListState(onMove = currentRoutineSetRoutineState.moveRoutine)
+        rememberDragDropListState(
+            scope = scope,
+            hapticFeedback = hapticFeedback,
+            onMove = currentRoutineSetRoutineState.moveRoutine
+        )
 
 
     Scaffold(
@@ -77,16 +82,45 @@ internal fun ChangeOrderScreen(
                     .fillMaxSize()
                     .background(LiftTheme.colorScheme.no17)
                     .padding(LiftTheme.space.space20)
-                    .weight(1f),
+                    .weight(1f)
+                    .dragAndDrop(dragDropListState),
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20),
                 state = dragDropListState.lazyListState
             ) {
-                itemsIndexed(currentRoutineSetRoutine.routine) { index, routine ->
-                    val offsetOrNull = dragDropListState.elementDisplacement.takeIf {
-                        index == dragDropListState.currentIndexOfDraggedItem
-                    }
+                itemsIndexed(
+                    items = currentRoutineSetRoutine.routine,
+                    key = { index, item -> "${item.id}${item.workCategory.name}" }
+                ) { index, routine ->
+
+                    val isDragging = index == dragDropListState.currentIndexOfDraggedItem
+                    val zIndex = if (isDragging) 1f else 0f
+                    val borderColor: Color by animateColorAsState(
+                        targetValue =
+                        if (isDragging) LiftTheme.colorScheme.no4.copy(
+                            0.2f
+                        ) else Color.Transparent,
+                        label = "borderColorAnimation",
+                    )
+
+
+
                     LiftDefaultContainer(
-                        modifier = modifier.graphicsLayer { translationY = offsetOrNull ?: 0f },
+                        modifier = modifier
+                            .zIndex(zIndex)
+                            .composed {
+                                if (index == dragDropListState.currentIndexOfDraggedItem) {
+                                    graphicsLayer {
+                                        translationY = dragDropListState.elementDisplacement ?: 0f
+                                    }
+                                } else {
+                                    animateItemPlacement()
+                                }
+                            }
+                            .border(
+                                width = LiftTheme.space.space2,
+                                color = borderColor,
+                                shape = RoundedCornerShape(size = LiftTheme.space.space12)
+                            ),
                         shape = RoundedCornerShape(size = LiftTheme.space.space12),
                         horizontalPadding = LiftTheme.space.space16,
                         verticalPadding = LiftTheme.space.space16
@@ -108,41 +142,8 @@ internal fun ChangeOrderScreen(
                                 )
                                 Icon(
                                     modifier = modifier
-                                        .size(LiftTheme.space.space12)
-                                        .pointerInput(Unit) {
-                                            detectDragGestures(
-                                                onDrag = { change, offset ->
-
-                                                    change.consume()
-                                                    dragDropListState.onDrag(offset = offset)
-
-                                                    if (overScrollJob?.isActive == true)
-                                                        return@detectDragGestures
-
-                                                    dragDropListState
-                                                        .checkForOverScroll()
-                                                        .takeIf { it != 0f }
-                                                        ?.let {
-                                                            overScrollJob = scope.launch {
-                                                                dragDropListState.lazyListState.scrollBy(
-                                                                    it
-                                                                )
-                                                            }
-                                                        } ?: run { overScrollJob?.cancel() }
-                                                },
-                                                onDragStart = { _ ->
-                                                    dragDropListState.onDragStart(
-                                                        dragDropListState
-                                                            .lazyListState
-                                                            .layoutInfo
-                                                            .visibleItemsInfo[index - dragDropListState.lazyListState.firstVisibleItemIndex]
-                                                    )
-                                                },
-                                                onDragEnd = { dragDropListState.onDragInterrupted() },
-                                                onDragCancel = { dragDropListState.onDragInterrupted() }
-                                            )
-                                        },
-                                    painter = painterResource(id = LiftIcon.Order),
+                                        .size(LiftTheme.space.space12),
+                                    painter = painterResource(id = LiftIcon.EqualBlack),
                                     contentDescription = "changeOrder",
                                     tint = LiftTheme.colorScheme.no3,
                                 )
@@ -231,14 +232,8 @@ internal fun ChangeOrderScreen(
                     }
                 }
             }
-            LiftDefaultContainer(
+            LiftDefaultBottomBar(
                 modifier = modifier
-                    .background(LiftTheme.colorScheme.no5)
-                    .fillMaxWidth()
-                  ,
-                shape = RectangleShape,
-                verticalPadding = LiftTheme.space.space10,
-                horizontalPadding = LiftTheme.space.space20
             ) {
                 LiftSolidButton(
                     modifier = modifier,

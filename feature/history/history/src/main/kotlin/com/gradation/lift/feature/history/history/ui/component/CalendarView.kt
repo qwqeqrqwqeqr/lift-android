@@ -1,5 +1,6 @@
 package com.gradation.lift.feature.history.history.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -29,9 +31,10 @@ import com.gradation.lift.model.model.date.getWeekdayEntries
 import com.gradation.lift.model.model.date.toWeekday
 import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.toJavaLocalDate
-import kotlinx.datetime.toKotlinLocalDate
 import java.time.LocalDate
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalendarView(
     modifier: Modifier = Modifier,
@@ -69,199 +72,199 @@ fun CalendarView(
                     }
                 }
             }
+            HorizontalPager(
+                modifier = modifier,
+                state = historyScreenState.pagerState
+            ) {
+                Column(modifier = modifier.fillMaxWidth()) {
+                    calendar.forEach { (week, dateInfo) ->
+                        Row(
+                            modifier = modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2),
+                        ) {
+                            when (week) {
+                                1 -> {
+                                    run {
+                                        val count = getWeekdayEntries().size - dateInfo.count()
+                                        val targetMonth: LocalDate =
+                                            selectedDate.toJavaLocalDate().minusMonths(1)
+                                        val targetDate =
+                                            targetMonth.withDayOfMonth(targetMonth.lengthOfMonth())
+                                                .minusDays(count.toLong())
 
-            calendar.forEach { (week, dateInfo) ->
-                Row(
-                    modifier = modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space2),
-                ) {
-                    when (week) {
-                        1 -> {
-                            run {
-                                val count = getWeekdayEntries().size - dateInfo.count()
-                                val targetMonth: LocalDate =
-                                    selectedDate.toJavaLocalDate().minusMonths(1)
-                                val targetDate =
-                                    targetMonth.withDayOfMonth(targetMonth.lengthOfMonth())
-                                        .minusDays(count.toLong())
-
-                                repeat(count) {
-                                    DisabledWeekDateCard(
-                                        modifier = modifier.weight(1f),
-                                        date = (targetDate.plusDays(it.toLong() + 1L))
-                                    )
-                                }
-                            }
-
-                            dateInfo.forEach { weekDateHistoryCount ->
-                                Column(
-                                    modifier = modifier
-                                        .border(
-                                            1.5.dp,
-                                            if (selectedDate == weekDateHistoryCount.weekDateMonth.date) LiftTheme.colorScheme.no53
-                                            else Color.Transparent,
-                                            RoundedCornerShape(LiftTheme.space.space6)
-                                        )
-                                        .noRippleClickable {
-                                            updateSelectedDate(weekDateHistoryCount.weekDateMonth.date)
-                                        }
-                                        .padding(vertical = LiftTheme.space.space4)
-                                        .weight(1f),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
-                                ) {
-                                    if (today == weekDateHistoryCount.weekDateMonth.date)
-                                        Box(
-                                            modifier = modifier
-                                                .size(LiftTheme.space.space28)
-                                                .background(
-                                                    LiftTheme.colorScheme.no4, CircleShape
+                                        repeat(count) {
+                                            DisabledWeekDateCard(
+                                                modifier = modifier.weight(1f),
+                                                date = kotlinx.datetime.LocalDate(
+                                                    targetDate.year,
+                                                    targetDate.monthValue,
+                                                    (targetDate.plusDays(it.toLong() + 1L)).dayOfMonth
                                                 ),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            LiftText(
-                                                textStyle = LiftTextStyle.No5,
-                                                text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
-                                                color = LiftTheme.colorScheme.no5,
-                                                textAlign = TextAlign.Center
+                                                updateSelectedDate = updateSelectedDate
                                             )
                                         }
-                                    else
-                                        Box(
-                                            modifier = modifier
-                                                .size(LiftTheme.space.space28),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            LiftText(
-                                                textStyle = LiftTextStyle.No5,
-                                                text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
-                                                color = if (weekDateHistoryCount.weekDateMonth.date
-                                                        .toWeekday() == Weekday.Sunday()
-                                                ) LiftTheme.colorScheme.no12 else LiftTheme.colorScheme.no9,
-                                                textAlign = TextAlign.Center
-                                            )
-                                        }
-                                    HistoryCountLabel(modifier, weekDateHistoryCount.historyCount)
-                                }
-                            }
-                        }
+                                    }
 
-                        calendar.maxOf { it.key } -> {
-                            dateInfo.forEach { weekDateHistoryCount ->
-                                Column(
-                                    modifier = modifier
-                                        .border(
-                                            1.5.dp,
-                                            if (selectedDate == weekDateHistoryCount.weekDateMonth.date) LiftTheme.colorScheme.no53
-                                            else Color.Transparent,
-                                            RoundedCornerShape(LiftTheme.space.space6)
-                                        )
-                                        .noRippleClickable {
-                                            updateSelectedDate(weekDateHistoryCount.weekDateMonth.date)
-                                        }
-                                        .padding(vertical = LiftTheme.space.space4)
-                                        .weight(1f),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
-                                ) {
-                                    if (today == weekDateHistoryCount.weekDateMonth.date)
-                                        Box(
-                                            modifier = modifier
-                                                .size(LiftTheme.space.space28)
-                                                .background(
-                                                    LiftTheme.colorScheme.no4, CircleShape
-                                                ),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            LiftText(
-                                                textStyle = LiftTextStyle.No5,
-                                                text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
-                                                color = LiftTheme.colorScheme.no5,
-                                                textAlign = TextAlign.Center
+                                    dateInfo.forEach { weekDateHistoryCount ->
+                                        Column(modifier = modifier
+                                            .border(
+                                                1.5.dp,
+                                                if (selectedDate == weekDateHistoryCount.weekDateMonth.date) LiftTheme.colorScheme.no53
+                                                else Color.Transparent,
+                                                RoundedCornerShape(LiftTheme.space.space6)
                                             )
-                                        }
-                                    else
-                                        Box(
-                                            modifier = modifier
-                                                .size(LiftTheme.space.space28),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            LiftText(
-                                                textStyle = LiftTextStyle.No5,
-                                                text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
-                                                color = if (weekDateHistoryCount.weekDateMonth.date
-                                                        .toWeekday() == Weekday.Sunday()
-                                                ) LiftTheme.colorScheme.no12 else LiftTheme.colorScheme.no9,
-                                                textAlign = TextAlign.Center
-                                            )
-                                        }
-                                    HistoryCountLabel(modifier, weekDateHistoryCount.historyCount)
-                                }
-                            }
-                            run {
-                                val targetMonth: LocalDate =
-                                    selectedDate.toJavaLocalDate().plusMonths(1)
-                                val targetDate = targetMonth.withDayOfMonth(1)
-                                repeat(getWeekdayEntries().size - dateInfo.count()) {
-                                    DisabledWeekDateCard(
-                                        modifier.weight(1f),
-                                        targetDate.plusDays(it.toLong())
-                                    )
-                                }
-                            }
-                        }
+                                            .noRippleClickable {
+                                                updateSelectedDate(weekDateHistoryCount.weekDateMonth.date)
 
-                        else -> {
-                            dateInfo.forEach { weekDateHistoryCount ->
-                                Column(
-                                    modifier = modifier
-                                        .border(
-                                            1.5.dp,
-                                            if (selectedDate == weekDateHistoryCount.weekDateMonth.date) LiftTheme.colorScheme.no53
-                                            else Color.Transparent,
-                                            RoundedCornerShape(LiftTheme.space.space6)
-                                        )
-                                        .noRippleClickable {
-                                            updateSelectedDate(weekDateHistoryCount.weekDateMonth.date)
+                                            }
+                                            .padding(vertical = LiftTheme.space.space4)
+                                            .weight(1f),
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)) {
+                                            if (today == weekDateHistoryCount.weekDateMonth.date) Box(
+                                                modifier = modifier
+                                                    .size(LiftTheme.space.space28)
+                                                    .background(
+                                                        LiftTheme.colorScheme.no4, CircleShape
+                                                    ), contentAlignment = Alignment.Center
+                                            ) {
+                                                LiftText(
+                                                    textStyle = LiftTextStyle.No5,
+                                                    text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
+                                                    color = LiftTheme.colorScheme.no5,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                            else Box(
+                                                modifier = modifier.size(LiftTheme.space.space28),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                LiftText(
+                                                    textStyle = LiftTextStyle.No5,
+                                                    text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
+                                                    color = if (weekDateHistoryCount.weekDateMonth.date.toWeekday() == Weekday.Sunday()) LiftTheme.colorScheme.no12 else LiftTheme.colorScheme.no9,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                            HistoryCountLabel(
+                                                modifier, weekDateHistoryCount.historyCount
+                                            )
                                         }
-                                        .padding(vertical = LiftTheme.space.space4)
-                                        .weight(1f),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
-                                ) {
-                                    if (today == weekDateHistoryCount.weekDateMonth.date)
-                                        Box(
-                                            modifier = modifier
-                                                .size(LiftTheme.space.space28)
-                                                .background(
-                                                    LiftTheme.colorScheme.no4, CircleShape
+                                    }
+                                }
+
+                                calendar.maxOf { it.key } -> {
+                                    dateInfo.forEach { weekDateHistoryCount ->
+                                        Column(modifier = modifier
+                                            .border(
+                                                1.5.dp,
+                                                if (selectedDate == weekDateHistoryCount.weekDateMonth.date) LiftTheme.colorScheme.no53
+                                                else Color.Transparent,
+                                                RoundedCornerShape(LiftTheme.space.space6)
+                                            )
+                                            .noRippleClickable {
+                                                updateSelectedDate(weekDateHistoryCount.weekDateMonth.date)
+
+                                            }
+                                            .padding(vertical = LiftTheme.space.space4)
+                                            .weight(1f),
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)) {
+                                            if (today == weekDateHistoryCount.weekDateMonth.date) Box(
+                                                modifier = modifier
+                                                    .size(LiftTheme.space.space28)
+                                                    .background(
+                                                        LiftTheme.colorScheme.no4, CircleShape
+                                                    ), contentAlignment = Alignment.Center
+                                            ) {
+                                                LiftText(
+                                                    textStyle = LiftTextStyle.No5,
+                                                    text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
+                                                    color = LiftTheme.colorScheme.no5,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                            else Box(
+                                                modifier = modifier.size(LiftTheme.space.space28),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                LiftText(
+                                                    textStyle = LiftTextStyle.No5,
+                                                    text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
+                                                    color = if (weekDateHistoryCount.weekDateMonth.date.toWeekday() == Weekday.Sunday()) LiftTheme.colorScheme.no12 else LiftTheme.colorScheme.no9,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                            HistoryCountLabel(
+                                                modifier, weekDateHistoryCount.historyCount
+                                            )
+                                        }
+                                    }
+                                    run {
+                                        val targetMonth: LocalDate =
+                                            selectedDate.toJavaLocalDate().plusMonths(1)
+                                        val targetDate = targetMonth.withDayOfMonth(1)
+                                        repeat(getWeekdayEntries().size - dateInfo.count()) {
+                                            DisabledWeekDateCard(
+                                                modifier.weight(1f),
+                                                date = kotlinx.datetime.LocalDate(
+                                                    targetDate.year,
+                                                    targetDate.monthValue,
+                                                    (targetDate.plusDays(it.toLong())).dayOfMonth
                                                 ),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            LiftText(
-                                                textStyle = LiftTextStyle.No5,
-                                                text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
-                                                color = LiftTheme.colorScheme.no5,
-                                                textAlign = TextAlign.Center
+                                                updateSelectedDate = updateSelectedDate
                                             )
                                         }
-                                    else
-                                        Box(
-                                            modifier = modifier
-                                                .size(LiftTheme.space.space28),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            LiftText(
-                                                textStyle = LiftTextStyle.No5,
-                                                text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
-                                                color = if (weekDateHistoryCount.weekDateMonth.date
-                                                        .toWeekday() == Weekday.Sunday()
-                                                ) LiftTheme.colorScheme.no12 else LiftTheme.colorScheme.no9,
-                                                textAlign = TextAlign.Center
+                                    }
+                                }
+
+                                else -> {
+                                    dateInfo.forEach { weekDateHistoryCount ->
+                                        Column(modifier = modifier
+                                            .border(
+                                                1.5.dp,
+                                                if (selectedDate == weekDateHistoryCount.weekDateMonth.date) LiftTheme.colorScheme.no53
+                                                else Color.Transparent,
+                                                RoundedCornerShape(LiftTheme.space.space6)
+                                            )
+                                            .noRippleClickable {
+                                                updateSelectedDate(weekDateHistoryCount.weekDateMonth.date)
+                                            }
+                                            .padding(vertical = LiftTheme.space.space4)
+                                            .weight(1f),
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)) {
+                                            if (today == weekDateHistoryCount.weekDateMonth.date) Box(
+                                                modifier = modifier
+                                                    .size(LiftTheme.space.space28)
+                                                    .background(
+                                                        LiftTheme.colorScheme.no4, CircleShape
+                                                    ), contentAlignment = Alignment.Center
+                                            ) {
+                                                LiftText(
+                                                    textStyle = LiftTextStyle.No5,
+                                                    text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
+                                                    color = LiftTheme.colorScheme.no5,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                            else Box(
+                                                modifier = modifier.size(LiftTheme.space.space28),
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                LiftText(
+                                                    textStyle = LiftTextStyle.No5,
+                                                    text = weekDateHistoryCount.weekDateMonth.date.dayOfMonth.toString(),
+                                                    color = if (weekDateHistoryCount.weekDateMonth.date.toWeekday() == Weekday.Sunday()) LiftTheme.colorScheme.no12 else LiftTheme.colorScheme.no9,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                            HistoryCountLabel(
+                                                modifier, weekDateHistoryCount.historyCount
                                             )
                                         }
-                                    HistoryCountLabel(modifier, weekDateHistoryCount.historyCount)
+                                    }
                                 }
                             }
                         }
@@ -305,17 +308,22 @@ fun CalendarView(
 @Composable
 fun DisabledWeekDateCard(
     modifier: Modifier = Modifier,
-    date: LocalDate,
+    date: kotlinx.datetime.LocalDate,
+    updateSelectedDate: (kotlinx.datetime.LocalDate) -> Unit,
 ) {
     Column(
-        modifier = modifier.padding(vertical = LiftTheme.space.space8),
+        modifier = modifier
+            .noRippleClickable {
+                updateSelectedDate(date)
+            }
+            .padding(vertical = LiftTheme.space.space8),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
     ) {
         LiftText(
             textStyle = LiftTextStyle.No5,
             text = date.dayOfMonth.toString(),
-            color = if (date.toKotlinLocalDate()
+            color = if (date
                     .toWeekday() == Weekday.Sunday()
             ) LiftTheme.colorScheme.no52 else LiftTheme.colorScheme.no6,
             textAlign = TextAlign.Center
@@ -343,8 +351,7 @@ fun HistoryCountLabel(
                     modifier = Modifier
                         .size(LiftTheme.space.space6)
                         .background(
-                            LiftTheme.colorScheme.no47,
-                            CircleShape
+                            LiftTheme.colorScheme.no47, CircleShape
                         )
                 )
             }
@@ -354,16 +361,14 @@ fun HistoryCountLabel(
                     modifier = Modifier
                         .size(LiftTheme.space.space6)
                         .background(
-                            LiftTheme.colorScheme.no47,
-                            CircleShape
+                            LiftTheme.colorScheme.no47, CircleShape
                         )
                 )
                 Spacer(
                     modifier = Modifier
                         .size(LiftTheme.space.space6)
                         .background(
-                            LiftTheme.colorScheme.no50,
-                            CircleShape
+                            LiftTheme.colorScheme.no50, CircleShape
                         )
                 )
             }
@@ -373,24 +378,21 @@ fun HistoryCountLabel(
                     modifier = Modifier
                         .size(LiftTheme.space.space6)
                         .background(
-                            LiftTheme.colorScheme.no47,
-                            CircleShape
+                            LiftTheme.colorScheme.no47, CircleShape
                         )
                 )
                 Spacer(
                     modifier = Modifier
                         .size(LiftTheme.space.space6)
                         .background(
-                            LiftTheme.colorScheme.no50,
-                            CircleShape
+                            LiftTheme.colorScheme.no50, CircleShape
                         )
                 )
                 Spacer(
                     modifier = Modifier
                         .size(LiftTheme.space.space6)
                         .background(
-                            LiftTheme.colorScheme.no49,
-                            CircleShape
+                            LiftTheme.colorScheme.no49, CircleShape
                         )
                 )
             }

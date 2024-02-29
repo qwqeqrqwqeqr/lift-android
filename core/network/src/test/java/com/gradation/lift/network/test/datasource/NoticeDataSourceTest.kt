@@ -4,10 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.Notice.NOTICE_MODEL
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator.Notification.noticeResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.Notice.GET_NOTICE_BY_ID_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Notice.GET_NOTICE_RESPONSE_JSON
 import com.gradation.lift.network.datasource.notice.DefaultNoticeDefaultDataSource
 import com.gradation.lift.network.datasource.notice.NoticeDataSource
 import com.gradation.lift.network.di.TestDispatcher
@@ -15,7 +17,6 @@ import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.NoticeService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -26,7 +27,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 
 class NoticeDataSourceTest {
@@ -53,7 +53,7 @@ class NoticeDataSourceTest {
         networkResultHandler =
             NetworkResultHandler(dispatcherProvider = dispatcher)
         noticeDataSource = DefaultNoticeDefaultDataSource(
-            noticeService, networkResultHandler,dispatcher
+            noticeService, networkResultHandler, dispatcher
         )
     }
 
@@ -67,14 +67,31 @@ class NoticeDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(noticeResponseJson)
+                .setBody(GET_NOTICE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(noticeDataSource.getNotice().first()) {
             Truth.assertThat(
-                NetworkResult.Success(listOf(ModelDataGenerator.Notification.noticeModel))
+                NetworkResult.Success(listOf(NOTICE_MODEL))
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun getNoticeById() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_NOTICE_BY_ID_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(noticeDataSource.getNoticeById(FAKE_INT_DATA).first()) {
+            Truth.assertThat(
+                NetworkResult.Success(NOTICE_MODEL)
             ).isEqualTo(this)
         }
     }

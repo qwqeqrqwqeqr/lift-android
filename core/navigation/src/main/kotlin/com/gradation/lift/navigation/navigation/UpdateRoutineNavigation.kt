@@ -6,12 +6,9 @@ import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.HOME_GRAPH_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_LIST_ROUTER_NAME
 import com.gradation.lift.navigation.Route.ROUTINE_DETAIL_ROUTINE_ROUTER_NAME
+import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_PROFILE_PICTURE_ROUTER_NAME
-import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_CREATE_WORK_SET_ROUTER_NAME
-import com.gradation.lift.navigation.Route.UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
 
 
 fun NavController.navigateRoutineSetToProfilePictureInUpdateRoutineGraph() {
@@ -38,17 +35,14 @@ fun NavController.navigateFindWorkCategoryToCreateWorkSetInUpdateRoutineGraph(wo
 }
 
 fun NavController.navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph() {
-    this.popBackStack()
-}
-
-
-fun NavController.navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph() {
-    this.navigate(UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
-        this.popUpTo(UPDATE_ROUTINE_ROUTINE_SET_ROUTER_NAME) {
+    this.navigate(UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
+        this.popUpTo(UPDATE_ROUTINE_FIND_WORK_CATEGORY_ROUTER_NAME) {
             inclusive = true
         }
     }
 }
+
+
 
 
 fun NavController.navigateRoutineSetToUpdateWorkSetInUpdateRoutineGraph(routineIndex: Int) {

@@ -13,13 +13,15 @@ import com.gradation.lift.designsystem.brush.SkeletonBrush
 import com.gradation.lift.designsystem.component.topBar.LiftHomeTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.home.home.data.state.UserDetailUiState
+import com.gradation.lift.ui.modifier.noRippleClickable
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun TopBar(
+fun HeaderView(
     modifier: Modifier = Modifier,
     userDetailUiState: UserDetailUiState,
+    navigateHomeGraphToMyinfoProfileRouter: () -> Unit,
 ) {
     LiftHomeTopBar(
         modifier = modifier,
@@ -31,9 +33,9 @@ fun TopBar(
                             .size(LiftTheme.space.space36)
                             .clip(CircleShape)
                             .background(LiftTheme.colorScheme.no8)
-
                     )
                 }
+
                 UserDetailUiState.Loading -> {
                     Spacer(
                         modifier = modifier
@@ -43,11 +45,16 @@ fun TopBar(
 
                     )
                 }
+
                 is UserDetailUiState.Success -> {
                     GlideImage(
                         model = userDetailUiState.userDetail.profilePicture,
                         contentDescription = "profilePicture",
-                        modifier = modifier.size(LiftTheme.space.space36)
+                        modifier = modifier
+                            .size(LiftTheme.space.space36)
+                            .noRippleClickable(
+                                onClick = navigateHomeGraphToMyinfoProfileRouter
+                            )
                     )
                 }
             }

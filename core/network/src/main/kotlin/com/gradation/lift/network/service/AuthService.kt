@@ -119,8 +119,8 @@ interface AuthService {
      */
     @GET("auth/exist/user")
     suspend fun checkExistUser(
-        @Query("user_id") userId: String,
-        @Query("email") email: String,
+        @Query("user_id", encoded = true) userId: String,
+        @Query("email", encoded = true) email: String,
     ): Response<APIResultWrapper<CheckExistUserResponseDto>>
 
 

@@ -48,10 +48,9 @@ fun RoutineSetLabelView(
                 textAlign = TextAlign.Start
             )
         }
-
         Row(
             modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12),
+            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space16),
             verticalAlignment = Alignment.CenterVertically
         ) {
             listOf(
@@ -84,7 +83,7 @@ fun RoutineSetLabelView(
                 if (currentRoutineSetRoutine.label.contains(it.first))
                     Icon(
                         modifier = modifier
-                            .size(LiftTheme.space.space28)
+                            .size(LiftTheme.space.space24)
                             .noRippleClickable {
                                 currentRoutineSetRoutineState.updateRoutineSetLabel(
                                     currentRoutineSetRoutine.label.minus(it.first)
@@ -96,14 +95,12 @@ fun RoutineSetLabelView(
                     )
                 else Icon(
                     modifier = modifier
-                        .size(LiftTheme.space.space28)
-
+                        .size(LiftTheme.space.space24)
                         .noRippleClickable {
                             currentRoutineSetRoutineState.updateRoutineSetLabel(
                                 currentRoutineSetRoutine.label.plus(it.first)
                             )
                         },
-
                     painter = painterResource(id = it.second),
                     contentDescription = "",
                     tint = Color.Unspecified

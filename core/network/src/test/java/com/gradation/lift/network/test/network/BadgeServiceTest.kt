@@ -5,13 +5,20 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.createUserBadgeRequestDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.createUserBadgeResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.getBadgeResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.getUserBadgeByMainFlagResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.getUserBadgeConditionResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.getUserBadgeResponseDto
-import com.gradation.lift.network.data.TestJsonDataGenerator
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.CreateUserBadge.CREATE_USER_BADGE_REQUEST_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.CreateUserBadge.CREATE_USER_BADGE_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.GetBadge.GET_BADGE_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.GetUserBadge.GET_USER_BADGE_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.GetUserBadgeByMainFlag.GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.GetUserBadgeCondition.GET_USER_BADGE_CONDITION_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.UpdateUserBadgeByMainFlag.UPDATE_USER_BADGE_BY_MAIN_FLAG_REQUEST_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Badge.UpdateUserBadgeByMainFlag.UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.CREATE_USER_BADGE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_BADGE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_USER_BADGE_CONDITION_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_USER_BADGE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON
 import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.service.BadgeService
@@ -56,7 +63,7 @@ class BadgeServiceTest {
     fun getBadgeService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Badge.badgeResponseJson)
+                .setBody(GET_BADGE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -66,7 +73,7 @@ class BadgeServiceTest {
             Truth.assertThat(code()).isEqualTo(Constants.OK)
             Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
             Truth.assertThat(body()!!.data)
-                .isEqualTo(getBadgeResponseDto)
+                .isEqualTo(GET_BADGE_RESPONSE_DTO)
         }
 
         with(mockWebServer.takeRequest()) {
@@ -79,7 +86,7 @@ class BadgeServiceTest {
     fun getUserBadgeService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Badge.userBadgeResponseJson)
+                .setBody(GET_USER_BADGE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -89,7 +96,7 @@ class BadgeServiceTest {
             Truth.assertThat(code()).isEqualTo(Constants.OK)
             Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
             Truth.assertThat(body()!!.data)
-                .isEqualTo(getUserBadgeResponseDto)
+                .isEqualTo(GET_USER_BADGE_RESPONSE_DTO)
         }
 
         with(mockWebServer.takeRequest()) {
@@ -102,17 +109,17 @@ class BadgeServiceTest {
     fun createUserBadgeService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Common.resultResponseJson)
+                .setBody(CREATE_USER_BADGE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.CREATED)
         )
 
 
-        with(badgeService.createUserBadge(createUserBadgeRequestDto)) {
+        with(badgeService.createUserBadge(CREATE_USER_BADGE_REQUEST_DTO)) {
             Truth.assertThat(code()).isEqualTo(Constants.CREATED)
             Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
             Truth.assertThat(body()!!.data)
-                .isEqualTo(createUserBadgeResponseDto)
+                .isEqualTo(CREATE_USER_BADGE_RESPONSE_DTO)
         }
 
         with(mockWebServer.takeRequest()) {
@@ -125,7 +132,7 @@ class BadgeServiceTest {
     fun getUserBadgeByMainFlagService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Badge.userBadgeResponseJson)
+                .setBody(GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -134,7 +141,7 @@ class BadgeServiceTest {
             Truth.assertThat(code()).isEqualTo(Constants.OK)
             Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
             Truth.assertThat(body()!!.data)
-                .isEqualTo(getUserBadgeByMainFlagResponseDto)
+                .isEqualTo(GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO)
         }
 
         with(mockWebServer.takeRequest()) {
@@ -147,7 +154,7 @@ class BadgeServiceTest {
     fun getUserBadgeByConditionService() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Badge.badgeConditionResponseJson)
+                .setBody(GET_USER_BADGE_CONDITION_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -156,12 +163,35 @@ class BadgeServiceTest {
             Truth.assertThat(code()).isEqualTo(Constants.OK)
             Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
             Truth.assertThat(body()!!.data)
-                .isEqualTo(getUserBadgeConditionResponseDto)
+                .isEqualTo(GET_USER_BADGE_CONDITION_RESPONSE_DTO)
         }
 
         with(mockWebServer.takeRequest()) {
             Truth.assertThat(path).isEqualTo("/badge/user-badge/condition")
             Truth.assertThat(method).isEqualTo(Constants.GET)
+        }
+    }
+
+
+    @Test
+    fun updateUserBadgeMainFlagService() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(badgeService.updateUserBadgeMainFlag(UPDATE_USER_BADGE_BY_MAIN_FLAG_REQUEST_DTO)) {
+            Truth.assertThat(code()).isEqualTo(Constants.OK)
+            Truth.assertThat(body()).isInstanceOf(APIResultWrapper::class.java)
+            Truth.assertThat(body()!!.data)
+                .isEqualTo(UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_DTO)
+        }
+
+        with(mockWebServer.takeRequest()) {
+            Truth.assertThat(path).isEqualTo("/badge/user-badge/main-flag")
+            Truth.assertThat(method).isEqualTo(Constants.PATCH)
         }
     }
 }

@@ -27,13 +27,13 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 
-enum class SnackBarCategory { Warn,Info }
+enum class SnackBarCategory { Warn, Info }
 
 @Composable
 fun LiftSnackBar(
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState,
-    snackbarCategory: SnackBarCategory= SnackBarCategory.Warn,
+    snackbarCategory: SnackBarCategory = SnackBarCategory.Warn,
     onClick: (() -> Unit)? = null,
 ) {
     SnackbarHost(
@@ -44,19 +44,21 @@ fun LiftSnackBar(
                 modifier = modifier,
                 message = data.visuals.message,
                 actionLabel = data.visuals.actionLabel,
-                snackbarCategory=snackbarCategory,
+                snackbarCategory = snackbarCategory,
                 onClick = onClick ?: { data.dismiss() },
             )
         }
     )
 }
 
+
+
 @Composable
 fun SnackbarComponent(
     modifier: Modifier = Modifier,
     message: String,
     actionLabel: String?,
-    snackbarCategory: SnackBarCategory= SnackBarCategory.Warn,
+    snackbarCategory: SnackBarCategory = SnackBarCategory.Warn,
     onClick: () -> Unit,
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
@@ -86,7 +88,7 @@ fun SnackbarComponent(
                 Icon(
                     painter = painterResource(LiftIcon.Warn),
                     contentDescription = "Info",
-                    tint = when(snackbarCategory){
+                    tint = when (snackbarCategory) {
                         SnackBarCategory.Warn -> LiftTheme.colorScheme.no12
                         SnackBarCategory.Info -> LiftTheme.colorScheme.no4
                     }
@@ -118,7 +120,7 @@ fun SnackbarComponent(
             ) {
                 LiftText(
                     textStyle = LiftTextStyle.No5,
-                    text = actionLabel?: "확인",
+                    text = actionLabel ?: "확인",
                     color = LiftTheme.colorScheme.no5,
                     textAlign = TextAlign.Center
                 )

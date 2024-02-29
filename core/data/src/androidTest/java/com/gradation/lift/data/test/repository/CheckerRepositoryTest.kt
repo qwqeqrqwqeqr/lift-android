@@ -3,7 +3,9 @@ package com.gradation.lift.data.test.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.di.TestDispatcher
 import com.gradation.lift.data.fake.datasource.FakeCheckerDataSource
 import com.gradation.lift.data.repository.DefaultCheckerRepository
 import com.gradation.lift.data.utils.TestReturnState
@@ -27,6 +29,7 @@ class CheckerRepositoryTest {
     private lateinit var successDataSource: CheckerDataSource
     private lateinit var successRepository: CheckerRepository
     private lateinit var failRepository: CheckerRepository
+    private lateinit var testDispatcher: DispatcherProvider
 
 
     @get:Rule
@@ -39,9 +42,10 @@ class CheckerRepositoryTest {
     fun setUp() {
         failDataSource = FakeCheckerDataSource(TestReturnState.Fail)
         successDataSource = FakeCheckerDataSource(TestReturnState.Success)
+        testDispatcher = TestDispatcher.testDispatchers()
 
-        successRepository = DefaultCheckerRepository(successDataSource)
-        failRepository = DefaultCheckerRepository(failDataSource)
+        successRepository = DefaultCheckerRepository(successDataSource, testDispatcher)
+        failRepository = DefaultCheckerRepository(failDataSource, testDispatcher)
     }
 
 

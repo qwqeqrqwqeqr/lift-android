@@ -26,7 +26,11 @@ fun HeaderView(
 ) {
     Row(
         modifier = modifier
-            .padding(horizontal = LiftTheme.space.space20)
+            .padding(
+                top = LiftTheme.space.space40,
+                end = LiftTheme.space.space20,
+                start = LiftTheme.space.space20
+            )
             .noRippleClickable {
                 historyScreenState.updateDatePickerBottomSheetView(
                     true

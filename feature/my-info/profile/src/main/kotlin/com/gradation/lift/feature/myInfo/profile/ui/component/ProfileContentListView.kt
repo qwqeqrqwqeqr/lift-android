@@ -25,6 +25,7 @@ fun ProfileContentListView(
     modifier: Modifier = Modifier,
     navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit,
     navigateProfileToUpdateInfoInMyInfoGraph: (String, Float, Float) -> Unit,
+    navigateProfileToCancelMembershipInMyInfoGraph: () -> Unit,
     profileState: ProfileState,
 ) {
     Column(
@@ -47,6 +48,9 @@ fun ProfileContentListView(
                     profileState.weight
                 )
             },
+            ProfileContent(
+                "회원탈퇴", null
+            ) { navigateProfileToCancelMembershipInMyInfoGraph() },
         ).forEach {
             Row(
                 modifier = modifier
@@ -84,8 +88,8 @@ fun ProfileContentListView(
                 }
                 Icon(
                     modifier = modifier,
-                    painter = painterResource(id = LiftIcon.ChevronRightLarge),
-                    contentDescription = "chevronRightLarge",
+                    painter = painterResource(id = LiftIcon.ChevronRight),
+                    contentDescription = "ChevronRight",
                     tint = LiftTheme.colorScheme.no2
                 )
             }

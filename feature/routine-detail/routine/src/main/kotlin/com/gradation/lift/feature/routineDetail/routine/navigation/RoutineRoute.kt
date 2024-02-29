@@ -2,17 +2,13 @@ package com.gradation.lift.feature.routineDetail.routine.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.gradation.lift.feature.routineDetail.routine.data.RoutineUiState
-import com.gradation.lift.feature.routineDetail.routine.ui.RoutineScreen
 import com.gradation.lift.feature.routineDetail.routine.data.RoutineViewModel
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.getValueSavedStateHandle
+import com.gradation.lift.feature.routineDetail.routine.ui.RoutineScreen
 
 @Composable
 fun RoutineRoute(

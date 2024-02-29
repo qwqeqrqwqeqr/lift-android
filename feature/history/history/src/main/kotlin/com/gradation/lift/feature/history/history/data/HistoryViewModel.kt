@@ -56,7 +56,7 @@ class HistoryViewModel @Inject constructor(
 
 
     val today: LocalDate = getTodayUseCase()
-    val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(getTodayUseCase())
+    val selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(today)
     var selectedTabIndex: MutableStateFlow<Int> = MutableStateFlow(0)
 
     val calendar: StateFlow<Map<Int, List<WeekDateHistoryCount>>> =

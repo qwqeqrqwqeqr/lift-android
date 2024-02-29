@@ -107,7 +107,8 @@ fun NoticeScreen(
                         end = LiftTheme.space.space20,
                         top = LiftTheme.space.space24
                     ),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
             ) {
                 items(noticeUiState.noticeList) {
                     LiftDefaultContainer(

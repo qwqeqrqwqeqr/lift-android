@@ -2,6 +2,7 @@ package com.gradation.lift.network.datasource.user
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.model.auth.LoginMethod
+import com.gradation.lift.model.model.user.DeleteUserInfo
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
@@ -23,6 +24,18 @@ class DefaultUserDataSource @Inject constructor(
     private val networkResultHandler: NetworkResultHandler,
     private val dispatcherProvider: DispatcherProvider
 ) : UserDataSource {
+    override suspend fun deleteUser(deleteUserInfo: DeleteUserInfo): Flow<NetworkResult<Unit>> =
+        flow {
+            networkResultHandler {
+                userService.deleteUser(deleteUserInfo.toDto())
+            }.collect { result ->
+                when (result) {
+                    is NetworkResult.Fail -> emit(NetworkResult.Fail(result.message))
+                    is NetworkResult.Success -> emit(NetworkResult.Success(Unit))
+                }
+            }
+        }.flowOn(dispatcherProvider.default)
+
 
     override suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>> = flow {
         networkResultHandler {

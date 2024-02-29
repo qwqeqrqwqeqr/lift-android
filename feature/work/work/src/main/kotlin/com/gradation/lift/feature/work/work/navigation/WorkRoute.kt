@@ -16,27 +16,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
+import com.gradation.lift.feature.work.common.data.WorkState
+import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.work.data.state.SnackBarState
-import com.gradation.lift.feature.work.work.ui.component.dialog.AutoCompleteDialog
-import com.gradation.lift.feature.work.work.ui.component.dialog.CompleteDialog
-import com.gradation.lift.feature.work.work.ui.component.dialog.SuspendDialog
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
-import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.work.data.state.rememberWorkScreenState
 import com.gradation.lift.feature.work.work.data.viewmodel.WorkViewModel
+import com.gradation.lift.feature.work.work.ui.component.dialog.AutoCompleteDialog
+import com.gradation.lift.feature.work.work.ui.component.dialog.CompleteDialog
+import com.gradation.lift.feature.work.work.ui.component.dialog.SuspendDialog
 import com.gradation.lift.feature.work.work.ui.list.ListScreen
 import com.gradation.lift.feature.work.work.ui.rest.RestScreen
 import com.gradation.lift.feature.work.work.ui.work.WorkScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 
@@ -95,21 +95,21 @@ fun WorkRoute(
     }
 
 
-    LaunchedEffect(workScreenState.pagerState, currentWorkRoutineIndex) {
-        snapshotFlow { workScreenState.pagerState.currentPage }.debounce(700L)
+    LaunchedEffect(workScreenState.pagerState) {
+        snapshotFlow { workScreenState.pagerState.currentPage }
             .collectLatest { page ->
                 workState.updateCurrentWorkRoutineIndex(page)
             }
     }
     LaunchedEffect(currentWorkRoutineIndex) {
-        workScreenState.pagerState.animateScrollToPage(currentWorkRoutineIndex)
+        workScreenState.pagerState.scrollToPage(currentWorkRoutineIndex)
     }
 
     LaunchedEffect(workScreenState.snackBarState) {
         when (val result = workScreenState.snackBarState) {
             SnackBarState.None -> {}
             is SnackBarState.Success -> {
-                workScreenState.snackbarHostState.showSnackbar(result.message)
+                workScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
                 workScreenState.updateSnackBarState(SnackBarState.None)
             }
         }

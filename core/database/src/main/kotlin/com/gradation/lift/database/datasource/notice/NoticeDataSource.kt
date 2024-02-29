@@ -1,6 +1,6 @@
 package com.gradation.lift.database.datasource.notice
 
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.notice.Notice
 import kotlinx.coroutines.flow.Flow
 
 /**

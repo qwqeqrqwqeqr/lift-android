@@ -1,35 +1,32 @@
 package com.gradation.lift.feature.home.home.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import com.gradation.lift.designsystem.resource.LiftIcon
+import androidx.compose.ui.tooling.preview.Preview
+import com.gradation.lift.designsystem.component.button.LiftStartWorkButton
+import com.gradation.lift.designsystem.theme.LiftMaterialTheme
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.home.home.ui.component.BadgeView
-import com.gradation.lift.feature.home.home.ui.component.BannerView
-import com.gradation.lift.feature.home.home.ui.component.TopBar
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.home.data.state.HomeAnimationState
 import com.gradation.lift.feature.home.home.data.state.HomeScreenState
 import com.gradation.lift.feature.home.home.data.state.RoutineUiState
 import com.gradation.lift.feature.home.home.data.state.UserDetailUiState
-import com.gradation.lift.feature.home.home.ui.component.routineList.emptyRoutineListView
-import com.gradation.lift.feature.home.home.ui.component.routineList.failRoutineListView
-import com.gradation.lift.feature.home.home.ui.component.routineList.loadingRoutineListView
-import com.gradation.lift.feature.home.home.ui.component.routineList.successRoutineListView
-import com.gradation.lift.ui.extensions.isScrollingUp
-import com.gradation.lift.ui.modifier.noRippleClickable
+import com.gradation.lift.feature.home.home.data.state.WorkStampUiState
+import com.gradation.lift.feature.home.home.data.state.rememberHomeAnimationState
+import com.gradation.lift.feature.home.home.data.state.rememberHomeScreenState
+import com.gradation.lift.feature.home.home.ui.component.BadgeView
+import com.gradation.lift.feature.home.home.ui.component.BannerView
+import com.gradation.lift.feature.home.home.ui.component.HeaderView
+import com.gradation.lift.feature.home.home.ui.component.WorkStampView
+import com.gradation.lift.feature.home.home.ui.component.routineList.RoutineListView
 
 
 @Composable
@@ -38,53 +35,22 @@ internal fun HomeScreen(
     userDetailUiState: UserDetailUiState,
     badgeUiState: BadgeUiState,
     routineUiState: RoutineUiState,
+    workStampUiState: WorkStampUiState,
     navigateMainGraphToCreateRoutineGraph: () -> Unit,
-    navigateHomeGraphToBadgeGraph: () -> Unit,
+    navigateHomeGraphToBadgeBadgeRouter: (Int) -> Unit,
     navigateHomeGraphToRoutineDetailGraph: () -> Unit,
     navigateHomeGraphToRoutineDetailRoutineRouter: (Int) -> Unit,
-    navigateHomeGraphToBadgeSettingRouter: () -> Unit,
+
+    navigateHomeGraphToMyinfoProfileRouter: () -> Unit,
+    navigateHomeGraphToInquiryGraph: () -> Unit,
     homeScreenState: HomeScreenState,
     homeAnimationState: HomeAnimationState,
 ) {
-
-
     Scaffold(
         modifier = modifier,
-        topBar = {
-            AnimatedVisibility(
-                visible = homeScreenState.lazyListState.isScrollingUp(),
-                enter = expandVertically(spring(stiffness = 100f)),
-                exit = shrinkVertically(spring(stiffness = 100f))
-            ) {
-                TopBar(modifier, userDetailUiState)
-            }
-        },
         floatingActionButton = {
-            Box(
-                modifier = modifier
-                    .offset(y = -LiftTheme.space.space60)
-                    .border(
-                        width = LiftTheme.space.space2,
-                        color = LiftTheme.colorScheme.no5,
-                        shape = CircleShape
-                    )
-                    .background(
-                        LiftTheme.colorScheme.no4,
-                        CircleShape
-                    )
-                    .size(LiftTheme.space.space72)
-                    .noRippleClickable { homeScreenState.updateWorkBottomSheetView(true) },
-                contentAlignment = Alignment.Center
-
-            ) {
-                Icon(
-                    modifier = modifier
-                        .width(LiftTheme.space.space42)
-                        .height(LiftTheme.space.space28),
-                    painter = painterResource(id = LiftIcon.Work),
-                    contentDescription = "work",
-                    tint = LiftTheme.colorScheme.no5
-                )
+            LiftStartWorkButton(modifier = modifier) {
+                homeScreenState.updateWorkBottomSheetView(true)
             }
         },
         floatingActionButtonPosition = FabPosition.EndOverlay
@@ -93,63 +59,64 @@ internal fun HomeScreen(
             state = homeScreenState.lazyListState,
             modifier = modifier
                 .fillMaxSize()
-                .background(LiftTheme.colorScheme.no31)
-                .padding(it)
-                .padding(
-                    start = LiftTheme.space.space20,
-                    end = LiftTheme.space.space20,
-                    bottom = LiftTheme.space.space60
-                ),
-            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
+                .background(LiftTheme.colorScheme.no17)
+                .padding(it),
+            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space36),
         ) {
-            item { BannerView(modifier) }
 
+            item {
+                HeaderView(
+                    modifier,
+                    userDetailUiState,
+                    navigateHomeGraphToMyinfoProfileRouter
+                )
+                BannerView(modifier, navigateHomeGraphToInquiryGraph, homeScreenState)
+            }
             item {
                 BadgeView(
                     modifier,
                     badgeUiState,
-                    navigateHomeGraphToBadgeGraph,
-                    navigateHomeGraphToBadgeSettingRouter,
+                    navigateHomeGraphToBadgeBadgeRouter,
                     homeAnimationState
                 )
             }
-
-
-            when (routineUiState) {
-                is RoutineUiState.Fail -> {
-                    failRoutineListView(
-                        modifier,
-                        navigateHomeGraphToRoutineDetailGraph
-                    )
-                }
-
-                RoutineUiState.Empty -> {
-                    emptyRoutineListView(
-                        modifier,
-                        navigateHomeGraphToRoutineDetailGraph,
-                        navigateMainGraphToCreateRoutineGraph
-                    )
-                }
-
-                RoutineUiState.Loading -> {
-                    loadingRoutineListView(
-                        modifier,
-                        navigateHomeGraphToRoutineDetailGraph
-                    )
-                }
-
-                is RoutineUiState.Success -> {
-                    successRoutineListView(
-                        modifier,
-                        routineUiState.routineList,
-                        navigateHomeGraphToRoutineDetailGraph,
-                        navigateMainGraphToCreateRoutineGraph,
-                        navigateHomeGraphToRoutineDetailRoutineRouter,
-                    )
-
-                }
+            item {
+                WorkStampView(
+                    modifier,
+                    workStampUiState
+                )
+            }
+            item {
+                RoutineListView(
+                    modifier,
+                    routineUiState,
+                    navigateMainGraphToCreateRoutineGraph,
+                    navigateHomeGraphToRoutineDetailGraph,
+                    navigateHomeGraphToRoutineDetailRoutineRouter
+                )
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+@Preview
+fun HomeScreenPreview() {
+    LiftMaterialTheme {
+        HomeScreen(
+            userDetailUiState = UserDetailUiState.Loading,
+            badgeUiState = BadgeUiState.Loading,
+            routineUiState = RoutineUiState.Loading,
+            workStampUiState = WorkStampUiState.Loading,
+            navigateMainGraphToCreateRoutineGraph = { },
+            navigateHomeGraphToBadgeBadgeRouter = { },
+            navigateHomeGraphToRoutineDetailGraph = { },
+            navigateHomeGraphToRoutineDetailRoutineRouter = { },
+            navigateHomeGraphToMyinfoProfileRouter = { },
+            navigateHomeGraphToInquiryGraph = {},
+            homeScreenState = rememberHomeScreenState(),
+            homeAnimationState = rememberHomeAnimationState()
+        )
+    }
+}

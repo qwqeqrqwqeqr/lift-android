@@ -5,16 +5,25 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.di.TestServiceModule
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_EMAIL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_MESSAGE_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.EMAIL_AUTHENTICATION_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.EMAIL_AUTHENTICATION_VALIDATION_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.GOOGLE_SIGN_IN_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.KAKAO_SIGN_IN_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.NAVER_SIGN_IN_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.TOKEN_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.UPDATE_PASSWORD_INFO_MODEL
+import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.data.TestJsonDataGenerator
-import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.AuthService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -71,55 +80,13 @@ class AuthDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.Auth.signInDefaultResponseJson)
+                .setBody(TestJsonDataGenerator.Auth.SIGN_IN_DEFAULT_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
-        with(authDataSource.signInKakao(signInInfo = ModelDataGenerator.Auth.kakaoSignInInfoModel).first()) {
-           Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.Auth.tokenModel)
-            ).isEqualTo(
-                this
-            )
-        }
-    }
-
-
-    @Test
-    fun signInKakaoDataSource() = runTest {
-
-        mockWebServer.enqueue(
-            MockResponse()
-                .setBody(TestJsonDataGenerator.Auth.signInKakaoResponseJson)
-                .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
-        )
-
-        with(authDataSource.signInNaver(signInInfo = ModelDataGenerator.Auth.naverSignInInfoModel).first()) {
-            Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.Auth.tokenModel)
-            ).isEqualTo(
-                this
-            )
-        }
-    }
-
-    @Test
-    fun signInNaverDataSource() = runTest {
-
-        mockWebServer.enqueue(
-            MockResponse()
-                .setBody(TestJsonDataGenerator.Auth.signInNaverResponseJson)
-                .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
-        )
-        with(authDataSource.signInNaver(signInInfo = ModelDataGenerator.Auth.naverSignInInfoModel).first()) {
-            Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.Auth.tokenModel)
-            ).isEqualTo(
-                this
-            )
+        with(authDataSource.signInKakao(signInInfo = KAKAO_SIGN_IN_INFO_MODEL).first()) {
+            Truth.assertThat(NetworkResult.Success(TOKEN_MODEL)).isEqualTo(this)
         }
     }
 
@@ -129,19 +96,187 @@ class AuthDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(TestJsonDataGenerator.Auth.SIGN_UP_DEFAULT_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.signUpDefault(ModelDataGenerator.Auth.DEFAULT_SIGN_UP_INFO_MODEL).first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun signInKakaoDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.SIGN_IN_KAKAO_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
-        with(authDataSource.signUpDefault(ModelDataGenerator.Auth.defaultSignUpInfoModel).first()) {
-            Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA)
-            ).isEqualTo(
-                this
-            )
+        with(authDataSource.signInKakao(signInInfo = KAKAO_SIGN_IN_INFO_MODEL).first()) {
+            Truth.assertThat(NetworkResult.Success(TOKEN_MODEL)).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun signUpKakaoDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.SIGN_UP_KAKAO_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.signUpKakao(ModelDataGenerator.Auth.KAKAO_SIGN_UP_INFO_MODEL).first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
         }
     }
 
 
+    @Test
+    fun signInNaverDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.SIGN_IN_NAVER_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(authDataSource.signInNaver(signInInfo = NAVER_SIGN_IN_INFO_MODEL).first()) {
+            Truth.assertThat(NetworkResult.Success(TOKEN_MODEL)).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun signUpNaverDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.SIGN_UP_NAVER_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.signUpNaver(ModelDataGenerator.Auth.NAVER_SIGN_UP_INFO_MODEL).first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun signInGoogleDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.SIGN_IN_GOOGLE_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(authDataSource.signInGoogle(signInInfo = GOOGLE_SIGN_IN_INFO_MODEL).first()) {
+            Truth.assertThat(NetworkResult.Success(TOKEN_MODEL)).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun signUpGoogleDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.SIGN_UP_GOOGLE_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.signUpGoogle(ModelDataGenerator.Auth.GOOGLE_SIGN_UP_INFO_MODEL).first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun checkUserExistDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.CHECK_EXIST_USER_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.checkUserExist(userId = FAKE_STRING_DATA, email = FAKE_EMAIL_DATA)
+                .first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun updateUserPasswordDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.UPDATE_PASSWORD_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.updateUserPassword(UPDATE_PASSWORD_INFO_MODEL).first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(
+                    DefaultDataGenerator.FAKE_BOOLEAN_DATA,
+                    message = FAKE_MESSAGE_DATA
+                )
+            )
+                .isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun createEmailAuthenticationCodeDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.CREATE_EMAIL_AUTHENTICATION_CODE_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.createEmailAuthenticationCode(EMAIL_AUTHENTICATION_INFO_MODEL).first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun validateEmailAuthenticationDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(TestJsonDataGenerator.Auth.VALIDATE_EMAIL_AUTHENTICATION_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(
+            authDataSource.validateEmailAuthentication(EMAIL_AUTHENTICATION_VALIDATION_INFO_MODEL)
+                .first()
+        ) {
+            Truth.assertThat(NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA))
+                .isEqualTo(this)
+        }
+    }
 }

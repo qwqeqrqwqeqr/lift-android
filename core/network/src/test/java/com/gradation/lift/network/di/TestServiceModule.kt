@@ -1,6 +1,18 @@
 package com.gradation.lift.network.di
 
-import com.gradation.lift.network.service.*
+import com.gradation.lift.network.service.AuthService
+import com.gradation.lift.network.service.BadgeService
+import com.gradation.lift.network.service.CheckerService
+import com.gradation.lift.network.service.FavoriteService
+import com.gradation.lift.network.service.HistoryService
+import com.gradation.lift.network.service.InquiryService
+import com.gradation.lift.network.service.NoticeService
+import com.gradation.lift.network.service.PictureService
+import com.gradation.lift.network.service.RefreshService
+import com.gradation.lift.network.service.RoutineService
+import com.gradation.lift.network.service.TermsService
+import com.gradation.lift.network.service.UserService
+import com.gradation.lift.network.service.WorkService
 
 
 object TestServiceModule {
@@ -23,6 +35,14 @@ object TestServiceModule {
     fun testNotificationService(retrofit: TestRetrofit): NoticeService =
         retrofit.build().create(NoticeService::class.java)
 
+    fun testTermsService(retrofit: TestRetrofit): TermsService =
+        retrofit.build().create(TermsService::class.java)
+
+    fun testFavoriteService(retrofit: TestRetrofit): FavoriteService =
+        retrofit.build().create(FavoriteService::class.java)
+
+    fun testInquiryService(retrofit: TestRetrofit): InquiryService =
+        retrofit.build().create(InquiryService::class.java)
 
     fun testRefreshService(retrofit: TestRetrofit): RefreshService =
         retrofit.build().create(RefreshService::class.java)

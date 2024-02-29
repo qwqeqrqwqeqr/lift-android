@@ -12,6 +12,7 @@ import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,10 +43,10 @@ class WorkSharedViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getWorkUseCase().collect {
-                when (it) {
+                when (val result = it) {
                     is DataState.Fail -> {}
                     is DataState.Success -> {
-                        workState.workRoutineList.addAll(it.data.routine.mapIndexed { index, workRoutine ->
+                        workState.workRoutineList.addAll(result.data.routine.mapIndexed { index, workRoutine ->
                             WorkRoutine(
                                 index,
                                 workRoutine.workCategory,
@@ -58,7 +59,7 @@ class WorkSharedViewModel @Inject constructor(
                             )
                         })
                         workState.startTimer()
-                        usedRoutineSetIdList.value = it.data.usedRoutineSetIdList
+                        usedRoutineSetIdList.update { result.data.usedRoutineSetIdList }
                     }
                 }
             }

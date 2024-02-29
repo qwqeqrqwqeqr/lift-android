@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -26,7 +27,8 @@ fun AllConsentView(
         horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
     ) {
         LiftCircleCheckbox(
-            modifier = modifier.size(LiftTheme.space.space20),
+            modifier = modifier,
+            liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size24,
             checked = checked,
             onCheckedChange = onCheckedChange
         )

@@ -4,6 +4,12 @@ buildscript {
         mavenCentral()
         gradlePluginPortal()
     }
+    dependencies {
+        classpath(libs.android.gradlePlugin)
+        classpath(libs.google.services)
+        classpath(libs.firebase.crashlytics.gradle)
+        classpath(libs.gms.oss.licenses.plugin)
+    }
 }
 
 plugins {
@@ -18,7 +24,6 @@ plugins {
     alias(libs.plugins.crashlytics) apply false
     alias(libs.plugins.firebase.perf) apply false
     alias(libs.plugins.parcelize) apply  false
-
 }
 
 

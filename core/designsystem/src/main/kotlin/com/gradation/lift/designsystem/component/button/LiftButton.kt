@@ -28,6 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.gradation.lift.designsystem.theme.LiftTheme
 
+enum class ButtonTextSize {
+    Small,
+    Large
+}
 @Composable
 fun LiftSolidButton(
     modifier: Modifier = Modifier,
@@ -89,6 +93,7 @@ fun LiftDefaultButton(
     height: Dp = LiftTheme.space.space48,
     width: Dp = Dp.Unspecified,
     shape: Shape = RoundedCornerShape(size = LiftTheme.space.space12),
+    buttonTextSize: ButtonTextSize = ButtonTextSize.Large,
     onClick: () -> Unit,
 ) {
     val hapticFeedback: HapticFeedback = LocalHapticFeedback.current
@@ -126,12 +131,22 @@ fun LiftDefaultButton(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        LiftButtonText(
-            modifier = modifier,
-            text = text,
-            color = textColor,
-            textAlign = TextAlign.Center
-        )
+        when (buttonTextSize) {
+            ButtonTextSize.Small -> LiftSmallButtonText(
+                modifier = modifier,
+                text = text,
+                color = textColor,
+                textAlign = TextAlign.Center
+            )
+
+            ButtonTextSize.Large -> LiftButtonText(
+                modifier = modifier,
+                text = text,
+                color = textColor,
+                textAlign = TextAlign.Center
+            )
+        }
+
     }
 }
 

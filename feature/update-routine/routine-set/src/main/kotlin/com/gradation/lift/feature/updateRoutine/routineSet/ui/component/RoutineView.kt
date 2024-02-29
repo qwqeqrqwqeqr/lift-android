@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.component.filter.LiftAddContainer
-import com.gradation.lift.designsystem.component.filter.LiftChangeOrderContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftAddSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftChangeOrderSmallButton
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -50,8 +50,8 @@ internal fun RoutineView(
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                LiftChangeOrderContainer(modifier.noRippleClickable { navigateRoutineSetToChangeOrderInUpdateRoutineGraph() })
-                LiftAddContainer(modifier.noRippleClickable { navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph() })
+                LiftChangeOrderSmallButton(modifier.noRippleClickable { navigateRoutineSetToChangeOrderInUpdateRoutineGraph() })
+                LiftAddSmallButton(modifier.noRippleClickable { navigateRoutineSetToFindWorkCategoryInUpdateRoutineGraph() })
             }
         }
         RoutineListView(

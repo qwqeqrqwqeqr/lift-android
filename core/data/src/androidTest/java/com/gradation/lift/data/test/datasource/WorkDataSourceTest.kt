@@ -2,18 +2,17 @@ package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
 import com.gradation.lift.data.fake.datasource.FakeWorkDataSource
+import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.Work.WORK_CATEGORY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Work.WORK_PART_MODEL
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.work.WorkDataSource
-import com.gradation.lift.data.utils.TestReturnState
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkCategory.workCategoryModelList
-import com.gradation.lift.model.utils.ModelDataGenerator.WorkPart.workPartModelList
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -32,7 +31,7 @@ class WorkDataSourceTest {
         dataSource =
             FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
-            NetworkResult.Success(workPartModelList),
+            NetworkResult.Success(listOf(WORK_PART_MODEL)),
             dataSource.getWorkPart().first()
         )
 
@@ -51,7 +50,7 @@ class WorkDataSourceTest {
         dataSource =
             FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
-            NetworkResult.Success(workCategoryModelList),
+            NetworkResult.Success(listOf(WORK_CATEGORY_MODEL)),
             dataSource.getWorkCategory().first()
         )
 
@@ -70,7 +69,7 @@ class WorkDataSourceTest {
         dataSource =
             FakeWorkDataSource(testReturnState = TestReturnState.Success)
         assertEquals(
-            NetworkResult.Success(workCategoryModelList),
+            NetworkResult.Success(listOf(WORK_CATEGORY_MODEL)),
             dataSource.getWorkCategoryByWorkPart(FAKE_STRING_DATA).first()
         )
 

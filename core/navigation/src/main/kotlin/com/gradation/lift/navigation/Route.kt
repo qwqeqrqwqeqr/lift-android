@@ -72,6 +72,10 @@ object Route {
     const val MY_INFO_UPDATE_INFO_ROUTER_NAME = "myinfo_update_info"
     const val MY_INFO_UPDATE_NAME_ROUTER_NAME = "myinfo_update_name"
     const val MY_INFO_UPDATE_PROFILE_PICTURE_ROUTER_NAME = "myinfo_update_profile_picture"
+    const val MY_INFO_TERMS_POLICY_ROUTER_NAME = "myinfo_terms_of_use"
+    const val MY_INFO_TERMS_POLICY_DETAIL_ROUTER_NAME = "myinfo_terms_of_use_detail"
+    const val MY_INFO_CANCEL_MEMBERSHIP_ROUTER_NAME = "myinfo_cancel_membership"
+    const val MY_INFO_CANCEL_MEMBERSHIP_CONFIRM_ROUTER_NAME = "myinfo_cancel_membership_confirm"
 
     const val NOTICE_GRAPH_NAME = "notice_graph"
     const val NOTICE_NOTICE_ROUTER_NAME = "notice_notice"
@@ -99,4 +103,7 @@ object Route {
     const val WORK_READY_READY_ROUTER_NAME = "work_ready_ready"
     const val WORK_READY_FIND_WORK_CATEGORY_ROUTER_NAME = "work_ready_find_work_category"
     const val WORK_READY_CREATE_WORK_SET_ROUTER_NAME = "work_ready_create_work_set"
+
+    const val INQUIRY_GRAPH_NAME = "inquiry_graph"
+    const val INQUIRY_REGISTER_INQUIRY_ROUTER_NAME = "inquiry_register_inquiry"
 }

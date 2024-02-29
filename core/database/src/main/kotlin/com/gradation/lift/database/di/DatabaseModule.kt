@@ -20,16 +20,18 @@ object DatabaseModule {
     @Singleton
     fun providesLiftDatabase(
         @ApplicationContext context: Context,
-        listTypeConverter: ListTypeConverter,
+        stringListTypeConverter: StringListTypeConverter,
+        intListTypeConverter: IntListTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
         unitOfWeightTypeConverter: UnitOfWeightTypeConverter,
         genderTypeConverter: GenderTypeConverter,
         localDateTimeTypeConverter: LocalDateTimeTypeConverter,
-        localDateTypeConverter: LocalDateTypeConverter
+        localDateTypeConverter: LocalDateTypeConverter,
     ) =
         Room.databaseBuilder(context, LiftDatabase::class.java, DATABASE_NAME)
-            .addTypeConverter(listTypeConverter)
+            .addTypeConverter(stringListTypeConverter)
+            .addTypeConverter(intListTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
             .addTypeConverter(localDateTimeTypeConverter)

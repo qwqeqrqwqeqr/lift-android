@@ -7,7 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,12 +25,14 @@ fun LiftDefaultChip(
     modifier: Modifier = Modifier,
     text: String,
     isSelected: Boolean = true,
-    onClick: () -> Unit
+    enabled: Boolean = true,
+    onClick: (() -> Unit)? = null,
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
     val backgroundColor: Color by animateColorAsState(
-        if (isSelected) LiftTheme.colorScheme.no4
+        if (!enabled && isSelected) LiftTheme.colorScheme.no13
+        else if (enabled && isSelected) LiftTheme.colorScheme.no4
         else LiftTheme.colorScheme.no1,
         label = "contentColor"
     )
@@ -44,9 +46,10 @@ fun LiftDefaultChip(
         modifier = modifier
             .background(backgroundColor, RoundedCornerShape(size = LiftTheme.space.space6))
             .height(LiftTheme.space.space36)
-            .width(LiftTheme.space.space56)
+            .padding(horizontal = LiftTheme.space.space12)
             .clickable(
-                onClick = onClick,
+                onClick = onClick ?: {},
+                enabled = enabled,
                 interactionSource = interactionSource,
                 indication = null,
             ),

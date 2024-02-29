@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.text.LiftText
@@ -129,11 +130,12 @@ fun WorkSetListView(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     LiftCircleCheckbox(
-                                        modifier = modifier.size(LiftTheme.space.space28),
+                                        modifier = modifier,
                                         checked = workRoutineInfoState.isChecked(
                                             workRoutine.id,
                                             workSetIndex
                                         ),
+                                        liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size28,
                                         onCheckedChange = {
                                             if (workRoutineInfoState.isChecked(
                                                     workRoutine.id,

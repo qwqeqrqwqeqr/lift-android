@@ -1,6 +1,7 @@
 package com.gradation.lift.network.datasource.user
 
 import com.gradation.lift.model.model.auth.LoginMethod
+import com.gradation.lift.model.model.user.DeleteUserInfo
 import com.gradation.lift.model.model.user.UserDetail
 import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
  * @since 2023-08-28 22:09:31
  */
 interface UserDataSource {
+    suspend fun deleteUser(deleteUserInfo: DeleteUserInfo): Flow<NetworkResult<Unit>>
     suspend fun getUserDetail(): Flow<NetworkResult<UserDetail>>
     suspend fun getUserAuthenticationMethod(): Flow<NetworkResult<LoginMethod>>
 

@@ -77,6 +77,7 @@ fun LiftKeyPadTextField(
             cursorBrush = SolidColor(colors.cursorColor),
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
+            interactionSource = interactionSource,
             decorationBox = @Composable { innerTextField ->
                 OutlinedTextFieldDefaults.DecorationBox(
                     value = value,

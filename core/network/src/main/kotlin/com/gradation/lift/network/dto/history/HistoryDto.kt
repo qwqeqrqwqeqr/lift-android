@@ -15,11 +15,11 @@ data class HistoryDto(
     @SerialName("progress")
     val progress: Int,
     @SerialName("work_time")
-    val workTime: Float,
+    val workTime: Int,
     @SerialName("rest_time")
-    val restTime: Float,
+    val restTime: Int,
     @SerialName("total_time")
-    val totalTime: Float,
+    val totalTime: Int,
     @SerialName("history_time_stamp")
     val historyTimeStamp: String,
     @SerialName("history_routine")

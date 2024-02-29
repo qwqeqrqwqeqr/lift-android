@@ -5,18 +5,19 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.network.service.CheckerService
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.Checker.CHECK_DUPLICATE_EMAIL_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Checker.CHECK_DUPLICATE_NAME_RESPONSE_JSON
 import com.gradation.lift.network.datasource.checker.CheckerDataSource
 import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.gradation.lift.network.service.CheckerService
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -27,7 +28,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class CheckerDataSourceTest {
 
@@ -54,7 +54,7 @@ class CheckerDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         checkerDataSource = DefaultCheckerDataSource(
             checkerService,
-            networkResultHandler = networkResultHandler,dispatcher
+            networkResultHandler = networkResultHandler, dispatcher
         )
     }
 
@@ -69,16 +69,20 @@ class CheckerDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(CHECK_DUPLICATE_EMAIL_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(checkerDataSource.checkDuplicateEmail(FAKE_STRING_DATA).first()) {
             Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA, message = "")
+                NetworkResult.Success(
+                    FAKE_BOOLEAN_DATA,
+                    message = DefaultDataGenerator.FAKE_MESSAGE_DATA
+                )
             ).isEqualTo(this)
         }
+
     }
 
 
@@ -87,7 +91,7 @@ class CheckerDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(CHECK_DUPLICATE_NAME_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -95,7 +99,10 @@ class CheckerDataSourceTest {
 
         with(checkerDataSource.checkDuplicateName(FAKE_STRING_DATA).first()) {
             Truth.assertThat(
-                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA, message = "")
+                NetworkResult.Success(
+                    FAKE_BOOLEAN_DATA,
+                    message = DefaultDataGenerator.FAKE_MESSAGE_DATA
+                )
             ).isEqualTo(this)
         }
     }

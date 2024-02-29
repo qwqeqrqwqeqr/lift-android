@@ -3,10 +3,10 @@ package com.gradation.lift.navigation
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,9 +30,10 @@ fun BottomBar(
     Row(
         modifier
             .height(LiftTheme.space.space60)
+
             .fillMaxWidth()
             .shadow(
-                elevation = LiftTheme.space.space6,
+                elevation = LiftTheme.space.space4,
                 spotColor = LiftTheme.colorScheme.no11,
                 ambientColor = LiftTheme.colorScheme.no11,
                 shape = RoundedCornerShape(
@@ -46,9 +47,9 @@ fun BottomBar(
                     topStart = LiftTheme.space.space14,
                     topEnd = LiftTheme.space.space14
                 )
-            ),
+            )
+            .padding(horizontal = LiftTheme.space.space24),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         destinations.forEach { destination ->
             val interactionSource: MutableInteractionSource =
@@ -63,7 +64,7 @@ fun BottomBar(
                 modifier = modifier.weight(1f),
                 interactionSource = interactionSource,
                 onClick = { onNavigateToDestination(destination) },
-                icon = destination.icon,
+                icon = if (isSelected) destination.selectedIcon else destination.unSelectedIcon,
                 text = destination.displayName,
                 color = contentColor
             )

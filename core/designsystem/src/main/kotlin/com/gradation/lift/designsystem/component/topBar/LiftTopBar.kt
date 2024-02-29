@@ -36,6 +36,13 @@ fun LiftTopBar(
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     TopAppBar(
+        modifier = modifier
+            .background(backgroundColor)
+            .padding(
+                top = LiftTheme.space.space20,
+                end = LiftTheme.space.space20,
+                start = LiftTheme.space.space20,
+            ),
         title = {
             title?.let { title ->
                 LiftText(
@@ -46,11 +53,7 @@ fun LiftTopBar(
                 )
             }
         },
-        modifier = modifier.background(backgroundColor).padding(
-            top = LiftTheme.space.space20,
-            end = LiftTheme.space.space20,
-            start = LiftTheme.space.space20,
-        ),
+
         navigationIcon = {
             Row(
                 modifier = modifier,

@@ -1,18 +1,22 @@
 package com.gradation.lift.feature.workReady.createWorkSet.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.workReady.common.WorkRoutineState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.ui.component.NavigationView
 import com.gradation.lift.feature.workReady.createWorkSet.ui.component.RoutineListView
-import com.gradation.lift.designsystem.component.topBar.LiftTopBar
-import com.gradation.lift.feature.workReady.common.WorkRoutineState
+import com.gradation.lift.ui.extensions.focusClearManager
 
 
 @Composable
@@ -22,16 +26,23 @@ internal fun CreateWorkSetScreen(
     workSetState: WorkSetState,
     workRoutineState: WorkRoutineState,
     navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph: () -> Unit,
-    navigateCreateWorkSetToReadyInWorkReadyGraph: () -> Unit,
     routineScreenState: RoutineScreenState
 ) {
     when (workCategoryUiState) {
         is WorkCategoryUiState.Fail -> {
-            Spacer(modifier = modifier.fillMaxSize().background(LiftTheme.colorScheme.no17))
+            Spacer(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(LiftTheme.colorScheme.no17)
+            )
         }
 
         WorkCategoryUiState.Loading -> {
-            Spacer(modifier = modifier.fillMaxSize().background(LiftTheme.colorScheme.no17))
+            Spacer(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(LiftTheme.colorScheme.no17)
+            )
         }
 
         is WorkCategoryUiState.Success -> {
@@ -43,7 +54,9 @@ internal fun CreateWorkSetScreen(
                         onClick = navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph,
                     )
                 },
-                modifier = modifier.fillMaxSize(),
+                modifier = modifier
+                    .fillMaxSize()
+                    .focusClearManager(routineScreenState.focusManager),
             ) { padding ->
                 Column(
                     modifier = modifier.padding(padding),
@@ -65,7 +78,7 @@ internal fun CreateWorkSetScreen(
                         workCategoryUiState.workCategory,
                         workSetState,
                         workRoutineState,
-                        navigateCreateWorkSetToReadyInWorkReadyGraph
+                        navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph
                     )
                 }
             }

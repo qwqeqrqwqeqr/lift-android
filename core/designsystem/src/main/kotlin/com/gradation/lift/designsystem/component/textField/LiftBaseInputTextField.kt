@@ -1,5 +1,6 @@
 package com.gradation.lift.designsystem.component.textField
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -29,9 +30,11 @@ internal fun LiftBaseInputTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    interactionSource: MutableInteractionSource,
     isError: Boolean = false,
     isValid: Boolean = false,
-    singleLine: Boolean= true,
+    isFocused: Boolean,
+    singleLine: Boolean = true,
 
     colors: TextFieldColors = TextFieldDefaults.colors(
         focusedTextColor = LiftTheme.colorScheme.no6,
@@ -51,7 +54,7 @@ internal fun LiftBaseInputTextField(
         errorLabelColor = LiftTheme.colorScheme.no12,
         errorTextColor = LiftTheme.colorScheme.no6,
         errorIndicatorColor = LiftTheme.colorScheme.no12,
-        errorContainerColor = LiftTheme.colorScheme.no1,
+        errorContainerColor = if (isFocused) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no1,
         errorSupportingTextColor = LiftTheme.colorScheme.no12,
         errorCursorColor = LiftTheme.colorScheme.no12,
         selectionColors = TextSelectionColors(
@@ -84,6 +87,7 @@ internal fun LiftBaseInputTextField(
         colors = colors,
         shape = RoundedCornerShape(LiftTheme.space.space12),
         visualTransformation = visualTransformation,
+        interactionSource = interactionSource,
         trailingIcon = trailingIcon,
         isError = isError,
     )

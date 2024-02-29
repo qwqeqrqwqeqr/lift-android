@@ -4,19 +4,25 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.History.CREATE_HISTORY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.History.HISTORY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.History.UPDATE_HISTORY_INFO_MODEL
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator
-import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.CREATE_HISTORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.DELETE_HISTORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.GET_HISTORY_BY_HISTORY_ID_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.GET_HISTORY_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.History.UPDATE_HISTORY_INFO_RESPONSE_JSON
 import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.HistoryService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -27,7 +33,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class HistoryDataSourceTest {
 
@@ -54,7 +59,7 @@ class HistoryDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         historyDataSource = DefaultHistoryDataSource(
             historyService,
-            networkResultHandler = networkResultHandler,dispatcher
+            networkResultHandler = networkResultHandler, dispatcher
         )
     }
 
@@ -66,17 +71,16 @@ class HistoryDataSourceTest {
 
     @Test
     fun getHistoryDataSource() = runTest {
-
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.History.historyResponseJson)
+                .setBody(GET_HISTORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(historyDataSource.getHistory().first()) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.History.historyModelList)
+                NetworkResult.Success(listOf(HISTORY_MODEL))
             ).isEqualTo(this)
         }
     }
@@ -84,34 +88,32 @@ class HistoryDataSourceTest {
 
     @Test
     fun getHistoryByHistoryIdDataSource() = runTest {
-
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.History.historyResponseJson)
+                .setBody(GET_HISTORY_BY_HISTORY_ID_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
 
-        with(historyDataSource.getHistoryByHistoryId(setOf(12, 13, 14)).first()) {
+        with(historyDataSource.getHistoryByHistoryId(setOf(FAKE_INT_DATA)).first()) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.History.historyModelList)
+                NetworkResult.Success(listOf(HISTORY_MODEL))
             ).isEqualTo(this)
         }
     }
 
     @Test
     fun createHistoryDataSource() = runTest {
-
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(CREATE_HISTORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
 
-        with(historyDataSource.createHistory(ModelDataGenerator.History.createHistoryModel).first()) {
+        with(historyDataSource.createHistory(CREATE_HISTORY_MODEL).first()) {
             Truth.assertThat(
                 NetworkResult.Success(Unit)
             ).isEqualTo(this)
@@ -120,18 +122,30 @@ class HistoryDataSourceTest {
 
     @Test
     fun deleteHistoryDataSource() = runTest {
-
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(DELETE_HISTORY_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
-
-
-        with(historyDataSource.deleteHistory(1).first()) {
+        with(historyDataSource.deleteHistory(FAKE_INT_DATA).first()) {
             Truth.assertThat(
                 NetworkResult.Success(Unit)
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun updateHistoryInfoDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_HISTORY_INFO_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+        with(historyDataSource.updateHistoryInfo(UPDATE_HISTORY_INFO_MODEL).first()) {
+            Truth.assertThat(
+                NetworkResult.Success(FAKE_BOOLEAN_DATA)
             ).isEqualTo(this)
         }
     }

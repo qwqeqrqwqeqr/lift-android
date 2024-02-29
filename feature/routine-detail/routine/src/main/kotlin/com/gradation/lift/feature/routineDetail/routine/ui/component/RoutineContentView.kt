@@ -2,16 +2,13 @@ package com.gradation.lift.feature.routineDetail.routine.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.gradation.lift.designsystem.component.chip.LiftDefaultChip
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftDefaultInputTextField
@@ -94,53 +92,20 @@ fun RoutineContentView(
             horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
             item {
-                Box(
-                    modifier = modifier
-                        .background(
-                            color = if (routineSetRoutine.weekday.size == getWeekdayEntries().size) LiftTheme.colorScheme.no13 else LiftTheme.colorScheme.no1,
-                            shape = RoundedCornerShape(size = LiftTheme.space.space6)
-                        )
-                        .width(LiftTheme.space.space44)
-                        .padding(vertical = LiftTheme.space.space10),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LiftText(
-                        textStyle = if (routineSetRoutine.weekday.size == getWeekdayEntries().size) LiftTextStyle.No5 else LiftTextStyle.No6,
-                        text = "전체",
-                        color = if (routineSetRoutine.weekday.size == getWeekdayEntries().size) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
-                        textAlign = TextAlign.Center
-                    )
-                }
+                LiftDefaultChip(
+                    modifier = modifier,
+                    text = "전체",
+                    isSelected = (routineSetRoutine.weekday.size == getWeekdayEntries().size),
+                    enabled = false
+                )
             }
             items(getWeekdayEntries()) {
-                Box(
-                    modifier = modifier
-                        .background(
-                            color = if (
-                                routineSetRoutine.weekday.contains(
-                                    it
-                                ) &&
-                                routineSetRoutine.weekday.size != getWeekdayEntries().size
-                            ) LiftTheme.colorScheme.no13 else LiftTheme.colorScheme.no1,
-                            shape = RoundedCornerShape(size = LiftTheme.space.space6)
-                        )
-                        .width(LiftTheme.space.space40)
-                        .padding(LiftTheme.space.space10),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LiftText(
-                        textStyle = if (
-                            routineSetRoutine.weekday.contains(it) &&
-                            routineSetRoutine.weekday.size != getWeekdayEntries().size
-                        ) LiftTextStyle.No5 else LiftTextStyle.No6,
-                        text = it.getWeekdayName(),
-                        color = if (
-                            routineSetRoutine.weekday.contains(it) &&
-                            routineSetRoutine.weekday.size != getWeekdayEntries().size
-                        ) LiftTheme.colorScheme.no5 else LiftTheme.colorScheme.no9,
-                        textAlign = TextAlign.Center
-                    )
-                }
+                LiftDefaultChip(
+                    modifier = modifier,
+                    text = it.getWeekdayName(),
+                    isSelected = (routineSetRoutine.weekday.contains(it) && routineSetRoutine.weekday.size != getWeekdayEntries().size),
+                    enabled = false
+                )
             }
         }
         LiftText(
