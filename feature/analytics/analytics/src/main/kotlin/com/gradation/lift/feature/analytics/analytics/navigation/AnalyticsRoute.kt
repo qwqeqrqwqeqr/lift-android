@@ -1,155 +1,149 @@
 package com.gradation.lift.feature.analytics.analytics.navigation
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gradation.lift.designsystem.R
-import com.gradation.lift.designsystem.component.text.LiftText
-import com.gradation.lift.designsystem.component.text.LiftTextStyle
-import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.analytics.analytics.ui.AnalyticsScreen
+import androidx.navigation.NavController
+import com.gradation.lift.designsystem.component.chart.model.WorkCategoryCount
+import com.gradation.lift.designsystem.component.chart.model.WorkCountByMonth
+import com.gradation.lift.designsystem.component.chart.model.WorkPartCountByMonth
 import com.gradation.lift.feature.analytics.analytics.data.AnalyticsViewModel
-import com.gradation.lift.feature.analytics.analytics.data.model.WorkFrequencyMonth
-import com.gradation.lift.feature.analytics.analytics.data.model.WorkFrequencyWeekDate
-import com.gradation.lift.feature.analytics.analytics.data.model.WorkPartAnalyticsTargetDate
-import com.gradation.lift.feature.analytics.analytics.data.model.WorkPartAnalyticsTargetType
-import com.gradation.lift.feature.analytics.analytics.data.model.WorkPartFrequency
+import com.gradation.lift.feature.analytics.analytics.data.model.WeekDateHistoryCount
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsBarChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsCalendarState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsHexagonChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsPieChartState
+import com.gradation.lift.feature.analytics.analytics.data.state.AnalyticsScreenState
 import com.gradation.lift.feature.analytics.analytics.data.state.HistoryUiState
+import com.gradation.lift.feature.analytics.analytics.data.state.START_DATE
+import com.gradation.lift.feature.analytics.analytics.data.state.rememberAnalyticsScreenState
+import com.gradation.lift.feature.analytics.analytics.ui.AnalyticsScreen
+import com.gradation.lift.feature.analytics.analytics.ui.bottomSheet.DatePickerBottomSheet
+import com.gradation.lift.feature.analytics.analytics.ui.bottomSheet.WorkBottomSheet
+import com.gradation.lift.ui.extensions.showToast
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toKotlinLocalDate
+import java.time.temporal.ChronoUnit
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun AnalyticsRoute(
     modifier: Modifier = Modifier,
+    navController: NavController,
+    navigateAnalyticsGraphToWorkReadyReadyRouter: () -> Unit,
+    navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter: () -> Unit,
     viewModel: AnalyticsViewModel = hiltViewModel(),
+    analyticsCalendarState: AnalyticsCalendarState = viewModel.analyticsCalendarState,
+    analyticsBarChartState: AnalyticsBarChartState = viewModel.analyticsBarChartState,
+    analyticsHexagonChartState: AnalyticsHexagonChartState = viewModel.analyticsHexagonChartState,
+    analyticsPieChartState: AnalyticsPieChartState = viewModel.analyticsPieChartState,
+    analyticsScreenState: AnalyticsScreenState = rememberAnalyticsScreenState(viewModel.today),
 ) {
 
     val historyUiState: HistoryUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
+    val selectedDate: LocalDate by viewModel.selectedDate.collectAsStateWithLifecycle()
+    val updateSelectedDate: (LocalDate) -> Unit = viewModel.updateSelectedDate
 
 
-    val selectedMonth: LocalDate by viewModel.workFrequencyAnalyticsState.selectedMonth.collectAsStateWithLifecycle()
-    val workFrequencyByWeek: List<WorkFrequencyWeekDate> by viewModel.workFrequencyAnalyticsState.workFrequencyByWeek.collectAsStateWithLifecycle()
+    val calendar: Map<Int, List<WeekDateHistoryCount>> by analyticsCalendarState.calendar.collectAsStateWithLifecycle()
+    val selectedDateHistoryCount: Int by analyticsCalendarState.selectedDateHistoryCount.collectAsStateWithLifecycle()
+
+    val workCountByMonthList: List<WorkCountByMonth> by analyticsBarChartState.workCountByMonthList.collectAsStateWithLifecycle()
+    val thisMonthWorkCountForPreMonth: Int by analyticsBarChartState.thisMonthWorkCountForPreMonth.collectAsStateWithLifecycle()
+
+    val workPartCountByMonthList: List<WorkPartCountByMonth> by analyticsHexagonChartState.workPartCountByMonthList.collectAsStateWithLifecycle()
+    val workCountByPreCurrentMonth: List<WorkCountByMonth> by analyticsHexagonChartState.workCountByPreCurrentMonth.collectAsStateWithLifecycle()
+    val mostUsedWorkPartInThisMonth: String by analyticsHexagonChartState.mostUsedWorkPartInThisMonth.collectAsStateWithLifecycle()
 
 
-    val historyCountByPreMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByPreMonth.collectAsStateWithLifecycle()
-    val historyCountByCurrentMonth: Int by viewModel.workCountByMonthAnalyticsState.historyCountByCurrentMonth.collectAsStateWithLifecycle()
-    val historyCountByMonthList: List<WorkFrequencyMonth> by viewModel.workCountByMonthAnalyticsState.historyCountByMonthList.collectAsStateWithLifecycle()
-    val historyAveragePreCount: Int by viewModel.workCountByMonthAnalyticsState.historyAveragePreCount.collectAsStateWithLifecycle()
-    val historyAverageCurrentCount: Int by viewModel.workCountByMonthAnalyticsState.historyAverageCurrentCount.collectAsStateWithLifecycle()
-
-    val plusSelectedMonth: () -> Unit =
-        viewModel.workFrequencyAnalyticsState.plusSelectedMonth()
-
-    val minusSelectedMonth: () -> Unit =
-        viewModel.workFrequencyAnalyticsState.minusSelectedMonth()
-
-    val workPartAnalyticsTargetDate: WorkPartAnalyticsTargetDate by viewModel.workPartAnalyticsState.workPartAnalyticsTargetDate.collectAsStateWithLifecycle()
-    val workPartAnalyticsTargetType: WorkPartAnalyticsTargetType by viewModel.workPartAnalyticsState.workPartAnalyticsTargetType.collectAsStateWithLifecycle()
-    val historyWorkPartCountByPre: WorkPartFrequency by viewModel.workPartAnalyticsState.historyWorkPartCountByPre.collectAsStateWithLifecycle()
-    val historyWorkPartCountByCurrent: WorkPartFrequency by viewModel.workPartAnalyticsState.historyWorkPartCountByCurrent.collectAsStateWithLifecycle()
-    val historyCountByPre: Int by viewModel.workPartAnalyticsState.historyCountByPre.collectAsStateWithLifecycle()
-    val historyCountByCurrent: Int by viewModel.workPartAnalyticsState.historyCountByCurrent.collectAsStateWithLifecycle()
-    val maxOfWorkPartFrequency: String by viewModel.workPartAnalyticsState.maxOfWorkPartFrequency.collectAsStateWithLifecycle()
+    val workPartList: List<String> = analyticsPieChartState.workPartList
+    val selectedWorkPart: String by analyticsPieChartState.selectedWorkPart.collectAsStateWithLifecycle()
+    val workCategoryCountByWorkPartList: List<WorkCategoryCount> by analyticsPieChartState.workCategoryCountByWorkPartList.collectAsStateWithLifecycle()
+    val sumOfWorkCountByWorkPart: Int by analyticsPieChartState.sumOfWorkCountByWorkPart.collectAsStateWithLifecycle()
+    val mostUsedWorkCategory: String by analyticsPieChartState.mostUsedWorkCategory.collectAsStateWithLifecycle()
+    val selectedDateTotalWorkCount: Int by analyticsPieChartState.selectedDateTotalWorkCount.collectAsStateWithLifecycle()
 
 
-    val updateWorkPartAnalyticsTargetDate: (WorkPartAnalyticsTargetDate) -> Unit =
-        viewModel.workPartAnalyticsState.updateWorkPartAnalyticsTargetDate()
+    val updateSelectedWorkPart: (String) -> Unit = analyticsPieChartState.updateSelectedWorkPart
 
-    val updateWorkPartAnalyticsTargetType: (WorkPartAnalyticsTargetType) -> Unit =
-        viewModel.workPartAnalyticsState.updateWorkPartAnalyticsTargetType()
 
-    val scrollState = rememberScrollState()
+    AnimatedVisibility(visible = analyticsScreenState.workBottomSheetView) {
+        WorkBottomSheet(
+            modifier,
+            navigateAnalyticsGraphToWorkReadyReadyRouter,
+            navigateAnalyticsGraphToWorkReadyRoutineSelectionRouter,
+            analyticsScreenState
+        )
+    }
+    AnimatedVisibility(visible = analyticsScreenState.datePickerBottomSheetView) {
+        DatePickerBottomSheet(
+            modifier, selectedDate, updateSelectedDate, analyticsScreenState
+        )
+    }
 
-    when (historyUiState) {
-        HistoryUiState.Empty -> {
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(LiftTheme.colorScheme.no5),
-                verticalArrangement = Arrangement.spacedBy(
-                    LiftTheme.space.space8,
-                    Alignment.CenterVertically
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    modifier = modifier.size(LiftTheme.space.space96),
-                    painter = painterResource(id = R.drawable.open_box),
-                    contentDescription = "emptyBox",
+    LaunchedEffect(analyticsScreenState.pagerState.currentPage, selectedDate) {
+        snapshotFlow {
+            Pair(
+                analyticsScreenState.pagerState.currentPage,
+                selectedDate
+            )
+        }.collect { it ->
+            selectedDate.run {
+                updateSelectedDate(
+                    java.time.LocalDate.of(
+                        START_DATE.year,
+                        START_DATE.monthValue,
+                        START_DATE.dayOfMonth
+                    ).plusMonths(it.first.toLong()).toKotlinLocalDate()
                 )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
-                ) {
-                    LiftText(
-                        textStyle = LiftTextStyle.No2,
-                        text = "운동을 진행 하신 적이 존재하지 않네요.",
-                        color = LiftTheme.colorScheme.no2,
-                        textAlign = TextAlign.Center
-                    )
-                    LiftText(
-                        textStyle = LiftTextStyle.No4,
-                        text = "운동을 완료하고 운동분석 정보를 확인해봐요",
-                        color = LiftTheme.colorScheme.no2,
-                        textAlign = TextAlign.Center
-                    )
-                }
+                analyticsScreenState.pagerState.scrollToPage(
+                    START_DATE.until(
+                        this.toJavaLocalDate(),
+                        ChronoUnit.MONTHS
+                    ).toInt()
+                )
             }
-        }
-
-        is HistoryUiState.Fail -> {
-            Spacer(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(LiftTheme.colorScheme.no5)
-            )
-        }
-
-        HistoryUiState.Loading -> {
-            Spacer(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(LiftTheme.colorScheme.no5)
-            )
-        }
-        is HistoryUiState.Success -> {
-            AnalyticsScreen(
-                modifier,
-                selectedMonth,
-                historyCountByCurrentMonth,
-                workFrequencyByWeek,
-                plusSelectedMonth,
-                minusSelectedMonth,
-                historyCountByPreMonth,
-                historyCountByMonthList,
-                historyAveragePreCount,
-                historyAverageCurrentCount,
-                workPartAnalyticsTargetDate,
-                workPartAnalyticsTargetType,
-                historyWorkPartCountByPre,
-                historyWorkPartCountByCurrent,
-                historyCountByPre,
-                historyCountByCurrent,
-                maxOfWorkPartFrequency,
-                updateWorkPartAnalyticsTargetDate,
-                updateWorkPartAnalyticsTargetType,
-                scrollState
-            )
         }
     }
 
+    BackHandler(onBack = {
+        if (System.currentTimeMillis() - analyticsScreenState.terminateWaitTime.value >= 1500) {
+            analyticsScreenState.terminateWaitTime.value = System.currentTimeMillis()
+            showToast(analyticsScreenState.context, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.")
+        } else {
+            navController.popBackStack()
+        }
+    })
+
+
+    AnalyticsScreen(
+        modifier,
+        historyUiState,
+        selectedDate,
+        calendar,
+        selectedDateHistoryCount,
+        workCountByMonthList,
+        thisMonthWorkCountForPreMonth,
+        workPartCountByMonthList,
+        workCountByPreCurrentMonth,
+        mostUsedWorkPartInThisMonth,
+        workPartList,
+        selectedWorkPart,
+        workCategoryCountByWorkPartList,
+        sumOfWorkCountByWorkPart,
+        mostUsedWorkCategory,
+        selectedDateTotalWorkCount,
+        updateSelectedWorkPart,
+        analyticsScreenState
+    )
 
 
 }

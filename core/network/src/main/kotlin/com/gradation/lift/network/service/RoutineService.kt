@@ -2,15 +2,14 @@ package com.gradation.lift.network.service
 
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.dto.routine.*
-
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Query
 
 
 /**
@@ -40,12 +39,12 @@ interface RoutineService {
     suspend fun updateRoutineSetRoutine(@Body updateRoutineSetRoutineRequestDto: UpdateRoutineSetRoutineRequestDto): Response<APIResultWrapper<UpdateRoutineSetRoutineResponseDto>>
 
     /**
-     * [updateRoutineSetCount]
-     * 루틴세트의 사용횟수를 1 증가시킵니다.
-     * @since 2023-10-13 11:35:46
+     * [updateUsedRoutineSet]
+     * 사용한 루틴세트의 상태를 업데이트합니다.
+     * @since 2024-02-18 17:00:20
      */
-    @PATCH("routine/routine-set/count")
-    suspend fun updateRoutineSetCount(@Body updateRoutineSetCountRequestDto: UpdateRoutineSetCountRequestDto): Response<APIResultWrapper<UpdateRoutineSetCountResponseDto>>
+    @PATCH("routine/routine-set/use")
+    suspend fun updateUsedRoutineSet(@Body updateUsedRoutineSetRequestDto: UpdateUsedRoutineSetRequestDto): Response<APIResultWrapper<UpdateUsedRoutineSetResponseDto>>
 
 
     /**
@@ -54,7 +53,12 @@ interface RoutineService {
      * @since 2023-09-06 16:12:41
      */
     @DELETE("routine/routine-set-routine")
-    suspend fun deleteRoutineSetRoutine(@Query("routine_set_id") routineSetId: Int): Response<APIResultWrapper<DeleteRoutineSetRoutineResponseDto>>
+    suspend fun deleteRoutineSetRoutine(
+        @Query(
+            "routine_set_id",
+            encoded = true
+        ) routineSetId: Int,
+    ): Response<APIResultWrapper<DeleteRoutineSetRoutineResponseDto>>
 
 
     /**
@@ -80,7 +84,12 @@ interface RoutineService {
      * @since 2023-10-13 11:21:09
      */
     @GET("routine/routine-set-routine/weekday")
-    suspend fun getRoutineSetRoutineByWeekday(@Query("weekday") weekday: String): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
+    suspend fun getRoutineSetRoutineByWeekday(
+        @Query(
+            "weekday",
+            encoded = true
+        ) weekday: String,
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByWeekdayResponseDto>>
 
 
     /**
@@ -90,7 +99,12 @@ interface RoutineService {
      * @since 2023-10-13 11:21:09
      */
     @GET("routine/routine-set-routine/label")
-    suspend fun getRoutineSetRoutineByLabel(@Query("label") label: String): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
+    suspend fun getRoutineSetRoutineByLabel(
+        @Query(
+            "label",
+            encoded = true
+        ) label: String,
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByLabelResponseDto>>
 
 
     /**
@@ -100,5 +114,20 @@ interface RoutineService {
      * @since 2023-10-13 11:21:14
      */
     @GET("routine/routine-set-routine/routine-set-id")
-    suspend fun getRoutineSetRoutineByRoutineSetId(@Query("routine_set_id_list") routineSetIdList: String): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
+    suspend fun getRoutineSetRoutineByRoutineSetId(
+        @Query(
+            "routine_set_id_list",
+            encoded = true
+        ) routineSetIdList: String,
+    ): Response<APIResultWrapper<GetRoutineSetRoutineByRoutineSetIdResponseDto>>
+
+
+    /**
+     * [getRoutineSetRoutineByRecent]
+     * 가장 최근에 사용한 루틴을 불러오기
+     * @since 2024-02-19 15:05:48
+     */
+    @GET("routine/routine-set-routine/recent")
+    suspend fun getRoutineSetRoutineByRecent(): Response<APIResultWrapper<GetRoutineSetRoutineByRecentResponseDto>>
+
 }

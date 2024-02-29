@@ -82,4 +82,11 @@ interface UserService {
     suspend fun existUserDetail(): Response<APIResultWrapper<ExistUserDetailResponseDto>>
 
 
+    /**
+     * [deleteUser]
+     * 사용자 삭제
+     * @since 2024-02-19 15:07:54
+     */
+    @POST("user")
+    suspend fun deleteUser(@Body deleteUserRequestDto: DeleteUserRequestDto): Response<APIResultWrapper<DeleteUserResponseDto>>
 }

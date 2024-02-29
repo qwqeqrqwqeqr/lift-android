@@ -2,7 +2,7 @@ package com.gradation.lift.database.datasource.notice
 
 import com.gradation.lift.database.dao.NoticeDao
 import com.gradation.lift.database.mapper.toEntity
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.notice.Notice
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

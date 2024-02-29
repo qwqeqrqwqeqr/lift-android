@@ -5,7 +5,6 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,13 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
@@ -42,15 +40,11 @@ fun NavigationView(
     workSetState: WorkSetState,
     routineUiState: RoutineUiState,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
-    navigateCreateWorkSetToRoutineSetInCreateRoutineGraph: () -> Unit,
+    navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
 ) {
-    LiftDefaultContainer(
+    LiftDefaultBottomBar(
         modifier = modifier
-            .background(LiftTheme.colorScheme.no5)
-            .fillMaxWidth(),
-        shape = RectangleShape,
-        verticalPadding = LiftTheme.space.space10,
-        horizontalPadding = LiftTheme.space.space20
+
     ) {
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -92,8 +86,12 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList.mapNotNull { it.weight.toFloatOrNull() }
-                                .sum(),
+                            targetState = workSetState.workSetList
+                                .mapNotNull {
+                                    if (it.repetition.toIntOrNull() != null && it.weight.toFloatOrNull() != null)
+                                        it.repetition.toInt().toFloat() * it.weight.toFloat()
+                                    else null
+                                }.sum(),
                             transitionSpec = {
                                 slideIntoContainer(
                                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
@@ -200,7 +198,7 @@ fun NavigationView(
                                 }
                             )
                         )
-                        navigateCreateWorkSetToRoutineSetInCreateRoutineGraph()
+                        navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph()
                     }
                 }
             )

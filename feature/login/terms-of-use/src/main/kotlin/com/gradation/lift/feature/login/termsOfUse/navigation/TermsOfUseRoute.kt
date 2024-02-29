@@ -3,7 +3,6 @@ package com.gradation.lift.feature.login.termsOfUse.navigation
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,6 +22,7 @@ import com.gradation.lift.feature.login.termsOfUse.data.state.rememberTermsOfUse
 import com.gradation.lift.feature.login.termsOfUse.ui.TermsOfUseScreen
 import com.gradation.lift.feature.login.termsOfUse.ui.component.dialog.CompleteDialog
 import com.gradation.lift.navigation.Route
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 fun TermsOfUseRoute(
@@ -55,8 +55,8 @@ fun TermsOfUseRoute(
     when (val signUpStateResult = signUpState) {
         is SignUpState.Fail -> {
             LaunchedEffect(true) {
-                termsOfUseScreenState.snackbarHostState.showSnackbar(
-                    message = signUpStateResult.message, duration = SnackbarDuration.Short
+                termsOfUseScreenState.snackbarHostState.showImmediatelySnackbar(
+                    message = signUpStateResult.message,
                 )
                 updateSignUpState(SignUpState.None)
             }
@@ -73,10 +73,10 @@ fun TermsOfUseRoute(
     when (val createUserTermsConsentStateResult = createUserTermsConsentState) {
         is CreateUserTermsConsentState.Fail -> {
             LaunchedEffect(true) {
-                termsOfUseScreenState.snackbarHostState.showSnackbar(
+                termsOfUseScreenState.snackbarHostState.showImmediatelySnackbar(
                     message = createUserTermsConsentStateResult.message,
-                    duration = SnackbarDuration.Short
-                )
+
+                    )
                 updateCreateUserTermsConsentState(CreateUserTermsConsentState.None)
             }
         }

@@ -1,7 +1,6 @@
 package com.gradation.lift.feature.myInfo.updateName.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,6 +13,7 @@ import com.gradation.lift.feature.myInfo.updateName.data.state.UpdateNameScreenS
 import com.gradation.lift.feature.myInfo.updateName.data.state.UpdateNameState
 import com.gradation.lift.feature.myInfo.updateName.data.state.rememberUpdateNameScreenState
 import com.gradation.lift.feature.myInfo.updateName.ui.UpdateNameScreen
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 @Composable
 fun UpdateNameRoute(
@@ -38,10 +38,10 @@ fun UpdateNameRoute(
     when (val state: UpdateNameState = updateNameState) {
         is UpdateNameState.Fail -> {
             LaunchedEffect(true) {
-                updateNameScreenState.snackbarHostState.showSnackbar(
+                updateNameScreenState.snackbarHostState.showImmediatelySnackbar(
                     message = state.message,
-                    duration = SnackbarDuration.Short
-                )
+
+                    )
                 updateUpdateNameState(UpdateNameState.None)
             }
         }

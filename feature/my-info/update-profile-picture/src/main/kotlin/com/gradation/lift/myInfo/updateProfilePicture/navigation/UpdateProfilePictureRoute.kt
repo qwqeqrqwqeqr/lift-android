@@ -1,7 +1,6 @@
 package com.gradation.lift.myInfo.updateProfilePicture.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,6 +13,7 @@ import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateProfilePi
 import com.gradation.lift.myInfo.updateProfilePicture.data.state.UpdateProfilePictureState
 import com.gradation.lift.myInfo.updateProfilePicture.data.state.rememberUpdateProfilePictureScreenState
 import com.gradation.lift.myInfo.updateProfilePicture.ui.UpdateProfilePictureScreen
+import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
 
 @Composable
@@ -41,10 +41,10 @@ fun UpdateProfilePictureRoute(
     when (val state: UpdateProfilePictureState = updateProfilePictureState) {
         is UpdateProfilePictureState.Fail -> {
             LaunchedEffect(true) {
-                updateProfilePictureScreenState.snackbarHostState.showSnackbar(
+                updateProfilePictureScreenState.snackbarHostState.showImmediatelySnackbar(
                     message = state.message,
-                    duration = SnackbarDuration.Short
-                )
+
+                    )
                 updateUpdateUserDetailState(UpdateProfilePictureState.None)
             }
         }

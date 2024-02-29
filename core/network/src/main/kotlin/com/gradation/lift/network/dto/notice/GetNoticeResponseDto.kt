@@ -1,9 +1,8 @@
 package com.gradation.lift.network.dto.notice
 
-import com.gradation.lift.model.model.notification.Notice
-import kotlinx.serialization.SerialName
-
+import com.gradation.lift.model.model.notice.Notice
 import kotlinx.datetime.LocalDate.Companion.parse
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable

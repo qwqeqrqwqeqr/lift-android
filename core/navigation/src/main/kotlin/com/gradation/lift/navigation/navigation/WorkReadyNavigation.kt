@@ -5,20 +5,16 @@ import com.gradation.lift.navigation.Route.WORK_GRAPH_NAME
 import com.gradation.lift.navigation.Route.WORK_READY_CREATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.Route.WORK_READY_FIND_WORK_CATEGORY_ROUTER_NAME
 import com.gradation.lift.navigation.Route.WORK_READY_READY_ROUTER_NAME
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
-import com.gradation.lift.navigation.saved_state.setValueSavedStateHandle
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY
 
 /**
  * [navigateRoutineSelectionToReadyInWorkReadyGraph]
  * 선택된 운동들을 가지고 운동 준비 화면으로 이동
  * @since 2024-01-16 10:54:22
  */
-fun NavController.navigateRoutineSelectionToReadyInWorkReadyGraph(routineSetIdList: String) {
-    this.setValueSavedStateHandle(
-        SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY,
-        routineSetIdList
-    )
-    this.navigate(WORK_READY_READY_ROUTER_NAME)
+fun NavController.navigateRoutineSelectionToReadyInWorkReadyGraph() {
+    val emptyString = ""
+    this.navigate("${WORK_READY_READY_ROUTER_NAME}?${WORK_ROUTINE_SET_ID_LIST_KEY}=$emptyString")
 }
 
 /**
@@ -37,9 +33,7 @@ fun NavController.navigateReadyToFindWorkCategoryInWorkReadyGraph() {
  * @since 2024-01-16 10:53:04
  */
 fun NavController.navigateFindWorkCategoryToReadyInWorkReadyGraph() {
-    this.navigate(WORK_READY_READY_ROUTER_NAME) {
-        popUpTo(WORK_READY_READY_ROUTER_NAME) { inclusive = true }
-    }
+    popBackStack()
 }
 
 

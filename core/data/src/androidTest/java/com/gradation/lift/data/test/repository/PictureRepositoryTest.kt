@@ -3,13 +3,16 @@ package com.gradation.lift.data.test.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.di.TestDispatcher
 import com.gradation.lift.data.fake.datasource.FakePictureDataSource
 import com.gradation.lift.data.repository.DefaultPictureRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.PictureRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.Picture.ROUTINE_SET_PICTURE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Picture.USER_PROFILE_PICTURE_MODEL
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,6 +31,7 @@ class PictureRepositoryTest {
     private lateinit var successDataSource: PictureDataSource
     private lateinit var successRepository: PictureRepository
     private lateinit var failRepository: PictureRepository
+    private lateinit var testDispatcher: DispatcherProvider
 
 
     @get:Rule
@@ -40,17 +44,17 @@ class PictureRepositoryTest {
     fun setUp() {
         failDataSource = FakePictureDataSource(TestReturnState.Fail)
         successDataSource = FakePictureDataSource(TestReturnState.Success)
+        testDispatcher = TestDispatcher.testDispatchers()
 
-        successRepository = DefaultPictureRepository(successDataSource)
-        failRepository = DefaultPictureRepository(failDataSource)
+        successRepository = DefaultPictureRepository(successDataSource, testDispatcher)
+        failRepository = DefaultPictureRepository(failDataSource, testDispatcher)
     }
-
 
 
     @Test
     fun routineSetPicture() = runTest {
         Truth.assertThat(
-            DataState.Success(ModelDataGenerator.Picture.routineSetPictureModelList)
+            DataState.Success(listOf(ROUTINE_SET_PICTURE_MODEL))
         ).isEqualTo(
             successRepository.getRoutineSetPicture().first()
         )
@@ -65,7 +69,7 @@ class PictureRepositoryTest {
     @Test
     fun userProfilePicture() = runTest {
         Truth.assertThat(
-            DataState.Success(ModelDataGenerator.Picture.userProfilePictureModelList)
+            DataState.Success(listOf(USER_PROFILE_PICTURE_MODEL))
         ).isEqualTo(
             successRepository.getUserProfilePicture().first()
         )

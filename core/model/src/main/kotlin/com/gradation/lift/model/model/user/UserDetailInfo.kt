@@ -1,7 +1,5 @@
 package com.gradation.lift.model.model.user
 
-import com.gradation.lift.model.model.common.UnitOfWeight
-
 
 /**
  * [UserDetailInfo]

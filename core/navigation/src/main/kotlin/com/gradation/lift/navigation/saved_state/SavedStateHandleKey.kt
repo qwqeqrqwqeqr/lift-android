@@ -20,6 +20,9 @@ object SavedStateHandleKey {
             "CREATE_ROUTINE_SELECTED_ROUTINE_INDEX_KEY"
     }
 
+    object Badge {
+        const val BADGE_PAGE_KEY = "BADGE_PAGE_KEY"
+    }
 
     object UpdateRoutine {
         const val UPDATE_ROUTINE_SET_ID_KEY = "UPDATE_ROUTINE_SET_ID_KEY"
@@ -38,6 +41,10 @@ object SavedStateHandleKey {
         const val USER_HEIGHT_KEY = "MY_INFO_USER_HEIGHT_KEY"
         const val USER_WEIGHT_KEY = "MY_INFO_USER_WEIGHT_KEY"
         const val USER_NAME_KEY = "MY_INFO_USER_NAME_KEY_KEY"
+        const val TERMS_POLICY_TITLE_KEY = "TERMS_POLICY_TITLE_KEY"
+        const val TERMS_POLICY_CONTENTS_KEY = "TERMS_POLICY_CONTENTS_KEY"
+
+        const val MY_INFO_CANCEL_MEMBERSHIP_REASON_KEY = "MY_INFO_CANCEL_MEMBERSHIP_REASON_KEY"
     }
 
     object Work {

@@ -5,14 +5,13 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.network.common.APIResultWrapper
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.getRoutineSetPictureResponseDto
-import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.getUserProfilePictureResponseDto
-import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.routineSetPictureResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.userProfilePictureResponseJson
-import com.gradation.lift.network.di.TestServiceModule
+import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.GetRoutineSetPicture.GET_ROUTINE_SET_PICTURE_RESPONSE_DTO
+import com.gradation.lift.network.data.TestDtoDataGenerator.Picture.GetUserProfilePicture.GET_USER_PROFILE_PICTURE_RESPONSE_DTO
+import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.GET_ROUTINE_SET_PICTURE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.GET_USER_PROFILE_PICTURE_RESPONSE_JSON
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.service.PictureService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -22,7 +21,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class PictureServiceTest {
 
@@ -47,37 +45,13 @@ class PictureServiceTest {
         mockWebServer.shutdown()
     }
 
-    @Test
-    fun getUserProfilePictureService() = runTest {
-
-        mockWebServer.enqueue(
-            MockResponse()
-                .setBody(userProfilePictureResponseJson)
-                .addHeader("Content-Type", "application/json")
-                .setResponseCode(Constants.OK)
-        )
-
-        val response = pictureService.getUserProfilePicture()
-
-        val request = mockWebServer.takeRequest()
-
-        Truth.assertThat(request.path)
-            .isEqualTo("/picture/user-profile")
-        Truth.assertThat(request.method).isEqualTo(Constants.GET)
-
-        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
-        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
-        Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getUserProfilePictureResponseDto)
-    }
-
 
     @Test
     fun getRoutineSetPictureService() = runTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(routineSetPictureResponseJson)
+                .setBody(GET_ROUTINE_SET_PICTURE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -93,6 +67,32 @@ class PictureServiceTest {
         Truth.assertThat(response.code()).isEqualTo(Constants.OK)
         Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
         Truth.assertThat(response.body()!!.data)
-            .isEqualTo(getRoutineSetPictureResponseDto)
+            .isEqualTo(GET_ROUTINE_SET_PICTURE_RESPONSE_DTO)
     }
+
+    @Test
+    fun getUserProfilePictureService() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_USER_PROFILE_PICTURE_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        val response = pictureService.getUserProfilePicture()
+
+        val request = mockWebServer.takeRequest()
+
+        Truth.assertThat(request.path)
+            .isEqualTo("/picture/user-profile")
+        Truth.assertThat(request.method).isEqualTo(Constants.GET)
+
+        Truth.assertThat(response.code()).isEqualTo(Constants.OK)
+        Truth.assertThat(response.body()).isInstanceOf(APIResultWrapper::class.java)
+        Truth.assertThat(response.body()!!.data)
+            .isEqualTo(GET_USER_PROFILE_PICTURE_RESPONSE_DTO)
+    }
+
+
 }

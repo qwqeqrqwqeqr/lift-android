@@ -3,7 +3,6 @@ package com.gradation.lift.feature.updateRoutine.createWorkSet.navigation
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,7 +26,6 @@ internal fun CreateWorkSetRoute(
     modifier: Modifier = Modifier,
     navController: NavController,
     navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph: () -> Unit,
-    navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph: () -> Unit,
     viewModel: CreateWorkSetViewModel = hiltViewModel(),
     sharedViewModel: UpdateRoutineSharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(Route.UPDATE_ROUTINE_GRAPH_NAME) }),
@@ -48,7 +46,6 @@ internal fun CreateWorkSetRoute(
         workSetState,
         currentRoutineSetRoutineState,
         navigateCreateWorkSetRouteToFindWorkCategoryInUpdateRoutineGraph,
-        navigateCreateWorkSetToRoutineSetInUpdateRoutineGraph,
         routineScreenState
     )
 

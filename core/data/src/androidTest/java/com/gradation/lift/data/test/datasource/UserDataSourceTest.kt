@@ -2,13 +2,12 @@ package com.gradation.lift.data.test.datasource
 
 import com.google.common.truth.Truth
 import com.gradation.lift.data.fake.datasource.FakeUserDataSource
+import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.model.utils.DefaultDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_MODEL
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.user.UserDataSource
-import com.gradation.lift.data.utils.TestReturnState
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
-import com.gradation.lift.model.utils.ModelDataGenerator.User.createUserDetailModel
-import com.gradation.lift.model.utils.ModelDataGenerator.User.userDetailModel
 import com.gradation.lift.test.rule.CoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +31,7 @@ class UserDataSourceTest {
         dataSource =
             FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
-            NetworkResult.Success(userDetailModel),
+            NetworkResult.Success(USER_DETAIL_MODEL),
             dataSource.getUserDetail().first()
         )
 
@@ -50,7 +49,7 @@ class UserDataSourceTest {
             FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
-            dataSource.createUserDetail(createUserDetailModel).first()
+            dataSource.createUserDetail(USER_DETAIL_MODEL).first()
         )
 
         dataSource =
@@ -58,7 +57,7 @@ class UserDataSourceTest {
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            dataSource.createUserDetail(createUserDetailModel).first()
+            dataSource.createUserDetail(USER_DETAIL_MODEL).first()
         )
     }
     @Test
@@ -67,7 +66,7 @@ class UserDataSourceTest {
             FakeUserDataSource(testReturnState = TestReturnState.Success)
         TestCase.assertEquals(
             NetworkResult.Success(Unit),
-            dataSource.updateUserDetail(userDetailModel).first()
+            dataSource.updateUserDetail(USER_DETAIL_MODEL).first()
         )
 
         dataSource =
@@ -75,7 +74,7 @@ class UserDataSourceTest {
         Truth.assertThat(
             NetworkResult.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            dataSource.updateUserDetail(userDetailModel).first()
+            dataSource.updateUserDetail(USER_DETAIL_MODEL).first()
         )
     }
     @Test

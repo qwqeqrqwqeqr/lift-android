@@ -1,7 +1,11 @@
 package com.gradation.lift.database.entity.work
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.gradation.lift.database.util.Constants.Entity.WORK_TABLE_NAME
+import com.gradation.lift.database.util.IntListTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
 import com.gradation.lift.model.model.work.Work
 import kotlinx.datetime.LocalTime
@@ -26,13 +30,19 @@ data class WorkEntity(
     @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "total_time")
     val totalTime: LocalTime,
-) {
+
+    @TypeConverters(IntListTypeConverter::class)
+    @ColumnInfo(name = "used_routine_set_id_list")
+    val usedRoutineSetIdList: List<Int>,
+
+    ) {
     fun toDomain(): Work = Work(
         id = this.id,
         workTime = this.workTime,
         restTime = this.restTime,
         totalTime = this.totalTime,
-        routine = emptyList()
+        usedRoutineSetIdList = this.usedRoutineSetIdList,
+        routine = emptyList(),
     )
 }
 

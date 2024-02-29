@@ -100,7 +100,7 @@ fun HistoryMemoContent(
                 )
             }
         }
-        LiftPrimaryButton(text = "메모하기") {
+        LiftPrimaryButton(text = if (selectedHistory.comment == null) "메모하기" else "메모수정") {
             navigateHistoryToUpdateInfoInHistoryGraph(
                 selectedHistory.comment ?: "",
                 selectedHistory.score ?: 0,

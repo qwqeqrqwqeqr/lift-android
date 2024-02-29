@@ -3,6 +3,7 @@ package com.gradation.lift.feature.history.history.ui.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -26,7 +27,7 @@ fun EmptyHistoryView(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(horizontal = LiftTheme.space.space20),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space18)
     ) {

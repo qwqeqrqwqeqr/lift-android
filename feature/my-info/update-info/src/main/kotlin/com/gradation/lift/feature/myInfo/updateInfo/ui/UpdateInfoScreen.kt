@@ -22,6 +22,7 @@ import com.gradation.lift.feature.myInfo.updateInfo.ui.component.GenderSelection
 import com.gradation.lift.feature.myInfo.updateInfo.ui.component.HeightTextFieldView
 import com.gradation.lift.feature.myInfo.updateInfo.ui.component.WeightTextFieldView
 import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.ui.extensions.focusClearManager
 
 
 @Composable
@@ -59,6 +60,7 @@ fun UpdateInfoScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
+                .focusClearManager(updateInfoScreenState.focusManager)
                 .background(LiftTheme.colorScheme.no5)
                 .padding(padding)
                 .padding(

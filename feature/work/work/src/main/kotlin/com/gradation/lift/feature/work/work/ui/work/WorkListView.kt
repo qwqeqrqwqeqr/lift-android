@@ -1,6 +1,11 @@
 package com.gradation.lift.feature.work.work.ui.work
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
@@ -8,14 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckBoxSize
 import com.gradation.lift.designsystem.component.checkBox.LiftCircleCheckbox
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.work.data.model.WorkRoutineCheckedInfo
-import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
-import com.gradation.lift.feature.work.common.data.WorkState
+import com.gradation.lift.feature.work.common.data.model.WorkRoutineCheckedInfo
+import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.ui.mapper.toText
 
 @Composable
@@ -129,11 +135,12 @@ fun WorkSetListView(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     LiftCircleCheckbox(
-                                        modifier = modifier.size(LiftTheme.space.space28),
+                                        modifier = modifier,
                                         checked = workRoutineInfoState.isChecked(
                                             workRoutine.id,
                                             workSetIndex
                                         ),
+                                        liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size28,
                                         onCheckedChange = {
                                             if (workRoutineInfoState.isChecked(
                                                     workRoutine.id,

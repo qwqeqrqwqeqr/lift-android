@@ -40,12 +40,13 @@ import com.gradation.lift.database.util.*
         WorkCategoryEntity::class,
         WorkPartEntity::class,
     ],
-    version = 3,
+    version = 5,
     exportSchema = true,
 )
 @TypeConverters(
     value = [
-        ListTypeConverter::class,
+        IntListTypeConverter::class,
+        StringListTypeConverter::class,
         WorkSetListTypeConverter::class,
         LocalTimeTypeConverter::class,
         GenderTypeConverter::class,

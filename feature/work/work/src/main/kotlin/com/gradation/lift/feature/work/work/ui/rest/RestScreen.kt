@@ -1,26 +1,34 @@
 package com.gradation.lift.feature.work.work.ui.rest
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
+import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
+import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
-import com.gradation.lift.feature.work.work.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
-import com.gradation.lift.feature.work.common.data.WorkState
 import com.gradation.lift.feature.work.work.navigation.getProgress
 import com.gradation.lift.feature.work.work.ui.component.common.WorkProgressCircle
 import com.gradation.lift.ui.mapper.toTimerText
@@ -122,13 +130,9 @@ fun RestScreen(
                 }
             }
 
-            LiftDefaultContainer(
+            LiftDefaultBottomBar(
                 modifier = modifier
-                    .background(LiftTheme.colorScheme.no5)
-                    .fillMaxWidth(),
-                shape = RectangleShape,
-                verticalPadding = LiftTheme.space.space10,
-                horizontalPadding = LiftTheme.space.space20
+
             ) {
                 Row(
                     modifier = modifier.fillMaxWidth(),

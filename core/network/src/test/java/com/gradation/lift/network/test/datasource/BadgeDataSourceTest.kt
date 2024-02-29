@@ -4,16 +4,19 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.model.utils.ModelDataGenerator.Badge.badgeConditionModel
-import com.gradation.lift.model.utils.ModelDataGenerator.Badge.badgeModel
-import com.gradation.lift.model.utils.ModelDataGenerator.Badge.createUserBadgeModel
-import com.gradation.lift.model.utils.ModelDataGenerator.Badge.userBadgeModel
+import com.gradation.lift.model.utils.ModelDataGenerator.Badge.BADGE_CONDITION_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Badge.BADGE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Badge.CREATE_USER_BADGE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Badge.UPDATE_USER_BADGE_MAIN_FLAG_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Badge.USER_BADGE_MODEL
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.badgeConditionResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.badgeResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.userBadgeResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.CREATE_USER_BADGE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_BADGE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_USER_BADGE_CONDITION_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.GET_USER_BADGE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Badge.UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON
 import com.gradation.lift.network.datasource.badge.BadgeDataSource
 import com.gradation.lift.network.datasource.badge.DefaultBadgeDataSource
 import com.gradation.lift.network.di.TestDispatcher
@@ -21,7 +24,6 @@ import com.gradation.lift.network.di.TestRetrofit
 import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.BadgeService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -32,7 +34,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class BadgeDataSourceTest {
     private lateinit var retrofit: TestRetrofit
@@ -71,14 +72,14 @@ class BadgeDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(badgeResponseJson)
+                .setBody(GET_BADGE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(badgeDataSource.getBadge().first()) {
             Truth.assertThat(
-                NetworkResult.Success(listOf(badgeModel))
+                NetworkResult.Success(listOf(BADGE_MODEL))
             ).isEqualTo(this)
         }
     }
@@ -88,14 +89,14 @@ class BadgeDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(userBadgeResponseJson)
+                .setBody(GET_USER_BADGE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(badgeDataSource.getUserBadge().first()) {
             Truth.assertThat(
-                NetworkResult.Success(listOf(userBadgeModel))
+                NetworkResult.Success(listOf(USER_BADGE_MODEL))
             ).isEqualTo(this)
         }
     }
@@ -105,12 +106,12 @@ class BadgeDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(CREATE_USER_BADGE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.CREATED)
         )
 
-        with(badgeDataSource.createUserBadge(createUserBadgeModel).first()) {
+        with(badgeDataSource.createUserBadge(CREATE_USER_BADGE_MODEL).first()) {
             Truth.assertThat(
                 NetworkResult.Success(Unit)
             ).isEqualTo(this)
@@ -122,14 +123,14 @@ class BadgeDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(userBadgeResponseJson)
+                .setBody(GET_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(badgeDataSource.getUserBadgeByMainFlag().first()) {
             Truth.assertThat(
-                NetworkResult.Success(listOf(userBadgeModel))
+                NetworkResult.Success(listOf(USER_BADGE_MODEL))
             ).isEqualTo(this)
         }
     }
@@ -139,17 +140,34 @@ class BadgeDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(badgeConditionResponseJson)
+                .setBody(GET_USER_BADGE_CONDITION_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(badgeDataSource.getUserBadgeByCondition().first()) {
             Truth.assertThat(
-                NetworkResult.Success(badgeConditionModel)
+                NetworkResult.Success(BADGE_CONDITION_MODEL)
             ).isEqualTo(this)
         }
     }
 
+
+    @Test
+    fun updateUserBadgeMainFlagDataSource() = runTest {
+
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_USER_BADGE_BY_MAIN_FLAG_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(badgeDataSource.updateUserBadgeMainFlag(UPDATE_USER_BADGE_MAIN_FLAG_MODEL).first()) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit)
+            ).isEqualTo(this)
+        }
+    }
 
 }

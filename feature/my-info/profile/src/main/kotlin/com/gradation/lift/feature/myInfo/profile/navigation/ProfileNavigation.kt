@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.navigation.navigateMyInfoGraphToLoginGraph
+import com.gradation.lift.navigation.navigation.navigateProfileToCancelMembershipInMyInfoGraph
 import com.gradation.lift.navigation.navigation.navigateProfileToMyInfoInMyInfoGraph
 import com.gradation.lift.navigation.navigation.navigateProfileToUpdateInfoInMyInfoGraph
 import com.gradation.lift.navigation.navigation.navigateProfileToUpdateNameInMyInfoGraph
@@ -22,14 +23,24 @@ fun NavGraphBuilder.profileScreen(
     val navigateProfileToUpdateNameInMyInfoGraph: (String) -> Unit =
         { navController.navigateProfileToUpdateNameInMyInfoGraph(it) }
 
-    val navigateProfileToUpdateInfoInMyInfoGraph: (String,Float,Float) -> Unit =
-        { gender,height,weight -> navController.navigateProfileToUpdateInfoInMyInfoGraph(gender, height, weight) }
+    val navigateProfileToUpdateInfoInMyInfoGraph: (String, Float, Float) -> Unit =
+        { gender, height, weight ->
+            navController.navigateProfileToUpdateInfoInMyInfoGraph(
+                gender,
+                height,
+                weight
+            )
+        }
 
     val navigateProfileToUpdateProfilePictureInMyInfoGraph: (String) -> Unit =
         { navController.navigateProfileToUpdateProfilePictureInMyInfoGraph(it) }
 
     val navigateMyInfoGraphToLoginGraph: () -> Unit =
         { navController.navigateMyInfoGraphToLoginGraph() }
+
+
+    val navigateProfileToCancelMembershipInMyInfoGraph: () -> Unit =
+        { navController.navigateProfileToCancelMembershipInMyInfoGraph() }
 
     composable(Route.MY_INFO_PROFILE_ROUTER_NAME) {
         ProfileRoute(
@@ -38,6 +49,7 @@ fun NavGraphBuilder.profileScreen(
             navigateProfileToUpdateNameInMyInfoGraph,
             navigateProfileToUpdateInfoInMyInfoGraph,
             navigateProfileToUpdateProfilePictureInMyInfoGraph,
+            navigateProfileToCancelMembershipInMyInfoGraph,
             navigateMyInfoGraphToLoginGraph
         )
     }

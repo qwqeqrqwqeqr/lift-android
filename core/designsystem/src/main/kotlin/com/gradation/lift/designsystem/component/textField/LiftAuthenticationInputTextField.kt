@@ -3,6 +3,7 @@ package com.gradation.lift.designsystem.component.textField
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
@@ -34,6 +35,7 @@ fun LiftAuthenticationInputTextField(
 ) {
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+    val isFocused: Boolean by interactionSource.collectIsFocusedAsState()
 
     val textColor: Color by animateColorAsState(
         if (isPressed) LiftTheme.colorScheme.no4.copy(0.5f)
@@ -52,6 +54,8 @@ fun LiftAuthenticationInputTextField(
         isError = isError,
         isValid = isValid,
         enabled = enabled,
+        isFocused = isFocused,
+        interactionSource = interactionSource,
         trailingIcon = @Composable {
             LiftText(
                 modifier = modifier

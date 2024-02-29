@@ -1,7 +1,6 @@
 package com.gradation.lift.database.data
 
 import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
-import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity2
 import com.gradation.lift.database.entity.badge.BadgeEntity
 import com.gradation.lift.database.entity.badge.UserBadgeEntity
 import com.gradation.lift.database.entity.history.HistoryEntity
@@ -17,21 +16,28 @@ import com.gradation.lift.database.entity.work.WorkRoutineEntity
 import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
 import com.gradation.lift.database.entity.work_category.WorkPartEntity
 import com.gradation.lift.model.BuildConfig
-import com.gradation.lift.model.model.common.UnitOfWeight
-import com.gradation.lift.model.model.date.Weekday
-import com.gradation.lift.model.model.routine.Label
-import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.model.user.UnitOfWeight
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.DefaultDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_DATE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_LABEL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_DESCRIPTION_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_NAME_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_REPETITION_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ROUTINE_WEIGHT_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_STAMP_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEEKDAY_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_PART_NAME_DATA
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.toLocalDateTime
 import java.util.UUID
 
 object TestEntityDataGenerator {
@@ -44,13 +50,14 @@ object TestEntityDataGenerator {
             name = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
             hint = FAKE_STRING_DATA,
-            url = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            color = DefaultDataGenerator.FAKE_COLOR_DATA
+            url = FAKE_URL_DATA,
+            color = FAKE_COLOR_DATA,
+            backgroundColor = FAKE_COLOR_DATA
         )
 
         internal val userBadgeEntity = UserBadgeEntity(
             badge = badgeEntity,
-            badgeTimeStamp = LocalDateTime(2023, 8, 31, 0, 0, 0),
+            badgeTimeStamp = FAKE_TIME_STAMP_DATA.toLocalDateTime(),
             mainFlag = DefaultDataGenerator.FAKE_BOOLEAN_DATA
         )
 
@@ -64,20 +71,19 @@ object TestEntityDataGenerator {
             id = FAKE_INT_DATA,
             title = FAKE_STRING_DATA,
             description = FAKE_STRING_DATA,
-            category = "Update",
-            date = LocalDate(2023, 8, 31),
+            category = FAKE_STRING_DATA,
+            date = LocalDate.parse(FAKE_DATE_DATA),
         )
         val noticeEntityList = listOf(noticeEntity)
     }
 
     object WorkPart {
-        internal val workPartEntity1 = WorkPartEntity(id = 1, name = "어깨")
-        internal val workPartEntity2 = WorkPartEntity(id = 2, name = "등")
+        internal val workPartEntity1 =
+            WorkPartEntity(id = FAKE_INT_DATA, name = FAKE_WORK_PART_NAME_DATA)
 
 
         val workPartEntityList = listOf(
             workPartEntity1,
-            workPartEntity2
         )
     }
 
@@ -107,28 +113,23 @@ object TestEntityDataGenerator {
             historyId = 1,
             workCategory = workCategoryEntity1,
             workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
             )
         )
 
-        internal val historyRoutineEntity2 = HistoryRoutineEntity(
-            id = 2,
-            historyId = 2,
-            workCategory = workCategoryEntity2,
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
-        )
 
-        internal val historyRoutineEntityList = listOf(historyRoutineEntity1, historyRoutineEntity2)
+        internal val historyRoutineEntityList = listOf(historyRoutineEntity1)
 
     }
 
@@ -166,20 +167,28 @@ object TestEntityDataGenerator {
     object Work {
         internal val workEntity = WorkEntity(
             id = UUID.fromString(""),
-            workTime = LocalTime(0, 20, 0),
-            restTime = LocalTime(0, 10, 0),
-            totalTime = LocalTime(0, 30, 0),
+            workTime = LocalTime.fromSecondOfDay(FAKE_TIME_DATA),
+            restTime = LocalTime.fromSecondOfDay(FAKE_TIME_DATA),
+            totalTime = LocalTime.fromSecondOfDay(FAKE_TIME_DATA),
+            usedRoutineSetIdList = listOf(FAKE_INT_DATA)
         )
         internal val workRoutineEntity = WorkRoutineEntity(
             id = 1,
             workId = UUID.fromString(""),
             workCategory = workCategoryEntity1,
             workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
             )
         )
 
@@ -200,89 +209,59 @@ object TestEntityDataGenerator {
 
     object WorkCategory {
         internal val workCategoryEntity1 = WorkCategoryEntity(
-            id = 1,
-            name = "숄더프레스",
-            workPart = WorkPart.workPartEntity1,
-            introduce = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            id = FAKE_INT_DATA,
+            name = FAKE_ROUTINE_NAME_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
+            introduce = FAKE_STRING_DATA,
+            description = FAKE_STRING_DATA
 
-        )
-        internal val workCategoryEntity2 = WorkCategoryEntity(
-            id = 2,
-            name = "데드리프트",
-            workPart = WorkPart.workPartEntity2,
-            introduce = "Lorem ipsum dolor sit amet",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
 
         val workCategoryEntityList = listOf(
             workCategoryEntity1,
-            workCategoryEntity2
         )
     }
 
     object Routine {
         val routineEntity1 = RoutineEntity(
-            id = 1,
-            routineSetId = 1,
+            id = FAKE_INT_DATA,
+            routineSetId = FAKE_INT_DATA,
             workCategoryEntity = workCategoryEntity1,
             workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
-            )
-        )
-        val routineEntity2 = RoutineEntity(
-            id = 2,
-            routineSetId = 2,
-            workCategoryEntity = workCategoryEntity2,
-            workSetList = listOf(
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12),
-                WorkSet(weight = 10f, repetition = 12)
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
             )
         )
 
         val routineEntityList = listOf(
             routineEntity1,
-            routineEntity2
         )
     }
 
     object RoutineSetRoutine {
         val routineSetRoutineEntity1 = RoutineSetRoutineEntity(
-            id = 1,
+            id = FAKE_INT_DATA,
             name = FAKE_ROUTINE_NAME_DATA,
             description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = listOf(
-                Weekday.Monday().getWeekdayValue(),
-                Weekday.Tuesday().getWeekdayValue()
-            ),
-            label = listOf(Label.LABEL1.getId(), Label.LABEL2.getId()),
+            weekday = listOf(FAKE_WEEKDAY_DATA),
+            label = listOf(FAKE_LABEL_DATA),
             count = FAKE_INT_DATA,
             picture = FAKE_URL_DATA,
         )
 
-        val routineSetRoutineEntity2 = RoutineSetRoutineEntity(
-            id = 2,
-            name = "FAKE_ROUTINE_NAME",
-            description = FAKE_ROUTINE_DESCRIPTION_DATA,
-            weekday = listOf(
-                Weekday.Monday().getWeekdayValue(),
-                Weekday.Tuesday().getWeekdayValue()
-            ),
-            label = listOf(Label.LABEL1.getId(), Label.LABEL2.getId()),
-            picture = FAKE_URL_DATA,
-            count = FAKE_INT_DATA,
-        )
 
         val routineSetRoutineEntityList = listOf(
             routineSetRoutineEntity1,
-            routineSetRoutineEntity2
         )
     }
 }

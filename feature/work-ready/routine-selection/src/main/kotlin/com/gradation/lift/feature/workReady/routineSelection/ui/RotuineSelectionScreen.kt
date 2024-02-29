@@ -1,33 +1,28 @@
 package com.gradation.lift.feature.workReady.routineSelection.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.R
+import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
-import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
-import com.gradation.lift.designsystem.component.text.LiftText
-import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.routineSelection.data.model.LabelFilterType
 import com.gradation.lift.feature.workReady.routineSelection.data.model.SortType
 import com.gradation.lift.feature.workReady.routineSelection.data.model.WeekdayFilterType
-import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListUiState
 import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListInfoState
 import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListScreenState
+import com.gradation.lift.feature.workReady.routineSelection.data.state.RoutineListUiState
 import com.gradation.lift.feature.workReady.routineSelection.data.state.SortFilterState
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.RoutineListView
 import com.gradation.lift.feature.workReady.routineSelection.ui.component.SearchSortFilterView
-import com.gradation.lift.ui.extensions.isScrollingUp
+import com.gradation.lift.ui.extensions.focusClearManager
 
 @Composable
 internal fun RoutineSelectionScreen(
@@ -40,10 +35,10 @@ internal fun RoutineSelectionScreen(
     weekdayFilterType: WeekdayFilterType,
     searchFilterText: String,
     sortType: SortType,
+    updateRoutineSetIdSet: (Set<Int>) -> Unit,
     popBackStack: () -> Unit,
-    navigateRoutineSelectionToReadyInWorkReadyGraph: (String) -> Unit,
+    navigateRoutineSelectionToReadyInWorkReadyGraph: () -> Unit,
 ) {
-
     Scaffold(
         topBar = {
             LiftTopBar(
@@ -75,6 +70,7 @@ internal fun RoutineSelectionScreen(
                 Column(
                     modifier = modifier
                         .background(LiftTheme.colorScheme.no17)
+                        .focusClearManager(routineListScreenState.focusManager)
                         .padding(padding)
                 ) {
                     Column(
@@ -82,65 +78,39 @@ internal fun RoutineSelectionScreen(
                             .weight(1f)
                             .background(LiftTheme.colorScheme.no5)
                     ) {
-                        AnimatedVisibility(routineListScreenState.lazyListState.isScrollingUp()) {
-                            SearchSortFilterView(
-                                modifier,
-                                sortFilterState,
-                                searchFilterText,
-                                routineSetRoutineListUiState.routineSetRoutineList,
-                                weekdayFilterType,
-                                labelFilterType,
-                                sortType,
-                                routineListScreenState
+                        SearchSortFilterView(
+                            modifier,
+                            sortFilterState,
+                            searchFilterText,
+                            routineSetRoutineListUiState.routineListState.routineList,
+                            weekdayFilterType,
+                            labelFilterType,
+                            sortType,
+                            routineListScreenState
+                        )
+                        RoutineListView(
+                            modifier,
+                            routineSetRoutineListUiState.routineListState.routineList,
+                            routineListInfoState,
+                            routineListScreenState,
+                        )
+                    }
+                    LiftDefaultBottomBar(
+                        modifier = modifier
+
+                    ) {
+                        with(routineListInfoState.selectedRoutineList.toSet()) {
+                            LiftSolidButton(
+                                modifier = modifier.fillMaxWidth(),
+                                text = "운동시작하기(${size}개)",
+                                onClick = {
+                                    updateRoutineSetIdSet(this)
+                                    navigateRoutineSelectionToReadyInWorkReadyGraph()
+                                },
+                                enabled = routineListInfoState.selectedRoutineList.toList()
+                                    .isNotEmpty()
                             )
                         }
-                        if (routineSetRoutineListUiState.routineSetRoutineList.isNotEmpty())
-                            RoutineListView(
-                                modifier,
-                                routineSetRoutineListUiState.routineSetRoutineList,
-                                routineListInfoState,
-                                routineListScreenState,
-                            )
-                        else
-                            Column(
-                                modifier = modifier
-                                    .fillMaxSize()
-                                    .background(LiftTheme.colorScheme.no17),
-                                verticalArrangement = Arrangement.spacedBy(
-                                    LiftTheme.space.space16,
-                                    Alignment.CenterVertically
-                                ),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Image(
-                                    modifier = modifier.size(LiftTheme.space.space72),
-                                    painter = painterResource(id = R.drawable.open_box),
-                                    contentDescription = "emptyBox",
-                                )
-                                LiftText(
-                                    textStyle = LiftTextStyle.No4,
-                                    text = "조건에 맞는 루틴이 존재하지 않네요..",
-                                    color = LiftTheme.colorScheme.no2,
-                                    textAlign = TextAlign.Center
-                                )
-                            }
-                    }
-                    LiftDefaultContainer(
-                        modifier = modifier
-                            .background(LiftTheme.colorScheme.no5)
-                            .fillMaxWidth(),
-                        shape = RectangleShape,
-                        verticalPadding = LiftTheme.space.space10,
-                        horizontalPadding = LiftTheme.space.space20
-                    ) {
-                        LiftSolidButton(
-                            modifier = modifier.fillMaxWidth(),
-                            text = "운동시작하기(${routineListInfoState.selectedRoutineList.toList().size}개)",
-                            onClick = {
-                                navigateRoutineSelectionToReadyInWorkReadyGraph(routineListInfoState.selectedRoutineList.joinToString("|"))
-                            },
-                            enabled = routineListInfoState.selectedRoutineList.toList().isNotEmpty()
-                        )
                     }
                 }
             }

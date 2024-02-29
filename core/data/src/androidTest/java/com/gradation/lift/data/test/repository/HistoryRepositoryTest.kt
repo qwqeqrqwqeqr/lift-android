@@ -3,13 +3,17 @@ package com.gradation.lift.data.test.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.di.TestDispatcher
 import com.gradation.lift.data.fake.datasource.FakeHistoryDataSource
 import com.gradation.lift.data.repository.DefaultHistoryRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
+import com.gradation.lift.model.utils.ModelDataGenerator.History.CREATE_HISTORY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.History.HISTORY_MODEL
 import com.gradation.lift.network.datasource.history.HistoryDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +33,8 @@ class HistoryRepositoryTest {
     private lateinit var successRepository: HistoryRepository
     private lateinit var failRepository: HistoryRepository
 
+    private lateinit var testDispatcher: DispatcherProvider
+
 
     @get:Rule
     var coroutineRule = CoroutineRule()
@@ -38,11 +44,14 @@ class HistoryRepositoryTest {
 
     @Before
     fun setUp() {
+        testDispatcher = TestDispatcher.testDispatchers()
+
+
         failDataSource = FakeHistoryDataSource(TestReturnState.Fail)
         successDataSource = FakeHistoryDataSource(TestReturnState.Success)
 
-        successRepository = DefaultHistoryRepository(successDataSource)
-        failRepository = DefaultHistoryRepository(failDataSource)
+        successRepository = DefaultHistoryRepository(successDataSource, testDispatcher)
+        failRepository = DefaultHistoryRepository(failDataSource, testDispatcher)
     }
 
 
@@ -50,7 +59,7 @@ class HistoryRepositoryTest {
     @Test
     fun getHistoryDataSource() = runTest {
         Truth.assertThat(
-            DataState.Success(ModelDataGenerator.History.historyModelList)
+            DataState.Success(listOf(HISTORY_MODEL))
         ).isEqualTo(
             successRepository.getHistory().first()
         )
@@ -65,15 +74,15 @@ class HistoryRepositoryTest {
     @Test
     fun getHistoryByHistoryIdDataSource() = runTest {
         Truth.assertThat(
-            DataState.Success(ModelDataGenerator.History.historyModelList)
+            DataState.Success(listOf(HISTORY_MODEL))
         ).isEqualTo(
-            successRepository.getHistoryByHistoryId(setOf(12, 13, 14)).first()
+            successRepository.getHistoryByHistoryId(setOf(FAKE_INT_DATA)).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.getHistoryByHistoryId(setOf(12, 13, 14)).first()
+            failRepository.getHistoryByHistoryId(setOf(FAKE_INT_DATA)).first()
         )
     }
 
@@ -82,13 +91,13 @@ class HistoryRepositoryTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.createHistory(ModelDataGenerator.History.createHistoryModel).first()
+            successRepository.createHistory(CREATE_HISTORY_MODEL).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.createHistory(ModelDataGenerator.History.createHistoryModel).first()
+            failRepository.createHistory(CREATE_HISTORY_MODEL).first()
         )
     }
 
@@ -98,13 +107,13 @@ class HistoryRepositoryTest {
         Truth.assertThat(
             DataState.Success(Unit)
         ).isEqualTo(
-            successRepository.deleteHistory(1).first()
+            successRepository.deleteHistory(FAKE_INT_DATA).first()
         )
 
         Truth.assertThat(
             DataState.Fail(DefaultDataGenerator.FAKE_ERROR_MESSAGE)
         ).isEqualTo(
-            failRepository.deleteHistory(1).first()
+            failRepository.deleteHistory(FAKE_INT_DATA).first()
         )
     }
 }

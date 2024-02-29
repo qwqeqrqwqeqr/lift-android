@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.gradation.lift.database.util.Constants
 import com.gradation.lift.database.util.LocalDateTypeConverter
-import com.gradation.lift.model.model.notification.Notice
+import com.gradation.lift.model.model.notice.Notice
 import kotlinx.datetime.LocalDate
 
 @Entity(

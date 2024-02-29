@@ -4,19 +4,19 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
+import com.gradation.lift.model.utils.ModelDataGenerator.Picture.ROUTINE_SET_PICTURE_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Picture.USER_PROFILE_PICTURE_MODEL
 import com.gradation.lift.network.common.Constants
-import com.gradation.lift.network.di.TestServiceModule
-import com.gradation.lift.model.utils.ModelDataGenerator
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.routineSetPictureResponseJson
-import com.gradation.lift.network.data.TestJsonDataGenerator.userProfilePictureResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.GET_ROUTINE_SET_PICTURE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.Picture.GET_USER_PROFILE_PICTURE_RESPONSE_JSON
 import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
 import com.gradation.lift.network.datasource.picture.PictureDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.PictureService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -27,7 +27,6 @@ import org.junit.Rule
 import org.junit.Test
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class PictureDataSourceTest {
 
@@ -54,7 +53,7 @@ class PictureDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         pictureDataSource = DefaultPictureDataSource(
             pictureService,
-            networkResultHandler = networkResultHandler,dispatcher
+            networkResultHandler = networkResultHandler, dispatcher
         )
     }
 
@@ -69,7 +68,7 @@ class PictureDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(userProfilePictureResponseJson)
+                .setBody(GET_USER_PROFILE_PICTURE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -78,7 +77,7 @@ class PictureDataSourceTest {
             pictureDataSource.getUserProfilePicture().first()
         ) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.Picture.userProfilePictureModelList)
+                NetworkResult.Success(listOf(USER_PROFILE_PICTURE_MODEL))
             ).isEqualTo(this)
         }
     }
@@ -89,7 +88,7 @@ class PictureDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(routineSetPictureResponseJson)
+                .setBody(GET_ROUTINE_SET_PICTURE_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
@@ -97,7 +96,7 @@ class PictureDataSourceTest {
 
         with(pictureDataSource.getRoutineSetPicture().first()) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.Picture.routineSetPictureModelList)
+                NetworkResult.Success(listOf(ROUTINE_SET_PICTURE_MODEL))
             ).isEqualTo(this)
         }
     }

@@ -17,6 +17,13 @@ android {
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
     }
+    buildTypes {
+        getByName("debug")
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+        }
+
+    }
 }
 
 
@@ -48,5 +55,6 @@ dependencies {
     implementation(project(":feature:history:navigation"))
     implementation(project(":feature:analytics:navigation"))
     implementation(project(":feature:work-ready:navigation"))
+    implementation(project(":feature:inquiry:navigation"))
 
 }

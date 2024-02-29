@@ -1,20 +1,17 @@
 package com.gradation.lift.feature.work.work.ui.component.dialog
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.gradation.lift.designsystem.component.LiftButton
-import com.gradation.lift.designsystem.component.LiftCancelButton
 import com.gradation.lift.designsystem.component.button.LiftDefaultButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.dialog.LiftDialog
@@ -83,8 +80,8 @@ internal fun CompleteDialog(
                 else
                     LiftText(
                         textStyle = LiftTextStyle.No4,
-                        text = "그래도 완료할 경우, 세트를 \n" +
-                                "마무리 하지 않은 운동들은 삭제됩니다.",
+                        text = "그래도 완료할 경우, 달성도를 완벽하게\n" +
+                                "채우지 못한 상태로 저장됩니다.",
                         color = LiftTheme.colorScheme.no9,
                         textAlign = TextAlign.Start
                     )

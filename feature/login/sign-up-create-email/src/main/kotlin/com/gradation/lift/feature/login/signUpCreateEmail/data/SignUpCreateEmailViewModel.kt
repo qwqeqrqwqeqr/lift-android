@@ -66,6 +66,7 @@ class SignUpCreateEmailViewModel @Inject constructor(
                                 createEmailState.updateSelectedEmail(email)
                                 createEmailState.updateEmailValidator(Validator(true, ""))
                                 createEmailState.startTimer()
+                                emailAuthenticationState.value = EmailAuthenticationState.Success
                             } else {
                                 createEmailState.updateEmailValidator(
                                     Validator(
@@ -73,9 +74,10 @@ class SignUpCreateEmailViewModel @Inject constructor(
                                         "이미 사용중인 이메일 입니다."
                                     )
                                 )
+                                emailAuthenticationState.value =
+                                    EmailAuthenticationState.Fail("이미 사용중인 이메일 입니다.")
                             }
-                            emailAuthenticationState.value =
-                                EmailAuthenticationState.Success(it.data)
+
                         }
                     }
                 }

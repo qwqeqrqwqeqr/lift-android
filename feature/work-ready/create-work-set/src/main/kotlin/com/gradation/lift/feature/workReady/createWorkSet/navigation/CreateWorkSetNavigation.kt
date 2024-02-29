@@ -10,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.gradation.lift.navigation.Route.WORK_READY_CREATE_WORK_SET_ROUTER_NAME
 import com.gradation.lift.navigation.navigation.navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph
-import com.gradation.lift.navigation.navigation.navigateCreateWorkSetToReadyInWorkReadyGraph
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Work.WORK_READY_WORK_CATEGORY_ID_KEY
 
 
@@ -22,8 +21,6 @@ fun NavGraphBuilder.createWorkSetScreen(
     val navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph: () -> Unit =
         { navController.navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph() }
 
-    val navigateCreateWorkSetToReadyInWorkReadyGraph: () -> Unit =
-        { navController.navigateCreateWorkSetToReadyInWorkReadyGraph() }
 
     composable(
         route="${WORK_READY_CREATE_WORK_SET_ROUTER_NAME}/{${WORK_READY_WORK_CATEGORY_ID_KEY}}",
@@ -41,7 +38,6 @@ fun NavGraphBuilder.createWorkSetScreen(
             modifier,
             navController,
             navigateCreateWorkSetToFindWorkCategoryInWorkReadyGraph,
-            navigateCreateWorkSetToReadyInWorkReadyGraph
         )
     }
 }

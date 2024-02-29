@@ -6,5 +6,6 @@ data class Badge(
     val description: String,
     val hint: String,
     val url: String,
-    val color: String
+    val color: String,
+    val backgroundColor: String,
 )

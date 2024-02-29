@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gradation.lift.database.util.Constants.Entity.USER_TABLE_NAME
-import com.gradation.lift.model.model.common.UnitOfWeight
 import com.gradation.lift.model.model.user.Gender
+import com.gradation.lift.model.model.user.UnitOfWeight
 import com.gradation.lift.model.model.user.UserDetail
 
 

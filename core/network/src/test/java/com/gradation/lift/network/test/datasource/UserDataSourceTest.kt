@@ -4,17 +4,29 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
-import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.model.utils.ModelDataGenerator
+import com.gradation.lift.model.utils.ModelDataGenerator.Auth.LOGIN_METHOD_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.User.DELETE_USER_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_INFO_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_NAME_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_PROFILE_PICTURE_MODEL
 import com.gradation.lift.network.common.Constants
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.data.TestJsonDataGenerator
-import com.gradation.lift.network.data.TestJsonDataGenerator.Common.resultResponseJson
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.CREATE_USER_DETAIL_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.DELETE_USER_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.EXIST_USER_DETAIL_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.GET_USER_AUTHENTICATION_METHOD_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.GET_USER_DETAIL_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.UPDATE_USER_DETAIL_INFO_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.UPDATE_USER_DETAIL_NAME_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.UPDATE_USER_DETAIL_PROFILE_PICTURE_RESPONSE_JSON
+import com.gradation.lift.network.data.TestJsonDataGenerator.User.UPDATE_USER_DETAIL_RESPONSE_JSON
 import com.gradation.lift.network.datasource.user.DefaultUserDataSource
 import com.gradation.lift.network.datasource.user.UserDataSource
 import com.gradation.lift.network.di.TestDispatcher.testDispatchers
 import com.gradation.lift.network.di.TestRetrofit
+import com.gradation.lift.network.di.TestServiceModule
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.UserService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,7 +67,7 @@ class UserDataSourceTest {
             NetworkResultHandler(dispatcherProvider = dispatcher)
         userDataSource = DefaultUserDataSource(
             userService = userService,
-            networkResultHandler = networkResultHandler,dispatcher
+            networkResultHandler = networkResultHandler, dispatcher
         )
     }
 
@@ -66,18 +78,51 @@ class UserDataSourceTest {
 
 
     @Test
-    fun getUserDetailDataSource() = runTest {
-
+    fun deleteUserDataSource() = runTest {
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestJsonDataGenerator.User.userDetailResponseJson)
+                .setBody(DELETE_USER_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(userDataSource.deleteUser(DELETE_USER_INFO_MODEL).first()) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun getUserDetailDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_USER_DETAIL_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
         with(userDataSource.getUserDetail().first()) {
             Truth.assertThat(
-                NetworkResult.Success(ModelDataGenerator.User.userDetailModel),
+                NetworkResult.Success(USER_DETAIL_MODEL),
+            ).isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun getUserAuthenticationMethodDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(GET_USER_AUTHENTICATION_METHOD_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(userDataSource.getUserAuthenticationMethod().first()) {
+            Truth.assertThat(
+                NetworkResult.Success(LOGIN_METHOD_MODEL),
             ).isEqualTo(this)
         }
     }
@@ -88,14 +133,14 @@ class UserDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(CREATE_USER_DETAIL_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
 
         with(
-            userDataSource.createUserDetail(ModelDataGenerator.User.createUserDetailModel).first()
+            userDataSource.createUserDetail(USER_DETAIL_MODEL).first()
         ) {
             Truth.assertThat(
                 NetworkResult.Success(Unit),
@@ -108,14 +153,33 @@ class UserDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(UPDATE_USER_DETAIL_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
 
         with(
-            userDataSource.updateUserDetail(ModelDataGenerator.User.userDetailModel).first()
+            userDataSource.updateUserDetail(USER_DETAIL_MODEL).first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(Unit),
+            ).isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun updateUserDetailProfilePictureDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_USER_DETAIL_PROFILE_PICTURE_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            userDataSource.updateUserDetailProfilePicture(USER_DETAIL_PROFILE_PICTURE_MODEL).first()
         ) {
             Truth.assertThat(
                 NetworkResult.Success(Unit),
@@ -128,13 +192,53 @@ class UserDataSourceTest {
 
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(resultResponseJson)
+                .setBody(EXIST_USER_DETAIL_RESPONSE_JSON)
                 .addHeader("Content-Type", "application/json")
                 .setResponseCode(Constants.OK)
         )
 
 
         with(userDataSource.existUserDetail().first()) {
+            Truth.assertThat(
+                NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA),
+            ).isEqualTo(this)
+        }
+    }
+
+    @Test
+    fun updateUserDetailNameDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_USER_DETAIL_NAME_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            userDataSource.updateUserDetailName(USER_DETAIL_NAME_MODEL).first()
+        ) {
+            Truth.assertThat(
+                NetworkResult.Success(
+                    DefaultDataGenerator.FAKE_BOOLEAN_DATA,
+                    message = DefaultDataGenerator.FAKE_MESSAGE_DATA
+                ),
+            ).isEqualTo(this)
+        }
+    }
+
+
+    @Test
+    fun updateUserDetailInfoDataSource() = runTest {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(UPDATE_USER_DETAIL_INFO_RESPONSE_JSON)
+                .addHeader("Content-Type", "application/json")
+                .setResponseCode(Constants.OK)
+        )
+
+        with(
+            userDataSource.updateUserDetailInfo(USER_DETAIL_INFO_MODEL).first()
+        ) {
             Truth.assertThat(
                 NetworkResult.Success(DefaultDataGenerator.FAKE_BOOLEAN_DATA),
             ).isEqualTo(this)

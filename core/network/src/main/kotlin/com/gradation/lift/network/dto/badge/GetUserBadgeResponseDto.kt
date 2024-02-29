@@ -3,10 +3,8 @@ package com.gradation.lift.network.dto.badge
 import com.gradation.lift.model.model.badge.Badge
 import com.gradation.lift.model.model.badge.UserBadge
 import com.gradation.lift.network.common.Constants
-import kotlinx.serialization.SerialName
-
 import kotlinx.datetime.LocalDateTime
-
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -21,8 +19,9 @@ data class GetUserBadgeResponseDto(
                 name = it.badge.name,
                 description = it.badge.description,
                 hint = it.badge.hint,
-                url = Constants.DEFAULT_S3_URL +it.badge.url,
-                color = it.badge.color
+                url = Constants.DEFAULT_S3_URL + it.badge.url,
+                color = it.badge.color,
+                backgroundColor = it.badge.backgroundColor
             ),
             badgeTimeStamp = LocalDateTime.parse(it.badgeTimeStamp),
             mainFlag = it.mainFlag

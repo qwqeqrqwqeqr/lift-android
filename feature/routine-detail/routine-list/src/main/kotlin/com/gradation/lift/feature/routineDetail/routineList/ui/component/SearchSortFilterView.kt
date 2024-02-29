@@ -1,7 +1,15 @@
 package com.gradation.lift.feature.routineDetail.routineList.ui.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.text.KeyboardActions
@@ -11,21 +19,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import com.gradation.lift.designsystem.component.filter.LiftLabelFilterContainer
-import com.gradation.lift.designsystem.component.filter.LiftSortFilterContainer
-import com.gradation.lift.designsystem.component.filter.LiftWeekdayFilterContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftLabelFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftSortFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftWeekdayFilterSmallButton
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.text.TextWithStyle
 import com.gradation.lift.designsystem.component.textField.LiftSearchInputTextField
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.routineDetail.routineList.data.model.LabelFilterType
+import com.gradation.lift.feature.routineDetail.routineList.data.model.RecentUsedRoutineSetRoutine
 import com.gradation.lift.feature.routineDetail.routineList.data.model.SortType
 import com.gradation.lift.feature.routineDetail.routineList.data.model.WeekdayFilterType
 import com.gradation.lift.feature.routineDetail.routineList.data.state.RoutineListScreenState
 import com.gradation.lift.feature.routineDetail.routineList.data.state.SortFilterState
 import com.gradation.lift.model.model.routine.Label
-import com.gradation.lift.model.model.routine.RoutineSetRoutine
+import com.gradation.lift.ui.extensions.isScrollingUp
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 /**
@@ -37,7 +46,7 @@ internal fun SearchSortFilterView(
     modifier: Modifier = Modifier,
     sortFilterState: SortFilterState,
     searchFilterText: String,
-    routineSetRoutineList: List<RoutineSetRoutine>,
+    routineSetRoutineList: List<RecentUsedRoutineSetRoutine>,
     weekdayFilterType: WeekdayFilterType,
     labelFilterType: LabelFilterType,
     sortType: SortType,
@@ -48,9 +57,17 @@ internal fun SearchSortFilterView(
             horizontal = LiftTheme.space.space20,
             vertical = LiftTheme.space.space16
         ),
-        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space16)
     ) {
-        SearchView(modifier, sortFilterState, searchFilterText, routineListScreenState)
+        AnimatedVisibility(
+            routineListScreenState.lazyListState.isScrollingUp(),
+            enter = expandVertically(spring(stiffness = Spring.StiffnessMediumLow)),
+            exit = shrinkVertically(tween(500)),
+        ) {
+            Column {
+                SearchView(modifier, sortFilterState, searchFilterText, routineListScreenState)
+                Spacer(modifier = modifier.height(LiftTheme.space.space16))
+            }
+        }
         SortFilterView(
             modifier,
             routineSetRoutineList,
@@ -90,7 +107,7 @@ internal fun SearchView(
 @Composable
 internal fun SortFilterView(
     modifier: Modifier = Modifier,
-    routineSetRoutineList: List<RoutineSetRoutine>,
+    routineSetRoutineList: List<RecentUsedRoutineSetRoutine>,
     weekdayFilterType: WeekdayFilterType,
     labelFilterType: LabelFilterType,
     sortType: SortType,
@@ -109,7 +126,7 @@ internal fun SortFilterView(
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
             item {
-                LiftSortFilterContainer(
+                LiftSortFilterSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateSortTypeBottomSheetView(
                             true
@@ -119,7 +136,7 @@ internal fun SortFilterView(
                 )
             }
             item {
-                LiftWeekdayFilterContainer(
+                LiftWeekdayFilterSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateWeekdayFilterTypeBottomSheetView(
                             true
@@ -130,7 +147,7 @@ internal fun SortFilterView(
                 )
             }
             item {
-                LiftLabelFilterContainer(
+                LiftLabelFilterSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateLabelFilterTypeBottomSheetView(true)
                     },

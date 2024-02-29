@@ -3,6 +3,7 @@ package com.gradation.lift.navigation.navigation
 import androidx.navigation.NavController
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.navigation.Route.HISTORY_UPDATE_INFO_ROUTER_NAME
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.History.HISTORY_COMMENT_KEY
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.History.HISTORY_DATE_KEY
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.History.HISTORY_ID_KEY
@@ -10,7 +11,8 @@ import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.History.HIS
 
 
 fun NavController.navigateHistoryGraphToWorkReadyReadyRouter() {
-    this.navigate(Route.WORK_READY_READY_ROUTER_NAME)
+    val emptyString = ""
+    this.navigate("${Route.WORK_READY_READY_ROUTER_NAME}?${SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY}=$emptyString")
 }
 
 fun NavController.navigateHistoryGraphToWorkReadyRoutineSelectionRouter() {

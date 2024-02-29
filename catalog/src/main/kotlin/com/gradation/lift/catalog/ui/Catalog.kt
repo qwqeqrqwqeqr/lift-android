@@ -23,15 +23,14 @@ import com.gradation.lift.designsystem.component.button.LiftGoogleLoginButton
 import com.gradation.lift.designsystem.component.button.LiftKakaoLoginButton
 import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
-import com.gradation.lift.designsystem.component.button.LiftSmallButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.container.LiftSecondaryContainer
-import com.gradation.lift.designsystem.component.filter.LiftLabelFilterContainer
-import com.gradation.lift.designsystem.component.filter.LiftSortFilterContainer
-import com.gradation.lift.designsystem.component.filter.LiftWeekdayFilterContainer
+import com.gradation.lift.designsystem.component.button.smallButton.LiftLabelFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftSortFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftWeekdayFilterSmallButton
 import com.gradation.lift.designsystem.component.label.RoutineLabel
 import com.gradation.lift.designsystem.component.progress.LiftProgressCircleLabel
 import com.gradation.lift.designsystem.component.progress.ProgressCircleState
@@ -185,12 +184,7 @@ fun Catalog(
             LiftKakaoLoginButton(modifier) {}
         }
 
-        Column(
-            modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
-        ) {
-            LiftSmallButton(modifier, "버튼") {}
-        }
+
         Column(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
@@ -299,9 +293,9 @@ fun Catalog(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
-            LiftSortFilterContainer(modifier = modifier, sortType = "전체")
-            LiftWeekdayFilterContainer(modifier = modifier, weekdayType = "월,화,수,목,금,토")
-            LiftLabelFilterContainer(modifier = modifier, labelType = setOf(1, 2, 3), false)
+            LiftSortFilterSmallButton(modifier = modifier, sortType = "전체")
+            LiftWeekdayFilterSmallButton(modifier = modifier, weekdayType = "월,화,수,목,금,토")
+            LiftLabelFilterSmallButton(modifier = modifier, labelType = setOf(1, 2, 3), false)
         }
         Column(
             modifier.fillMaxWidth(),
