@@ -1,7 +1,7 @@
 package com.gradation.lift.network.test.mapper
 
 import com.google.common.truth.Truth
-import com.gradation.lift.network.mapper.toMessage
+import com.gradation.lift.network.common.error.toMessage
 import org.junit.Test
 import java.net.SocketTimeoutException
 

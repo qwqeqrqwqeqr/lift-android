@@ -3,15 +3,30 @@ package com.gradation.lift.data.repository
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
-import com.gradation.lift.network.mapper.toMessage
 import com.gradation.lift.domain.repository.AuthRepository
-import com.gradation.lift.model.model.auth.*
+import com.gradation.lift.model.model.auth.DefaultSignInInfo
+import com.gradation.lift.model.model.auth.DefaultSignUpInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationInfo
+import com.gradation.lift.model.model.auth.EmailAuthenticationValidationInfo
+import com.gradation.lift.model.model.auth.GoogleSignInInfo
+import com.gradation.lift.model.model.auth.GoogleSignUpInfo
+import com.gradation.lift.model.model.auth.KakaoSignInInfo
+import com.gradation.lift.model.model.auth.KakaoSignUpInfo
+import com.gradation.lift.model.model.auth.LoginMethod
+import com.gradation.lift.model.model.auth.NaverSignInInfo
+import com.gradation.lift.model.model.auth.NaverSignUpInfo
+import com.gradation.lift.model.model.auth.UpdatePasswordInfo
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.auth.AuthDataSource
 import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
@@ -259,8 +274,8 @@ class DefaultAuthRepository @Inject constructor(
 
     override fun getLoginMethod(): Flow<DataState<LoginMethod>> = flow {
         tokenDataStoreDataSource.loginMethod
-            .catch { it ->
-                DataState.Fail(it.toMessage())
+            .catch { error ->
+                DataState.Fail(error.message.toString())
             }
             .collect { loginMethod ->
                 emit(DataState.Success(loginMethod))
@@ -278,7 +293,7 @@ class DefaultAuthRepository @Inject constructor(
             tokenDataStoreDataSource.clearAll()
             emit(DataState.Success(Unit))
         } catch (error: Exception) {
-            emit(DataState.Fail(error.toMessage()))
+            emit(DataState.Fail(error.message.toString()))
         }
     }.flowOn(dispatcherProvider.default)
 
