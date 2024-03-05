@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -189,7 +189,9 @@ fun NavigationView(
                         Routine(
                             id = null,
                             routineSetId = 0,
-                            workCategory = workSetState.workCategory!!,
+                            workCategoryId = workSetState.workCategoryId,
+                            workCategoryName = workSetState.workCategoryName,
+                            workPart = workSetState.workPart,
                             workSetList = workSetState.workSetList.map {
                                 WorkSet(
                                     weight = it.weight.toFloat(),

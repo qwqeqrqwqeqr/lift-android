@@ -18,5 +18,5 @@ fun RoutineSetRoutine.toEntity() = RoutineSetRoutineEntity(
 )
 
 fun Routine.toEntity() = RoutineEntity(
-    id, routineSetId, workCategory.toEntity(), workSetList
+    id, routineSetId, workCategoryId, workCategoryName, workPart, workSetList
 )

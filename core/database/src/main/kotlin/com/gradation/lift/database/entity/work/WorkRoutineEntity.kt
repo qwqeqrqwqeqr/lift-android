@@ -1,8 +1,12 @@
 package com.gradation.lift.database.entity.work
 
-import androidx.room.*
-import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.gradation.lift.database.util.Constants.Entity.WORK_ROUTINE_TABLE_NAME
+import com.gradation.lift.database.util.StringListTypeConverter
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.model.work.WorkRoutine
 import com.gradation.lift.model.model.work.WorkSet
@@ -23,22 +27,27 @@ import java.util.UUID
 data class WorkRoutineEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int = 0,
+    val id: Long = 0,
 
     @ColumnInfo(name = "work_id")
     val workId: UUID,
 
-    @Embedded(prefix = "work_category_")
-    val workCategory: WorkCategoryEntity,
+    @ColumnInfo(name = "work_category_id")
+    var workCategoryId: Int,
+
+    @ColumnInfo(name = "work_category_name")
+    var workCategoryName: String,
+
+    @TypeConverters(StringListTypeConverter::class)
+    @ColumnInfo(name = "work_part")
+    var workPart: List<String>,
 
     @TypeConverters(WorkSetListTypeConverter::class)
     @ColumnInfo(name = "work_set_list")
     val workSetList: List<WorkSet>,
 ) {
     fun toDomain(): WorkRoutine = WorkRoutine(
-        workId = this.workId,
-        workCategory = this.workCategory.toDomain(),
-        workSetList = this.workSetList
+        workId, workCategoryId, workCategoryName, workPart, workSetList
     )
 }
 

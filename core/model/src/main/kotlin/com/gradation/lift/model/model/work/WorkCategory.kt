@@ -13,7 +13,12 @@ package com.gradation.lift.model.model.work
 data class WorkCategory(
     val id: Int,
     val name: String,
+    val equipment: String,
+    val searchTag: List<String>,
     val workPart: List<String>,
-    val introduce: String?,
-    val description: String?,
+    val introduce: String,
+    val description: String,
+    val sequence: List<SequenceContent>,
+    val effect: List<EffectContent>,
+    val caution: List<String>,
 )

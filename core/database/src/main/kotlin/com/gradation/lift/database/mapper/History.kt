@@ -12,5 +12,5 @@ fun History.toEntity() = HistoryEntity(
 
 
 fun HistoryRoutine.toEntity() = HistoryRoutineEntity(
-    id,historyId,workCategory.toEntity(),workSetList
+    id, historyId, workCategoryId, workCategoryName, workPart, workSetList
 )

@@ -29,7 +29,7 @@ internal fun UpdateWorkSetScreen(
     Scaffold(
         topBar = {
             LiftTopBar(
-                title = workSetState.workCategory?.name ?: "",
+                title = workSetState.workCategoryName,
                 backgroundColor = LiftTheme.colorScheme.no5,
                 onClick = navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph,
             )

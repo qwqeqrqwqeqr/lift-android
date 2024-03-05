@@ -46,7 +46,7 @@ internal fun routineDetailRoutineListUiState(
                                     searchFilterText.isEmpty() ||
                                             routine.name.contains(searchFilterText)
                                             || routine.routine.any {
-                                        it.workCategory.name.contains(
+                                        it.workCategoryName.contains(
                                             searchFilterText
                                         )
                                     }

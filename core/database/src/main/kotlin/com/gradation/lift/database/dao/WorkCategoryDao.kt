@@ -1,7 +1,11 @@
 package com.gradation.lift.database.dao
 
-import androidx.room.*
-import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.gradation.lift.database.entity.workCategory.WorkCategoryEntity
 import com.gradation.lift.database.util.Constants.Entity.WORK_CATEGORY_TABLE_NAME
 import kotlinx.coroutines.flow.Flow
 

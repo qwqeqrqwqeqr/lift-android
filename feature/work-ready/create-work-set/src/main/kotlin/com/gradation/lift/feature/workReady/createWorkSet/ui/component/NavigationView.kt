@@ -44,7 +44,9 @@ fun NavigationView(
                     WorkRoutine(
                         id = workRoutineState.currentWorkRoutine.takeUnless { it.isEmpty() }
                             ?.let { it.maxOf { it.id } + 1 } ?: 0,
-                        workCategory = workCategory,
+                        workCategoryId = workCategory.id,
+                        workCategoryName = workCategory.name,
+                        workPart = workCategory.workPart,
                         workSetList = workSetState.workSetList.map {
                             WorkRoutineWorkSet(
                                 weight = it.weight,

@@ -28,7 +28,9 @@ class UpdateWorkSetViewModel @Inject constructor(
                 )
             )
         }
-        workSetState.workCategory = it.workCategory
+        workSetState.workCategoryId = it.workCategoryId
+        workSetState.workCategoryName = it.workCategoryName
+        workSetState.workPart = it.workPart
     }
 
 }

@@ -65,7 +65,7 @@ class RoutineSetViewModel @Inject constructor(
                     routine = it.routine.map { routine ->
                         UpdateRoutine(
                             id = routine.id,
-                            workCategory = routine.workCategory.name,
+                            workCategory = routine.workCategoryName,
                             workSetList = routine.workSetList
                         )
                     },

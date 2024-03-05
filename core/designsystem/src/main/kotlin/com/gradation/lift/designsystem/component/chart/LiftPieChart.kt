@@ -414,6 +414,6 @@ fun LiftPieChartPreview(
     LiftPieChart(
         modifier,
         pieChartState = PIE_CHART_SAMPLE_DATA,
-        sample = true
+        sample = false
     )
 }

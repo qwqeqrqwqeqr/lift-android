@@ -34,7 +34,9 @@ class ReadyViewModel @Inject constructor(
                             routine = workRoutineList.map { workRoutine ->
                                 WorkRoutineModel(
                                     workId = it,
-                                    workCategory = workRoutine.workCategory,
+                                    workCategoryId = workRoutine.workCategoryId,
+                                    workCategoryName = workRoutine.workCategoryName,
+                                    workPart = workRoutine.workPart,
                                     workSetList = workRoutine.workSetList.map { workSet ->
                                         WorkSet(
                                             weight = workSet.weight.toFloat(),
