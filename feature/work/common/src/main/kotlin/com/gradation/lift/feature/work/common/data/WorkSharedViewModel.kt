@@ -54,7 +54,9 @@ class WorkSharedViewModel @Inject constructor(
                         workState.workRoutineList.addAll(result.data.routine.mapIndexed { index, workRoutine ->
                             WorkRoutine(
                                 index,
-                                workRoutine.workCategory,
+                                workRoutine.workCategoryId,
+                                workRoutine.workCategoryName,
+                                workRoutine.workPart,
                                 workRoutine.workSetList.map { workSet ->
                                     WorkRoutineWorkSet(
                                         weight = workSet.weight.toString(),

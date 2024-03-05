@@ -317,7 +317,7 @@ internal fun ReadyScreen(
         ) {
             itemsIndexed(
                 items = currentWorkRoutine,
-                key = { index, item -> "${item.id}${item.workCategory.name}" }
+                key = { index, item -> "${item.id}${item.workCategoryName}" }
             ) { routineIndex, routine ->
 
                 val isDragging = routineIndex == dragDropListState.currentIndexOfDraggedItem
@@ -387,7 +387,7 @@ internal fun ReadyScreen(
                                     )
                                     LiftText(
                                         textStyle = LiftTextStyle.No3,
-                                        text = routine.workCategory.name,
+                                        text = routine.workCategoryName,
                                         color = LiftTheme.colorScheme.no9,
                                         textAlign = TextAlign.Left
                                     )

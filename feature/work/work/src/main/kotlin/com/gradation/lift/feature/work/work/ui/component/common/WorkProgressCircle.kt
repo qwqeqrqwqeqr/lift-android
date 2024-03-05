@@ -50,7 +50,7 @@ fun WorkProgressCircle(
             LiftText(
                 modifier = modifier,
                 textStyle = LiftTextStyle.No1,
-                text = workState.getCurrentWorkRoutine().workCategory.name,
+                text = workState.getCurrentWorkRoutine().workCategoryName,
                 color = LiftTheme.colorScheme.no11,
                 textAlign = TextAlign.Center
             )

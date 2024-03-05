@@ -189,7 +189,9 @@ fun NavigationView(
                             Routine(
                                 id = null,
                                 routineSetId = routineUiState.routineSetRoutine.id,
-                                workCategory = workCategory,
+                                workCategoryId = workCategory.id,
+                                workCategoryName = workCategory.name,
+                                workPart = workCategory.workPart,
                                 workSetList = workSetState.workSetList.map {
                                     WorkSet(
                                         weight = it.weight.toFloat(),

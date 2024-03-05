@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -474,14 +473,10 @@ private fun Density.getChartOffsetList(boxSize: Dp) =
 fun LiftHexagonChartPreview(
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
-    ) {
-        LiftHexagonChart(
-            modifier,
-            HEXAGON_CHART_SAMPLE_DATA,
-            true
-        )
-    }
+
+    LiftHexagonChart(
+        modifier,
+        HEXAGON_CHART_SAMPLE_DATA,
+        false
+    )
 }

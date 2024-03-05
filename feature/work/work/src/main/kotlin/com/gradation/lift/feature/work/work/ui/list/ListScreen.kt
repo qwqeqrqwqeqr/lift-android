@@ -202,7 +202,7 @@ fun ListScreen(
                                     )
                                     LiftText(
                                         textStyle = LiftTextStyle.No3,
-                                        text = workRoutine.workCategory.name,
+                                        text = workRoutine.workCategoryName,
                                         color = LiftTheme.colorScheme.no9,
                                         textAlign = TextAlign.Left
                                     )

@@ -263,7 +263,7 @@ private fun createHistory(
     setHistoryRoutineList(
         workState.workRoutineList.map { workRoutine ->
             CreateHistoryRoutine(
-                workCategory = workRoutine.workCategory.name,
+                workCategory = workRoutine.workCategoryName,
                 workSetList = workRoutine.workSetList.toList()
                     .filterIndexed { index, _ ->
                         workRoutineInfoState.isChecked(

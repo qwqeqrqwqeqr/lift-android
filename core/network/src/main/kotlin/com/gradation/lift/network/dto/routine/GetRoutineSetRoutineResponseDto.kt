@@ -6,7 +6,6 @@ import com.gradation.lift.model.model.date.toWeekDay
 import com.gradation.lift.model.model.routine.Routine
 import com.gradation.lift.model.model.routine.RoutineSetRoutine
 import com.gradation.lift.model.model.routine.toLabel
-import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.network.common.Constants
 import kotlinx.serialization.SerialName
@@ -37,13 +36,9 @@ data class GetRoutineSetRoutineResponseDto(
                     Routine(
                         id = routine.routineDto.routineId,
                         routineSetId = routine.routineDto.routineSetId,
-                        workCategory = WorkCategory(
-                            id = routine.routineDto.workCategory.id,
-                            name = routine.routineDto.workCategory.name,
-                            workPart = routine.routineDto.workCategory.workPart,
-                            introduce = routine.routineDto.workCategory.introduce,
-                            description = routine.routineDto.workCategory.description
-                        ),
+                        workCategoryId = routine.routineDto.workCategoryId,
+                        workCategoryName = routine.routineDto.workCategoryName,
+                        workPart = routine.routineDto.workPart,
                         workSetList = routine.routineDto.workWeightList.zip(routine.routineDto.workRepetitionList)
                             .map { workSet ->
                                 WorkSet(

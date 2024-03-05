@@ -2,10 +2,16 @@ package com.gradation.lift.database.di
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.RoomWarnings
 import androidx.room.TypeConverters
-import com.gradation.lift.database.dao.*
-import com.gradation.lift.database.entity.*
+import com.gradation.lift.database.dao.BadgeDao
+import com.gradation.lift.database.dao.HistoryDao
+import com.gradation.lift.database.dao.NoticeDao
+import com.gradation.lift.database.dao.PictureDao
+import com.gradation.lift.database.dao.RoutineDao
+import com.gradation.lift.database.dao.UserDao
+import com.gradation.lift.database.dao.WorkCategoryDao
+import com.gradation.lift.database.dao.WorkDao
+import com.gradation.lift.database.dao.WorkPartDao
 import com.gradation.lift.database.entity.badge.BadgeEntity
 import com.gradation.lift.database.entity.badge.UserBadgeEntity
 import com.gradation.lift.database.entity.history.HistoryEntity
@@ -18,11 +24,17 @@ import com.gradation.lift.database.entity.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.entity.user.UserEntity
 import com.gradation.lift.database.entity.work.WorkEntity
 import com.gradation.lift.database.entity.work.WorkRoutineEntity
-import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
-import com.gradation.lift.database.entity.work_category.WorkPartEntity
-import com.gradation.lift.database.util.*
+import com.gradation.lift.database.entity.workCategory.WorkCategoryEntity
+import com.gradation.lift.database.entity.workCategory.WorkPartEntity
+import com.gradation.lift.database.util.GenderTypeConverter
+import com.gradation.lift.database.util.IntListTypeConverter
+import com.gradation.lift.database.util.LocalDateTimeTypeConverter
+import com.gradation.lift.database.util.LocalDateTypeConverter
+import com.gradation.lift.database.util.LocalTimeTypeConverter
+import com.gradation.lift.database.util.StringListTypeConverter
+import com.gradation.lift.database.util.UnitOfWeightTypeConverter
+import com.gradation.lift.database.util.WorkSetListTypeConverter
 
-@SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 @Database(
     entities = [
         BadgeEntity::class,
@@ -40,7 +52,7 @@ import com.gradation.lift.database.util.*
         WorkCategoryEntity::class,
         WorkPartEntity::class,
     ],
-    version = 5,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(

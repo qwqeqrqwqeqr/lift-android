@@ -10,6 +10,9 @@ android {
     namespace = "com.gradation.lift.database"
     defaultConfig {
         testInstrumentationRunner = "com.gradation.lift.test.LiftTestRunner"
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 }
 dependencies {

@@ -1,6 +1,5 @@
 package com.gradation.lift.database.data
 
-import com.gradation.lift.database.data.TestEntityDataGenerator.WorkCategory.workCategoryEntity1
 import com.gradation.lift.database.entity.badge.BadgeEntity
 import com.gradation.lift.database.entity.badge.UserBadgeEntity
 import com.gradation.lift.database.entity.history.HistoryEntity
@@ -13,8 +12,8 @@ import com.gradation.lift.database.entity.routine.RoutineSetRoutineEntity
 import com.gradation.lift.database.entity.user.UserEntity
 import com.gradation.lift.database.entity.work.WorkEntity
 import com.gradation.lift.database.entity.work.WorkRoutineEntity
-import com.gradation.lift.database.entity.work_category.WorkCategoryEntity
-import com.gradation.lift.database.entity.work_category.WorkPartEntity
+import com.gradation.lift.database.entity.workCategory.WorkCategoryEntity
+import com.gradation.lift.database.entity.workCategory.WorkPartEntity
 import com.gradation.lift.model.BuildConfig
 import com.gradation.lift.model.model.user.Gender
 import com.gradation.lift.model.model.user.UnitOfWeight
@@ -111,7 +110,9 @@ object TestEntityDataGenerator {
         internal val historyRoutineEntity1 = HistoryRoutineEntity(
             id = 1,
             historyId = 1,
-            workCategory = workCategoryEntity1,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_STRING_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workSetList = listOf(
                 WorkSet(
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
@@ -175,7 +176,9 @@ object TestEntityDataGenerator {
         internal val workRoutineEntity = WorkRoutineEntity(
             id = 1,
             workId = UUID.fromString(""),
-            workCategory = workCategoryEntity1,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_STRING_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workSetList = listOf(
                 WorkSet(
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
@@ -211,10 +214,14 @@ object TestEntityDataGenerator {
         internal val workCategoryEntity1 = WorkCategoryEntity(
             id = FAKE_INT_DATA,
             name = FAKE_ROUTINE_NAME_DATA,
+            equipment = FAKE_STRING_DATA,
+            searchTag = listOf(FAKE_STRING_DATA),
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             introduce = FAKE_STRING_DATA,
-            description = FAKE_STRING_DATA
-
+            description = FAKE_STRING_DATA,
+            sequence = listOf(FAKE_STRING_DATA),
+            effect = listOf(FAKE_STRING_DATA),
+            caution = listOf(FAKE_STRING_DATA)
         )
 
         val workCategoryEntityList = listOf(
@@ -226,7 +233,9 @@ object TestEntityDataGenerator {
         val routineEntity1 = RoutineEntity(
             id = FAKE_INT_DATA,
             routineSetId = FAKE_INT_DATA,
-            workCategoryEntity = workCategoryEntity1,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_STRING_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workSetList = listOf(
                 WorkSet(
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
