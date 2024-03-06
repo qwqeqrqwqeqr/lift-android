@@ -9,7 +9,6 @@ package com.gradation.lift.model.model.user
  * @property height  키
  * @property weight  몸무게
  * @property profilePicture  프로필 사진
- * @property unitOfWeight  무게 단위 (현재 미사용)
  */
 data class UserDetail(
     val name: String="",
@@ -17,7 +16,6 @@ data class UserDetail(
     val height: Float=0f,
     val weight: Float=0f,
     val profilePicture: String="",
-    val unitOfWeight: UnitOfWeight = UnitOfWeight.Kg(),
 )
 
 

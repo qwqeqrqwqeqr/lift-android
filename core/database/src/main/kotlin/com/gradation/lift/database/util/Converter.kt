@@ -2,10 +2,7 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.model.model.user.UnitOfWeight
-import com.gradation.lift.model.model.user.toGender
-import com.gradation.lift.model.model.user.toUnitOfWeight
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
 import com.gradation.lift.model.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -13,7 +10,6 @@ import com.squareup.moshi.Types
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
-import javax.inject.Inject
 import kotlinx.datetime.LocalDate.Companion.parse as localDateParse
 import kotlinx.datetime.LocalDateTime.Companion.parse as localDateTimeParse
 import kotlinx.datetime.LocalTime.Companion.parse as localTimeParse
@@ -59,30 +55,21 @@ class IntListTypeConverter(
 
 
 @ProvidedTypeConverter
-class GenderTypeConverter @Inject constructor() {
+class CheckedWorkSetInfoListTypeConverter(
+    private val moshi: Moshi,
+) {
     @TypeConverter
-    fun jsonTypeToGenderType(value: String): Gender {
-        return value.toGender()
+    fun jsonTypeToIntListType(value: String): List<CheckedWorkSetInfo>? {
+        val listType = Types.newParameterizedType(List::class.java, CheckedWorkSetInfo::class.java)
+        val adapter: JsonAdapter<List<CheckedWorkSetInfo>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
     }
 
-
     @TypeConverter
-    fun genderTypeToJsonType(type: Gender): String {
-        return type.getGenderValue()
-    }
-}
-
-@ProvidedTypeConverter
-class UnitOfWeightTypeConverter @Inject constructor() {
-    @TypeConverter
-    fun jsonTypeToUnitOfWeightType(value: String): UnitOfWeight {
-        return value.toUnitOfWeight()
-    }
-
-
-    @TypeConverter
-    fun unitOfWeightTypeToJsonType(type: UnitOfWeight): String {
-        return type.getUnitOfWeightValue()
+    fun intListTypeToJsonType(type: List<CheckedWorkSetInfo>): String {
+        val listType = Types.newParameterizedType(List::class.java, CheckedWorkSetInfo::class.java)
+        val adapter: JsonAdapter<List<CheckedWorkSetInfo>> = moshi.adapter(listType)
+        return adapter.toJson(type)
     }
 }
 

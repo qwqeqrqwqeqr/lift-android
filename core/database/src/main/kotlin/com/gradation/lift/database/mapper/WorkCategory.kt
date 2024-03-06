@@ -2,6 +2,7 @@ package com.gradation.lift.database.mapper
 
 import com.gradation.lift.database.entity.workCategory.WorkCategoryEntity
 import com.gradation.lift.database.entity.workCategory.WorkPartEntity
+import com.gradation.lift.database.util.Constants.SEPARATOR
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 
@@ -19,7 +20,7 @@ fun WorkCategory.toEntity() = WorkCategoryEntity(
     workPart = workPart,
     introduce = introduce,
     description = description,
-    sequence = sequence.map { "${it.sequence}:${it.title}:${it.content}" },
-    effect = effect.map { "${it.title}:${it.content}" },
+    sequence = sequence.map { "${it.sequence}${SEPARATOR}${it.title}${SEPARATOR}${it.content}" },
+    effect = effect.map { "${it.title}${SEPARATOR}${it.content}" },
     caution = caution
 )

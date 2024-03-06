@@ -26,14 +26,9 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideUnitOfWeightTypeConverter(): UnitOfWeightTypeConverter =
-        UnitOfWeightTypeConverter()
+    fun provideCheckedWorkSetInfoListTypeConverter(moshi: Moshi): CheckedWorkSetInfoListTypeConverter =
+        CheckedWorkSetInfoListTypeConverter(moshi)
 
-
-    @Provides
-    @Singleton
-    fun provideGenderTypeConverter(): GenderTypeConverter =
-        GenderTypeConverter()
 
     @Provides
     @Singleton

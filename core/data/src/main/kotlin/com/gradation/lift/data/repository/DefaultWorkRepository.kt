@@ -10,7 +10,12 @@ import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.work.WorkDataSource
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -105,15 +110,12 @@ class DefaultWorkRepository @Inject constructor(
     override fun updateWork(work: Work): Flow<DataState<Unit>> = flow {
         workDao.updateWork(work.toEntity())
 
-        work.routine.map {
-            workDao.updateWorkRoutine(it.toEntity())
-        }
+
         emit(DataState.Success(Unit))
     }.flowOn(dispatcherProvider.default)
 
 
     override fun deleteWork(work: Work): Flow<DataState<Unit>> = flow {
-        workDao.deleteWork(work.toEntity())
         emit(DataState.Success(Unit))
     }.flowOn(dispatcherProvider.default)
 

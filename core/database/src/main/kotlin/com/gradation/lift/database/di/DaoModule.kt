@@ -21,34 +21,21 @@ object DaoModule {
 
     @Provides
     @Singleton
+    fun provideUserBadgeDao(
+        database: LiftDatabase,
+    ): UserBadgeDao = database.userBadgeDao()
+
+    @Provides
+    @Singleton
     fun provideHistoryDao(
         database: LiftDatabase,
     ): HistoryDao = database.historyDao()
 
     @Provides
     @Singleton
-    fun provideNoticeDao(
-        database: LiftDatabase,
-    ): NoticeDao = database.noticeDao()
-
-    @Provides
-    @Singleton
-    fun providePictureDao(
-        database: LiftDatabase,
-    ): PictureDao = database.pictureDao()
-
-    @Provides
-    @Singleton
     fun provideRoutineSetRoutineDao(
         database: LiftDatabase,
     ): RoutineDao = database.routineSetRoutineDao()
-
-    @Provides
-    @Singleton
-    fun provideUserDao(
-        database: LiftDatabase,
-    ): UserDao = database.userDao()
-
 
     @Provides
     @Singleton
@@ -62,12 +49,9 @@ object DaoModule {
         database: LiftDatabase,
     ): WorkPartDao = database.workPartDao()
 
-
     @Provides
     @Singleton
     fun provideWorkDao(
         database: LiftDatabase,
     ): WorkDao = database.workDao()
-
-
 }

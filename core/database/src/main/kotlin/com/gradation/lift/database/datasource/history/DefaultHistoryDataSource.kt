@@ -10,7 +10,7 @@ import javax.inject.Inject
 class DefaultHistoryDataSource @Inject constructor(
     private val historyDao: HistoryDao,
 ) : HistoryDataSource {
-    override suspend fun getAllHistory(): Flow<List<History>> = flow {
+    override fun getAllHistory(): Flow<List<History>> = flow {
         historyDao.getAllHistory().collect { historyEntity ->
             emit(
                 historyEntity.map {
@@ -20,21 +20,7 @@ class DefaultHistoryDataSource @Inject constructor(
         }
     }
 
-    override suspend fun deleteAllHistory() {
-        historyDao.deleteAllHistory()
-    }
-
-    override suspend fun insertAllHistory(
-        history: List<History>,
-    ) {
-
-        historyDao.insertAll(
-            historyEntity = history.map { it.toEntity() },
-            historyRoutineEntity = history.flatMap { it.historyRoutine.map { it.toEntity() } }
-        )
-    }
-
-    override suspend fun fetchHistory(history: List<History>) {
+    override suspend fun fetch(history: List<History>) {
         historyDao.deleteAllHistory()
         historyDao.insertAll(
             historyEntity = history.map { it.toEntity() },

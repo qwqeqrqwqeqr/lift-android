@@ -8,10 +8,10 @@ import com.gradation.lift.domain.usecase.work.DeleteAllWorkUseCase
 import com.gradation.lift.feature.workReady.common.model.WorkRoutine
 import com.gradation.lift.model.model.work.Work
 import com.gradation.lift.model.model.work.WorkSet
+import com.gradation.lift.model.utils.Constants.WORK_ID_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 import com.gradation.lift.model.model.work.WorkRoutine as WorkRoutineModel
 
@@ -28,12 +28,11 @@ class ReadyViewModel @Inject constructor(
             viewModelScope.launch {
                 deleteAllWorkUseCase().collect()
                 createWorkUseCase(
-                    UUID.randomUUID().let {
                         Work(
-                            id = it,
+                            id = WORK_ID_KEY,
                             routine = workRoutineList.map { workRoutine ->
                                 WorkRoutineModel(
-                                    workId = it,
+                                    workId = WORK_ID_KEY,
                                     workCategoryId = workRoutine.workCategoryId,
                                     workCategoryName = workRoutine.workCategoryName,
                                     workPart = workRoutine.workPart,
@@ -47,7 +46,6 @@ class ReadyViewModel @Inject constructor(
                             },
                             usedRoutineSetIdList = usedRoutineSetIdList
                         )
-                    }
                 ).collect()
             }
         }

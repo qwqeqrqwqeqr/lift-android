@@ -22,21 +22,19 @@ object DatabaseModule {
         @ApplicationContext context: Context,
         stringListTypeConverter: StringListTypeConverter,
         intListTypeConverter: IntListTypeConverter,
+        checkedWorkSetInfoListTypeConverter: CheckedWorkSetInfoListTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
-        unitOfWeightTypeConverter: UnitOfWeightTypeConverter,
-        genderTypeConverter: GenderTypeConverter,
         localDateTimeTypeConverter: LocalDateTimeTypeConverter,
         localDateTypeConverter: LocalDateTypeConverter,
     ) =
         Room.databaseBuilder(context, LiftDatabase::class.java, DATABASE_NAME)
             .addTypeConverter(stringListTypeConverter)
             .addTypeConverter(intListTypeConverter)
+            .addTypeConverter(checkedWorkSetInfoListTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
             .addTypeConverter(localDateTimeTypeConverter)
-            .addTypeConverter(genderTypeConverter)
-            .addTypeConverter(unitOfWeightTypeConverter)
             .addTypeConverter(localDateTypeConverter)
             .fallbackToDestructiveMigration()
             .build()
