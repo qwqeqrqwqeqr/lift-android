@@ -6,13 +6,8 @@ import com.gradation.lift.database.dao.WorkDao
 import com.gradation.lift.database.mapper.toEntity
 import com.gradation.lift.domain.repository.WorkRepository
 import com.gradation.lift.model.model.work.Work
-import com.gradation.lift.model.model.work.WorkCategory
-import com.gradation.lift.model.model.work.WorkPart
-import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.work.WorkDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -20,65 +15,9 @@ import javax.inject.Inject
 
 
 class DefaultWorkRepository @Inject constructor(
-    private val workDataSource: WorkDataSource,
     private val workDao: WorkDao,
     private val dispatcherProvider: DispatcherProvider,
 ) : WorkRepository {
-    override fun getWorkPart(): Flow<DataState<List<WorkPart>>> = flow {
-        workDataSource.getWorkPart().distinctUntilChanged().collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
-            }
-        }
-    }.flowOn(dispatcherProvider.default)
-
-
-    override fun getWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
-        workDataSource.getWorkCategory().distinctUntilChanged().collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
-            }
-        }
-    }.flowOn(dispatcherProvider.default)
-
-    override fun getWorkCategoryById(workCategoryId: Int): Flow<DataState<WorkCategory>> = flow {
-        workDataSource.getWorkCategoryById(workCategoryId).collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
-            }
-        }
-    }.flowOn(dispatcherProvider.default)
-
-    override fun getWorkCategoryByWorkPart(workPart: String): Flow<DataState<List<WorkCategory>>> =
-        flow {
-            workDataSource.getWorkCategoryByWorkPart(workPart).collect { result ->
-                when (result) {
-                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                    is NetworkResult.Success -> emit(DataState.Success(result.data))
-                }
-            }
-        }.flowOn(dispatcherProvider.default)
-
-    override fun getPopularWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
-        workDataSource.getPopularWorkCategory().distinctUntilChanged().collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
-            }
-        }
-    }.flowOn(dispatcherProvider.default)
-
-    override fun getRecommendWorkCategory(): Flow<DataState<List<WorkCategory>>> = flow {
-        workDataSource.getRecommendWorkCategory().distinctUntilChanged().collect { result ->
-            when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
-            }
-        }
-    }.flowOn(dispatcherProvider.default)
 
     override fun getWork(): Flow<DataState<Work>> = flow {
         workDao.getAllWork().collect {

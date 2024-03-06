@@ -1,14 +1,14 @@
 package com.gradation.lift.domain.usecase.work
 
-import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.repository.WorkRepository
+import com.gradation.lift.domain.repository.WorkCategoryRepository
+import com.gradation.lift.model.model.work.WorkCategory
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetWorkCategoryByIdUseCase @Inject constructor(
-    private val workRepository: WorkRepository
+    private val workCategoryRepository: WorkCategoryRepository,
 ) {
     operator fun invoke(workCategoryId: Int): Flow<DataState<WorkCategory>> =
-        workRepository.getWorkCategoryById(workCategoryId)
+        workCategoryRepository.getWorkCategoryById(workCategoryId)
 }

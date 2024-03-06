@@ -2,7 +2,9 @@ package com.gradation.lift.data.di
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.data.repository.*
+import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.dao.WorkDao
+import com.gradation.lift.database.dao.WorkPartDao
 import com.gradation.lift.datastore.datasource.SettingDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
@@ -36,15 +38,31 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun provideWorkRepository(
-        workDataSource: WorkDataSource,
         workDao: WorkDao,
         dispatcherProvider: DispatcherProvider,
     ): WorkRepository = DefaultWorkRepository(
-        workDataSource = workDataSource,
-        workDao = workDao,
-        dispatcherProvider
+        workDao, dispatcherProvider
     )
 
+    @ViewModelScoped
+    @Provides
+    fun provideWorkPartRepository(
+        workDataSource: WorkDataSource,
+        workPartDao: WorkPartDao,
+        dispatcherProvider: DispatcherProvider,
+    ): WorkPartRepository = DefaultWorkPartRepository(
+        workDataSource, workPartDao, dispatcherProvider
+    )
+
+    @ViewModelScoped
+    @Provides
+    fun provideWorkCategoryRepository(
+        workDataSource: WorkDataSource,
+        workCategoryDao: WorkCategoryDao,
+        dispatcherProvider: DispatcherProvider,
+    ): WorkCategoryRepository = DefaultWorkCategoryRepository(
+        workDataSource, workCategoryDao, dispatcherProvider
+    )
 
     @ViewModelScoped
     @Provides
