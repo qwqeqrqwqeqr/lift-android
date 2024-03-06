@@ -12,6 +12,4 @@ data class UpdateUserDetailInfoRequestDto(
     val height: Float,
     @SerialName("weight")
     val weight: Float,
-    @SerialName("unit_of_weight")
-    val unitOfWeight: String,
 )

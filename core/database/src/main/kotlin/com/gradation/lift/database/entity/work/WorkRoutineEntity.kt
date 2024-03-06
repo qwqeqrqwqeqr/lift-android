@@ -10,7 +10,6 @@ import com.gradation.lift.database.util.StringListTypeConverter
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.gradation.lift.model.model.work.WorkRoutine
 import com.gradation.lift.model.model.work.WorkSet
-import java.util.UUID
 
 @Entity(
     tableName = WORK_ROUTINE_TABLE_NAME,
@@ -30,7 +29,7 @@ data class WorkRoutineEntity(
     val id: Long = 0,
 
     @ColumnInfo(name = "work_id")
-    val workId: UUID,
+    val workId: Long,
 
     @ColumnInfo(name = "work_category_id")
     var workCategoryId: Int,

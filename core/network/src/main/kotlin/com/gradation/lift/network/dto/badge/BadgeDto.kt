@@ -12,7 +12,7 @@ data class BadgeDto(
     @SerialName("name")
     val name: String,
     @SerialName("description")
-    val description: String,
+    val description: String?,
     @SerialName("hint")
     val hint: String,
     @SerialName("url")

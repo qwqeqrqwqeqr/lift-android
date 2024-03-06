@@ -1,12 +1,10 @@
 package com.gradation.lift.database.di
 
-import com.gradation.lift.database.util.GenderTypeConverter
 import com.gradation.lift.database.util.IntListTypeConverter
 import com.gradation.lift.database.util.LocalDateTimeTypeConverter
 import com.gradation.lift.database.util.LocalDateTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
 import com.gradation.lift.database.util.StringListTypeConverter
-import com.gradation.lift.database.util.UnitOfWeightTypeConverter
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -34,15 +32,6 @@ object TestConverterModule {
     fun provideStringListTypeConverter(): StringListTypeConverter =
         StringListTypeConverter(Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build())
 
-    @Provides
-    @Singleton
-    fun provideGenderTypeConverter(): GenderTypeConverter =
-        GenderTypeConverter()
-
-    @Provides
-    @Singleton
-    fun provideUnitOfWeightTypeConverter(): UnitOfWeightTypeConverter =
-        UnitOfWeightTypeConverter()
 
 
     @Provides

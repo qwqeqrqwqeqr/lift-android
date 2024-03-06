@@ -10,7 +10,7 @@ import javax.inject.Inject
 class DefaultRoutineDataSource @Inject constructor(
     private val routineDao: RoutineDao,
 ) : RoutineDataSource {
-    override suspend fun getAllRoutineSetRoutine(): Flow<List<RoutineSetRoutine>> = flow {
+    override fun getAllRoutineSetRoutine(): Flow<List<RoutineSetRoutine>> = flow {
         routineDao.getAllRoutineSetRoutine().collect { routineSetRoutineEntity ->
             emit(
                 routineSetRoutineEntity.map {
@@ -21,20 +21,7 @@ class DefaultRoutineDataSource @Inject constructor(
         }
     }
 
-    override suspend fun deleteAllRoutineSetRoutine() {
-        routineDao.deleteAllRoutineSetRoutine()
-    }
-
-    override suspend fun insertAllRoutineSetRoutine(
-        routineSetRoutine: List<RoutineSetRoutine>,
-    ) {
-        routineDao.insertAll(
-            routineSetRoutineEntity = routineSetRoutine.map { it.toEntity() },
-            routineEntity = routineSetRoutine.flatMap { it.routine.map { it.toEntity() } }
-        )
-    }
-
-    override suspend fun fetchRoutineSetRoutine(routineSetRoutine: List<RoutineSetRoutine>) {
+    override suspend fun fetch(routineSetRoutine: List<RoutineSetRoutine>) {
         routineDao.deleteAllRoutineSetRoutine()
         routineDao.insertAll(
             routineSetRoutineEntity = routineSetRoutine.map { it.toEntity() },

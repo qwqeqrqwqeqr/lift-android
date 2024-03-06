@@ -5,7 +5,6 @@ import com.gradation.lift.model.model.date.Weekday
 import com.gradation.lift.model.model.routine.Label
 import com.gradation.lift.model.model.routine.getId
 import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.model.model.user.UnitOfWeight
 
 
 object DefaultDataGenerator {
@@ -24,7 +23,6 @@ object DefaultDataGenerator {
     const val FAKE_GENDER_DATA = Gender.MALE_VALUE
     const val FAKE_HEIGHT_DATA = 180.0f
     const val FAKE_WEIGHT_DATA = 85.5f
-    const val FAKE_UNIT_OF_WEIGHT_DATA = UnitOfWeight.KG_VALUE
     const val FAKE_AUTHENTICATION_METHOD_DATA = LoginMethod.GOOGLE_VALUE
 
     const val FAKE_ROUTINE_NAME_DATA = "월요일 루틴"

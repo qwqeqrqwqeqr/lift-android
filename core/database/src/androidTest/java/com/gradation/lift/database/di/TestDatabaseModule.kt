@@ -23,8 +23,6 @@ object TestDatabaseModule {
         @ApplicationContext context: Context,
         intListTypeConverter: IntListTypeConverter,
         stringListTypeConverter: StringListTypeConverter,
-        genderTypeConverter: GenderTypeConverter,
-        unitOfWeightTypeConverter: UnitOfWeightTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
         localDateTypeConverter: LocalDateTypeConverter,
@@ -33,8 +31,6 @@ object TestDatabaseModule {
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
             .addTypeConverter(intListTypeConverter)
             .addTypeConverter(stringListTypeConverter)
-            .addTypeConverter(genderTypeConverter)
-            .addTypeConverter(unitOfWeightTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
             .addTypeConverter(localDateTypeConverter)

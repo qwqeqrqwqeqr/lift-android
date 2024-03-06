@@ -42,7 +42,6 @@ import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
 import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import com.gradation.lift.model.model.user.toGender
-import com.gradation.lift.model.model.user.toUnitOfWeight
 import com.gradation.lift.model.model.work.EffectContent
 import com.gradation.lift.model.model.work.SequenceContent
 import com.gradation.lift.model.model.work.WorkCategory
@@ -69,7 +68,6 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_SCORE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_STAMP_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_UNIT_OF_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEEKDAY_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEIGHT_DATA
@@ -186,7 +184,6 @@ object ModelDataGenerator {
 
         val DELETE_USER_INFO_MODEL = DeleteUserInfo(FAKE_STRING_DATA)
         val GENDER_MODEL = FAKE_GENDER_DATA.toGender()
-        val UNIT_OF_WEIGHT_MODEL = FAKE_UNIT_OF_WEIGHT_DATA.toUnitOfWeight()
 
         val USER_DETAIL_MODEL = UserDetail(
             name = FAKE_STRING_DATA,
@@ -194,14 +191,12 @@ object ModelDataGenerator {
             height = FAKE_HEIGHT_DATA,
             weight = FAKE_WEIGHT_DATA,
             profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            unitOfWeight = UNIT_OF_WEIGHT_MODEL
         )
 
         val USER_DETAIL_INFO_MODEL = UserDetailInfo(
             gender = GENDER_MODEL,
             height = FAKE_HEIGHT_DATA,
             weight = FAKE_WEIGHT_DATA,
-            unitOfWeight = UNIT_OF_WEIGHT_MODEL,
         )
 
         val USER_DETAIL_NAME_MODEL = UserDetailName(

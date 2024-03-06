@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkPartDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorkPart(workPartEntity: WorkPartEntity)
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllWorkPart(vararg workPartEntity: WorkPartEntity)
 
     @Delete

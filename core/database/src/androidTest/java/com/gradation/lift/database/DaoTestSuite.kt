@@ -11,13 +11,9 @@ import org.junit.runners.Suite
 @Suite.SuiteClasses(
     BadgeDaoTest::class,
     HistoryDaoTest::class,
-    PictureDaoTest::class,
     RoutineDaoTest::class,
-    PictureDaoTest::class,
     WorkDaoTest::class,
     WorkPartDaoTest::class,
     WorkCategoryDaoTest::class,
-    UserDaoTest::class,
-    NoticeDaoTest::class,
 )
 class DaoTestSuite
