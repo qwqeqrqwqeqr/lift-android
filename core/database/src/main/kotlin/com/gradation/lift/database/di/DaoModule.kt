@@ -1,5 +1,6 @@
 package com.gradation.lift.database.di
 
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.*
 import dagger.Module
 import dagger.Provides

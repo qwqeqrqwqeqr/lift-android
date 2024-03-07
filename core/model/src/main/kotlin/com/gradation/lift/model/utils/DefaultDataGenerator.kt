@@ -10,6 +10,7 @@ import com.gradation.lift.model.model.user.Gender
 object DefaultDataGenerator {
 
     const val FAKE_INT_DATA = 13
+    const val FAKE_LONG_DATA = 20L
     const val FAKE_BOOLEAN_DATA = true
     const val FAKE_STRING_DATA = "lift"
     const val FAKE_URL_DATA = "https://deletedy37t5u9cq.pkw"

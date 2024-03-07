@@ -3,6 +3,8 @@ package com.gradation.lift.database.util
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.gradation.lift.model.model.work.CheckedWorkSetInfo
+import com.gradation.lift.model.model.work.EffectContent
+import com.gradation.lift.model.model.work.SequenceContent
 import com.gradation.lift.model.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -90,6 +92,48 @@ class WorkSetListTypeConverter(
     fun workSetListToJsonType(type: List<WorkSet>): String {
         val listType = Types.newParameterizedType(List::class.java, WorkSet::class.java)
         val adapter: JsonAdapter<List<WorkSet>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
+class SequenceContentListTypeConverter(
+    private val moshi: Moshi,
+) {
+
+    @TypeConverter
+    fun jsonTypeToSequenceContentList(value: String): List<SequenceContent>? {
+        val listType = Types.newParameterizedType(List::class.java, SequenceContent::class.java)
+        val adapter: JsonAdapter<List<SequenceContent>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun sequenceContentListToJsonType(type: List<SequenceContent>): String {
+        val listType = Types.newParameterizedType(List::class.java, SequenceContent::class.java)
+        val adapter: JsonAdapter<List<SequenceContent>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
+class EffectContentListTypeConverter(
+    private val moshi: Moshi,
+) {
+
+    @TypeConverter
+    fun jsonTypeToEffectContentList(value: String): List<EffectContent>? {
+        val listType = Types.newParameterizedType(List::class.java, EffectContent::class.java)
+        val adapter: JsonAdapter<List<EffectContent>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun effectContentListToJsonType(type: List<EffectContent>): String {
+        val listType = Types.newParameterizedType(List::class.java, EffectContent::class.java)
+        val adapter: JsonAdapter<List<EffectContent>> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }

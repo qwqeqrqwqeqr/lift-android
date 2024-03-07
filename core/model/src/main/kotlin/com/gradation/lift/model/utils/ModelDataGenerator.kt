@@ -42,10 +42,12 @@ import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
 import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import com.gradation.lift.model.model.user.toGender
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
 import com.gradation.lift.model.model.work.EffectContent
 import com.gradation.lift.model.model.work.SequenceContent
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.model.model.work.WorkRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_AUTHENTICATION_METHOD_DATA
@@ -57,6 +59,7 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_GENDER_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_HEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_LABEL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_LONG_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PROGRESS_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
@@ -210,9 +213,13 @@ object ModelDataGenerator {
 
     }
 
-    object Work {
+    object WorkPart {
         val WORK_PART_MODEL = WorkPart(id = FAKE_INT_DATA, name = FAKE_WORK_PART_NAME_DATA)
 
+
+    }
+
+    object WorkCategory {
         val WORK_CATEGORY_MODEL = WorkCategory(
             id = FAKE_INT_DATA,
             name = FAKE_WORK_CATEGORY_NAME_DATA,
@@ -223,7 +230,7 @@ object ModelDataGenerator {
             description = FAKE_STRING_DATA,
             sequence = listOf(
                 SequenceContent(
-                    0,
+                    FAKE_INT_DATA,
                     FAKE_STRING_DATA,
                     FAKE_STRING_DATA
                 )
@@ -236,35 +243,41 @@ object ModelDataGenerator {
             ),
             caution = listOf(FAKE_STRING_DATA)
         )
+    }
 
+    object Work {
+        val WORK_ROUTINE_MODEL = WorkRoutine(
+            workId = FAKE_LONG_DATA,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
+            workSetList = listOf(
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+                WorkSet(
+                    weight = FAKE_ROUTINE_WEIGHT_DATA,
+                    repetition = FAKE_ROUTINE_REPETITION_DATA
+                ),
+            )
+        )
 
-//        val WORK_ROUTINE_MODEL = WorkRoutine(
-//            workId = FAKE_UUID_DATA,
-//            workCategory = WORK_CATEGORY_MODEL,
-//            workSetList = listOf(
-//                WorkSet(
-//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-//                    repetition = FAKE_ROUTINE_REPETITION_DATA
-//                ),
-//                WorkSet(
-//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-//                    repetition = FAKE_ROUTINE_REPETITION_DATA
-//                ),
-//                WorkSet(
-//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-//                    repetition = FAKE_ROUTINE_REPETITION_DATA
-//                ),
-//            )
-//        )
-//
-//        val WORK_MODEL = Work(
-//            id = FAKE_UUID_DATA,
-//            workTime = fromSecondOfDay(FAKE_TIME_DATA),
-//            restTime = fromSecondOfDay(FAKE_TIME_DATA),
-//            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
-//            routine = listOf(WORK_ROUTINE_MODEL),
-//            usedRoutineSetIdList = listOf(FAKE_INT_DATA)
-//        )
+        val WORK_MODEL = com.gradation.lift.model.model.work.Work(
+            id = FAKE_LONG_DATA,
+            workTime = fromSecondOfDay(FAKE_TIME_DATA),
+            restTime = fromSecondOfDay(FAKE_TIME_DATA),
+            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
+            routine = listOf(WORK_ROUTINE_MODEL),
+            usedRoutineSetIdList = listOf(FAKE_INT_DATA),
+            checkedWorkSetInfoList = listOf(
+                CheckedWorkSetInfo(FAKE_INT_DATA, FAKE_INT_DATA)
+            )
+        )
 
     }
 

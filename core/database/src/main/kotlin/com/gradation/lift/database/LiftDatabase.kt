@@ -1,4 +1,4 @@
-package com.gradation.lift.database.di
+package com.gradation.lift.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -21,10 +21,12 @@ import com.gradation.lift.database.entity.work.WorkRoutineEntity
 import com.gradation.lift.database.entity.workCategory.WorkCategoryEntity
 import com.gradation.lift.database.entity.workCategory.WorkPartEntity
 import com.gradation.lift.database.util.CheckedWorkSetInfoListTypeConverter
+import com.gradation.lift.database.util.EffectContentListTypeConverter
 import com.gradation.lift.database.util.IntListTypeConverter
 import com.gradation.lift.database.util.LocalDateTimeTypeConverter
 import com.gradation.lift.database.util.LocalDateTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
+import com.gradation.lift.database.util.SequenceContentListTypeConverter
 import com.gradation.lift.database.util.StringListTypeConverter
 import com.gradation.lift.database.util.WorkSetListTypeConverter
 
@@ -50,6 +52,8 @@ import com.gradation.lift.database.util.WorkSetListTypeConverter
         StringListTypeConverter::class,
         CheckedWorkSetInfoListTypeConverter::class,
         WorkSetListTypeConverter::class,
+        SequenceContentListTypeConverter::class,
+        EffectContentListTypeConverter::class,
         LocalTimeTypeConverter::class,
         LocalDateTimeTypeConverter::class,
         LocalDateTypeConverter::class

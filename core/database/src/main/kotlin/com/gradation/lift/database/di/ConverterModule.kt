@@ -29,6 +29,15 @@ object ConverterModule {
     fun provideCheckedWorkSetInfoListTypeConverter(moshi: Moshi): CheckedWorkSetInfoListTypeConverter =
         CheckedWorkSetInfoListTypeConverter(moshi)
 
+    @Provides
+    @Singleton
+    fun provideSequenceContentListTypeConverter(moshi: Moshi): SequenceContentListTypeConverter =
+        SequenceContentListTypeConverter(moshi)
+
+    @Provides
+    @Singleton
+    fun provideEffectContentListTypeConverter(moshi: Moshi): EffectContentListTypeConverter =
+        EffectContentListTypeConverter(moshi)
 
     @Provides
     @Singleton
