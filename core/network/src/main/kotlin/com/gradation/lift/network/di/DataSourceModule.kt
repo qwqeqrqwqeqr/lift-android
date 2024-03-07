@@ -2,30 +2,30 @@ package com.gradation.lift.network.di
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.network.datasource.*
-import com.gradation.lift.network.datasource.auth.AuthDataSource
-import com.gradation.lift.network.datasource.auth.DefaultAuthDataSource
-import com.gradation.lift.network.datasource.badge.BadgeDataSource
-import com.gradation.lift.network.datasource.badge.DefaultBadgeDataSource
-import com.gradation.lift.network.datasource.checker.CheckerDataSource
-import com.gradation.lift.network.datasource.checker.DefaultCheckerDataSource
-import com.gradation.lift.network.datasource.favorite.DefaultFavoriteDataSource
-import com.gradation.lift.network.datasource.favorite.FavoriteDataSource
-import com.gradation.lift.network.datasource.history.DefaultHistoryDataSource
-import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.datasource.inquiry.DefaultInquiryDataSource
-import com.gradation.lift.network.datasource.inquiry.InquiryDataSource
-import com.gradation.lift.network.datasource.notice.DefaultNoticeDefaultDataSource
-import com.gradation.lift.network.datasource.notice.NoticeDataSource
-import com.gradation.lift.network.datasource.picture.DefaultPictureDataSource
-import com.gradation.lift.network.datasource.picture.PictureDataSource
-import com.gradation.lift.network.datasource.routine.DefaultRoutineDataSource
-import com.gradation.lift.network.datasource.routine.RoutineDataSource
-import com.gradation.lift.network.datasource.terms.DefaultTermsDataSource
-import com.gradation.lift.network.datasource.terms.TermsDataSource
-import com.gradation.lift.network.datasource.user.DefaultUserDataSource
-import com.gradation.lift.network.datasource.user.UserDataSource
-import com.gradation.lift.network.datasource.work.DefaultWorkDataSource
-import com.gradation.lift.network.datasource.work.WorkDataSource
+import com.gradation.lift.network.datasource.auth.AuthRemoteDataSource
+import com.gradation.lift.network.datasource.auth.DefaultAuthRemoteDataSource
+import com.gradation.lift.network.datasource.badge.BadgeRemoteDataSource
+import com.gradation.lift.network.datasource.badge.DefaultBadgeRemoteDataSource
+import com.gradation.lift.network.datasource.checker.CheckerRemoteDataSource
+import com.gradation.lift.network.datasource.checker.DefaultCheckerRemoteDataSource
+import com.gradation.lift.network.datasource.favorite.DefaultFavoriteRemoteDataSource
+import com.gradation.lift.network.datasource.favorite.FavoriteRemoteDataSource
+import com.gradation.lift.network.datasource.history.DefaultHistoryRemoteDataSource
+import com.gradation.lift.network.datasource.history.HistoryRemoteDataSource
+import com.gradation.lift.network.datasource.inquiry.DefaultInquiryRemoteDataSource
+import com.gradation.lift.network.datasource.inquiry.InquiryRemoteDataSource
+import com.gradation.lift.network.datasource.notice.DefaultNoticeDefaultRemoteDataSource
+import com.gradation.lift.network.datasource.notice.NoticeRemoteDataSource
+import com.gradation.lift.network.datasource.picture.DefaultPictureRemoteDataSource
+import com.gradation.lift.network.datasource.picture.PictureRemoteDataSource
+import com.gradation.lift.network.datasource.routine.DefaultRoutineRemoteDataSource
+import com.gradation.lift.network.datasource.routine.RoutineRemoteDataSource
+import com.gradation.lift.network.datasource.terms.DefaultTermsRemoteDataSource
+import com.gradation.lift.network.datasource.terms.TermsRemoteDataSource
+import com.gradation.lift.network.datasource.user.DefaultUserRemoteDataSource
+import com.gradation.lift.network.datasource.user.UserRemoteDataSource
+import com.gradation.lift.network.datasource.work.DefaultWorkRemoteDataSource
+import com.gradation.lift.network.datasource.work.WorkRemoteDataSource
 import com.gradation.lift.network.handler.NetworkResultHandler
 import com.gradation.lift.network.service.*
 import dagger.Module
@@ -42,7 +42,8 @@ object DataSourceModule {
         workService: WorkService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): WorkDataSource = DefaultWorkDataSource(workService, networkResultHandler, dispatcherProvider)
+    ): WorkRemoteDataSource =
+        DefaultWorkRemoteDataSource(workService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -50,8 +51,8 @@ object DataSourceModule {
         routineService: RoutineService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): RoutineDataSource =
-        DefaultRoutineDataSource(routineService, networkResultHandler, dispatcherProvider)
+    ): RoutineRemoteDataSource =
+        DefaultRoutineRemoteDataSource(routineService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -59,8 +60,8 @@ object DataSourceModule {
         checkerService: CheckerService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): CheckerDataSource =
-        DefaultCheckerDataSource(checkerService, networkResultHandler, dispatcherProvider)
+    ): CheckerRemoteDataSource =
+        DefaultCheckerRemoteDataSource(checkerService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -68,23 +69,24 @@ object DataSourceModule {
         pictureService: PictureService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): PictureDataSource =
-        DefaultPictureDataSource(pictureService, networkResultHandler, dispatcherProvider)
+    ): PictureRemoteDataSource =
+        DefaultPictureRemoteDataSource(pictureService, networkResultHandler, dispatcherProvider)
 
     @Provides
     fun provideUserDataSource(
         userService: UserService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): UserDataSource = DefaultUserDataSource(userService, networkResultHandler, dispatcherProvider)
+    ): UserRemoteDataSource =
+        DefaultUserRemoteDataSource(userService, networkResultHandler, dispatcherProvider)
 
     @Provides
     fun provideHistoryDataSource(
         historyService: HistoryService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): HistoryDataSource =
-        DefaultHistoryDataSource(historyService, networkResultHandler, dispatcherProvider)
+    ): HistoryRemoteDataSource =
+        DefaultHistoryRemoteDataSource(historyService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -92,7 +94,8 @@ object DataSourceModule {
         authService: AuthService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): AuthDataSource = DefaultAuthDataSource(authService, networkResultHandler, dispatcherProvider)
+    ): AuthRemoteDataSource =
+        DefaultAuthRemoteDataSource(authService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -100,8 +103,12 @@ object DataSourceModule {
         noticeService: NoticeService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): NoticeDataSource =
-        DefaultNoticeDefaultDataSource(noticeService, networkResultHandler, dispatcherProvider)
+    ): NoticeRemoteDataSource =
+        DefaultNoticeDefaultRemoteDataSource(
+            noticeService,
+            networkResultHandler,
+            dispatcherProvider
+        )
 
 
     @Provides
@@ -109,8 +116,8 @@ object DataSourceModule {
         badgeService: BadgeService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): BadgeDataSource =
-        DefaultBadgeDataSource(badgeService, networkResultHandler, dispatcherProvider)
+    ): BadgeRemoteDataSource =
+        DefaultBadgeRemoteDataSource(badgeService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -118,8 +125,8 @@ object DataSourceModule {
         termsService: TermsService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): TermsDataSource =
-        DefaultTermsDataSource(termsService, networkResultHandler, dispatcherProvider)
+    ): TermsRemoteDataSource =
+        DefaultTermsRemoteDataSource(termsService, networkResultHandler, dispatcherProvider)
 
 
     @Provides
@@ -127,16 +134,16 @@ object DataSourceModule {
         favoriteService: FavoriteService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): FavoriteDataSource =
-        DefaultFavoriteDataSource(favoriteService, networkResultHandler, dispatcherProvider)
+    ): FavoriteRemoteDataSource =
+        DefaultFavoriteRemoteDataSource(favoriteService, networkResultHandler, dispatcherProvider)
 
     @Provides
     fun provideInquiryDataSource(
         inquiryService: InquiryService,
         networkResultHandler: NetworkResultHandler,
         dispatcherProvider: DispatcherProvider,
-    ): InquiryDataSource =
-        DefaultInquiryDataSource(inquiryService, networkResultHandler, dispatcherProvider)
+    ): InquiryRemoteDataSource =
+        DefaultInquiryRemoteDataSource(inquiryService, networkResultHandler, dispatcherProvider)
 
 
 }

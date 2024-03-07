@@ -13,38 +13,32 @@ interface WorkRepository {
 
 
     /**
-     * [getWork]
+     * [loadWork]
      * 진행중인 운동을 불러옴
-     * @since 2023-08-28 20:05:30
+     * @since2024-03-07 12:44:47
      */
-    fun getWork(): Flow<DataState<Work>>
+    fun loadWork(): Flow<DataState<Work>>
 
     /**
-     * [createWork]
-     * 운동을 생성함
-     * @since 2023-08-28 20:05:35
+     * [fetchWork]
+     * 운동 정보를 패치함
+     * @since 2024-03-07 12:44:47
      */
-    fun createWork(work: Work): Flow<DataState<Unit>>
+    fun fetchWork(work: Work): Flow<DataState<Unit>>
 
     /**
      * [updateWork]
-     * 운동을 갱신함
-     * @since 2023-08-28 20:05:48
+     * 운동 정보를 갱신함
+     * @since 2024-03-07 12:44:58
      */
     fun updateWork(work: Work): Flow<DataState<Unit>>
 
     /**
-     * [deleteWork]
-     * 운동을 삭제함
-     * 2023-08-28 20:06:05
-     */
-    fun deleteWork(work: Work): Flow<DataState<Unit>>
-    /**
-     * [deleteAllWork]
-     * 모든 운동을 삭제함
+     * [clearWork]
+     * 모든 운동 정보를 삭제함
      * @since 2024-01-16 22:22:09
      */
-    fun deleteAllWork(): Flow<DataState<Unit>>
+    fun clearWork(): Flow<DataState<Unit>>
 
     /**
      * [existWork]

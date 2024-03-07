@@ -7,20 +7,20 @@ import com.gradation.lift.database.dao.UserBadgeDao
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.dao.WorkDao
 import com.gradation.lift.database.dao.WorkPartDao
-import com.gradation.lift.database.datasource.badge.BadgeDataSource
-import com.gradation.lift.database.datasource.badge.DefaultBadgeDataSource
-import com.gradation.lift.database.datasource.history.DefaultHistoryDataSource
-import com.gradation.lift.database.datasource.history.HistoryDataSource
-import com.gradation.lift.database.datasource.routine.DefaultRoutineDataSource
-import com.gradation.lift.database.datasource.routine.RoutineDataSource
-import com.gradation.lift.database.datasource.userBadge.DefaultUserBadgeDataSource
-import com.gradation.lift.database.datasource.userBadge.UserBadgeDataSource
-import com.gradation.lift.database.datasource.work.DefaultWorkDataSource
-import com.gradation.lift.database.datasource.work.WorkDataSource
-import com.gradation.lift.database.datasource.workCategory.DefaultWorkCategoryDataSource
-import com.gradation.lift.database.datasource.workCategory.WorkCategoryDataSource
-import com.gradation.lift.database.datasource.workPart.DefaultWorkPartDataSource
-import com.gradation.lift.database.datasource.workPart.WorkPartDataSource
+import com.gradation.lift.database.datasource.badge.BadgeLocalDataSource
+import com.gradation.lift.database.datasource.badge.DefaultBadgeLocalDataSource
+import com.gradation.lift.database.datasource.history.DefaultHistoryLocalDataSource
+import com.gradation.lift.database.datasource.history.HistoryLocalDataSource
+import com.gradation.lift.database.datasource.routine.DefaultRoutineLocalDataSource
+import com.gradation.lift.database.datasource.routine.RoutineLocalDataSource
+import com.gradation.lift.database.datasource.userBadge.DefaultUserBadgeLocalDataSource
+import com.gradation.lift.database.datasource.userBadge.UserBadgeLocalDataSource
+import com.gradation.lift.database.datasource.work.DefaultWorkLocalDataSource
+import com.gradation.lift.database.datasource.work.WorkLocalDataSource
+import com.gradation.lift.database.datasource.workCategory.DefaultWorkCategoryLocalDataSource
+import com.gradation.lift.database.datasource.workCategory.WorkCategoryLocalDataSource
+import com.gradation.lift.database.datasource.workPart.DefaultWorkPartLocalDataSource
+import com.gradation.lift.database.datasource.workPart.WorkPartLocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,43 +33,43 @@ object DataSourceModule {
     @Provides
     fun provideBadgeDataSource(
         badgeDao: BadgeDao,
-    ): BadgeDataSource = DefaultBadgeDataSource(badgeDao)
+    ): BadgeLocalDataSource = DefaultBadgeLocalDataSource(badgeDao)
 
 
     @Provides
     fun provideUserBadgeDataSource(
         userBadgeDao: UserBadgeDao,
-    ): UserBadgeDataSource = DefaultUserBadgeDataSource(userBadgeDao)
+    ): UserBadgeLocalDataSource = DefaultUserBadgeLocalDataSource(userBadgeDao)
 
 
     @Provides
     fun provideHistoryDataSource(
         historyDao: HistoryDao,
-    ): HistoryDataSource = DefaultHistoryDataSource(historyDao)
+    ): HistoryLocalDataSource = DefaultHistoryLocalDataSource(historyDao)
 
 
     @Provides
     fun provideRoutineDataSource(
         routineDao: RoutineDao,
-    ): RoutineDataSource = DefaultRoutineDataSource(routineDao)
+    ): RoutineLocalDataSource = DefaultRoutineLocalDataSource(routineDao)
 
 
     @Provides
     fun provideWorkCategoryDataSource(
         workCategoryDao: WorkCategoryDao,
-    ): WorkCategoryDataSource = DefaultWorkCategoryDataSource(workCategoryDao)
+    ): WorkCategoryLocalDataSource = DefaultWorkCategoryLocalDataSource(workCategoryDao)
 
 
     @Provides
     fun provideWorkPartDataSource(
         workPartDao: WorkPartDao,
-    ): WorkPartDataSource = DefaultWorkPartDataSource(workPartDao)
+    ): WorkPartLocalDataSource = DefaultWorkPartLocalDataSource(workPartDao)
 
 
     @Provides
     fun provideWorkDataSource(
         workDao: WorkDao,
-    ): WorkDataSource = DefaultWorkDataSource(workDao)
+    ): WorkLocalDataSource = DefaultWorkLocalDataSource(workDao)
 
 
 }

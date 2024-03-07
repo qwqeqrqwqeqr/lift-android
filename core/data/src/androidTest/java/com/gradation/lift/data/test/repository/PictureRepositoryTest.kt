@@ -6,14 +6,14 @@ import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.di.TestDispatcher
-import com.gradation.lift.data.fake.datasource.FakePictureDataSource
+import com.gradation.lift.data.fake.datasource.FakePictureRemoteDataSource
 import com.gradation.lift.data.repository.DefaultPictureRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.PictureRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.ModelDataGenerator.Picture.ROUTINE_SET_PICTURE_MODEL
 import com.gradation.lift.model.utils.ModelDataGenerator.Picture.USER_PROFILE_PICTURE_MODEL
-import com.gradation.lift.network.datasource.picture.PictureDataSource
+import com.gradation.lift.network.datasource.picture.PictureRemoteDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -27,8 +27,8 @@ import org.junit.Test
 
 class PictureRepositoryTest {
 
-    private lateinit var failDataSource: PictureDataSource
-    private lateinit var successDataSource: PictureDataSource
+    private lateinit var failDataSource: PictureRemoteDataSource
+    private lateinit var successDataSource: PictureRemoteDataSource
     private lateinit var successRepository: PictureRepository
     private lateinit var failRepository: PictureRepository
     private lateinit var testDispatcher: DispatcherProvider
@@ -42,8 +42,8 @@ class PictureRepositoryTest {
 
     @Before
     fun setUp() {
-        failDataSource = FakePictureDataSource(TestReturnState.Fail)
-        successDataSource = FakePictureDataSource(TestReturnState.Success)
+        failDataSource = FakePictureRemoteDataSource(TestReturnState.Fail)
+        successDataSource = FakePictureRemoteDataSource(TestReturnState.Success)
         testDispatcher = TestDispatcher.testDispatchers()
 
         successRepository = DefaultPictureRepository(successDataSource, testDispatcher)

@@ -1,12 +1,12 @@
 package com.gradation.lift.data
 
-import com.gradation.lift.data.test.datasource.AuthDataSourceTest
-import com.gradation.lift.data.test.datasource.CheckerDataSourceTest
-import com.gradation.lift.data.test.datasource.HistoryDataSourceTest
-import com.gradation.lift.data.test.datasource.PictureDataSourceTest
-import com.gradation.lift.data.test.datasource.RoutineDataSourceTest
-import com.gradation.lift.data.test.datasource.UserDataSourceTest
-import com.gradation.lift.data.test.datasource.WorkDataSourceTest
+import com.gradation.lift.data.test.datasource.AuthRemoteDataSourceTest
+import com.gradation.lift.data.test.datasource.CheckerRemoteDataSourceTest
+import com.gradation.lift.data.test.datasource.HistoryRemoteDataSourceTest
+import com.gradation.lift.data.test.datasource.PictureRemoteDataSourceTest
+import com.gradation.lift.data.test.datasource.RoutineRemoteDataSourceTest
+import com.gradation.lift.data.test.datasource.UserRemoteDataSourceTest
+import com.gradation.lift.data.test.datasource.WorkRemoteDataSourceTest
 import com.gradation.lift.data.test.repository.AuthRepositoryTest
 import com.gradation.lift.data.test.repository.CheckerRepositoryTest
 import com.gradation.lift.data.test.repository.HistoryRepositoryTest
@@ -20,13 +20,13 @@ import org.junit.runners.Suite
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-    AuthDataSourceTest::class,
-    CheckerDataSourceTest::class,
-    UserDataSourceTest::class,
-    RoutineDataSourceTest::class,
-    WorkDataSourceTest::class,
-    PictureDataSourceTest::class,
-    HistoryDataSourceTest::class,
+    AuthRemoteDataSourceTest::class,
+    CheckerRemoteDataSourceTest::class,
+    UserRemoteDataSourceTest::class,
+    RoutineRemoteDataSourceTest::class,
+    WorkRemoteDataSourceTest::class,
+    PictureRemoteDataSourceTest::class,
+    HistoryRemoteDataSourceTest::class,
 
 
     AuthRepositoryTest::class,

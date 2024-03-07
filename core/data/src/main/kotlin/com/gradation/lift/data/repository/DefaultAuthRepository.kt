@@ -17,7 +17,7 @@ import com.gradation.lift.model.model.auth.NaverSignInInfo
 import com.gradation.lift.model.model.auth.NaverSignUpInfo
 import com.gradation.lift.model.model.auth.UpdatePasswordInfo
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.network.datasource.auth.AuthRemoteDataSource
 import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultAuthRepository @Inject constructor(
-    private val authDataSource: AuthDataSource,
+    private val authRemoteDataSource: AuthRemoteDataSource,
     private val tokenDataStoreDataSource: TokenDataStoreDataSource,
     private val kakaoOauthManager: KakaoOauthManager,
     private val naverOauthManager: NaverOauthManager,
@@ -38,7 +38,7 @@ class DefaultAuthRepository @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Unit>> = flow {
-        authDataSource.signInDefault(signInInfo).collect { result ->
+        authRemoteDataSource.signInDefault(signInInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
@@ -52,7 +52,7 @@ class DefaultAuthRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun signUpDefault(signUpInfo: DefaultSignUpInfo): Flow<DataState<Boolean>> = flow {
-        authDataSource.signUpDefault(signUpInfo).collect { result ->
+        authRemoteDataSource.signUpDefault(signUpInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> {
@@ -80,7 +80,7 @@ class DefaultAuthRepository @Inject constructor(
             when (naverSignInInfo) {
                 is DataState.Fail -> emit(DataState.Fail(naverSignInInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signInNaver(naverSignInInfo.data)
+                    authRemoteDataSource.signInNaver(naverSignInInfo.data)
                         .collect { signInNaverResult ->
                             when (signInNaverResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signInNaverResult.message))
@@ -115,7 +115,7 @@ class DefaultAuthRepository @Inject constructor(
             when (naverSignUpInfo) {
                 is DataState.Fail -> emit(DataState.Fail(naverSignUpInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signUpNaver(naverSignUpInfo.data)
+                    authRemoteDataSource.signUpNaver(naverSignUpInfo.data)
                         .collect { signUpNaverResult ->
                             when (signUpNaverResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signUpNaverResult.message))
@@ -147,7 +147,7 @@ class DefaultAuthRepository @Inject constructor(
             when (kakaoSignInInfo) {
                 is DataState.Fail -> emit(DataState.Fail(kakaoSignInInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signInKakao(kakaoSignInInfo.data)
+                    authRemoteDataSource.signInKakao(kakaoSignInInfo.data)
                         .collect { signInKakaoResult ->
                             when (signInKakaoResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signInKakaoResult.message))
@@ -182,7 +182,7 @@ class DefaultAuthRepository @Inject constructor(
             when (kakaoSignUpInfo) {
                 is DataState.Fail -> emit(DataState.Fail(kakaoSignUpInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signUpKakao(kakaoSignUpInfo.data)
+                    authRemoteDataSource.signUpKakao(kakaoSignUpInfo.data)
                         .collect { signUpKakaoResult ->
                             when (signUpKakaoResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signUpKakaoResult.message))
@@ -214,7 +214,7 @@ class DefaultAuthRepository @Inject constructor(
             when (googleSignInInfo) {
                 is DataState.Fail -> emit(DataState.Fail(googleSignInInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signInGoogle(googleSignInInfo.data)
+                    authRemoteDataSource.signInGoogle(googleSignInInfo.data)
                         .collect { signInGoogleResult ->
                             when (signInGoogleResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signInGoogleResult.message))
@@ -249,7 +249,7 @@ class DefaultAuthRepository @Inject constructor(
             when (googleSignUpInfo) {
                 is DataState.Fail -> emit(DataState.Fail(googleSignUpInfo.message))
                 is DataState.Success -> {
-                    authDataSource.signUpGoogle(googleSignUpInfo.data)
+                    authRemoteDataSource.signUpGoogle(googleSignUpInfo.data)
                         .collect { signUpGoogleResult ->
                             when (signUpGoogleResult) {
                                 is NetworkResult.Fail -> emit(DataState.Fail(signUpGoogleResult.message))
@@ -264,7 +264,7 @@ class DefaultAuthRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun checkExistUser(userId: String, email: String): Flow<DataState<Boolean>> = flow {
-        authDataSource.checkUserExist(userId, email).collect {
+        authRemoteDataSource.checkUserExist(userId, email).collect {
             when (it) {
                 is NetworkResult.Fail -> emit(DataState.Fail(it.message))
                 is NetworkResult.Success -> emit(DataState.Success(it.data))
@@ -299,7 +299,7 @@ class DefaultAuthRepository @Inject constructor(
 
     override fun updateUserPassword(updatePasswordInfo: UpdatePasswordInfo): Flow<DataState<Boolean>> =
         flow {
-            authDataSource.updateUserPassword(updatePasswordInfo).collect { result ->
+            authRemoteDataSource.updateUserPassword(updatePasswordInfo).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                     is NetworkResult.Success -> emit(
@@ -314,7 +314,7 @@ class DefaultAuthRepository @Inject constructor(
 
     override fun createEmailAuthenticationCode(emailAuthenticationInfo: EmailAuthenticationInfo): Flow<DataState<Boolean>> =
         flow {
-            authDataSource.createEmailAuthenticationCode(emailAuthenticationInfo)
+            authRemoteDataSource.createEmailAuthenticationCode(emailAuthenticationInfo)
                 .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(DataState.Fail(result.message))
@@ -325,7 +325,7 @@ class DefaultAuthRepository @Inject constructor(
 
     override fun validateEmailAuthentication(emailAuthenticationValidationInfo: EmailAuthenticationValidationInfo): Flow<DataState<Boolean>> =
         flow {
-            authDataSource.validateEmailAuthentication(emailAuthenticationValidationInfo)
+            authRemoteDataSource.validateEmailAuthentication(emailAuthenticationValidationInfo)
                 .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(DataState.Fail(result.message))

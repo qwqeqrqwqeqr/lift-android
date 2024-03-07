@@ -2,25 +2,29 @@ package com.gradation.lift.data.di
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.data.repository.*
-import com.gradation.lift.database.dao.WorkCategoryDao
-import com.gradation.lift.database.dao.WorkDao
-import com.gradation.lift.database.dao.WorkPartDao
+import com.gradation.lift.database.datasource.badge.BadgeLocalDataSource
+import com.gradation.lift.database.datasource.history.HistoryLocalDataSource
+import com.gradation.lift.database.datasource.routine.RoutineLocalDataSource
+import com.gradation.lift.database.datasource.userBadge.DefaultUserBadgeLocalDataSource
+import com.gradation.lift.database.datasource.work.WorkLocalDataSource
+import com.gradation.lift.database.datasource.workCategory.WorkCategoryLocalDataSource
+import com.gradation.lift.database.datasource.workPart.WorkPartLocalDataSource
 import com.gradation.lift.datastore.datasource.SettingDataStoreDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.*
 import com.gradation.lift.network.datasource.*
-import com.gradation.lift.network.datasource.auth.AuthDataSource
-import com.gradation.lift.network.datasource.badge.BadgeDataSource
-import com.gradation.lift.network.datasource.checker.CheckerDataSource
-import com.gradation.lift.network.datasource.favorite.FavoriteDataSource
-import com.gradation.lift.network.datasource.history.HistoryDataSource
-import com.gradation.lift.network.datasource.inquiry.InquiryDataSource
-import com.gradation.lift.network.datasource.notice.NoticeDataSource
-import com.gradation.lift.network.datasource.picture.PictureDataSource
-import com.gradation.lift.network.datasource.routine.RoutineDataSource
-import com.gradation.lift.network.datasource.terms.TermsDataSource
-import com.gradation.lift.network.datasource.user.UserDataSource
-import com.gradation.lift.network.datasource.work.WorkDataSource
+import com.gradation.lift.network.datasource.auth.AuthRemoteDataSource
+import com.gradation.lift.network.datasource.badge.BadgeRemoteDataSource
+import com.gradation.lift.network.datasource.checker.CheckerRemoteDataSource
+import com.gradation.lift.network.datasource.favorite.FavoriteRemoteDataSource
+import com.gradation.lift.network.datasource.history.HistoryRemoteDataSource
+import com.gradation.lift.network.datasource.inquiry.InquiryRemoteDataSource
+import com.gradation.lift.network.datasource.notice.NoticeRemoteDataSource
+import com.gradation.lift.network.datasource.picture.PictureRemoteDataSource
+import com.gradation.lift.network.datasource.routine.RoutineRemoteDataSource
+import com.gradation.lift.network.datasource.terms.TermsRemoteDataSource
+import com.gradation.lift.network.datasource.user.UserRemoteDataSource
+import com.gradation.lift.network.datasource.work.WorkRemoteDataSource
 import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
@@ -38,48 +42,56 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun provideWorkRepository(
-        workDao: WorkDao,
+        workLocalDataSource: WorkLocalDataSource,
         dispatcherProvider: DispatcherProvider,
     ): WorkRepository = DefaultWorkRepository(
-        workDao, dispatcherProvider
+        workLocalDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideWorkPartRepository(
-        workDataSource: WorkDataSource,
-        workPartDao: WorkPartDao,
+        workRemoteDataSource: WorkRemoteDataSource,
+        workPartLocalDataSource: WorkPartLocalDataSource,
         dispatcherProvider: DispatcherProvider,
     ): WorkPartRepository = DefaultWorkPartRepository(
-        workDataSource, workPartDao, dispatcherProvider
+        workRemoteDataSource, workPartLocalDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideWorkCategoryRepository(
-        workDataSource: WorkDataSource,
-        workCategoryDao: WorkCategoryDao,
+        workRemoteDataSource: WorkRemoteDataSource,
+        workCategoryLocalDataSource: WorkCategoryLocalDataSource,
         dispatcherProvider: DispatcherProvider,
     ): WorkCategoryRepository = DefaultWorkCategoryRepository(
-        workDataSource, workCategoryDao, dispatcherProvider
+        workRemoteDataSource, workCategoryLocalDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideRoutineRepository(
-        routineDataSource: RoutineDataSource,
+        routineRemoteDataSource: RoutineRemoteDataSource,
+        routineLocalDataSource: RoutineLocalDataSource,
         dispatcherProvider: DispatcherProvider,
     ): RoutineRepository =
-        DefaultRoutineRepository(routineDataSource = routineDataSource, dispatcherProvider)
+        DefaultRoutineRepository(
+            routineRemoteDataSource,
+            routineLocalDataSource,
+            dispatcherProvider
+        )
 
 
     @ViewModelScoped
     @Provides
     fun provideCheckerRepository(
-        checkerDataSource: CheckerDataSource,
+        checkerRemoteDataSource: CheckerRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): CheckerRepository =
-        DefaultCheckerRepository(checkerDataSource = checkerDataSource, dispatcherProvider)
+        DefaultCheckerRepository(
+            checkerRemoteDataSource = checkerRemoteDataSource,
+            dispatcherProvider
+        )
 
 
     @ViewModelScoped
@@ -96,59 +108,70 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun provideHistoryRepository(
-        historyDataSource: HistoryDataSource,
+        historyRemoteDataSource: HistoryRemoteDataSource,
+        historyLocalDataSource: HistoryLocalDataSource,
         dispatcherProvider: DispatcherProvider,
     ): HistoryRepository =
-        DefaultHistoryRepository(historyDataSource = historyDataSource, dispatcherProvider)
+        DefaultHistoryRepository(
+            historyRemoteDataSource,
+            historyLocalDataSource,
+            dispatcherProvider
+        )
 
 
     @ViewModelScoped
     @Provides
     fun providePictureRepository(
-        pictureDataSource: PictureDataSource,
+        pictureRemoteDataSource: PictureRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): PictureRepository =
-        DefaultPictureRepository(pictureDataSource = pictureDataSource, dispatcherProvider)
+        DefaultPictureRepository(
+            pictureRemoteDataSource = pictureRemoteDataSource,
+            dispatcherProvider
+        )
 
 
     @ViewModelScoped
     @Provides
     fun provideUserRepository(
-        userDataSource: UserDataSource,
+        userRemoteDataSource: UserRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): UserRepository = DefaultUserRepository(
-        userDataSource = userDataSource, dispatcherProvider
+        userRemoteDataSource = userRemoteDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideBadgeRepository(
-        badgeDataSource: BadgeDataSource,
+        badgeRemoteDataSource: BadgeRemoteDataSource,
+        badgeLocalDataSource: BadgeLocalDataSource,
+        userBadgeLocalDataSource: DefaultUserBadgeLocalDataSource,
         dispatcherProvider: DispatcherProvider,
     ): BadgeRepository = DefaultBadgeRepository(
-        badgeDataSource = badgeDataSource, dispatcherProvider
+        badgeRemoteDataSource, badgeLocalDataSource, userBadgeLocalDataSource, dispatcherProvider
     )
+
 
     @ViewModelScoped
     @Provides
     fun provideNoticeRepository(
-        noticeDataSource: NoticeDataSource,
+        noticeRemoteDataSource: NoticeRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): NoticeRepository = DefaultNoticeRepository(
-        noticeDataSource = noticeDataSource, dispatcherProvider
+        noticeRemoteDataSource = noticeRemoteDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideAuthRepository(
-        authDataSource: AuthDataSource,
+        authRemoteDataSource: AuthRemoteDataSource,
         tokenDataStoreDataSource: TokenDataStoreDataSource,
         kakaoOauthManager: KakaoOauthManager,
         naverOauthManager: NaverOauthManager,
         googleOauthManager: GoogleOauthManager,
         dispatcherProvider: DispatcherProvider,
     ): AuthRepository = DefaultAuthRepository(
-        authDataSource = authDataSource,
+        authRemoteDataSource = authRemoteDataSource,
         tokenDataStoreDataSource = tokenDataStoreDataSource,
         kakaoOauthManager = kakaoOauthManager,
         naverOauthManager = naverOauthManager,
@@ -159,29 +182,29 @@ object RepositoryModule {
     @ViewModelScoped
     @Provides
     fun provideTermsRepository(
-        termsDataSource: TermsDataSource,
+        termsRemoteDataSource: TermsRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): TermsRepository = DefaultTermsRepository(
-        termsDataSource = termsDataSource, dispatcherProvider
+        termsRemoteDataSource = termsRemoteDataSource, dispatcherProvider
     )
 
 
     @ViewModelScoped
     @Provides
     fun provideFavoriteRepository(
-        favoriteDataSource: FavoriteDataSource,
+        favoriteRemoteDataSource: FavoriteRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): FavoriteRepository = DefaultFavoriteRepository(
-        favoriteDataSource, dispatcherProvider
+        favoriteRemoteDataSource, dispatcherProvider
     )
 
     @ViewModelScoped
     @Provides
     fun provideInquiryRepository(
-        inquiryDataSource: InquiryDataSource,
+        inquiryRemoteDataSource: InquiryRemoteDataSource,
         dispatcherProvider: DispatcherProvider,
     ): InquiryRepository = DefaultInquiryRepository(
-        inquiryDataSource, dispatcherProvider
+        inquiryRemoteDataSource, dispatcherProvider
     )
 
 }
