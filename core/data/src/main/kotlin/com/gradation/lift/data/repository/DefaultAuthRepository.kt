@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.database.datasource.database.DatabaseSettingDataSource
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.domain.repository.AuthRepository
 import com.gradation.lift.model.model.auth.DefaultSignInInfo
@@ -36,6 +37,7 @@ class DefaultAuthRepository @Inject constructor(
     private val naverOauthManager: NaverOauthManager,
     private val googleOauthManager: GoogleOauthManager,
     private val dispatcherProvider: DispatcherProvider,
+    private val databaseSettingDataSource: DatabaseSettingDataSource,
 ) : AuthRepository {
     override fun signInDefault(signInInfo: DefaultSignInInfo): Flow<DataState<Unit>> = flow {
         authRemoteDataSource.signInDefault(signInInfo).collect { result ->
@@ -291,6 +293,7 @@ class DefaultAuthRepository @Inject constructor(
     override fun signOut(): Flow<DataState<Unit>> = flow {
         try {
             tokenDataStoreDataSource.clearAll()
+            databaseSettingDataSource.clearDatabase()
             emit(DataState.Success(Unit))
         } catch (error: Exception) {
             emit(DataState.Fail(error.message.toString()))

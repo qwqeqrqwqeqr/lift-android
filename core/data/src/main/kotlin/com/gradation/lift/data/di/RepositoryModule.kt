@@ -3,6 +3,7 @@ package com.gradation.lift.data.di
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.data.repository.*
 import com.gradation.lift.database.datasource.badge.BadgeLocalDataSource
+import com.gradation.lift.database.datasource.database.DatabaseSettingDataSource
 import com.gradation.lift.database.datasource.history.HistoryLocalDataSource
 import com.gradation.lift.database.datasource.routine.RoutineLocalDataSource
 import com.gradation.lift.database.datasource.userBadge.DefaultUserBadgeLocalDataSource
@@ -170,13 +171,15 @@ object RepositoryModule {
         naverOauthManager: NaverOauthManager,
         googleOauthManager: GoogleOauthManager,
         dispatcherProvider: DispatcherProvider,
+        databaseSettingDataSource: DatabaseSettingDataSource,
     ): AuthRepository = DefaultAuthRepository(
         authRemoteDataSource = authRemoteDataSource,
         tokenDataStoreDataSource = tokenDataStoreDataSource,
         kakaoOauthManager = kakaoOauthManager,
         naverOauthManager = naverOauthManager,
         googleOauthManager = googleOauthManager,
-        dispatcherProvider
+        dispatcherProvider = dispatcherProvider,
+        databaseSettingDataSource = databaseSettingDataSource
     )
 
     @ViewModelScoped
