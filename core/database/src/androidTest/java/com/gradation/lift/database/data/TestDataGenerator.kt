@@ -83,7 +83,7 @@ object TestDataGenerator {
             description = FAKE_STRING_DATA,
             sequence = listOf(
                 SequenceContent(
-                    FAKE_INT_DATA,
+                    1,
                     FAKE_STRING_DATA,
                     FAKE_STRING_DATA
                 )

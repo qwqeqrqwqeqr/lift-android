@@ -22,8 +22,6 @@ class CreateUserDetailMapperTest {
             Truth.assertThat(name).isEqualTo(CREATE_USER_DETAIL_REQUEST_DTO.userDetailDto.name)
             Truth.assertThat(profilePicture)
                 .isEqualTo(CREATE_USER_DETAIL_REQUEST_DTO.userDetailDto.profilePicture)
-            Truth.assertThat(unitOfWeight)
-                .isEqualTo(CREATE_USER_DETAIL_REQUEST_DTO.userDetailDto.unitOfWeight)
         }
     }
 }

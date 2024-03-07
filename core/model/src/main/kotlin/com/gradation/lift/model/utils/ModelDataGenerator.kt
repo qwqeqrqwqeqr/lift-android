@@ -85,7 +85,7 @@ object ModelDataGenerator {
 
     object Auth {
         val DEFAULT_SIGN_IN_INFO_MODEL = DefaultSignInInfo(
-            id = FAKE_STRING_DATA,
+            id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
         val DEFAULT_SIGN_UP_INFO_MODEL = DefaultSignUpInfo(
@@ -230,7 +230,7 @@ object ModelDataGenerator {
             description = FAKE_STRING_DATA,
             sequence = listOf(
                 SequenceContent(
-                    FAKE_INT_DATA,
+                    1,
                     FAKE_STRING_DATA,
                     FAKE_STRING_DATA
                 )
