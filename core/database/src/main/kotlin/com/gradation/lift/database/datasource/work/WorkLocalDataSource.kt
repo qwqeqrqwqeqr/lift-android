@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface WorkLocalDataSource {
 
-    fun load(): Flow<Work>
+    fun load(): Flow<Work?>
 
     fun existWork(): Flow<Boolean>
     suspend fun fetch(work: Work)

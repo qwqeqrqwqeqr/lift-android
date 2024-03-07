@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.timer.InitTimerUseCase
-import com.gradation.lift.domain.usecase.work.GetWorkUseCase
+import com.gradation.lift.domain.usecase.work.LoadWorkUseCase
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
 import com.gradation.lift.feature.work.common.data.model.WorkRoutineWorkSet
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WorkSharedViewModel @Inject constructor(
     initTimerUseCase: InitTimerUseCase,
-    private val getWorkUseCase: GetWorkUseCase,
+    private val loadWorkUseCase: LoadWorkUseCase,
 ) : ViewModel() {
 
     val historyRoutineList: MutableStateFlow<List<CreateHistoryRoutine>> =
@@ -47,7 +47,7 @@ class WorkSharedViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getWorkUseCase().collect {
+            loadWorkUseCase().collect {
                 when (val result = it) {
                     is DataState.Fail -> {}
                     is DataState.Success -> {

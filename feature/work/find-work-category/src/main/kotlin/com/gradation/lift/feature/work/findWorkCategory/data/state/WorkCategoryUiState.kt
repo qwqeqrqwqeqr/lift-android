@@ -1,9 +1,9 @@
 package com.gradation.lift.feature.work.findWorkCategory.data.state
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.work.GetPopularWorkCategoryUseCase
-import com.gradation.lift.domain.usecase.work.GetRecommendWorkCategoryUseCase
-import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetPopularWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetRecommendWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetWorkCategoryUseCase
 import com.gradation.lift.feature.work.findWorkCategory.data.model.TagWorkCategory
 import com.gradation.lift.model.model.work.WorkPart
 import kotlinx.coroutines.flow.Flow

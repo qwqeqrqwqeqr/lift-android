@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.utils.ErrorMessage
 import com.gradation.lift.database.datasource.history.HistoryLocalDataSource
 import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.model.history.CreateHistory
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class DefaultHistoryRepository@Inject constructor(
+class DefaultHistoryRepository @Inject constructor(
     private val historyRemoteDataSource: HistoryRemoteDataSource,
     private val historyLocalDataSource: HistoryLocalDataSource,
     private val dispatcherProvider: DispatcherProvider,
@@ -23,8 +24,24 @@ class DefaultHistoryRepository@Inject constructor(
     override fun getHistory(): Flow<DataState<List<History>>> = flow {
         historyRemoteDataSource.getHistory().distinctUntilChanged().collect { result ->
             when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> {
+                    try {
+                        historyLocalDataSource.getAllHistory().collect {
+                            emit(DataState.Success(it))
+                        }
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(ErrorMessage.CACHE_ERROR_MESSAGE))
+                    }
+                }
+
+                is NetworkResult.Success -> {
+                    try {
+                        historyLocalDataSource.fetch(result.data)
+                        DataState.Success(result.data)
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(ErrorMessage.CACHE_ERROR_MESSAGE))
+                    }
+                }
             }
         }
     }.flowOn(dispatcherProvider.default)
@@ -65,7 +82,14 @@ class DefaultHistoryRepository@Inject constructor(
             historyRemoteDataSource.updateHistoryInfo(updateHistoryInfo).collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    is NetworkResult.Success -> {
+                        try {
+                            historyLocalDataSource.updateHistoryInfo(updateHistoryInfo)
+                            emit(DataState.Success(result.data))
+                        } catch (error: Throwable) {
+                            emit(DataState.Fail(ErrorMessage.CACHE_ERROR_MESSAGE))
+                        }
+                    }
                 }
             }
         }.flowOn(dispatcherProvider.default)

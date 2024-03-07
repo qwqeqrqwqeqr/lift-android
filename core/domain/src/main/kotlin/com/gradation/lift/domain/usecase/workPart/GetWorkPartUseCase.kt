@@ -1,4 +1,4 @@
-package com.gradation.lift.domain.usecase.work
+package com.gradation.lift.domain.usecase.workPart
 
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.WorkPartRepository

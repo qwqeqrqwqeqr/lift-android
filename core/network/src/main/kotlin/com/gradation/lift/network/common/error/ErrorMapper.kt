@@ -6,7 +6,7 @@ import java.net.SocketTimeoutException
 
 
 fun Throwable.toMessage():String =
-    when (cause) {
+    when (this) {
         is ConnectException -> ErrorMessage.CAN_NOT_ACCESS_NETWORK_ERROR_MESSAGE
         is SocketTimeoutException -> ErrorMessage.TIME_OUT_ERROR_MESSAGE
         is IOException -> ErrorMessage.REQUEST_FAILED_ERROR_MESSAGE

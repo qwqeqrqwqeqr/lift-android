@@ -6,9 +6,9 @@ import com.gradation.lift.model.model.work.Work
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CreateWorkUseCase @Inject constructor(
+class FetchWorkUseCase @Inject constructor(
     private val workRepository: WorkRepository,
 ) {
     operator fun invoke(work: Work): Flow<DataState<Unit>> =
-        workRepository.createWork(work)
+        workRepository.fetchWork(work)
 }

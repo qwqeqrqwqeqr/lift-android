@@ -11,13 +11,13 @@ class DefaultWorkLocalDataSource @Inject constructor(
     private val workDao: WorkDao,
 ) : WorkLocalDataSource {
 
-    override fun load(): Flow<Work> = flow {
+    override fun load(): Flow<Work?> = flow {
         workDao.getAllWork().collect { workEntity ->
             emit(
                 workEntity.map {
                     it.key.toDomain()
                         .copy(routine = it.value.map { workRoutineEntity -> workRoutineEntity.toDomain() })
-                }.first()
+                }.firstOrNull()
             )
         }
     }

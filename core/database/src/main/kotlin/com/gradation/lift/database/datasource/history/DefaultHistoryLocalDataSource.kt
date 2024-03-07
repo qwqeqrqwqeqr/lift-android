@@ -3,6 +3,7 @@ package com.gradation.lift.database.datasource.history
 import com.gradation.lift.database.dao.HistoryDao
 import com.gradation.lift.database.mapper.toEntity
 import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.UpdateHistoryInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -25,6 +26,14 @@ class DefaultHistoryLocalDataSource @Inject constructor(
         historyDao.insertAll(
             historyEntity = history.map { it.toEntity() },
             historyRoutineEntity = history.flatMap { it.historyRoutine.map { it.toEntity() } }
+        )
+    }
+
+    override suspend fun updateHistoryInfo(updateHistoryInfo: UpdateHistoryInfo) {
+        historyDao.updateHistoryInfo(
+            historyId = updateHistoryInfo.historyId,
+            score = updateHistoryInfo.score,
+            comment = updateHistoryInfo.comment
         )
     }
 

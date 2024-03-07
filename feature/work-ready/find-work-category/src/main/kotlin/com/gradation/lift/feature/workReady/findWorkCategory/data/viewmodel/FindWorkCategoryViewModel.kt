@@ -3,16 +3,19 @@ package com.gradation.lift.feature.workReady.findWorkCategory.data.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.work.GetPopularWorkCategoryUseCase
-import com.gradation.lift.domain.usecase.work.GetRecommendWorkCategoryUseCase
-import com.gradation.lift.domain.usecase.work.GetWorkCategoryUseCase
-import com.gradation.lift.domain.usecase.work.GetWorkPartUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetPopularWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetRecommendWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetWorkCategoryUseCase
+import com.gradation.lift.domain.usecase.workPart.GetWorkPartUseCase
 import com.gradation.lift.feature.workReady.findWorkCategory.data.state.FilterState
 import com.gradation.lift.feature.workReady.findWorkCategory.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.workReady.findWorkCategory.data.state.workCategoryUiState
 import com.gradation.lift.model.model.work.WorkPart
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 /**

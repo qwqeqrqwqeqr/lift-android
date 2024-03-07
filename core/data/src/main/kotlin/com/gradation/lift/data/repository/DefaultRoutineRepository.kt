@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.utils.ErrorMessage
 import com.gradation.lift.database.datasource.routine.RoutineLocalDataSource
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.model.date.Weekday
@@ -80,8 +81,24 @@ class DefaultRoutineRepository @Inject constructor(
     override fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>> = flow {
         routineRemoteDataSource.getRoutineSetRoutine().distinctUntilChanged().collect { result ->
             when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> {
+                    try {
+                        routineLocalDataSource.getAllRoutineSetRoutine().collect {
+                            emit(DataState.Success(it))
+                        }
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(ErrorMessage.CACHE_ERROR_MESSAGE))
+                    }
+                }
+
+                is NetworkResult.Success -> {
+                    try {
+                        routineLocalDataSource.fetch(result.data)
+                        emit(DataState.Success(result.data))
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(ErrorMessage.CACHE_ERROR_MESSAGE))
+                    }
+                }
             }
         }
     }.flowOn(dispatcherProvider.default)

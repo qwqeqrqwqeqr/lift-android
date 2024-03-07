@@ -26,12 +26,6 @@ interface WorkRepository {
      */
     fun fetchWork(work: Work): Flow<DataState<Unit>>
 
-    /**
-     * [updateWork]
-     * 운동 정보를 갱신함
-     * @since 2024-03-07 12:44:58
-     */
-    fun updateWork(work: Work): Flow<DataState<Unit>>
 
     /**
      * [clearWork]

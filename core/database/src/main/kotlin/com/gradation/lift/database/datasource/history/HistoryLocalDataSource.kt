@@ -1,6 +1,7 @@
 package com.gradation.lift.database.datasource.history
 
 import com.gradation.lift.model.model.history.History
+import com.gradation.lift.model.model.history.UpdateHistoryInfo
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,4 +14,6 @@ interface HistoryLocalDataSource {
     fun getAllHistory(): Flow<List<History>>
 
     suspend fun fetch(history: List<History>)
+
+    suspend fun updateHistoryInfo(updateHistoryInfo: UpdateHistoryInfo)
 }

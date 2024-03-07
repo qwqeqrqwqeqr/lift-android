@@ -2,6 +2,7 @@ package com.gradation.lift.data.repository
 
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.data.utils.ErrorMessage.CACHE_ERROR_MESSAGE
 import com.gradation.lift.database.datasource.badge.BadgeLocalDataSource
 import com.gradation.lift.database.datasource.userBadge.UserBadgeLocalDataSource
 import com.gradation.lift.domain.repository.BadgeRepository
@@ -24,11 +25,30 @@ class DefaultBadgeRepository @Inject constructor(
     private val userBadgeLocalDataSource: UserBadgeLocalDataSource,
     private val dispatcherProvider: DispatcherProvider,
 ) : BadgeRepository {
+
     override fun getBadge(): Flow<DataState<List<Badge>>> = flow {
         badgeRemoteDataSource.getBadge().collect { result ->
             when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Fail -> {
+                    try {
+                        badgeLocalDataSource.getAllBadge().collect {
+                            if (it.isEmpty()) emit(DataState.Fail(result.message))
+                            else emit(DataState.Success(it))
+                        }
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(CACHE_ERROR_MESSAGE))
+                    }
+
+                }
+
+                is NetworkResult.Success -> {
+                    try {
+                        badgeLocalDataSource.fetch(result.data)
+                        emit(DataState.Success(result.data))
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(CACHE_ERROR_MESSAGE))
+                    }
+                }
             }
         }
     }.flowOn(dispatcherProvider.default)
@@ -37,11 +57,24 @@ class DefaultBadgeRepository @Inject constructor(
         badgeRemoteDataSource.getUserBadge().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> {
-
-                    emit(DataState.Fail(result.message))
+                    try {
+                        userBadgeLocalDataSource.getAllUserBadge().collect {
+                            if (it.isEmpty()) emit(DataState.Fail(result.message))
+                            else emit(DataState.Success(it))
+                        }
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(CACHE_ERROR_MESSAGE))
+                    }
                 }
 
-                is NetworkResult.Success -> emit(DataState.Success(result.data))
+                is NetworkResult.Success -> {
+                    try {
+                        userBadgeLocalDataSource.fetch(result.data)
+                        emit(DataState.Success(result.data))
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(CACHE_ERROR_MESSAGE))
+                    }
+                }
             }
         }
     }.flowOn(dispatcherProvider.default)
@@ -59,7 +92,16 @@ class DefaultBadgeRepository @Inject constructor(
     override fun getUserBadgeByMainFlag(): Flow<DataState<List<UserBadge>>> = flow {
         badgeRemoteDataSource.getUserBadgeByMainFlag().collect { result ->
             when (result) {
-                is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                is NetworkResult.Fail -> {
+                    try {
+                        userBadgeLocalDataSource.getAllUserBadge().collect {
+                            emit(DataState.Success(it.filter { it.mainFlag }))
+                        }
+                    } catch (error: Throwable) {
+                        emit(DataState.Fail(CACHE_ERROR_MESSAGE))
+                    }
+                }
+
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
             }
         }
@@ -80,7 +122,16 @@ class DefaultBadgeRepository @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+                        is NetworkResult.Success -> {
+                            try {
+                                userBadgeLocalDataSource.updateUserBadgeMainFlag(
+                                    updateUserBadgeMainFlag
+                                )
+                                emit(DataState.Success(result.data))
+                            } catch (error: Throwable) {
+                                emit(DataState.Fail(CACHE_ERROR_MESSAGE))
+                            }
+                        }
                     }
                 }
         }.flowOn(dispatcherProvider.default)
