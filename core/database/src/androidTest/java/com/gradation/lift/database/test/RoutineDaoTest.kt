@@ -3,16 +3,13 @@ package com.gradation.lift.database.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.RoutineDao
-import com.gradation.lift.database.data.TestEntityDataGenerator.Routine.routineEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.RoutineSetRoutine.routineSetRoutineEntity1
-import com.gradation.lift.database.data.TestEntityDataGenerator.RoutineSetRoutine.routineSetRoutineEntity2
-import com.gradation.lift.database.data.TestEntityDataGenerator.RoutineSetRoutine.routineSetRoutineEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
-import com.gradation.lift.database.di.LiftDatabase
+import com.gradation.lift.database.data.TestDataGenerator.Routine.ROUTINE_ENTITY
+import com.gradation.lift.database.data.TestDataGenerator.Routine.ROUTINE_SET_ROUTINE_ENTITY
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -22,14 +19,10 @@ import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
 
-@ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
 class RoutineDaoTest {
-    @Inject
-    @Named(TEST_DATABASE)
-    lateinit var database: LiftDatabase
-    private lateinit var routineDao: RoutineDao
+
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -37,10 +30,15 @@ class RoutineDaoTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
+    @Inject
+    @Named(TEST_DATABASE)
+    lateinit var database: LiftDatabase
+    private lateinit var routineDao: RoutineDao
+
     @Before
     fun setup() {
         hiltRule.inject()
-        routineDao = database.routineSetRoutineDao()
+        routineDao = database.routineDao()
     }
 
     @After
@@ -49,33 +47,54 @@ class RoutineDaoTest {
     }
 
     @Test
-    fun testInsertAllRoutineSetRoutine() = runTest {
-        routineDao.insertAll(
-            routineSetRoutineEntity = routineSetRoutineEntityList,
-            routineEntity = routineEntityList
-        )
+    fun testHistoryInsertAndDelete() = runTest {
 
-        with(routineDao.getAllRoutineSetRoutine().first()){
-            Truth.assertThat(this.size).isEqualTo(2)
-            Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(
-                setOf(
-                    routineSetRoutineEntity1.id,
-                    routineSetRoutineEntity2.id
-                )
-            )
+        with(routineDao.getAllRoutineSetRoutine().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
         }
 
-
-    }
-
-    @Test
-    fun testDeleteAllRoutineSetRoutine() = runTest {
+        /**
+         * insert item
+         */
         routineDao.insertAll(
-            routineSetRoutineEntity = routineSetRoutineEntityList,
-            routineEntity = routineEntityList
+            routineSetRoutineEntity = listOf(ROUTINE_SET_ROUTINE_ENTITY),
+            routineEntity = listOf(ROUTINE_ENTITY)
         )
 
+        with(routineDao.getAllRoutineSetRoutine().first()) {
+            Truth.assertThat(this.keys.size).isEqualTo(1)
+            Truth.assertThat(this.values.size).isEqualTo(1)
+
+            with(this.entries.first().key) {
+                Truth.assertThat(this.id).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.id)
+                Truth.assertThat(this.count).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.count)
+                Truth.assertThat(this.description).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.description)
+                Truth.assertThat(this.name).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.name)
+                Truth.assertThat(this.label).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.label)
+                Truth.assertThat(this.picture).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.picture)
+                Truth.assertThat(this.weekday).isEqualTo(ROUTINE_SET_ROUTINE_ENTITY.weekday)
+            }
+
+            with(this.entries.first().value.first()) {
+                Truth.assertThat(this.id).isEqualTo(ROUTINE_ENTITY.id)
+                Truth.assertThat(this.routineSetId).isEqualTo(ROUTINE_ENTITY.routineSetId)
+                Truth.assertThat(this.workPart).isEqualTo(ROUTINE_ENTITY.workPart)
+                Truth.assertThat(this.workCategoryId).isEqualTo(ROUTINE_ENTITY.workCategoryId)
+                Truth.assertThat(this.workCategoryName).isEqualTo(ROUTINE_ENTITY.workCategoryName)
+                Truth.assertThat(this.workSetList).isEqualTo(ROUTINE_ENTITY.workSetList)
+            }
+        }
+
+        /**
+         * delete item
+         */
         routineDao.deleteAllRoutineSetRoutine()
-        Truth.assertThat(routineDao.getAllRoutineSetRoutine().first().size).isEqualTo(0)
+
+
+        with(routineDao.getAllRoutineSetRoutine().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
     }
+
+
 }

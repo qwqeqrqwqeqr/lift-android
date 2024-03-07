@@ -43,8 +43,4 @@ interface WorkDao {
     suspend fun deleteAllWork()
 
 
-    @Query("DELETE FROM work_routine")
-    suspend fun deleteAllWorkRoutine()
-
-
 }

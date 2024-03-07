@@ -29,8 +29,7 @@ object DatabaseModule {
         effectContentListTypeConverter: EffectContentListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
         localDateTimeTypeConverter: LocalDateTimeTypeConverter,
-        localDateTypeConverter: LocalDateTypeConverter,
-    ): LiftDatabase =
+    ) =
         Room.databaseBuilder(context, LiftDatabase::class.java, DATABASE_NAME)
             .addTypeConverter(stringListTypeConverter)
             .addTypeConverter(intListTypeConverter)
@@ -40,7 +39,6 @@ object DatabaseModule {
             .addTypeConverter(effectContentListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
             .addTypeConverter(localDateTimeTypeConverter)
-            .addTypeConverter(localDateTypeConverter)
             .fallbackToDestructiveMigration()
             .build()
 }

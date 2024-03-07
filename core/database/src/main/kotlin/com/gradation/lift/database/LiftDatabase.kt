@@ -24,7 +24,6 @@ import com.gradation.lift.database.util.CheckedWorkSetInfoListTypeConverter
 import com.gradation.lift.database.util.EffectContentListTypeConverter
 import com.gradation.lift.database.util.IntListTypeConverter
 import com.gradation.lift.database.util.LocalDateTimeTypeConverter
-import com.gradation.lift.database.util.LocalDateTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
 import com.gradation.lift.database.util.SequenceContentListTypeConverter
 import com.gradation.lift.database.util.StringListTypeConverter
@@ -56,14 +55,13 @@ import com.gradation.lift.database.util.WorkSetListTypeConverter
         EffectContentListTypeConverter::class,
         LocalTimeTypeConverter::class,
         LocalDateTimeTypeConverter::class,
-        LocalDateTypeConverter::class
     ]
 )
 abstract class LiftDatabase : RoomDatabase() {
     abstract fun badgeDao(): BadgeDao
     abstract fun userBadgeDao(): UserBadgeDao
     abstract fun historyDao(): HistoryDao
-    abstract fun routineSetRoutineDao(): RoutineDao
+    abstract fun routineDao(): RoutineDao
     abstract fun workCategoryDao(): WorkCategoryDao
     abstract fun workDao(): WorkDao
     abstract fun workPartDao(): WorkPartDao

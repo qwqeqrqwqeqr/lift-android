@@ -53,11 +53,6 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideLocalDateTypeConverter(): LocalDateTypeConverter =
-        LocalDateTypeConverter()
-
-    @Provides
-    @Singleton
     fun provideLocalDateTimeTypeConverter(): LocalDateTimeTypeConverter =
         LocalDateTimeTypeConverter()
 }

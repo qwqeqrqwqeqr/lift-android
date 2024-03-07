@@ -2,7 +2,8 @@ package com.gradation.lift.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
+import com.gradation.lift.database.LiftDatabase
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
 import com.gradation.lift.database.util.*
 import dagger.Module
 import dagger.Provides
@@ -21,19 +22,23 @@ object TestDatabaseModule {
     @Provides
     fun provideInMemoryDatabase(
         @ApplicationContext context: Context,
-        intListTypeConverter: IntListTypeConverter,
         stringListTypeConverter: StringListTypeConverter,
+        intListTypeConverter: IntListTypeConverter,
+        checkedWorkSetInfoListTypeConverter: CheckedWorkSetInfoListTypeConverter,
         workSetListTypeConverter: WorkSetListTypeConverter,
+        sequenceContentListTypeConverter: SequenceContentListTypeConverter,
+        effectContentListTypeConverter: EffectContentListTypeConverter,
         localTimeTypeConverter: LocalTimeTypeConverter,
-        localDateTypeConverter: LocalDateTypeConverter,
         localDateTimeTypeConverter: LocalDateTimeTypeConverter,
     ) =
         Room.inMemoryDatabaseBuilder(context, LiftDatabase::class.java)
-            .addTypeConverter(intListTypeConverter)
             .addTypeConverter(stringListTypeConverter)
+            .addTypeConverter(intListTypeConverter)
+            .addTypeConverter(checkedWorkSetInfoListTypeConverter)
             .addTypeConverter(workSetListTypeConverter)
+            .addTypeConverter(sequenceContentListTypeConverter)
+            .addTypeConverter(effectContentListTypeConverter)
             .addTypeConverter(localTimeTypeConverter)
-            .addTypeConverter(localDateTypeConverter)
             .addTypeConverter(localDateTimeTypeConverter)
             .allowMainThreadQueries()
             .build()

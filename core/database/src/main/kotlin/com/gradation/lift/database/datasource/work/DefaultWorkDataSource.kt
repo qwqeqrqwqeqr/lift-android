@@ -28,7 +28,6 @@ class DefaultWorkDataSource @Inject constructor(
 
     override suspend fun fetch(work: Work) {
         workDao.deleteAllWork()
-        workDao.deleteAllWorkRoutine()
 
         workDao.insert(
             workEntity = work.toEntity(),
@@ -38,7 +37,6 @@ class DefaultWorkDataSource @Inject constructor(
 
     override suspend fun clear() {
         workDao.deleteAllWork()
-        workDao.deleteAllWorkRoutine()
     }
 
 }
