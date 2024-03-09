@@ -6,7 +6,7 @@ import com.gradation.lift.model.model.work.Work
 import com.gradation.lift.model.model.work.WorkRoutine
 
 fun Work.toEntity() = WorkEntity(
-    id, workTime, restTime, totalTime, usedRoutineSetIdList
+    id, workTime, restTime, totalTime, usedRoutineSetIdList, checkedWorkSetInfoList
 )
 
 fun WorkRoutine.toEntity() = WorkRoutineEntity(

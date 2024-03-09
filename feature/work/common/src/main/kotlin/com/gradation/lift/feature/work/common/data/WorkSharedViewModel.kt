@@ -114,6 +114,16 @@ class WorkSharedViewModel @Inject constructor(
                                     }.toMutableStateList()
                                 )
                             })
+                            workRoutineInfoState.checkedWorkSetList.addAll(result.data.checkedWorkSetInfoList)
+                            usedRoutineSetIdList.value = result.data.usedRoutineSetIdList
+                            workState.workRestTime.value =
+                                WorkRestTime(
+                                    workTime = result.data.workTime,
+                                    restTime = result.data.restTime,
+                                    totalTime = result.data.totalTime
+                                )
+
+
                             workState.startTimer()
                             usedRoutineSetIdList.update { result.data.usedRoutineSetIdList }
                         }

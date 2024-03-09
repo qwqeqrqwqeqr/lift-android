@@ -1,6 +1,5 @@
 package com.gradation.lift.data.repository
 
-import android.util.Log
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.ErrorMessage
@@ -36,7 +35,6 @@ class DefaultHistoryRepository @Inject constructor(
 
                 is NetworkResult.Success -> {
                     try {
-                        Log.d("test", "${result.data}")
                         historyLocalDataSource.fetch(result.data)
                         emit(DataState.Success(result.data))
 

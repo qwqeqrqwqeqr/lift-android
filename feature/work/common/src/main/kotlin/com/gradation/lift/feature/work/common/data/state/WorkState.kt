@@ -24,7 +24,7 @@ class WorkState(
     private val viewModelScope: CoroutineScope,
     var workRoutineList: SnapshotStateList<WorkRoutine> = emptyList<WorkRoutine>().toMutableStateList(),
     var currentWorkRoutineIndex: MutableStateFlow<Int> = MutableStateFlow(0),
-    private var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
+    var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
     private var workRestFlag: MutableStateFlow<Boolean> = MutableStateFlow(true),
 ) {
 
