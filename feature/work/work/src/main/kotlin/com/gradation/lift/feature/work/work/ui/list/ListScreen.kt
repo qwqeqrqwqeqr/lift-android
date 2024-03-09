@@ -42,12 +42,12 @@ import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.common.data.model.WorkRoutine
-import com.gradation.lift.feature.work.common.data.model.WorkRoutineCheckedInfo
 import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.common.data.state.WorkState
 import com.gradation.lift.feature.work.work.data.state.SnackBarState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
 import com.gradation.lift.ui.modifier.noRippleClickable
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalTime
@@ -208,10 +208,10 @@ fun ListScreen(
                                     )
                                 }
 
-                                if (workRoutineInfoState.isOpened(workRoutine.id)) {
+                                if (workRoutineInfoState.isOpened(workRoutine.workRoutineId)) {
                                     Icon(
                                         modifier = modifier.noRippleClickable {
-                                            workRoutineInfoState.closeRoutineInfo(workRoutine.id)
+                                            workRoutineInfoState.closeRoutineInfo(workRoutine.workRoutineId)
                                         },
                                         painter = painterResource(id = LiftIcon.ChevronUp),
                                         contentDescription = "${workRoutine}ChevronUp",
@@ -221,7 +221,7 @@ fun ListScreen(
                                     Icon(
                                         modifier = modifier.noRippleClickable {
                                             workRoutineInfoState.openRoutineInfo(
-                                                workRoutine.id
+                                                workRoutine.workRoutineId
                                             )
                                         },
                                         painter = painterResource(id = LiftIcon.ChevronDown),
@@ -231,7 +231,7 @@ fun ListScreen(
                                 }
                             }
                             AnimatedVisibility(
-                                workRoutineInfoState.isOpened(workRoutine.id)
+                                workRoutineInfoState.isOpened(workRoutine.workRoutineId)
                             ) {
                                 Column(
                                     modifier = modifier,
@@ -305,18 +305,16 @@ fun ListScreen(
                                                     modifier = modifier
                                                         .size(LiftTheme.space.space12)
                                                         .noRippleClickable {
-                                                            if (workState.workRoutineList[workRoutineIndex].workSetList.size > 1) {
-                                                                workRoutineInfoState.uncheckWorkSet(
-                                                                    WorkRoutineCheckedInfo(
-                                                                        workRoutine.id,
-                                                                        index
-                                                                    )
+                                                            workRoutineInfoState.uncheckWorkSet(
+                                                                CheckedWorkSetInfo(
+                                                                    workRoutine.workRoutineId,
+                                                                    workSet.id
                                                                 )
-                                                                workState.removeWorkSet(
-                                                                    workRoutine.id,
-                                                                    workSet
-                                                                )
-                                                            }
+                                                            )
+                                                            workState.removeWorkSet(
+                                                                workRoutine.workRoutineId,
+                                                                workSet
+                                                            )
                                                         },
                                                     painter = painterResource(id = LiftIcon.Close),
                                                     tint = LiftTheme.colorScheme.no10,
@@ -344,8 +342,8 @@ fun ListScreen(
                                                         value = workSet.weight,
                                                         onValueChange = {
                                                             workState.updateWorkSet(
-                                                                workRoutine.id,
-                                                                index,
+                                                                workRoutine.workRoutineId,
+                                                                workSet.id,
                                                                 workSet.copy(weight = it)
                                                             )
                                                         },
@@ -358,8 +356,8 @@ fun ListScreen(
                                                         value = workSet.repetition,
                                                         onValueChange = {
                                                             workState.updateWorkSet(
-                                                                workRoutine.id,
-                                                                index,
+                                                                workRoutine.workRoutineId,
+                                                                workSet.id,
                                                                 workSet.copy(repetition = it)
                                                             )
                                                         },
@@ -375,26 +373,25 @@ fun ListScreen(
                                                     LiftCircleCheckbox(
                                                         modifier = modifier,
                                                         checked = workRoutineInfoState.isChecked(
-                                                            workRoutine.id,
-                                                            index
+                                                            workRoutine.workRoutineId, workSet.id
                                                         ),
                                                         liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size28,
                                                         onCheckedChange = {
                                                             if (workRoutineInfoState.isChecked(
-                                                                    workRoutine.id,
-                                                                    index
+                                                                    workRoutine.workRoutineId,
+                                                                    workSet.id
                                                                 )
                                                             )
                                                                 workRoutineInfoState.uncheckWorkSet(
-                                                                    WorkRoutineCheckedInfo(
-                                                                        workRoutine.id,
-                                                                        index
+                                                                    CheckedWorkSetInfo(
+                                                                        workRoutine.workRoutineId,
+                                                                        workSet.id
                                                                     )
                                                                 )
                                                             else workRoutineInfoState.checkWorkSet(
-                                                                WorkRoutineCheckedInfo(
-                                                                    workRoutine.id,
-                                                                    index
+                                                                CheckedWorkSetInfo(
+                                                                    workRoutine.workRoutineId,
+                                                                    workSet.id
                                                                 )
                                                             )
                                                         }
@@ -408,8 +405,10 @@ fun ListScreen(
                                         text = "세트추가",
                                         onClick = {
                                             workState.addWorkSet(
-                                                workRoutine.id,
-                                                workRoutine.workSetList.last()
+                                                workRoutine.workRoutineId,
+                                                workRoutine.workSetList.last().copy(
+                                                    id = workRoutine.workSetList.maxOf { it.id } + 1
+                                                )
                                             )
                                         }
                                     )

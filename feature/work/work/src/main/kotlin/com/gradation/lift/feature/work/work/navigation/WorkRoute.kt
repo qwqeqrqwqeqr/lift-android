@@ -13,6 +13,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
@@ -25,7 +27,6 @@ import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenUiState
 import com.gradation.lift.feature.work.work.data.state.rememberWorkScreenState
-import com.gradation.lift.feature.work.work.data.viewmodel.WorkViewModel
 import com.gradation.lift.feature.work.work.ui.component.dialog.AutoCompleteDialog
 import com.gradation.lift.feature.work.work.ui.component.dialog.CompleteDialog
 import com.gradation.lift.feature.work.work.ui.component.dialog.SuspendDialog
@@ -34,9 +35,8 @@ import com.gradation.lift.feature.work.work.ui.rest.RestScreen
 import com.gradation.lift.feature.work.work.ui.work.WorkScreen
 import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.work.WorkSet
-import com.gradation.lift.navigation.Route
+import com.gradation.lift.navigation.Route.WORK_GRAPH_NAME
 import com.gradation.lift.ui.extensions.showImmediatelySnackbar
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 
@@ -49,15 +49,13 @@ fun WorkRoute(
     navigateWorkToCompleteInWorkGraph: () -> Unit,
     navigateWorkGraphToHomeGraph: () -> Unit,
     navigateWorkToFindWorkCategoryInWorkGraph: () -> Unit,
-    viewModel: WorkViewModel = hiltViewModel(),
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
-        remember { navController.getBackStackEntry(Route.WORK_GRAPH_NAME) }
+        remember { navController.getBackStackEntry(WORK_GRAPH_NAME) }
     ),
+    workState: WorkState = sharedViewModel.workState,
+    workRoutineInfoState: WorkRoutineInfoState = sharedViewModel.workRoutineInfoState,
+    workScreenState: WorkScreenState = rememberWorkScreenState(workState),
 ) {
-    val workState: WorkState = sharedViewModel.workState
-    val workRoutineInfoState: WorkRoutineInfoState = sharedViewModel.workRoutineInfoState
-    val workScreenState: WorkScreenState = rememberWorkScreenState(workState)
-
 
     val workScreenUiState: WorkScreenUiState by workScreenState.workScreenUiState.collectAsStateWithLifecycle()
     val workDialogUiState: WorkDialogUiState by workScreenState.workDialogUiState.collectAsStateWithLifecycle()
@@ -72,7 +70,6 @@ fun WorkRoute(
     val setHistoryWorkRestTime: (WorkRestTime) -> Unit = sharedViewModel.setHistoryWorkRestTime
     val setProgress: (Float) -> Unit = sharedViewModel.setHistoryProgress
 
-
     val progress: Float by animateFloatAsState(
         targetValue = getProgress(workState, workRoutineInfoState),
         animationSpec = spring(
@@ -85,6 +82,20 @@ fun WorkRoute(
 
     BackHandler(onBack = { workScreenState.updateWorkDialogState(WorkDialogUiState.SuspendDialogUi) })
 
+
+    DisposableEffect(workScreenState.lifecycleOwner) {
+        with(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP || event == Lifecycle.Event.ON_DESTROY) {
+                sharedViewModel.fetchWork()
+            }
+        }) {
+            workScreenState.lifecycleOwner.lifecycle.addObserver(this)
+            onDispose {
+                workScreenState.lifecycleOwner.lifecycle.removeObserver(this)
+            }
+        }
+    }
+
     LaunchedEffect(getProgress(workState, workRoutineInfoState)) {
         if (
             getProgress(workState, workRoutineInfoState) == 100f && autoCompleteState
@@ -95,14 +106,13 @@ fun WorkRoute(
     }
 
 
-    LaunchedEffect(workScreenState.pagerState) {
-        snapshotFlow { workScreenState.pagerState.currentPage }
-            .collectLatest { page ->
-                workState.updateCurrentWorkRoutineIndex(page)
-            }
-    }
-    LaunchedEffect(currentWorkRoutineIndex) {
-        workScreenState.pagerState.scrollToPage(currentWorkRoutineIndex)
+    LaunchedEffect(workScreenState.pagerState, currentWorkRoutineIndex) {
+        snapshotFlow {
+            Pair(workScreenState.pagerState.currentPage, currentWorkRoutineIndex)
+        }.collect { it ->
+            workState.updateCurrentWorkRoutineIndex(it.first)
+            workScreenState.pagerState.scrollToPage(it.second)
+        }
     }
 
     LaunchedEffect(workScreenState.snackBarState) {
@@ -113,8 +123,6 @@ fun WorkRoute(
                 workScreenState.updateSnackBarState(SnackBarState.None)
             }
         }
-
-
     }
 
     Box {
@@ -152,7 +160,10 @@ fun WorkRoute(
                     modifier = modifier.fillMaxSize()
                 ) {
                     SuspendDialog(
-                        onClickDialogSuspendButton = navigateWorkGraphToHomeGraph,
+                        onClickDialogSuspendButton = {
+                            sharedViewModel.clearWork()
+                            navigateWorkGraphToHomeGraph()
+                        },
                         onClickDialogDismissButton = {
                             workScreenState.updateWorkDialogState(
                                 WorkDialogUiState.None
@@ -192,8 +203,9 @@ fun WorkRoute(
         }
 
 
+
         Crossfade(
-            targetState = workScreenUiState, label = "",
+            targetState = workScreenUiState, label = "workTransition",
             animationSpec =
             when (workScreenUiState) {
                 is WorkScreenUiState.ListScreenUi -> tween()
@@ -265,13 +277,14 @@ private fun createHistory(
             CreateHistoryRoutine(
                 workCategory = workRoutine.workCategoryName,
                 workSetList = workRoutine.workSetList.toList()
-                    .filterIndexed { index, _ ->
+                    .filter { workSet ->
                         workRoutineInfoState.isChecked(
-                            workRoutine.id,
-                            index
+                            workRoutine.workRoutineId,
+                            workSet.id
                         )
                     }.map { workSet ->
                         WorkSet(
+                            workSet.id,
                             workSet.weight.toFloat(),
                             workSet.repetition.toInt()
                         )

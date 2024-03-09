@@ -1,5 +1,5 @@
 package com.gradation.lift.feature.workReady.common.model
-data class WorkRoutineWorkSet(
+data class WorkReadyRoutineWorkSet(
     var weight: String = "",
     var repetition: String = "",
 )

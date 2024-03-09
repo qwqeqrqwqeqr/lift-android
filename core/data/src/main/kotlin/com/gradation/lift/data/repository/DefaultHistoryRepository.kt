@@ -1,5 +1,6 @@
 package com.gradation.lift.data.repository
 
+import android.util.Log
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.utils.ErrorMessage
@@ -11,7 +12,6 @@ import com.gradation.lift.model.model.history.UpdateHistoryInfo
 import com.gradation.lift.network.common.NetworkResult
 import com.gradation.lift.network.datasource.history.HistoryRemoteDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class DefaultHistoryRepository @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
 ) : HistoryRepository {
     override fun getHistory(): Flow<DataState<List<History>>> = flow {
-        historyRemoteDataSource.getHistory().distinctUntilChanged().collect { result ->
+        historyRemoteDataSource.getHistory().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> {
                     try {
@@ -36,8 +36,11 @@ class DefaultHistoryRepository @Inject constructor(
 
                 is NetworkResult.Success -> {
                     try {
+                        Log.d("test", "${result.data}")
                         historyLocalDataSource.fetch(result.data)
-                        DataState.Success(result.data)
+                        emit(DataState.Success(result.data))
+
+
                     } catch (error: Throwable) {
                         emit(DataState.Fail(ErrorMessage.CACHE_ERROR_MESSAGE))
                     }

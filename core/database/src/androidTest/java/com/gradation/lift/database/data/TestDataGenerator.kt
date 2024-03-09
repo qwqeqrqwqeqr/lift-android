@@ -120,14 +120,17 @@ object TestDataGenerator {
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workSetList = listOf(
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
@@ -146,14 +149,17 @@ object TestDataGenerator {
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workSetList = listOf(
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
@@ -183,19 +189,23 @@ object TestDataGenerator {
         )
         val WORK_ROUTINE_ENTITY = WorkRoutineEntity(
             workId = FAKE_LONG_DATA,
+            workRoutineId = FAKE_INT_DATA,
             workCategoryId = FAKE_INT_DATA,
             workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workSetList = listOf(
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),
                 WorkSet(
+                    workSetId = FAKE_INT_DATA,
                     weight = FAKE_ROUTINE_WEIGHT_DATA,
                     repetition = FAKE_ROUTINE_REPETITION_DATA
                 ),

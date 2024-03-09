@@ -2,23 +2,19 @@ package com.gradation.lift.feature.workReady.common
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
-import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutine
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutineWorkSet
 import java.util.Collections
 
 data class WorkRoutineState(
-    val currentWorkRoutine: SnapshotStateList<WorkRoutine> =
-        emptyList<WorkRoutine>().toMutableStateList(),
+    val currentWorkReadyRoutineList: SnapshotStateList<WorkReadyRoutine> =
+        emptyList<WorkReadyRoutine>().toMutableStateList(),
 ) {
-    private val tempUndoWorkRoutine: SnapshotStateList<WorkRoutine> =
-        emptyList<WorkRoutine>().toMutableStateList()
+    private val tempUndoWorkReadyRoutines: SnapshotStateList<WorkReadyRoutine> =
+        emptyList<WorkReadyRoutine>().toMutableStateList()
 
-    val appendRoutine: (WorkRoutine) -> Unit = {
+    val appendRoutine: (WorkReadyRoutine) -> Unit = {
         onCurrentRoutineSetRoutineEvent(WorkRoutineEvent.AppendRoutine(it))
-    }
-
-    val removeRoutine: (WorkRoutine) -> Unit = {
-        onCurrentRoutineSetRoutineEvent(WorkRoutineEvent.RemoveRoutine(it))
     }
 
     val removeRoutines: (List<Int>) -> Unit = {
@@ -36,9 +32,7 @@ data class WorkRoutineState(
     }
 
 
-
-
-    val addWorkSet: (Int, WorkRoutineWorkSet) -> Unit = { routineIndex, workRoutineWorkSet ->
+    val addWorkSet: (Int, WorkReadyRoutineWorkSet) -> Unit = { routineIndex, workRoutineWorkSet ->
         onCurrentRoutineSetRoutineEvent(
             WorkRoutineEvent.AddWorkSet(
                 routineIndex,
@@ -47,15 +41,16 @@ data class WorkRoutineState(
         )
     }
 
-    val removeWorkSet: (Int, WorkRoutineWorkSet) -> Unit = { routineIndex, workRoutineWorkSet ->
-        onCurrentRoutineSetRoutineEvent(
-            WorkRoutineEvent.RemoveWorkSet(
-                routineIndex,
-                workRoutineWorkSet
+    val removeWorkSet: (Int, WorkReadyRoutineWorkSet) -> Unit =
+        { routineIndex, workRoutineWorkSet ->
+            onCurrentRoutineSetRoutineEvent(
+                WorkRoutineEvent.RemoveWorkSet(
+                    routineIndex,
+                    workRoutineWorkSet
+                )
             )
-        )
-    }
-    val updateWorkSet: (Int, Int, WorkRoutineWorkSet) -> Unit =
+        }
+    val updateWorkSet: (Int, Int, WorkReadyRoutineWorkSet) -> Unit =
         { routineIndex, workSetIndex, workRoutineWorkSet ->
             onCurrentRoutineSetRoutineEvent(
                 WorkRoutineEvent.UpdateWorkSet(
@@ -70,50 +65,54 @@ data class WorkRoutineState(
     private fun onCurrentRoutineSetRoutineEvent(workRoutineEvent: WorkRoutineEvent) {
         when (workRoutineEvent) {
             is WorkRoutineEvent.AppendRoutine -> {
-                currentWorkRoutine.add(workRoutineEvent.workRoutine)
+                currentWorkReadyRoutineList.add(workRoutineEvent.workReadyRoutine)
             }
 
             is WorkRoutineEvent.RemoveRoutine -> {
-                tempUndoWorkRoutine.clear()
-                currentWorkRoutine.remove(workRoutineEvent.workRoutine)
-                tempUndoWorkRoutine.add(workRoutineEvent.workRoutine)
+                tempUndoWorkReadyRoutines.clear()
+                currentWorkReadyRoutineList.remove(workRoutineEvent.workReadyRoutine)
+                tempUndoWorkReadyRoutines.add(workRoutineEvent.workReadyRoutine)
             }
-            is WorkRoutineEvent.RemoveRoutines ->{
-                tempUndoWorkRoutine.clear()
-                workRoutineEvent.idList.mapNotNull { id -> currentWorkRoutine.find { it.id == id } }
+
+            is WorkRoutineEvent.RemoveRoutines -> {
+                tempUndoWorkReadyRoutines.clear()
+                workRoutineEvent.idList.mapNotNull { id -> currentWorkReadyRoutineList.find { it.id == id } }
                     .also { routine ->
-                    currentWorkRoutine.removeAll(routine)
-                    tempUndoWorkRoutine.addAll(routine)
-                }
+                        currentWorkReadyRoutineList.removeAll(routine)
+                        tempUndoWorkReadyRoutines.addAll(routine)
+                    }
             }
+
             WorkRoutineEvent.Undo -> {
-                currentWorkRoutine.addAll(tempUndoWorkRoutine)
-                tempUndoWorkRoutine.clear()
+                currentWorkReadyRoutineList.addAll(tempUndoWorkReadyRoutines)
+                tempUndoWorkReadyRoutines.clear()
             }
 
             is WorkRoutineEvent.MoveRoutine -> {
                 Collections.swap(
-                    currentWorkRoutine,
+                    currentWorkReadyRoutineList,
                     workRoutineEvent.from,
                     workRoutineEvent.to
                 )
             }
 
-            WorkRoutineEvent.Clear -> currentWorkRoutine.clear()
+            WorkRoutineEvent.Clear -> currentWorkReadyRoutineList.clear()
 
             is WorkRoutineEvent.AddWorkSet -> {
-                currentWorkRoutine[workRoutineEvent.routineIndex].workSetList.add(workRoutineEvent.workRoutineWorkSet)
+                currentWorkReadyRoutineList[workRoutineEvent.routineIndex].workSetList.add(
+                    workRoutineEvent.workReadyRoutineWorkSet
+                )
             }
 
             is WorkRoutineEvent.RemoveWorkSet -> {
-                currentWorkRoutine[workRoutineEvent.routineIndex].workSetList.remove(
-                    workRoutineEvent.workRoutineWorkSet
+                currentWorkReadyRoutineList[workRoutineEvent.routineIndex].workSetList.remove(
+                    workRoutineEvent.workReadyRoutineWorkSet
                 )
             }
 
             is WorkRoutineEvent.UpdateWorkSet -> {
-                currentWorkRoutine[workRoutineEvent.routineIndex].workSetList[workRoutineEvent.workSetIndex] =
-                    workRoutineEvent.workRoutineWorkSet
+                currentWorkReadyRoutineList[workRoutineEvent.routineIndex].workSetList[workRoutineEvent.workSetIndex] =
+                    workRoutineEvent.workReadyRoutineWorkSet
             }
 
 

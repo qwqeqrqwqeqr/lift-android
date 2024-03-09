@@ -42,7 +42,7 @@ import com.gradation.lift.database.util.WorkSetListTypeConverter
         WorkCategoryEntity::class,
         WorkPartEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 @TypeConverters(

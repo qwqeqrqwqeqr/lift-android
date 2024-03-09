@@ -31,6 +31,9 @@ data class WorkRoutineEntity(
     @ColumnInfo(name = "work_id")
     val workId: Long,
 
+    @ColumnInfo(name = "work_routine_id")
+    var workRoutineId: Int,
+
     @ColumnInfo(name = "work_category_id")
     var workCategoryId: Int,
 
@@ -46,7 +49,7 @@ data class WorkRoutineEntity(
     val workSetList: List<WorkSet>,
 ) {
     fun toDomain(): WorkRoutine = WorkRoutine(
-        workId, workCategoryId, workCategoryName, workPart, workSetList
+        workId, workRoutineId, workCategoryId, workCategoryName, workPart, workSetList
     )
 }
 

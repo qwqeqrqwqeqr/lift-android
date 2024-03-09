@@ -31,7 +31,7 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutineWorkSet
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.RoutineScreenState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.ui.modifier.noRippleClickable
@@ -111,8 +111,8 @@ internal fun RoutineListView(
                 state = routineScreenState.lazyListState
             ) {
                 itemsIndexed(
-                    items=workSetState.workSetList,
-                    key= { index: Int, _: WorkRoutineWorkSet -> index }) { index, workSet ->
+                    items = workSetState.workSetList,
+                    key = { index: Int, _: WorkReadyRoutineWorkSet -> index }) { index, workSet ->
                     LiftPrimaryContainer(
                         modifier = modifier
                             .fillMaxWidth()

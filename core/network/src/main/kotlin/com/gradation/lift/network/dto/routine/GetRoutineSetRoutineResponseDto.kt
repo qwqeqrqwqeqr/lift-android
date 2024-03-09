@@ -40,8 +40,9 @@ data class GetRoutineSetRoutineResponseDto(
                         workCategoryName = routine.routineDto.workCategoryName,
                         workPart = routine.routineDto.workPart,
                         workSetList = routine.routineDto.workWeightList.zip(routine.routineDto.workRepetitionList)
-                            .map { workSet ->
+                            .mapIndexed { index, workSet ->
                                 WorkSet(
+                                    workSetId = index,
                                     weight = workSet.first,
                                     repetition = workSet.second
                                 )

@@ -21,8 +21,8 @@ class DefaultWorkRepository @Inject constructor(
     override fun loadWork(): Flow<DataState<Work>> = flow {
         try {
             workLocalDataSource.load().collect {
-                it?.let { emit(DataState.Success(it)) }
-                    ?: DataState.Fail(ErrorMessage.LOAD_WORK_ERROR_MESSAGE)
+                emit(it?.let { DataState.Success(it) }
+                    ?: DataState.Fail(ErrorMessage.LOAD_WORK_ERROR_MESSAGE))
             }
         } catch (error: Throwable) {
             emit(DataState.Fail(ErrorMessage.LOAD_WORK_ERROR_MESSAGE))

@@ -17,12 +17,14 @@ data class GetRoutineResponseDto(
             workCategoryId = it.workCategoryId,
             workCategoryName = it.workCategoryName,
             workPart = it.workPart,
-            workSetList = it.workWeightList.zip(it.workRepetitionList).map { workSet ->
-                WorkSet(
-                    weight = workSet.first,
-                    repetition = workSet.second
-                )
-            }
+            workSetList = it.workWeightList.zip(it.workRepetitionList)
+                .mapIndexed { index, workSet ->
+                    WorkSet(
+                        workSetId = index,
+                        weight = workSet.first,
+                        repetition = workSet.second
+                    )
+                }
         )
     }
 }

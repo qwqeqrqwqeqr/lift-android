@@ -11,7 +11,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
  * @property workSetList 운동 세트 리스트
  */
 data class WorkRoutine(
-    val id: Int,
+    val id: Long,
+    val workRoutineId: Int,
     val workCategoryId: Int,
     val workCategoryName: String,
     val workPart: List<String>,

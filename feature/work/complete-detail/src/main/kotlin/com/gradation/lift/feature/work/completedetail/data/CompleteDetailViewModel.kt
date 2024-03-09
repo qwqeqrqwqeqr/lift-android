@@ -6,6 +6,7 @@ import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.usecase.date.GetNowUseCase
 import com.gradation.lift.domain.usecase.history.CreateHistoryUseCase
 import com.gradation.lift.domain.usecase.routine.UpdateUsedRoutineSetUseCase
+import com.gradation.lift.domain.usecase.work.ClearWorkUseCase
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
 import com.gradation.lift.feature.work.completedetail.data.state.CreateWorkHistoryState
 import com.gradation.lift.feature.work.completedetail.data.state.HistoryInfoState
@@ -14,6 +15,7 @@ import com.gradation.lift.model.model.history.CreateHistoryRoutine
 import com.gradation.lift.model.model.routine.UpdateUsedRoutineSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import javax.inject.Inject
@@ -23,6 +25,7 @@ import javax.inject.Inject
 internal class CompleteDetailViewModel @Inject constructor(
     private val createHistoryUseCase: CreateHistoryUseCase,
     private val updateUsedRoutineSetUseCase: UpdateUsedRoutineSetUseCase,
+    private val clearWorkUseCase: ClearWorkUseCase,
     getNowUseCase: GetNowUseCase,
 ) : ViewModel() {
 
@@ -67,8 +70,11 @@ internal class CompleteDetailViewModel @Inject constructor(
                                     is DataState.Fail -> createWorkHistoryState.value =
                                         CreateWorkHistoryState.Fail(message = it.message)
 
-                                    is DataState.Success -> createWorkHistoryState.value =
-                                        CreateWorkHistoryState.Success
+                                    is DataState.Success -> {
+                                        clearWorkUseCase().collect()
+                                        createWorkHistoryState.value =
+                                            CreateWorkHistoryState.Success
+                                    }
                                 }
                             }
                         }
@@ -107,8 +113,11 @@ internal class CompleteDetailViewModel @Inject constructor(
                                     is DataState.Fail -> createWorkHistoryState.value =
                                         CreateWorkHistoryState.Fail(message = it.message)
 
-                                    is DataState.Success -> createWorkHistoryState.value =
-                                        CreateWorkHistoryState.Success
+                                    is DataState.Success -> {
+                                        clearWorkUseCase().collect()
+                                        createWorkHistoryState.value =
+                                            CreateWorkHistoryState.Success
+                                    }
                                 }
                             }
                         }

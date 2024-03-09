@@ -192,10 +192,11 @@ fun NavigationView(
                                 workCategoryId = workCategory.id,
                                 workCategoryName = workCategory.name,
                                 workPart = workCategory.workPart,
-                                workSetList = workSetState.workSetList.map {
+                                workSetList = workSetState.workSetList.mapIndexed { index, workSet ->
                                     WorkSet(
-                                        weight = it.weight.toFloat(),
-                                        repetition = it.repetition.toInt()
+                                        workSetId = index,
+                                        weight = workSet.weight.toFloat(),
+                                        repetition = workSet.repetition.toInt()
                                     )
                                 }
                             )

@@ -79,7 +79,7 @@ class DefaultRoutineRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getRoutineSetRoutine(): Flow<DataState<List<RoutineSetRoutine>>> = flow {
-        routineRemoteDataSource.getRoutineSetRoutine().distinctUntilChanged().collect { result ->
+        routineRemoteDataSource.getRoutineSetRoutine().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> {
                     try {
