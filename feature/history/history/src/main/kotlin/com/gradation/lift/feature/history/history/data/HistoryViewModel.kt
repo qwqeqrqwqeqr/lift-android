@@ -40,6 +40,7 @@ class HistoryViewModel @Inject constructor(
             }
 
             is DataState.Success -> {
+
                 it.data.groupBy { history -> history.historyTimeStamp.date }.map { entry ->
                     DateHistory(
                         date = entry.key,

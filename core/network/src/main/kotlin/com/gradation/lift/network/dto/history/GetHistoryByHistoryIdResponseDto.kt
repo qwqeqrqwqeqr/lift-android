@@ -11,8 +11,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GetHistoryByHistoryIdResponseDto(
     @SerialName("history")
-    val history: List<HistoryDto>
-){
+    val history: List<HistoryDto>,
+) {
     fun toDomain(): List<History> = this.history.groupBy { it.historyId }.map {
         History(
             historyId = it.value.first().historyId,
@@ -31,8 +31,9 @@ data class GetHistoryByHistoryIdResponseDto(
                     workCategoryName = history.historyRoutine.workCategoryName,
                     workPart = history.historyRoutine.workPart,
                     workSetList = history.historyRoutine.workWeightList.zip(history.historyRoutine.workRepetitionList)
-                        .map { workSet ->
+                        .mapIndexed { index, workSet ->
                             WorkSet(
+                                workSetId = index,
                                 weight = workSet.first,
                                 repetition = workSet.second
                             )

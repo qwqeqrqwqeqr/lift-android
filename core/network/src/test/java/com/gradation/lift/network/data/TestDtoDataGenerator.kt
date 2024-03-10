@@ -21,7 +21,6 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_SCORE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_STAMP_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_UNIT_OF_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEEKDAY_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEIGHT_DATA
@@ -548,7 +547,6 @@ object TestDtoDataGenerator {
             height = FAKE_HEIGHT_DATA,
             weight = FAKE_WEIGHT_DATA,
             profilePicture = FAKE_URL_DATA,
-            unitOfWeight = FAKE_UNIT_OF_WEIGHT_DATA
         )
 
         object GetAuthenticationMethod {
@@ -581,7 +579,6 @@ object TestDtoDataGenerator {
                 gender = FAKE_GENDER_DATA,
                 height = FAKE_HEIGHT_DATA,
                 weight = FAKE_WEIGHT_DATA,
-                unitOfWeight = FAKE_UNIT_OF_WEIGHT_DATA
             )
             internal val UPDATE_USER_DETAIL_INFO_RESPONSE_DTO = UpdateUserDetailInfoResponseDto(
                 FAKE_BOOLEAN_DATA

@@ -27,12 +27,12 @@ import com.gradation.lift.model.model.auth.Token
 import com.gradation.lift.model.model.auth.UpdatePasswordInfo
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ERROR_MESSAGE
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.network.datasource.auth.AuthRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeAuthDataSource(private val testReturnState: TestReturnState = TestReturnState.Success) :
-    AuthDataSource {
+    AuthRemoteDataSource {
 
     override suspend fun signInDefault(signInInfo: DefaultSignInInfo): Flow<NetworkResult<Token>> =
         flow {

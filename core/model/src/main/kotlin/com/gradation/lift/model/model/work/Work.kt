@@ -1,7 +1,7 @@
 package com.gradation.lift.model.model.work
 
+import com.gradation.lift.model.utils.Constants.WORK_ID_KEY
 import kotlinx.datetime.LocalTime
-import java.util.UUID
 
 
 /**
@@ -15,10 +15,16 @@ import java.util.UUID
  * @property usedRoutineSetIdList 사용된 루틴 세트 아이디
  */
 data class Work(
-    val id: UUID,
-    val workTime : LocalTime= LocalTime(0,0,0),
-    val restTime: LocalTime=LocalTime(0,0,0),
-    val totalTime: LocalTime=LocalTime(0,0,0),
+    val id: Long = WORK_ID_KEY,
+    val workTime: LocalTime = LocalTime(0, 0, 0),
+    val restTime: LocalTime = LocalTime(0, 0, 0),
+    val totalTime: LocalTime = LocalTime(0, 0, 0),
     val routine: List<WorkRoutine>,
-    val usedRoutineSetIdList : List<Int> = emptyList()
+    val usedRoutineSetIdList: List<Int> = emptyList(),
+    val checkedWorkSetInfoList: List<CheckedWorkSetInfo> = emptyList(),
 )
+
+
+
+
+

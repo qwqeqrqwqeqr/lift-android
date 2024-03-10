@@ -25,6 +25,7 @@ import com.gradation.lift.feature.home.home.data.state.rememberHomeScreenState
 import com.gradation.lift.feature.home.home.data.viewModel.HomeViewModel
 import com.gradation.lift.feature.home.home.ui.HomeScreen
 import com.gradation.lift.feature.home.home.ui.component.bottomSheet.WorkBottomSheet
+import com.gradation.lift.feature.home.home.ui.component.dialog.LoadWorkDialog
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 import com.gradation.lift.ui.extensions.showToast
@@ -43,6 +44,7 @@ internal fun HomeRoute(
     navigateHomeGraphToWorkReadyReadyRouter: () -> Unit,
     navigateHomeGraphToMyinfoProfileRouter: () -> Unit,
     navigateHomeGraphToInquiryGraph: () -> Unit,
+    navigateHomeGraphToWorkGraph: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     @SuppressLint("UnrememberedGetBackStackEntry") sharedViewModel: HomeSharedViewModel =
         hiltViewModel(remember { navController.getBackStackEntry(Route.HOME_GRAPH_NAME) }),
@@ -50,6 +52,7 @@ internal fun HomeRoute(
     homeAnimationState: HomeAnimationState = rememberHomeAnimationState(),
 ) {
 
+    val existWorkState: Boolean by viewModel.existWorkState.collectAsStateWithLifecycle()
     val userDetailUiState: UserDetailUiState by viewModel.userDetailUiState.collectAsStateWithLifecycle()
     val badgeUiState: BadgeUiState by viewModel.badgeUiState.collectAsStateWithLifecycle()
     val routineUiState: RoutineUiState by viewModel.routineUiState.collectAsStateWithLifecycle()
@@ -58,6 +61,7 @@ internal fun HomeRoute(
     val badgeConditionState: BadgeConditionState by sharedViewModel.badgeConditionState.collectAsStateWithLifecycle()
 
 
+    val clearWork: () -> Unit = viewModel.clearWork
 
     when (badgeConditionState) {
         is BadgeConditionState.Success -> LaunchedEffect(true) {
@@ -93,6 +97,9 @@ internal fun HomeRoute(
         }
     })
 
+    AnimatedVisibility(visible = existWorkState) {
+        LoadWorkDialog(modifier, clearWork, navigateHomeGraphToWorkGraph)
+    }
 
     AnimatedVisibility(visible = homeScreenState.workBottomSheetView) {
         WorkBottomSheet(

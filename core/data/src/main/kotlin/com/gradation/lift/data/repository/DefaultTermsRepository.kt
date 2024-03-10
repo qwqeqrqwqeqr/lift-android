@@ -4,20 +4,22 @@ import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.domain.repository.TermsRepository
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.terms.TermsDataSource
-import kotlinx.coroutines.flow.*
+import com.gradation.lift.network.datasource.terms.TermsRemoteDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DefaultTermsRepository @Inject constructor(
-    private val termsDataSource: TermsDataSource,
-    private val dispatcherProvider: DispatcherProvider
+    private val termsRemoteDataSource: TermsRemoteDataSource,
+    private val dispatcherProvider: DispatcherProvider,
 ) : TermsRepository {
 
     override fun createUserTermsConsent(
         consent: Boolean,
         marketingConsent: Boolean,
     ): Flow<DataState<Boolean>> = flow {
-        termsDataSource.createUserTermsConsent(consent, marketingConsent).collect { result ->
+        termsRemoteDataSource.createUserTermsConsent(consent, marketingConsent).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -26,7 +28,7 @@ class DefaultTermsRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getUserMarketingTermsConsent(): Flow<DataState<Boolean>> = flow {
-        termsDataSource.getUserMarketingTermsConsent().collect { result ->
+        termsRemoteDataSource.getUserMarketingTermsConsent().collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))
@@ -36,12 +38,13 @@ class DefaultTermsRepository @Inject constructor(
 
     override fun updateUserMarketingTermsConsent(marketingConsent: Boolean): Flow<DataState<Boolean>> =
         flow {
-            termsDataSource.updateUserMarketingTermsConsent(marketingConsent).collect { result ->
-                when (result) {
-                    is NetworkResult.Fail -> emit(DataState.Fail(result.message))
-                    is NetworkResult.Success -> emit(DataState.Success(result.data))
+            termsRemoteDataSource.updateUserMarketingTermsConsent(marketingConsent)
+                .collect { result ->
+                    when (result) {
+                        is NetworkResult.Fail -> emit(DataState.Fail(result.message))
+                        is NetworkResult.Success -> emit(DataState.Success(result.data))
+                    }
                 }
-            }
         }.flowOn(dispatcherProvider.default)
 
 }

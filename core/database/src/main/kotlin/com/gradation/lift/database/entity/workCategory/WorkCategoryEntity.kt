@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.gradation.lift.database.util.Constants.Entity.WORK_CATEGORY_TABLE_NAME
+import com.gradation.lift.database.util.EffectContentListTypeConverter
+import com.gradation.lift.database.util.SequenceContentListTypeConverter
 import com.gradation.lift.database.util.StringListTypeConverter
 import com.gradation.lift.model.model.work.EffectContent
 import com.gradation.lift.model.model.work.SequenceContent
@@ -36,12 +38,15 @@ data class WorkCategoryEntity(
     val description: String,
 
     @ColumnInfo(name = "sequence")
-    val sequence: List<String>,
+    @TypeConverters(SequenceContentListTypeConverter::class)
+    val sequence: List<SequenceContent>,
 
     @ColumnInfo(name = "effect")
-    val effect: List<String>,
+    @TypeConverters(EffectContentListTypeConverter::class)
+    val effect: List<EffectContent>,
 
     @ColumnInfo(name = "caution")
+    @TypeConverters(StringListTypeConverter::class)
     val caution: List<String>,
 ) {
     fun toDomain() = WorkCategory(
@@ -52,20 +57,8 @@ data class WorkCategoryEntity(
         workPart = workPart,
         introduce = introduce,
         description = description,
-        sequence = sequence.map {
-            it.split(":")
-                .let { item ->
-                    SequenceContent(
-                        sequence = item[0].toInt(),
-                        title = item[1],
-                        content = item[2]
-                    )
-                }
-        },
-        effect = effect.map {
-            it.split(":")
-                .let { item -> EffectContent(title = item[0], content = item[1]) }
-        },
+        sequence = sequence,
+        effect = effect,
         caution = caution
     )
 }

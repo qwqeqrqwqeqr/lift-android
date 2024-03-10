@@ -2,19 +2,15 @@ package com.gradation.lift.database.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.gradation.lift.model.model.user.Gender
-import com.gradation.lift.model.model.user.UnitOfWeight
-import com.gradation.lift.model.model.user.toGender
-import com.gradation.lift.model.model.user.toUnitOfWeight
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
+import com.gradation.lift.model.model.work.EffectContent
+import com.gradation.lift.model.model.work.SequenceContent
 import com.gradation.lift.model.model.work.WorkSet
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
-import javax.inject.Inject
-import kotlinx.datetime.LocalDate.Companion.parse as localDateParse
 import kotlinx.datetime.LocalDateTime.Companion.parse as localDateTimeParse
 import kotlinx.datetime.LocalTime.Companion.parse as localTimeParse
 
@@ -59,30 +55,21 @@ class IntListTypeConverter(
 
 
 @ProvidedTypeConverter
-class GenderTypeConverter @Inject constructor() {
+class CheckedWorkSetInfoListTypeConverter(
+    private val moshi: Moshi,
+) {
     @TypeConverter
-    fun jsonTypeToGenderType(value: String): Gender {
-        return value.toGender()
+    fun jsonTypeToIntListType(value: String): List<CheckedWorkSetInfo>? {
+        val listType = Types.newParameterizedType(List::class.java, CheckedWorkSetInfo::class.java)
+        val adapter: JsonAdapter<List<CheckedWorkSetInfo>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
     }
 
-
     @TypeConverter
-    fun genderTypeToJsonType(type: Gender): String {
-        return type.getGenderValue()
-    }
-}
-
-@ProvidedTypeConverter
-class UnitOfWeightTypeConverter @Inject constructor() {
-    @TypeConverter
-    fun jsonTypeToUnitOfWeightType(value: String): UnitOfWeight {
-        return value.toUnitOfWeight()
-    }
-
-
-    @TypeConverter
-    fun unitOfWeightTypeToJsonType(type: UnitOfWeight): String {
-        return type.getUnitOfWeightValue()
+    fun intListTypeToJsonType(type: List<CheckedWorkSetInfo>): String {
+        val listType = Types.newParameterizedType(List::class.java, CheckedWorkSetInfo::class.java)
+        val adapter: JsonAdapter<List<CheckedWorkSetInfo>> = moshi.adapter(listType)
+        return adapter.toJson(type)
     }
 }
 
@@ -109,6 +96,48 @@ class WorkSetListTypeConverter(
 
 
 @ProvidedTypeConverter
+class SequenceContentListTypeConverter(
+    private val moshi: Moshi,
+) {
+
+    @TypeConverter
+    fun jsonTypeToSequenceContentList(value: String): List<SequenceContent>? {
+        val listType = Types.newParameterizedType(List::class.java, SequenceContent::class.java)
+        val adapter: JsonAdapter<List<SequenceContent>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun sequenceContentListToJsonType(type: List<SequenceContent>): String {
+        val listType = Types.newParameterizedType(List::class.java, SequenceContent::class.java)
+        val adapter: JsonAdapter<List<SequenceContent>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
+class EffectContentListTypeConverter(
+    private val moshi: Moshi,
+) {
+
+    @TypeConverter
+    fun jsonTypeToEffectContentList(value: String): List<EffectContent>? {
+        val listType = Types.newParameterizedType(List::class.java, EffectContent::class.java)
+        val adapter: JsonAdapter<List<EffectContent>> = moshi.adapter(listType)
+        return adapter.fromJson(value)
+    }
+
+    @TypeConverter
+    fun effectContentListToJsonType(type: List<EffectContent>): String {
+        val listType = Types.newParameterizedType(List::class.java, EffectContent::class.java)
+        val adapter: JsonAdapter<List<EffectContent>> = moshi.adapter(listType)
+        return adapter.toJson(type)
+    }
+}
+
+
+@ProvidedTypeConverter
 class LocalTimeTypeConverter {
     @TypeConverter
     fun jsonTypeToLocalTime(value: String): LocalTime {
@@ -117,20 +146,6 @@ class LocalTimeTypeConverter {
 
     @TypeConverter
     fun localTimeToJsonType(type: LocalTime): String {
-        return type.toString()
-    }
-}
-
-
-@ProvidedTypeConverter
-class LocalDateTypeConverter {
-    @TypeConverter
-    fun jsonTypeToLocalDate(value: String): LocalDate {
-        return localDateParse(value)
-    }
-
-    @TypeConverter
-    fun localDateToJsonType(type: LocalDate): String {
         return type.toString()
     }
 }

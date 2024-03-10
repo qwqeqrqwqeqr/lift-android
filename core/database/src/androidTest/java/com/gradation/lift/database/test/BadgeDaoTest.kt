@@ -3,15 +3,12 @@ package com.gradation.lift.database.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.BadgeDao
-import com.gradation.lift.database.data.TestEntityDataGenerator.Badge.badgeEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.Badge.userBadgeEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
-import com.gradation.lift.database.di.LiftDatabase
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_COLOR_DATA
+import com.gradation.lift.database.data.TestDataGenerator.Badge.BADGE_ENTITY
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -21,20 +18,21 @@ import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
 
-@ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
 class BadgeDaoTest {
-    @Inject
-    @Named(TEST_DATABASE)
-    lateinit var database: LiftDatabase
-    private lateinit var badgeDao: BadgeDao
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    @Named(TEST_DATABASE)
+    lateinit var database: LiftDatabase
+    private lateinit var badgeDao: BadgeDao
+
 
     @Before
     fun setup() {
@@ -48,47 +46,32 @@ class BadgeDaoTest {
     }
 
     @Test
-    fun testInsertAllBadge() = runTest {
-        badgeDao.insertAllBadge(
-            badgeEntity = badgeEntityList.toTypedArray()
-        )
+    fun testBadgeInsertAndDelete() = runTest {
+
+        Truth.assertThat(badgeDao.getAllBadge().first().size).isEqualTo(0)
+
+        /**
+         * insert item
+         */
+        badgeDao.insertAllBadge(badgeEntity = listOf(BADGE_ENTITY).toTypedArray())
 
         with(badgeDao.getAllBadge().first()) {
             Truth.assertThat(this.size).isEqualTo(1)
-            Truth.assertThat(this.map { it.color }.toSet()).isEqualTo(setOf(FAKE_COLOR_DATA))
+            Truth.assertThat(this.map { it.color }.toSet()).isEqualTo(setOf(BADGE_ENTITY.color))
+            Truth.assertThat(this.map { it.id }.toSet()).isEqualTo(setOf(BADGE_ENTITY.id))
+            Truth.assertThat(this.map { it.description }.toSet())
+                .isEqualTo(setOf(BADGE_ENTITY.description))
+            Truth.assertThat(this.map { it.backgroundColor }.toSet())
+                .isEqualTo(setOf(BADGE_ENTITY.backgroundColor))
+            Truth.assertThat(this.map { it.name }.toSet()).isEqualTo(setOf(BADGE_ENTITY.name))
+            Truth.assertThat(this.map { it.hint }.toSet()).isEqualTo(setOf(BADGE_ENTITY.hint))
+            Truth.assertThat(this.map { it.url }.toSet()).isEqualTo(setOf(BADGE_ENTITY.url))
         }
-    }
-
-    @Test
-    fun testInsertAllUserBadge() = runTest {
-        badgeDao.insertAllUserBadge(
-            userBadgeEntity = userBadgeEntityList.toTypedArray()
-        )
-
-        with(badgeDao.getAllUserBadge().first()) {
-            Truth.assertThat(this.size).isEqualTo(1)
-            Truth.assertThat(this.map { it.badge.color }.toSet()).isEqualTo(setOf(FAKE_COLOR_DATA))
-        }
-    }
-
-
-    @Test
-    fun testDeleteAllBadge() = runTest {
-        badgeDao.insertAllBadge(
-            badgeEntity = badgeEntityList.toTypedArray()
-        )
+        /**
+         * delete item
+         */
         badgeDao.deleteAllBadge()
         Truth.assertThat(badgeDao.getAllBadge().first().size).isEqualTo(0)
-    }
-
-
-    @Test
-    fun testDeleteAllUserBadge() = runTest {
-        badgeDao.insertAllUserBadge(
-            userBadgeEntity = userBadgeEntityList.toTypedArray()
-        )
-        badgeDao.deleteAllUserBadge()
-        Truth.assertThat(badgeDao.getAllUserBadge().first().size).isEqualTo(0)
     }
 
 }

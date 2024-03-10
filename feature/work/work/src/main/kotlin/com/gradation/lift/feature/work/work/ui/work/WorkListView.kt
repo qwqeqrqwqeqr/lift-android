@@ -19,9 +19,9 @@ import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.work.common.data.model.WorkRoutineCheckedInfo
 import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.common.data.state.WorkState
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
 import com.gradation.lift.ui.mapper.toText
 
 @Composable
@@ -89,8 +89,8 @@ fun WorkSetListView(
                 verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
             ) {
                 workState.getCurrentWorkRoutine().let { workRoutine ->
-                    itemsIndexed(workRoutine.workSetList) { workSetIndex, workSet ->
-
+                    itemsIndexed(workRoutine.workSetList,
+                        key = { _, workSet -> workSet.id }) { set, workSet ->
                         LiftPrimaryContainer(
                             modifier = modifier.fillMaxWidth(),
                             verticalPadding = LiftTheme.space.space8,
@@ -110,7 +110,7 @@ fun WorkSetListView(
                                     LiftText(
                                         modifier = modifier.weight(1f),
                                         textStyle = LiftTextStyle.No2,
-                                        text = "${workSetIndex + 1}",
+                                        text = "${set + 1}",
                                         color = LiftTheme.colorScheme.no10,
                                         textAlign = TextAlign.Center
                                     )
@@ -137,26 +137,26 @@ fun WorkSetListView(
                                     LiftCircleCheckbox(
                                         modifier = modifier,
                                         checked = workRoutineInfoState.isChecked(
-                                            workRoutine.id,
-                                            workSetIndex
+                                            workRoutine.workRoutineId,
+                                            workSet.id
                                         ),
                                         liftCircleCheckBoxSize = LiftCircleCheckBoxSize.Size28,
                                         onCheckedChange = {
                                             if (workRoutineInfoState.isChecked(
-                                                    workRoutine.id,
-                                                    workSetIndex
+                                                    workRoutine.workRoutineId,
+                                                    workSet.id
                                                 )
                                             )
                                                 workRoutineInfoState.uncheckWorkSet(
-                                                    WorkRoutineCheckedInfo(
-                                                        workRoutine.id,
-                                                        workSetIndex
+                                                    CheckedWorkSetInfo(
+                                                        workRoutine.workRoutineId,
+                                                        workSet.id
                                                     )
                                                 )
                                             else workRoutineInfoState.checkWorkSet(
-                                                WorkRoutineCheckedInfo(
-                                                    workRoutine.id,
-                                                    workSetIndex
+                                                CheckedWorkSetInfo(
+                                                    workRoutine.workRoutineId,
+                                                    workSet.id
                                                 )
                                             )
                                         }

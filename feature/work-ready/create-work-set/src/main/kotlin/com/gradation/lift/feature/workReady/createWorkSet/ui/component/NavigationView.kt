@@ -7,8 +7,8 @@ import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.bottomBar.LiftDefaultBottomBar
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
-import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutine
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutineWorkSet
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.model.model.work.WorkCategory
 
@@ -41,14 +41,14 @@ fun NavigationView(
             text = "등록하기",
             onClick = {
                 workRoutineState.appendRoutine(
-                    WorkRoutine(
-                        id = workRoutineState.currentWorkRoutine.takeUnless { it.isEmpty() }
+                    WorkReadyRoutine(
+                        id = workRoutineState.currentWorkReadyRoutineList.takeUnless { it.isEmpty() }
                             ?.let { it.maxOf { it.id } + 1 } ?: 0,
                         workCategoryId = workCategory.id,
                         workCategoryName = workCategory.name,
                         workPart = workCategory.workPart,
                         workSetList = workSetState.workSetList.map {
-                            WorkRoutineWorkSet(
+                            WorkReadyRoutineWorkSet(
                                 weight = it.weight,
                                 repetition = it.repetition
                             )

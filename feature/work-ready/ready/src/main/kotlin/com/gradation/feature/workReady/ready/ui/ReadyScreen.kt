@@ -63,7 +63,7 @@ import com.gradation.lift.designsystem.component.topBar.LiftTopBar
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
-import com.gradation.lift.feature.workReady.common.model.WorkRoutine
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutine
 import com.gradation.lift.ui.mapper.toText
 import com.gradation.lift.ui.modifier.noRippleClickable
 import com.gradation.lift.ui.state.dragAndDrop
@@ -75,11 +75,11 @@ import com.gradation.lift.ui.state.rememberDragDropListState
 internal fun ReadyScreen(
     modifier: Modifier,
     routineSetIdSet: Set<Int>,
-    createWork: (List<Int>, List<WorkRoutine>) -> Unit,
+    createWork: (List<Int>, List<WorkReadyRoutine>) -> Unit,
     popBackStack: () -> Unit,
     navigateReadyToFindWorkCategoryInWorkReadyGraph: () -> Unit,
     navigateWorkReadyGraphToWorkGraph: () -> Unit,
-    currentWorkRoutine: List<WorkRoutine>,
+    currentWorkReadyRoutine: List<WorkReadyRoutine>,
     workRoutineState: WorkRoutineState,
     workRoutineInfoState: WorkRoutineInfoState,
     readyScreenState: ReadyScreenState,
@@ -164,7 +164,7 @@ internal fun ReadyScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 AnimatedContent(
-                                    targetState = currentWorkRoutine.flatMap { it.workSetList }
+                                    targetState = currentWorkReadyRoutine.flatMap { it.workSetList }
                                         .mapNotNull {
                                             if (it.repetition.toIntOrNull() != null && it.weight.toFloatOrNull() != null)
                                                 it.repetition.toInt()
@@ -226,7 +226,7 @@ internal fun ReadyScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 AnimatedContent(
-                                    targetState = currentWorkRoutine.sumOf { it.workSetList.size },
+                                    targetState = currentWorkReadyRoutine.sumOf { it.workSetList.size },
                                     transitionSpec = {
                                         slideIntoContainer(
                                             towards = AnimatedContentTransitionScope.SlideDirection.Up,
@@ -276,15 +276,15 @@ internal fun ReadyScreen(
                             modifier = modifier.weight(1f),
                             enabled =
                             (
-                                    currentWorkRoutine.isNotEmpty() &&
-                                            currentWorkRoutine.flatMap { it.workSetList }
+                                    currentWorkReadyRoutine.isNotEmpty() &&
+                                            currentWorkReadyRoutine.flatMap { it.workSetList }
                                                 .none { workSet ->
                                                     workSet.weight.isEmpty() || workSet.weight.toFloatOrNull() == 0f || !decimalNumberValidator(
                                                         workSet.weight
                                                     )
                                                 }
                                             &&
-                                            currentWorkRoutine.flatMap { it.workSetList }
+                                            currentWorkReadyRoutine.flatMap { it.workSetList }
                                                 .none { workSet ->
                                                     workSet.repetition.isEmpty() || workSet.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                                                         workSet.repetition
@@ -295,7 +295,7 @@ internal fun ReadyScreen(
                             onClick = {
                                 createWork(
                                     routineSetIdSet.toList(),
-                                    currentWorkRoutine.toList()
+                                    currentWorkReadyRoutine.toList()
                                 )
                                 navigateWorkReadyGraphToWorkGraph()
                             }
@@ -316,7 +316,7 @@ internal fun ReadyScreen(
             state = dragDropListState.lazyListState
         ) {
             itemsIndexed(
-                items = currentWorkRoutine,
+                items = currentWorkReadyRoutine,
                 key = { index, item -> "${item.id}${item.workCategoryName}" }
             ) { routineIndex, routine ->
 
@@ -537,7 +537,7 @@ internal fun ReadyScreen(
                                                             .size(LiftTheme.space.space12)
                                                             .noRippleClickable {
                                                                 dragDropListState.onDragInterrupted()
-                                                                if (workRoutineState.currentWorkRoutine[routineIndex].workSetList.size > 1)
+                                                                if (workRoutineState.currentWorkReadyRoutineList[routineIndex].workSetList.size > 1)
                                                                     workRoutineState.removeWorkSet(
                                                                         routineIndex,
                                                                         workSet

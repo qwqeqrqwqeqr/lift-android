@@ -1,7 +1,7 @@
 package com.gradation.lift.feature.work.createWorkSet.data.state
 
 import com.gradation.lift.common.model.DataState
-import com.gradation.lift.domain.usecase.work.GetWorkCategoryByIdUseCase
+import com.gradation.lift.domain.usecase.workCategory.GetWorkCategoryByIdUseCase
 import com.gradation.lift.model.model.work.WorkCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow

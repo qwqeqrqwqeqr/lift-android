@@ -50,6 +50,10 @@ fun NavController.navigateHomeGraphToMyinfoProfileRouter() {
     this.navigate(Route.MY_INFO_PROFILE_ROUTER_NAME)
 }
 
+fun NavController.navigateHomeGraphToWorkGraph() {
+    this.navigate(Route.WORK_GRAPH_NAME)
+}
+
 
 fun NavController.navigateBadgeToHomeInHomeGraph() {
     this.navigate(HOME_GRAPH_NAME) {

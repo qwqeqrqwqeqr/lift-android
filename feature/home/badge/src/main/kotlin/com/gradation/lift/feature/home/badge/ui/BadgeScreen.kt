@@ -66,7 +66,7 @@ fun BadgeScreen(
             LiftBadgeLargeCard(
                 modifier = modifier,
                 badgeName = badge.name,
-                description = badge.description,
+                description = badge.description ?: "",
                 badgeUrl = badge.url,
                 color = Color(android.graphics.Color.parseColor(badge.color)),
                 backgroundColor = Color(android.graphics.Color.parseColor(badge.backgroundColor)),

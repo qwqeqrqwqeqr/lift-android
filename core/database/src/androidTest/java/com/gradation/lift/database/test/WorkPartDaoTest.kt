@@ -3,14 +3,12 @@ package com.gradation.lift.database.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.WorkPartDao
-import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
-import com.gradation.lift.database.data.TestEntityDataGenerator.WorkPart.workPartEntity1
-import com.gradation.lift.database.data.TestEntityDataGenerator.WorkPart.workPartEntityList
-import com.gradation.lift.database.di.LiftDatabase
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
+import com.gradation.lift.database.data.TestDataGenerator.WorkPart.WORK_PART_ENTITY
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -20,21 +18,21 @@ import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
 
-@ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
 class WorkPartDaoTest {
-
-    @Inject
-    @Named(TEST_DATABASE)
-    lateinit var database: LiftDatabase
-    private lateinit var workPartDao: WorkPartDao
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    @Named(TEST_DATABASE)
+    lateinit var database: LiftDatabase
+    private lateinit var workPartDao: WorkPartDao
+
 
     @Before
     fun setup() {
@@ -48,34 +46,25 @@ class WorkPartDaoTest {
     }
 
     @Test
-    fun testInsertWorkPart() = runTest {
-        workPartDao.insertWorkPart(workPartEntity = workPartEntity1)
-        workPartDao.insertAllWorkPart(workPartEntity = workPartEntityList.toTypedArray())
+    fun testWorkPartInsertAndDelete() = runTest {
+
+        Truth.assertThat(workPartDao.getAllWorkPart().first().size).isEqualTo(0)
+
+        /**
+         * insert item
+         */
+        workPartDao.insertAllWorkPart(workPartEntity = listOf(WORK_PART_ENTITY).toTypedArray())
 
         with(workPartDao.getAllWorkPart().first()) {
-            Truth.assertThat(this.size).isEqualTo(2)
-            Truth.assertThat(this.map { it.name }.toSet()).isEqualTo(
-                workPartEntityList.map { it.name }.toSet()
-            )
-
+            Truth.assertThat(this.size).isEqualTo(1)
+            Truth.assertThat(this.first().id).isEqualTo(WORK_PART_ENTITY.id)
+            Truth.assertThat(this.first().name).isEqualTo(WORK_PART_ENTITY.name)
         }
-
-    }
-
-    @Test
-    fun testDeleteWorkPart() = runTest {
-        workPartDao.insertAllWorkPart(workPartEntity = workPartEntityList.toTypedArray())
-        workPartDao.deleteWorkPart(workPartEntity1)
-        with(workPartDao.getAllWorkPart().first().size) {
-            Truth.assertThat(this).isEqualTo(1)
-        }
+        /**
+         * delete item
+         */
         workPartDao.deleteAllWorkPart()
-        with(workPartDao.getAllWorkPart().first().size) {
-            Truth.assertThat(this).isEqualTo(0)
-        }
-
-
+        Truth.assertThat(workPartDao.getAllWorkPart().first().size).isEqualTo(0)
     }
 
 }
-

@@ -2,21 +2,21 @@ package com.gradation.lift.feature.workReady.createWorkSet.data.state
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutineWorkSet
 import com.gradation.lift.feature.workReady.createWorkSet.data.event.WorkSetEvent
 
 class WorkSetState {
-    var workSetList: SnapshotStateList<WorkRoutineWorkSet> =
-        emptyList<WorkRoutineWorkSet>().toMutableStateList()
+    var workSetList: SnapshotStateList<WorkReadyRoutineWorkSet> =
+        emptyList<WorkReadyRoutineWorkSet>().toMutableStateList()
 
 
     val addWorkSet: () -> Unit = {
         onWorkSetEvent(WorkSetEvent.AddWorkSet)
     }
-    val updateWorkSet: (Int, WorkRoutineWorkSet) -> Unit = { index, workSet ->
+    val updateWorkSet: (Int, WorkReadyRoutineWorkSet) -> Unit = { index, workSet ->
         onWorkSetEvent(WorkSetEvent.UpdateWorkSet(index, workSet))
     }
-    val removeWorkSet: (WorkRoutineWorkSet) -> Unit = {
+    val removeWorkSet: (WorkReadyRoutineWorkSet) -> Unit = {
         onWorkSetEvent(WorkSetEvent.RemoveWorkSet(it))
     }
 
@@ -25,7 +25,7 @@ class WorkSetState {
         when (workSetEvent) {
             WorkSetEvent.AddWorkSet -> {
                 workSetList.add(
-                    if (workSetList.isEmpty()) WorkRoutineWorkSet("", "")
+                    if (workSetList.isEmpty()) WorkReadyRoutineWorkSet("", "")
                     else workSetList.last()
                 )
             }

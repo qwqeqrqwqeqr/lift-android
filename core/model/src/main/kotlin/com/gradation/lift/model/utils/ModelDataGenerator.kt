@@ -42,11 +42,12 @@ import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
 import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import com.gradation.lift.model.model.user.toGender
-import com.gradation.lift.model.model.user.toUnitOfWeight
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
 import com.gradation.lift.model.model.work.EffectContent
 import com.gradation.lift.model.model.work.SequenceContent
 import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkPart
+import com.gradation.lift.model.model.work.WorkRoutine
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_ACCESS_TOKEN
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_AUTHENTICATION_METHOD_DATA
@@ -58,6 +59,7 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_GENDER_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_HEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_LABEL_DATA
+import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_LONG_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PASSWORD_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_PROGRESS_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
@@ -69,13 +71,13 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_SCORE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_STAMP_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_UNIT_OF_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEEKDAY_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_CATEGORY_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_PART_NAME_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator.Weekday.WEEKDAY_MODEL
+import com.gradation.lift.model.utils.ModelDataGenerator.Work.WORK_SET_LIST_MODEL
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime.Companion.fromSecondOfDay
 import kotlinx.datetime.toLocalDateTime
@@ -84,7 +86,7 @@ object ModelDataGenerator {
 
     object Auth {
         val DEFAULT_SIGN_IN_INFO_MODEL = DefaultSignInInfo(
-            id = FAKE_STRING_DATA,
+            id = FAKE_EMAIL_DATA,
             password = FAKE_PASSWORD_DATA
         )
         val DEFAULT_SIGN_UP_INFO_MODEL = DefaultSignUpInfo(
@@ -186,7 +188,6 @@ object ModelDataGenerator {
 
         val DELETE_USER_INFO_MODEL = DeleteUserInfo(FAKE_STRING_DATA)
         val GENDER_MODEL = FAKE_GENDER_DATA.toGender()
-        val UNIT_OF_WEIGHT_MODEL = FAKE_UNIT_OF_WEIGHT_DATA.toUnitOfWeight()
 
         val USER_DETAIL_MODEL = UserDetail(
             name = FAKE_STRING_DATA,
@@ -194,14 +195,12 @@ object ModelDataGenerator {
             height = FAKE_HEIGHT_DATA,
             weight = FAKE_WEIGHT_DATA,
             profilePicture = BuildConfig.LIFT_S3_URL + FAKE_URL_DATA,
-            unitOfWeight = UNIT_OF_WEIGHT_MODEL
         )
 
         val USER_DETAIL_INFO_MODEL = UserDetailInfo(
             gender = GENDER_MODEL,
             height = FAKE_HEIGHT_DATA,
             weight = FAKE_WEIGHT_DATA,
-            unitOfWeight = UNIT_OF_WEIGHT_MODEL,
         )
 
         val USER_DETAIL_NAME_MODEL = UserDetailName(
@@ -215,9 +214,13 @@ object ModelDataGenerator {
 
     }
 
-    object Work {
+    object WorkPart {
         val WORK_PART_MODEL = WorkPart(id = FAKE_INT_DATA, name = FAKE_WORK_PART_NAME_DATA)
 
+
+    }
+
+    object WorkCategory {
         val WORK_CATEGORY_MODEL = WorkCategory(
             id = FAKE_INT_DATA,
             name = FAKE_WORK_CATEGORY_NAME_DATA,
@@ -228,7 +231,7 @@ object ModelDataGenerator {
             description = FAKE_STRING_DATA,
             sequence = listOf(
                 SequenceContent(
-                    0,
+                    1,
                     FAKE_STRING_DATA,
                     FAKE_STRING_DATA
                 )
@@ -241,36 +244,49 @@ object ModelDataGenerator {
             ),
             caution = listOf(FAKE_STRING_DATA)
         )
+    }
+
+    object Work {
+
+        val WORK_SET_LIST_MODEL = listOf(
+            WorkSet(
+                workSetId = 0,
+                weight = FAKE_ROUTINE_WEIGHT_DATA,
+                repetition = FAKE_ROUTINE_REPETITION_DATA
+            ),
+            WorkSet(
+                workSetId = 1,
+                weight = FAKE_ROUTINE_WEIGHT_DATA,
+                repetition = FAKE_ROUTINE_REPETITION_DATA
+            ),
+            WorkSet(
+                workSetId = 2,
+                weight = FAKE_ROUTINE_WEIGHT_DATA,
+                repetition = FAKE_ROUTINE_REPETITION_DATA
+            ),
+        )
 
 
-//        val WORK_ROUTINE_MODEL = WorkRoutine(
-//            workId = FAKE_UUID_DATA,
-//            workCategory = WORK_CATEGORY_MODEL,
-//            workSetList = listOf(
-//                WorkSet(
-//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-//                    repetition = FAKE_ROUTINE_REPETITION_DATA
-//                ),
-//                WorkSet(
-//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-//                    repetition = FAKE_ROUTINE_REPETITION_DATA
-//                ),
-//                WorkSet(
-//                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-//                    repetition = FAKE_ROUTINE_REPETITION_DATA
-//                ),
-//            )
-//        )
-//
-//        val WORK_MODEL = Work(
-//            id = FAKE_UUID_DATA,
-//            workTime = fromSecondOfDay(FAKE_TIME_DATA),
-//            restTime = fromSecondOfDay(FAKE_TIME_DATA),
-//            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
-//            routine = listOf(WORK_ROUTINE_MODEL),
-//            usedRoutineSetIdList = listOf(FAKE_INT_DATA)
-//        )
+        val WORK_ROUTINE_MODEL = WorkRoutine(
+            workId = FAKE_LONG_DATA,
+            workRoutineId = FAKE_INT_DATA,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
+            workSetList = WORK_SET_LIST_MODEL
+        )
 
+        val WORK_MODEL = com.gradation.lift.model.model.work.Work(
+            id = FAKE_LONG_DATA,
+            workTime = fromSecondOfDay(FAKE_TIME_DATA),
+            restTime = fromSecondOfDay(FAKE_TIME_DATA),
+            totalTime = fromSecondOfDay(FAKE_TIME_DATA),
+            routine = listOf(WORK_ROUTINE_MODEL),
+            usedRoutineSetIdList = listOf(FAKE_INT_DATA),
+            checkedWorkSetInfoList = listOf(
+                CheckedWorkSetInfo(FAKE_INT_DATA, FAKE_INT_DATA)
+            )
+        )
     }
 
 
@@ -278,20 +294,7 @@ object ModelDataGenerator {
 
         val CREATE_HISTORY_ROUTINE_MODEL = CreateHistoryRoutine(
             workCategory = FAKE_WORK_CATEGORY_NAME_DATA,
-            workSetList = listOf(
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-            )
+            workSetList = WORK_SET_LIST_MODEL
         )
 
         val CREATE_HISTORY_MODEL = CreateHistory(
@@ -312,20 +315,7 @@ object ModelDataGenerator {
             workCategoryId = FAKE_INT_DATA,
             workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
-            workSetList = listOf(
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-            )
+            workSetList = WORK_SET_LIST_MODEL
         )
 
         val HISTORY_MODEL = History(
@@ -386,20 +376,7 @@ object ModelDataGenerator {
             workCategoryId = FAKE_INT_DATA,
             workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
-            workSetList = listOf(
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-            )
+            workSetList = WORK_SET_LIST_MODEL
         )
 
         val ROUTINE_SET_ROUTINE_MODEL = RoutineSetRoutine(
@@ -415,20 +392,7 @@ object ModelDataGenerator {
 
         val CREATE_ROUTINE_MODEL = CreateRoutine(
             workCategory = FAKE_WORK_CATEGORY_NAME_DATA,
-            workSetList = listOf(
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-            )
+            workSetList = WORK_SET_LIST_MODEL
         )
 
         val CREATE_ROUTINE_SET_ROUTINE_MODEL = CreateRoutineSetRoutine(
@@ -443,20 +407,7 @@ object ModelDataGenerator {
         private val UPDATE_ROUTINE_MODEL = UpdateRoutine(
             id = FAKE_INT_DATA,
             workCategory = FAKE_WORK_CATEGORY_NAME_DATA,
-            workSetList = listOf(
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-                WorkSet(
-                    weight = FAKE_ROUTINE_WEIGHT_DATA,
-                    repetition = FAKE_ROUTINE_REPETITION_DATA
-                ),
-            )
+            workSetList = WORK_SET_LIST_MODEL
         )
 
         val UPDATE_ROUTINE_SET_ROUTINE_MODEL = UpdateRoutineSetRoutine(

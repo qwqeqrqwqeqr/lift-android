@@ -19,7 +19,7 @@ fun WorkCategory.toEntity() = WorkCategoryEntity(
     workPart = workPart,
     introduce = introduce,
     description = description,
-    sequence = sequence.map { "${it.sequence}:${it.title}:${it.content}" },
-    effect = effect.map { "${it.title}:${it.content}" },
+    sequence = sequence,
+    effect = effect,
     caution = caution
 )

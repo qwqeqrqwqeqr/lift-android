@@ -26,14 +26,18 @@ object ConverterModule {
 
     @Provides
     @Singleton
-    fun provideUnitOfWeightTypeConverter(): UnitOfWeightTypeConverter =
-        UnitOfWeightTypeConverter()
-
+    fun provideCheckedWorkSetInfoListTypeConverter(moshi: Moshi): CheckedWorkSetInfoListTypeConverter =
+        CheckedWorkSetInfoListTypeConverter(moshi)
 
     @Provides
     @Singleton
-    fun provideGenderTypeConverter(): GenderTypeConverter =
-        GenderTypeConverter()
+    fun provideSequenceContentListTypeConverter(moshi: Moshi): SequenceContentListTypeConverter =
+        SequenceContentListTypeConverter(moshi)
+
+    @Provides
+    @Singleton
+    fun provideEffectContentListTypeConverter(moshi: Moshi): EffectContentListTypeConverter =
+        EffectContentListTypeConverter(moshi)
 
     @Provides
     @Singleton
@@ -46,11 +50,6 @@ object ConverterModule {
     fun provideLocalTimeTypeConverter(): LocalTimeTypeConverter =
         LocalTimeTypeConverter()
 
-
-    @Provides
-    @Singleton
-    fun provideLocalDateTypeConverter(): LocalDateTypeConverter =
-        LocalDateTypeConverter()
 
     @Provides
     @Singleton
