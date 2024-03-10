@@ -24,13 +24,13 @@ import com.gradation.lift.designsystem.component.button.LiftKakaoLoginButton
 import com.gradation.lift.designsystem.component.button.LiftNaverLoginButton
 import com.gradation.lift.designsystem.component.button.LiftPrimaryButton
 import com.gradation.lift.designsystem.component.button.LiftSolidButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftLabelFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftSortSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftWeekdayFilterSmallButton
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
 import com.gradation.lift.designsystem.component.container.LiftPrimaryContainer
 import com.gradation.lift.designsystem.component.container.LiftSecondaryContainer
-import com.gradation.lift.designsystem.component.button.smallButton.LiftLabelFilterSmallButton
-import com.gradation.lift.designsystem.component.button.smallButton.LiftSortFilterSmallButton
-import com.gradation.lift.designsystem.component.button.smallButton.LiftWeekdayFilterSmallButton
 import com.gradation.lift.designsystem.component.label.RoutineLabel
 import com.gradation.lift.designsystem.component.progress.LiftProgressCircleLabel
 import com.gradation.lift.designsystem.component.progress.ProgressCircleState
@@ -293,7 +293,7 @@ fun Catalog(
             modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
         ) {
-            LiftSortFilterSmallButton(modifier = modifier, sortType = "전체")
+            LiftSortSmallButton(modifier = modifier, sortType = "전체")
             LiftWeekdayFilterSmallButton(modifier = modifier, weekdayType = "월,화,수,목,금,토")
             LiftLabelFilterSmallButton(modifier = modifier, labelType = setOf(1, 2, 3), false)
         }

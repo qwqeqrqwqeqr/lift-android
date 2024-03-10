@@ -20,7 +20,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.button.smallButton.LiftLabelFilterSmallButton
-import com.gradation.lift.designsystem.component.button.smallButton.LiftSortFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftSortSmallButton
 import com.gradation.lift.designsystem.component.button.smallButton.LiftWeekdayFilterSmallButton
 import com.gradation.lift.designsystem.component.text.LiftMultiStyleText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
@@ -126,7 +126,7 @@ internal fun SortFilterView(
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)) {
             item {
-                LiftSortFilterSmallButton(
+                LiftSortSmallButton(
                     modifier = modifier.noRippleClickable {
                         routineListScreenState.updateSortTypeBottomSheetView(
                             true
