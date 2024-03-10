@@ -75,13 +75,15 @@ fun LiftHexagonChart(
 
     val localDensity = LocalDensity.current
 
+    val weight = 0.5f
+
     val maxValue = state.workPartCountByMonthList.maxOf { it.currentCount }
         .coerceAtLeast(state.workPartCountByMonthList.maxOf { it.preCount })
-        .toFloat()
+        .toFloat() + weight
 
     val preMonthCountValueList = state.workPartCountByMonthList.map {
         animateFloatAsState(
-            targetValue = it.preCount.toFloat(),
+            targetValue = it.preCount.toFloat() + weight,
             label = "preMonthCountAnimation",
             animationSpec = tween(2000)
         ).value
@@ -89,7 +91,7 @@ fun LiftHexagonChart(
 
     val currentMonthCountValueList = state.workPartCountByMonthList.map {
         animateFloatAsState(
-            targetValue = it.currentCount.toFloat(),
+            targetValue = it.currentCount.toFloat() + weight,
             label = "currentMonthCountAnimation",
             animationSpec = tween(2000)
         ).value
