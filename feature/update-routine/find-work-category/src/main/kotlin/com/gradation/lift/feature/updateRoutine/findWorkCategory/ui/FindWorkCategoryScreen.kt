@@ -25,6 +25,7 @@ import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.Fi
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.FilterView
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.SearchView
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.WorkCategoryView
+import com.gradation.lift.feature.updateRoutine.findWorkCategory.ui.component.WorkPartFilterView
 import com.gradation.lift.model.model.work.WorkPart
 import com.gradation.lift.ui.extensions.focusClearManager
 import com.gradation.lift.ui.extensions.isScrollingUp
@@ -35,6 +36,9 @@ internal fun FindWorkCategoryScreen(
     modifier: Modifier = Modifier,
     searchFilterText: String,
     workPartFilter: Set<WorkPart>,
+    favoriteFilter: Boolean,
+    recommendFilter: Boolean,
+    popularFilter: Boolean,
     workPartList: List<WorkPart>,
     workCategoryUiState: WorkCategoryUiState,
     filterState: FilterState,
@@ -92,9 +96,16 @@ internal fun FindWorkCategoryScreen(
                                     Spacer(modifier = modifier.height(LiftTheme.space.space16))
                                 }
                             }
-                            FilterView(modifier, workPartFilter, workPartList, filterState)
+                            WorkPartFilterView(modifier, workPartFilter, workPartList, filterState)
                         }
                         FilterCountView(modifier, workCategoryUiState.workCategoryList)
+                        FilterView(
+                            modifier,
+                            favoriteFilter,
+                            recommendFilter,
+                            popularFilter,
+                            filterState
+                        )
                     }
                     WorkCategoryView(
                         modifier,
