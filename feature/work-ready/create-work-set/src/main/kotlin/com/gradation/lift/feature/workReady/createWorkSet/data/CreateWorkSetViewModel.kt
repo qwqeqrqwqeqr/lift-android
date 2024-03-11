@@ -35,14 +35,16 @@ class CreateWorkSetViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private var workCategoryId: StateFlow<Int?> = savedStateHandle.getStateFlow(
-        SavedStateHandleKey.CreateRoutine.CREATE_WORK_CATEGORY_ID_KEY,
-        null
-    )
+    val workCategoryFavoriteFlag: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    private var workCategoryId: StateFlow<Int?> =
+        savedStateHandle.getStateFlow<Int?>(
+            SavedStateHandleKey.Work.WORK_READY_WORK_CATEGORY_ID_KEY,
+            null
+        )
 
     val workSetState = WorkSetState()
 
-    val workCategoryFavoriteFlag: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     val workCategoryUiState: StateFlow<WorkCategoryUiState> =
         workCategoryUiState(
@@ -52,9 +54,10 @@ class CreateWorkSetViewModel @Inject constructor(
             getWorkCategoryFavoriteUseCase
         ).stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Lazily,
             initialValue = WorkCategoryUiState.Loading
         )
+
 
     val updateWorkCategoryFavorite: () -> Unit = {
         viewModelScope.launch {

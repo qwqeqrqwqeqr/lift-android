@@ -46,7 +46,7 @@ internal fun CreateWorkSetScreen(
             Spacer(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(LiftTheme.colorScheme.no17)
+                    .background(LiftTheme.colorScheme.no5)
             )
         }
 
@@ -54,7 +54,7 @@ internal fun CreateWorkSetScreen(
             Spacer(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(LiftTheme.colorScheme.no17)
+                    .background(LiftTheme.colorScheme.no5)
             )
         }
 

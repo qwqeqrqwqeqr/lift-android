@@ -10,7 +10,7 @@ import com.gradation.lift.domain.usecase.workCategory.GetWorkCategoryByIdUseCase
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.workCategoryUiState
-import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
+import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Work.WORK_WORK_CATEGORY_ID_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -36,7 +36,7 @@ class CreateWorkSetViewModel @Inject constructor(
 
 
     private var workCategoryId: StateFlow<Int?> = savedStateHandle.getStateFlow(
-        SavedStateHandleKey.CreateRoutine.CREATE_WORK_CATEGORY_ID_KEY,
+        WORK_WORK_CATEGORY_ID_KEY,
         null
     )
 

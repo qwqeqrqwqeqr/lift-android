@@ -44,15 +44,19 @@ internal fun CreateWorkSetScreen(
 ) {
     when (workCategoryUiState) {
         is WorkCategoryUiState.Fail -> {
-            Spacer(modifier = modifier
-                .fillMaxSize()
-                .background(LiftTheme.colorScheme.no17))
+            Spacer(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(LiftTheme.colorScheme.no5)
+            )
         }
 
         WorkCategoryUiState.Loading -> {
-            Spacer(modifier = modifier
-                .fillMaxSize()
-                .background(LiftTheme.colorScheme.no17))
+            Spacer(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(LiftTheme.colorScheme.no5)
+            )
         }
 
         is WorkCategoryUiState.Success -> {
