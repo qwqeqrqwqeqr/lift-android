@@ -16,11 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.container.LiftDefaultContainer
+import com.gradation.lift.designsystem.component.icon.IconBoxSize
+import com.gradation.lift.designsystem.component.icon.IconType
+import com.gradation.lift.designsystem.component.icon.LiftIconBox
 import com.gradation.lift.designsystem.component.label.PopularWorkCategoryLabel
 import com.gradation.lift.designsystem.component.label.RecommendWorkCategoryLabel
 import com.gradation.lift.designsystem.component.label.WorkPartLabel
 import com.gradation.lift.designsystem.component.text.LiftText
 import com.gradation.lift.designsystem.component.text.LiftTextStyle
+import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.data.model.TagWorkCategory
 import com.gradation.lift.feature.updateRoutine.findWorkCategory.data.state.FindWorkCategoryScreenState
@@ -39,7 +43,10 @@ internal fun WorkCategoryView(
         modifier = modifier
             .background(LiftTheme.colorScheme.no17)
             .fillMaxSize()
-            .padding(horizontal = LiftTheme.space.space20),
+            .padding(
+                end = LiftTheme.space.space20,
+                start = LiftTheme.space.space20
+            ),
         state = findWorkCategoryScreenState.lazyListState,
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space20)
     ) {
@@ -67,35 +74,60 @@ internal fun WorkCategoryView(
                         ),
                     verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
                 ) {
+
                     if (workCategory.popularTag || workCategory.recommendTag) {
                         Row(
-                            modifier = modifier,
-                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                            modifier = modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (workCategory.popularTag) PopularWorkCategoryLabel()
-                            if (workCategory.recommendTag) RecommendWorkCategoryLabel()
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
+                            ) {
+                                if (workCategory.popularTag) PopularWorkCategoryLabel()
+                                if (workCategory.recommendTag) RecommendWorkCategoryLabel()
+                            }
+                            LiftIconBox(
+                                icon = if (workCategory.favoriteTag) LiftIcon.HeartFilled else LiftIcon.HeartEmpty,
+                                iconType = IconType.Painter,
+                                iconBoxSize = IconBoxSize.Size16
+                            )
                         }
                     }
                     Column(
                         modifier = modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space4)
+                        verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space8)
                     ) {
                         Row(
                             modifier = modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                            horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            workCategory.workCategory.workPart.forEach {
-                                WorkPartLabel(workPart = it)
+                            Row(
+                                modifier = modifier,
+                                horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space8),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                workCategory.workCategory.workPart.forEach {
+                                    WorkPartLabel(workPart = it)
+                                }
+                                LiftText(
+                                    text = workCategory.workCategory.name,
+                                    textStyle = LiftTextStyle.No2,
+                                    color = LiftTheme.colorScheme.no3,
+                                    textAlign = TextAlign.Start
+                                )
                             }
-                            LiftText(
-                                text = workCategory.workCategory.name,
-                                textStyle = LiftTextStyle.No2,
-                                color = LiftTheme.colorScheme.no3,
-                                textAlign = TextAlign.Start
-                            )
+                            if (!workCategory.popularTag && !workCategory.recommendTag) {
+                                LiftIconBox(
+                                    icon = if (workCategory.favoriteTag) LiftIcon.HeartFilled else LiftIcon.HeartEmpty,
+                                    iconType = IconType.Painter,
+                                    iconBoxSize = IconBoxSize.Size16
+                                )
+                            }
                         }
-                        workCategory.workCategory.introduce?.let {
+                        workCategory.workCategory.introduce.let {
                             if (it.isNotEmpty())
                                 LiftText(
                                     text = it,

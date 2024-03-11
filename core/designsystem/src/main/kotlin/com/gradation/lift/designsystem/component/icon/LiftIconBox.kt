@@ -20,6 +20,7 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 
 enum class IconBoxSize {
     Size12,
+    Size14,
     Size16,
     Size20,
     Size24,
@@ -49,6 +50,7 @@ fun LiftIconBox(
             .size(
                 when (iconBoxSize) {
                     IconBoxSize.Size12 -> LiftTheme.space.space12
+                    IconBoxSize.Size14 -> LiftTheme.space.space14
                     IconBoxSize.Size16 -> LiftTheme.space.space16
                     IconBoxSize.Size20 -> LiftTheme.space.space20
                     IconBoxSize.Size24 -> LiftTheme.space.space24

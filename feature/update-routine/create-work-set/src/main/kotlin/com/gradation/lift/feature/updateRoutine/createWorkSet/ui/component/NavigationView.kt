@@ -86,7 +86,7 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList
+                            targetState = workSetState.createWorkSetLists
                                 .mapNotNull {
                                     if (it.repetition.toIntOrNull() != null && it.weight.toFloatOrNull() != null)
                                         it.repetition.toInt().toFloat() * it.weight.toFloat()
@@ -147,7 +147,7 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList.size,
+                            targetState = workSetState.createWorkSetLists.size,
                             transitionSpec = {
                                 slideIntoContainer(
                                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
@@ -173,11 +173,11 @@ fun NavigationView(
             }
             LiftSolidButton(
                 modifier = modifier,
-                enabled = workSetState.workSetList.isNotEmpty()
-                        && workSetState.workSetList.none {
+                enabled = workSetState.createWorkSetLists.isNotEmpty()
+                        && workSetState.createWorkSetLists.none {
                     it.weight.isEmpty() || !decimalNumberValidator(it.weight)
                 }
-                        && workSetState.workSetList.none {
+                        && workSetState.createWorkSetLists.none {
                     it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                         it.repetition
                     )
@@ -192,7 +192,7 @@ fun NavigationView(
                                 workCategoryId = workCategory.id,
                                 workCategoryName = workCategory.name,
                                 workPart = workCategory.workPart,
-                                workSetList = workSetState.workSetList.mapIndexed { index, workSet ->
+                                workSetList = workSetState.createWorkSetLists.mapIndexed { index, workSet ->
                                     WorkSet(
                                         workSetId = index,
                                         weight = workSet.weight.toFloat(),

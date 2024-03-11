@@ -1,6 +1,9 @@
 package com.gradation.lift.feature.updateRoutine.updateWorkSet.data.event
 
-import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.model.WorkSet
+import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.event.WorkSetEvent.AddWorkSet
+import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.event.WorkSetEvent.RemoveWorkSet
+import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.event.WorkSetEvent.UpdateWorkSet
+import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.model.CreateWorkSet
 
 
 /**
@@ -13,6 +16,6 @@ import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.model.WorkSet
  */
 internal sealed interface WorkSetEvent {
     data object AddWorkSet : WorkSetEvent
-    data class RemoveWorkSet(val workSet: WorkSet) : WorkSetEvent
-    data class UpdateWorkSet(val index: Int,val workSet : WorkSet) : WorkSetEvent
+    data class RemoveWorkSet(val createWorkSet: CreateWorkSet) : WorkSetEvent
+    data class UpdateWorkSet(val index: Int, val createWorkSet: CreateWorkSet) : WorkSetEvent
 }

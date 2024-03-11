@@ -28,12 +28,14 @@ import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.updateRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.updateRoutine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.model.model.routine.Routine
+import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkSet
 import com.gradation.lift.ui.mapper.toText
 
 @Composable
 fun NavigationView(
     modifier: Modifier = Modifier,
+    workCategory: WorkCategory,
     routineIndex: Int?,
     workSetState: WorkSetState,
     currentRoutineSetRoutineState: CurrentRoutineSetRoutineState,
@@ -84,7 +86,7 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList
+                            targetState = workSetState.createWorkSetLists
                                 .mapNotNull {
                                     if (it.repetition.toIntOrNull() != null && it.weight.toFloatOrNull() != null)
                                         it.repetition.toInt().toFloat() * it.weight.toFloat()
@@ -145,7 +147,7 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList.size,
+                            targetState = workSetState.createWorkSetLists.size,
                             transitionSpec = {
                                 slideIntoContainer(
                                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
@@ -171,13 +173,13 @@ fun NavigationView(
             }
             LiftSolidButton(
                 modifier = modifier,
-                enabled = workSetState.workSetList.isNotEmpty()
-                        && workSetState.workSetList.none {
+                enabled = workSetState.createWorkSetLists.isNotEmpty()
+                        && workSetState.createWorkSetLists.none {
                     it.weight.isEmpty() || !decimalNumberValidator(
                         it.weight
                     )
                 }
-                        && workSetState.workSetList.none {
+                        && workSetState.createWorkSetLists.none {
                     it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                         it.repetition
                     )
@@ -189,10 +191,10 @@ fun NavigationView(
                         Routine(
                             id = null,
                             routineSetId = 0,
-                            workCategoryId = workSetState.workCategoryId,
-                            workCategoryName = workSetState.workCategoryName,
-                            workPart = workSetState.workPart,
-                            workSetList = workSetState.workSetList.mapIndexed { index, workSet ->
+                            workCategoryId = workCategory.id,
+                            workCategoryName = workCategory.name,
+                            workPart = workCategory.workPart,
+                            workSetList = workSetState.createWorkSetLists.mapIndexed { index, workSet ->
                                 WorkSet(
                                     workSetId = index,
                                     weight = workSet.weight.toFloat(),

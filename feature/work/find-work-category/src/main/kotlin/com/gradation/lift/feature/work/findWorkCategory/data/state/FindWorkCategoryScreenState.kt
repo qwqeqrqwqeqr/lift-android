@@ -25,5 +25,7 @@ internal class FindWorkCategoryScreenState(
     val lazyListState: LazyListState,
     val focusManager: FocusManager
 ) {
-
+    var searchSortFilterView: Boolean by mutableStateOf(true)
+    val updateSearchSortFilterView: (Boolean) -> Unit =
+        { searchSortFilterView = it }
 }

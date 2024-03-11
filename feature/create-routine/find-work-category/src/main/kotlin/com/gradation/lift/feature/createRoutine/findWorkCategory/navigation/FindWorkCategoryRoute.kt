@@ -26,9 +26,14 @@ internal fun FindWorkCategoryRoute(
 
     val searchFilterText: String by viewModel.filterState.searchFilterText.collectAsStateWithLifecycle()
     val workPartFilter: Set<WorkPart> by viewModel.filterState.workPartFilter.collectAsStateWithLifecycle()
+    val favoriteFilter: Boolean by viewModel.filterState.favoriteFilter.collectAsStateWithLifecycle()
+    val recommendFilter: Boolean by viewModel.filterState.recommendFilter.collectAsStateWithLifecycle()
+    val popularFilter: Boolean by viewModel.filterState.popularFilter.collectAsStateWithLifecycle()
+
     val workPartList: List<WorkPart> by viewModel.workPartList.collectAsStateWithLifecycle()
     val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
     val filterState: FilterState = viewModel.filterState
+
 
 
 
@@ -36,6 +41,9 @@ internal fun FindWorkCategoryRoute(
         modifier,
         searchFilterText,
         workPartFilter,
+        favoriteFilter,
+        recommendFilter,
+        popularFilter,
         workPartList,
         workCategoryUiState,
         filterState,

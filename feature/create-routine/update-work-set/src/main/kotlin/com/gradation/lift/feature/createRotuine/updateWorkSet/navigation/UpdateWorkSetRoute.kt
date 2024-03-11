@@ -4,17 +4,20 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.gradation.lift.feature.createRoutine.common.data.CreateRoutineSharedViewModel
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.UpdateWorkSetViewModel
-import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.RoutineScreenState
+import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.rememberRoutineScreenState
 import com.gradation.lift.feature.createRotuine.updateWorkSet.ui.UpdateWorkSetScreen
+import com.gradation.lift.feature.createRoutine.common.data.CreateRoutineSharedViewModel
+import com.gradation.lift.feature.createRoutine.common.data.state.CurrentRoutineSetRoutineState
 import com.gradation.lift.navigation.Route
 
 @Composable
@@ -36,9 +39,11 @@ internal fun UpdateWorkSetRoute(
         )
     }
 
+    val workCategoryFavoriteFlag: Boolean by viewModel.workCategoryFavoriteFlag.collectAsStateWithLifecycle()
+    val updateWorkCategoryFavorite: () -> Unit = viewModel.updateWorkCategoryFavorite
 
 
-
+    val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
     val workSetState: WorkSetState = viewModel.workSetState
     val currentRoutineSetRoutineState: CurrentRoutineSetRoutineState =
         sharedViewModel.currentRoutineSetRoutineState
@@ -47,8 +52,11 @@ internal fun UpdateWorkSetRoute(
 
     UpdateWorkSetScreen(
         modifier,
+        workCategoryFavoriteFlag,
+        updateWorkCategoryFavorite,
         routineIndex,
         workSetState,
+        workCategoryUiState,
         currentRoutineSetRoutineState,
         navigateUpdateWorkSetToRoutineSetInCreateRoutineGraph,
         routineScreenState

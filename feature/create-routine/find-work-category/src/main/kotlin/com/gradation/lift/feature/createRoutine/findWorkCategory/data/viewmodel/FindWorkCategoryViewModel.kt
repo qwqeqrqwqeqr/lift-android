@@ -3,6 +3,7 @@ package com.gradation.lift.feature.createRoutine.findWorkCategory.data.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.favorite.GetWorkCategoryFavoriteUseCase
 import com.gradation.lift.domain.usecase.workCategory.GetPopularWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.workCategory.GetRecommendWorkCategoryUseCase
 import com.gradation.lift.domain.usecase.workCategory.GetWorkCategoryUseCase
@@ -29,7 +30,8 @@ internal class FindWorkCategoryViewModel @Inject constructor(
     getWorkPartUseCase: GetWorkPartUseCase,
     getWorkCategoryUseCase: GetWorkCategoryUseCase,
     getPopularWorkCategoryUseCase: GetPopularWorkCategoryUseCase,
-    getRecommendWorkCategoryUseCase: GetRecommendWorkCategoryUseCase
+    getRecommendWorkCategoryUseCase: GetRecommendWorkCategoryUseCase,
+    getWorkCategoryFavoriteUseCase: GetWorkCategoryFavoriteUseCase,
 ) : ViewModel() {
 
     val filterState = FilterState()
@@ -48,9 +50,13 @@ internal class FindWorkCategoryViewModel @Inject constructor(
     val workCategoryUiState: StateFlow<WorkCategoryUiState> = workCategoryUiState(
         filterState.workPartFilter,
         filterState.searchFilterText,
+        filterState.favoriteFilter,
+        filterState.recommendFilter,
+        filterState.popularFilter,
         getWorkCategoryUseCase,
         getPopularWorkCategoryUseCase,
-        getRecommendWorkCategoryUseCase
+        getRecommendWorkCategoryUseCase,
+        getWorkCategoryFavoriteUseCase
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),

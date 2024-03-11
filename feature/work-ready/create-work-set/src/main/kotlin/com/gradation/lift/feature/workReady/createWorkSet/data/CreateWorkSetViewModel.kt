@@ -3,15 +3,21 @@ package com.gradation.lift.feature.workReady.createWorkSet.data
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gradation.lift.common.model.DataState
+import com.gradation.lift.domain.usecase.favorite.GetWorkCategoryFavoriteUseCase
+import com.gradation.lift.domain.usecase.favorite.UpdateWorkCategoryFavoriteUseCase
 import com.gradation.lift.domain.usecase.workCategory.GetWorkCategoryByIdUseCase
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkCategoryUiState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.feature.workReady.createWorkSet.data.state.workCategoryUiState
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -23,8 +29,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateWorkSetViewModel @Inject constructor(
     getWorkCategoryByIdUseCase: GetWorkCategoryByIdUseCase,
+    getWorkCategoryFavoriteUseCase: GetWorkCategoryFavoriteUseCase,
     savedStateHandle: SavedStateHandle,
+    private val updateWorkCategoryFavoriteUseCase: UpdateWorkCategoryFavoriteUseCase,
 ) : ViewModel() {
+
+
+    val workCategoryFavoriteFlag: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     private var workCategoryId: StateFlow<Int?> =
         savedStateHandle.getStateFlow<Int?>(
@@ -36,12 +47,33 @@ class CreateWorkSetViewModel @Inject constructor(
 
 
     val workCategoryUiState: StateFlow<WorkCategoryUiState> =
-        workCategoryUiState(workCategoryId, getWorkCategoryByIdUseCase).stateIn(
+        workCategoryUiState(
+            workCategoryId,
+            workCategoryFavoriteFlag,
+            getWorkCategoryByIdUseCase,
+            getWorkCategoryFavoriteUseCase
+        ).stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Lazily,
             initialValue = WorkCategoryUiState.Loading
         )
 
+
+    val updateWorkCategoryFavorite: () -> Unit = {
+        viewModelScope.launch {
+            workCategoryId.value?.let { id ->
+                updateWorkCategoryFavoriteUseCase(id).collect {
+                    when (it) {
+                        is DataState.Fail -> {}
+                        is DataState.Success -> {
+                            workCategoryFavoriteFlag.update { !workCategoryFavoriteFlag.value }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 
 }
 

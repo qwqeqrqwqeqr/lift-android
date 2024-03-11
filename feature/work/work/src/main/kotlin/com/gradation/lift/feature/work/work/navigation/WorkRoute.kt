@@ -20,8 +20,10 @@ import androidx.navigation.NavController
 import com.gradation.lift.designsystem.theme.LiftTheme
 import com.gradation.lift.feature.work.common.data.WorkSharedViewModel
 import com.gradation.lift.feature.work.common.data.model.WorkRestTime
+import com.gradation.lift.feature.work.common.data.state.ClearWorkState
 import com.gradation.lift.feature.work.common.data.state.WorkRoutineInfoState
 import com.gradation.lift.feature.work.common.data.state.WorkState
+import com.gradation.lift.feature.work.work.data.WorkViewModel
 import com.gradation.lift.feature.work.work.data.state.SnackBarState
 import com.gradation.lift.feature.work.work.data.state.WorkDialogUiState
 import com.gradation.lift.feature.work.work.data.state.WorkScreenState
@@ -52,10 +54,13 @@ fun WorkRoute(
     sharedViewModel: WorkSharedViewModel = hiltViewModel(
         remember { navController.getBackStackEntry(WORK_GRAPH_NAME) }
     ),
+    viewModel: WorkViewModel = hiltViewModel(),
     workState: WorkState = sharedViewModel.workState,
     workRoutineInfoState: WorkRoutineInfoState = sharedViewModel.workRoutineInfoState,
     workScreenState: WorkScreenState = rememberWorkScreenState(workState),
 ) {
+
+    val clearWorkState: ClearWorkState by viewModel.clearWorkState.collectAsStateWithLifecycle()
 
     val workScreenUiState: WorkScreenUiState by workScreenState.workScreenUiState.collectAsStateWithLifecycle()
     val workDialogUiState: WorkDialogUiState by workScreenState.workDialogUiState.collectAsStateWithLifecycle()
@@ -65,10 +70,12 @@ fun WorkRoute(
     val restTime: LocalTime by sharedViewModel.workState.restTime.collectAsStateWithLifecycle()
     val currentWorkRoutineIndex: Int by sharedViewModel.workState.currentWorkRoutineIndex.collectAsStateWithLifecycle()
 
+    val clearWork: () -> Unit = viewModel.clearWork
     val setHistoryRoutineList: (List<CreateHistoryRoutine>) -> Unit =
         sharedViewModel.setHistoryRoutineList
     val setHistoryWorkRestTime: (WorkRestTime) -> Unit = sharedViewModel.setHistoryWorkRestTime
     val setProgress: (Float) -> Unit = sharedViewModel.setHistoryProgress
+
 
     val progress: Float by animateFloatAsState(
         targetValue = getProgress(workState, workRoutineInfoState),
@@ -124,6 +131,14 @@ fun WorkRoute(
             }
         }
     }
+    LaunchedEffect(clearWorkState) {
+        when (clearWorkState) {
+            ClearWorkState.None -> {}
+            ClearWorkState.Success -> {
+                navigateWorkGraphToHomeGraph()
+            }
+        }
+    }
 
     Box {
         when (workDialogUiState) {
@@ -160,10 +175,7 @@ fun WorkRoute(
                     modifier = modifier.fillMaxSize()
                 ) {
                     SuspendDialog(
-                        onClickDialogSuspendButton = {
-                            sharedViewModel.clearWork()
-                            navigateWorkGraphToHomeGraph()
-                        },
+                        onClickDialogSuspendButton = clearWork,
                         onClickDialogDismissButton = {
                             workScreenState.updateWorkDialogState(
                                 WorkDialogUiState.None
