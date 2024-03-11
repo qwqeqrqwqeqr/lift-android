@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.updateRoutine.createWorkSet.ui.component
+package com.gradation.lift.feature.createRotuine.updateWorkSet.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,21 +32,22 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.model.WorkSet
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.RoutineScreenState
-import com.gradation.lift.feature.updateRoutine.createWorkSet.data.state.WorkSetState
+import com.gradation.lift.feature.createRotuine.updateWorkSet.data.model.CreateWorkSet
+import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.RoutineScreenState
+import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkSetState
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun RoutineListView(
+internal fun WorkSetView(
     modifier: Modifier = Modifier,
     workSetState: WorkSetState,
     routineScreenState: RoutineScreenState,
 ) {
+
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(LiftTheme.colorScheme.no5)
             .padding(LiftTheme.space.paddingSpace),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
@@ -110,8 +112,8 @@ internal fun RoutineListView(
                 state = routineScreenState.lazyListState
             ) {
                 itemsIndexed(
-                    items=workSetState.workSetList,
-                    key= { index: Int, _: WorkSet -> index }
+                    items = workSetState.createWorkSetLists,
+                    key = { index: Int, _: CreateWorkSet -> index }
                 ) { index, workSet ->
                     LiftPrimaryContainer(
                         modifier = modifier
@@ -129,7 +131,7 @@ internal fun RoutineListView(
                         ) {
                             LiftText(
                                 modifier = modifier.weight(2f),
-                                text = "${workSet.setNumber}",
+                                text = "${index + 1}",
                                 textStyle = LiftTextStyle.No3,
                                 color = LiftTheme.colorScheme.no2,
                                 textAlign = TextAlign.Center,

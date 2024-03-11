@@ -27,13 +27,13 @@ fun NavigationView(
     ) {
         LiftSolidButton(
             modifier = modifier,
-            enabled = workSetState.workSetList.isNotEmpty()
-                    && workSetState.workSetList.none {
+            enabled = workSetState.createWorkSetLists.isNotEmpty()
+                    && workSetState.createWorkSetLists.none {
                 it.weight.isEmpty() || !decimalNumberValidator(
                     it.weight
                 )
             }
-                    && workSetState.workSetList.none {
+                    && workSetState.createWorkSetLists.none {
                 it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                     it.repetition
                 )
@@ -47,7 +47,7 @@ fun NavigationView(
                         workCategoryId = workCategory.id,
                         workCategoryName = workCategory.name,
                         workPart = workCategory.workPart,
-                        workSetList = workSetState.workSetList.map {
+                        workSetList = workSetState.createWorkSetLists.map {
                             WorkReadyRoutineWorkSet(
                                 weight = it.weight,
                                 repetition = it.repetition

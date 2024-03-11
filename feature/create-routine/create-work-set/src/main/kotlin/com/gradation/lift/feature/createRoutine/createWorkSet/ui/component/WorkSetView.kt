@@ -1,4 +1,4 @@
-package com.gradation.lift.feature.createRotuine.updateWorkSet.ui.component
+package com.gradation.lift.feature.createRoutine.createWorkSet.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.common.utils.decimalNumberValidator
 import com.gradation.lift.designsystem.component.button.smallButton.LiftAddSmallButton
@@ -31,24 +33,23 @@ import com.gradation.lift.designsystem.component.text.LiftTextStyle
 import com.gradation.lift.designsystem.component.textField.LiftKeyPadTextField
 import com.gradation.lift.designsystem.resource.LiftIcon
 import com.gradation.lift.designsystem.theme.LiftTheme
-import com.gradation.lift.feature.createRotuine.updateWorkSet.data.model.WorkSet
-import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.RoutineScreenState
-import com.gradation.lift.feature.createRotuine.updateWorkSet.data.state.WorkSetState
+import com.gradation.lift.feature.createRoutine.createWorkSet.data.model.CreateWorkSet
+import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.RoutineScreenState
+import com.gradation.lift.feature.createRoutine.createWorkSet.data.state.WorkSetState
 import com.gradation.lift.ui.modifier.noRippleClickable
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun RoutineListView(
+internal fun WorkSetView(
     modifier: Modifier = Modifier,
     workSetState: WorkSetState,
     routineScreenState: RoutineScreenState,
 ) {
-
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(LiftTheme.colorScheme.no5)
-            .padding(LiftTheme.space.paddingSpace),
+            .padding(horizontal = LiftTheme.space.space20),
         verticalArrangement = Arrangement.spacedBy(LiftTheme.space.space24)
     ) {
         Row(
@@ -111,8 +112,8 @@ internal fun RoutineListView(
                 state = routineScreenState.lazyListState
             ) {
                 itemsIndexed(
-                    items=workSetState.workSetList,
-                    key= { index: Int, _: WorkSet -> index }
+                    items = workSetState.createWorkSetLists,
+                    key = { index: Int, _: CreateWorkSet -> index }
                 ) { index, workSet ->
                     LiftPrimaryContainer(
                         modifier = modifier
@@ -130,11 +131,12 @@ internal fun RoutineListView(
                         ) {
                             LiftText(
                                 modifier = modifier.weight(2f),
-                                text = "${workSet.setNumber}",
+                                text = "${index + 1}",
                                 textStyle = LiftTextStyle.No3,
                                 color = LiftTheme.colorScheme.no2,
                                 textAlign = TextAlign.Center,
                             )
+
                             LiftKeyPadTextField(
                                 modifier = modifier
                                     .height(LiftTheme.space.space28)
@@ -147,7 +149,10 @@ internal fun RoutineListView(
                                     )
                                 },
                                 isError = !decimalNumberValidator(workSet.weight),
-                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Done,
+                                    keyboardType = KeyboardType.Number
+                                ),
                                 keyboardActions = KeyboardActions(onDone = {
                                     routineScreenState.focusManager.clearFocus()
                                 })
@@ -165,7 +170,10 @@ internal fun RoutineListView(
                                     )
                                 },
                                 isError = !decimalNumberValidator(workSet.repetition) || workSet.repetition == "0",
-                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Done,
+                                    keyboardType = KeyboardType.Number
+                                ),
                                 keyboardActions = KeyboardActions(onDone = {
                                     routineScreenState.focusManager.clearFocus()
                                 })
