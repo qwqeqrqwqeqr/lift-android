@@ -9,6 +9,7 @@ import com.gradation.lift.model.model.work.WorkCategory
  */
 data class TagWorkCategory(
     val workCategory: WorkCategory,
+    val favoriteTag: Boolean,
     val popularTag: Boolean,
-    val recommendTag: Boolean
+    val recommendTag: Boolean,
 )

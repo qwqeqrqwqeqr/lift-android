@@ -13,7 +13,6 @@ data class UserDetailInfo(
     val gender: Gender=Gender.Male(),
     val height: Float=0f,
     val weight: Float=0f,
-    val unitOfWeight: UnitOfWeight = UnitOfWeight.Kg(),
 )
 
 

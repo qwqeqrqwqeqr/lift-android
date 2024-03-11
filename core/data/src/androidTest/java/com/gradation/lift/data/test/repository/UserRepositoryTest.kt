@@ -6,13 +6,13 @@ import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.di.TestDispatcher
-import com.gradation.lift.data.fake.datasource.FakeUserDataSource
+import com.gradation.lift.data.fake.datasource.FakeUserRemoteDataSource
 import com.gradation.lift.data.repository.DefaultUserRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.UserRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.ModelDataGenerator.User.USER_DETAIL_MODEL
-import com.gradation.lift.network.datasource.user.UserDataSource
+import com.gradation.lift.network.datasource.user.UserRemoteDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -26,8 +26,8 @@ import org.junit.Test
 
 class UserRepositoryTest {
 
-    private lateinit var failDataSource: UserDataSource
-    private lateinit var successDataSource: UserDataSource
+    private lateinit var failDataSource: UserRemoteDataSource
+    private lateinit var successDataSource: UserRemoteDataSource
     private lateinit var successRepository: UserRepository
     private lateinit var failRepository: UserRepository
 
@@ -42,8 +42,8 @@ class UserRepositoryTest {
 
     @Before
     fun setUp() {
-        failDataSource = FakeUserDataSource(TestReturnState.Fail)
-        successDataSource = FakeUserDataSource(TestReturnState.Success)
+        failDataSource = FakeUserRemoteDataSource(TestReturnState.Fail)
+        successDataSource = FakeUserRemoteDataSource(TestReturnState.Success)
         testDispatcher = TestDispatcher.testDispatchers()
         successRepository = DefaultUserRepository(successDataSource, testDispatcher)
         failRepository = DefaultUserRepository(failDataSource, testDispatcher)

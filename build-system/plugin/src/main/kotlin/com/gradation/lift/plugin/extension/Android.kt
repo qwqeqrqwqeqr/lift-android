@@ -72,6 +72,7 @@ internal fun Project.extensionAndroid(
             packaging {
                 resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
             }
+
         }
 
         signingConfigs {

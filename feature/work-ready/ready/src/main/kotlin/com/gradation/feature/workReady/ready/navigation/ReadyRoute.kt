@@ -20,7 +20,7 @@ import com.gradation.feature.workReady.ready.data.viewModel.ReadyViewModel
 import com.gradation.feature.workReady.ready.ui.ReadyScreen
 import com.gradation.lift.feature.workReady.common.WorkReadySharedViewModel
 import com.gradation.lift.feature.workReady.common.WorkRoutineState
-import com.gradation.lift.feature.workReady.common.model.WorkRoutine
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutine
 import com.gradation.lift.navigation.Route
 import com.gradation.lift.ui.extensions.showImmediatelySnackbar
 
@@ -38,13 +38,11 @@ internal fun ReadyRoute(
     workRoutineInfoState: WorkRoutineInfoState = viewModel.workRoutineInfoState,
     readyScreenState: ReadyScreenState = rememberReadyScreenState(),
 ) {
-    val currentWorkRoutine: SnapshotStateList<WorkRoutine> = workRoutineState.currentWorkRoutine
-    val createWork: (List<Int>, List<WorkRoutine>) -> Unit = viewModel.createWork
+    val currentWorkReadyRoutine: SnapshotStateList<WorkReadyRoutine> =
+        workRoutineState.currentWorkReadyRoutineList
+    val createWork: (List<Int>, List<WorkReadyRoutine>) -> Unit = viewModel.createWork
     val routineSetIdSet: Set<Int> by sharedViewModel.routineSetIdSet.collectAsStateWithLifecycle()
 
-    LaunchedEffect(routineSetIdSet) {
-        sharedViewModel.initRoutineList()
-    }
     BackHandler(onBack = popBackStack)
 
 
@@ -82,7 +80,7 @@ internal fun ReadyRoute(
         popBackStack,
         navigateReadyToFindWorkCategoryInWorkReadyGraph,
         navigateWorkReadyGraphToWorkGraph,
-        currentWorkRoutine,
+        currentWorkReadyRoutine,
         workRoutineState,
         workRoutineInfoState,
         readyScreenState,

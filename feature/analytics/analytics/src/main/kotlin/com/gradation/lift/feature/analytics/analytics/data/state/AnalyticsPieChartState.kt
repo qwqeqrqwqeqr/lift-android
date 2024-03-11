@@ -56,15 +56,15 @@ class AnalyticsPieChartState(
     ) { historyRoutine, workPart ->
 
         val filteredHistoryRoutine =
-            historyRoutine.filter { it.workCategory.workPart.contains(workPart) }
+            historyRoutine.filter { it.workPart.contains(workPart) }
 
-        filteredHistoryRoutine.groupBy { it.workCategory }.map { it.value }
+        filteredHistoryRoutine.groupBy { it.workCategoryName }.map { it.value }
             .sortedByDescending { it.size }.take(4).map {
                 WorkCategoryCount(
-                    name = it.first().workCategory.name,
+                    name = it.first().workCategoryName,
                     count = it.size
                 )
-            }
+            }.toList()
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
@@ -74,7 +74,7 @@ class AnalyticsPieChartState(
         selectedDateHistoryRoutine,
         selectedWorkPart
     ) { historyRoutine, workPart ->
-        historyRoutine.count { it.workCategory.workPart.contains(workPart) }
+        historyRoutine.count { it.workPart.contains(workPart) }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,

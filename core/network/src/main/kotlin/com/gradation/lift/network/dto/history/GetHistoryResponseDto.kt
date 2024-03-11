@@ -3,7 +3,6 @@ package com.gradation.lift.network.dto.history
 
 import com.gradation.lift.model.model.history.History
 import com.gradation.lift.model.model.history.HistoryRoutine
-import com.gradation.lift.model.model.work.WorkCategory
 import com.gradation.lift.model.model.work.WorkSet
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -29,20 +28,16 @@ data class GetHistoryResponseDto(
                 HistoryRoutine(
                     id = history.historyRoutine.historyRoutineId,
                     historyId = history.historyRoutine.historyId,
-                    workCategory = WorkCategory(
-                        id = history.historyRoutine.workCategory.id,
-                        name = history.historyRoutine.workCategory.name,
-                        workPart = history.historyRoutine.workCategory.workPart,
-                        introduce = history.historyRoutine.workCategory.introduce,
-                        description = history.historyRoutine.workCategory.description
-                    ),
+                    workCategoryId = history.historyRoutine.workCategoryId,
+                    workCategoryName = history.historyRoutine.workCategoryName,
+                    workPart = history.historyRoutine.workPart,
                     workSetList = history.historyRoutine.workWeightList.zip(history.historyRoutine.workRepetitionList)
-                        .map { workSet ->
+                        .mapIndexed { index, workSet ->
                             WorkSet(
+                                workSetId = index,
                                 weight = workSet.first,
                                 repetition = workSet.second
                             )
-
                         }
                 )
             }

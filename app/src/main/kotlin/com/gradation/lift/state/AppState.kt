@@ -72,7 +72,6 @@ fun rememberAppState(
 
     val navigationBarColor: Color by animateColorAsState(
         targetValue = when (currentDestination?.route) {
-            Route.HOME_HOME_ROUTER_NAME -> LiftTheme.colorScheme.no17
             Route.HOME_BADGE_ROUTER_NAME -> LiftTheme.colorScheme.no30
             else -> LiftTheme.colorScheme.no5
         }, label = "navigationBarColor"

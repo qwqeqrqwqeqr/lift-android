@@ -6,12 +6,12 @@ import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.di.TestDispatcher
-import com.gradation.lift.data.fake.datasource.FakeCheckerDataSource
+import com.gradation.lift.data.fake.datasource.FakeCheckerRemoteDataSource
 import com.gradation.lift.data.repository.DefaultCheckerRepository
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.CheckerRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
-import com.gradation.lift.network.datasource.checker.CheckerDataSource
+import com.gradation.lift.network.datasource.checker.CheckerRemoteDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -25,8 +25,8 @@ import org.junit.Test
 
 class CheckerRepositoryTest {
 
-    private lateinit var failDataSource: CheckerDataSource
-    private lateinit var successDataSource: CheckerDataSource
+    private lateinit var failDataSource: CheckerRemoteDataSource
+    private lateinit var successDataSource: CheckerRemoteDataSource
     private lateinit var successRepository: CheckerRepository
     private lateinit var failRepository: CheckerRepository
     private lateinit var testDispatcher: DispatcherProvider
@@ -40,8 +40,8 @@ class CheckerRepositoryTest {
 
     @Before
     fun setUp() {
-        failDataSource = FakeCheckerDataSource(TestReturnState.Fail)
-        successDataSource = FakeCheckerDataSource(TestReturnState.Success)
+        failDataSource = FakeCheckerRemoteDataSource(TestReturnState.Fail)
+        successDataSource = FakeCheckerRemoteDataSource(TestReturnState.Success)
         testDispatcher = TestDispatcher.testDispatchers()
 
         successRepository = DefaultCheckerRepository(successDataSource, testDispatcher)

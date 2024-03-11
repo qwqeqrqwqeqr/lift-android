@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -76,13 +75,15 @@ fun LiftHexagonChart(
 
     val localDensity = LocalDensity.current
 
+    val weight = 0.5f
+
     val maxValue = state.workPartCountByMonthList.maxOf { it.currentCount }
         .coerceAtLeast(state.workPartCountByMonthList.maxOf { it.preCount })
-        .toFloat()
+        .toFloat() + weight
 
     val preMonthCountValueList = state.workPartCountByMonthList.map {
         animateFloatAsState(
-            targetValue = it.preCount.toFloat(),
+            targetValue = it.preCount.toFloat() + weight,
             label = "preMonthCountAnimation",
             animationSpec = tween(2000)
         ).value
@@ -90,7 +91,7 @@ fun LiftHexagonChart(
 
     val currentMonthCountValueList = state.workPartCountByMonthList.map {
         animateFloatAsState(
-            targetValue = it.currentCount.toFloat(),
+            targetValue = it.currentCount.toFloat() + weight,
             label = "currentMonthCountAnimation",
             animationSpec = tween(2000)
         ).value
@@ -474,14 +475,10 @@ private fun Density.getChartOffsetList(boxSize: Dp) =
 fun LiftHexagonChartPreview(
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
-    ) {
-        LiftHexagonChart(
-            modifier,
-            HEXAGON_CHART_SAMPLE_DATA,
-            true
-        )
-    }
+
+    LiftHexagonChart(
+        modifier,
+        HEXAGON_CHART_SAMPLE_DATA,
+        false
+    )
 }

@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.gradation.lift.designsystem.component.button.smallButton.LiftBadgeFilterSmallButton
-import com.gradation.lift.designsystem.component.button.smallButton.LiftSortFilterSmallButton
+import com.gradation.lift.designsystem.component.button.smallButton.LiftSortSmallButton
 import com.gradation.lift.designsystem.component.card.badge.LiftBadgeSmallCard
 import com.gradation.lift.designsystem.component.container.LiftEmptyContainer
 import com.gradation.lift.designsystem.component.icon.IconBoxSize
@@ -143,7 +143,7 @@ fun BadgeStoreContentView(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(LiftTheme.space.space12)
             ) {
-                LiftSortFilterSmallButton(modifier.noRippleClickable {
+                LiftSortSmallButton(modifier.noRippleClickable {
                     badgeScreenState.updateSortBottomSheetView(
                         true
                     )

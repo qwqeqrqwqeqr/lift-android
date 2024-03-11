@@ -170,7 +170,7 @@ fun WorkScreen(
                             LiftText(
                                 modifier = modifier,
                                 textStyle = LiftTextStyle.No5,
-                                text = workRoutine.workCategory.name,
+                                text = workRoutine.workCategoryName,
                                 color = LiftTheme.colorScheme.no9,
                                 textAlign = TextAlign.Left,
                                 overflow = Ellipsis
@@ -185,7 +185,7 @@ fun WorkScreen(
                             LiftText(
                                 modifier = modifier,
                                 textStyle = LiftTextStyle.No5,
-                                text = workRoutine.workCategory.name,
+                                text = workRoutine.workCategoryName,
                                 color = LiftTheme.colorScheme.no9,
                                 textAlign = TextAlign.Left,
                                 overflow = Ellipsis

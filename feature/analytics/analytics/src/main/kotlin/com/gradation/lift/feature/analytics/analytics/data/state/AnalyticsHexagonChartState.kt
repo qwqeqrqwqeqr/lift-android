@@ -56,11 +56,11 @@ class AnalyticsHexagonChartState(
                         WorkPartCountByMonth(
                             name = workPart,
                             preCount = historyListPair.first.flatMap { it.historyRoutine }
-                                .count { it.workCategory.workPart.contains(workPart) },
+                                .count { it.workPart.contains(workPart) },
 
 
                             currentCount = historyListPair.second.flatMap { it.historyRoutine }
-                                .count { it.workCategory.workPart.contains(workPart) },
+                                .count { it.workPart.contains(workPart) },
                         )
                     }
                 }

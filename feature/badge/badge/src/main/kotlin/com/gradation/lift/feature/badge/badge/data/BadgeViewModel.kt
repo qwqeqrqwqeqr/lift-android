@@ -51,7 +51,7 @@ class BadgeViewModel @Inject constructor(
                             BadgeState.AcquireBadge(
                                 id = it.badge.id,
                                 name = it.badge.name,
-                                description = it.badge.description,
+                                description = it.badge.description ?: "",
                                 hint = it.badge.hint,
                                 url = it.badge.url,
                                 color = Color(android.graphics.Color.parseColor(it.badge.color)),
@@ -62,7 +62,7 @@ class BadgeViewModel @Inject constructor(
                             BadgeState.UnacquiredBadge(
                                 id = it.id,
                                 name = it.name,
-                                description = it.description,
+                                description = it.description ?: "",
                                 hint = it.hint,
                                 url = it.url,
                             )

@@ -41,7 +41,7 @@ class RoutineSetViewModel @Inject constructor(
                     picture = it.picture,
                     routine = it.routine.map { routine ->
                         CreateRoutine(
-                            workCategory = routine.workCategory.name,
+                            workCategory = routine.workCategoryName,
                             workSetList = routine.workSetList
                         )
                     },

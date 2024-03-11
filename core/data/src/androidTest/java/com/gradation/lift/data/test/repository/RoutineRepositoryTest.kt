@@ -6,8 +6,7 @@ import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.di.TestDispatcher.testDispatchers
-import com.gradation.lift.data.fake.datasource.FakeRoutineDataSource
-import com.gradation.lift.data.repository.DefaultRoutineRepository
+import com.gradation.lift.data.fake.datasource.FakeRoutineRemoteDataSource
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.RoutineRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
@@ -19,7 +18,7 @@ import com.gradation.lift.model.utils.ModelDataGenerator.Routine.ROUTINE_SET_ROU
 import com.gradation.lift.model.utils.ModelDataGenerator.Routine.UPDATE_ROUTINE_SET_ROUTINE_MODEL
 import com.gradation.lift.model.utils.ModelDataGenerator.Routine.UPDATE_USED_ROUTINE_SET_MODEL
 import com.gradation.lift.model.utils.ModelDataGenerator.Weekday.WEEKDAY_MODEL
-import com.gradation.lift.network.datasource.routine.RoutineDataSource
+import com.gradation.lift.network.datasource.routine.RoutineRemoteDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -33,8 +32,8 @@ import org.junit.Test
 
 class RoutineRepositoryTest {
 
-    private lateinit var failDataSource: RoutineDataSource
-    private lateinit var successDataSource: RoutineDataSource
+    private lateinit var failDataSource: RoutineRemoteDataSource
+    private lateinit var successDataSource: RoutineRemoteDataSource
     private lateinit var successRepository: RoutineRepository
     private lateinit var failRepository: RoutineRepository
     private val dispatcher: DispatcherProvider = testDispatchers()
@@ -47,11 +46,10 @@ class RoutineRepositoryTest {
 
     @Before
     fun setUp() {
-        failDataSource = FakeRoutineDataSource(TestReturnState.Fail)
-        successDataSource = FakeRoutineDataSource(TestReturnState.Success)
+        failDataSource = FakeRoutineRemoteDataSource(TestReturnState.Fail)
+        successDataSource = FakeRoutineRemoteDataSource(TestReturnState.Success)
 
-        successRepository = DefaultRoutineRepository(successDataSource,dispatcher)
-        failRepository = DefaultRoutineRepository(failDataSource,dispatcher)
+
     }
 
 

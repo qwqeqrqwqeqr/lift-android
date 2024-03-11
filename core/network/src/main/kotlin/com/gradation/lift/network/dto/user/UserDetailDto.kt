@@ -16,6 +16,4 @@ data class UserDetailDto(
     val weight: Float,
     @SerialName("profile_picture")
     val profilePicture: String,
-    @SerialName("unit_of_weight")
-    val unitOfWeight: String,
 )

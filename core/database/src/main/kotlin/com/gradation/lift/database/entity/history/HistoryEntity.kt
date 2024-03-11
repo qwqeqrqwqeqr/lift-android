@@ -1,6 +1,9 @@
 package com.gradation.lift.database.entity.history
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.gradation.lift.database.util.Constants.Entity.HISTORY_TABLE_NAME
 import com.gradation.lift.database.util.LocalDateTimeTypeConverter
 import com.gradation.lift.database.util.LocalTimeTypeConverter
@@ -23,6 +26,9 @@ data class HistoryEntity(
     @ColumnInfo(name = "score")
     val score: Int?,
 
+    @ColumnInfo(name = "progress")
+    val progress: Int,
+
     @TypeConverters(LocalTimeTypeConverter::class)
     @ColumnInfo(name = "work_time")
     val workTime: LocalTime,
@@ -43,6 +49,7 @@ data class HistoryEntity(
         historyId = id,
         comment = comment,
         score = score,
+        progress = progress,
         workTime = workTime,
         restTime = restTime,
         totalTime = totalTime,

@@ -25,8 +25,8 @@ class WorkSetState {
         when (workSetEvent) {
             WorkSetEvent.AddWorkSet -> {
                 workSetList.add(
-                    if (workSetList.isEmpty()) WorkRoutineWorkSet("", "")
-                    else workSetList.last()
+                    if (workSetList.isEmpty()) WorkRoutineWorkSet(0, "", "")
+                    else workSetList.last().copy(id = workSetList.maxOf { it.id } + 1)
                 )
             }
 

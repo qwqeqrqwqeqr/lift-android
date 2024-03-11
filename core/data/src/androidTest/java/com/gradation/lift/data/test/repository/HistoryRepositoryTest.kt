@@ -6,15 +6,14 @@ import com.google.common.truth.Truth
 import com.gradation.lift.common.common.DispatcherProvider
 import com.gradation.lift.common.model.DataState
 import com.gradation.lift.data.di.TestDispatcher
-import com.gradation.lift.data.fake.datasource.FakeHistoryDataSource
-import com.gradation.lift.data.repository.DefaultHistoryRepository
+import com.gradation.lift.data.fake.datasource.FakeHistoryRemoteDataSource
 import com.gradation.lift.data.utils.TestReturnState
 import com.gradation.lift.domain.repository.HistoryRepository
 import com.gradation.lift.model.utils.DefaultDataGenerator
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_INT_DATA
 import com.gradation.lift.model.utils.ModelDataGenerator.History.CREATE_HISTORY_MODEL
 import com.gradation.lift.model.utils.ModelDataGenerator.History.HISTORY_MODEL
-import com.gradation.lift.network.datasource.history.HistoryDataSource
+import com.gradation.lift.network.datasource.history.HistoryRemoteDataSource
 import com.gradation.lift.test.rule.CoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -28,8 +27,8 @@ import org.junit.Test
 
 class HistoryRepositoryTest {
 
-    private lateinit var failDataSource: HistoryDataSource
-    private lateinit var successDataSource: HistoryDataSource
+    private lateinit var failDataSource: HistoryRemoteDataSource
+    private lateinit var successDataSource: HistoryRemoteDataSource
     private lateinit var successRepository: HistoryRepository
     private lateinit var failRepository: HistoryRepository
 
@@ -47,11 +46,10 @@ class HistoryRepositoryTest {
         testDispatcher = TestDispatcher.testDispatchers()
 
 
-        failDataSource = FakeHistoryDataSource(TestReturnState.Fail)
-        successDataSource = FakeHistoryDataSource(TestReturnState.Success)
+        failDataSource = FakeHistoryRemoteDataSource(TestReturnState.Fail)
+        successDataSource = FakeHistoryRemoteDataSource(TestReturnState.Success)
 
-        successRepository = DefaultHistoryRepository(successDataSource, testDispatcher)
-        failRepository = DefaultHistoryRepository(failDataSource, testDispatcher)
+
     }
 
 

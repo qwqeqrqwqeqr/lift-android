@@ -380,7 +380,7 @@ fun HistoryWorkResultContent(
                                             textStyle = LiftTextStyle.No1,
                                             text = selectedHistory.historyRoutine.maxBy { historyRoutine ->
                                                 historyRoutine.workSetList.sumOf { workSet -> workSet.repetition }
-                                            }.workCategory.name,
+                                            }.workCategoryName,
                                             color = LiftTheme.colorScheme.no5,
                                             textAlign = TextAlign.Start
                                         )
@@ -422,7 +422,7 @@ fun HistoryWorkResultContent(
                                             textStyle = LiftTextStyle.No1,
                                             text = selectedHistory.historyRoutine.maxBy { historyRoutine ->
                                                 historyRoutine.workSetList.sumOf { workSet -> workSet.weight.toDouble() }
-                                            }.workCategory.name,
+                                            }.workCategoryName,
                                             color = LiftTheme.colorScheme.no5,
                                             textAlign = TextAlign.Start
                                         )
@@ -459,7 +459,7 @@ fun HistoryWorkResultContent(
                                     )
                                     LiftText(
                                         textStyle = LiftTextStyle.No3,
-                                        text = routine.workCategory.name,
+                                        text = routine.workCategoryName,
                                         color = LiftTheme.colorScheme.no9,
                                         textAlign = TextAlign.Left
                                     )

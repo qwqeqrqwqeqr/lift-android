@@ -83,7 +83,7 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList.mapNotNull {
+                            targetState = workSetState.createWorkSetLists.mapNotNull {
                                 if (it.repetition.toIntOrNull() != null && it.weight.toFloatOrNull() != null)
                                     it.repetition.toInt().toFloat() * it.weight.toFloat()
                                 else null
@@ -143,7 +143,7 @@ fun NavigationView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AnimatedContent(
-                            targetState = workSetState.workSetList.size,
+                            targetState = workSetState.createWorkSetLists.size,
                             transitionSpec = {
                                 slideIntoContainer(
                                     towards = AnimatedContentTransitionScope.SlideDirection.Up,
@@ -171,11 +171,11 @@ fun NavigationView(
 
             LiftSolidButton(
                 modifier = modifier,
-                enabled = workSetState.workSetList.isNotEmpty()
-                        && workSetState.workSetList.none {
-                            it.weight.isEmpty() || !decimalNumberValidator(it.weight)
+                enabled = workSetState.createWorkSetLists.isNotEmpty()
+                        && workSetState.createWorkSetLists.none {
+                    it.weight.isEmpty() || !decimalNumberValidator(it.weight)
                 }
-                        && workSetState.workSetList.none {
+                        && workSetState.createWorkSetLists.none {
                     it.repetition.isEmpty() || it.repetition.toIntOrNull() == 0 || !decimalNumberValidator(
                         it.repetition
                     )
@@ -186,11 +186,14 @@ fun NavigationView(
                         Routine(
                             id = null,
                             routineSetId = 0,
-                            workCategory = workCategory,
-                            workSetList = workSetState.workSetList.map {
+                            workCategoryId = workCategory.id,
+                            workCategoryName = workCategory.name,
+                            workPart = workCategory.workPart,
+                            workSetList = workSetState.createWorkSetLists.mapIndexed { index, workSet ->
                                 WorkSet(
-                                    weight = it.weight.toFloat(),
-                                    repetition = it.repetition.toInt()
+                                    workSetId = index,
+                                    weight = workSet.weight.toFloat(),
+                                    repetition = workSet.repetition.toInt()
                                 )
                             }
                         )
