@@ -77,8 +77,7 @@ fun LiftProgressCircleLabel(
                 width = 2.dp,
                 color = borderColor,
                 shape = CircleShape
-            )
-           ,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         when (state) {
@@ -103,6 +102,40 @@ fun LiftProgressCircleLabel(
                 tint = textColor
             )
         }
+    }
+}
+
+/**
+ * [LiftExerciseSequenceCircleLabel]
+ * 운동 방식 순서를 표기하기 위해 사용되는 라벨
+ * @since 2024-03-11 12:24:34
+ */
+@Composable
+fun LiftExerciseSequenceCircleLabel(
+    modifier: Modifier = Modifier,
+    number: Int,
+) {
+    Box(
+        modifier
+
+            .size(LiftTheme.space.space32)
+            .background(
+                LiftTheme.colorScheme.no5, shape = CircleShape
+            )
+
+            .border(
+                width = 2.dp,
+                color = LiftTheme.colorScheme.no17,
+                shape = CircleShape
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        LiftText(
+            textStyle = LiftTextStyle.No4,
+            text = "$number",
+            color = LiftTheme.colorScheme.no4,
+            textAlign = TextAlign.Center
+        )
     }
 }
 

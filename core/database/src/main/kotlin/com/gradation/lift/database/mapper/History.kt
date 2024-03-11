@@ -7,10 +7,10 @@ import com.gradation.lift.model.model.history.HistoryRoutine
 
 
 fun History.toEntity() = HistoryEntity(
-    historyId, comment, score, workTime, restTime, totalTime, historyTimeStamp
+    historyId, comment, score, progress, workTime, restTime, totalTime, historyTimeStamp
 )
 
 
 fun HistoryRoutine.toEntity() = HistoryRoutineEntity(
-    id,historyId,workCategory.toEntity(),workSetList
+    id, historyId, workCategoryId, workCategoryName, workPart, workSetList
 )

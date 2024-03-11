@@ -21,13 +21,11 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_SCORE_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_STRING_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_TIME_STAMP_DATA
-import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_UNIT_OF_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_URL_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEEKDAY_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WEIGHT_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_CATEGORY_NAME_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_WORK_PART_NAME_DATA
-import com.gradation.lift.network.data.TestDtoDataGenerator.Work.WORK_CATEGORY_DTO
 import com.gradation.lift.network.dto.auth.CheckExistUserResponseDto
 import com.gradation.lift.network.dto.auth.CreateEmailAuthenticationCodeRequestDto
 import com.gradation.lift.network.dto.auth.CreateEmailAuthenticationCodeResponseDto
@@ -127,12 +125,14 @@ import com.gradation.lift.network.dto.user.UpdateUserDetailProfilePictureRespons
 import com.gradation.lift.network.dto.user.UpdateUserDetailRequestDto
 import com.gradation.lift.network.dto.user.UpdateUserDetailResponseDto
 import com.gradation.lift.network.dto.user.UserDetailDto
+import com.gradation.lift.network.dto.work.EffectContentDto
 import com.gradation.lift.network.dto.work.GetPopularWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetRecommendWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryByIdResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryByWorkPartResponseDto
 import com.gradation.lift.network.dto.work.GetWorkCategoryResponseDto
 import com.gradation.lift.network.dto.work.GetWorkPartResponseDto
+import com.gradation.lift.network.dto.work.SequenceContentDto
 import com.gradation.lift.network.dto.work.WorkCategoryDto
 import com.gradation.lift.network.dto.work.WorkPartDto
 
@@ -156,7 +156,7 @@ object TestDtoDataGenerator {
         object SignInDefault {
 
             internal val SIGN_IN_DEFAULT_REQUEST_DTO = SignInDefaultRequestDto(
-                id = FAKE_STRING_DATA,
+                id = FAKE_EMAIL_DATA,
                 password = FAKE_PASSWORD_DATA
             )
             internal val SIGN_IN_DEFAULT_RESPONSE_DTO = SignInDefaultResponseDto(
@@ -239,7 +239,6 @@ object TestDtoDataGenerator {
                 result = FAKE_BOOLEAN_DATA
             )
         }
-
 
 
         object CreateEmailAuthenticationCode {
@@ -344,12 +343,13 @@ object TestDtoDataGenerator {
         }
     }
 
-
     object Routine {
         internal val ROUTINE_DTO = RoutineDto(
             routineId = FAKE_INT_DATA,
             routineSetId = FAKE_INT_DATA,
-            workCategory = WORK_CATEGORY_DTO,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workWeightList = listOf(
                 FAKE_ROUTINE_WEIGHT_DATA,
                 FAKE_ROUTINE_WEIGHT_DATA,
@@ -486,13 +486,26 @@ object TestDtoDataGenerator {
         internal val WORK_PART_DTO =
             WorkPartDto(id = FAKE_INT_DATA, name = FAKE_WORK_PART_NAME_DATA)
 
+        private val SEQUENCE_CONTENT_DTO = SequenceContentDto(
+            title = FAKE_STRING_DATA,
+            content = FAKE_STRING_DATA,
+        )
+        private val EFFECT_CONTENT_DTO = EffectContentDto(
+            title = FAKE_STRING_DATA,
+            content = FAKE_STRING_DATA,
+        )
+
         internal val WORK_CATEGORY_DTO = WorkCategoryDto(
             id = FAKE_INT_DATA,
             name = FAKE_WORK_CATEGORY_NAME_DATA,
+            equipment = FAKE_STRING_DATA,
+            searchTag = listOf(FAKE_STRING_DATA),
             workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             introduce = FAKE_STRING_DATA,
-            description = FAKE_STRING_DATA
-
+            description = FAKE_STRING_DATA,
+            sequence = listOf(SEQUENCE_CONTENT_DTO),
+            effect = listOf(EFFECT_CONTENT_DTO),
+            caution = listOf(FAKE_STRING_DATA),
         )
 
         object GetWorkPart {
@@ -534,7 +547,6 @@ object TestDtoDataGenerator {
             height = FAKE_HEIGHT_DATA,
             weight = FAKE_WEIGHT_DATA,
             profilePicture = FAKE_URL_DATA,
-            unitOfWeight = FAKE_UNIT_OF_WEIGHT_DATA
         )
 
         object GetAuthenticationMethod {
@@ -567,7 +579,6 @@ object TestDtoDataGenerator {
                 gender = FAKE_GENDER_DATA,
                 height = FAKE_HEIGHT_DATA,
                 weight = FAKE_WEIGHT_DATA,
-                unitOfWeight = FAKE_UNIT_OF_WEIGHT_DATA
             )
             internal val UPDATE_USER_DETAIL_INFO_RESPONSE_DTO = UpdateUserDetailInfoResponseDto(
                 FAKE_BOOLEAN_DATA
@@ -632,7 +643,9 @@ object TestDtoDataGenerator {
         internal val HISTORY_ROUTINE_DTO = HistoryRoutineDto(
             historyId = FAKE_INT_DATA,
             historyRoutineId = FAKE_INT_DATA,
-            workCategory = WORK_CATEGORY_DTO,
+            workCategoryId = FAKE_INT_DATA,
+            workCategoryName = FAKE_WORK_CATEGORY_NAME_DATA,
+            workPart = listOf(FAKE_WORK_PART_NAME_DATA),
             workWeightList = listOf(
                 FAKE_ROUTINE_WEIGHT_DATA,
                 FAKE_ROUTINE_WEIGHT_DATA,

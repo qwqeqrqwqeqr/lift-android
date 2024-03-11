@@ -17,7 +17,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideWorkService(@DefaultRetrofit retrofit: Retrofit): WorkService =
+    fun provideWorkService(@AuthRetrofit retrofit: Retrofit): WorkService =
         retrofit.create(WorkService::class.java)
 
 

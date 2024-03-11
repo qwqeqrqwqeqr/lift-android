@@ -5,9 +5,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.lift.common.model.DataState
+import com.gradation.lift.common.utils.Constants.SEPARATOR
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRoutineSetIdUseCase
-import com.gradation.lift.feature.workReady.common.model.WorkRoutine
-import com.gradation.lift.feature.workReady.common.model.WorkRoutineWorkSet
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutine
+import com.gradation.lift.feature.workReady.common.model.WorkReadyRoutineWorkSet
 import com.gradation.lift.navigation.saved_state.SavedStateHandleKey.Work.WORK_ROUTINE_SET_ID_LIST_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,48 +22,58 @@ class WorkReadySharedViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
+
     val workRoutineState = WorkRoutineState()
 
     var routineSetIdSet: MutableStateFlow<Set<Int>> =
         MutableStateFlow(
             savedStateHandle.get<String>(WORK_ROUTINE_SET_ID_LIST_KEY)
                 ?.let {
-                    it.split("|")
-                        .filter { it != "" }
+                    it.split(SEPARATOR)
+                        .filter { it.isNotEmpty() }
                         .map { it.toInt() }
                         .toSet()
                 } ?: emptySet()
         )
-    val updateRoutineSetIdSet: (Set<Int>) -> Unit = { routineSetIdSet.value = it }
+
+    val updateRoutineSetIdSet: (Set<Int>) -> Unit = {
+        routineSetIdSet.value = it
+        initRoutineList()
+    }
 
 
     val initRoutineList: () -> Unit = {
         viewModelScope.launch {
-            if (workRoutineState.currentWorkRoutine.isEmpty() && routineSetIdSet.value.isNotEmpty()) {
-                getRoutineSetRoutineByRoutineSetIdUseCase(routineSetIdSet.value).map { routineSetRoutine ->
-                    when (routineSetRoutine) {
-                        is DataState.Fail -> emptyList()
-                        is DataState.Success -> routineSetRoutine.data.flatMap { it.routine }
-                            .mapIndexed { id, routine ->
-                                WorkRoutine(
-                                    id = id,
-                                    workCategory = routine.workCategory,
-                                    workSetList = routine.workSetList.map {
-                                        WorkRoutineWorkSet(
-                                            weight = it.weight.toString(),
-                                            repetition = it.repetition.toString()
-                                        )
-                                    }.toMutableStateList()
-                                )
-                            }
-                    }
-                }.collect { workRoutineList ->
-                    workRoutineList.forEach {
-                        workRoutineState.appendRoutine(it)
-                    }
+            getRoutineSetRoutineByRoutineSetIdUseCase(routineSetIdSet.value).map { routineSetRoutine ->
+                when (routineSetRoutine) {
+                    is DataState.Fail -> emptyList()
+                    is DataState.Success -> routineSetRoutine.data.flatMap { it.routine }
+                        .mapIndexed { id, routine ->
+                            WorkReadyRoutine(
+                                id = id,
+                                workCategoryId = routine.workCategoryId,
+                                workCategoryName = routine.workCategoryName,
+                                workPart = routine.workPart,
+                                workSetList = routine.workSetList.map {
+                                    WorkReadyRoutineWorkSet(
+                                        weight = it.weight.toString(),
+                                        repetition = it.repetition.toString()
+                                    )
+                                }.toMutableStateList()
+                            )
+                        }
+                }
+            }.collect { workRoutineList ->
+                workRoutineState.clear()
+                workRoutineList.forEach {
+                    workRoutineState.appendRoutine(it)
                 }
             }
         }
+    }
+
+    init {
+        initRoutineList()
     }
 }
 

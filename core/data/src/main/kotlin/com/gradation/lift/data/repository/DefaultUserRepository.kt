@@ -10,7 +10,7 @@ import com.gradation.lift.model.model.user.UserDetailInfo
 import com.gradation.lift.model.model.user.UserDetailName
 import com.gradation.lift.model.model.user.UserDetailProfilePicture
 import com.gradation.lift.network.common.NetworkResult
-import com.gradation.lift.network.datasource.user.UserDataSource
+import com.gradation.lift.network.datasource.user.UserRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
@@ -19,14 +19,14 @@ import javax.inject.Inject
 
 
 class DefaultUserRepository @Inject constructor(
-    private val userDataSource: UserDataSource,
-    private val dispatcherProvider: DispatcherProvider
+    private val userRemoteDataSource: UserRemoteDataSource,
+    private val dispatcherProvider: DispatcherProvider,
 ) : UserRepository {
 
 
     override fun getUserDetail(): Flow<DataState<UserDetail>> = flow {
 
-        userDataSource.getUserDetail()
+        userRemoteDataSource.getUserDetail()
             .distinctUntilChanged().collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
@@ -36,7 +36,7 @@ class DefaultUserRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun getUserAuthenticationMethod(): Flow<DataState<LoginMethod>> = flow {
-        userDataSource.getUserAuthenticationMethod()
+        userRemoteDataSource.getUserAuthenticationMethod()
             .distinctUntilChanged().collect { result ->
                 when (result) {
                     is NetworkResult.Fail -> emit(DataState.Fail(result.message))
@@ -46,7 +46,7 @@ class DefaultUserRepository @Inject constructor(
     }.flowOn(dispatcherProvider.default)
 
     override fun createUserDetail(userDetail: UserDetail): Flow<DataState<Unit>> = flow {
-        userDataSource.createUserDetail(
+        userRemoteDataSource.createUserDetail(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
@@ -59,7 +59,7 @@ class DefaultUserRepository @Inject constructor(
 
 
     override fun updateUserDetail(userDetail: UserDetail): Flow<DataState<Unit>> = flow {
-        userDataSource.updateUserDetail(
+        userRemoteDataSource.updateUserDetail(
             userDetail = userDetail
         ).collect { result ->
             when (result) {
@@ -72,7 +72,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun updateUserDetailProfilePicture(userDetailProfilePicture: UserDetailProfilePicture): Flow<DataState<Unit>> =
         flow {
-            userDataSource.updateUserDetailProfilePicture(
+            userRemoteDataSource.updateUserDetailProfilePicture(
                 userDetailProfilePicture
             ).collect { result ->
                 when (result) {
@@ -84,7 +84,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun updateUserDetailName(userDetailName: UserDetailName): Flow<DataState<Boolean>> =
         flow {
-            userDataSource.updateUserDetailName(
+            userRemoteDataSource.updateUserDetailName(
                 userDetailName
             ).collect { result ->
                 when (result) {
@@ -98,7 +98,7 @@ class DefaultUserRepository @Inject constructor(
 
     override fun updateUserDetailInfo(userDetailInfo: UserDetailInfo): Flow<DataState<Boolean>> =
         flow {
-            userDataSource.updateUserDetailInfo(
+            userRemoteDataSource.updateUserDetailInfo(
                 userDetailInfo
             ).collect { result ->
                 when (result) {
@@ -110,7 +110,7 @@ class DefaultUserRepository @Inject constructor(
 
 
     override fun existUserDetail(): Flow<DataState<Boolean>> = flow {
-        userDataSource.existUserDetail(
+        userRemoteDataSource.existUserDetail(
         ).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
@@ -121,7 +121,7 @@ class DefaultUserRepository @Inject constructor(
 
 
     override fun deleteUser(deleteUserInfo: DeleteUserInfo): Flow<DataState<Unit>> = flow {
-        userDataSource.deleteUser(deleteUserInfo).collect { result ->
+        userRemoteDataSource.deleteUser(deleteUserInfo).collect { result ->
             when (result) {
                 is NetworkResult.Fail -> emit(DataState.Fail(result.message))
                 is NetworkResult.Success -> emit(DataState.Success(result.data))

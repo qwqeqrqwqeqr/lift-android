@@ -24,11 +24,11 @@ class WorkState(
     private val viewModelScope: CoroutineScope,
     var workRoutineList: SnapshotStateList<WorkRoutine> = emptyList<WorkRoutine>().toMutableStateList(),
     var currentWorkRoutineIndex: MutableStateFlow<Int> = MutableStateFlow(0),
-    private var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
+    var workRestTime: MutableStateFlow<WorkRestTime> = MutableStateFlow(WorkRestTime()),
     private var workRestFlag: MutableStateFlow<Boolean> = MutableStateFlow(true),
 ) {
 
-    private lateinit var timerJob: Job
+    private var timerJob: Job? = null
 
 
     val workTime: StateFlow<LocalTime> = workRestTime.map { it.workTime }.stateIn(
@@ -45,7 +45,7 @@ class WorkState(
 
     val updateWorkFlag: (Boolean) -> Unit = { workRestFlag.value = it }
 
-    val getWorkRoutineListSize: () -> Int = {  workRoutineList.size }
+    val getWorkRoutineListSize: () -> Int = { workRoutineList.size }
     val updateCurrentWorkRoutineIndex: (Int) -> Unit = { currentWorkRoutineIndex.value = it }
 
     val minusWorkRoutineIndex: () -> Unit = {
@@ -63,45 +63,44 @@ class WorkState(
         { workRoutineList[currentWorkRoutineIndex.value] }
 
     val getPreWorkRoutine: () -> WorkRoutine? = {
-        if (currentWorkRoutineIndex.value <= 0 || workRoutineList.size==0) null
+        if (currentWorkRoutineIndex.value <= 0 || workRoutineList.size == 0) null
         else workRoutineList[currentWorkRoutineIndex.value - 1]
     }
     val getNextWorkRoutine: () -> WorkRoutine? = {
-        if (currentWorkRoutineIndex.value >= workRoutineList.size - 1 || workRoutineList.size==0) null
+        if (currentWorkRoutineIndex.value >= workRoutineList.size - 1 || workRoutineList.size == 0) null
         else workRoutineList[currentWorkRoutineIndex.value + 1]
     }
 
 
     fun startTimer() {
-        timerJob = viewModelScope.launch {
-            initTimerUseCase().map {
-                if (workRestFlag.value) {
-                    workRestTime.update {
-                        it.copy(
-                            workTime = LocalTime.fromMillisecondOfDay((it.workTime.toMillisecondOfDay() + 200))
-                        )
+        if (timerJob == null) {
+            timerJob = viewModelScope.launch {
+                initTimerUseCase().map {
+                    if (workRestFlag.value) {
+                        workRestTime.update {
+                            it.copy(
+                                workTime = LocalTime.fromMillisecondOfDay((it.workTime.toMillisecondOfDay() + 200))
+                            )
+                        }
+                    } else {
+                        workRestTime.update {
+                            it.copy(
+                                restTime = LocalTime.fromMillisecondOfDay((it.restTime.toMillisecondOfDay() + 200))
+                            )
+                        }
                     }
-                } else {
-                    workRestTime.update {
-                        it.copy(
-                            restTime = LocalTime.fromMillisecondOfDay((it.restTime.toMillisecondOfDay() + 200))
-                        )
-                    }
-                }
-            }.collect()
+                }.collect()
+            }
         }
     }
 
-    val stopTime: () -> Unit = { timerJob.cancel() }
+    val stopTime: () -> Unit = { timerJob?.cancel() }
 
 
     val appendRoutine: (WorkRoutine) -> Unit = {
         onWorkRoutineEvent(WorkRoutineEvent.AppendRoutine(it))
     }
 
-    val removeRoutine: (WorkRoutine) -> Unit = {
-        onWorkRoutineEvent(WorkRoutineEvent.RemoveRoutine(it))
-    }
 
     val addWorkSet: (Int, WorkRoutineWorkSet) -> Unit = { routineId, workRoutineWorkSet ->
         onWorkRoutineEvent(
@@ -149,9 +148,13 @@ class WorkState(
             }
 
             is WorkRoutineEvent.RemoveWorkSet -> {
-                workRoutineList[workRoutineEvent.routineIndex].workSetList.remove(
-                    workRoutineEvent.workRoutineWorkSet
-                )
+                with(workRoutineList[workRoutineEvent.routineIndex]) {
+                    if (this.workSetList.size == 1 && workRoutineList.size != 1) {
+                        workRoutineList.remove(this)
+                    } else {
+                        this.workSetList.remove(workRoutineEvent.workRoutineWorkSet)
+                    }
+                }
             }
 
             is WorkRoutineEvent.UpdateWorkSet -> {

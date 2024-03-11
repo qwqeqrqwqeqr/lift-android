@@ -17,15 +17,15 @@
 package com.gradation.lift.network
 
 
-import com.gradation.lift.network.test.datasource.AuthDataSourceTest
-import com.gradation.lift.network.test.datasource.BadgeDataSourceTest
-import com.gradation.lift.network.test.datasource.CheckerDataSourceTest
-import com.gradation.lift.network.test.datasource.HistoryDataSourceTest
-import com.gradation.lift.network.test.datasource.NoticeDataSourceTest
-import com.gradation.lift.network.test.datasource.PictureDataSourceTest
-import com.gradation.lift.network.test.datasource.RoutineDataSourceTest
-import com.gradation.lift.network.test.datasource.UserDataSourceTest
-import com.gradation.lift.network.test.datasource.WorkDataSourceTest
+import com.gradation.lift.network.test.datasource.AuthRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.BadgeRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.CheckerRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.HistoryRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.NoticeRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.PictureRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.RoutineRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.UserRemoteDataSourceTest
+import com.gradation.lift.network.test.datasource.WorkRemoteDataSourceTest
 import com.gradation.lift.network.test.mapper.CreateHistoryMapperTest
 import com.gradation.lift.network.test.mapper.CreateRoutineSetRoutineMapperTest
 import com.gradation.lift.network.test.mapper.CreateUserBadgeMapperTest
@@ -72,15 +72,15 @@ import org.junit.runners.Suite
     UpdateUsedRoutineSetMapperTest::class,
 
 
-    AuthDataSourceTest::class,
-    BadgeDataSourceTest::class,
-    CheckerDataSourceTest::class,
-    HistoryDataSourceTest::class,
-    NoticeDataSourceTest::class,
-    PictureDataSourceTest::class,
-    RoutineDataSourceTest::class,
-    UserDataSourceTest::class,
-    WorkDataSourceTest::class
+    AuthRemoteDataSourceTest::class,
+    BadgeRemoteDataSourceTest::class,
+    CheckerRemoteDataSourceTest::class,
+    HistoryRemoteDataSourceTest::class,
+    NoticeRemoteDataSourceTest::class,
+    PictureRemoteDataSourceTest::class,
+    RoutineRemoteDataSourceTest::class,
+    UserRemoteDataSourceTest::class,
+    WorkRemoteDataSourceTest::class
 
 )
 class NetworkTestSuit

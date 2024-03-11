@@ -3,20 +3,20 @@ package com.gradation.lift.feature.createRoutine.createWorkSet.data.state
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import com.gradation.lift.feature.createRoutine.createWorkSet.data.event.WorkSetEvent
-import com.gradation.lift.feature.createRoutine.createWorkSet.data.model.WorkSet
+import com.gradation.lift.feature.createRoutine.createWorkSet.data.model.CreateWorkSet
 
 class WorkSetState {
-    var workSetList: SnapshotStateList<WorkSet> =
-        emptyList<WorkSet>().toMutableStateList()
+    var createWorkSetLists: SnapshotStateList<CreateWorkSet> =
+        emptyList<CreateWorkSet>().toMutableStateList()
 
 
     val addWorkSet: () -> Unit = {
         onWorkSetEvent(WorkSetEvent.AddWorkSet)
     }
-    val updateWorkSet: (Int, WorkSet) -> Unit = { index, workSet ->
+    val updateWorkSet: (Int, CreateWorkSet) -> Unit = { index, workSet ->
         onWorkSetEvent(WorkSetEvent.UpdateWorkSet(index, workSet))
     }
-    val removeWorkSet: (WorkSet) -> Unit = {
+    val removeWorkSet: (CreateWorkSet) -> Unit = {
         onWorkSetEvent(WorkSetEvent.RemoveWorkSet(it))
     }
 
@@ -24,21 +24,18 @@ class WorkSetState {
     private fun onWorkSetEvent(workSetEvent: WorkSetEvent) {
         when (workSetEvent) {
             WorkSetEvent.AddWorkSet -> {
-                workSetList.add(
-                    if (workSetList.isEmpty()) WorkSet(1, "", "")
-                    else workSetList.last().let { it.copy(setNumber = it.setNumber + 1) }
+                createWorkSetLists.add(
+                    if (createWorkSetLists.isEmpty()) CreateWorkSet("", "")
+                    else createWorkSetLists.last()
                 )
             }
 
             is WorkSetEvent.RemoveWorkSet -> {
-                workSetList.remove(workSetEvent.workSet)
-                workSetList.forEachIndexed { index, workSet ->
-                    workSetList[index] = workSet.copy(setNumber = index + 1)
-                }
+                createWorkSetLists.remove(workSetEvent.createWorkSet)
             }
 
             is WorkSetEvent.UpdateWorkSet -> {
-                workSetList[workSetEvent.index] = workSetEvent.workSet
+                createWorkSetLists[workSetEvent.index] = workSetEvent.createWorkSet
             }
         }
     }

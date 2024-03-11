@@ -9,7 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import com.gradation.lift.feature.work.common.data.state.WorkState
+import com.gradation.lift.ui.provider.LocalAppScope
+import com.gradation.lift.ui.provider.LocalWarnSnackbarHostState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
@@ -23,14 +28,28 @@ fun rememberWorkScreenState(
         pageCount = workState.getWorkRoutineListSize,
     ),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    appScope: CoroutineScope = LocalAppScope.current,
+    appSnackbarHostState: SnackbarHostState = LocalWarnSnackbarHostState.current,
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ): WorkScreenState {
-    return remember { WorkScreenState(pagerState, snackbarHostState) }
+    return remember {
+        WorkScreenState(
+            pagerState,
+            snackbarHostState,
+            appScope,
+            appSnackbarHostState,
+            lifecycleOwner
+        )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 class WorkScreenState(
     val pagerState: PagerState,
     val snackbarHostState: SnackbarHostState,
+    val appScope: CoroutineScope,
+    val appSnackbarHostState: SnackbarHostState,
+    val lifecycleOwner: LifecycleOwner,
 ) {
 
     val workScreenUiState: MutableStateFlow<WorkScreenUiState> =

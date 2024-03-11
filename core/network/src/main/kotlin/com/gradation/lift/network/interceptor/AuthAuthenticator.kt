@@ -2,6 +2,7 @@ package com.gradation.lift.network.interceptor
 
 import com.gradation.lift.datastore.datasource.TokenDataStoreDataSource
 import com.gradation.lift.network.common.APIResultWrapper
+import com.gradation.lift.network.common.Constants.APPLICATION_JSON
 import com.gradation.lift.network.common.Constants.AUTHORIZATION_HEADER
 import com.gradation.lift.network.common.Constants.BEARER
 import com.gradation.lift.network.common.Constants.DEFAULT_API_URL
@@ -12,8 +13,12 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
-import okhttp3.*
+import okhttp3.Authenticator
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.Route
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -42,8 +47,8 @@ class AuthAuthenticator @Inject constructor(
                     .newBuilder()
                     .removeHeader(AUTHORIZATION_HEADER)
                     .addHeader(
-                        AUTHORIZATION_HEADER,
-                        "$BEARER${
+                        name = AUTHORIZATION_HEADER,
+                        value = "$BEARER${
                             runBlocking {
                                 tokenDataStoreDataSource.accessToken.first()
                             }
@@ -67,16 +72,17 @@ class AuthAuthenticator @Inject constructor(
         tokenDataStoreDataSource: TokenDataStoreDataSource,
     ): retrofit2.Response<APIResultWrapper<RefreshResponseDto>> {
         val retrofit = Retrofit.Builder().baseUrl(DEFAULT_API_URL)
-            .client(OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().apply {
-                    this.level = HttpLoggingInterceptor.Level.BASIC
-                }).build()
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(HttpLoggingInterceptor().apply {
+                        this.level = HttpLoggingInterceptor.Level.BASIC
+                    }).build()
             )
             .addConverterFactory(
                 with(Json {
                     ignoreUnknownKeys = true
                     coerceInputValues = true
-                }) { asConverterFactory("application/json".toMediaType()) }
+                }) { asConverterFactory(APPLICATION_JSON.toMediaType()) }
             ).build()
         val service = retrofit.create(RefreshService::class.java)
         return service.refresh(

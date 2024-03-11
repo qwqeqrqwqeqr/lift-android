@@ -1,5 +1,6 @@
 package com.gradation.lift.database.di
 
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.*
 import dagger.Module
 import dagger.Provides
@@ -21,34 +22,21 @@ object DaoModule {
 
     @Provides
     @Singleton
+    fun provideUserBadgeDao(
+        database: LiftDatabase,
+    ): UserBadgeDao = database.userBadgeDao()
+
+    @Provides
+    @Singleton
     fun provideHistoryDao(
         database: LiftDatabase,
     ): HistoryDao = database.historyDao()
 
     @Provides
     @Singleton
-    fun provideNoticeDao(
+    fun provideRoutineDao(
         database: LiftDatabase,
-    ): NoticeDao = database.noticeDao()
-
-    @Provides
-    @Singleton
-    fun providePictureDao(
-        database: LiftDatabase,
-    ): PictureDao = database.pictureDao()
-
-    @Provides
-    @Singleton
-    fun provideRoutineSetRoutineDao(
-        database: LiftDatabase,
-    ): RoutineDao = database.routineSetRoutineDao()
-
-    @Provides
-    @Singleton
-    fun provideUserDao(
-        database: LiftDatabase,
-    ): UserDao = database.userDao()
-
+    ): RoutineDao = database.routineDao()
 
     @Provides
     @Singleton
@@ -62,12 +50,9 @@ object DaoModule {
         database: LiftDatabase,
     ): WorkPartDao = database.workPartDao()
 
-
     @Provides
     @Singleton
     fun provideWorkDao(
         database: LiftDatabase,
     ): WorkDao = database.workDao()
-
-
 }

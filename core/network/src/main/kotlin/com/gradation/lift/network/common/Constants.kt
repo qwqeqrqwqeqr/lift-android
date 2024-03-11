@@ -29,5 +29,8 @@ object Constants {
     const val DELETE = "DELETE"
     const val PATCH = "PATCH"
 
+
+    const val APPLICATION_JSON = "application/json"
+
 }
 

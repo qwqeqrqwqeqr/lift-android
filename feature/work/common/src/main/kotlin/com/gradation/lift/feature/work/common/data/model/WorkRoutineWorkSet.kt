@@ -10,6 +10,7 @@ package com.gradation.lift.feature.work.common.data.model
  */
 
 data class WorkRoutineWorkSet(
+    var id: Int,
     var weight: String = "",
     var repetition: String = "",
 )

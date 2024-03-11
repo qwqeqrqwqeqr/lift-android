@@ -173,7 +173,7 @@ internal fun RoutineListView(
                             ) {
                                 LiftText(
                                     textStyle = LiftTextStyle.No3,
-                                    text = routine.workCategory.name,
+                                    text = routine.workCategoryName,
                                     color = LiftTheme.colorScheme.no9,
                                     textAlign = TextAlign.Left
                                 )

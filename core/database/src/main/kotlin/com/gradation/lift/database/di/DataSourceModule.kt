@@ -1,82 +1,95 @@
 package com.gradation.lift.database.di
 
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.BadgeDao
 import com.gradation.lift.database.dao.HistoryDao
-import com.gradation.lift.database.dao.NoticeDao
-import com.gradation.lift.database.dao.PictureDao
 import com.gradation.lift.database.dao.RoutineDao
-import com.gradation.lift.database.dao.UserDao
+import com.gradation.lift.database.dao.UserBadgeDao
 import com.gradation.lift.database.dao.WorkCategoryDao
 import com.gradation.lift.database.dao.WorkDao
-import com.gradation.lift.database.datasource.badge.BadgeDataSource
-import com.gradation.lift.database.datasource.badge.DefaultBadgeDataSource
-import com.gradation.lift.database.datasource.history.DefaultHistoryDataSource
-import com.gradation.lift.database.datasource.history.HistoryDataSource
-import com.gradation.lift.database.datasource.notice.DefaultNoticeDataSource
-import com.gradation.lift.database.datasource.notice.NoticeDataSource
-import com.gradation.lift.database.datasource.picture.DefaultPictureDataSource
-import com.gradation.lift.database.datasource.picture.PictureDataSource
-import com.gradation.lift.database.datasource.routine.DefaultRoutineDataSource
-import com.gradation.lift.database.datasource.routine.RoutineDataSource
-import com.gradation.lift.database.datasource.user.DefaultUserDataSource
-import com.gradation.lift.database.datasource.user.UserDataSource
-import com.gradation.lift.database.datasource.work.DefaultWorkDataSource
-import com.gradation.lift.database.datasource.work.WorkDataSource
-import com.gradation.lift.database.datasource.work_category.DefaultWorkCategoryDataSource
-import com.gradation.lift.database.datasource.work_category.WorkCategoryDataSource
+import com.gradation.lift.database.dao.WorkPartDao
+import com.gradation.lift.database.datasource.badge.BadgeLocalDataSource
+import com.gradation.lift.database.datasource.badge.DefaultBadgeLocalDataSource
+import com.gradation.lift.database.datasource.database.DatabaseSettingDataSource
+import com.gradation.lift.database.datasource.database.DefaultDatabaseSettingDataSource
+import com.gradation.lift.database.datasource.history.DefaultHistoryLocalDataSource
+import com.gradation.lift.database.datasource.history.HistoryLocalDataSource
+import com.gradation.lift.database.datasource.routine.DefaultRoutineLocalDataSource
+import com.gradation.lift.database.datasource.routine.RoutineLocalDataSource
+import com.gradation.lift.database.datasource.userBadge.DefaultUserBadgeLocalDataSource
+import com.gradation.lift.database.datasource.userBadge.UserBadgeLocalDataSource
+import com.gradation.lift.database.datasource.work.DefaultWorkLocalDataSource
+import com.gradation.lift.database.datasource.work.WorkLocalDataSource
+import com.gradation.lift.database.datasource.workCategory.DefaultWorkCategoryLocalDataSource
+import com.gradation.lift.database.datasource.workCategory.WorkCategoryLocalDataSource
+import com.gradation.lift.database.datasource.workPart.DefaultWorkPartLocalDataSource
+import com.gradation.lift.database.datasource.workPart.WorkPartLocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataSourceModule {
+
     @Provides
+    @Singleton
+    fun provideDatabaseSettingDataSource(
+        database: LiftDatabase,
+    ): DatabaseSettingDataSource = DefaultDatabaseSettingDataSource(database)
+
+
+    @Provides
+    @Singleton
     fun provideBadgeDataSource(
         badgeDao: BadgeDao,
-    ): BadgeDataSource = DefaultBadgeDataSource(badgeDao)
+    ): BadgeLocalDataSource = DefaultBadgeLocalDataSource(badgeDao)
 
 
     @Provides
+    @Singleton
+    fun provideUserBadgeDataSource(
+        userBadgeDao: UserBadgeDao,
+    ): UserBadgeLocalDataSource = DefaultUserBadgeLocalDataSource(userBadgeDao)
+
+
+    @Provides
+    @Singleton
     fun provideHistoryDataSource(
         historyDao: HistoryDao,
-    ): HistoryDataSource = DefaultHistoryDataSource(historyDao)
+    ): HistoryLocalDataSource = DefaultHistoryLocalDataSource(historyDao)
 
 
     @Provides
-    fun provideNoticeDataSource(
-        noticeDao: NoticeDao
-    ): NoticeDataSource = DefaultNoticeDataSource(noticeDao)
-
-    @Provides
-    fun providePictureDataSource(
-        pictureDao: PictureDao,
-    ): PictureDataSource = DefaultPictureDataSource(pictureDao)
-
-
-    @Provides
+    @Singleton
     fun provideRoutineDataSource(
         routineDao: RoutineDao,
-    ): RoutineDataSource = DefaultRoutineDataSource(routineDao)
+    ): RoutineLocalDataSource = DefaultRoutineLocalDataSource(routineDao)
 
 
     @Provides
-    fun provideUserDataSource(
-        userDao: UserDao,
-    ): UserDataSource = DefaultUserDataSource(userDao)
-
-
-    @Provides
+    @Singleton
     fun provideWorkCategoryDataSource(
         workCategoryDao: WorkCategoryDao,
-    ): WorkCategoryDataSource = DefaultWorkCategoryDataSource(workCategoryDao)
+    ): WorkCategoryLocalDataSource = DefaultWorkCategoryLocalDataSource(workCategoryDao)
+
 
     @Provides
+    @Singleton
+
+    fun provideWorkPartDataSource(
+        workPartDao: WorkPartDao,
+    ): WorkPartLocalDataSource = DefaultWorkPartLocalDataSource(workPartDao)
+
+
+    @Provides
+    @Singleton
     fun provideWorkDataSource(
         workDao: WorkDao,
-    ): WorkDataSource = DefaultWorkDataSource(workDao)
+    ): WorkLocalDataSource = DefaultWorkLocalDataSource(workDao)
 
 
 }

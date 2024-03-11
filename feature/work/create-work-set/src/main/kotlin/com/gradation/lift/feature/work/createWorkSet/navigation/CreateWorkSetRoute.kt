@@ -31,6 +31,8 @@ internal fun CreateWorkSetRoute(
         remember { navController.getBackStackEntry(WORK_GRAPH_NAME) }),
     routineScreenState: RoutineScreenState = rememberRoutineScreenState(),
 ) {
+    val workCategoryFavoriteFlag: Boolean by viewModel.workCategoryFavoriteFlag.collectAsStateWithLifecycle()
+    val updateWorkCategoryFavorite: () -> Unit = viewModel.updateWorkCategoryFavorite
 
 
     val workCategoryUiState: WorkCategoryUiState by viewModel.workCategoryUiState.collectAsStateWithLifecycle()
@@ -41,6 +43,8 @@ internal fun CreateWorkSetRoute(
 
     CreateWorkSetScreen(
         modifier,
+        workCategoryFavoriteFlag,
+        updateWorkCategoryFavorite,
         workCategoryUiState,
         workSetState,
         workRoutineState,

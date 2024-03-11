@@ -19,7 +19,6 @@ fun UserDetail.toDto(): UserDetailDto =
             Constants.DEFAULT_S3_URL,
             ""
         ),
-        unitOfWeight = this.unitOfWeight.getUnitOfWeightValue()
     )
 
 
@@ -28,7 +27,6 @@ fun UserDetailInfo.toDto(): UpdateUserDetailInfoRequestDto =
         gender = this.gender.getGenderValue(),
         height = this.height,
         weight = this.weight,
-        unitOfWeight = this.unitOfWeight.getUnitOfWeightValue()
     )
 
 fun UserDetailProfilePicture.toDto(): UpdateUserDetailProfilePictureRequestDto =

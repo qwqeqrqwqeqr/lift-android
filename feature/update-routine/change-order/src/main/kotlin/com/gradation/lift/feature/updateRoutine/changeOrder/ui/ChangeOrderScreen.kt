@@ -89,7 +89,7 @@ internal fun ChangeOrderScreen(
             ) {
                 itemsIndexed(
                     items = currentRoutineSetRoutine.routine,
-                    key = { index, item -> "${item.id}${item.workCategory.name}" }
+                    key = { index, item -> "${item.id}${item.workCategoryName}" }
                 ) { index, routine ->
 
                     val isDragging = index == dragDropListState.currentIndexOfDraggedItem
@@ -134,7 +134,7 @@ internal fun ChangeOrderScreen(
                             ) {
                                 LiftText(
                                     textStyle = LiftTextStyle.No3,
-                                    text = routine.workCategory.name,
+                                    text = routine.workCategoryName,
                                     color = LiftTheme.colorScheme.no9,
                                     textAlign = TextAlign.Left
                                 )

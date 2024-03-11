@@ -8,7 +8,6 @@ import com.gradation.lift.model.model.badge.Badge
 
 
 @Entity(tableName = Constants.Entity.BADGE_TABLE_NAME)
-
 data class BadgeEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -16,7 +15,7 @@ data class BadgeEntity(
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "description")
-    val description: String,
+    val description: String? = null,
     @ColumnInfo(name = "hint")
     val hint: String,
     @ColumnInfo(name = "url")
@@ -26,7 +25,7 @@ data class BadgeEntity(
     @ColumnInfo(name = "background_color")
     val backgroundColor: String,
 ) {
-    fun toDomain() = Badge(
+    fun toDomain(): Badge = Badge(
         id, name, description, hint, url, color, backgroundColor
     )
 }

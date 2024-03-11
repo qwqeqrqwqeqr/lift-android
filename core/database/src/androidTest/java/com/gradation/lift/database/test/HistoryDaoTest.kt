@@ -3,17 +3,13 @@ package com.gradation.lift.database.test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
+import com.gradation.lift.database.LiftDatabase
 import com.gradation.lift.database.dao.HistoryDao
-import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyEntity1
-import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyEntity2
-import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyRoutineEntity1
-import com.gradation.lift.database.data.TestEntityDataGenerator.History.historyRoutineEntityList
-import com.gradation.lift.database.data.TestEntityDataGenerator.TEST_DATABASE
-import com.gradation.lift.database.di.LiftDatabase
+import com.gradation.lift.database.data.TestDataGenerator.History.HISTORY_ENTITY
+import com.gradation.lift.database.data.TestDataGenerator.History.HISTORY_ROUTINE_ENTITY
+import com.gradation.lift.database.data.TestDataGenerator.TEST_DATABASE
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -23,20 +19,21 @@ import org.junit.Test
 import javax.inject.Inject
 import javax.inject.Named
 
-@ExperimentalCoroutinesApi
 @SmallTest
 @HiltAndroidTest
 class HistoryDaoTest {
-    @Inject
-    @Named(TEST_DATABASE)
-    lateinit var database: LiftDatabase
-    private lateinit var historyDao: HistoryDao
+
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    @Named(TEST_DATABASE)
+    lateinit var database: LiftDatabase
+    private lateinit var historyDao: HistoryDao
 
     @Before
     fun setup() {
@@ -50,44 +47,84 @@ class HistoryDaoTest {
     }
 
     @Test
-    fun testInsertAllHistory() = runTest {
+    fun testHistoryInsertAndDelete() = runTest {
+
+        with(historyDao.getAllHistory().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
+
+        /**
+         * insert item
+         */
         historyDao.insertAll(
-            historyEntity = historyEntityList,
-            historyRoutineEntity = historyRoutineEntityList
+            historyEntity = listOf(HISTORY_ENTITY),
+            historyRoutineEntity = listOf(HISTORY_ROUTINE_ENTITY)
         )
 
         with(historyDao.getAllHistory().first()) {
-            Truth.assertThat(this.size).isEqualTo(2)
-            Truth.assertThat(this.keys.map { it.id }.toSet()).isEqualTo(setOf(1, 2))
+            Truth.assertThat(this.keys.size).isEqualTo(1)
+            Truth.assertThat(this.values.size).isEqualTo(1)
+
+            with(this.entries.first().key) {
+                Truth.assertThat(this.id).isEqualTo(HISTORY_ENTITY.id)
+                Truth.assertThat(this.comment).isEqualTo(HISTORY_ENTITY.comment)
+                Truth.assertThat(this.historyTimeStamp).isEqualTo(HISTORY_ENTITY.historyTimeStamp)
+                Truth.assertThat(this.score).isEqualTo(HISTORY_ENTITY.score)
+                Truth.assertThat(this.restTime).isEqualTo(HISTORY_ENTITY.restTime)
+                Truth.assertThat(this.progress).isEqualTo(HISTORY_ENTITY.progress)
+                Truth.assertThat(this.totalTime).isEqualTo(HISTORY_ENTITY.totalTime)
+                Truth.assertThat(this.workTime).isEqualTo(HISTORY_ENTITY.workTime)
+            }
+
+            with(this.entries.first().value.first()) {
+                Truth.assertThat(this.historyId).isEqualTo(HISTORY_ROUTINE_ENTITY.historyId)
+                Truth.assertThat(this.id).isEqualTo(HISTORY_ROUTINE_ENTITY.id)
+                Truth.assertThat(this.workCategoryId)
+                    .isEqualTo(HISTORY_ROUTINE_ENTITY.workCategoryId)
+                Truth.assertThat(this.workPart).isEqualTo(HISTORY_ROUTINE_ENTITY.workPart)
+                Truth.assertThat(this.workCategoryName)
+                    .isEqualTo(HISTORY_ROUTINE_ENTITY.workCategoryName)
+                Truth.assertThat(this.workSetList).isEqualTo(HISTORY_ROUTINE_ENTITY.workSetList)
+            }
+        }
+
+        /**
+         * delete item
+         */
+        historyDao.deleteAllHistory()
+
+
+        with(historyDao.getAllHistory().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
         }
     }
 
     @Test
-    fun testDeleteAllHistory() = runTest {
-        historyDao.insertAll(
-            historyEntity = historyEntityList,
-            historyRoutineEntity = historyRoutineEntityList
-        )
-        historyDao.deleteAllHistory()
-        Truth.assertThat(historyDao.getAllHistory().first().size).isEqualTo(0)
-    }
+    fun testUpdateHistoryInfo() = runTest {
 
-    @Test
-    fun testGetHistoryByHistoryId() = runTest {
+        with(historyDao.getAllHistory().first()) {
+            Truth.assertThat(this.size).isEqualTo(0)
+        }
+
+        /**
+         * insert item
+         */
         historyDao.insertAll(
-            historyEntity = historyEntityList,
-            historyRoutineEntity = historyRoutineEntityList
+            historyEntity = listOf(HISTORY_ENTITY),
+            historyRoutineEntity = listOf(HISTORY_ROUTINE_ENTITY)
         )
-        with(
-            historyDao.getHistoryByHistoryId(
-                setOf(
-                    historyEntity1.id,
-                    historyEntity2.id,
-                    Int.MAX_VALUE
-                )
-            ).first()
-        ) {
-            Truth.assertThat(this.size).isEqualTo(2)
+
+        historyDao.updateHistoryInfo(
+            historyId = HISTORY_ENTITY.id,
+            comment = HISTORY_ENTITY.comment + HISTORY_ENTITY.comment,
+            score = HISTORY_ENTITY.score?.minus(1)
+        )
+
+        with(historyDao.getAllHistory().first()) {
+            Truth.assertThat(this.entries.first().key.comment)
+                .isEqualTo(HISTORY_ENTITY.comment + HISTORY_ENTITY.comment)
+            Truth.assertThat(this.entries.first().key.score)
+                .isEqualTo(HISTORY_ENTITY.score?.minus(1))
         }
     }
 

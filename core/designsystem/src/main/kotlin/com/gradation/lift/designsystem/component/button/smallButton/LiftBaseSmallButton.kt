@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import com.gradation.lift.designsystem.theme.LiftTheme
 
 @Composable
-fun LiftBaseSmallButton(
+internal fun LiftBaseSmallButton(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {

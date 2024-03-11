@@ -25,7 +25,7 @@ import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_BOOLEAN_DATA
 import com.gradation.lift.model.utils.DefaultDataGenerator.FAKE_REFRESH_TOKEN
 import com.gradation.lift.model.utils.ModelDataGenerator.Auth.DEFAULT_SIGN_IN_INFO_MODEL
 import com.gradation.lift.model.utils.ModelDataGenerator.Auth.DEFAULT_SIGN_UP_INFO_MODEL
-import com.gradation.lift.network.datasource.auth.AuthDataSource
+import com.gradation.lift.network.datasource.auth.AuthRemoteDataSource
 import com.gradation.lift.oauth.google.GoogleOauthManager
 import com.gradation.lift.oauth.kakao.KakaoOauthManager
 import com.gradation.lift.oauth.naver.NaverOauthManager
@@ -44,8 +44,8 @@ import java.io.File
 class AuthRepositoryTest {
 
 
-    private lateinit var failDataSource: AuthDataSource
-    private lateinit var successDataSource: AuthDataSource
+    private lateinit var failDataSource: AuthRemoteDataSource
+    private lateinit var successDataSource: AuthRemoteDataSource
     private lateinit var successRepository: AuthRepository
     private lateinit var failRepository: AuthRepository
 

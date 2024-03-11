@@ -10,6 +10,8 @@ import com.gradation.lift.domain.usecase.history.GetHistoryUseCase
 import com.gradation.lift.domain.usecase.routine.GetMostUsedRoutineSetRoutineUseCase
 import com.gradation.lift.domain.usecase.routine.GetRoutineSetRoutineByRecentUseCase
 import com.gradation.lift.domain.usecase.user.GetUserDetailUseCase
+import com.gradation.lift.domain.usecase.work.ClearWorkUseCase
+import com.gradation.lift.domain.usecase.work.ExistWorkUseCase
 import com.gradation.lift.feature.home.home.data.model.RecentUsedRoutineSetRoutine
 import com.gradation.lift.feature.home.home.data.state.BadgeUiState
 import com.gradation.lift.feature.home.home.data.state.RoutineState
@@ -21,9 +23,11 @@ import com.gradation.lift.model.model.history.History
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
@@ -46,7 +50,21 @@ class HomeViewModel @Inject constructor(
     getHistoryUseCase: GetHistoryUseCase,
     getCurrentWeekUseCase: GetCurrentWeekUseCase,
     getTodayUseCase: GetTodayUseCase,
+    existWorkUseCase: ExistWorkUseCase,
+    clearWorkUseCase: ClearWorkUseCase,
 ) : ViewModel() {
+
+
+    internal val existWorkState: StateFlow<Boolean> = existWorkUseCase().map {
+        when (it) {
+            is DataState.Fail -> false
+            is DataState.Success -> it.data
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    )
 
 
     internal val userDetailUiState: StateFlow<UserDetailUiState> = getUserDetailUseCase().map {
@@ -147,6 +165,12 @@ class HomeViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = WorkStampUiState.Loading
         )
+
+    internal val clearWork: () -> Unit = {
+        viewModelScope.launch {
+            clearWorkUseCase().collect()
+        }
+    }
 
     private fun countContinuousWorkCount(
         today: LocalDate,

@@ -2,7 +2,7 @@ package com.gradation.lift.feature.work.common.data.event
 
 import com.gradation.lift.feature.work.common.data.event.WorkRoutineInfoEvent.CheckWorkSet
 import com.gradation.lift.feature.work.common.data.event.WorkRoutineInfoEvent.UncheckWorkSet
-import com.gradation.lift.feature.work.common.data.model.WorkRoutineCheckedInfo
+import com.gradation.lift.model.model.work.CheckedWorkSetInfo
 
 /**
  * [CheckWorkSet] 운동 체크
@@ -10,10 +10,10 @@ import com.gradation.lift.feature.work.common.data.model.WorkRoutineCheckedInfo
  * @since 2024-01-21 21:56:45
  */
 internal sealed interface WorkRoutineInfoEvent {
-    data class CheckWorkSet(val workRoutineCheckedInfo: WorkRoutineCheckedInfo) :
+    data class CheckWorkSet(val checkedWorkSetInfo: CheckedWorkSetInfo) :
         WorkRoutineInfoEvent
 
-    data class UncheckWorkSet(val workRoutineCheckedInfo: WorkRoutineCheckedInfo) :
+    data class UncheckWorkSet(val checkedWorkSetInfo: CheckedWorkSetInfo) :
         WorkRoutineInfoEvent
 
     data class OpenWorkRoutineInfo(val routineId: Int) : WorkRoutineInfoEvent

@@ -39,9 +39,10 @@ class AnalyticsViewModel @Inject constructor(
     val historyUiState: StateFlow<HistoryUiState> = getHistoryUseCase().map {
         when (it) {
             is DataState.Fail -> HistoryUiState.Fail(it.message)
-            is DataState.Success ->
+            is DataState.Success -> {
                 if (it.data.isEmpty()) HistoryUiState.Empty
                 else HistoryUiState.Success(it.data)
+            }
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
